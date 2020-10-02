@@ -1,0 +1,28 @@
+# Lint対象から除外するパス
+excluded:
+- Carthage
+
+# デフォルトだと厳しすぎるため
+line_length:
+- 200 # warning
+
+# 変数名が2文字以上なら許可
+identifier_name:
+  min_length: 2
+
+# 無効化するルール
+disabled_rules:
+- trailing_whitespace
+- nesting
+- switch_case_on_newline
+
+# 追加するルール
+opt_in_rules:
+- closure_end_indentation
+- closure_spacing
+- empty_count
+- explicit_init
+- force_unwrapping warnig
+- operator_usage_whitespace
+- sorted_imports
+- switch_case_on_newline
