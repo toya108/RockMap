@@ -113,7 +113,6 @@
 		9E5CEFCA25277B25001C95AA /* RockMap */ = {
 			isa = PBXGroup;
 			children = (
-				9EB6BA65252E00B600553026 /* New Group */,
 				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
 				9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */,
 				9E5CEFCF25277B25001C95AA /* RockSearchViewController.swift */,
@@ -143,13 +142,6 @@
 				9E5CEFEF25277B26001C95AA /* Info.plist */,
 			);
 			path = RockMapUITests;
-			sourceTree = "<group>";
-		};
-		9EB6BA65252E00B600553026 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
