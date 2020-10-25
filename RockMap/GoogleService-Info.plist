@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>19350583420-352lukvlokb234h6tre9mn850hqiar3v.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.19350583420-352lukvlokb234h6tre9mn850hqiar3v</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBgckxOi-QrNfuH4WrmTsVTOOHSZD3-5UU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>19350583420</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>tk108gabalian-gmail.com.RockMap</string>
+	<key>PROJECT_ID</key>
+	<string>rockmap-70133</string>
+	<key>STORAGE_BUCKET</key>
+	<string>rockmap-70133.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:19350583420:ios:9aebac9bed6b1b132ef1f9</string>
+	<key>DATABASE_URL</key>
+	<string>https://rockmap-70133.firebaseio.com</string>
+</dict>
+</plist>
