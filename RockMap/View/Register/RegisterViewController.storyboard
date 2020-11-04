@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DI3-MF-X85">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Register View Controller-->
+        <scene sceneID="17Q-p2-878">
+            <objects>
+                <viewController id="DI3-MF-X85" customClass="RegisterViewController" customModule="RockMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Na3-5c-9ph">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YSm-oU-5sr">
+                                <rect key="frame" x="16" y="60" width="382" height="802"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="課題を登録する" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftt-bF-T5Z">
+                                        <rect key="frame" x="0.0" y="387" width="382" height="26.5"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="AOH-MW-Fqd">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="666"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="sNf-ge-qhj">
+                                                <rect key="frame" x="0.0" y="0.0" width="382" height="321"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="岩を登録する" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0sJ-4Q-vV7">
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="26.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ezk-nK-qXQ">
+                                                        <rect key="frame" x="0.0" y="34.5" width="382" height="286.5"/>
+                                                        <color key="backgroundColor" red="0.2274509804" green="0.69019607839999997" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="Ezk-nK-qXQ" secondAttribute="height" multiplier="216:162" id="Tl1-Iz-aWX"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Button" image="penguin_rock"/>
+                                                        <connections>
+                                                            <action selector="didRockRegisterButtonTapped:" destination="DI3-MF-X85" eventType="touchUpInside" id="N3k-HD-NNn"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="boO-Fg-1zP">
+                                                <rect key="frame" x="0.0" y="345" width="382" height="321"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="課題を登録する" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2nR-LS-dhi">
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="26.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jtm-i4-BbI">
+                                                        <rect key="frame" x="0.0" y="34.5" width="382" height="286.5"/>
+                                                        <color key="backgroundColor" red="0.2274509804" green="0.69019607839999997" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="jtm-i4-BbI" secondAttribute="height" multiplier="216:162" id="SGG-GV-Kk0"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Button" image="pengin_course"/>
+                                                        <connections>
+                                                            <action selector="didCourseRegisterButtonTapped:" destination="DI3-MF-X85" eventType="touchUpInside" id="lwK-p7-z8Z"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="AOH-MW-Fqd" firstAttribute="leading" secondItem="Mtt-D1-xW2" secondAttribute="leading" id="0Jw-94-icV"/>
+                                    <constraint firstItem="73h-jC-4vA" firstAttribute="trailing" secondItem="AOH-MW-Fqd" secondAttribute="trailing" id="1CK-tv-4Ba"/>
+                                    <constraint firstItem="AOH-MW-Fqd" firstAttribute="top" secondItem="Mtt-D1-xW2" secondAttribute="top" id="1ZH-wo-EC3"/>
+                                    <constraint firstItem="AOH-MW-Fqd" firstAttribute="trailing" secondItem="Mtt-D1-xW2" secondAttribute="trailing" id="3Lh-4I-wP9"/>
+                                    <constraint firstItem="AOH-MW-Fqd" firstAttribute="bottom" secondItem="Mtt-D1-xW2" secondAttribute="bottom" id="qB0-OV-4wh"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="Mtt-D1-xW2"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="73h-jC-4vA"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="w8h-3u-MM8"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="w8h-3u-MM8" firstAttribute="bottom" secondItem="YSm-oU-5sr" secondAttribute="bottom" id="1Xe-Ar-XO0"/>
+                            <constraint firstItem="YSm-oU-5sr" firstAttribute="top" secondItem="w8h-3u-MM8" secondAttribute="top" constant="16" id="4hU-uh-HlF"/>
+                            <constraint firstItem="YSm-oU-5sr" firstAttribute="leading" secondItem="w8h-3u-MM8" secondAttribute="leading" constant="16" id="FiX-on-Tpf"/>
+                            <constraint firstItem="w8h-3u-MM8" firstAttribute="trailing" secondItem="YSm-oU-5sr" secondAttribute="trailing" constant="16" id="f4m-6k-o2P"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="courseRegisterButton" destination="jtm-i4-BbI" id="39e-sW-QzG"/>
+                        <outlet property="rockRegisterButton" destination="Ezk-nK-qXQ" id="OHr-51-OA4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g64-hu-cEk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-262" y="122"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="pengin_course" width="1179" height="884"/>
+        <image name="penguin_rock" width="1179" height="884"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
