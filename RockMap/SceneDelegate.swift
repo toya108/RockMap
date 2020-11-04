@@ -20,8 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         window.makeKeyAndVisible()
 
-        let mainTabBarController = MainTabBarController()
-        window.rootViewController = mainTabBarController
+        guard let loginViewController = UIStoryboard(name: "LoginViewController", bundle: nil).instantiateInitialViewController() as? LoginViewController else { return }
+        let navigationConroller = UINavigationController(rootViewController: loginViewController)
+        window.rootViewController = navigationConroller
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
