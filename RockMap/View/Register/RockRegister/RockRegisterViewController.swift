@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import MapKit
+import PhotosUI
 
 final class RockRegisterViewController: UIViewController {
 
@@ -45,6 +46,8 @@ final class RockRegisterViewController: UIViewController {
         popOverVC.popoverPresentationController?.sourceView = backStackView
         popOverVC.popoverPresentationController?.sourceRect = sender.frame
         popOverVC.popoverPresentationController?.delegate = self
+        popOverVC.selectPhotoLibraryCellHandler = selectPhotoLibraryCellHandler
+        popOverVC.selectCameraCellHandler = selectCameraCellHandler
         present(popOverVC, animated: true)
     }
     
@@ -54,7 +57,7 @@ final class RockRegisterViewController: UIViewController {
     }
     
     private func setupLayout() {
-        navigationController?.title = "岩を登録する"
+        navigationItem.title = "岩を登録する"
 
         rockDescTextView.font = UIFont.systemFont(ofSize: 13)
         rockDescTextView.layer.cornerRadius = 8
@@ -71,6 +74,27 @@ final class RockRegisterViewController: UIViewController {
         rockPointTextFiled.textDidChangedPublisher.assign(to: &viewModel.$rockPoint)
         rockDescTextView.textDidChangedPublisher.assign(to: &viewModel.$rockDesc)
     }
+    
+    private var selectCameraCellHandler: () -> Void {{ [weak self] in
+        
+        guard let self = self else { return }
+        
+        let vc = UIImagePickerController()
+        vc.delegate = self
+        vc.sourceType = .camera
+        self.present(vc, animated: true)
+    }}
+    
+    private var selectPhotoLibraryCellHandler: () -> Void {{ [weak self] in
+        
+        guard let self = self else { return }
+        
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 0
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        self.present(picker, animated: true)
+    }}
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
@@ -126,5 +150,27 @@ extension RockRegisterViewController: UITextFieldDelegate {
 extension RockRegisterViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
+    }
+}
+
+
+extension RockRegisterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+    }
+}
+
+extension RockRegisterViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        guard let itemProvider = results.first?.itemProvider,
+              itemProvider.canLoadObject(ofClass: UIImage.self) else { return }
+            
+        
     }
 }

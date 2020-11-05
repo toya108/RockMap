@@ -9,6 +9,9 @@ import UIKit
 
 class ImageUploadPopOverTableViewController: UITableViewController {
 
+    var selectPhotoLibraryCellHandler: () -> Void = {}
+    var selectCameraCellHandler: () -> Void = {}
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,9 +47,18 @@ class ImageUploadPopOverTableViewController: UITableViewController {
         
         switch indexPath.row {
         case 0:
+            dismiss(animated: true) { [weak self] in
+                guard let self = self else { return }
+                
+                self.selectPhotoLibraryCellHandler()
+            }
 
         case 1:
-            break
+            dismiss(animated: true) { [weak self] in
+                guard let self = self else { return }
+                
+                self.selectCameraCellHandler()
+            }
             
         default:
             break
