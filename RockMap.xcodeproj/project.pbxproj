@@ -3,18 +3,56 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E016FAF252CCA4E00C2B85C /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9E016FAE252CCA4E00C2B85C /* FirebaseFirestoreSwift */; };
+		9E016FB1252CCA4E00C2B85C /* FirebaseStorageSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9E016FB0252CCA4E00C2B85C /* FirebaseStorageSwift */; };
+		9E016FB3252CCA4E00C2B85C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 9E016FB2252CCA4E00C2B85C /* FirebaseAuth */; };
+		9E016FB5252CCA4E00C2B85C /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 9E016FB4252CCA4E00C2B85C /* FirebaseCore */; };
+		9E016FB7252CCA4E00C2B85C /* Firebase in Frameworks */ = {isa = PBXBuildFile; productRef = 9E016FB6252CCA4E00C2B85C /* Firebase */; };
+		9E016FBC252CD0C600C2B85C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E016FBB252CD0C600C2B85C /* GoogleService-Info.plist */; };
+		9E04B188254B1C380097DA8E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B187254B1C380097DA8E /* SignUpViewModel.swift */; };
+		9E04B18D254B1EB30097DA8E /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B18C254B1EB30097DA8E /* UITextFieldExtension.swift */; };
+		9E04B195254B28670097DA8E /* UserDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B194254B28670097DA8E /* UserDocument.swift */; };
+		9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */; };
+		9E04B1B5254BC3FC0097DA8E /* StringExtesnion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1B4254BC3FC0097DA8E /* StringExtesnion.swift */; };
+		9E04B1C4254BDF3D0097DA8E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1C3254BDF3D0097DA8E /* LoginViewModel.swift */; };
+		9E04B1C9254BDFEE0097DA8E /* NetWorkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1C8254BDFEE0097DA8E /* NetWorkState.swift */; };
+		9E04B1D0254BE7B30097DA8E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1CF254BE7B30097DA8E /* LocationManager.swift */; };
+		9E0A9F192550519F007B9A90 /* RockRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */; };
+		9E0A9F1E2551006E007B9A90 /* UITextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F1D2551006E007B9A90 /* UITextViewExtension.swift */; };
+		9E0A9F29255104A0007B9A90 /* KeyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */; };
+		9E0FEDB225487B7B00009D09 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FEDB125487B7B00009D09 /* SignUpViewController.swift */; };
+		9E0FEDB725487B8E00009D09 /* SignUpViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E0FEDB625487B8E00009D09 /* SignUpViewController.storyboard */; };
+		9E1C5B682545CE57004F99C1 /* FireStoreClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C5B672545CE57004F99C1 /* FireStoreClient.swift */; };
+		9E1C5B6D2545D10B004F99C1 /* RockDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C5B6C2545D10B004F99C1 /* RockDocument.swift */; };
+		9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2B112E25471F6100D7E56C /* LoginViewController.swift */; };
+		9E2B113425471F7400D7E56C /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E2B113325471F7400D7E56C /* LoginViewController.storyboard */; };
 		9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCB25277B25001C95AA /* AppDelegate.swift */; };
 		9E5CEFCE25277B25001C95AA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */; };
-		9E5CEFD025277B25001C95AA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCF25277B25001C95AA /* ViewController.swift */; };
-		9E5CEFD325277B25001C95AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E5CEFD125277B25001C95AA /* Main.storyboard */; };
+		9E5CEFD025277B25001C95AA /* RockSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCF25277B25001C95AA /* RockSearchViewController.swift */; };
+		9E5CEFD325277B25001C95AA /* RockSearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E5CEFD125277B25001C95AA /* RockSearchViewController.storyboard */; };
 		9E5CEFD525277B26001C95AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E5CEFD425277B26001C95AA /* Assets.xcassets */; };
 		9E5CEFD825277B26001C95AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E5CEFD625277B26001C95AA /* LaunchScreen.storyboard */; };
 		9E5CEFE325277B26001C95AA /* RockMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFE225277B26001C95AA /* RockMapTests.swift */; };
 		9E5CEFEE25277B26001C95AA /* RockMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFED25277B26001C95AA /* RockMapUITests.swift */; };
+		9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CA7254CFD150091935F /* MyPageViewController.swift */; };
+		9E807CAD254CFD250091935F /* MyPageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E807CAC254CFD250091935F /* MyPageViewController.storyboard */; };
+		9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */; };
+		9E807CB8254CFF560091935F /* RegisterViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E807CB7254CFF560091935F /* RegisterViewController.storyboard */; };
+		9E807CBD254CFF640091935F /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CBC254CFF640091935F /* RegisterViewController.swift */; };
+		9E807CC6254D00310091935F /* ScreenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CC5254D00310091935F /* ScreenType.swift */; };
+		9E807CCB254E92F50091935F /* RockRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CCA254E92F50091935F /* RockRegisterViewController.swift */; };
+		9E807CD1254E93120091935F /* RockRegisterViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E807CD0254E93120091935F /* RockRegisterViewController.storyboard */; };
+		9E98D51B2552907500EC5AC1 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D51A2552907500EC5AC1 /* UIViewControllerExtension.swift */; };
+		9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D53F2552F8AB00EC5AC1 /* TouchableScrollView.swift */; };
+		9E98D549255300B900EC5AC1 /* ColorPallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D548255300B900EC5AC1 /* ColorPallet.swift */; };
+		9E98D554255303D200EC5AC1 /* ImageUploadPopOverTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D553255303D200EC5AC1 /* ImageUploadPopOverTableViewController.swift */; };
+		9E98D55A255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D558255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.swift */; };
+		9E98D55B255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E98D559255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.xib */; };
+		9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6BA66252E00E400553026 /* MainTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,11 +73,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E016FBB252CD0C600C2B85C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9E04B187254B1C380097DA8E /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		9E04B18C254B1EB30097DA8E /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
+		9E04B194254B28670097DA8E /* UserDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDocument.swift; sourceTree = "<group>"; };
+		9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidator.swift; sourceTree = "<group>"; };
+		9E04B1B4254BC3FC0097DA8E /* StringExtesnion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtesnion.swift; sourceTree = "<group>"; };
+		9E04B1C3254BDF3D0097DA8E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		9E04B1C8254BDFEE0097DA8E /* NetWorkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkState.swift; sourceTree = "<group>"; };
+		9E04B1CF254BE7B30097DA8E /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockRegisterViewModel.swift; sourceTree = "<group>"; };
+		9E0A9F1D2551006E007B9A90 /* UITextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewExtension.swift; sourceTree = "<group>"; };
+		9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardExtension.swift; sourceTree = "<group>"; };
+		9E0FEDB125487B7B00009D09 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		9E0FEDB625487B8E00009D09 /* SignUpViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUpViewController.storyboard; sourceTree = "<group>"; };
+		9E1C5B672545CE57004F99C1 /* FireStoreClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreClient.swift; sourceTree = "<group>"; };
+		9E1C5B6C2545D10B004F99C1 /* RockDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDocument.swift; sourceTree = "<group>"; };
+		9E2B112E25471F6100D7E56C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		9E2B113325471F7400D7E56C /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		9E5CEFC825277B25001C95AA /* RockMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RockMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5CEFCB25277B25001C95AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9E5CEFCF25277B25001C95AA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9E5CEFD225277B25001C95AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9E5CEFCF25277B25001C95AA /* RockSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockSearchViewController.swift; sourceTree = "<group>"; };
+		9E5CEFD225277B25001C95AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RockSearchViewController.storyboard; sourceTree = "<group>"; };
 		9E5CEFD425277B26001C95AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9E5CEFD725277B26001C95AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E5CEFD925277B26001C95AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +105,21 @@
 		9E5CEFE925277B26001C95AA /* RockMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RockMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5CEFED25277B26001C95AA /* RockMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockMapUITests.swift; sourceTree = "<group>"; };
 		9E5CEFEF25277B26001C95AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E807CA7254CFD150091935F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		9E807CAC254CFD250091935F /* MyPageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPageViewController.storyboard; sourceTree = "<group>"; };
+		9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectProtocolExtension.swift; sourceTree = "<group>"; };
+		9E807CB7254CFF560091935F /* RegisterViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RegisterViewController.storyboard; sourceTree = "<group>"; };
+		9E807CBC254CFF640091935F /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		9E807CC5254D00310091935F /* ScreenType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenType.swift; sourceTree = "<group>"; };
+		9E807CCA254E92F50091935F /* RockRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockRegisterViewController.swift; sourceTree = "<group>"; };
+		9E807CD0254E93120091935F /* RockRegisterViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RockRegisterViewController.storyboard; sourceTree = "<group>"; };
+		9E98D51A2552907500EC5AC1 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		9E98D53F2552F8AB00EC5AC1 /* TouchableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableScrollView.swift; sourceTree = "<group>"; };
+		9E98D548255300B900EC5AC1 /* ColorPallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPallet.swift; sourceTree = "<group>"; };
+		9E98D553255303D200EC5AC1 /* ImageUploadPopOverTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadPopOverTableViewController.swift; sourceTree = "<group>"; };
+		9E98D558255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadPopOverTableViewCell.swift; sourceTree = "<group>"; };
+		9E98D559255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageUploadPopOverTableViewCell.xib; sourceTree = "<group>"; };
+		9EB6BA66252E00E400553026 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +127,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E016FB7252CCA4E00C2B85C /* Firebase in Frameworks */,
+				9E016FAF252CCA4E00C2B85C /* FirebaseFirestoreSwift in Frameworks */,
+				9E016FB3252CCA4E00C2B85C /* FirebaseAuth in Frameworks */,
+				9E016FB5252CCA4E00C2B85C /* FirebaseCore in Frameworks */,
+				9E016FB1252CCA4E00C2B85C /* FirebaseStorageSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +152,90 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E04B191254B28230097DA8E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9E04B1CE254BE7A70097DA8E /* Location */,
+				9E1C5B672545CE57004F99C1 /* FireStoreClient.swift */,
+				9E1C5B6C2545D10B004F99C1 /* RockDocument.swift */,
+				9E04B194254B28670097DA8E /* UserDocument.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9E04B192254B28330097DA8E /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				9E2B112E25471F6100D7E56C /* LoginViewController.swift */,
+				9E04B1C3254BDF3D0097DA8E /* LoginViewModel.swift */,
+				9E2B113325471F7400D7E56C /* LoginViewController.storyboard */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		9E04B193254B283F0097DA8E /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				9E0FEDB125487B7B00009D09 /* SignUpViewController.swift */,
+				9E04B187254B1C380097DA8E /* SignUpViewModel.swift */,
+				9E0FEDB625487B8E00009D09 /* SignUpViewController.storyboard */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		9E04B1A9254BA94C0097DA8E /* RockSearch */ = {
+			isa = PBXGroup;
+			children = (
+				9E5CEFCF25277B25001C95AA /* RockSearchViewController.swift */,
+				9E5CEFD125277B25001C95AA /* RockSearchViewController.storyboard */,
+			);
+			path = RockSearch;
+			sourceTree = "<group>";
+		};
+		9E04B1AA254BA9720097DA8E /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				9E04B1B4254BC3FC0097DA8E /* StringExtesnion.swift */,
+				9E04B18C254B1EB30097DA8E /* UITextFieldExtension.swift */,
+				9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */,
+				9E0A9F1D2551006E007B9A90 /* UITextViewExtension.swift */,
+				9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */,
+				9E98D51A2552907500EC5AC1 /* UIViewControllerExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		9E04B1AB254BA9850097DA8E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		9E04B1CE254BE7A70097DA8E /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				9E04B1CF254BE7B30097DA8E /* LocationManager.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		9E2B112D25471F1800D7E56C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9E98D53D2552F88B00EC5AC1 /* SupportView */,
+				9E04B1A9254BA94C0097DA8E /* RockSearch */,
+				9E807CB6254CFF3F0091935F /* Register */,
+				9E807CA3254CFCF50091935F /* MyPage */,
+				9E04B192254B28330097DA8E /* Login */,
+				9E04B193254B283F0097DA8E /* SignUp */,
+				9E807CC4254D000A0091935F /* MainTabBar */,
+				9E04B1C8254BDFEE0097DA8E /* NetWorkState.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		9E5CEFBF25277B25001C95AA = {
 			isa = PBXGroup;
 			children = (
@@ -101,11 +261,14 @@
 			children = (
 				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
 				9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */,
-				9E5CEFCF25277B25001C95AA /* ViewController.swift */,
-				9E5CEFD125277B25001C95AA /* Main.storyboard */,
-				9E5CEFD425277B26001C95AA /* Assets.xcassets */,
+				9E98D5472553009100EC5AC1 /* Resources */,
+				9E04B1AB254BA9850097DA8E /* Utils */,
+				9E04B1AA254BA9720097DA8E /* Extension */,
+				9E2B112D25471F1800D7E56C /* View */,
+				9E04B191254B28230097DA8E /* Model */,
 				9E5CEFD625277B26001C95AA /* LaunchScreen.storyboard */,
 				9E5CEFD925277B26001C95AA /* Info.plist */,
+				9E016FBB252CD0C600C2B85C /* GoogleService-Info.plist */,
 			);
 			path = RockMap;
 			sourceTree = "<group>";
@@ -128,6 +291,64 @@
 			path = RockMapUITests;
 			sourceTree = "<group>";
 		};
+		9E807CA3254CFCF50091935F /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				9E807CA7254CFD150091935F /* MyPageViewController.swift */,
+				9E807CAC254CFD250091935F /* MyPageViewController.storyboard */,
+			);
+			path = MyPage;
+			sourceTree = "<group>";
+		};
+		9E807CB6254CFF3F0091935F /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				9E807CBC254CFF640091935F /* RegisterViewController.swift */,
+				9E807CB7254CFF560091935F /* RegisterViewController.storyboard */,
+				9E807CCF254E92FD0091935F /* RockRegister */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		9E807CC4254D000A0091935F /* MainTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				9EB6BA66252E00E400553026 /* MainTabBarController.swift */,
+				9E807CC5254D00310091935F /* ScreenType.swift */,
+			);
+			path = MainTabBar;
+			sourceTree = "<group>";
+		};
+		9E807CCF254E92FD0091935F /* RockRegister */ = {
+			isa = PBXGroup;
+			children = (
+				9E807CCA254E92F50091935F /* RockRegisterViewController.swift */,
+				9E98D553255303D200EC5AC1 /* ImageUploadPopOverTableViewController.swift */,
+				9E98D558255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.swift */,
+				9E98D559255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.xib */,
+				9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */,
+				9E807CD0254E93120091935F /* RockRegisterViewController.storyboard */,
+			);
+			path = RockRegister;
+			sourceTree = "<group>";
+		};
+		9E98D53D2552F88B00EC5AC1 /* SupportView */ = {
+			isa = PBXGroup;
+			children = (
+				9E98D53F2552F8AB00EC5AC1 /* TouchableScrollView.swift */,
+			);
+			path = SupportView;
+			sourceTree = "<group>";
+		};
+		9E98D5472553009100EC5AC1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9E5CEFD425277B26001C95AA /* Assets.xcassets */,
+				9E98D548255300B900EC5AC1 /* ColorPallet.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,12 +359,20 @@
 				9E5CEFC425277B25001C95AA /* Sources */,
 				9E5CEFC525277B25001C95AA /* Frameworks */,
 				9E5CEFC625277B25001C95AA /* Resources */,
+				9E0C9F3A2534A8F600F66F01 /* SwiftLint */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = RockMap;
+			packageProductDependencies = (
+				9E016FAE252CCA4E00C2B85C /* FirebaseFirestoreSwift */,
+				9E016FB0252CCA4E00C2B85C /* FirebaseStorageSwift */,
+				9E016FB2252CCA4E00C2B85C /* FirebaseAuth */,
+				9E016FB4252CCA4E00C2B85C /* FirebaseCore */,
+				9E016FB6252CCA4E00C2B85C /* Firebase */,
+			);
 			productName = RockMap;
 			productReference = 9E5CEFC825277B25001C95AA /* RockMap.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +444,9 @@
 				Base,
 			);
 			mainGroup = 9E5CEFBF25277B25001C95AA;
+			packageReferences = (
+				9E016FAD252CCA4E00C2B85C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = 9E5CEFC925277B25001C95AA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -232,8 +464,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E5CEFD825277B26001C95AA /* LaunchScreen.storyboard in Resources */,
+				9E2B113425471F7400D7E56C /* LoginViewController.storyboard in Resources */,
+				9E016FBC252CD0C600C2B85C /* GoogleService-Info.plist in Resources */,
 				9E5CEFD525277B26001C95AA /* Assets.xcassets in Resources */,
-				9E5CEFD325277B25001C95AA /* Main.storyboard in Resources */,
+				9E807CD1254E93120091935F /* RockRegisterViewController.storyboard in Resources */,
+				9E807CB8254CFF560091935F /* RegisterViewController.storyboard in Resources */,
+				9E98D55B255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.xib in Resources */,
+				9E5CEFD325277B25001C95AA /* RockSearchViewController.storyboard in Resources */,
+				9E0FEDB725487B8E00009D09 /* SignUpViewController.storyboard in Resources */,
+				9E807CAD254CFD250091935F /* MyPageViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,14 +492,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9E0C9F3A2534A8F600F66F01 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9E5CEFC425277B25001C95AA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E5CEFD025277B25001C95AA /* ViewController.swift in Sources */,
+				9E98D554255303D200EC5AC1 /* ImageUploadPopOverTableViewController.swift in Sources */,
+				9E04B1B5254BC3FC0097DA8E /* StringExtesnion.swift in Sources */,
+				9E0A9F29255104A0007B9A90 /* KeyboardExtension.swift in Sources */,
+				9E807CC6254D00310091935F /* ScreenType.swift in Sources */,
+				9E1C5B6D2545D10B004F99C1 /* RockDocument.swift in Sources */,
+				9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */,
+				9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */,
+				9E0A9F192550519F007B9A90 /* RockRegisterViewModel.swift in Sources */,
+				9E807CBD254CFF640091935F /* RegisterViewController.swift in Sources */,
+				9E0FEDB225487B7B00009D09 /* SignUpViewController.swift in Sources */,
+				9E04B1D0254BE7B30097DA8E /* LocationManager.swift in Sources */,
+				9E5CEFD025277B25001C95AA /* RockSearchViewController.swift in Sources */,
+				9E04B188254B1C380097DA8E /* SignUpViewModel.swift in Sources */,
+				9E98D549255300B900EC5AC1 /* ColorPallet.swift in Sources */,
+				9E04B1C4254BDF3D0097DA8E /* LoginViewModel.swift in Sources */,
+				9E04B18D254B1EB30097DA8E /* UITextFieldExtension.swift in Sources */,
+				9E98D55A255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.swift in Sources */,
+				9E98D51B2552907500EC5AC1 /* UIViewControllerExtension.swift in Sources */,
 				9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */,
+				9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */,
+				9E0A9F1E2551006E007B9A90 /* UITextViewExtension.swift in Sources */,
+				9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */,
+				9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */,
+				9E1C5B682545CE57004F99C1 /* FireStoreClient.swift in Sources */,
 				9E5CEFCE25277B25001C95AA /* SceneDelegate.swift in Sources */,
+				9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */,
+				9E04B1C9254BDFEE0097DA8E /* NetWorkState.swift in Sources */,
+				9E807CCB254E92F50091935F /* RockRegisterViewController.swift in Sources */,
+				9E04B195254B28670097DA8E /* UserDocument.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,12 +582,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9E5CEFD125277B25001C95AA /* Main.storyboard */ = {
+		9E5CEFD125277B25001C95AA /* RockSearchViewController.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				9E5CEFD225277B25001C95AA /* Base */,
 			);
-			name = Main.storyboard;
+			name = RockSearchViewController.storyboard;
 			sourceTree = "<group>";
 		};
 		9E5CEFD625277B26001C95AA /* LaunchScreen.storyboard */ = {
@@ -436,7 +722,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JXYB4XKM6U;
 				INFOPLIST_FILE = RockMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -444,6 +732,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "tk108gabalian-gmail.com.RockMap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -454,7 +743,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = JXYB4XKM6U;
 				INFOPLIST_FILE = RockMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -462,6 +753,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "tk108gabalian-gmail.com.RockMap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -587,6 +879,45 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9E016FAD252CCA4E00C2B85C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				branch = "6.31-spm-beta";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9E016FAE252CCA4E00C2B85C /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E016FAD252CCA4E00C2B85C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		9E016FB0252CCA4E00C2B85C /* FirebaseStorageSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E016FAD252CCA4E00C2B85C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorageSwift;
+		};
+		9E016FB2252CCA4E00C2B85C /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E016FAD252CCA4E00C2B85C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		9E016FB4252CCA4E00C2B85C /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E016FAD252CCA4E00C2B85C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		9E016FB6252CCA4E00C2B85C /* Firebase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E016FAD252CCA4E00C2B85C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = Firebase;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9E5CEFC025277B25001C95AA /* Project object */;
 }

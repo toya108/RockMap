@@ -1,28 +1,57 @@
-# Lint対象から除外するパス
-excluded:
-- Carthage
+# Swiftlintのルール集
+# 本ルールは以下のpr_templeteからswiftlintによって自動でチェックできる項目をルール化しています。
+ # https://github.com/Caraquri/pr-templates
 
-# デフォルトだと厳しすぎるため
+# 通常有効だけど無効にするルール
+disabled_rules:
+- trailing_whitespace # Xocdeの自動生成ファイルで警告が出るため
+- vertical_whitespace # Xocdeの自動生成ファイルで警告が出るため
+- trailing_newline # Xocdeの自動生成ファイルで警告が出るため
+- nesting # クロージャの使用ですぐに警告が出るため
+- todo # すぐに修正できない場合があり、pushの度にlintに引っかかってbotに書き込まれるのがノイズになるから
+- type_contents_order
+
+# 通常無効だけど有効にするルール
+opt_in_rules:
+- force_unwrapping # pr_templeteの「フォースアンラップの禁止」のため
+- empty_string # pr_templeteの「から文字の判定にはisEmptyを使うべき」のため
+- empty_count # 上記同様、個数のチェックにはisEmptyを使うべき
+- empty_collection_literal # 上記同様、個数のチェックにはisEmptyを使うべき 
+- trailing_closure # pr_templeteの「関数の最後の引数がclosureの場合、trailing closureを使用している」のチェックのため
+- unowned_variable_capture # pr_templeteの「unowned selfの禁止」のため
+- unused_import # 使用していないimportの禁止
+- first_where # fileter+firstはfirst(where: )を使う方が好ましいので
+- last_where # 上記同様、last(where: )を使う方が好ましいので
+- contains_over_first_not_nil # first != nil はcontainでチェックした方が好ましいので
+- file_types_order # コードの整列によるレビュアーの負担軽減のため
+- type_contents_order # コードの整列によるレビュアーの負担軽減のため
+- let_var_whitespace # コードの整列によるレビュアーの負担軽減のため
+
+# 1行の文字列制限。pr_templeteの「適宜改行している」のチェックのため。
 line_length:
-- 200 # warning
+- 200   # warning
+- 300   # error
+
+# メソッドの行数制限。pr_templeteの「メソッドが大きすぎていない」のチェックのため。
+function_body_length:
+- 100   # warning
+- 200   # error
 
 # 変数名が2文字以上なら許可
 identifier_name:
-  min_length: 2
+  min_length:
+    error: 2
+  excluded: # 以下の単語は定形語のためルールの対象外とする。
+    - id
+    - URL
+    - x
+    - y
+    - vc
+    - on
 
-# 無効化するルール
-disabled_rules:
-- trailing_whitespace
-- nesting
-- switch_case_on_newline
-
-# 追加するルール
-opt_in_rules:
-- closure_end_indentation
-- closure_spacing
-- empty_count
-- explicit_init
-- force_unwrapping warnig
-- operator_usage_whitespace
-- sorted_imports
-- switch_case_on_newline
+# SwiftLintの適用から外すディレクトリ
+excluded:
+- Carthage/
+- Cartfile
+- Cartfile.resolved
+- R.generated.swift
