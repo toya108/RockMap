@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		90862925AE716E43169D5A87 /* Pods_RockMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DACC89F758D48EDA36FCE2 /* Pods_RockMap.framework */; };
 		9E016FBC252CD0C600C2B85C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E016FBB252CD0C600C2B85C /* GoogleService-Info.plist */; };
 		9E04B188254B1C380097DA8E /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B187254B1C380097DA8E /* SignUpViewModel.swift */; };
 		9E04B18D254B1EB30097DA8E /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B18C254B1EB30097DA8E /* UITextFieldExtension.swift */; };
@@ -21,6 +22,7 @@
 		9E0A9F29255104A0007B9A90 /* KeyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */; };
 		9E0FEDB225487B7B00009D09 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FEDB125487B7B00009D09 /* SignUpViewController.swift */; };
 		9E0FEDB725487B8E00009D09 /* SignUpViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E0FEDB625487B8E00009D09 /* SignUpViewController.storyboard */; };
+		9E1C031C2554574F00F923A3 /* ValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C031B2554574F00F923A3 /* ValidatorTests.swift */; };
 		9E1C5B682545CE57004F99C1 /* FireStoreClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C5B672545CE57004F99C1 /* FireStoreClient.swift */; };
 		9E1C5B6D2545D10B004F99C1 /* RockDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C5B6C2545D10B004F99C1 /* RockDocument.swift */; };
 		9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2B112E25471F6100D7E56C /* LoginViewController.swift */; };
@@ -48,6 +50,8 @@
 		9E98D55A255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D558255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.swift */; };
 		9E98D55B255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E98D559255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.xib */; };
 		9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6BA66252E00E400553026 /* MainTabBarController.swift */; };
+		CBAA747075FB127921468843 /* Pods_RockMap_RockMapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93FA2E5F3CDDBEBF4F2E874 /* Pods_RockMap_RockMapUITests.framework */; };
+		D051CF7A0BF4DCADA4166E23 /* Pods_RockMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B162A0516FABFE35E4E0955 /* Pods_RockMapTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +72,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0B162A0516FABFE35E4E0955 /* Pods_RockMapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RockMapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		226B19A86CFEA83B2FE2AE84 /* Pods-RockMapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMapTests.debug.xcconfig"; path = "Target Support Files/Pods-RockMapTests/Pods-RockMapTests.debug.xcconfig"; sourceTree = "<group>"; };
+		45DACC89F758D48EDA36FCE2 /* Pods_RockMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RockMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		615CD656AF40477A302876F6 /* Pods-RockMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMapTests.release.xcconfig"; path = "Target Support Files/Pods-RockMapTests/Pods-RockMapTests.release.xcconfig"; sourceTree = "<group>"; };
+		6A8D4469AB6661D2935D7507 /* Pods-RockMap-RockMapUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMap-RockMapUITests.debug.xcconfig"; path = "Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		6AE5AF1B695E4C4FAA592CE0 /* Pods-RockMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMap.debug.xcconfig"; path = "Target Support Files/Pods-RockMap/Pods-RockMap.debug.xcconfig"; sourceTree = "<group>"; };
 		9E016FBB252CD0C600C2B85C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9E04B187254B1C380097DA8E /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		9E04B18C254B1EB30097DA8E /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
@@ -82,6 +92,7 @@
 		9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardExtension.swift; sourceTree = "<group>"; };
 		9E0FEDB125487B7B00009D09 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		9E0FEDB625487B8E00009D09 /* SignUpViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUpViewController.storyboard; sourceTree = "<group>"; };
+		9E1C031B2554574F00F923A3 /* ValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorTests.swift; sourceTree = "<group>"; };
 		9E1C5B672545CE57004F99C1 /* FireStoreClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreClient.swift; sourceTree = "<group>"; };
 		9E1C5B6C2545D10B004F99C1 /* RockDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDocument.swift; sourceTree = "<group>"; };
 		9E2B112E25471F6100D7E56C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +126,9 @@
 		9E98D558255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadPopOverTableViewCell.swift; sourceTree = "<group>"; };
 		9E98D559255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageUploadPopOverTableViewCell.xib; sourceTree = "<group>"; };
 		9EB6BA66252E00E400553026 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		A93FA2E5F3CDDBEBF4F2E874 /* Pods_RockMap_RockMapUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RockMap_RockMapUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFEBD1C114864D80199A2EE9 /* Pods-RockMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMap.release.xcconfig"; path = "Target Support Files/Pods-RockMap/Pods-RockMap.release.xcconfig"; sourceTree = "<group>"; };
+		FD02BC156288B927B18F0B8C /* Pods-RockMap-RockMapUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMap-RockMapUITests.release.xcconfig"; path = "Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90862925AE716E43169D5A87 /* Pods_RockMap.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -129,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D051CF7A0BF4DCADA4166E23 /* Pods_RockMapTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,12 +152,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBAA747075FB127921468843 /* Pods_RockMap_RockMapUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2241C9A5B89420BB4FEBC0BA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6AE5AF1B695E4C4FAA592CE0 /* Pods-RockMap.debug.xcconfig */,
+				BFEBD1C114864D80199A2EE9 /* Pods-RockMap.release.xcconfig */,
+				6A8D4469AB6661D2935D7507 /* Pods-RockMap-RockMapUITests.debug.xcconfig */,
+				FD02BC156288B927B18F0B8C /* Pods-RockMap-RockMapUITests.release.xcconfig */,
+				226B19A86CFEA83B2FE2AE84 /* Pods-RockMapTests.debug.xcconfig */,
+				615CD656AF40477A302876F6 /* Pods-RockMapTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		9E04B191254B28230097DA8E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +263,8 @@
 				9E5CEFE125277B26001C95AA /* RockMapTests */,
 				9E5CEFEC25277B26001C95AA /* RockMapUITests */,
 				9E5CEFC925277B25001C95AA /* Products */,
+				2241C9A5B89420BB4FEBC0BA /* Pods */,
+				B73B4B14EAEF596F70BCEA58 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -267,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				9E5CEFE225277B26001C95AA /* RockMapTests.swift */,
+				9E1C031B2554574F00F923A3 /* ValidatorTests.swift */,
 				9E5CEFE425277B26001C95AA /* Info.plist */,
 			);
 			path = RockMapTests;
@@ -339,6 +372,16 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		B73B4B14EAEF596F70BCEA58 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				45DACC89F758D48EDA36FCE2 /* Pods_RockMap.framework */,
+				A93FA2E5F3CDDBEBF4F2E874 /* Pods_RockMap_RockMapUITests.framework */,
+				0B162A0516FABFE35E4E0955 /* Pods_RockMapTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -346,18 +389,19 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E5CEFF225277B26001C95AA /* Build configuration list for PBXNativeTarget "RockMap" */;
 			buildPhases = (
+				E66BCD4E212D3B62EB48A612 /* [CP] Check Pods Manifest.lock */,
 				9E5CEFC425277B25001C95AA /* Sources */,
 				9E5CEFC525277B25001C95AA /* Frameworks */,
 				9E5CEFC625277B25001C95AA /* Resources */,
 				9E0C9F3A2534A8F600F66F01 /* SwiftLint */,
+				BC5A6EA522147B78E11DE918 /* [CP] Embed Pods Frameworks */,
+				9E5C5E272554EFA600D00087 /* Crashlytics */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = RockMap;
-			packageProductDependencies = (
-			);
 			productName = RockMap;
 			productReference = 9E5CEFC825277B25001C95AA /* RockMap.app */;
 			productType = "com.apple.product-type.application";
@@ -366,6 +410,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E5CEFF525277B26001C95AA /* Build configuration list for PBXNativeTarget "RockMapTests" */;
 			buildPhases = (
+				EDB8C4D9E03FFA8EB8A40A68 /* [CP] Check Pods Manifest.lock */,
 				9E5CEFDA25277B26001C95AA /* Sources */,
 				9E5CEFDB25277B26001C95AA /* Frameworks */,
 				9E5CEFDC25277B26001C95AA /* Resources */,
@@ -384,9 +429,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E5CEFF825277B26001C95AA /* Build configuration list for PBXNativeTarget "RockMapUITests" */;
 			buildPhases = (
+				C421FB97EAA75D0369E5C159 /* [CP] Check Pods Manifest.lock */,
 				9E5CEFE525277B26001C95AA /* Sources */,
 				9E5CEFE625277B26001C95AA /* Frameworks */,
 				9E5CEFE725277B26001C95AA /* Resources */,
+				641DF250AFE7D6190E0B42CE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -429,8 +476,6 @@
 				Base,
 			);
 			mainGroup = 9E5CEFBF25277B25001C95AA;
-			packageReferences = (
-			);
 			productRefGroup = 9E5CEFC925277B25001C95AA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -477,6 +522,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		641DF250AFE7D6190E0B42CE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9E0C9F3A2534A8F600F66F01 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -494,6 +556,107 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		9E5C5E272554EFA600D00087 /* Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Crashlytics;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
+		BC5A6EA522147B78E11DE918 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RockMap/Pods-RockMap-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RockMap/Pods-RockMap-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RockMap/Pods-RockMap-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C421FB97EAA75D0369E5C159 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RockMap-RockMapUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E66BCD4E212D3B62EB48A612 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RockMap-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EDB8C4D9E03FFA8EB8A40A68 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RockMapTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -538,6 +701,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E1C031C2554574F00F923A3 /* ValidatorTests.swift in Sources */,
 				9E5CEFE325277B26001C95AA /* RockMapTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -703,11 +867,13 @@
 		};
 		9E5CEFF325277B26001C95AA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6AE5AF1B695E4C4FAA592CE0 /* Pods-RockMap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = JXYB4XKM6U;
 				INFOPLIST_FILE = RockMap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -724,6 +890,7 @@
 		};
 		9E5CEFF425277B26001C95AA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BFEBD1C114864D80199A2EE9 /* Pods-RockMap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -745,6 +912,7 @@
 		};
 		9E5CEFF625277B26001C95AA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 226B19A86CFEA83B2FE2AE84 /* Pods-RockMapTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -766,6 +934,7 @@
 		};
 		9E5CEFF725277B26001C95AA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 615CD656AF40477A302876F6 /* Pods-RockMapTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -787,6 +956,7 @@
 		};
 		9E5CEFF925277B26001C95AA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A8D4469AB6661D2935D7507 /* Pods-RockMap-RockMapUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -806,6 +976,7 @@
 		};
 		9E5CEFFA25277B26001C95AA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD02BC156288B927B18F0B8C /* Pods-RockMap-RockMapUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
