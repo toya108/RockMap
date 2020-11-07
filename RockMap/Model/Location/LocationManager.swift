@@ -21,8 +21,7 @@ final class LocationManager: NSObject {
         return locationManager.authorizationStatus == .authorizedWhenInUse
     }
     
-    var latitude: Double = .zero
-    var longitude: Double = .zero
+    var location = CLLocation(latitude: .zero, longitude: .zero)
     var address = ""
     
     private lazy var locationManager: CLLocationManager = {
@@ -32,6 +31,7 @@ final class LocationManager: NSObject {
     }()
     
     private var bindings = Set<AnyCancellable>()
+    private let geocoder = CLGeocoder()
     
     /// パーミッション許可のダイアログを表示する
     func requestWhenInUseAuthorization() {
@@ -58,10 +58,9 @@ extension LocationManager: CLLocationManagerDelegate {
         
         guard let location = locations.first else { return }
         
-        latitude = location.coordinate.latitude
-        longitude = location.coordinate.longitude
+        self.location = location
         
-        CLGeocoder.reverseGeocode(location: location)
+        reverseGeocoding(location: location)
             .sink(receiveCompletion: { completion in
                 
             }, receiveValue: { [weak self] address in
@@ -76,4 +75,55 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         locationManager.stopUpdatingLocation()
     }
+    
+    func reverseGeocoding(location: CLLocation) -> Future<String, ReverseGeocdingError> {
+        return .init { [weak self] promise in
+            
+            guard let self = self else { return }
+            
+            self.geocoder.reverseGeocodeLocation(location) { placemarks, error in
+                if let error = error {
+                    promise(.failure(.convertError(error)))
+                    return
+                }
+                
+                guard let placemark = placemarks?.first else {
+                    promise(.failure(.noPlacemark))
+                    return
+                }
+                
+                let administrativeArea = placemark.administrativeArea ?? ""
+                let locality = placemark.locality ?? ""
+                let name = placemark.name ?? ""
+
+                promise(.success(administrativeArea + locality + name))
+            }
+        }
+    }
+    
+    func geocoding(address: String, completion: @escaping (Result<CLLocation, GeocodingError>) -> Void) {
+        self.geocoder.geocodeAddressString(address) { placemarks, error in
+            if let error = error {
+                completion(.failure(.convertError(error)))
+                return
+            }
+            
+            guard let location = placemarks?.first?.location else {
+                completion(.failure(.noPlacemark))
+                return
+            }
+            
+            completion(.success(location))
+        }
+    }
+}
+
+enum ReverseGeocdingError: Error {
+    case convertError(Error)
+    case noPlacemark
+}
+
+enum GeocodingError: Error {
+    case convertError(Error)
+    case noPlacemark
 }

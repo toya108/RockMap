@@ -29,6 +29,7 @@ final class RockRegisterViewController: UIViewController {
     @IBOutlet weak var confirmButton: UIButton!
     
     private let viewModel = RockRegisterViewModel()
+    private let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
     private var bindings = Set<AnyCancellable>()
     
     override func viewDidLoad() {
@@ -139,6 +140,20 @@ final class RockRegisterViewController: UIViewController {
                 }
             }.store(in: &bindings)
         }
+        
+        viewModel.$rockLocation
+            .receive(on: RunLoop.main)
+            .sink { [weak self] location in
+                guard let self = self else { return }
+                
+                self.rockRegisterMapView.setRegion(MKCoordinateRegion(center: location.coordinate, span: self.span), animated: true)
+                
+                self.rockRegisterMapView.removeAnnotations(self.rockRegisterMapView.annotations)
+                let rockAddressPin = MKPointAnnotation()
+                rockAddressPin.coordinate = location.coordinate
+                self.rockRegisterMapView.addAnnotation(rockAddressPin)
+            }
+            .store(in: &bindings)
     }
     
     private func presentImageUploadPopOver(sender: UIButton) {
