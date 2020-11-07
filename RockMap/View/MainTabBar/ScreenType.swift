@@ -7,6 +7,8 @@
 
 import UIKit
 
+// swiftlint:disable force_unwrapping
+
 enum ScreenType: CaseIterable {
     case rockSearch
     case register
@@ -40,26 +42,21 @@ enum ScreenType: CaseIterable {
         }
     }
     
-//    var image: UIImage? {
-//        switch self {
-//        case .top:
-//            return R.image.iconNavTopOff()
-//
-//        case .timeLine:
-//            return R.image.iconNavScheduleOff()
-//
-//        case .programList:
-//            // バッジの有無によって画像が変わるので、直接設定する
-//            return nil
-//
-//        case .mypage:
-//            return R.image.iconNavMypageOff()
-//
+    var image: UIImage? {
+        switch self {
+        case .rockSearch:
+            return UIImage.AssetsImages.mapFill
+            
+        case .register:
+            return UIImage.AssetsImages.pencilCircle
+            
+        case .myPage:
+            return UIImage.AssetsImages.personCircle
+            
 //        #if !RELEASE
 //        case .debug:
 //            return nil
 //        #endif
-//
-//        }
-//    }
+        }
+    }
 }

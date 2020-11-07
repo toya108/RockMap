@@ -29,11 +29,11 @@ class ImageUploadPopOverTableViewController: UITableViewController {
         switch indexPath.row {
         case 0:
             cell.howToUploadImageTitleLabel?.text = "フォトライブラリ"
-            cell.howToUploadImageIconView.image = UIImage(systemName: "folder.fill")
+            cell.howToUploadImageIconView.image = UIImage.AssetsImages.folderFill
             
         case 1:
             cell.howToUploadImageTitleLabel?.text = "写真を撮る"
-            cell.howToUploadImageIconView.image = UIImage(systemName: "camera.fill")
+            cell.howToUploadImageIconView.image = UIImage.AssetsImages.cameraFill
             
         default:
             break

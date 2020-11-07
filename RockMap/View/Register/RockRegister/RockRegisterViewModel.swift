@@ -6,10 +6,11 @@
 //
 
 import Combine
+import Foundation
 
 final class RockRegisterViewModel {
     @Published var rockName = ""
-//    @Published var rockImages =
+    @Published var rockImageDatas: [Data] = []
     @Published var rockPoint = ""
     @Published var rockDesc = ""
     

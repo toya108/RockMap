@@ -60,21 +60,22 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6uN-Z4-uxl">
                                                 <rect key="frame" x="0.0" y="146" width="382" height="40"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="z9R-2z-64d"/>
                                                 </constraints>
-                                                <color key="tintColor" name="primaryGreenColor"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="写真を追加する" image="camera.fill" catalog="system">
-                                                    <color key="titleColor" name="primaryGreenColor"/>
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="didFirstImageUploadButtonTapped:" destination="e80-ZI-pdM" eventType="touchUpInside" id="POx-4l-SQQ"/>
                                                 </connections>
                                             </button>
                                             <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gtc-Bu-J7y">
-                                                <rect key="frame" x="0.0" y="194" width="382" height="103.5"/>
+                                                <rect key="frame" x="0.0" y="194" width="382" height="107.5"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntm-qw-oCA">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ntm-qw-oCA">
                                                         <rect key="frame" x="0.0" y="0.0" width="103.5" height="103.5"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k3o-zH-BgI">
@@ -85,14 +86,17 @@
                                                                 </constraints>
                                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="camera.fill" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="didImageUploadButtonTapped:" destination="e80-ZI-pdM" eventType="touchUpInside" id="4dD-oQ-U5e"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="ntm-qw-oCA" firstAttribute="trailing" secondItem="tRF-1d-fXF" secondAttribute="trailing" id="0Zk-og-2mk"/>
-                                                    <constraint firstItem="ntm-qw-oCA" firstAttribute="bottom" secondItem="tRF-1d-fXF" secondAttribute="bottom" id="EEA-Cp-TRM"/>
-                                                    <constraint firstItem="ntm-qw-oCA" firstAttribute="height" secondItem="k3C-y2-gJU" secondAttribute="height" id="U0x-2F-dID"/>
+                                                    <constraint firstItem="ntm-qw-oCA" firstAttribute="bottom" secondItem="tRF-1d-fXF" secondAttribute="bottom" constant="8" id="EEA-Cp-TRM"/>
+                                                    <constraint firstItem="ntm-qw-oCA" firstAttribute="height" secondItem="k3C-y2-gJU" secondAttribute="height" constant="-4" id="U0x-2F-dID"/>
                                                     <constraint firstItem="ntm-qw-oCA" firstAttribute="leading" secondItem="tRF-1d-fXF" secondAttribute="leading" id="abs-MH-Kia"/>
                                                     <constraint firstItem="tRF-1d-fXF" firstAttribute="top" secondItem="ntm-qw-oCA" secondAttribute="top" id="bo0-BU-i81"/>
                                                 </constraints>
@@ -180,6 +184,9 @@
                                                         <state key="normal" title="　登録内容を確認　">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="didConfirmButtonTapped:" destination="e80-ZI-pdM" eventType="touchUpInside" id="R1x-Al-rSa"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -190,7 +197,7 @@
                                     <constraint firstItem="Y8S-rP-b4e" firstAttribute="width" secondItem="XUC-Nm-CXQ" secondAttribute="width" constant="-32" id="50e-09-l6L"/>
                                     <constraint firstItem="Y8S-rP-b4e" firstAttribute="top" secondItem="rje-yV-2r4" secondAttribute="top" constant="16" id="8iU-RK-0rA"/>
                                     <constraint firstItem="Y8S-rP-b4e" firstAttribute="trailing" secondItem="rje-yV-2r4" secondAttribute="trailing" constant="16" id="fj1-1Z-H6k"/>
-                                    <constraint firstItem="Y8S-rP-b4e" firstAttribute="bottom" secondItem="rje-yV-2r4" secondAttribute="bottom" id="gee-6E-Udg"/>
+                                    <constraint firstItem="Y8S-rP-b4e" firstAttribute="bottom" secondItem="rje-yV-2r4" secondAttribute="bottom" constant="-16" id="gee-6E-Udg"/>
                                     <constraint firstItem="Y8S-rP-b4e" firstAttribute="leading" secondItem="rje-yV-2r4" secondAttribute="leading" constant="16" id="tHR-oQ-haL"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="rje-yV-2r4"/>
@@ -210,6 +217,7 @@
                     <connections>
                         <outlet property="backScrollView" destination="XYf-pp-O4d" id="YHu-1B-VYe"/>
                         <outlet property="backStackView" destination="Y8S-rP-b4e" id="Gzm-hf-bLS"/>
+                        <outlet property="confirmButton" destination="SVO-Th-Qlz" id="IjF-vf-LoL"/>
                         <outlet property="firstImageUploadButton" destination="6uN-Z4-uxl" id="zaS-y7-clL"/>
                         <outlet property="imageHorizontalStackView" destination="ntm-qw-oCA" id="bQj-x1-D6m"/>
                         <outlet property="imageSelectHorizontalScrollView" destination="gtc-Bu-J7y" id="nOD-sy-iZG"/>
