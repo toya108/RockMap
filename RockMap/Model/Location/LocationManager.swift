@@ -6,79 +6,68 @@
 //
 
 import CoreLocation
+import Combine
 
 final class LocationManager: NSObject {
     
     static let shared = LocationManager()
-    
     private override init() {}
-
-    var authorizationHandler: ((Bool) -> Void)?
-    var requestStartHandler: (() -> Void)?
-    var completionHandler: (([CLLocation]) -> Void)?
-    var errorHandler: ((Error) -> Void)?
-    static var isEnabledLocationServices: Bool { CLLocationManager.locationServicesEnabled() }
-
-    private lazy var locationManager: CLLocationManager = {
-        let manager = CLLocationManager()
-        manager.delegate = self
-        manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        return manager
-    }()
-
-    func requestLocation() {
-        requestStartHandler?()
-
+    
+    var isEnabledLocationServices: Bool {
+        CLLocationManager.locationServicesEnabled()
     }
-
+    
+    var isAuthorized: Bool {
+        return locationManager.authorizationStatus == .authorizedAlways
+            || locationManager.authorizationStatus == .authorizedWhenInUse
+    }
+    
+    var latitude: Double = .zero
+    var longitude: Double = .zero
+    var address = ""
+    
+    private var locationManager = CLLocationManager()
+    private var bindings = Set<AnyCancellable>()
+    
     /// パーミッション許可のダイアログを表示する
     func requestWhenInUseAuthorization() {
         locationManager.requestWhenInUseAuthorization()
     }
-
-    func startUpdatingLocation() {
-        locationManager.startUpdatingLocation()
-    }
-
-    func stopUpdatingLocation() {
-        locationManager.stopUpdatingLocation()
-    }
-
-    func selectedLocation(location: CLLocation) {
-        selectedCurrentPrefecture(location: location)
-    }
-
-    func deleteLocation() {
-
-    }
-    
-    private func selectedCurrentPrefecture(location: CLLocation) {
-        CLGeocoder().reverseGeocodeLocation(location) { placemarks, _ in
-            
-        }
-    }
 }
 
 extension LocationManager: CLLocationManagerDelegate {
-
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedAlways || status == .authorizedWhenInUse {
-            requestLocation()
-        } else if status == .denied || status == .restricted {
-            authorizationHandler?(false)
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            locationManager.delegate = self
+            locationManager.startUpdatingLocation()
+            
+        default:
+            locationManager.stopUpdatingLocation()
         }
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        completionHandler?(locations)
-        locationManager.stopUpdatingLocation()
-
+        
         guard let location = locations.first else { return }
-        selectedLocation(location: location)
+        
+        latitude = location.coordinate.latitude
+        longitude = location.coordinate.longitude
+        
+        CLGeocoder.reverseGeocode(location: location)
+            .sink(receiveCompletion: { completion in
+                
+            }, receiveValue: { [weak self] address in
+                
+                guard let self = self else { return }
+                
+                self.address = address
+            })
+            .store(in: &bindings)
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        errorHandler?(error)
         locationManager.stopUpdatingLocation()
     }
 }

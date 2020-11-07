@@ -36,6 +36,7 @@
 		9E5CEFD825277B26001C95AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E5CEFD625277B26001C95AA /* LaunchScreen.storyboard */; };
 		9E5CEFE325277B26001C95AA /* RockMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFE225277B26001C95AA /* RockMapTests.swift */; };
 		9E5CEFEE25277B26001C95AA /* RockMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFED25277B26001C95AA /* RockMapUITests.swift */; };
+		9E60DCA82556CC48000CF2E8 /* CLGeocoderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E60DCA72556CC48000CF2E8 /* CLGeocoderExtension.swift */; };
 		9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CA7254CFD150091935F /* MyPageViewController.swift */; };
 		9E807CAD254CFD250091935F /* MyPageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E807CAC254CFD250091935F /* MyPageViewController.storyboard */; };
 		9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */; };
@@ -113,6 +114,7 @@
 		9E5CEFE925277B26001C95AA /* RockMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RockMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5CEFED25277B26001C95AA /* RockMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockMapUITests.swift; sourceTree = "<group>"; };
 		9E5CEFEF25277B26001C95AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E60DCA72556CC48000CF2E8 /* CLGeocoderExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLGeocoderExtension.swift; sourceTree = "<group>"; };
 		9E807CA7254CFD150091935F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		9E807CAC254CFD250091935F /* MyPageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPageViewController.storyboard; sourceTree = "<group>"; };
 		9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectProtocolExtension.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				9E0A9F1D2551006E007B9A90 /* UITextViewExtension.swift */,
 				9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */,
 				9E98D51A2552907500EC5AC1 /* UIViewControllerExtension.swift */,
+				9E60DCA72556CC48000CF2E8 /* CLGeocoderExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -349,10 +352,10 @@
 			children = (
 				9E807CCA254E92F50091935F /* RockRegisterViewController.swift */,
 				9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */,
+				9E807CD0254E93120091935F /* RockRegisterViewController.storyboard */,
 				9E98D553255303D200EC5AC1 /* ImageUploadPopOverTableViewController.swift */,
 				9E98D558255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.swift */,
 				9E98D559255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.xib */,
-				9E807CD0254E93120091935F /* RockRegisterViewController.storyboard */,
 			);
 			path = RockRegister;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 				9E04B18D254B1EB30097DA8E /* UITextFieldExtension.swift in Sources */,
 				9E98D55A255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.swift in Sources */,
 				9E98D51B2552907500EC5AC1 /* UIViewControllerExtension.swift in Sources */,
+				9E60DCA82556CC48000CF2E8 /* CLGeocoderExtension.swift in Sources */,
 				9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */,
 				9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */,
 				9E0A9F1E2551006E007B9A90 /* UITextViewExtension.swift in Sources */,
