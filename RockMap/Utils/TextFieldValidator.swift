@@ -153,6 +153,13 @@ struct RockNameValidator: CompositeValidator {
     ]
 }
 
+/// 住所検証用バリデーター
+struct RockAddressValidator: CompositeValidator {
+    var validators: [ValidatorProtocol] = [
+        EmptyValidator(formName: "岩の住所")
+    ]
+}
+
 // MARK: - ValidatorStruct
 
 /// 未入力検証用バリデーター

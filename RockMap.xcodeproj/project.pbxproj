@@ -219,12 +219,8 @@
 		9E04B1AA254BA9720097DA8E /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				9E04B1B4254BC3FC0097DA8E /* StringExtesnion.swift */,
-				9E04B18C254B1EB30097DA8E /* UITextFieldExtension.swift */,
-				9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */,
-				9E0A9F1D2551006E007B9A90 /* UITextViewExtension.swift */,
-				9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */,
-				9E98D51A2552907500EC5AC1 /* UIViewControllerExtension.swift */,
+				9E60DCAD2556E3EA000CF2E8 /* Foundation */,
+				9E60DCAC2556E3DF000CF2E8 /* UIKit */,
 				9E60DCA72556CC48000CF2E8 /* CLGeocoderExtension.swift */,
 			);
 			path = Extension;
@@ -317,6 +313,26 @@
 				9E5CEFEF25277B26001C95AA /* Info.plist */,
 			);
 			path = RockMapUITests;
+			sourceTree = "<group>";
+		};
+		9E60DCAC2556E3DF000CF2E8 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				9E04B18C254B1EB30097DA8E /* UITextFieldExtension.swift */,
+				9E0A9F1D2551006E007B9A90 /* UITextViewExtension.swift */,
+				9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */,
+				9E98D51A2552907500EC5AC1 /* UIViewControllerExtension.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		9E60DCAD2556E3EA000CF2E8 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				9E04B1B4254BC3FC0097DA8E /* StringExtesnion.swift */,
+				9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */,
+			);
+			path = Foundation;
 			sourceTree = "<group>";
 		};
 		9E807CA3254CFCF50091935F /* MyPage */ = {

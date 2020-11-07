@@ -16,7 +16,7 @@ final class RockRegisterViewModel {
     
     @Published private(set) var state: NetworkState = .standby
     @Published private(set) var rockNameValidationResult: ValidationResult = .none
-    @Published private(set) var rockPointValidationResult: ValidationResult = .none
+    @Published private(set) var rockAddressValidationResult: ValidationResult = .none
     @Published private(set) var isPassedAllValidation = false
     
     init() {
@@ -28,5 +28,10 @@ final class RockRegisterViewModel {
             .removeDuplicates()
             .map { name -> ValidationResult in RockNameValidator().validate(name) }
             .assign(to: &$rockNameValidationResult)
+        
+        $rockAddress
+            .removeDuplicates()
+            .map { address -> ValidationResult in RockAddressValidator().validate(address) }
+            .assign(to: &$rockAddressValidationResult)
     }
 }

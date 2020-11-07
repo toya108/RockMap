@@ -262,8 +262,10 @@
                         <outlet property="imageSelectHorizontalScrollView" destination="gtc-Bu-J7y" id="nOD-sy-iZG"/>
                         <outlet property="imageUploadButton" destination="k3o-zH-BgI" id="BjR-Pb-nM1"/>
                         <outlet property="mapBaseView" destination="QGk-j9-9hZ" id="TNX-5p-7LG"/>
+                        <outlet property="rockAddressErrorLabel" destination="eEf-XL-6yL" id="ere-VI-O7F"/>
                         <outlet property="rockAddressTextView" destination="Acw-SP-DD7" id="Mmd-8v-gms"/>
                         <outlet property="rockDescTextView" destination="rhh-xM-GtP" id="zzY-eM-gAI"/>
+                        <outlet property="rockNameErrorLabel" destination="hVx-PC-cRk" id="3aS-N5-8N6"/>
                         <outlet property="rockNameTextField" destination="HQA-75-pXm" id="Gk4-qt-mhl"/>
                         <outlet property="rockRegisterMapView" destination="PiP-M5-x8Y" id="cXZ-m7-C5t"/>
                     </connections>

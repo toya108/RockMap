@@ -15,11 +15,13 @@ final class RockRegisterViewController: UIViewController {
     @IBOutlet weak var backScrollView: TouchableScrollView!
     @IBOutlet weak var backStackView: UIStackView!
     @IBOutlet weak var rockNameTextField: UITextField!
+    @IBOutlet weak var rockNameErrorLabel: UILabel!
     @IBOutlet weak var firstImageUploadButton: UIButton!
     @IBOutlet weak var imageSelectHorizontalScrollView: UIScrollView!
     @IBOutlet weak var imageHorizontalStackView: UIStackView!
     @IBOutlet weak var imageUploadButton: UIButton!
     @IBOutlet weak var rockAddressTextView: UITextView!
+    @IBOutlet weak var rockAddressErrorLabel: UILabel!
     @IBOutlet weak var currentAddressButton: UIButton!
     @IBOutlet weak var mapBaseView: UIView!
     @IBOutlet weak var rockRegisterMapView: MKMapView!
@@ -37,7 +39,7 @@ final class RockRegisterViewController: UIViewController {
         bindViewToViewModel()
         bindViewModelToView()
         
-        rockAddressTextView.text = LocationManager.shared.address
+        rockAddressTextView.setText(text: LocationManager.shared.address)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +56,7 @@ final class RockRegisterViewController: UIViewController {
     }
     
     @IBAction func didCurrentAddressButtonTapped(_ sender: UIButton) {
-        rockAddressTextView.text = LocationManager.shared.address
+        rockAddressTextView.setText(text: LocationManager.shared.address)
     }
     
     @IBAction func didAddressSelectButtonTapped(_ sender: UIButton) {
@@ -90,7 +92,7 @@ final class RockRegisterViewController: UIViewController {
     
     private func bindViewToViewModel() {
         rockNameTextField.textDidChangedPublisher.assign(to: &viewModel.$rockName)
-        rockAddressTextView.textDidChangedPublisher.assign(to: &viewModel.$rockDesc)
+        rockAddressTextView.textDidChangedPublisher.assign(to: &viewModel.$rockAddress)
         rockDescTextView.textDidChangedPublisher.assign(to: &viewModel.$rockDesc)
     }
     
@@ -120,6 +122,23 @@ final class RockRegisterViewController: UIViewController {
                 }
             }
             .store(in: &bindings)
+        
+        zip([viewModel.$rockNameValidationResult, viewModel.$rockAddressValidationResult],
+            [rockNameErrorLabel, rockAddressErrorLabel])
+            .forEach { viewModelResult, label in
+            
+            viewModelResult.sink { result in
+                switch result {
+                case .valid, .none:
+                    label?.isHidden = true
+                    
+                case .invalid(let error):
+                    label?.text = error.description
+                    label?.isHidden = false
+                    
+                }
+            }.store(in: &bindings)
+        }
     }
     
     private func presentImageUploadPopOver(sender: UIButton) {

@@ -17,4 +17,9 @@ extension UITextField {
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
+    
+    func setText(text: String) {
+        self.text = text
+        NotificationCenter.default.post(name: UITextField.textDidChangeNotification, object: self)
+    }
 }
