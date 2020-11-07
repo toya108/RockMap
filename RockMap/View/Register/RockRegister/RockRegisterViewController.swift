@@ -19,7 +19,9 @@ final class RockRegisterViewController: UIViewController {
     @IBOutlet weak var imageSelectHorizontalScrollView: UIScrollView!
     @IBOutlet weak var imageHorizontalStackView: UIStackView!
     @IBOutlet weak var imageUploadButton: UIButton!
-    @IBOutlet weak var rockPointTextFiled: UITextField!
+    @IBOutlet weak var rockAddressTextView: UITextView!
+    @IBOutlet weak var currentAddressButton: UIButton!
+    @IBOutlet weak var mapBaseView: UIView!
     @IBOutlet weak var rockRegisterMapView: MKMapView!
     @IBOutlet weak var rockDescTextView: UITextView!
     @IBOutlet weak var confirmButton: UIButton!
@@ -34,6 +36,8 @@ final class RockRegisterViewController: UIViewController {
         setupKeyboard()
         bindViewToViewModel()
         bindViewModelToView()
+        
+        rockAddressTextView.text = LocationManager.shared.address
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,18 +53,26 @@ final class RockRegisterViewController: UIViewController {
         presentImageUploadPopOver(sender: sender)
     }
     
-    @IBAction func didConfirmButtonTapped(_ sender: UIButton) {
+    @IBAction func didCurrentAddressButtonTapped(_ sender: UIButton) {
+        rockAddressTextView.text = LocationManager.shared.address
     }
     
+    @IBAction func didAddressSelectButtonTapped(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func didConfirmButtonTapped(_ sender: UIButton) {
+        
+    }
     
     private func setupDelegate() {
         rockNameTextField.delegate = self
-        rockPointTextFiled.delegate = self
     }
     
     private func setupLayout() {
         navigationItem.title = "岩を登録する"
-
+        
+        // コード上で指定しないと明朝体になってしまうバグのため
         rockDescTextView.font = UIFont.systemFont(ofSize: 13)
         rockDescTextView.layer.cornerRadius = 8
         rockDescTextView.layer.borderWidth = 1
@@ -70,14 +82,15 @@ final class RockRegisterViewController: UIViewController {
         firstImageUploadButton.layer.borderWidth = 1
         firstImageUploadButton.layer.borderColor = UIColor.lightGray.cgColor
         
-        rockRegisterMapView.layer.cornerRadius = 8
+        currentAddressButton.layer.cornerRadius = 8
+        mapBaseView.layer.cornerRadius = 8
         imageUploadButton.layer.cornerRadius = 8
         confirmButton.layer.cornerRadius = 8
     }
     
     private func bindViewToViewModel() {
         rockNameTextField.textDidChangedPublisher.assign(to: &viewModel.$rockName)
-        rockPointTextFiled.textDidChangedPublisher.assign(to: &viewModel.$rockPoint)
+        rockAddressTextView.textDidChangedPublisher.assign(to: &viewModel.$rockDesc)
         rockDescTextView.textDidChangedPublisher.assign(to: &viewModel.$rockDesc)
     }
     
@@ -162,6 +175,7 @@ final class RockRegisterViewController: UIViewController {
         
         var configuration = PHPickerConfiguration()
         configuration.selectionLimit = 0
+        configuration.filter = .images
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         self.present(picker, animated: true)
@@ -196,9 +210,7 @@ extension RockRegisterViewController: UITextFieldDelegate {
                     let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: dupricationHeight, right: 0)
                     self.backScrollView.contentInset = contentInsets
                     self.backScrollView.scrollIndicatorInsets = contentInsets
-                    self.backScrollView.setContentOffset(.init(x: self.backScrollView.frame.minX,
-                                                               y: self.view.bounds.height - dupricationHeight - (keyboardHeight + 8)),
-                                                         animated: true)
+                    self.backScrollView.setContentOffset(.init(x: self.backScrollView.frame.minX, y: marginFromResponderToViewBottom), animated: true)
                 }
             }
             .store(in: &bindings)
@@ -217,21 +229,15 @@ extension RockRegisterViewController: UITextFieldDelegate {
     }
 }
 
-
 extension RockRegisterViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         return .none
     }
 }
 
-
 extension RockRegisterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true)
-    }
-    
-    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
-        guard let image = info[UIImagePickerController.InfoKey.editedImage.rawValue] as? UIImage,
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
               let data = image.jpegData(compressionQuality: 1) else { return }
         
         viewModel.rockImageDatas.append(data)

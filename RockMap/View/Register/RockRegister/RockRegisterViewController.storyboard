@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Y8S-rP-b4e">
-                                        <rect key="frame" x="16" y="16" width="382" height="790.5"/>
+                                        <rect key="frame" x="16" y="16" width="382" height="715.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="岩の名前を入力" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tee-Vz-nIc">
                                                 <rect key="frame" x="0.0" y="0.0" width="382" height="24"/>
@@ -110,57 +110,94 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="sBF-DM-n86">
-                                                <rect key="frame" x="0.0" y="242" width="382" height="293.5"/>
+                                                <rect key="frame" x="0.0" y="242" width="382" height="218.5"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KTu-kp-Fb5">
-                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="50"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="9So-DV-J0L">
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="64.5"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="東京都品川区" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mKu-H1-vCj">
-                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="18.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits"/>
-                                                            </textField>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JjI-2L-U3Y">
-                                                                <rect key="frame" x="0.0" y="26.5" width="382" height="1"/>
-                                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="1" id="mBR-8h-vXd"/>
-                                                                </constraints>
-                                                            </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="※エラー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEf-XL-6yL">
-                                                                <rect key="frame" x="0.0" y="35.5" width="44" height="14.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                <color key="textColor" red="0.98039215690000003" green="0.49803921569999998" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="jxx-Js-p9x">
+                                                                <rect key="frame" x="0.0" y="0.0" width="297" height="64.5"/>
+                                                                <subviews>
+                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Acw-SP-DD7">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="297" height="33"/>
+                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                        <color key="textColor" systemColor="labelColor"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                                    </textView>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JjI-2L-U3Y">
+                                                                        <rect key="frame" x="0.0" y="41" width="297" height="1"/>
+                                                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="1" id="mBR-8h-vXd"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="※エラー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEf-XL-6yL">
+                                                                        <rect key="frame" x="0.0" y="50" width="297" height="14.5"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                                        <color key="textColor" red="0.98039215690000003" green="0.49803921569999998" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="66X-jN-e22">
+                                                                <rect key="frame" x="309" y="14" width="73" height="36.5"/>
+                                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <inset key="contentEdgeInsets" minX="4" minY="8" maxX="4" maxY="8"/>
+                                                                <state key="normal" title="現在地" image="mappin.and.ellipse" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="didCurrentAddressButtonTapped:" destination="e80-ZI-pdM" eventType="touchUpInside" id="BlM-y4-NAk"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
-                                                        <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="JjI-2L-U3Y" secondAttribute="trailing" id="Db1-AC-5cR"/>
-                                                            <constraint firstAttribute="trailing" secondItem="mKu-H1-vCj" secondAttribute="trailing" id="WOm-gr-6n3"/>
-                                                        </constraints>
                                                     </stackView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地図から選択する" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Fg-pA-aya">
-                                                        <rect key="frame" x="0.0" y="66" width="382" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PiP-M5-x8Y">
-                                                        <rect key="frame" x="0.0" y="102.5" width="382" height="191"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QGk-j9-9hZ">
+                                                        <rect key="frame" x="0.0" y="80.5" width="382" height="138"/>
+                                                        <subviews>
+                                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PiP-M5-x8Y">
+                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="138"/>
+                                                            </mapView>
+                                                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jLI-uz-zkX" userLabel="blurView">
+                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="138"/>
+                                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </view>
+                                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ykn-qs-uiA">
+                                                                <rect key="frame" x="0.0" y="0.0" width="382" height="138"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <state key="normal" title="地図から位置を選択"/>
+                                                                <connections>
+                                                                    <action selector="didAddressSelectButtonTapped:" destination="e80-ZI-pdM" eventType="touchUpInside" id="qYh-Cj-Erv"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" secondItem="PiP-M5-x8Y" secondAttribute="height" multiplier="2:1" id="4wu-Op-E1j"/>
+                                                            <constraint firstItem="ykn-qs-uiA" firstAttribute="top" secondItem="QGk-j9-9hZ" secondAttribute="top" id="4ae-CB-Ty5"/>
+                                                            <constraint firstItem="PiP-M5-x8Y" firstAttribute="top" secondItem="QGk-j9-9hZ" secondAttribute="top" id="6CR-mw-A50"/>
+                                                            <constraint firstAttribute="bottom" secondItem="PiP-M5-x8Y" secondAttribute="bottom" id="HEG-Bm-shl"/>
+                                                            <constraint firstAttribute="trailing" secondItem="PiP-M5-x8Y" secondAttribute="trailing" id="LGi-JS-shx"/>
+                                                            <constraint firstItem="jLI-uz-zkX" firstAttribute="leading" secondItem="QGk-j9-9hZ" secondAttribute="leading" id="UaU-Ni-rFP"/>
+                                                            <constraint firstItem="jLI-uz-zkX" firstAttribute="top" secondItem="QGk-j9-9hZ" secondAttribute="top" id="Xqt-HW-hcE"/>
+                                                            <constraint firstAttribute="trailing" secondItem="ykn-qs-uiA" secondAttribute="trailing" id="cWF-NI-wyY"/>
+                                                            <constraint firstAttribute="trailing" secondItem="jLI-uz-zkX" secondAttribute="trailing" id="iUz-x3-KB7"/>
+                                                            <constraint firstAttribute="bottom" secondItem="jLI-uz-zkX" secondAttribute="bottom" id="nxl-Rr-Rjc"/>
+                                                            <constraint firstItem="PiP-M5-x8Y" firstAttribute="leading" secondItem="QGk-j9-9hZ" secondAttribute="leading" id="qKY-iR-oBA"/>
+                                                            <constraint firstItem="ykn-qs-uiA" firstAttribute="leading" secondItem="QGk-j9-9hZ" secondAttribute="leading" id="rEi-5k-GR1"/>
+                                                            <constraint firstAttribute="bottom" secondItem="ykn-qs-uiA" secondAttribute="bottom" id="zOF-tO-gI3"/>
                                                         </constraints>
-                                                    </mapView>
+                                                    </view>
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="岩の説明を入力" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5x-LU-vbO">
-                                                <rect key="frame" x="0.0" y="551.5" width="382" height="24"/>
+                                                <rect key="frame" x="0.0" y="476.5" width="382" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rhh-xM-GtP">
-                                                <rect key="frame" x="0.0" y="591.5" width="382" height="120"/>
+                                                <rect key="frame" x="0.0" y="516.5" width="382" height="120"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="120" id="i6F-1C-kOP"/>
@@ -170,7 +207,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="GlD-ZD-drX">
-                                                <rect key="frame" x="0.0" y="727.5" width="382" height="63"/>
+                                                <rect key="frame" x="0.0" y="652.5" width="382" height="63"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="※登録した内容は他のユーザーに公開されます。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMP-nN-58M">
                                                         <rect key="frame" x="37" y="0.0" width="308.5" height="17"/>
@@ -208,6 +245,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="t7Y-yr-28R" firstAttribute="bottom" secondItem="XYf-pp-O4d" secondAttribute="bottom" id="0Db-eQ-1xP"/>
+                            <constraint firstItem="QGk-j9-9hZ" firstAttribute="height" secondItem="d4g-yN-gKs" secondAttribute="width" multiplier="1:3" id="E6o-Tm-shn"/>
                             <constraint firstItem="t7Y-yr-28R" firstAttribute="trailing" secondItem="XYf-pp-O4d" secondAttribute="trailing" id="Hli-mr-UVq"/>
                             <constraint firstItem="k3o-zH-BgI" firstAttribute="width" secondItem="d4g-yN-gKs" secondAttribute="width" multiplier="1:4" id="Jvy-r5-bMW"/>
                             <constraint firstItem="XYf-pp-O4d" firstAttribute="leading" secondItem="t7Y-yr-28R" secondAttribute="leading" id="ekc-ft-TwG"/>
@@ -218,13 +256,15 @@
                         <outlet property="backScrollView" destination="XYf-pp-O4d" id="YHu-1B-VYe"/>
                         <outlet property="backStackView" destination="Y8S-rP-b4e" id="Gzm-hf-bLS"/>
                         <outlet property="confirmButton" destination="SVO-Th-Qlz" id="IjF-vf-LoL"/>
+                        <outlet property="currentAddressButton" destination="66X-jN-e22" id="RbQ-IO-Ah8"/>
                         <outlet property="firstImageUploadButton" destination="6uN-Z4-uxl" id="zaS-y7-clL"/>
                         <outlet property="imageHorizontalStackView" destination="ntm-qw-oCA" id="bQj-x1-D6m"/>
                         <outlet property="imageSelectHorizontalScrollView" destination="gtc-Bu-J7y" id="nOD-sy-iZG"/>
                         <outlet property="imageUploadButton" destination="k3o-zH-BgI" id="BjR-Pb-nM1"/>
+                        <outlet property="mapBaseView" destination="QGk-j9-9hZ" id="TNX-5p-7LG"/>
+                        <outlet property="rockAddressTextView" destination="Acw-SP-DD7" id="Mmd-8v-gms"/>
                         <outlet property="rockDescTextView" destination="rhh-xM-GtP" id="zzY-eM-gAI"/>
                         <outlet property="rockNameTextField" destination="HQA-75-pXm" id="Gk4-qt-mhl"/>
-                        <outlet property="rockPointTextFiled" destination="mKu-H1-vCj" id="dNt-vE-oVX"/>
                         <outlet property="rockRegisterMapView" destination="PiP-M5-x8Y" id="cXZ-m7-C5t"/>
                     </connections>
                 </viewController>
@@ -235,6 +275,7 @@
     </scenes>
     <resources>
         <image name="camera.fill" catalog="system" width="128" height="94"/>
+        <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
         <namedColor name="primaryGreenColor">
             <color red="0.016000000759959221" green="0.74900001287460327" blue="0.75700002908706665" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

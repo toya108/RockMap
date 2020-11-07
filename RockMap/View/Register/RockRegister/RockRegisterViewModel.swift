@@ -11,7 +11,7 @@ import Foundation
 final class RockRegisterViewModel {
     @Published var rockName = ""
     @Published var rockImageDatas: [Data] = []
-    @Published var rockPoint = ""
+    @Published var rockAddress = ""
     @Published var rockDesc = ""
     
     @Published private(set) var state: NetworkState = .standby
