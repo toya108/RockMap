@@ -27,6 +27,7 @@
 		9E1C5B6D2545D10B004F99C1 /* RockDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C5B6C2545D10B004F99C1 /* RockDocument.swift */; };
 		9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2B112E25471F6100D7E56C /* LoginViewController.swift */; };
 		9E2B113425471F7400D7E56C /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E2B113325471F7400D7E56C /* LoginViewController.storyboard */; };
+		9E5C5E372555144000D00087 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5C5E362555144000D00087 /* Images.swift */; };
 		9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCB25277B25001C95AA /* AppDelegate.swift */; };
 		9E5CEFCE25277B25001C95AA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */; };
 		9E5CEFD025277B25001C95AA /* RockSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCF25277B25001C95AA /* RockSearchViewController.swift */; };
@@ -97,6 +98,7 @@
 		9E1C5B6C2545D10B004F99C1 /* RockDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDocument.swift; sourceTree = "<group>"; };
 		9E2B112E25471F6100D7E56C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9E2B113325471F7400D7E56C /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
+		9E5C5E362555144000D00087 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		9E5CEFC825277B25001C95AA /* RockMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RockMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5CEFCB25277B25001C95AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -346,10 +348,10 @@
 			isa = PBXGroup;
 			children = (
 				9E807CCA254E92F50091935F /* RockRegisterViewController.swift */,
+				9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */,
 				9E98D553255303D200EC5AC1 /* ImageUploadPopOverTableViewController.swift */,
 				9E98D558255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.swift */,
 				9E98D559255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.xib */,
-				9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */,
 				9E807CD0254E93120091935F /* RockRegisterViewController.storyboard */,
 			);
 			path = RockRegister;
@@ -368,6 +370,7 @@
 			children = (
 				9E5CEFD425277B26001C95AA /* Assets.xcassets */,
 				9E98D548255300B900EC5AC1 /* ColorPallet.swift */,
+				9E5C5E362555144000D00087 /* Images.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -672,6 +675,7 @@
 				9E1C5B6D2545D10B004F99C1 /* RockDocument.swift in Sources */,
 				9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */,
 				9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */,
+				9E5C5E372555144000D00087 /* Images.swift in Sources */,
 				9E0A9F192550519F007B9A90 /* RockRegisterViewModel.swift in Sources */,
 				9E807CBD254CFF640091935F /* RegisterViewController.swift in Sources */,
 				9E0FEDB225487B7B00009D09 /* SignUpViewController.swift in Sources */,

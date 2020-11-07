@@ -22,6 +22,7 @@ final class RockRegisterViewController: UIViewController {
     @IBOutlet weak var rockPointTextFiled: UITextField!
     @IBOutlet weak var rockRegisterMapView: MKMapView!
     @IBOutlet weak var rockDescTextView: UITextView!
+    @IBOutlet weak var confirmButton: UIButton!
     
     private let viewModel = RockRegisterViewModel()
     private var bindings = Set<AnyCancellable>()
@@ -32,6 +33,7 @@ final class RockRegisterViewController: UIViewController {
         setupLayout()
         setupKeyboard()
         bindViewToViewModel()
+        bindViewModelToView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,16 +42,16 @@ final class RockRegisterViewController: UIViewController {
     }
     
     @IBAction func didFirstImageUploadButtonTapped(_ sender: UIButton) {
-        let popOverVC = ImageUploadPopOverTableViewController()
-        popOverVC.modalPresentationStyle = .popover
-        popOverVC.preferredContentSize = CGSize(width: 300, height: 88)
-        popOverVC.popoverPresentationController?.sourceView = backStackView
-        popOverVC.popoverPresentationController?.sourceRect = sender.frame
-        popOverVC.popoverPresentationController?.delegate = self
-        popOverVC.selectPhotoLibraryCellHandler = selectPhotoLibraryCellHandler
-        popOverVC.selectCameraCellHandler = selectCameraCellHandler
-        present(popOverVC, animated: true)
+        presentImageUploadPopOver(sender: sender)
     }
+    
+    @IBAction func didImageUploadButtonTapped(_ sender: UIButton) {
+        presentImageUploadPopOver(sender: sender)
+    }
+    
+    @IBAction func didConfirmButtonTapped(_ sender: UIButton) {
+    }
+    
     
     private func setupDelegate() {
         rockNameTextField.delegate = self
@@ -67,12 +69,81 @@ final class RockRegisterViewController: UIViewController {
         firstImageUploadButton.layer.cornerRadius = 8
         firstImageUploadButton.layer.borderWidth = 1
         firstImageUploadButton.layer.borderColor = UIColor.lightGray.cgColor
+        
+        rockRegisterMapView.layer.cornerRadius = 8
+        imageUploadButton.layer.cornerRadius = 8
+        confirmButton.layer.cornerRadius = 8
     }
     
     private func bindViewToViewModel() {
         rockNameTextField.textDidChangedPublisher.assign(to: &viewModel.$rockName)
         rockPointTextFiled.textDidChangedPublisher.assign(to: &viewModel.$rockPoint)
         rockDescTextView.textDidChangedPublisher.assign(to: &viewModel.$rockDesc)
+    }
+    
+    private func bindViewModelToView() {
+        viewModel.$rockImageDatas
+            .receive(on: RunLoop.main)
+            .sink { [weak self] data in
+                
+                guard let self = self else { return }
+                
+                self.firstImageUploadButton.isHidden = !data.isEmpty
+                self.imageSelectHorizontalScrollView.isHidden = data.isEmpty
+                
+                if data.isEmpty { return }
+                
+                self.imageHorizontalStackView.arrangedSubviews
+                    .filter { $0.self is UIImageView }
+                    .forEach { $0.removeFromSuperview() }
+                
+                data.forEach {
+                    let deletableImageView = self.makeDeletableImageView(data: $0)
+                    self.imageHorizontalStackView.addArrangedSubview(deletableImageView)
+                    NSLayoutConstraint.activate([
+                        deletableImageView.widthAnchor.constraint(equalTo: self.imageUploadButton.widthAnchor),
+                        deletableImageView.heightAnchor.constraint(equalTo: self.imageUploadButton.widthAnchor)
+                    ])
+                }
+            }
+            .store(in: &bindings)
+    }
+    
+    private func presentImageUploadPopOver(sender: UIButton) {
+        let popOverVC = ImageUploadPopOverTableViewController()
+        popOverVC.modalPresentationStyle = .popover
+        popOverVC.preferredContentSize = CGSize(width: 300, height: 88)
+        popOverVC.popoverPresentationController?.sourceView = sender.superview
+        popOverVC.popoverPresentationController?.sourceRect = sender.frame
+        popOverVC.popoverPresentationController?.delegate = self
+        popOverVC.selectPhotoLibraryCellHandler = selectPhotoLibraryCellHandler
+        popOverVC.selectCameraCellHandler = selectCameraCellHandler
+        present(popOverVC, animated: true)
+    }
+    
+    private func makeDeletableImageView(data: Data) -> UIImageView {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isUserInteractionEnabled = true
+        imageView.layer.cornerRadius = 8
+        imageView.clipsToBounds = true
+        imageView.image = UIImage(data: data)
+        
+        let deleteButton = UIButton(primaryAction: UIAction { [weak self] _ in
+            guard let self = self else { return }
+            self.viewModel.rockImageDatas.removeAll { $0 == data }
+        })
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        deleteButton.setImage(UIImage.AssetsImages.xmarkCircleFill, for: .normal)
+        deleteButton.tintColor = .white
+        imageView.addSubview(deleteButton)
+        NSLayoutConstraint.activate([
+            deleteButton.heightAnchor.constraint(equalToConstant: 44),
+            deleteButton.widthAnchor.constraint(equalToConstant: 44),
+            deleteButton.topAnchor.constraint(equalTo: imageView.topAnchor),
+            deleteButton.rightAnchor.constraint(equalTo: imageView.rightAnchor)
+        ])
+        return imageView
     }
     
     private var selectCameraCellHandler: () -> Void {{ [weak self] in
@@ -159,8 +230,12 @@ extension RockRegisterViewController: UIImagePickerControllerDelegate & UINaviga
         dismiss(animated: true)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+        guard let image = info[UIImagePickerController.InfoKey.editedImage.rawValue] as? UIImage,
+              let data = image.jpegData(compressionQuality: 1) else { return }
         
+        viewModel.rockImageDatas.append(data)
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -168,9 +243,18 @@ extension RockRegisterViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
         
-        guard let itemProvider = results.first?.itemProvider,
-              itemProvider.canLoadObject(ofClass: UIImage.self) else { return }
+        results.map(\.itemProvider).forEach {
             
-        
+            guard $0.canLoadObject(ofClass: UIImage.self) else { return }
+            
+            $0.loadObject(ofClass: UIImage.self) { [weak self] providerReading, error in
+                guard case .none = error,
+                      let self = self,
+                      let image = providerReading as? UIImage,
+                      let data = image.jpegData(compressionQuality: 1) else { return }
+                
+                self.viewModel.rockImageDatas.append(data)
+            }
+        }
     }
 }
