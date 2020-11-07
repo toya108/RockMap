@@ -18,29 +18,35 @@ final class LocationManager: NSObject {
     }
     
     var isAuthorized: Bool {
-        return locationManager.authorizationStatus == .authorizedAlways
-            || locationManager.authorizationStatus == .authorizedWhenInUse
+        return locationManager.authorizationStatus == .authorizedWhenInUse
     }
     
     var latitude: Double = .zero
     var longitude: Double = .zero
     var address = ""
     
-    private var locationManager = CLLocationManager()
+    private lazy var locationManager: CLLocationManager = {
+        let manager = CLLocationManager()
+        manager.delegate = self
+        return manager
+    }()
+    
     private var bindings = Set<AnyCancellable>()
     
     /// パーミッション許可のダイアログを表示する
     func requestWhenInUseAuthorization() {
+        
+        if isAuthorized { return }
+        
         locationManager.requestWhenInUseAuthorization()
     }
 }
 
 extension LocationManager: CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        switch status {
-        case .authorizedAlways, .authorizedWhenInUse:
-            locationManager.delegate = self
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .authorizedWhenInUse:
             locationManager.startUpdatingLocation()
             
         default:
