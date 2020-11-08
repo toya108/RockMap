@@ -49,7 +49,7 @@ final class RockRegisterViewModel {
                         
                     case .failure(let error):
                         print(error.localizedDescription)
-                        self.rockNameValidationResult = .invalid(.cannotConvertAddress)
+                        self.rockAddressValidationResult = .invalid(.cannotConvertAddressToLocation)
                         
                     }
                 }

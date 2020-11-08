@@ -6,7 +6,6 @@
 //
 
 import CoreLocation
-import Combine
 
 final class LocationManager: NSObject {
     
@@ -30,7 +29,6 @@ final class LocationManager: NSObject {
         return manager
     }()
     
-    private var bindings = Set<AnyCancellable>()
     private let geocoder = CLGeocoder()
     
     /// パーミッション許可のダイアログを表示する
@@ -60,44 +58,40 @@ extension LocationManager: CLLocationManagerDelegate {
         
         self.location = location
         
-        reverseGeocoding(location: location)
-            .sink(receiveCompletion: { completion in
-                
-            }, receiveValue: { [weak self] address in
-                
-                guard let self = self else { return }
-                
+        reverseGeocoding(location: location) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let address):
                 self.address = address
-            })
-            .store(in: &bindings)
+                
+            case .failure(let error):
+                print(error.localizedDescription)
+                
+            }
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         locationManager.stopUpdatingLocation()
     }
     
-    func reverseGeocoding(location: CLLocation) -> Future<String, ReverseGeocdingError> {
-        return .init { [weak self] promise in
-            
-            guard let self = self else { return }
-            
-            self.geocoder.reverseGeocodeLocation(location) { placemarks, error in
-                if let error = error {
-                    promise(.failure(.convertError(error)))
-                    return
-                }
-                
-                guard let placemark = placemarks?.first else {
-                    promise(.failure(.noPlacemark))
-                    return
-                }
-                
-                let administrativeArea = placemark.administrativeArea ?? ""
-                let locality = placemark.locality ?? ""
-                let name = placemark.name ?? ""
-
-                promise(.success(administrativeArea + locality + name))
+    func reverseGeocoding(location: CLLocation, completion: @escaping (Result<String, GeocodingError>) -> Void) {
+        self.geocoder.reverseGeocodeLocation(location) { placemarks, error in
+            if let error = error {
+                completion(.failure(.convertError(error)))
+                return
             }
+            
+            guard let placemark = placemarks?.first else {
+                completion(.failure(.noPlacemark))
+                return
+            }
+            
+            let administrativeArea = placemark.administrativeArea ?? ""
+            let locality = placemark.locality ?? ""
+            let name = placemark.name ?? ""
+            completion(.success(administrativeArea + locality + name))
         }
     }
     

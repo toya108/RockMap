@@ -28,7 +28,7 @@ final class RockRegisterViewController: UIViewController {
     @IBOutlet weak var rockDescTextView: UITextView!
     @IBOutlet weak var confirmButton: UIButton!
     
-    private let viewModel = RockRegisterViewModel()
+    let viewModel = RockRegisterViewModel()
     private let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
     private var bindings = Set<AnyCancellable>()
     
@@ -61,7 +61,13 @@ final class RockRegisterViewController: UIViewController {
     }
     
     @IBAction func didAddressSelectButtonTapped(_ sender: UIButton) {
-        
+        guard let vc = (UIStoryboard(name: RockLocationSelectViewController.className, bundle: nil).instantiateInitialViewController { [weak self] coder in
+            
+            guard let self = self else { return RockLocationSelectViewController(coder: coder) }
+            
+            return RockLocationSelectViewController(coder: coder, location: self.viewModel.rockLocation)
+        }) else { return }
+        present(UINavigationController(rootViewController: vc), animated: true)
     }
     
     @IBAction func didConfirmButtonTapped(_ sender: UIButton) {

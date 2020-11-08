@@ -83,7 +83,8 @@ enum ValidationError: Error {
     case hasBlank
     case invalidEmailForm
     case unmatchConfirmPassword
-    case cannotConvertAddress
+    case cannotConvertAddressToLocation
+    case cannotConvertLocationToAddrress
     
     var description: String {
         switch self {
@@ -104,8 +105,11 @@ enum ValidationError: Error {
         case .hasBlank:
             return "先頭か末尾に空白が含まれています。"
             
-        case .cannotConvertAddress:
-            return "位置情報の変換に失敗しました。"
+        case .cannotConvertAddressToLocation:
+            return "住所から位置情報の変換に失敗しました。"
+            
+        case .cannotConvertLocationToAddrress:
+            return "位置情報から住所への変換に失敗しました。"
             
         }
     }
