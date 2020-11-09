@@ -26,6 +26,7 @@ final class LocationManager: NSObject {
     private lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         return manager
     }()
     
