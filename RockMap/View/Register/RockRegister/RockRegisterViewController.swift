@@ -83,9 +83,6 @@ final class RockRegisterViewController: UIViewController {
         
         // コード上で指定しないと明朝体になってしまうバグのため
         rockDescTextView.font = UIFont.systemFont(ofSize: 13)
-        rockDescTextView.layer.cornerRadius = 8
-        rockDescTextView.layer.borderWidth = 1
-        rockDescTextView.layer.borderColor = UIColor.lightGray.cgColor
         
         firstImageUploadButton.layer.cornerRadius = 8
         firstImageUploadButton.layer.borderWidth = 1
