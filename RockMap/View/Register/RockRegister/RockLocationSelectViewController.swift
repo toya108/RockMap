@@ -12,6 +12,7 @@ import Combine
 class RockLocationSelectViewController: UIViewController {
     
     @Published private var location = LocationManager.shared.location
+    private var address = ""
     
     private var bindings = Set<AnyCancellable>()
     private let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
@@ -50,10 +51,12 @@ class RockLocationSelectViewController: UIViewController {
                     
                     switch result {
                     case .success(let address):
-                        self.addressLabel.text = address
+                        self.address = address
+                        self.addressLabel.text = "📍 " + address
                         
                     case .failure:
-                            break
+                        break
+                        
                     }
                 }
             }
@@ -75,9 +78,8 @@ class RockLocationSelectViewController: UIViewController {
     @objc private func didCompleteButtonTapped() {
         dismiss(animated: true) { [weak self] in
             guard let self = self,
-                  let presenting = self.topViewController(controller: UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController ) as? RockRegisterViewController,
-                  let address = self.addressLabel.text else { return }
-            presenting.rockAddressTextView.text = address
+                  let presenting = self.topViewController(controller: UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController ) as? RockRegisterViewController else { return }
+            presenting.rockAddressTextView.text = self.address
             presenting.viewModel.rockLocation = self.location
         }
     }
