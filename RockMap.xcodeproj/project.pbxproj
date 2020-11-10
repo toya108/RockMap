@@ -54,6 +54,8 @@
 		9E98D55B255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E98D559255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.xib */; };
 		9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6BA66252E00E400553026 /* MainTabBarController.swift */; };
 		9EEADA1C255AD39100F20228 /* PlaceHolderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEADA1B255AD39100F20228 /* PlaceHolderTextView.swift */; };
+		9EF56022255AE76C00D00723 /* RockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF56021255AE76C00D00723 /* RockDetailViewController.swift */; };
+		9EF5602A255AE77C00D00723 /* RockDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EF56029255AE77C00D00723 /* RockDetailViewController.storyboard */; };
 		CBAA747075FB127921468843 /* Pods_RockMap_RockMapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93FA2E5F3CDDBEBF4F2E874 /* Pods_RockMap_RockMapUITests.framework */; };
 		D051CF7A0BF4DCADA4166E23 /* Pods_RockMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B162A0516FABFE35E4E0955 /* Pods_RockMapTests.framework */; };
 /* End PBXBuildFile section */
@@ -134,6 +136,8 @@
 		9E98D559255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageUploadPopOverTableViewCell.xib; sourceTree = "<group>"; };
 		9EB6BA66252E00E400553026 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		9EEADA1B255AD39100F20228 /* PlaceHolderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderTextView.swift; sourceTree = "<group>"; };
+		9EF56021255AE76C00D00723 /* RockDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewController.swift; sourceTree = "<group>"; };
+		9EF56029255AE77C00D00723 /* RockDetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RockDetailViewController.storyboard; sourceTree = "<group>"; };
 		A93FA2E5F3CDDBEBF4F2E874 /* Pods_RockMap_RockMapUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RockMap_RockMapUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFEBD1C114864D80199A2EE9 /* Pods-RockMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMap.release.xcconfig"; path = "Target Support Files/Pods-RockMap/Pods-RockMap.release.xcconfig"; sourceTree = "<group>"; };
 		FD02BC156288B927B18F0B8C /* Pods-RockMap-RockMapUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMap-RockMapUITests.release.xcconfig"; path = "Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -250,6 +254,7 @@
 			children = (
 				9E98D53D2552F88B00EC5AC1 /* SupportView */,
 				9E04B1A9254BA94C0097DA8E /* RockSearch */,
+				9EF56020255AE74A00D00723 /* RockDetail */,
 				9E807CB6254CFF3F0091935F /* Register */,
 				9E807CA3254CFCF50091935F /* MyPage */,
 				9E04B192254B28330097DA8E /* Login */,
@@ -416,6 +421,15 @@
 			path = RocationSelect;
 			sourceTree = "<group>";
 		};
+		9EF56020255AE74A00D00723 /* RockDetail */ = {
+			isa = PBXGroup;
+			children = (
+				9EF56021255AE76C00D00723 /* RockDetailViewController.swift */,
+				9EF56029255AE77C00D00723 /* RockDetailViewController.storyboard */,
+			);
+			path = RockDetail;
+			sourceTree = "<group>";
+		};
 		B73B4B14EAEF596F70BCEA58 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -543,6 +557,7 @@
 				9E5CEFD525277B26001C95AA /* Assets.xcassets in Resources */,
 				9E807CD1254E93120091935F /* RockRegisterViewController.storyboard in Resources */,
 				9E807CB8254CFF560091935F /* RegisterViewController.storyboard in Resources */,
+				9EF5602A255AE77C00D00723 /* RockDetailViewController.storyboard in Resources */,
 				9E98D55B255308B900EC5AC1 /* ImageUploadPopOverTableViewCell.xib in Resources */,
 				9E5CEFD325277B25001C95AA /* RockSearchViewController.storyboard in Resources */,
 				9E0FEDB725487B8E00009D09 /* SignUpViewController.storyboard in Resources */,
@@ -733,6 +748,7 @@
 				9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */,
 				9E0A9F1E2551006E007B9A90 /* UITextViewExtension.swift in Sources */,
 				9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */,
+				9EF56022255AE76C00D00723 /* RockDetailViewController.swift in Sources */,
 				9EEADA1C255AD39100F20228 /* PlaceHolderTextView.swift in Sources */,
 				9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */,
 				9E1C5B682545CE57004F99C1 /* FireStoreClient.swift in Sources */,
