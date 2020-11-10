@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hAr-mQ-xso">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Rock Location Select View Controller-->
+        <scene sceneID="52u-0T-IpD">
+            <objects>
+                <viewController id="hAr-mQ-xso" customClass="RockLocationSelectViewController" customModule="RockMap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Pzd-iX-MT8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mzg-eH-ZO2">
+                                <rect key="frame" x="0.0" y="44" width="414" height="685.5"/>
+                            </mapView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="RrM-Nf-mVy">
+                                <rect key="frame" x="16" y="761.5" width="382" height="52.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="※地図を長押しすると岩の位置を選択できます。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Xe-zV-yKF">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sj2-iC-GcU">
+                                        <rect key="frame" x="0.0" y="32" width="382" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="WkV-Pq-huW"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="mzg-eH-ZO2" firstAttribute="top" secondItem="WkV-Pq-huW" secondAttribute="top" id="CP8-NT-zy2"/>
+                            <constraint firstItem="RrM-Nf-mVy" firstAttribute="leading" secondItem="WkV-Pq-huW" secondAttribute="leading" constant="16" id="GMc-2S-v0K"/>
+                            <constraint firstItem="WkV-Pq-huW" firstAttribute="trailing" secondItem="RrM-Nf-mVy" secondAttribute="trailing" constant="16" id="Q4g-cs-eJo"/>
+                            <constraint firstItem="0Xe-zV-yKF" firstAttribute="top" secondItem="mzg-eH-ZO2" secondAttribute="bottom" constant="32" id="Zau-Y4-aU9"/>
+                            <constraint firstItem="WkV-Pq-huW" firstAttribute="bottom" secondItem="Sj2-iC-GcU" secondAttribute="bottom" constant="48" id="bQX-DJ-XVW"/>
+                            <constraint firstItem="WkV-Pq-huW" firstAttribute="trailing" secondItem="mzg-eH-ZO2" secondAttribute="trailing" id="sf4-G6-LUs"/>
+                            <constraint firstItem="mzg-eH-ZO2" firstAttribute="leading" secondItem="WkV-Pq-huW" secondAttribute="leading" id="tTM-6Y-SlB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addressLabel" destination="Sj2-iC-GcU" id="7he-83-asZ"/>
+                        <outlet property="locationSelectMapView" destination="mzg-eH-ZO2" id="xh7-Jz-7RD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zHj-VW-dvQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="FIz-BG-8vC"/>
+            </objects>
+            <point key="canvasLocation" x="183" y="-84"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

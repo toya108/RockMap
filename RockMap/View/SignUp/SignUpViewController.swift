@@ -68,54 +68,6 @@ class SignUpViewController: UIViewController {
                 }
             }.store(in: &binding)
         }
-//
-//        viewModel.$userNameValidationResult.sink { [weak self] result in
-//            guard let self = self else { return }
-//
-//            switch result {
-//            case .valid, .none:
-//                self.userNameErrorLabel.isHidden = true
-//
-//            case .invalid(let error):
-//                self.userNameErrorLabel.text = error.description
-//                self.userNameErrorLabel.isHidden = false
-//
-//            }
-//        }
-//        .store(in: &binding)
-//
-//        viewModel.$emailValidationResult.sink { [weak self] result in
-//            switch result {
-//            case .valid, .none:
-//                break
-//
-//            case .invalid(let error):
-//                break
-//            }
-//        }
-//        .store(in: &binding)
-//
-//        viewModel.$passwordValidationResult.sink { [weak self] result in
-//            switch result {
-//            case .valid, .none:
-//                break
-//
-//            case .invalid(let error):
-//                break
-//            }
-//        }
-//        .store(in: &binding)
-//
-//        viewModel.$confirmPasswordValidationResult.sink { [weak self] result in
-//            switch result {
-//            case .valid, .none:
-//                break
-//
-//            case .invalid(let error):
-//                break
-//            }
-//        }
-//        .store(in: &binding)
         
         viewModel.$isPassedAllValidation.sink { [weak self] isPassed in
             guard let self = self else { return }

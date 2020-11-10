@@ -17,17 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YSm-oU-5sr">
-                                <rect key="frame" x="16" y="60" width="382" height="802"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="課題を登録する" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftt-bF-T5Z">
-                                        <rect key="frame" x="0.0" y="387" width="382" height="26.5"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="AOH-MW-Fqd">
-                                        <rect key="frame" x="0.0" y="0.0" width="382" height="666"/>
+                                        <rect key="frame" x="16" y="16" width="382" height="666"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="sNf-ge-qhj">
                                                 <rect key="frame" x="0.0" y="0.0" width="382" height="321"/>
@@ -77,11 +70,11 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="AOH-MW-Fqd" firstAttribute="leading" secondItem="Mtt-D1-xW2" secondAttribute="leading" id="0Jw-94-icV"/>
-                                    <constraint firstItem="73h-jC-4vA" firstAttribute="trailing" secondItem="AOH-MW-Fqd" secondAttribute="trailing" id="1CK-tv-4Ba"/>
-                                    <constraint firstItem="AOH-MW-Fqd" firstAttribute="top" secondItem="Mtt-D1-xW2" secondAttribute="top" id="1ZH-wo-EC3"/>
-                                    <constraint firstItem="AOH-MW-Fqd" firstAttribute="trailing" secondItem="Mtt-D1-xW2" secondAttribute="trailing" id="3Lh-4I-wP9"/>
-                                    <constraint firstItem="AOH-MW-Fqd" firstAttribute="bottom" secondItem="Mtt-D1-xW2" secondAttribute="bottom" id="qB0-OV-4wh"/>
+                                    <constraint firstItem="AOH-MW-Fqd" firstAttribute="leading" secondItem="Mtt-D1-xW2" secondAttribute="leading" constant="16" id="0Jw-94-icV"/>
+                                    <constraint firstItem="AOH-MW-Fqd" firstAttribute="top" secondItem="Mtt-D1-xW2" secondAttribute="top" constant="16" id="1ZH-wo-EC3"/>
+                                    <constraint firstItem="AOH-MW-Fqd" firstAttribute="trailing" secondItem="Mtt-D1-xW2" secondAttribute="trailing" constant="16" id="3Lh-4I-wP9"/>
+                                    <constraint firstItem="AOH-MW-Fqd" firstAttribute="width" secondItem="73h-jC-4vA" secondAttribute="width" constant="-32" id="Qvs-Zt-CiF"/>
+                                    <constraint firstItem="AOH-MW-Fqd" firstAttribute="bottom" secondItem="Mtt-D1-xW2" secondAttribute="bottom" constant="-16" id="qB0-OV-4wh"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="Mtt-D1-xW2"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="73h-jC-4vA"/>
@@ -91,9 +84,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="w8h-3u-MM8" firstAttribute="bottom" secondItem="YSm-oU-5sr" secondAttribute="bottom" id="1Xe-Ar-XO0"/>
-                            <constraint firstItem="YSm-oU-5sr" firstAttribute="top" secondItem="w8h-3u-MM8" secondAttribute="top" constant="16" id="4hU-uh-HlF"/>
-                            <constraint firstItem="YSm-oU-5sr" firstAttribute="leading" secondItem="w8h-3u-MM8" secondAttribute="leading" constant="16" id="FiX-on-Tpf"/>
-                            <constraint firstItem="w8h-3u-MM8" firstAttribute="trailing" secondItem="YSm-oU-5sr" secondAttribute="trailing" constant="16" id="f4m-6k-o2P"/>
+                            <constraint firstItem="YSm-oU-5sr" firstAttribute="top" secondItem="w8h-3u-MM8" secondAttribute="top" id="4hU-uh-HlF"/>
+                            <constraint firstItem="YSm-oU-5sr" firstAttribute="leading" secondItem="w8h-3u-MM8" secondAttribute="leading" id="FiX-on-Tpf"/>
+                            <constraint firstItem="w8h-3u-MM8" firstAttribute="trailing" secondItem="YSm-oU-5sr" secondAttribute="trailing" id="f4m-6k-o2P"/>
                         </constraints>
                     </view>
                     <connections>
