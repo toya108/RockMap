@@ -16,7 +16,9 @@ final class RockRegisterViewController: UIViewController {
     @IBOutlet weak var backStackView: UIStackView!
     @IBOutlet weak var rockNameTextField: UITextField!
     @IBOutlet weak var rockNameErrorLabel: UILabel!
+    @IBOutlet weak var firstImageSelectStackView: UIStackView!
     @IBOutlet weak var firstImageUploadButton: UIButton!
+    @IBOutlet weak var rockImageErrorLabel: UILabel!
     @IBOutlet weak var imageSelectHorizontalScrollView: UIScrollView!
     @IBOutlet weak var imageHorizontalStackView: UIStackView!
     @IBOutlet weak var imageUploadButton: UIButton!
@@ -82,11 +84,8 @@ final class RockRegisterViewController: UIViewController {
         navigationItem.title = "岩を登録する"
         
         // コード上で指定しないと明朝体になってしまうバグのため
-        rockDescTextView.font = UIFont.systemFont(ofSize: 13)
         
         firstImageUploadButton.layer.cornerRadius = 8
-        firstImageUploadButton.layer.borderWidth = 1
-        firstImageUploadButton.layer.borderColor = UIColor.lightGray.cgColor
         
         currentAddressButton.layer.cornerRadius = 8
         mapBaseView.layer.cornerRadius = 8
@@ -107,7 +106,7 @@ final class RockRegisterViewController: UIViewController {
                 
                 guard let self = self else { return }
                 
-                self.firstImageUploadButton.isHidden = !data.isEmpty
+                self.firstImageSelectStackView.isHidden = !data.isEmpty
                 self.imageSelectHorizontalScrollView.isHidden = data.isEmpty
                 
                 if data.isEmpty { return }
@@ -155,6 +154,23 @@ final class RockRegisterViewController: UIViewController {
                 let rockAddressPin = MKPointAnnotation()
                 rockAddressPin.coordinate = location.coordinate
                 self.rockRegisterMapView.addAnnotation(rockAddressPin)
+            }
+            .store(in: &bindings)
+        
+        viewModel.$rockImageValidationResult
+            .receive(on: RunLoop.main)
+            .sink { [weak self] hasImage in
+                guard let self = self else { return }
+                self.rockImageErrorLabel.isHidden = hasImage
+                self.rockImageErrorLabel.text = hasImage ? "" : "岩の画像のアップロードは必須です。"
+            }
+            .store(in: &bindings)
+        
+        viewModel.$isPassedAllValidation
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isPassed in
+                guard let self = self else { return }
+                self.confirmButton.isEnabled = isPassed
             }
             .store(in: &bindings)
     }

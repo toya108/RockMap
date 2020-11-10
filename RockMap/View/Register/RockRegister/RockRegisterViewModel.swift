@@ -19,6 +19,7 @@ final class RockRegisterViewModel {
     @Published private(set) var state: NetworkState = .standby
     @Published private(set) var rockNameValidationResult: ValidationResult = .none
     @Published private(set) var rockAddressValidationResult: ValidationResult = .none
+    @Published private(set) var rockImageValidationResult = false
     @Published private(set) var isPassedAllValidation = false
     
     private var rockAddressShared: Publishers.Share<Published<String>.Publisher> {
@@ -33,11 +34,13 @@ final class RockRegisterViewModel {
     
     private func setupBindings() {
         $rockName
+            .dropFirst()
             .removeDuplicates()
             .map { name -> ValidationResult in RockNameValidator().validate(name) }
             .assign(to: &$rockNameValidationResult)
         
         rockAddressShared
+            .dropFirst()
             .removeDuplicates()
             .sink { address in
                 LocationManager.shared.geocoding(address: address) { [weak self] result in
@@ -57,8 +60,18 @@ final class RockRegisterViewModel {
             .store(in: &bindings)
         
         rockAddressShared
+            .dropFirst()
             .removeDuplicates()
             .map { address -> ValidationResult in RockAddressValidator().validate(address) }
             .assign(to: &$rockAddressValidationResult)
+        
+        $rockImageDatas
+            .map { !$0.isEmpty }
+            .assign(to: &$rockImageValidationResult)
+        
+        $rockNameValidationResult
+            .combineLatest($rockImageValidationResult, $rockAddressValidationResult)
+            .map { [$0.0.isValid, $0.1, $0.2.isValid].allSatisfy { $0 } }
+            .assign(to: &$isPassedAllValidation)
     }
 }
