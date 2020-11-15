@@ -10,6 +10,7 @@ disabled_rules:
 - nesting # クロージャの使用ですぐに警告が出るため
 - todo # すぐに修正できない場合があり、pushの度にlintに引っかかってbotに書き込まれるのがノイズになるから
 - type_contents_order
+- file_types_order
 
 # 通常無効だけど有効にするルール
 opt_in_rules:
@@ -23,7 +24,6 @@ opt_in_rules:
 - first_where # fileter+firstはfirst(where: )を使う方が好ましいので
 - last_where # 上記同様、last(where: )を使う方が好ましいので
 - contains_over_first_not_nil # first != nil はcontainでチェックした方が好ましいので
-- file_types_order # コードの整列によるレビュアーの負担軽減のため
 - type_contents_order # コードの整列によるレビュアーの負担軽減のため
 - let_var_whitespace # コードの整列によるレビュアーの負担軽減のため
 
