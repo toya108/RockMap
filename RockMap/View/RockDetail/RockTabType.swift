@@ -47,7 +47,8 @@ enum RockTabType: CaseIterable {
     
     var viewController: UIViewController {
         switch self {
-        case .map: return RockDetailMapViewController()
+        case .map:
+            return UIStoryboard(name: RockDetailMapViewController.className, bundle: nil).instantiateInitialViewController()!
             
         case .cources: return RockCourcesViewController()
             

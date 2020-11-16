@@ -38,7 +38,7 @@ class RockDetailViewController: UIViewController {
     
     private lazy var setup: (() -> Void) = {
         mainScrollView.contentInset.top = headerScrollView.bounds.height
-        contentsStackViewHeight.constant = view.bounds.height - tabCollectionView.bounds.height - tabBarHeight
+        contentsStackViewHeight.constant = view.bounds.height - tabCollectionView.bounds.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom
         return {}
     }()
     
