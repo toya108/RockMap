@@ -49,11 +49,13 @@ final class LoginViewModel {
     
     private func setupBindings() {
         $email
+            .dropFirst()
             .removeDuplicates()
             .map { email -> ValidationResult in EmailValidator().validate(email) }
             .assign(to: &$emailValidationResult)
         
         $password
+            .dropFirst()
             .removeDuplicates()
             .map { password -> ValidationResult in PasswordValidator().validate(password) }
             .assign(to: &$passwordValidationResult)
