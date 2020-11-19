@@ -65,6 +65,10 @@
                             <constraint firstItem="1VZ-99-5pr" firstAttribute="bottom" secondItem="M6b-XR-nJk" secondAttribute="bottom" constant="16" id="vOL-9k-u6E"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addressLabel" destination="Urg-fj-EUC" id="E3g-X4-c3G"/>
+                        <outlet property="mapView" destination="M6b-XR-nJk" id="L48-34-HQI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="16H-hG-ds1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
