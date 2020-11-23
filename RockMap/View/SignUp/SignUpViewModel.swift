@@ -52,21 +52,25 @@ final class SignUpViewModel {
     
     private func setupBindings() {
         $userName
+            .dropFirst()
             .removeDuplicates()
             .map { name -> ValidationResult in UserNameValidator().validate(name) }
             .assign(to: &$userNameValidationResult)
         
         $email
+            .dropFirst()
             .removeDuplicates()
             .map { email -> ValidationResult in EmailValidator().validate(email) }
             .assign(to: &$emailValidationResult)
         
         $password
+            .dropFirst()
             .removeDuplicates()
             .map { password -> ValidationResult in PasswordValidator().validate(password) }
             .assign(to: &$passwordValidationResult)
         
         $confirmPassword
+            .dropFirst()
             .removeDuplicates()
             .compactMap { [weak self] confirmPassword -> ValidationResult? in
                 guard let self = self else { return nil }
