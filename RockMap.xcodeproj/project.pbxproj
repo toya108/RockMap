@@ -20,6 +20,8 @@
 		9E0A9F192550519F007B9A90 /* RockRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */; };
 		9E0A9F1E2551006E007B9A90 /* UITextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F1D2551006E007B9A90 /* UITextViewExtension.swift */; };
 		9E0A9F29255104A0007B9A90 /* KeyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */; };
+		9E0D09302566B22300D3075F /* RockDetailMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D092F2566B22300D3075F /* RockDetailMapViewModel.swift */; };
+		9E0D09352566B31200D3075F /* RockDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D09342566B31200D3075F /* RockDetailViewModel.swift */; };
 		9E0FEDB225487B7B00009D09 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FEDB125487B7B00009D09 /* SignUpViewController.swift */; };
 		9E0FEDB725487B8E00009D09 /* SignUpViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E0FEDB625487B8E00009D09 /* SignUpViewController.storyboard */; };
 		9E1C031C2554574F00F923A3 /* ValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C031B2554574F00F923A3 /* ValidatorTests.swift */; };
@@ -104,6 +106,8 @@
 		9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockRegisterViewModel.swift; sourceTree = "<group>"; };
 		9E0A9F1D2551006E007B9A90 /* UITextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewExtension.swift; sourceTree = "<group>"; };
 		9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardExtension.swift; sourceTree = "<group>"; };
+		9E0D092F2566B22300D3075F /* RockDetailMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailMapViewModel.swift; sourceTree = "<group>"; };
+		9E0D09342566B31200D3075F /* RockDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewModel.swift; sourceTree = "<group>"; };
 		9E0FEDB125487B7B00009D09 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		9E0FEDB625487B8E00009D09 /* SignUpViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignUpViewController.storyboard; sourceTree = "<group>"; };
 		9E1C031B2554574F00F923A3 /* ValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorTests.swift; sourceTree = "<group>"; };
@@ -442,11 +446,13 @@
 			isa = PBXGroup;
 			children = (
 				9EF56021255AE76C00D00723 /* RockDetailViewController.swift */,
+				9E0D09342566B31200D3075F /* RockDetailViewModel.swift */,
 				9EF56029255AE77C00D00723 /* RockDetailViewController.storyboard */,
 				9E598A6525610281004F4AD3 /* TabCollectionViewCell.swift */,
 				9E598A6625610281004F4AD3 /* TabCollectionViewCell.xib */,
 				9EDAAF142561729800585D6E /* RockTabType.swift */,
 				9EDAAF1C2561747F00585D6E /* RockDetailMapViewController.swift */,
+				9E0D092F2566B22300D3075F /* RockDetailMapViewModel.swift */,
 				9E6AB12E2562CF9800444FBF /* RockDetailMapViewController.storyboard */,
 				9EDAAF2E2561775D00585D6E /* RockCourcesViewController.swift */,
 				9EDAAF262561755300585D6E /* RockClimbersTableViewController.swift */,
@@ -759,6 +765,7 @@
 				9E807CC6254D00310091935F /* ScreenType.swift in Sources */,
 				9EDAAF2F2561775D00585D6E /* RockCourcesViewController.swift in Sources */,
 				9E1C5B6D2545D10B004F99C1 /* RockDocument.swift in Sources */,
+				9E0D09302566B22300D3075F /* RockDetailMapViewModel.swift in Sources */,
 				9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */,
 				9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */,
 				9E5C5E372555144000D00087 /* Images.swift in Sources */,
@@ -768,6 +775,7 @@
 				9E04B1D0254BE7B30097DA8E /* LocationManager.swift in Sources */,
 				9E5CEFD025277B25001C95AA /* RockSearchViewController.swift in Sources */,
 				9E04B188254B1C380097DA8E /* SignUpViewModel.swift in Sources */,
+				9E0D09352566B31200D3075F /* RockDetailViewModel.swift in Sources */,
 				9E98D549255300B900EC5AC1 /* ColorPallet.swift in Sources */,
 				9E04B1C4254BDF3D0097DA8E /* LoginViewModel.swift in Sources */,
 				9E04B18D254B1EB30097DA8E /* UITextFieldExtension.swift in Sources */,
