@@ -10,7 +10,7 @@ import UIKit
 class RockDetailViewController: UIViewController {
     @IBOutlet weak var headerScrollView: UIScrollView!
     @IBOutlet weak var headerImageStackView: UIStackView!
-    @IBOutlet weak var mainScrollView: UIScrollView!
+    @IBOutlet weak var mainScrollView: HeaderIgnorableScrollView!
     @IBOutlet weak var tabCollectionView: UICollectionView!
     @IBOutlet weak var contentsScrollView: UIScrollView!
     @IBOutlet weak var contentsStackView: UIStackView!

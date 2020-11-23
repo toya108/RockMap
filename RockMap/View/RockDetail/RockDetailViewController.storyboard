@@ -16,19 +16,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qk8-zZ-mhf" userLabel="Header Scroll View">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qk8-zZ-mhf" userLabel="Header Scroll View">
                                 <rect key="frame" x="0.0" y="44" width="414" height="233"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeY-I8-nvF">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="233"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1656" height="233"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dfY-B5-z6c">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dfY-B5-z6c">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="233"/>
+                                                <color key="backgroundColor" red="1" green="0.46274509800000002" blue="0.42745098040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="dfY-B5-z6c" secondAttribute="height" multiplier="16:9" id="7WY-wC-cHc"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="penguin_rock" translatesAutoresizingMaskIntoConstraints="NO" id="de5-4W-qyO">
+                                                <rect key="frame" x="414" y="0.0" width="414" height="233"/>
                                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="de5-4W-qyO" secondAttribute="height" multiplier="16:9" id="08g-6g-Tzz"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="penguin_map_fill" translatesAutoresizingMaskIntoConstraints="NO" id="ypX-sg-fl1">
+                                                <rect key="frame" x="828" y="0.0" width="414" height="233"/>
+                                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="ypX-sg-fl1" secondAttribute="height" multiplier="16:9" id="Dir-f4-EaU"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fbK-mJ-LrB">
+                                                <rect key="frame" x="1242" y="0.0" width="414" height="233"/>
+                                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="fbK-mJ-LrB" secondAttribute="height" multiplier="16:9" id="7Vh-VZ-bTO"/>
+                                                </constraints>
                                             </imageView>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="dfY-B5-z6c" secondAttribute="height" multiplier="16:9" id="V1R-75-8oD"/>
+                                            <constraint firstItem="de5-4W-qyO" firstAttribute="height" secondItem="GeY-I8-nvF" secondAttribute="height" id="7bK-yh-Lrq"/>
+                                            <constraint firstItem="ypX-sg-fl1" firstAttribute="height" secondItem="GeY-I8-nvF" secondAttribute="height" id="ViE-4T-N1e"/>
+                                            <constraint firstItem="dfY-B5-z6c" firstAttribute="height" secondItem="GeY-I8-nvF" secondAttribute="height" id="i4L-bY-OQ1"/>
+                                            <constraint firstItem="fbK-mJ-LrB" firstAttribute="height" secondItem="GeY-I8-nvF" secondAttribute="height" id="yLe-4k-uMH"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -43,7 +70,7 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="jot-Rk-UgH"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="vU2-TR-zHK"/>
                             </scrollView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sml-xq-P63">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sml-xq-P63" customClass="HeaderIgnorableScrollView" customModule="RockMap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VdG-r8-F05">
@@ -62,7 +89,7 @@
                                                                     <constraint firstAttribute="height" constant="36" id="w91-mc-wa6"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="日陰岩" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNm-H6-eok" userLabel="日陰岩">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hoge" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNm-H6-eok" userLabel="日陰岩">
                                                                 <rect key="frame" x="44" y="0.0" width="122" height="36"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="21"/>
                                                                 <nil key="textColor"/>
@@ -77,7 +104,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IKa-7u-EqK">
-                                                        <rect key="frame" x="16" y="60" width="174.5" height="153"/>
+                                                        <rect key="frame" x="16" y="60" width="132.5" height="153"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登録者" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8tS-LM-fMh">
                                                                 <rect key="frame" x="0.0" y="67.5" width="46" height="18"/>
@@ -85,14 +112,14 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="岩ペンさん" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKI-MJ-4b4">
-                                                                <rect key="frame" x="54" y="67.5" width="76.5" height="18"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hoge" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mKI-MJ-4b4">
+                                                                <rect key="frame" x="54" y="67.5" width="34.5" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pengin_course" translatesAutoresizingMaskIntoConstraints="NO" id="rwI-Dg-H3m">
-                                                                <rect key="frame" x="138.5" y="58.5" width="36" height="36"/>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="rwI-Dg-H3m">
+                                                                <rect key="frame" x="96.5" y="58.5" width="36" height="36"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="36" id="P24-ra-LLl"/>
                                                                     <constraint firstAttribute="width" secondItem="rwI-Dg-H3m" secondAttribute="height" multiplier="1:1" id="X4l-JE-qAK"/>
@@ -185,6 +212,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6lT-yb-VZG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="6lT-yb-VZG" firstAttribute="trailing" secondItem="sml-xq-P63" secondAttribute="trailing" id="3x4-Yz-ckA"/>
                             <constraint firstItem="sml-xq-P63" firstAttribute="top" secondItem="6lT-yb-VZG" secondAttribute="top" id="61g-4G-i5q"/>
@@ -213,7 +241,8 @@
     </scenes>
     <resources>
         <image name="Image" width="512" height="512"/>
-        <image name="pengin_course" width="1179" height="884"/>
+        <image name="penguin_map_fill" width="884" height="884"/>
+        <image name="penguin_rock" width="1179" height="884"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
