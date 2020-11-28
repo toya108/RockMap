@@ -235,8 +235,8 @@
 			isa = PBXGroup;
 			children = (
 				9E0FEDB125487B7B00009D09 /* SignUpViewController.swift */,
-				9E04B187254B1C380097DA8E /* SignUpViewModel.swift */,
 				9E0FEDB625487B8E00009D09 /* SignUpViewController.storyboard */,
+				9E04B187254B1C380097DA8E /* SignUpViewModel.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -501,6 +501,7 @@
 				9E0C9F3A2534A8F600F66F01 /* SwiftLint */,
 				BC5A6EA522147B78E11DE918 /* [CP] Embed Pods Frameworks */,
 				9E5C5E272554EFA600D00087 /* Crashlytics */,
+				71A821B98C3AD9AAC2EEEF1B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -539,6 +540,7 @@
 				9E5CEFE625277B26001C95AA /* Frameworks */,
 				9E5CEFE725277B26001C95AA /* Resources */,
 				641DF250AFE7D6190E0B42CE /* [CP] Embed Pods Frameworks */,
+				7F46C6CA4739EE15E57BD472 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -647,6 +649,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		71A821B98C3AD9AAC2EEEF1B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RockMap/Pods-RockMap-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RockMap/Pods-RockMap-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RockMap/Pods-RockMap-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7F46C6CA4739EE15E57BD472 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9E0C9F3A2534A8F600F66F01 /* SwiftLint */ = {
