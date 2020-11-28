@@ -73,7 +73,17 @@ final class RockRegisterViewController: UIViewController {
     }
     
     @IBAction func didConfirmButtonTapped(_ sender: UIButton) {
-        
+        guard let vc = (UIStoryboard(name: RockConfirmViewController.className, bundle: nil).instantiateInitialViewController { [weak self] coder in
+            
+            guard let self = self else { return RockConfirmViewController(coder: coder) }
+            
+            return RockConfirmViewController(coder: coder, viewModel: .init(rockName: self.viewModel.rockName,
+                                                                            rockImageDatas: self.viewModel.rockImageDatas,
+                                                                            rockAddress: self.viewModel.rockAddress,
+                                                                            rockLocation: self.viewModel.rockLocation,
+                                                                            rockDesc: self.viewModel.rockDesc))
+        }) else { return }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func setupDelegate() {
@@ -82,8 +92,6 @@ final class RockRegisterViewController: UIViewController {
     
     private func setupLayout() {
         navigationItem.title = "岩を登録する"
-        
-        // コード上で指定しないと明朝体になってしまうバグのため
         
         firstImageUploadButton.layer.cornerRadius = 8
         
