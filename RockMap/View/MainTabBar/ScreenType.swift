@@ -17,14 +17,19 @@ enum ScreenType: CaseIterable {
     var viewController: UIViewController {
         switch self {
         case .rockSearch:
-            return UINavigationController(rootViewController: UIStoryboard(name: RockSearchViewController.className, bundle: nil).instantiateInitialViewController()!)
+            return RockMapNavigationController(
+                rootVC: UIStoryboard(name: RockSearchViewController.className, bundle: nil).instantiateInitialViewController()!,
+                naviBarClass: RockMapNavigationBar.self)
             
         case .register:
-            return UINavigationController(rootViewController: UIStoryboard(name: RegisterViewController.className, bundle: nil).instantiateInitialViewController()!)
-            
+            return RockMapNavigationController(
+                rootVC: UIStoryboard(name: RegisterViewController.className, bundle: nil).instantiateInitialViewController()!,
+                naviBarClass: RockMapNavigationBar.self)
+
         case .myPage:
-            return UINavigationController(rootViewController: UIStoryboard(name: MyPageViewController.className, bundle: nil).instantiateInitialViewController()!)
-            
+            return RockMapNavigationController(
+                rootVC: UIStoryboard(name: MyPageViewController.className, bundle: nil).instantiateInitialViewController()!,
+                naviBarClass: RockMapNavigationBar.self)
         }
     }
     
@@ -45,18 +50,37 @@ enum ScreenType: CaseIterable {
     var image: UIImage? {
         switch self {
         case .rockSearch:
-            return UIImage.AssetsImages.mapFill
+            let image = UIImage.AssetsImages.map.withTintColor(.white, renderingMode: .alwaysOriginal)
+            return image
             
         case .register:
-            return UIImage.AssetsImages.pencilCircle
+            let image = UIImage.AssetsImages.pencilCircle.withTintColor(.white, renderingMode: .alwaysOriginal)
+            return image
             
         case .myPage:
-            return UIImage.AssetsImages.personCircle
-            
+            let image = UIImage.AssetsImages.personCircle.withTintColor(.white, renderingMode: .alwaysOriginal)
+            return image
+
 //        #if !RELEASE
 //        case .debug:
 //            return nil
 //        #endif
+        }
+    }
+    
+    var selectedImage: UIImage? {
+        switch self {
+        case .rockSearch:
+            let image = UIImage.AssetsImages.mapFill.withTintColor(.white, renderingMode: .alwaysOriginal)
+            return image
+            
+        case .register:
+            let image = UIImage.AssetsImages.pencilCircleFill.withTintColor(.white, renderingMode: .alwaysOriginal)
+            return image
+            
+        case .myPage:
+            let image = UIImage.AssetsImages.personCircleFill.withTintColor(.white, renderingMode: .alwaysOriginal)
+            return image
         }
     }
 }

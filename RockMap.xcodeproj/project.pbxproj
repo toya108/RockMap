@@ -17,6 +17,9 @@
 		9E04B1C4254BDF3D0097DA8E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1C3254BDF3D0097DA8E /* LoginViewModel.swift */; };
 		9E04B1C9254BDFEE0097DA8E /* NetWorkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1C8254BDFEE0097DA8E /* NetWorkState.swift */; };
 		9E04B1D0254BE7B30097DA8E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1CF254BE7B30097DA8E /* LocationManager.swift */; };
+		9E08AC7C2572A84100D69927 /* RockMapNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08AC7B2572A84100D69927 /* RockMapNavigationController.swift */; };
+		9E08AC812572A8AA00D69927 /* RockMapNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08AC802572A8AA00D69927 /* RockMapNavigationBar.swift */; };
+		9E08AC9C2573D36A00D69927 /* UIConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08AC9B2573D36A00D69927 /* UIConst.swift */; };
 		9E0A9F192550519F007B9A90 /* RockRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */; };
 		9E0A9F1E2551006E007B9A90 /* UITextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F1D2551006E007B9A90 /* UITextViewExtension.swift */; };
 		9E0A9F29255104A0007B9A90 /* KeyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */; };
@@ -106,6 +109,9 @@
 		9E04B1C3254BDF3D0097DA8E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		9E04B1C8254BDFEE0097DA8E /* NetWorkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkState.swift; sourceTree = "<group>"; };
 		9E04B1CF254BE7B30097DA8E /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		9E08AC7B2572A84100D69927 /* RockMapNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockMapNavigationController.swift; sourceTree = "<group>"; };
+		9E08AC802572A8AA00D69927 /* RockMapNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockMapNavigationBar.swift; sourceTree = "<group>"; };
+		9E08AC9B2573D36A00D69927 /* UIConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConst.swift; sourceTree = "<group>"; };
 		9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockRegisterViewModel.swift; sourceTree = "<group>"; };
 		9E0A9F1D2551006E007B9A90 /* UITextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewExtension.swift; sourceTree = "<group>"; };
 		9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardExtension.swift; sourceTree = "<group>"; };
@@ -227,6 +233,8 @@
 				9E2B112E25471F6100D7E56C /* LoginViewController.swift */,
 				9E04B1C3254BDF3D0097DA8E /* LoginViewModel.swift */,
 				9E2B113325471F7400D7E56C /* LoginViewController.storyboard */,
+				9E08AC7B2572A84100D69927 /* RockMapNavigationController.swift */,
+				9E08AC802572A8AA00D69927 /* RockMapNavigationBar.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -811,6 +819,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E08AC812572A8AA00D69927 /* RockMapNavigationBar.swift in Sources */,
 				9E98D554255303D200EC5AC1 /* ImageUploadPopOverTableViewController.swift in Sources */,
 				9EDAAF1D2561747F00585D6E /* RockDetailMapViewController.swift in Sources */,
 				9E04B1B5254BC3FC0097DA8E /* StringExtesnion.swift in Sources */,
@@ -822,6 +831,7 @@
 				9E0D09302566B22300D3075F /* RockDetailMapViewModel.swift in Sources */,
 				9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */,
 				9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */,
+				9E08AC9C2573D36A00D69927 /* UIConst.swift in Sources */,
 				9E5C5E372555144000D00087 /* Images.swift in Sources */,
 				9E0A9F192550519F007B9A90 /* RockRegisterViewModel.swift in Sources */,
 				9E807CBD254CFF640091935F /* RegisterViewController.swift in Sources */,
@@ -848,6 +858,7 @@
 				9EEADA1C255AD39100F20228 /* PlaceHolderTextView.swift in Sources */,
 				9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */,
 				9E1C5B682545CE57004F99C1 /* FireStoreClient.swift in Sources */,
+				9E08AC7C2572A84100D69927 /* RockMapNavigationController.swift in Sources */,
 				9E5CEFCE25277B25001C95AA /* SceneDelegate.swift in Sources */,
 				9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */,
 				9E04B1C9254BDFEE0097DA8E /* NetWorkState.swift in Sources */,
