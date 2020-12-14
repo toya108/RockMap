@@ -33,8 +33,10 @@ extension UIViewController {
         return controller
     }
     
-    var tabBarHeight: CGFloat {
-        guard let rootTabVC = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController as? UITabBarController else { return 0.0 }
-        return rootTabVC.tabBar.bounds.height
+    func showOKAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
 }
