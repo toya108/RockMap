@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol FICollectionProtocol {
+protocol FINameSpaceProtocol {
     static var name: String { get }
 }
 
 protocol FIDocumentProtocol: Codable {
-    associatedtype Collection: FICollectionProtocol
+    associatedtype Collection: FINameSpaceProtocol
 }
 
 extension FIDocumentProtocol {

@@ -9,7 +9,7 @@ import Foundation
 
 extension FIDocument {
     struct Users: FIDocumentProtocol {
-        typealias Collection = FICollection.Users
+        typealias Collection = FINameSpace.Users
         
         var uid: String
         var name: String

@@ -7,12 +7,15 @@
 
 import FirebaseFirestore
 
-final class FirestoreManager {
+struct FirestoreManager {
     static let db = Firestore.firestore()
     static let encoder = Firestore.Encoder()
     
-    static func set<T: FIDocumentProtocol>(key: String, _ document: T, completion: ((Result<Void, Error>) -> Void)? = nil) {
-        db.collection(T.colletionName).document(key).setData(document.dictionary) { error in
+    static func set<T: FIDocumentProtocol>(key: String = "", _ newDocument: T, completion: ((Result<Void, Error>) -> Void)? = nil) {
+        
+        let document = key.isEmpty ? db.collection(T.colletionName).document() : db.collection(T.colletionName).document(key)
+        
+        document.setData(newDocument.dictionary) { error in
             
             guard let completion = completion else { return }
             

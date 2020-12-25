@@ -7,12 +7,13 @@
 
 import FirebaseFirestore
 
-struct FICollection {
-    struct Users: FICollectionProtocol {
+struct FINameSpace {
+    struct Users: FINameSpaceProtocol {
         static var name: String { "users" }
     }
-    
-    struct Rocks {}
+    struct Rocks: FINameSpaceProtocol {
+        static var name: String { "rocks" }
+    }
 }
 
 struct FIDocument {}

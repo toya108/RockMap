@@ -54,16 +54,21 @@ extension LoginViewController: FUIAuthDelegate {
             if nsError.code == 1 { return }
             
             self.showOKAlert(title: "認証に失敗しました。", message: error.localizedDescription)
-            
+            return
         }
         
-        guard let user = user else { return }
+        guard let user = user else {
+            self.showOKAlert(title: "認証に失敗しました。", message: "通信環境をご確認の上再度お試しください。")
+            return
+        }
         
         FirestoreManager.set(
             key: user.uid,
-            FIDocument.Users(uid: user.uid,
-                             name: user.displayName ?? "-",
-                             email: user.email)
+            FIDocument.Users(
+                uid: user.uid,
+                name: user.displayName ?? "-",
+                email: user.email
+            )
         ) { [weak self] result in
             guard let self = self else { return }
             
