@@ -34,28 +34,60 @@ final class RockRegisterViewController: UIViewController {
     private let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
     private var bindings = Set<AnyCancellable>()
     
+    private let phPickerViewController: PHPickerViewController = {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 0
+        configuration.filter = .images
+
+        return PHPickerViewController(configuration: configuration)
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDelegate()
         setupLayout()
         setupKeyboard()
+        setupImageUploadButtonActions()
         bindViewToViewModel()
         bindViewModelToView()
         
         rockAddressTextView.setText(text: LocationManager.shared.address)
     }
     
+    private func setupImageUploadButtonActions() {
+        let photoLibraryAction = UIAction(
+            title: "フォトライブラリ",
+            image: UIImage.AssetsImages.folderFill
+        ) { [weak self] _ in
+            
+            guard let self = self else { return }
+
+            self.present(self.phPickerViewController, animated: true)
+        }
+        
+        let cameraAction = UIAction(
+            title: "写真を撮る",
+            image: UIImage.AssetsImages.cameraFill
+        ) { [weak self] _ in
+            
+            guard let self = self else { return }
+            
+            let vc = UIImagePickerController()
+            vc.delegate = self
+            vc.sourceType = .camera
+            self.present(vc, animated: true)
+        }
+        
+        let menu = UIMenu(title: "", children: [photoLibraryAction, cameraAction])
+        [imageUploadButton, firstImageUploadButton].forEach {
+            $0?.menu = menu
+            $0?.showsMenuAsPrimaryAction = true
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-    @IBAction func didFirstImageUploadButtonTapped(_ sender: UIButton) {
-        presentImageUploadPopOver(sender: sender)
-    }
-    
-    @IBAction func didImageUploadButtonTapped(_ sender: UIButton) {
-        presentImageUploadPopOver(sender: sender)
     }
     
     @IBAction func didCurrentAddressButtonTapped(_ sender: UIButton) {
@@ -77,28 +109,35 @@ final class RockRegisterViewController: UIViewController {
             
             guard let self = self else { return RockConfirmViewController(coder: coder) }
             
-            return RockConfirmViewController(coder: coder, viewModel: .init(rockName: self.viewModel.rockName,
-                                                                            rockImageDatas: self.viewModel.rockImageDatas,
-                                                                            rockAddress: self.viewModel.rockAddress,
-                                                                            rockLocation: self.viewModel.rockLocation,
-                                                                            rockDesc: self.viewModel.rockDesc))
+            return RockConfirmViewController(
+                coder: coder,
+                viewModel: .init(
+                    rockName: self.viewModel.rockName,
+                    rockImageDatas: self.viewModel.rockImageDatas,
+                    rockAddress: self.viewModel.rockAddress,
+                    rockLocation: self.viewModel.rockLocation,
+                    rockDesc: self.viewModel.rockDesc
+                )
+            )
         }) else { return }
         navigationController?.pushViewController(vc, animated: true)
     }
     
     private func setupDelegate() {
         rockNameTextField.delegate = self
+        phPickerViewController.delegate = self
     }
     
     private func setupLayout() {
         navigationItem.title = "岩を登録する"
         
-        firstImageUploadButton.layer.cornerRadius = 8
-        
-        currentAddressButton.layer.cornerRadius = 8
-        mapBaseView.layer.cornerRadius = 8
-        imageUploadButton.layer.cornerRadius = 8
-        confirmButton.layer.cornerRadius = 8
+        [firstImageUploadButton,
+         currentAddressButton,
+         mapBaseView,
+         imageUploadButton,
+         confirmButton
+        ]
+        .forEach { $0?.layer.cornerRadius = 8 }
     }
     
     private func bindViewToViewModel() {
@@ -183,18 +222,6 @@ final class RockRegisterViewController: UIViewController {
             .store(in: &bindings)
     }
     
-    private func presentImageUploadPopOver(sender: UIButton) {
-        let popOverVC = ImageUploadPopOverTableViewController()
-        popOverVC.modalPresentationStyle = .popover
-        popOverVC.preferredContentSize = CGSize(width: 300, height: 88)
-        popOverVC.popoverPresentationController?.sourceView = sender.superview
-        popOverVC.popoverPresentationController?.sourceRect = sender.frame
-        popOverVC.popoverPresentationController?.delegate = self
-        popOverVC.selectPhotoLibraryCellHandler = selectPhotoLibraryCellHandler
-        popOverVC.selectCameraCellHandler = selectCameraCellHandler
-        present(popOverVC, animated: true)
-    }
-    
     private func makeDeletableImageView(data: Data) -> UIImageView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -219,28 +246,6 @@ final class RockRegisterViewController: UIViewController {
         ])
         return imageView
     }
-    
-    private var selectCameraCellHandler: () -> Void {{ [weak self] in
-        
-        guard let self = self else { return }
-        
-        let vc = UIImagePickerController()
-        vc.delegate = self
-        vc.sourceType = .camera
-        self.present(vc, animated: true)
-    }}
-    
-    private var selectPhotoLibraryCellHandler: () -> Void {{ [weak self] in
-        
-        guard let self = self else { return }
-        
-        var configuration = PHPickerConfiguration()
-        configuration.selectionLimit = 0
-        configuration.filter = .images
-        let picker = PHPickerViewController(configuration: configuration)
-        picker.delegate = self
-        self.present(picker, animated: true)
-    }}
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)

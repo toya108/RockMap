@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gzz-f8-r9L">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Gzz-f8-r9L">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="44" width="67.5" height="818"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="9bH-QU-13g">
-                                        <rect key="frame" x="0.0" y="0.0" width="67.5" height="447"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="67.5" height="445"/>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I0A-hW-w9g">
                                                 <rect key="frame" x="0.0" y="0.0" width="67.5" height="38"/>
@@ -99,7 +99,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="KrA-Dg-HYA">
+                                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="standard" scrollEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KrA-Dg-HYA">
                                                         <rect key="frame" x="0.0" y="69.5" width="35.5" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="KrA-Dg-HYA" secondAttribute="height" multiplier="16:9" id="gbO-XE-PYP"/>
@@ -112,7 +112,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="e6Y-uo-ynV">
-                                                <rect key="frame" x="0.0" y="298.5" width="67.5" height="148.5"/>
+                                                <rect key="frame" x="0.0" y="298.5" width="67.5" height="146.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="※登録した内容は他のユーザーに公開されます。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v4v-L3-4ox">
                                                         <rect key="frame" x="1" y="0.0" width="65.5" height="100.5"/>
@@ -120,13 +120,16 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y3N-aM-QbT" userLabel="登録内容を確認">
-                                                        <rect key="frame" x="0.0" y="116.5" width="67.5" height="32"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y3N-aM-QbT" userLabel="登録する">
+                                                        <rect key="frame" x="0.0" y="116.5" width="67.5" height="30"/>
                                                         <color key="backgroundColor" name="primaryGreenColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <state key="normal" title="　登録する　">
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                        <state key="normal" title="　　登録する　　">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="registButtonTapped:" destination="Gzz-f8-r9L" eventType="touchUpInside" id="yIi-Oe-bdU"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -134,7 +137,7 @@
                                     </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="9bH-QU-13g" firstAttribute="bottom" secondItem="faf-wc-JkG" secondAttribute="bottom" id="0dy-G7-o3W"/>
+                                    <constraint firstItem="9bH-QU-13g" firstAttribute="bottom" secondItem="faf-wc-JkG" secondAttribute="bottom" constant="-16" id="0dy-G7-o3W"/>
                                     <constraint firstItem="9bH-QU-13g" firstAttribute="leading" secondItem="faf-wc-JkG" secondAttribute="leading" id="6cg-g2-qlu"/>
                                     <constraint firstItem="9bH-QU-13g" firstAttribute="top" secondItem="faf-wc-JkG" secondAttribute="top" id="Dsm-D8-djE"/>
                                     <constraint firstItem="9bH-QU-13g" firstAttribute="width" secondItem="KXh-3w-m77" secondAttribute="width" id="Rf5-M9-Nge"/>
@@ -143,6 +146,10 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="faf-wc-JkG"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="KXh-3w-m77"/>
                             </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" alpha="0.45000000000000001" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="jga-uV-sg5">
+                                <rect key="frame" x="0.0" y="44" width="67.5" height="818"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="U4k-Mp-qLD"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -153,15 +160,20 @@
                             <constraint firstItem="U4k-Mp-qLD" firstAttribute="bottom" secondItem="TJV-hD-Qq7" secondAttribute="bottom" id="K0g-qS-4mm"/>
                             <constraint firstItem="TnZ-Vy-56J" firstAttribute="leading" secondItem="U4k-Mp-qLD" secondAttribute="leading" constant="16" id="NLM-nr-Mq0"/>
                             <constraint firstItem="XOm-Rt-NBc" firstAttribute="leading" secondItem="U4k-Mp-qLD" secondAttribute="leading" constant="16" id="P0c-Rj-mhu"/>
+                            <constraint firstItem="U4k-Mp-qLD" firstAttribute="bottom" secondItem="jga-uV-sg5" secondAttribute="bottom" id="Ud8-CU-Op9"/>
                             <constraint firstItem="U4k-Mp-qLD" firstAttribute="trailing" secondItem="TnZ-Vy-56J" secondAttribute="trailing" constant="16" id="bS1-p1-Je3"/>
                             <constraint firstItem="TJV-hD-Qq7" firstAttribute="top" secondItem="U4k-Mp-qLD" secondAttribute="top" id="fqa-Y5-TgD"/>
+                            <constraint firstItem="jga-uV-sg5" firstAttribute="trailing" secondItem="U4k-Mp-qLD" secondAttribute="trailing" id="kfU-ar-IjO"/>
+                            <constraint firstItem="jga-uV-sg5" firstAttribute="top" secondItem="U4k-Mp-qLD" secondAttribute="top" id="llc-dr-hOw"/>
                             <constraint firstItem="TJV-hD-Qq7" firstAttribute="leading" secondItem="U4k-Mp-qLD" secondAttribute="leading" id="phU-j5-lx8"/>
                             <constraint firstItem="I0A-hW-w9g" firstAttribute="leading" secondItem="U4k-Mp-qLD" secondAttribute="leading" id="rK0-Gl-Eh1"/>
+                            <constraint firstItem="jga-uV-sg5" firstAttribute="leading" secondItem="U4k-Mp-qLD" secondAttribute="leading" id="s94-3t-XTd"/>
                             <constraint firstItem="U4k-Mp-qLD" firstAttribute="trailing" secondItem="MiO-tO-bJ1" secondAttribute="trailing" constant="16" id="zKV-Mn-e9E"/>
                             <constraint firstItem="U4k-Mp-qLD" firstAttribute="trailing" secondItem="XOm-Rt-NBc" secondAttribute="trailing" constant="16" id="zOC-fK-ZJs"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="indicator" destination="jga-uV-sg5" id="6Zd-1i-1ql"/>
                         <outlet property="mapView" destination="KrA-Dg-HYA" id="fr8-6l-fEg"/>
                         <outlet property="registButton" destination="y3N-aM-QbT" id="AQa-Dc-DHg"/>
                         <outlet property="rockAddressLabel" destination="egO-HI-hxn" id="CMX-ye-2LQ"/>
@@ -173,7 +185,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="567-ld-bPW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="128" y="104"/>
+            <point key="canvasLocation" x="127.53623188405798" y="103.79464285714285"/>
         </scene>
     </scenes>
     <resources>

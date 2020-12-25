@@ -4,16 +4,16 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleLocalizations</key>
-	<array>
-		<string>ja</string>
-	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>ja</string>
+	</array>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
@@ -22,12 +22,39 @@
 	<string>1.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
-		<dict/>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1105617966536833</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.19350583420-352lukvlokb234h6tre9mn850hqiar3v</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<string>FALSE</string>
+	<key>FacebookAppID</key>
+	<string>1105617966536833</string>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<string>FALSE</string>
+	<key>FacebookDisplayName</key>
+	<string>RockMap</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>撮影した写真の投稿機能に使用します。</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>地図上で現在位置を取得するために使用します。</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>画像投稿機能に使用します。</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -49,10 +76,6 @@
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>画像投稿機能に使用します。</string>
-	<key>NSCameraUsageDescription</key>
-	<string>撮影した写真の投稿機能に使用します。</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -70,7 +93,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>地図上で現在位置を取得するために使用します。</string>
 </dict>
 </plist>

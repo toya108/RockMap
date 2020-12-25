@@ -12,7 +12,8 @@ final class HeaderIgnorableScrollView: UIScrollView {
         let view = super.hitTest(point, with: event)
         
         if view == self,
-           point.x < UIScreen.main.bounds.width && point.y < UIScreen.main.bounds.height * (9/16) {
+           point.x < UIScreen.main.bounds.width && point.y < UIScreen.main.bounds.height * (9/16)
+        {
             return nil
         }
         return view

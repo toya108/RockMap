@@ -28,7 +28,8 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func didCourseRegisterButtonTapped(_ sender: UIButton) {
-        
+        guard let vc = UIStoryboard(name: RockDetailViewController.className, bundle: nil).instantiateInitialViewController() else { return }
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func setupLayout() {

@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FirebaseUI
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -32,6 +33,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+        guard let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String else { return false }
+        
+        // GoogleもしくはFacebook認証の場合、trueを返す
+        if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
+            return true
+        }
+        return false
+    }
 
 }
 

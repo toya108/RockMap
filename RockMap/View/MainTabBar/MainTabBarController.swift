@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+final class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,21 +27,23 @@ class MainTabBarController: UITabBarController {
         zip(viewControllers.map(\.tabBarItem), ScreenType.allCases).forEach {
             $0.0?.title = $0.1.tabName
             $0.0?.image = $0.1.image
+            $0.0?.selectedImage = $0.1.selectedImage
         }
     }
     
     private func setupLayout() {
-        UITabBar.appearance().tintColor = UIColor.Pallete.primaryGreen
+        UITabBar.appearance().barTintColor = UIColor.Pallete.primaryGreen
+        UITabBar.appearance().tintColor = .white
+        UITabBar.appearance().backgroundImage = UIGraphicsImageRenderer.init(size: .init(width: 1, height: 1)).image { context in
+            UIColor.Pallete.primaryGreen.setFill()
+            context.fill(.init(origin: .init(x: 0, y: 0), size: .init(width: 1, height: 1)))
+        }
+        UITabBar.appearance().shadowImage = UIImage()
+        UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
         
-        let borderLineView = UIView()
-        borderLineView.backgroundColor = UIColor.Pallete.primaryGreen
-        borderLineView.translatesAutoresizingMaskIntoConstraints = false
-        tabBar.addSubview(borderLineView)
-        
-        NSLayoutConstraint.activate([
-            borderLineView.heightAnchor.constraint(equalToConstant: 1),
-            borderLineView.leftAnchor.constraint(equalTo: tabBar.leftAnchor),
-            borderLineView.rightAnchor.constraint(equalTo: tabBar.rightAnchor)
-        ])
+        tabBar.layer.shadowColor = UIConst.ShadowConst.color
+        tabBar.layer.shadowRadius = UIConst.ShadowConst.radius
+        tabBar.layer.shadowOpacity = UIConst.ShadowConst.opacity
+        tabBar.layer.shadowOffset = .init(width: 0, height: -2)
     }
 }
