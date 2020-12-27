@@ -19,17 +19,21 @@ enum ScreenType: CaseIterable {
         case .rockSearch:
             return RockMapNavigationController(
                 rootVC: UIStoryboard(name: RockSearchViewController.className, bundle: nil).instantiateInitialViewController()!,
-                naviBarClass: RockMapNavigationBar.self)
+                naviBarClass: RockMapNavigationBar.self
+            )
             
         case .register:
             return RockMapNavigationController(
                 rootVC: UIStoryboard(name: RegisterViewController.className, bundle: nil).instantiateInitialViewController()!,
-                naviBarClass: RockMapNavigationBar.self)
+                naviBarClass: RockMapNavigationBar.self
+            )
 
         case .myPage:
             return RockMapNavigationController(
                 rootVC: UIStoryboard(name: MyPageViewController.className, bundle: nil).instantiateInitialViewController()!,
-                naviBarClass: RockMapNavigationBar.self)
+                naviBarClass: RockMapNavigationBar.self
+            )
+            
         }
     }
     

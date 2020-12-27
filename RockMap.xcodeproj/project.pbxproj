@@ -64,6 +64,7 @@
 		9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D53F2552F8AB00EC5AC1 /* TouchableScrollView.swift */; };
 		9E98D549255300B900EC5AC1 /* ColorPallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D548255300B900EC5AC1 /* ColorPallet.swift */; };
 		9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6BA66252E00E400553026 /* MainTabBarController.swift */; };
+		9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED972992596471C0069FB94 /* ArrayExtension.swift */; };
 		9EDAAF152561729800585D6E /* RockTabType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDAAF142561729800585D6E /* RockTabType.swift */; };
 		9EDAAF1D2561747F00585D6E /* RockDetailMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDAAF1C2561747F00585D6E /* RockDetailMapViewController.swift */; };
 		9EDAAF272561755300585D6E /* RockClimbersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDAAF262561755300585D6E /* RockClimbersTableViewController.swift */; };
@@ -166,6 +167,7 @@
 		9E98D53F2552F8AB00EC5AC1 /* TouchableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableScrollView.swift; sourceTree = "<group>"; };
 		9E98D548255300B900EC5AC1 /* ColorPallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPallet.swift; sourceTree = "<group>"; };
 		9EB6BA66252E00E400553026 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		9ED972992596471C0069FB94 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		9EDAAF142561729800585D6E /* RockTabType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockTabType.swift; sourceTree = "<group>"; };
 		9EDAAF1C2561747F00585D6E /* RockDetailMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailMapViewController.swift; sourceTree = "<group>"; };
 		9EDAAF262561755300585D6E /* RockClimbersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockClimbersTableViewController.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 			children = (
 				9E04B1B4254BC3FC0097DA8E /* StringExtesnion.swift */,
 				9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */,
+				9ED972992596471C0069FB94 /* ArrayExtension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -906,6 +909,7 @@
 				9E04B1C9254BDFEE0097DA8E /* NetWorkState.swift in Sources */,
 				9E60DCB52557148A000CF2E8 /* RockLocationSelectViewController.swift in Sources */,
 				9E807CCB254E92F50091935F /* RockRegisterViewController.swift in Sources */,
+				9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
