@@ -447,7 +447,7 @@
 				9E807CCA254E92F50091935F /* RockRegisterViewController.swift */,
 				9E807CD0254E93120091935F /* RockRegisterViewController.storyboard */,
 				9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */,
-				9EEADA17255AD1DD00F20228 /* RocationSelect */,
+				9EEADA17255AD1DD00F20228 /* LocationSelect */,
 			);
 			path = RockRegister;
 			sourceTree = "<group>";
@@ -486,6 +486,42 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		9ED972A1259ACE780069FB94 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				9EDAAF1C2561747F00585D6E /* RockDetailMapViewController.swift */,
+				9E0D092F2566B22300D3075F /* RockDetailMapViewModel.swift */,
+				9E6AB12E2562CF9800444FBF /* RockDetailMapViewController.storyboard */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		9ED972A2259ACE860069FB94 /* Cource */ = {
+			isa = PBXGroup;
+			children = (
+				9EDAAF2E2561775D00585D6E /* RockCourcesViewController.swift */,
+			);
+			path = Cource;
+			sourceTree = "<group>";
+		};
+		9ED972A3259ACE900069FB94 /* Climber */ = {
+			isa = PBXGroup;
+			children = (
+				9EDAAF262561755300585D6E /* RockClimbersTableViewController.swift */,
+			);
+			path = Climber;
+			sourceTree = "<group>";
+		};
+		9ED972A4259ACEB20069FB94 /* Tab */ = {
+			isa = PBXGroup;
+			children = (
+				9E598A6525610281004F4AD3 /* TabCollectionViewCell.swift */,
+				9E598A6625610281004F4AD3 /* TabCollectionViewCell.xib */,
+				9EDAAF142561729800585D6E /* RockTabType.swift */,
+			);
+			path = Tab;
+			sourceTree = "<group>";
+		};
 		9EE1FD4C2577EF480080787F /* FireStore */ = {
 			isa = PBXGroup;
 			children = (
@@ -498,13 +534,13 @@
 			path = FireStore;
 			sourceTree = "<group>";
 		};
-		9EEADA17255AD1DD00F20228 /* RocationSelect */ = {
+		9EEADA17255AD1DD00F20228 /* LocationSelect */ = {
 			isa = PBXGroup;
 			children = (
 				9E60DCB42557148A000CF2E8 /* RockLocationSelectViewController.swift */,
 				9E60DCB9255714A1000CF2E8 /* RockLocationSelectViewController.storyboard */,
 			);
-			path = RocationSelect;
+			path = LocationSelect;
 			sourceTree = "<group>";
 		};
 		9EF56020255AE74A00D00723 /* RockDetail */ = {
@@ -513,14 +549,10 @@
 				9EF56021255AE76C00D00723 /* RockDetailViewController.swift */,
 				9E0D09342566B31200D3075F /* RockDetailViewModel.swift */,
 				9EF56029255AE77C00D00723 /* RockDetailViewController.storyboard */,
-				9E598A6525610281004F4AD3 /* TabCollectionViewCell.swift */,
-				9E598A6625610281004F4AD3 /* TabCollectionViewCell.xib */,
-				9EDAAF142561729800585D6E /* RockTabType.swift */,
-				9EDAAF1C2561747F00585D6E /* RockDetailMapViewController.swift */,
-				9E0D092F2566B22300D3075F /* RockDetailMapViewModel.swift */,
-				9E6AB12E2562CF9800444FBF /* RockDetailMapViewController.storyboard */,
-				9EDAAF2E2561775D00585D6E /* RockCourcesViewController.swift */,
-				9EDAAF262561755300585D6E /* RockClimbersTableViewController.swift */,
+				9ED972A4259ACEB20069FB94 /* Tab */,
+				9ED972A1259ACE780069FB94 /* Map */,
+				9ED972A2259ACE860069FB94 /* Cource */,
+				9ED972A3259ACE900069FB94 /* Climber */,
 			);
 			path = RockDetail;
 			sourceTree = "<group>";

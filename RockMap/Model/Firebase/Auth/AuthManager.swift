@@ -19,6 +19,10 @@ struct AuthManager {
         !(KeychainDataHolder.shared.uid?.isEmpty ?? true)
     }
     
+    static var uid: String {
+        KeychainDataHolder.shared.uid ?? ""
+    }
+    
     static func setDelegate(destination: UIViewController) {
         authUI?.delegate = destination as? FUIAuthDelegate
     }

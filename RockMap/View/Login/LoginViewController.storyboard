@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Iej-za-Fo4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Iej-za-Fo4">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -73,18 +73,26 @@
                                     <constraint firstItem="WMF-o3-n4T" firstAttribute="leading" secondItem="UAg-n3-dHz" secondAttribute="leading" constant="16" id="wpc-yv-XoK"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="yNW-eb-iLf">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gPz-Xx-hZP"/>
                         <color key="backgroundColor" name="primaryGreenColor"/>
                         <constraints>
+                            <constraint firstItem="yNW-eb-iLf" firstAttribute="top" secondItem="gPz-Xx-hZP" secondAttribute="top" id="30V-6Z-Dsj"/>
+                            <constraint firstItem="gPz-Xx-hZP" firstAttribute="bottom" secondItem="yNW-eb-iLf" secondAttribute="bottom" id="3Zw-fs-Edf"/>
                             <constraint firstItem="UAg-n3-dHz" firstAttribute="leading" secondItem="gPz-Xx-hZP" secondAttribute="leading" constant="24" id="O0A-2q-BlM"/>
                             <constraint firstItem="UAg-n3-dHz" firstAttribute="centerY" secondItem="gPz-Xx-hZP" secondAttribute="centerY" id="TDh-uV-gKY"/>
                             <constraint firstItem="gPz-Xx-hZP" firstAttribute="trailing" secondItem="UAg-n3-dHz" secondAttribute="trailing" constant="24" id="Yt0-0Y-Wig"/>
                             <constraint firstItem="UAg-n3-dHz" firstAttribute="centerX" secondItem="gPz-Xx-hZP" secondAttribute="centerX" id="lFL-jj-ub9"/>
+                            <constraint firstItem="gPz-Xx-hZP" firstAttribute="trailing" secondItem="yNW-eb-iLf" secondAttribute="trailing" id="qZv-me-err"/>
+                            <constraint firstItem="yNW-eb-iLf" firstAttribute="leading" secondItem="gPz-Xx-hZP" secondAttribute="leading" id="wnw-Bl-yfN"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="guestLoginButton" destination="ied-jS-77c" id="KyW-TF-GGe"/>
+                        <outlet property="indicator" destination="yNW-eb-iLf" id="IOB-yk-1M3"/>
                         <outlet property="loginButton" destination="WMF-o3-n4T" id="Xhd-gE-2G5"/>
                         <outlet property="loginContainerView" destination="UAg-n3-dHz" id="p8g-06-BfT"/>
                         <outlet property="penguinImageView" destination="4WR-uW-7YH" id="DHR-uk-3Vh"/>

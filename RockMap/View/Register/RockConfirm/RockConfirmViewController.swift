@@ -90,13 +90,14 @@ final class RockConfirmViewController: UIViewController {
                 case .progress(let unitCount):
                     self.indicator.startAnimating()
                     
-                case .complete:
+                case .complete(let metaDatas):
                     self.indicator.stopAnimating()
+                    self.viewModel.registerRock()
                     
                 case .failure(let error):
                     self.indicator.stopAnimating()
                     self.showOKAlert(
-                        title: "登録に失敗しました",
+                        title: "画像の登録に失敗しました",
                         message: error.localizedDescription
                     )
                     

@@ -14,6 +14,7 @@ final class LoginViewController: UIViewController {
     @IBOutlet weak var penguinImageView: UIImageView!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var guestLoginButton: UIButton!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +63,8 @@ extension LoginViewController: FUIAuthDelegate {
             return
         }
         
+        indicator.startAnimating()
+        
         FirestoreManager.set(
             key: user.uid,
             FIDocument.Users(
@@ -75,9 +78,11 @@ extension LoginViewController: FUIAuthDelegate {
             switch result {
             case .success:
                 AuthManager.saveAccount(uid: user.uid)
+                self.indicator.stopAnimating()
                 UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = MainTabBarController()
 
             case .failure(let error):
+                self.indicator.stopAnimating()
                 self.showOKAlert(title: "認証に失敗しました。", message: error.localizedDescription)
                 
             }

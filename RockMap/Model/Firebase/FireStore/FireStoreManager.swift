@@ -27,3 +27,10 @@ struct FirestoreManager {
         }
     }
 }
+
+enum StoreUploadState {
+    case stanby
+    case loading
+    case finish
+    case failure(Error)
+}
