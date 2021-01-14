@@ -7,8 +7,12 @@
 
 import UIKit
 
-struct UIConst {
-    struct ShadowConst {
+extension Resources.Const {
+    struct UI {}
+}
+
+extension Resources.Const.UI {
+    struct Shadow {
         static let radius: CGFloat = 8
         static let color = UIColor.gray.cgColor
         static let opacity: Float = 0.5

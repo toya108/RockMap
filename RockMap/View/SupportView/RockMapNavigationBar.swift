@@ -22,9 +22,9 @@ final class RockMapNavigationBar: UINavigationBar {
         barTintColor = .white
         tintColor = .black
         
-        layer.shadowColor = UIConst.ShadowConst.color
-        layer.shadowRadius = UIConst.ShadowConst.radius
-        layer.shadowOpacity = UIConst.ShadowConst.opacity
+        layer.shadowColor = Resources.Const.UI.Shadow.color
+        layer.shadowRadius = Resources.Const.UI.Shadow.radius
+        layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
         layer.shadowOffset = .init(width: 0, height: 2)
         
         backIndicatorImage = UIImage.AssetsImages.back

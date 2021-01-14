@@ -61,14 +61,17 @@ final class RockConfirmViewModel {
 
         let rockDocument = FIDocument.Rocks(
             name: rockName,
-            imageIds: [],
             address: rockAddress,
             location: .init(latitude: rockLocation.coordinate.latitude, longitude: rockLocation.coordinate.longitude),
             desc: rockDesc,
             registeredUserId: AuthManager.uid,
             courseId: []
         )
-        FirestoreManager.set(key: rockName, rockDocument) { [weak self] result in
+        
+        FirestoreManager.set(
+            key: rockName,
+            rockDocument
+        ) { [weak self] result in
             
             guard let self = self else { return }
             

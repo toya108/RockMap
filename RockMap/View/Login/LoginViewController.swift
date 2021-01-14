@@ -34,9 +34,9 @@ final class LoginViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
         
         loginContainerView.layer.cornerRadius = 8
-        loginContainerView.layer.shadowColor = UIConst.ShadowConst.color
-        loginContainerView.layer.shadowRadius = UIConst.ShadowConst.radius
-        loginContainerView.layer.shadowOpacity = UIConst.ShadowConst.opacity
+        loginContainerView.layer.shadowColor = Resources.Const.UI.Shadow.color
+        loginContainerView.layer.shadowRadius = Resources.Const.UI.Shadow.radius
+        loginContainerView.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
         loginContainerView.layer.shadowOffset = .init(width: 2, height: 2)
         
         penguinImageView.layer.cornerRadius = 8
