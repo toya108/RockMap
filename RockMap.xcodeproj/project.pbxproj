@@ -30,6 +30,7 @@
 		9E1C031C2554574F00F923A3 /* ValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C031B2554574F00F923A3 /* ValidatorTests.swift */; };
 		9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2B112E25471F6100D7E56C /* LoginViewController.swift */; };
 		9E2B113425471F7400D7E56C /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E2B113325471F7400D7E56C /* LoginViewController.storyboard */; };
+		9E34C90C25B09A69005EBE07 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E34C90B25B09A69005EBE07 /* DebugViewController.swift */; };
 		9E598A6725610281004F4AD3 /* TabCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E598A6525610281004F4AD3 /* TabCollectionViewCell.swift */; };
 		9E598A6825610281004F4AD3 /* TabCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E598A6625610281004F4AD3 /* TabCollectionViewCell.xib */; };
 		9E5C5E372555144000D00087 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5C5E362555144000D00087 /* Images.swift */; };
@@ -130,6 +131,7 @@
 		9E1C031B2554574F00F923A3 /* ValidatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidatorTests.swift; sourceTree = "<group>"; };
 		9E2B112E25471F6100D7E56C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9E2B113325471F7400D7E56C /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
+		9E34C90B25B09A69005EBE07 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		9E598A6525610281004F4AD3 /* TabCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E598A6625610281004F4AD3 /* TabCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E5C5E362555144000D00087 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
@@ -314,9 +316,18 @@
 				9E04B192254B28330097DA8E /* Login */,
 				9E033F552577F6CD00A669F8 /* Auth */,
 				9E807CC4254D000A0091935F /* MainTabBar */,
+				9E34C90A25B09A4F005EBE07 /* Debug */,
 				9E04B1C8254BDFEE0097DA8E /* NetWorkState.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		9E34C90A25B09A4F005EBE07 /* Debug */ = {
+			isa = PBXGroup;
+			children = (
+				9E34C90B25B09A69005EBE07 /* DebugViewController.swift */,
+			);
+			path = Debug;
 			sourceTree = "<group>";
 		};
 		9E5CEFBF25277B25001C95AA = {
@@ -932,6 +943,7 @@
 				9E5C5E372555144000D00087 /* Images.swift in Sources */,
 				9E0A9F192550519F007B9A90 /* RockRegisterViewModel.swift in Sources */,
 				9E807CBD254CFF640091935F /* RegisterViewController.swift in Sources */,
+				9E34C90C25B09A69005EBE07 /* DebugViewController.swift in Sources */,
 				9E612BEF2588AFC000B2998A /* Map.swift in Sources */,
 				9E04B1D0254BE7B30097DA8E /* LocationManager.swift in Sources */,
 				9E5CEFD025277B25001C95AA /* RockSearchViewController.swift in Sources */,
