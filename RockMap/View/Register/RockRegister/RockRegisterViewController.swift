@@ -29,6 +29,7 @@ final class RockRegisterViewController: UIViewController {
     @IBOutlet weak var rockRegisterMapView: MKMapView!
     @IBOutlet weak var rockDescTextView: UITextView!
     @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     let viewModel = RockRegisterViewModel()
     private let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
@@ -152,6 +153,10 @@ final class RockRegisterViewController: UIViewController {
             .sink { [weak self] data in
                 
                 guard let self = self else { return }
+                
+                defer {
+                    self.indicator.stopAnimating()
+                }
                 
                 self.firstImageSelectStackView.isHidden = !data.isEmpty
                 self.imageSelectHorizontalScrollView.isHidden = data.isEmpty
@@ -303,16 +308,25 @@ extension RockRegisterViewController: UIPopoverPresentationControllerDelegate {
 
 extension RockRegisterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
-              let data = image.jpegData(compressionQuality: 1) else { return }
         
+        guard
+            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
+            let data = image.jpegData(compressionQuality: 1)
+        else {
+            return
+        }
+        
+        indicator.startAnimating()
         viewModel.rockImageDatas.append(data)
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 }
 
 extension RockRegisterViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        indicator.startAnimating()
+
         picker.dismiss(animated: true)
         
         results.map(\.itemProvider).forEach {
@@ -320,10 +334,14 @@ extension RockRegisterViewController: PHPickerViewControllerDelegate {
             guard $0.canLoadObject(ofClass: UIImage.self) else { return }
             
             $0.loadObject(ofClass: UIImage.self) { [weak self] providerReading, error in
-                guard case .none = error,
-                      let self = self,
-                      let image = providerReading as? UIImage,
-                      let data = image.jpegData(compressionQuality: 1) else { return }
+                guard
+                    case .none = error,
+                    let self = self,
+                    let image = providerReading as? UIImage,
+                    let data = image.jpegData(compressionQuality: 1)
+                else {
+                    return
+                }
                 
                 self.viewModel.rockImageDatas.append(data)
             }
