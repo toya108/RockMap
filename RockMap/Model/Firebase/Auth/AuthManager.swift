@@ -6,6 +6,7 @@
 //
 
 import FirebaseUI
+import Firebase
 
 struct AuthManager {
     
@@ -16,7 +17,15 @@ struct AuthManager {
     }()
     
     static var isLoggedIn: Bool {
-        !(KeychainDataHolder.shared.uid?.isEmpty ?? true)
+        Self.currentUser != nil
+    }
+    
+    static var currentUser: User? {
+        Firebase.Auth.auth().currentUser
+    }
+    
+    static var uid: String {
+        Self.currentUser?.uid ?? ""
     }
     
     static func setDelegate(destination: UIViewController) {

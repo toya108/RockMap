@@ -74,9 +74,11 @@ extension RockDetailViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = tabCollectionView.dequeueReusableCell(withReuseIdentifier: TabCollectionViewCell.className, for: indexPath) as? TabCollectionViewCell else { return UICollectionViewCell() }
-        cell.setContents(title: RockTabType.allCases[indexPath.row].title,
-                         image: RockTabType.allCases[indexPath.row].image,
-                         selectingImage: RockTabType.allCases[indexPath.row].selectingImage)
+        cell.setContents(
+            title: RockTabType.allCases[indexPath.row].title,
+            image: RockTabType.allCases[indexPath.row].image,
+            selectingImage: RockTabType.allCases[indexPath.row].selectingImage
+        )
         return cell
     }
 }

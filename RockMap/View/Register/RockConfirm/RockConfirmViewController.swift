@@ -55,7 +55,10 @@ final class RockConfirmViewController: UIViewController {
             let rockAddressPin = MKPointAnnotation()
             rockAddressPin.coordinate = viewModel.rockLocation.coordinate
             self.mapView.addAnnotation(rockAddressPin)
-            let span = MKCoordinateSpan(latitudeDelta: Const.Map.latitudeDelta, longitudeDelta: Const.Map.longitudeDelta)
+            let span = MKCoordinateSpan(
+                latitudeDelta: Resources.Const.Map.latitudeDelta,
+                longitudeDelta: Resources.Const.Map.longitudeDelta
+            )
             self.mapView.setRegion(.init(center: viewModel.rockLocation.coordinate, span: span), animated: true)
         }
 
@@ -90,13 +93,41 @@ final class RockConfirmViewController: UIViewController {
                 case .progress(let unitCount):
                     self.indicator.startAnimating()
                     
-                case .complete:
+                case .complete(let metaDatas):
                     self.indicator.stopAnimating()
+                    self.viewModel.registerRock()
                     
                 case .failure(let error):
                     self.indicator.stopAnimating()
                     self.showOKAlert(
-                        title: "登録に失敗しました",
+                        title: "画像の登録に失敗しました",
+                        message: error.localizedDescription
+                    )
+                    
+                }
+            }
+            .store(in: &bindings)
+        
+        viewModel.$rockUploadState
+            .receive(on: RunLoop.main)
+            .sink { [weak self] in
+                
+                guard let self = self else { return }
+                
+                switch $0 {
+                case .stanby:
+                    break
+                    
+                case .loading:
+                    self.indicator.startAnimating()
+                    
+                case .finish:
+                    self.indicator.stopAnimating()
+                    self.showSuccessView()
+                    
+                case .failure(let error):
+                    self.showOKAlert(
+                        title: "岩の登録に失敗しました",
                         message: error.localizedDescription
                     )
                     
@@ -116,5 +147,47 @@ final class RockConfirmViewController: UIViewController {
         navigationItem.title = "登録内容の確認"
         registButton.layer.cornerRadius = 8
         mapView.layer.cornerRadius = 8
+    }
+    
+    private func showSuccessView() {
+        
+        guard let vc = UIStoryboard(name: RegisterSucceededViewController.className, bundle: nil).instantiateInitialViewController() else { return }
+        
+        vc.modalPresentationStyle = .popover
+        vc.popoverPresentationController?.sourceView = UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.view
+        vc.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+        vc.popoverPresentationController?.delegate = self
+        vc.popoverPresentationController?.sourceRect = .init(
+            origin: .init(
+                x: UIScreen.main.bounds.midX,
+                y: UIScreen.main.bounds.midY
+            ),
+            size: .zero
+        )
+        
+        present(vc, animated: true) {
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                
+                guard let self = self else { return }
+                
+                self.dismiss(animated: true) { [weak self] in
+                    
+                    guard let self = self else { return }
+                    
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
+            }
+            
+        }
+    }
+}
+
+extension RockConfirmViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(
+        for controller: UIPresentationController,
+        traitCollection: UITraitCollection
+    ) -> UIModalPresentationStyle {
+        return .none
     }
 }

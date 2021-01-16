@@ -14,6 +14,7 @@ final class LoginViewController: UIViewController {
     @IBOutlet weak var penguinImageView: UIImageView!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var guestLoginButton: UIButton!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +34,9 @@ final class LoginViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
         
         loginContainerView.layer.cornerRadius = 8
-        loginContainerView.layer.shadowColor = UIConst.ShadowConst.color
-        loginContainerView.layer.shadowRadius = UIConst.ShadowConst.radius
-        loginContainerView.layer.shadowOpacity = UIConst.ShadowConst.opacity
+        loginContainerView.layer.shadowColor = Resources.Const.UI.Shadow.color
+        loginContainerView.layer.shadowRadius = Resources.Const.UI.Shadow.radius
+        loginContainerView.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
         loginContainerView.layer.shadowOffset = .init(width: 2, height: 2)
         
         penguinImageView.layer.cornerRadius = 8
@@ -62,6 +63,8 @@ extension LoginViewController: FUIAuthDelegate {
             return
         }
         
+        indicator.startAnimating()
+        
         FirestoreManager.set(
             key: user.uid,
             FIDocument.Users(
@@ -75,9 +78,11 @@ extension LoginViewController: FUIAuthDelegate {
             switch result {
             case .success:
                 AuthManager.saveAccount(uid: user.uid)
+                self.indicator.stopAnimating()
                 UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = MainTabBarController()
 
             case .failure(let error):
+                self.indicator.stopAnimating()
                 self.showOKAlert(title: "認証に失敗しました。", message: error.localizedDescription)
                 
             }

@@ -10,7 +10,7 @@ import UIKit
 class RockMapNavigationController: UINavigationController {
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
     
     override init(rootViewController: UIViewController) {
@@ -30,10 +30,17 @@ class RockMapNavigationController: UINavigationController {
         self.viewControllers = [rootVC]
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
         
-        viewControllers.first?.navigationItem.backButtonTitle = ""
+        let previousVcIndex = viewControllers.count - 1
         
+        guard
+            let previousVc = viewControllers.any(at: previousVcIndex)
+        else {
+            return
+        }
+        
+        previousVc.navigationItem.backButtonDisplayMode = .minimal
+        super.pushViewController(viewController, animated: animated)
     }
 }

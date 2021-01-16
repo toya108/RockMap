@@ -13,23 +13,35 @@ enum ScreenType: CaseIterable {
     case rockSearch
     case register
     case myPage
+    #if !RELEASE
+    case debug
+    #endif
     
     var viewController: UIViewController {
         switch self {
         case .rockSearch:
             return RockMapNavigationController(
                 rootVC: UIStoryboard(name: RockSearchViewController.className, bundle: nil).instantiateInitialViewController()!,
-                naviBarClass: RockMapNavigationBar.self)
+                naviBarClass: RockMapNavigationBar.self
+            )
             
         case .register:
             return RockMapNavigationController(
                 rootVC: UIStoryboard(name: RegisterViewController.className, bundle: nil).instantiateInitialViewController()!,
-                naviBarClass: RockMapNavigationBar.self)
+                naviBarClass: RockMapNavigationBar.self
+            )
 
         case .myPage:
             return RockMapNavigationController(
                 rootVC: UIStoryboard(name: MyPageViewController.className, bundle: nil).instantiateInitialViewController()!,
-                naviBarClass: RockMapNavigationBar.self)
+                naviBarClass: RockMapNavigationBar.self
+            )
+            
+        #if !RELEASE
+        case .debug:
+            return DebugViewController()
+        #endif
+        
         }
     }
     
@@ -44,6 +56,10 @@ enum ScreenType: CaseIterable {
         case .myPage:
             return "マイページ"
             
+        #if !RELEASE
+        case .debug:
+            return "debug"
+        #endif
         }
     }
     
@@ -61,10 +77,10 @@ enum ScreenType: CaseIterable {
             let image = UIImage.AssetsImages.personCircle.withTintColor(.white, renderingMode: .alwaysOriginal)
             return image
 
-//        #if !RELEASE
-//        case .debug:
-//            return nil
-//        #endif
+        #if !RELEASE
+        case .debug:
+            return nil
+        #endif
         }
     }
     
@@ -81,6 +97,11 @@ enum ScreenType: CaseIterable {
         case .myPage:
             let image = UIImage.AssetsImages.personCircleFill.withTintColor(.white, renderingMode: .alwaysOriginal)
             return image
+        
+        #if !RELEASE
+        case .debug:
+            return nil
+        #endif
         }
     }
 }

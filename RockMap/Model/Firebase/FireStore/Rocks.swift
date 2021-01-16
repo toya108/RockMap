@@ -13,7 +13,6 @@ extension FIDocument {
         typealias Collection = FINameSpace.Rocks
         
         var name: String
-        var imageDatas: [Data]
         var address: String
         var location: GeoPoint
         var desc: String

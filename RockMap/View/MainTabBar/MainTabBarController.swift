@@ -41,9 +41,9 @@ final class MainTabBarController: UITabBarController {
         UITabBar.appearance().shadowImage = UIImage()
         UITabBarItem.appearance().setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
         
-        tabBar.layer.shadowColor = UIConst.ShadowConst.color
-        tabBar.layer.shadowRadius = UIConst.ShadowConst.radius
-        tabBar.layer.shadowOpacity = UIConst.ShadowConst.opacity
+        tabBar.layer.shadowColor = Resources.Const.UI.Shadow.color
+        tabBar.layer.shadowRadius = Resources.Const.UI.Shadow.radius
+        tabBar.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
         tabBar.layer.shadowOffset = .init(width: 0, height: -2)
     }
 }

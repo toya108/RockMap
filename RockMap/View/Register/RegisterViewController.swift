@@ -16,12 +16,7 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: true)
-    }
-    
+
     @IBAction func didRockRegisterButtonTapped(_ sender: UIButton) {
         guard let vc = UIStoryboard(name: RockRegisterViewController.className, bundle: nil).instantiateInitialViewController() else { return }
         navigationController?.pushViewController(vc, animated: true)
@@ -33,6 +28,8 @@ class RegisterViewController: UIViewController {
     }
     
     private func setupLayout() {
+        navigationItem.title = "岩/課題を登録する"
+        
         [rockRegisterButton, courseRegisterButton].forEach {
             $0?.layer.cornerRadius = 8
             $0?.layer.shadowRadius = 8
