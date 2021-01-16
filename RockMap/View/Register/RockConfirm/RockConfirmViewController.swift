@@ -157,7 +157,13 @@ final class RockConfirmViewController: UIViewController {
         vc.popoverPresentationController?.sourceView = UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.view
         vc.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
         vc.popoverPresentationController?.delegate = self
-        vc.popoverPresentationController?.sourceRect = .init(origin: .init(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.midY), size: .zero)
+        vc.popoverPresentationController?.sourceRect = .init(
+            origin: .init(
+                x: UIScreen.main.bounds.midX,
+                y: UIScreen.main.bounds.midY
+            ),
+            size: .zero
+        )
         
         present(vc, animated: true) {
             
@@ -166,6 +172,7 @@ final class RockConfirmViewController: UIViewController {
                 guard let self = self else { return }
                 
                 self.dismiss(animated: true) { [weak self] in
+                    
                     guard let self = self else { return }
                     
                     self.navigationController?.popToRootViewController(animated: true)

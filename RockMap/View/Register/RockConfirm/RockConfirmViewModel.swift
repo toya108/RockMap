@@ -62,7 +62,10 @@ final class RockConfirmViewModel {
         let rockDocument = FIDocument.Rocks(
             name: rockName,
             address: rockAddress,
-            location: .init(latitude: rockLocation.coordinate.latitude, longitude: rockLocation.coordinate.longitude),
+            location: .init(
+                latitude: rockLocation.coordinate.latitude,
+                longitude: rockLocation.coordinate.longitude
+            ),
             desc: rockDesc,
             registeredUserId: AuthManager.uid,
             courseId: []
