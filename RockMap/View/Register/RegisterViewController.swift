@@ -18,12 +18,43 @@ class RegisterViewController: UIViewController {
     }
 
     @IBAction func didRockRegisterButtonTapped(_ sender: UIButton) {
-        guard let vc = UIStoryboard(name: RockRegisterViewController.className, bundle: nil).instantiateInitialViewController() else { return }
+        guard
+            AuthManager.isLoggedIn
+        else {
+            showOKAlert(
+                title: "登録できません。",
+                message: "岩の登録にはログインが必要です。マイページ画面から一度ログアウトしていただき、ログインしてから再度お試し下さい。"
+            )
+            
+            return
+        }
+        
+        guard
+            let vc = UIStoryboard(name: RockRegisterViewController.className, bundle: nil).instantiateInitialViewController()
+        else {
+            return
+        }
         navigationController?.pushViewController(vc, animated: true)
+
     }
     
     @IBAction func didCourseRegisterButtonTapped(_ sender: UIButton) {
-        guard let vc = UIStoryboard(name: RockDetailViewController.className, bundle: nil).instantiateInitialViewController() else { return }
+        guard
+            AuthManager.isLoggedIn
+        else {
+            showOKAlert(
+                title: "登録できません。",
+                message: "課題の登録にはログインが必要です。マイページ画面から一度ログアウトしていただき、ログインしてから再度お試し下さい。"
+            )
+            
+            return
+        }
+        
+        guard
+            let vc = UIStoryboard(name: RockDetailViewController.className, bundle: nil).instantiateInitialViewController()
+        else {
+            return
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     
