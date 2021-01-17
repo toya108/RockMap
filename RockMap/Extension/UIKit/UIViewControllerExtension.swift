@@ -33,10 +33,30 @@ extension UIViewController {
         return controller
     }
     
-    func showOKAlert(title: String, message: String) {
+    func showOKAlert(
+        title: String,
+        message: String
+    ) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
         alert.addAction(okAction)
+        present(alert, animated: true)
+    }
+    
+    func showYseOrNoAlert(
+        title: String,
+        message: String,
+        positiveHandler: ((UIAlertAction) -> Void)?,
+        negativeHandler: ((UIAlertAction) -> Void)? = nil
+    ) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: negativeHandler)
+        alert.addAction(cancelAction)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: positiveHandler)
+        alert.addAction(okAction)
+        
         present(alert, animated: true)
     }
 }

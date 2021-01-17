@@ -23,7 +23,52 @@ final class LoginViewController: UIViewController {
     }
     
     @IBAction func didGuestLoginButtonTapped(_ sender: UIButton) {
-        UIApplication.shared.windows.first { $0.isKeyWindow }? .rootViewController = MainTabBarController()
+        
+        guard
+            AuthManager.isLoggedIn
+        else {
+            
+            UIApplication.shared.windows.first { $0.isKeyWindow }? .rootViewController = MainTabBarController()
+            
+            return
+        }
+        
+        guard
+            let userName = AuthManager.currentUser?.displayName
+        else {
+            return
+        }
+        
+        var logoutHandler: () -> Void {{
+            AuthManager.logout { [weak self] result in
+                
+                guard let self = self else { return }
+                
+                switch result {
+                case .success:
+                    break
+                    
+                case .failure(let error):
+                    self.showOKAlert(title: "ログアウトに失敗しました。", message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)")
+                }
+                
+            }
+        }}
+        
+        showYseOrNoAlert(
+            title: "ログアウトしますか？",
+            message: "こちらのユーザーでログイン中です。\n\(userName)",
+            positiveHandler: { _ in
+                logoutHandler()
+            }
+        )
+    }
+    
+    private func logout() {
+        AuthManager.logout { result in
+            
+        }
+
     }
 
     @IBAction func didLoginButtonTapped(_ sender: UIButton) {
@@ -94,5 +139,14 @@ extension LoginViewController: FUIAuthDelegate {
             nibName: FUICustomAuthPickerViewController.className,
             bundle: Bundle.main,
             authUI: authUI)
+    }
+}
+
+extension LoginViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(
+        for controller: UIPresentationController,
+        traitCollection: UITraitCollection
+    ) -> UIModalPresentationStyle {
+        return .none
     }
 }
