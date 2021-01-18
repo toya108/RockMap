@@ -62,10 +62,10 @@ class RegisterViewController: UIViewController {
         navigationItem.title = "岩/課題を登録する"
         
         [rockRegisterButton, courseRegisterButton].forEach {
-            $0?.layer.cornerRadius = 8
-            $0?.layer.shadowRadius = 8
+            $0?.layer.cornerRadius = Resources.Const.UI.View.radius
+            $0?.layer.shadowRadius = Resources.Const.UI.Shadow.radius
             $0?.layer.shadowOffset = .init(width: 8, height: 8)
-            $0?.layer.shadowOpacity = 0.3
+            $0?.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
         }
     }
 }

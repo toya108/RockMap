@@ -145,8 +145,8 @@ final class RockConfirmViewController: UIViewController {
     
     private func setupLayout() {
         navigationItem.title = "登録内容の確認"
-        registButton.layer.cornerRadius = 8
-        mapView.layer.cornerRadius = 8
+        registButton.layer.cornerRadius = Resources.Const.UI.View.radius
+        mapView.layer.cornerRadius = Resources.Const.UI.View.radius
     }
     
     private func showSuccessView() {

@@ -78,15 +78,15 @@ final class LoginViewController: UIViewController {
     private func setupLayout() {
         navigationController?.isNavigationBarHidden = true
         
-        loginContainerView.layer.cornerRadius = 8
+        loginContainerView.layer.cornerRadius = Resources.Const.UI.View.radius
         loginContainerView.layer.shadowColor = Resources.Const.UI.Shadow.color
         loginContainerView.layer.shadowRadius = Resources.Const.UI.Shadow.radius
         loginContainerView.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
         loginContainerView.layer.shadowOffset = .init(width: 2, height: 2)
         
-        penguinImageView.layer.cornerRadius = 8
-        loginButton.layer.cornerRadius = 8
-        guestLoginButton.layer.cornerRadius = 8
+        penguinImageView.layer.cornerRadius = Resources.Const.UI.View.radius
+        loginButton.layer.cornerRadius = Resources.Const.UI.View.radius
+        guestLoginButton.layer.cornerRadius = Resources.Const.UI.View.radius
     }
 }
 
