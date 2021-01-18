@@ -138,7 +138,7 @@ final class RockRegisterViewController: UIViewController {
          imageUploadButton,
          confirmButton
         ]
-        .forEach { $0?.layer.cornerRadius = 8 }
+        .forEach { $0?.layer.cornerRadius = Resources.Const.UI.View.radius }
     }
     
     private func bindViewToViewModel() {
@@ -231,7 +231,7 @@ final class RockRegisterViewController: UIViewController {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.isUserInteractionEnabled = true
-        imageView.layer.cornerRadius = 8
+        imageView.layer.cornerRadius = Resources.Const.UI.View.radius
         imageView.clipsToBounds = true
         imageView.image = UIImage(data: data)
         
