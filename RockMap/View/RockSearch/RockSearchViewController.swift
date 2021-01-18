@@ -17,34 +17,19 @@ final class RockSearchViewController: UIViewController {
     private lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.placeholder = "岩の名前で探す"
-        bar.tintColor = UIColor.gray
+        bar.searchTextField.backgroundColor = .white
         return bar
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
-//        FireStoreClient.db.collection(RockDocument.collectionName).getDocuments { [weak self] snap, error in
-            
-//            guard let self = self else { return }
-//
-//            snap?.documents.filter { $0.exists }.forEach {
-//                do {
-//                    let rock = try Firestore.Decoder().decode(RockDocument.self, from: $0.data())
-//
-//                    let coordinate = CLLocationCoordinate2DMake(rock.point.latitude, rock.point.longitude)
-//                    let span = MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
-//                    let region = MKCoordinateRegion(center: coordinate, span: span)
-//                    self.mapView.setRegion(region, animated: true)
-//
-//                    let pin = MKPointAnnotation()
-//                    pin.coordinate = coordinate
-//                    pin.title = rock.name
-//                    self.mapView.addAnnotation(pin)
-//                } catch {
-//                    fatalError()
-//                }
-//            }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     func setupSearchBar() {
