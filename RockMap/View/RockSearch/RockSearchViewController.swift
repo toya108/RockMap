@@ -28,14 +28,17 @@ final class RockSearchViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+    }
+    
+    private func setupSearchBar() {
+        searchBar.delegate = self
+        navigationItem.titleView = searchBar
+        navigationItem.titleView?.frame = searchBar.frame
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
-    func setupSearchBar() {
-        searchBar.delegate = self
-        navigationItem.titleView = searchBar
-        navigationItem.titleView?.frame = searchBar.frame
     }
 }
 
