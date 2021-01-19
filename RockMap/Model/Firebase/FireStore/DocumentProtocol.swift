@@ -20,6 +20,16 @@ extension FIDocumentProtocol {
         return Collection.name
     }
     
+    static func initializeDocument(json: [String: Any]) -> Self? {
+        do {
+            return try FirestoreManager.decoder.decode(self, from: json)
+        } catch {
+            print("type:\(Self.self) のdecodeに失敗しました。reason: \(error.localizedDescription)")
+            assertionFailure()
+            return nil
+        }
+    }
+    
     var dictionary: [String: Any] {
         do {
             let dictionary = try FirestoreManager.encoder.encode(self)

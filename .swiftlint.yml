@@ -40,9 +40,10 @@ function_body_length:
 # 変数名が2文字以上なら許可
 identifier_name:
   min_length:
-    error: 2
+    error: 1
   excluded: # 以下の単語は定形語のためルールの対象外とする。
     - id
+    - db
     - URL
     - x
     - y

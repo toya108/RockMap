@@ -10,10 +10,12 @@ import FirebaseFirestore
 struct FirestoreManager {
     static let db = Firestore.firestore()
     static let encoder = Firestore.Encoder()
+    static let decoder = Firestore.Decoder()
     
     static func set<T: FIDocumentProtocol>(key: String = "", _ newDocument: T, completion: ((Result<Void, Error>) -> Void)? = nil) {
         
-        let document = key.isEmpty ? db.collection(T.colletionName).document() : db.collection(T.colletionName).document(key)
+        let collection = db.collection(T.colletionName)
+        let document = key.isEmpty ? collection.document() : collection.document(key)
         
         document.setData(newDocument.dictionary) { error in
             
@@ -26,6 +28,20 @@ struct FirestoreManager {
             completion(.success(()))
         }
     }
+    
+    static func fetchCollection<T: FIDocumentProtocol>(completion: @escaping (Result<[T], Error>) -> Void) {
+        db.collection(T.colletionName).getDocuments { snap, error in
+            
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            let documents = snap?.documents.compactMap { T.initializeDocument(json: $0.data()) } ?? []
+            completion(.success(documents))
+        }
+    }
+
 }
 
 enum StoreUploadState {
