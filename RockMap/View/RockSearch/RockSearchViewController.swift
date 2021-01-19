@@ -5,6 +5,7 @@
 //  Created by TOUYA KAWANO on 2020/10/03.
 //
 
+import Combine
 import UIKit
 import MapKit
 import FirebaseAuth
@@ -16,7 +17,8 @@ final class RockSearchViewController: UIViewController {
     @IBOutlet weak var currentLocationButton: UIButton!
     
     private let viewModel = RockSearchViewModel()
-    
+    private var bindings = Set<AnyCancellable>()
+
     private lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.placeholder = "岩の名前で探す"
@@ -31,12 +33,14 @@ final class RockSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        setupBindings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         updateLocation(LocationManager.shared.location)
+        viewModel.fetchRockList()
     }
     
     private func setupLayout() {
@@ -63,6 +67,24 @@ final class RockSearchViewController: UIViewController {
         setupSearchBar()
         makeNavigationBarTransparent()
         setupCurrentLocationButton()
+    }
+    
+    private func setupBindings() {
+        viewModel.$rockDocuments
+            .dropFirst()
+            .sink { [weak self] documents in
+                
+                guard let self = self else { return }
+                
+                self.mapView.removeAnnotations(self.mapView.annotations)
+                
+                documents.map(\.location).forEach {
+                    let rockAddressPin = MKPointAnnotation()
+                    rockAddressPin.coordinate = .init(latitude: $0.latitude, longitude: $0.longitude)
+                    self.mapView.addAnnotation(rockAddressPin)
+                }
+            }
+            .store(in: &bindings)
     }
     
     private func updateLocation(_ location: CLLocation) {
