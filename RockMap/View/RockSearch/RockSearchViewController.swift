@@ -14,6 +14,8 @@ final class RockSearchViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     
+    private let viewModel = RockSearchViewModel()
+    
     private lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()
         bar.placeholder = "岩の名前で探す"
