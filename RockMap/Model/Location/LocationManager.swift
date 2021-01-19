@@ -10,6 +10,7 @@ import CoreLocation
 final class LocationManager: NSObject {
     
     static let shared = LocationManager()
+    
     private override init() {}
     
     var isEnabledLocationServices: Bool {
@@ -20,7 +21,8 @@ final class LocationManager: NSObject {
         return locationManager.authorizationStatus == .authorizedWhenInUse
     }
     
-    var location = CLLocation(latitude: .zero, longitude: .zero)
+    @Published var location = CLLocation(latitude: .zero, longitude: .zero)
+    
     var address = ""
     
     private lazy var locationManager: CLLocationManager = {
@@ -32,7 +34,6 @@ final class LocationManager: NSObject {
     
     private let geocoder = CLGeocoder()
     
-    /// パーミッション許可のダイアログを表示する
     func requestWhenInUseAuthorization() {
         
         if isAuthorized { return }
