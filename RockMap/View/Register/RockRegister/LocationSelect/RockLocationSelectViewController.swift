@@ -26,7 +26,7 @@ class RockLocationSelectViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     override func viewDidLoad() {
@@ -69,7 +69,6 @@ class RockLocationSelectViewController: UIViewController {
         let rockAddressPin = MKPointAnnotation()
         rockAddressPin.coordinate = location.coordinate
         locationSelectMapView.addAnnotation(rockAddressPin)
-        
         
         let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didMapViewLongPressed(_:)))
         locationSelectMapView.addGestureRecognizer(longPressGestureRecognizer)
