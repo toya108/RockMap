@@ -31,6 +31,7 @@ final class RockSearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        updateLocation(location: LocationManager.shared.location)
     }
     
     private func setupSearchBar() {
@@ -41,6 +42,13 @@ final class RockSearchViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
     
+    private func updateLocation(location: CLLocation) {
+        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        
+        mapView.setRegion(
+            .init(center: location.coordinate, span: span),
+            animated: true
+        )
     }
 }
 
