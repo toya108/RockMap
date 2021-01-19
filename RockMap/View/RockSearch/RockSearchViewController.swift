@@ -13,6 +13,7 @@ import FirebaseFirestoreSwift
 final class RockSearchViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var currentLocationButton: UIButton!
     
     private let viewModel = RockSearchViewModel()
     
@@ -23,26 +24,48 @@ final class RockSearchViewController: UIViewController {
         return bar
     }()
     
+    @IBAction func didCurrentLocationButtonTapped(_ sender: UIButton) {
+        updateLocation(LocationManager.shared.location)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupSearchBar()
+        setupLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        updateLocation(location: LocationManager.shared.location)
+        updateLocation(LocationManager.shared.location)
     }
     
-    private func setupSearchBar() {
-        searchBar.delegate = self
-        navigationItem.titleView = searchBar
-        navigationItem.titleView?.frame = searchBar.frame
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
+    private func setupLayout() {
+        func setupSearchBar() {
+            searchBar.delegate = self
+            navigationItem.titleView = searchBar
+            navigationItem.titleView?.frame = searchBar.frame
+        }
+        
+        func makeNavigationBarTransparent() {
+            navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+            navigationController?.navigationBar.shadowImage = UIImage()
+        }
+        
+        func setupCurrentLocationButton() {
+            currentLocationButton.layer.cornerRadius = 24
+            
+            currentLocationButton.layer.shadowRadius = Resources.Const.UI.Shadow.radius
+            currentLocationButton.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
+            currentLocationButton.layer.shadowColor = Resources.Const.UI.Shadow.color
+            currentLocationButton.layer.shadowOffset = .init(width: 4, height: 4)
+        }
+        
+        setupSearchBar()
+        makeNavigationBarTransparent()
+        setupCurrentLocationButton()
     }
     
-    private func updateLocation(location: CLLocation) {
+    private func updateLocation(_ location: CLLocation) {
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
         
         mapView.setRegion(

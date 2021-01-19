@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,11 +20,26 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yo7-GV-UOO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PxG-Ui-5H6">
+                                <rect key="frame" x="350" y="782" width="48" height="48"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="ryA-7y-sJy"/>
+                                    <constraint firstAttribute="width" secondItem="PxG-Ui-5H6" secondAttribute="height" multiplier="1:1" id="zru-Pu-KEb"/>
+                                </constraints>
+                                <color key="tintColor" name="primaryGreenColor"/>
+                                <state key="normal" image="location.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="didCurrentLocationButtonTapped:" destination="i5d-oh-wSZ" eventType="touchUpInside" id="OC3-ma-imw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FBk-H5-d3c"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Yo7-GV-UOO" firstAttribute="leading" secondItem="FBk-H5-d3c" secondAttribute="leading" id="8v4-LO-3R3"/>
+                            <constraint firstItem="PxG-Ui-5H6" firstAttribute="trailing" secondItem="Yo7-GV-UOO" secondAttribute="trailing" constant="-16" id="YVD-m3-Hu1"/>
+                            <constraint firstItem="PxG-Ui-5H6" firstAttribute="bottom" secondItem="Yo7-GV-UOO" secondAttribute="bottom" constant="-32" id="fyi-Fz-MAo"/>
                             <constraint firstItem="Yo7-GV-UOO" firstAttribute="top" secondItem="Zpy-Qi-fxf" secondAttribute="top" id="v03-Bi-uSk"/>
                             <constraint firstItem="FBk-H5-d3c" firstAttribute="trailing" secondItem="Yo7-GV-UOO" secondAttribute="trailing" id="wiw-Fu-Dlw"/>
                             <constraint firstItem="FBk-H5-d3c" firstAttribute="bottom" secondItem="Yo7-GV-UOO" secondAttribute="bottom" id="zVh-0I-Wy4"/>
@@ -31,6 +47,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="d8b-Xe-Szy"/>
                     <connections>
+                        <outlet property="currentLocationButton" destination="PxG-Ui-5H6" id="CgQ-Ar-Ty1"/>
                         <outlet property="mapView" destination="Yo7-GV-UOO" id="UXg-Uk-f2w"/>
                     </connections>
                 </viewController>
@@ -40,6 +57,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="location.fill" catalog="system" width="128" height="121"/>
+        <namedColor name="primaryGreenColor">
+            <color red="0.016000000759959221" green="0.74900001287460327" blue="0.75700002908706665" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
