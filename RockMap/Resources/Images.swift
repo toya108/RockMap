@@ -24,5 +24,6 @@ extension UIImage {
         static let flagCircle = UIImage(systemName: "flag.circle")!
         static let flagCircleFill = UIImage(systemName: "flag.circle.fill")!
         static let back = UIImage(named: "back")
+        static let rock = UIImage(named: "rock")
     }
 }
