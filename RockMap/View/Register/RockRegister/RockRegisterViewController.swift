@@ -101,8 +101,9 @@ final class RockRegisterViewController: UIViewController {
             guard let self = self else { return RockLocationSelectViewController(coder: coder) }
             
             return RockLocationSelectViewController(coder: coder, location: self.viewModel.rockLocation)
+            
         }) else { return }
-        present(UINavigationController(rootViewController: vc), animated: true)
+        present(RockMapNavigationController(rootVC: vc, naviBarClass: RockMapNavigationBar.self), animated: true)
     }
     
     @IBAction func didConfirmButtonTapped(_ sender: UIButton) {
