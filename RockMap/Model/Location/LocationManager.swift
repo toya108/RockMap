@@ -58,6 +58,8 @@ extension LocationManager: CLLocationManagerDelegate {
         
         guard let location = locations.first else { return }
         
+        if self.location == location { return }
+        
         self.location = location
         
         reverseGeocoding(location: location) { [weak self] result in
@@ -78,7 +80,7 @@ extension LocationManager: CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
     }
     
-    func reverseGeocoding(location: CLLocation, completion: @escaping (Result<String, GeocodingError>) -> Void) {
+    func reverseGeocoding(location: CLLocation, completion: @escaping (Result<String, ReverseGeocdingError>) -> Void) {
         self.geocoder.reverseGeocodeLocation(location) { placemarks, error in
             if let error = error {
                 completion(.failure(.convertError(error)))

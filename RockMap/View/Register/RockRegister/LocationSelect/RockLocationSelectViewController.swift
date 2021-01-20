@@ -39,8 +39,25 @@ class RockLocationSelectViewController: UIViewController {
     
     private func setupNavigationBar() {
         navigationItem.title = "岩の位置を選択する"
-        navigationItem.setLeftBarButton(.init(title: "戻る", style: .plain, target: self, action: #selector(didCancelButtonTapped)), animated: true)
-        navigationItem.setRightBarButton(.init(title: "完了", style: .done, target: self, action: #selector(didCompleteButtonTapped)), animated: true)
+        
+        navigationItem.setLeftBarButton(
+            .init(
+                title: "戻る",
+                style: .plain,
+                target: self,
+                action: #selector(didCancelButtonTapped)
+            ),
+            animated: true
+        )
+        
+        let doneButton = UIBarButtonItem(
+            title: "完了",
+            style: .done,
+            target: self,
+            action: #selector(didCompleteButtonTapped)
+        )
+        doneButton.tintColor = UIColor.Pallete.primaryGreen
+        navigationItem.setRightBarButton(doneButton, animated: true)
     }
     
     private func setupBindings() {
@@ -97,6 +114,5 @@ class RockLocationSelectViewController: UIViewController {
         locationSelectMapView.addAnnotation(rockAddressPin)
         
         self.location = .init(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        locationSelectMapView.setRegion(.init(center: coordinate, span: span), animated: true)
     }
 }

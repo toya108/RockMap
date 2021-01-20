@@ -16,7 +16,6 @@ final class RockRegisterViewModel {
     @Published var rockLocation = LocationManager.shared.location
     @Published var rockDesc = ""
     
-    @Published private(set) var state: NetworkState = .standby
     @Published private(set) var rockNameValidationResult: ValidationResult = .none
     @Published private(set) var rockAddressValidationResult: ValidationResult = .none
     @Published private(set) var rockImageValidationResult = false
