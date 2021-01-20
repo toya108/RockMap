@@ -32,8 +32,10 @@ final class RockSearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupLayout()
         setupBindings()
+        setupMapView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,6 +71,10 @@ final class RockSearchViewController: UIViewController {
         setupCurrentLocationButton()
     }
     
+    private func setupMapView() {
+        mapView.delegate = self
+    }
+    
     private func setupBindings() {
         viewModel.$rockDocuments
             .dropFirst()
@@ -78,9 +84,13 @@ final class RockSearchViewController: UIViewController {
                 
                 self.mapView.removeAnnotations(self.mapView.annotations)
                 
-                documents.map(\.location).forEach {
+                documents.forEach {
                     let rockAddressPin = MKPointAnnotation()
-                    rockAddressPin.coordinate = .init(latitude: $0.latitude, longitude: $0.longitude)
+                    rockAddressPin.title = $0.name
+                    rockAddressPin.coordinate = .init(
+                        latitude: $0.location.latitude,
+                        longitude: $0.location.longitude
+                    )
                     self.mapView.addAnnotation(rockAddressPin)
                 }
             }
@@ -99,4 +109,20 @@ final class RockSearchViewController: UIViewController {
 
 extension RockSearchViewController: UISearchBarDelegate {
     
+}
+
+extension RockSearchViewController: MKMapViewDelegate {
+    func mapView(
+        _ mapView: MKMapView,
+        viewFor annotation: MKAnnotation
+    ) -> MKAnnotationView? {
+        
+        if annotation === mapView.userLocation {
+            return nil
+        }
+        
+        let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+        annotationView.markerTintColor = UIColor.Pallete.primaryGreen
+        return annotationView
+    }
 }
