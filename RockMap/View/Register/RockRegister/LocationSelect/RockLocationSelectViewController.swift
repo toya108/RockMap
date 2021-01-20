@@ -97,6 +97,5 @@ class RockLocationSelectViewController: UIViewController {
         locationSelectMapView.addAnnotation(rockAddressPin)
         
         self.location = .init(latitude: coordinate.latitude, longitude: coordinate.longitude)
-        locationSelectMapView.setRegion(.init(center: coordinate, span: span), animated: true)
     }
 }
