@@ -29,10 +29,6 @@ final class RockSearchViewController: UIViewController {
         return .init(mapView: mapView)
     }()
     
-    @IBAction func didCurrentLocationButtonTapped(_ sender: UIButton) {
-        updateLocation(LocationManager.shared.location)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
