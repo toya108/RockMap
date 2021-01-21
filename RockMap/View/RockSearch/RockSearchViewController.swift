@@ -25,6 +25,10 @@ final class RockSearchViewController: UIViewController {
         return bar
     }()
     
+    private lazy var trackingButton: MKUserTrackingButton = {
+        return .init(mapView: mapView)
+    }()
+    
     @IBAction func didCurrentLocationButtonTapped(_ sender: UIButton) {
         updateLocation(LocationManager.shared.location)
     }
@@ -56,9 +60,28 @@ final class RockSearchViewController: UIViewController {
             navigationController?.navigationBar.shadowImage = UIImage()
         }
         
+        func setupTrackingButton() {
+            trackingButton.tintColor = UIColor.Pallete.primaryGreen
+            trackingButton.backgroundColor = .white
+            trackingButton.layer.cornerRadius = 4
+            trackingButton.layer.shadowRadius = Resources.Const.UI.Shadow.radius
+            trackingButton.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
+            trackingButton.layer.shadowColor = Resources.Const.UI.Shadow.color
+            trackingButton.layer.shadowOffset = .init(width: 4, height: 4)
+            
+            trackingButton.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(trackingButton)
+            NSLayoutConstraint.activate([
+                trackingButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+                trackingButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -32),
+                trackingButton.heightAnchor.constraint(equalToConstant: 44),
+                trackingButton.widthAnchor.constraint(equalToConstant: 44)
+            ])
+        }
         
         setupSearchBar()
         makeNavigationBarTransparent()
+        setupTrackingButton()
     }
     
     private func setupMapView() {
