@@ -14,7 +14,6 @@ import FirebaseFirestoreSwift
 final class RockSearchViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var currentLocationButton: UIButton!
     
     private let viewModel = RockSearchViewModel()
     private var bindings = Set<AnyCancellable>()
@@ -57,18 +56,9 @@ final class RockSearchViewController: UIViewController {
             navigationController?.navigationBar.shadowImage = UIImage()
         }
         
-        func setupCurrentLocationButton() {
-            currentLocationButton.layer.cornerRadius = 24
-            
-            currentLocationButton.layer.shadowRadius = Resources.Const.UI.Shadow.radius
-            currentLocationButton.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
-            currentLocationButton.layer.shadowColor = Resources.Const.UI.Shadow.color
-            currentLocationButton.layer.shadowOffset = .init(width: 4, height: 4)
-        }
         
         setupSearchBar()
         makeNavigationBarTransparent()
-        setupCurrentLocationButton()
     }
     
     private func setupMapView() {
