@@ -94,13 +94,12 @@ final class RockSearchViewController: UIViewController {
                 self.mapView.removeAnnotations(self.mapView.annotations)
                 
                 documents.forEach {
-                    let rockAddressPin = MKPointAnnotation()
-                    rockAddressPin.title = $0.name
-                    rockAddressPin.coordinate = .init(
-                        latitude: $0.location.latitude,
-                        longitude: $0.location.longitude
+                    let annotation = RockAnnotation(
+                        coordinate: .init(latitude: $0.location.latitude, longitude: $0.location.longitude),
+                        rock: $0,
+                        title: $0.name
                     )
-                    self.mapView.addAnnotation(rockAddressPin)
+                    self.mapView.addAnnotation(annotation)
                 }
             }
             .store(in: &bindings)
@@ -130,8 +129,31 @@ extension RockSearchViewController: MKMapViewDelegate {
             return nil
         }
         
-        let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+        guard
+            let rockAnnotation = annotation as? RockAnnotation
+        else {
+            return nil
+        }
+        
+        let annotationView = MKMarkerAnnotationView(annotation: rockAnnotation, reuseIdentifier: "pin")
         annotationView.markerTintColor = UIColor.Pallete.primaryGreen
         return annotationView
+    }
+}
+
+class RockAnnotation: NSObject, MKAnnotation {
+    
+    let rock: FIDocument.Rocks
+    let coordinate: CLLocationCoordinate2D
+    var title: String?
+    
+    init(
+        coordinate: CLLocationCoordinate2D,
+        rock: FIDocument.Rocks,
+        title: String
+    ) {
+        self.rock = rock
+        self.coordinate = coordinate
+        self.title = title
     }
 }
