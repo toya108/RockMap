@@ -129,15 +129,20 @@ extension RockSearchViewController: MKMapViewDelegate {
             return nil
         }
         
-        guard
-            let rockAnnotation = annotation as? RockAnnotation
-        else {
-            return nil
-        }
+        let annotationView = mapView.dequeueReusableAnnotationView(
+            withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier,
+            for: annotation
+        )
         
-        let annotationView = MKMarkerAnnotationView(annotation: rockAnnotation, reuseIdentifier: "pin")
-        annotationView.markerTintColor = UIColor.Pallete.primaryGreen
-        return annotationView
+        guard
+            let markerAnnotationView = annotationView as? MKMarkerAnnotationView
+        else {
+            return annotationView
+        }
+
+        markerAnnotationView.clusteringIdentifier = RockAnnotation.className
+        markerAnnotationView.markerTintColor = UIColor.Pallete.primaryGreen
+        return markerAnnotationView
     }
 }
 
