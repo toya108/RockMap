@@ -14,7 +14,6 @@ import FirebaseFirestoreSwift
 final class RockSearchViewController: UIViewController {
 
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var currentLocationButton: UIButton!
     
     private let viewModel = RockSearchViewModel()
     private var bindings = Set<AnyCancellable>()
@@ -26,9 +25,9 @@ final class RockSearchViewController: UIViewController {
         return bar
     }()
     
-    @IBAction func didCurrentLocationButtonTapped(_ sender: UIButton) {
-        updateLocation(LocationManager.shared.location)
-    }
+    private lazy var trackingButton: MKUserTrackingButton = {
+        return .init(mapView: mapView)
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,18 +56,28 @@ final class RockSearchViewController: UIViewController {
             navigationController?.navigationBar.shadowImage = UIImage()
         }
         
-        func setupCurrentLocationButton() {
-            currentLocationButton.layer.cornerRadius = 24
+        func setupTrackingButton() {
+            trackingButton.tintColor = UIColor.Pallete.primaryGreen
+            trackingButton.backgroundColor = .white
+            trackingButton.layer.cornerRadius = 4
+            trackingButton.layer.shadowRadius = Resources.Const.UI.Shadow.radius
+            trackingButton.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
+            trackingButton.layer.shadowColor = Resources.Const.UI.Shadow.color
+            trackingButton.layer.shadowOffset = .init(width: 4, height: 4)
             
-            currentLocationButton.layer.shadowRadius = Resources.Const.UI.Shadow.radius
-            currentLocationButton.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
-            currentLocationButton.layer.shadowColor = Resources.Const.UI.Shadow.color
-            currentLocationButton.layer.shadowOffset = .init(width: 4, height: 4)
+            trackingButton.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(trackingButton)
+            NSLayoutConstraint.activate([
+                trackingButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+                trackingButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -32),
+                trackingButton.heightAnchor.constraint(equalToConstant: 44),
+                trackingButton.widthAnchor.constraint(equalToConstant: 44)
+            ])
         }
         
         setupSearchBar()
         makeNavigationBarTransparent()
-        setupCurrentLocationButton()
+        setupTrackingButton()
     }
     
     private func setupMapView() {
@@ -85,13 +94,12 @@ final class RockSearchViewController: UIViewController {
                 self.mapView.removeAnnotations(self.mapView.annotations)
                 
                 documents.forEach {
-                    let rockAddressPin = MKPointAnnotation()
-                    rockAddressPin.title = $0.name
-                    rockAddressPin.coordinate = .init(
-                        latitude: $0.location.latitude,
-                        longitude: $0.location.longitude
+                    let annotation = RockAnnotation(
+                        coordinate: .init(latitude: $0.location.latitude, longitude: $0.location.longitude),
+                        rock: $0,
+                        title: $0.name
                     )
-                    self.mapView.addAnnotation(rockAddressPin)
+                    self.mapView.addAnnotation(annotation)
                 }
             }
             .store(in: &bindings)
@@ -121,8 +129,36 @@ extension RockSearchViewController: MKMapViewDelegate {
             return nil
         }
         
-        let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "pin")
-        annotationView.markerTintColor = UIColor.Pallete.primaryGreen
-        return annotationView
+        let annotationView = mapView.dequeueReusableAnnotationView(
+            withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier,
+            for: annotation
+        )
+        
+        guard
+            let markerAnnotationView = annotationView as? MKMarkerAnnotationView
+        else {
+            return annotationView
+        }
+
+        markerAnnotationView.clusteringIdentifier = RockAnnotation.className
+        markerAnnotationView.markerTintColor = UIColor.Pallete.primaryGreen
+        return markerAnnotationView
+    }
+}
+
+class RockAnnotation: NSObject, MKAnnotation {
+    
+    let rock: FIDocument.Rocks
+    let coordinate: CLLocationCoordinate2D
+    var title: String?
+    
+    init(
+        coordinate: CLLocationCoordinate2D,
+        rock: FIDocument.Rocks,
+        title: String
+    ) {
+        self.rock = rock
+        self.coordinate = coordinate
+        self.title = title
     }
 }
