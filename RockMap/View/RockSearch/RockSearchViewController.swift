@@ -144,6 +144,20 @@ extension RockSearchViewController: MKMapViewDelegate {
         markerAnnotationView.markerTintColor = UIColor.Pallete.primaryGreen
         return markerAnnotationView
     }
+    
+    func mapView(
+        _ mapView: MKMapView,
+        didSelect view: MKAnnotationView
+    ) {
+        
+        guard
+            let rockAnnotation = view.annotation as? RockAnnotation
+        else {
+            return
+        }
+        
+        print(rockAnnotation)
+    }
 }
 
 class RockAnnotation: NSObject, MKAnnotation {
