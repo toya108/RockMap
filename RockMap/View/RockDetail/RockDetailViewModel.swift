@@ -9,5 +9,11 @@ import Foundation
 
 final class RockDetailViewModel {
     
+    let rock: FIDocument.Rocks
+    
+    init(rock: FIDocument.Rocks) {
+        self.rock = rock
+    }
+    
 }
 

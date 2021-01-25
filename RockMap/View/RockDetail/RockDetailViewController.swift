@@ -16,6 +16,17 @@ class RockDetailViewController: UIViewController {
     @IBOutlet weak var contentsStackView: UIStackView!
     @IBOutlet weak var contentsStackViewHeight: NSLayoutConstraint!
     
+    private var viewModel: RockDetailViewModel!
+    
+    static func createInstance(viewModel: RockDetailViewModel) -> RockDetailViewController {
+        let instance = UIStoryboard.init(
+            name: RockDetailViewController.className,
+            bundle: nil
+        ).instantiateInitialViewController() as? RockDetailViewController
+        instance?.viewModel = viewModel
+        return instance!
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,7 +95,11 @@ extension RockDetailViewController: UICollectionViewDataSource {
 }
 
 extension RockDetailViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         return .init(width: collectionView.bounds.width / CGFloat(RockTabType.allCases.count), height: collectionView.bounds.height)
     }
 }
