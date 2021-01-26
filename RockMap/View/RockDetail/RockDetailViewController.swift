@@ -70,21 +70,41 @@ extension RockDetailViewController: UIScrollViewDelegate {
 }
 
 extension RockDetailViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         UIView.animate(withDuration: 0.2) { [weak self] in
+            
             guard let self = self else { return }
-            self.contentsScrollView.contentOffset = .init(x: self.view.bounds.width * CGFloat(indexPath.row), y: self.contentsScrollView.contentOffset.y)
+            
+            self.contentsScrollView.contentOffset = .init(
+                x: self.view.bounds.width * CGFloat(indexPath.row),
+                y: self.contentsScrollView.contentOffset.y
+            )
         }
     }
 }
 
 extension RockDetailViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
         return RockTabType.allCases.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = tabCollectionView.dequeueReusableCell(withReuseIdentifier: TabCollectionViewCell.className, for: indexPath) as? TabCollectionViewCell else { return UICollectionViewCell() }
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        
+        guard
+            let cell = tabCollectionView.dequeueReusableCell(withReuseIdentifier: TabCollectionViewCell.className, for: indexPath) as? TabCollectionViewCell
+        else {
+            return UICollectionViewCell()
+        }
+        
         cell.setContents(
             title: RockTabType.allCases[indexPath.row].title,
             image: RockTabType.allCases[indexPath.row].image,
@@ -100,6 +120,9 @@ extension RockDetailViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        return .init(width: collectionView.bounds.width / CGFloat(RockTabType.allCases.count), height: collectionView.bounds.height)
+        return .init(
+            width: collectionView.bounds.width / CGFloat(RockTabType.allCases.count),
+            height: collectionView.bounds.height
+        )
     }
 }
