@@ -6,39 +6,45 @@
 //
 
 import FirebaseStorage
+import Combine
 
 struct StorageManager {
+    
+    typealias Reference = StorageReference
+    
     static let reference = Storage.storage().reference()
     
-    static func makeReference(parent: FINameSpaceProtocol.Type, child: String) -> StorageReference {
+    static func makeReference(
+        parent: FINameSpaceProtocol.Type,
+        child: String
+    ) -> StorageReference {
         Self.reference.child(parent.name).child(child)
     }
     
-    static func getAllImageReference(reference: StorageReference, completion: @escaping (Result<[StorageReference], Error>) -> Void) {
-        reference.listAll { result, error in
-            if let error = error {
-                completion(.failure(error))
-                return
+    static func getAllReference(
+        reference: StorageReference
+    ) -> Future<[Reference], Error> {
+        return .init { promise in
+            reference.listAll { result, error in
+                if let error = error {
+                    promise(.failure(error))
+                    return
+                }
+                
+                promise(.success(result.items))
             }
-            
-            completion(.success(result.items))
         }
     }
-    
-    static func getImage(reference: StorageReference, completion: @escaping (Result<Data, Error>) -> Void) {
-        reference.getData(maxSize: 1 * 1024 * 1024) { data, error in
-            
-            if let error = error {
-                print("画像のDLに失敗しました\(error.localizedDescription)")
-                return
-            }
-            
-            guard let data = data else {
-                print("画像のdataを取得できませんでした。")
-                return
-            }
-            
-            completion(.success(data))
-        }
+}
+
+extension UIImageView {
+    static func loadImage(
+        _ imageView: UIImageView,
+        reference: StorageReference
+    ) {
+        imageView.sd_setImage(
+            with: reference,
+            placeholderImage: UIImage.AssetsImages.noImage
+        )
     }
 }
