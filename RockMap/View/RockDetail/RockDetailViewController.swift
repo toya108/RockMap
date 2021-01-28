@@ -100,7 +100,10 @@ extension RockDetailViewController: UICollectionViewDataSource {
     ) -> UICollectionViewCell {
         
         guard
-            let cell = tabCollectionView.dequeueReusableCell(withReuseIdentifier: TabCollectionViewCell.className, for: indexPath) as? TabCollectionViewCell
+            let cell = tabCollectionView.dequeueReusableCell(
+                withReuseIdentifier: TabCollectionViewCell.className,
+                for: indexPath
+            ) as? TabCollectionViewCell
         else {
             return UICollectionViewCell()
         }
@@ -124,5 +127,13 @@ extension RockDetailViewController: UICollectionViewDelegateFlowLayout {
             width: collectionView.bounds.width / CGFloat(RockTabType.allCases.count),
             height: collectionView.bounds.height
         )
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
+        return 0
     }
 }
