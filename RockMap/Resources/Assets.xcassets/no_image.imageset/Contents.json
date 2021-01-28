@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "l_e_others_500.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}
