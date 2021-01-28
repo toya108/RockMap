@@ -18,6 +18,8 @@ extension UIImage {
         static let pencilCircle = UIImage(systemName: "pencil.circle")!
         static let pencilCircleFill = UIImage(systemName: "pencil.circle.fill")!
         static let map = UIImage(systemName: "map")!
+        static let mappinCircleFill = UIImage(systemName: "mappin.circle.fill")!
+        static let mappinCircle = UIImage(systemName: "mappin.circle")!
         static let mapFill = UIImage(systemName: "map.fill")!
         static let mappinAndEllipse = UIImage(systemName: "mappin.and.ellipse")!
         static let xmarkCircleFill = UIImage(systemName: "xmark.circle.fill")
