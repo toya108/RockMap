@@ -8,13 +8,13 @@
 import UIKit
 
 enum RockTabType: CaseIterable {
-    case map
+    case mappin
     case cources
     case climbers
     
     var title: String {
         switch self {
-        case .map: return "マップ"
+        case .mappin: return "場所"
         
         case .cources: return "課題"
         
@@ -25,7 +25,7 @@ enum RockTabType: CaseIterable {
     
     var image: UIImage {
         switch self {
-        case .map: return UIImage.AssetsImages.map
+        case .mappin: return UIImage.AssetsImages.mappinCircle
         
         case .cources: return UIImage.AssetsImages.pencilCircle
         
@@ -36,7 +36,7 @@ enum RockTabType: CaseIterable {
     
     var selectingImage: UIImage {
         switch self {
-        case .map: return UIImage.AssetsImages.mapFill
+        case .mappin: return UIImage.AssetsImages.mappinCircleFill
         
         case .cources: return UIImage.AssetsImages.pencilCircleFill
         
@@ -47,7 +47,7 @@ enum RockTabType: CaseIterable {
     
     var viewController: UIViewController {
         switch self {
-        case .map:
+        case .mappin:
             return UIStoryboard(name: RockDetailMapViewController.className, bundle: nil).instantiateInitialViewController()!
             
         case .cources: return RockCourcesViewController()

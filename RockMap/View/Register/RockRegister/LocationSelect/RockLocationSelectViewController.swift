@@ -62,6 +62,7 @@ class RockLocationSelectViewController: UIViewController {
     
     private func setupBindings() {
         $location
+            .removeDuplicates()
             .sink { location in
                 LocationManager.shared.reverseGeocoding(location: location) { [weak self] result in
                     guard let self = self else { return }
