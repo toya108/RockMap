@@ -89,14 +89,14 @@
                                                                     <constraint firstAttribute="height" constant="36" id="w91-mc-wa6"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hoge" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNm-H6-eok" userLabel="日陰岩">
-                                                                <rect key="frame" x="44" y="0.0" width="122" height="36"/>
-                                                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="21"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="hoge" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNm-H6-eok" userLabel="日陰岩">
+                                                                <rect key="frame" x="44" y="0.0" width="272.5" height="36"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登録日：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDk-XY-sov">
-                                                                <rect key="frame" x="174" y="0.0" width="208" height="36"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" text="登録日：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BDk-XY-sov">
+                                                                <rect key="frame" x="324.5" y="0.0" width="57.5" height="36"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -130,6 +130,7 @@
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vwo-E4-hb3">
                                                         <rect key="frame" x="16" y="221" width="382" height="183.5"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <inset key="scrollIndicatorInsets" minX="2" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                         <color key="textColor" systemColor="labelColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -231,7 +232,11 @@
                         <outlet property="headerImageStackView" destination="GeY-I8-nvF" id="7x6-Pg-dM6"/>
                         <outlet property="headerScrollView" destination="Qk8-zZ-mhf" id="tYu-Ll-bo4"/>
                         <outlet property="mainScrollView" destination="sml-xq-P63" id="Q7e-Tn-d24"/>
+                        <outlet property="registeredUserNameLabel" destination="mKI-MJ-4b4" id="4aP-mb-UOY"/>
+                        <outlet property="rockDescTextView" destination="vwo-E4-hb3" id="eeg-yP-Sap"/>
+                        <outlet property="rockNameLabel" destination="BNm-H6-eok" id="4cJ-zW-45a"/>
                         <outlet property="tabCollectionView" destination="FcN-NW-TXd" id="A85-4D-7cI"/>
+                        <outlet property="userIconImageView" destination="rwI-Dg-H3m" id="ucQ-lo-8hb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TDK-tI-dRR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

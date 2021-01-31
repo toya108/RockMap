@@ -6,17 +6,25 @@
 //
 
 import UIKit
+import Combine
 
 class RockDetailViewController: UIViewController {
     @IBOutlet weak var headerScrollView: UIScrollView!
     @IBOutlet weak var headerImageStackView: UIStackView!
     @IBOutlet weak var mainScrollView: HeaderIgnorableScrollView!
+    
+    @IBOutlet weak var rockNameLabel: UILabel!
+    @IBOutlet weak var registeredUserNameLabel: UILabel!
+    @IBOutlet weak var userIconImageView: UIImageView!
+    @IBOutlet weak var rockDescTextView: UITextView!
+    
     @IBOutlet weak var tabCollectionView: UICollectionView!
     @IBOutlet weak var contentsScrollView: UIScrollView!
     @IBOutlet weak var contentsStackView: UIStackView!
     @IBOutlet weak var contentsStackViewHeight: NSLayoutConstraint!
     
     private var viewModel: RockDetailViewModel!
+    private var bindings = Set<AnyCancellable>()
     
     static func createInstance(viewModel: RockDetailViewModel) -> RockDetailViewController {
         let instance = UIStoryboard.init(
@@ -31,8 +39,55 @@ class RockDetailViewController: UIViewController {
         super.viewDidLoad()
         
         mainScrollView.delegate = self
+        setupLayout()
         setupCollectionView()
+        setupContentsStackView()
+        
+        bindViewModelToView()
+    }
+    
+    private func bindViewModelToView() {
+        viewModel.$rockName
+            .map { Optional($0) }
+            .receive(on: RunLoop.main)
+            .assign(to: \UILabel.text, on: rockNameLabel)
+            .store(in: &bindings)
+        
+        viewModel.$rockName
+            .map { Optional($0) }
+            .receive(on: RunLoop.main)
+            .assign(to: \UINavigationItem.title, on: navigationItem)
+            .store(in: &bindings)
+        
+        viewModel.$rockDesc
+            .map { Optional($0) }
+            .receive(on: RunLoop.main)
+            .assign(to: \UITextView.text, on: rockDescTextView)
+            .store(in: &bindings)
+        
+    }
+    
+    private func setupLayout() {
+        mainScrollView.contentInset.top = headerScrollView.bounds.height
+        contentsStackViewHeight.constant =
+            view.bounds.height
+            - tabCollectionView.bounds.height
+            - (view.safeAreaInsets.top + view.safeAreaInsets.bottom)
+    }
+    
+    private func setupCollectionView() {
+        tabCollectionView.delegate = self
+        tabCollectionView.dataSource = self
+        tabCollectionView.allowsMultipleSelection = false
+        tabCollectionView.register(
+            .init(nibName: TabCollectionViewCell.className, bundle: nil),
+            forCellWithReuseIdentifier: TabCollectionViewCell.className
+        )
+    }
+    
+    private func setupContentsStackView() {
         contentsStackView.arrangedSubviews.forEach { contentsStackView.removeArrangedSubview($0) }
+        
         RockTabType.allCases.map(\.viewController).forEach {
             addChild($0)
             $0.didMove(toParent: self)
@@ -40,24 +95,6 @@ class RockDetailViewController: UIViewController {
             contentsStackView.addArrangedSubview($0.view)
             $0.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setup()
-    }
-    
-    private lazy var setup: (() -> Void) = {
-        mainScrollView.contentInset.top = headerScrollView.bounds.height
-        contentsStackViewHeight.constant = view.bounds.height - tabCollectionView.bounds.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom
-        return {}
-    }()
-    
-    private func setupCollectionView() {
-        tabCollectionView.delegate = self
-        tabCollectionView.dataSource = self
-        tabCollectionView.allowsMultipleSelection = false
-        tabCollectionView.register(.init(nibName: TabCollectionViewCell.className, bundle: nil), forCellWithReuseIdentifier: TabCollectionViewCell.className)
     }
 }
 
