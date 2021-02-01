@@ -65,6 +65,16 @@ class RockDetailViewController: UIViewController {
             .assign(to: \UITextView.text, on: rockDescTextView)
             .store(in: &bindings)
         
+        viewModel.$registeredUser
+            .receive(on: RunLoop.main)
+            .sink { [weak self] user in
+                
+                guard let self = self else { return }
+                
+                self.registeredUserNameLabel.text = user.name
+                self.userIconImageView.loadImage(url: user.photoURL)
+            }
+            .store(in: &bindings)
     }
     
     private func setupLayout() {
