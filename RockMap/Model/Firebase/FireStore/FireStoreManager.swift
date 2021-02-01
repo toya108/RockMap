@@ -43,6 +43,9 @@ struct FirestoreManager {
     }
     
     static func fetchById<T: FIDocumentProtocol>(id: String, completion: @escaping (Result<T?, Error>) -> Void) {
+        
+        if id.isEmpty { return }
+        
         db.collection(T.colletionName).document(id).getDocument { snap, error in
             if let error = error {
                 completion(.failure(error))
