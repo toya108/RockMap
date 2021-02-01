@@ -11,8 +11,9 @@ extension FIDocument {
     struct Users: FIDocumentProtocol {
         typealias Collection = FINameSpace.Users
         
-        var uid: String
-        var name: String
+        var uid: String = ""
+        var name: String = ""
         var email: String?
+        var photoURL: URL?
     }
 }
