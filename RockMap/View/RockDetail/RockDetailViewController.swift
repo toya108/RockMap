@@ -83,6 +83,10 @@ class RockDetailViewController: UIViewController {
             view.bounds.height
             - tabCollectionView.bounds.height
             - (view.safeAreaInsets.top + view.safeAreaInsets.bottom)
+        
+        userIconImageView.layer.cornerRadius = userIconImageView.bounds.width / 2
+        userIconImageView.layer.borderWidth = 1
+        userIconImageView.layer.borderColor = UIColor.Pallete.primaryGreen.cgColor
     }
     
     private func setupCollectionView() {
