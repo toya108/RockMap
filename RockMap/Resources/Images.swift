@@ -12,7 +12,6 @@ extension UIImage {
     struct AssetsImages {
         static let folderFill = UIImage(systemName: "folder.fill")!
         static let cameraFill = UIImage(systemName: "camera.fill")!
-        static let noImage = UIImage(systemName: "nosign")!
         static let personCircle = UIImage(systemName: "person.circle")!
         static let personCircleFill = UIImage(systemName: "person.circle.fill")!
         static let pencilCircle = UIImage(systemName: "pencil.circle")!

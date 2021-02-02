@@ -44,7 +44,7 @@ extension UIImageView {
     ) {
         imageView.sd_setImage(
             with: reference,
-            placeholderImage: UIImage.AssetsImages.noImage
+            placeholderImage: UIImage.AssetsImages.noimage
         )
     }
 }
