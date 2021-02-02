@@ -75,6 +75,34 @@ class RockDetailViewController: UIViewController {
                 self.userIconImageView.loadImage(url: user.photoURL)
             }
             .store(in: &bindings)
+        
+        viewModel.$rockImageReferences
+            .receive(on: RunLoop.main)
+            .drop(while: { $0.isEmpty })
+            .sink { [weak self] references in
+                
+                guard let self = self else { return }
+                
+                references.forEach {
+                    let imageView = self.makeImageView()
+                    imageView.loadImage(reference: $0)
+                    self.headerImageStackView.addArrangedSubview(imageView)
+                    NSLayoutConstraint.activate([
+                        imageView.widthAnchor.constraint(equalToConstant: self.headerImageStackView.bounds.height * 16/9),
+                        imageView.heightAnchor.constraint(equalTo: self.headerImageStackView.heightAnchor)
+                    ])
+                }
+                
+            }
+            .store(in: &bindings)
+    }
+    
+    private func makeImageView() -> UIImageView {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .black
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }
     
     private func setupLayout() {

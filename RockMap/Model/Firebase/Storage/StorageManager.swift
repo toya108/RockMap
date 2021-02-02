@@ -38,11 +38,10 @@ struct StorageManager {
 }
 
 extension UIImageView {
-    static func loadImage(
-        _ imageView: UIImageView,
+    func loadImage(
         reference: StorageReference
     ) {
-        imageView.sd_setImage(
+        self.sd_setImage(
             with: reference,
             placeholderImage: UIImage.AssetsImages.noimage
         )
