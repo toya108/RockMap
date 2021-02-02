@@ -140,7 +140,7 @@ final class RockConfirmViewController: UIViewController {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(data: data)
-        imageView.backgroundColor = .gray
+        imageView.backgroundColor = .black
         imageView.contentMode = .scaleAspectFit
         return imageView
     }
