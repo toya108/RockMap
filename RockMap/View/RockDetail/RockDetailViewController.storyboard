@@ -45,7 +45,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="vU2-TR-zHK"/>
                             </scrollView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sml-xq-P63" customClass="HeaderIgnorableScrollView" customModule="RockMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VdG-r8-F05">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1081.5"/>
@@ -111,10 +111,17 @@
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         <dataDetectorType key="dataDetectorTypes" link="YES" address="YES"/>
                                                     </textView>
+                                                    <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yI0-wz-v2D" userLabel="Blur View">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="412.5"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
+                                                    <constraint firstItem="yI0-wz-v2D" firstAttribute="top" secondItem="cmq-n6-c1V" secondAttribute="top" id="2FT-YY-HTU"/>
+                                                    <constraint firstItem="yI0-wz-v2D" firstAttribute="leading" secondItem="cmq-n6-c1V" secondAttribute="leading" id="34Y-rn-ZU9"/>
                                                     <constraint firstItem="IKa-7u-EqK" firstAttribute="leading" secondItem="cmq-n6-c1V" secondAttribute="leading" constant="16" id="3bl-co-WTa"/>
+                                                    <constraint firstAttribute="bottom" secondItem="yI0-wz-v2D" secondAttribute="bottom" id="F0H-i6-B4u"/>
                                                     <constraint firstAttribute="bottom" secondItem="vwo-E4-hb3" secondAttribute="bottom" constant="8" id="JSa-0J-Mmc"/>
                                                     <constraint firstItem="vwo-E4-hb3" firstAttribute="top" secondItem="IKa-7u-EqK" secondAttribute="bottom" constant="8" id="Mat-dI-14P"/>
                                                     <constraint firstAttribute="trailing" secondItem="fra-O2-6fo" secondAttribute="trailing" constant="16" id="Rzv-IT-oZR"/>
@@ -123,6 +130,7 @@
                                                     <constraint firstItem="fra-O2-6fo" firstAttribute="leading" secondItem="cmq-n6-c1V" secondAttribute="leading" constant="16" id="f5V-tH-RKC"/>
                                                     <constraint firstItem="vwo-E4-hb3" firstAttribute="leading" secondItem="cmq-n6-c1V" secondAttribute="leading" constant="16" id="vLl-a5-GZi"/>
                                                     <constraint firstAttribute="trailing" secondItem="vwo-E4-hb3" secondAttribute="trailing" constant="16" id="x7k-fE-9xR"/>
+                                                    <constraint firstAttribute="trailing" secondItem="yI0-wz-v2D" secondAttribute="trailing" id="zq2-1I-IfZ"/>
                                                 </constraints>
                                             </view>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FcN-NW-TXd">
@@ -190,7 +198,7 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="6lT-yb-VZG" firstAttribute="trailing" secondItem="sml-xq-P63" secondAttribute="trailing" id="3x4-Yz-ckA"/>
-                            <constraint firstItem="sml-xq-P63" firstAttribute="top" secondItem="6lT-yb-VZG" secondAttribute="top" id="61g-4G-i5q"/>
+                            <constraint firstItem="sml-xq-P63" firstAttribute="top" secondItem="GGD-Ak-VQS" secondAttribute="top" id="61g-4G-i5q"/>
                             <constraint firstItem="Qk8-zZ-mhf" firstAttribute="leading" secondItem="6lT-yb-VZG" secondAttribute="leading" id="96n-iR-kD0"/>
                             <constraint firstItem="6lT-yb-VZG" firstAttribute="trailing" secondItem="Qk8-zZ-mhf" secondAttribute="trailing" id="AgJ-y8-hLq"/>
                             <constraint firstItem="8xf-bU-Xgh" firstAttribute="width" secondItem="GGD-Ak-VQS" secondAttribute="width" id="kkm-3Q-4rI"/>
@@ -200,6 +208,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="blurView" destination="yI0-wz-v2D" id="fWl-ob-0aZ"/>
                         <outlet property="contentsScrollView" destination="rZJ-FG-MFj" id="yk5-Ha-5ar"/>
                         <outlet property="contentsStackView" destination="BOp-Gn-r1N" id="uZR-vr-A6a"/>
                         <outlet property="contentsStackViewHeight" destination="3xT-cP-45e" id="hfC-kf-9Uo"/>

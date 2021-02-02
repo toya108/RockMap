@@ -17,6 +17,7 @@ class RockDetailViewController: UIViewController {
     @IBOutlet weak var registeredUserNameLabel: UILabel!
     @IBOutlet weak var userIconImageView: UIImageView!
     @IBOutlet weak var rockDescTextView: UITextView!
+    @IBOutlet weak var blurView: UIView!
     
     @IBOutlet weak var tabCollectionView: UICollectionView!
     @IBOutlet weak var contentsScrollView: UIScrollView!
@@ -106,7 +107,7 @@ class RockDetailViewController: UIViewController {
     }
     
     private func setupLayout() {
-        mainScrollView.contentInset.top = headerScrollView.bounds.height
+        mainScrollView.contentInset.top = UIScreen.main.bounds.width * 9/16
         contentsStackViewHeight.constant =
             view.bounds.height
             - tabCollectionView.bounds.height
@@ -142,8 +143,34 @@ class RockDetailViewController: UIViewController {
 
 extension RockDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y >= tabCollectionView.frame.minY {
-            scrollView.contentOffset.y = tabCollectionView.frame.minY
+        
+        let shouldShowNavigationBar = scrollView.contentOffset.y >= rockNameLabel.frame.minY
+        updateNavigationBarHidden(shouldShowNavigationBar)
+        
+        let limitOffset = tabCollectionView.frame.minY
+            - CGFloat(navigationController?.navigationBar.bounds.height ?? 0)
+            - 16
+        if scrollView.contentOffset.y >= limitOffset {
+            scrollView.contentOffset.y = limitOffset
+        }
+    }
+    
+    private func updateNavigationBarHidden(_ shouldShow: Bool) {
+        if shouldShow {
+            if blurView.isHidden {
+                blurView.fadeIn(duration: 0.3)
+            }
+            
+            if navigationController?.isNavigationBarHidden ?? true {
+                navigationController?.setNavigationBarHidden(false, animated: true)
+            }
+            
+        } else {
+            if !(navigationController?.isNavigationBarHidden ?? false) {
+                navigationController?.setNavigationBarHidden(true, animated: true)
+                blurView.fadeOut(duration: 0.3)
+            }
+            
         }
     }
 }
