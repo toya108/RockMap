@@ -17,6 +17,7 @@ class RockDetailViewController: UIViewController {
     @IBOutlet weak var registeredUserNameLabel: UILabel!
     @IBOutlet weak var userIconImageView: UIImageView!
     @IBOutlet weak var rockDescTextView: UITextView!
+    @IBOutlet weak var blurView: UIView!
     
     @IBOutlet weak var tabCollectionView: UICollectionView!
     @IBOutlet weak var contentsScrollView: UIScrollView!
@@ -65,14 +66,56 @@ class RockDetailViewController: UIViewController {
             .assign(to: \UITextView.text, on: rockDescTextView)
             .store(in: &bindings)
         
+        viewModel.$registeredUser
+            .receive(on: RunLoop.main)
+            .sink { [weak self] user in
+                
+                guard let self = self else { return }
+                
+                self.registeredUserNameLabel.text = user.name
+                self.userIconImageView.loadImage(url: user.photoURL)
+            }
+            .store(in: &bindings)
+        
+        viewModel.$rockImageReferences
+            .receive(on: RunLoop.main)
+            .drop(while: { $0.isEmpty })
+            .sink { [weak self] references in
+                
+                guard let self = self else { return }
+                
+                references.forEach {
+                    let imageView = self.makeImageView()
+                    imageView.loadImage(reference: $0)
+                    self.headerImageStackView.addArrangedSubview(imageView)
+                    NSLayoutConstraint.activate([
+                        imageView.widthAnchor.constraint(equalToConstant: self.headerImageStackView.bounds.height * 16/9),
+                        imageView.heightAnchor.constraint(equalTo: self.headerImageStackView.heightAnchor)
+                    ])
+                }
+                
+            }
+            .store(in: &bindings)
+    }
+    
+    private func makeImageView() -> UIImageView {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .black
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }
     
     private func setupLayout() {
-        mainScrollView.contentInset.top = headerScrollView.bounds.height
+        mainScrollView.contentInset.top = UIScreen.main.bounds.width * 9/16
         contentsStackViewHeight.constant =
             view.bounds.height
             - tabCollectionView.bounds.height
             - (view.safeAreaInsets.top + view.safeAreaInsets.bottom)
+        
+        userIconImageView.layer.cornerRadius = userIconImageView.bounds.width / 2
+        userIconImageView.layer.borderWidth = 1
+        userIconImageView.layer.borderColor = UIColor.Pallete.primaryGreen.cgColor
     }
     
     private func setupCollectionView() {
@@ -100,8 +143,34 @@ class RockDetailViewController: UIViewController {
 
 extension RockDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y >= tabCollectionView.frame.minY {
-            scrollView.contentOffset.y = tabCollectionView.frame.minY
+        
+        let shouldShowNavigationBar = scrollView.contentOffset.y >= rockNameLabel.frame.minY
+        updateNavigationBarHidden(shouldShowNavigationBar)
+        
+        let limitOffset = tabCollectionView.frame.minY
+            - CGFloat(navigationController?.navigationBar.bounds.height ?? 0)
+            - 16
+        if scrollView.contentOffset.y >= limitOffset {
+            scrollView.contentOffset.y = limitOffset
+        }
+    }
+    
+    private func updateNavigationBarHidden(_ shouldShow: Bool) {
+        if shouldShow {
+            if blurView.isHidden {
+                blurView.fadeIn(duration: 0.3)
+            }
+            
+            if navigationController?.isNavigationBarHidden ?? true {
+                navigationController?.setNavigationBarHidden(false, animated: true)
+            }
+            
+        } else {
+            if !(navigationController?.isNavigationBarHidden ?? false) {
+                navigationController?.setNavigationBarHidden(true, animated: true)
+                blurView.fadeOut(duration: 0.3)
+            }
+            
         }
     }
 }

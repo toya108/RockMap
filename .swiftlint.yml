@@ -8,6 +8,7 @@ disabled_rules:
 - vertical_whitespace # Xocdeの自動生成ファイルで警告が出るため
 - trailing_newline # Xocdeの自動生成ファイルで警告が出るため
 - nesting # クロージャの使用ですぐに警告が出るため
+- trailing_closure # 括弧と一緒にクロージャ使う時とか省略できない場面があるから
 - todo # すぐに修正できない場合があり、pushの度にlintに引っかかってbotに書き込まれるのがノイズになるから
 - type_contents_order
 - file_types_order

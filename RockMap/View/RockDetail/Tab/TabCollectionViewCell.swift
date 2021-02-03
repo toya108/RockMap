@@ -12,8 +12,8 @@ class TabCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var iconImageVIew: UIImageView!
     
-    private var image = UIImage.AssetsImages.noImage
-    private var selectingImage = UIImage.AssetsImages.noImage
+    private var image = UIImage.AssetsImages.noimage
+    private var selectingImage = UIImage.AssetsImages.noimage
     
     override var isSelected: Bool {
         didSet {

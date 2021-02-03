@@ -115,7 +115,8 @@ extension LoginViewController: FUIAuthDelegate {
             FIDocument.Users(
                 uid: user.uid,
                 name: user.displayName ?? "-",
-                email: user.email
+                email: user.email,
+                photoURL: user.photoURL
             )
         ) { [weak self] result in
             guard let self = self else { return }

@@ -40,6 +40,8 @@ final class RockSearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.setNavigationBarHidden(false, animated: false)
+        
         updateLocation(LocationManager.shared.location)
         viewModel.fetchRockList()
     }

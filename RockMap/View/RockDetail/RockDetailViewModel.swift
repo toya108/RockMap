@@ -13,9 +13,8 @@ final class RockDetailViewModel {
     @Published private var rockDocument: FIDocument.Rocks = .init()
     
     @Published var rockName = ""
-    @Published var registerdUserId = ""
-    @Published var registeredUserName = ""
-    @Published var userIcon = ""
+    @Published var registeredUserId = ""
+    @Published var registeredUser: FIDocument.Users = .init()
     @Published var rockDesc = ""
     @Published var rockImageReferences: [StorageManager.Reference] = []
     
@@ -29,12 +28,14 @@ final class RockDetailViewModel {
     
     private func setupBindings() {
         $rockDocument
+            .dropFirst()
             .sink { [weak self] rock in
                 
                 guard let self = self else { return }
                 
                 self.rockName = rock.name
                 self.rockDesc = rock.desc
+                self.registeredUserId = rock.registeredUserId
             }
             .store(in: &bindings)
         
@@ -51,6 +52,23 @@ final class RockDetailViewModel {
             .eraseToAnyPublisher()
             .replaceError(with: [])
             .assign(to: &$rockImageReferences)
+        
+        $registeredUserId
+            .sink { id in
+                FirestoreManager.fetchById(id: id) { [weak self] (result: Result<FIDocument.Users?, Error>) in
+                    
+                    guard
+                        let self = self,
+                        case let .success(user) = result,
+                        let unwrappedUser = user
+                    else {
+                        return
+                    }
+                    
+                    self.registeredUser = unwrappedUser
+                }
+            }
+            .store(in: &bindings)
     }
 }
 
