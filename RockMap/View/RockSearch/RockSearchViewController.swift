@@ -158,7 +158,7 @@ extension RockSearchViewController: MKMapViewDelegate {
             return
         }
         
-        let vc = RockDetailViewController.createInstance(viewModel: .init(rock: rockAnnotation.rock))
+        let vc = RockDetailViewControllerV2.createInstance(viewModel: .init(rock: rockAnnotation.rock))
         navigationController?.pushViewController(vc, animated: true)
     }
 }
