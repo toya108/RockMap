@@ -7,11 +7,11 @@
 
 import Foundation
 
-public extension Array where Element: AnyObject {
+extension Array where Element: AnyObject {
 
     func any(at position: Int) -> Element? {
         
-        if position >= self.count {
+        if position >= count {
             return nil
         }
         
