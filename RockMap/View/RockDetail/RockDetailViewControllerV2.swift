@@ -51,10 +51,26 @@ class RockDetailViewControllerV2: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupColletionView()
+        setupNavigationBar()
+        bindViewToViewModel()
+    }
+    
+    private func setupNavigationBar() {
+        guard
+            let rockMapNavigationBar = navigationController?.navigationBar as? RockMapNavigationBar
+        else {
+            return
+        }
+        
+        rockMapNavigationBar.setup()
 
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
-        
+    }
+    
+    private func setupColletionView() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
         NSLayoutConstraint.activate([
@@ -105,6 +121,7 @@ class RockDetailViewControllerV2: UIViewController {
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .paging
                 return section
+                
             case .overview:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
@@ -123,6 +140,7 @@ class RockDetailViewControllerV2: UIViewController {
                 
                 let section = NSCollectionLayoutSection(group: group)
                 return section
+                
             case .cources:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
@@ -144,6 +162,7 @@ class RockDetailViewControllerV2: UIViewController {
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .paging
                 return section
+                
             case .map:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
@@ -167,8 +186,17 @@ class RockDetailViewControllerV2: UIViewController {
                 return section
             }
             
-
         }
+    }
+    
+    private func bindViewToViewModel() {
+        viewModel.$rockName
+            .map { Optional($0) }
+            .receive(on: RunLoop.main)
+            .assign(to: \UINavigationItem.title, on: navigationItem)
+            .store(in: &bindings)
+        
+        
     }
 
 }

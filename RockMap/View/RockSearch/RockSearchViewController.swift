@@ -40,10 +40,18 @@ final class RockSearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.setNavigationBarHidden(false, animated: false)
-        
+        setupNavigationBar()
         updateLocation(LocationManager.shared.location)
         viewModel.fetchRockList()
+    }
+    
+    private func setupNavigationBar() {
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.prefersLargeTitles = false
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        navigationController?.navigationBar.standardAppearance = appearance
     }
     
     private func setupLayout() {
@@ -51,11 +59,6 @@ final class RockSearchViewController: UIViewController {
             searchBar.delegate = self
             navigationItem.titleView = searchBar
             navigationItem.titleView?.frame = searchBar.frame
-        }
-        
-        func makeNavigationBarTransparent() {
-            navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-            navigationController?.navigationBar.shadowImage = UIImage()
         }
         
         func setupTrackingButton() {
@@ -78,7 +81,6 @@ final class RockSearchViewController: UIViewController {
         }
         
         setupSearchBar()
-        makeNavigationBarTransparent()
         setupTrackingButton()
     }
     
