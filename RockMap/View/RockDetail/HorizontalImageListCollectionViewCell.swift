@@ -22,8 +22,14 @@ class HorizontalImageListCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-        imageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leftAnchor.constraint(equalTo: leftAnchor),
+            imageView.rightAnchor.constraint(equalTo: rightAnchor),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
     
 }

@@ -49,12 +49,33 @@ class RockDetailViewControllerV2: UIViewController {
         return instance!
     }
     
+    var headerImageDatasource: UICollectionViewDiffableDataSource<SectionLayoutKind, StorageManager.Reference>!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        headerImageDatasource = UICollectionViewDiffableDataSource(
+            collectionView: collectionView,
+            cellProvider: { colletionView, indexPath, references in
+                guard
+                    let cell = colletionView.dequeueReusableCell(
+                        withReuseIdentifier: HorizontalImageListCollectionViewCell.className,
+                        for: indexPath
+                    ) as? HorizontalImageListCollectionViewCell
+                else {
+                    return UICollectionViewCell()
+                }
+                
+                cell.imageView.loadImage(reference: references)
+                cell.backgroundColor = UIColor.Pallete.primaryGreen
+                return cell
+            }
+        )
         
         setupColletionView()
         setupNavigationBar()
         bindViewToViewModel()
+        
     }
     
     private func setupNavigationBar() {
@@ -79,8 +100,8 @@ class RockDetailViewControllerV2: UIViewController {
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
-        collectionView.delegate = self
-        collectionView.dataSource = self
+//        collectionView.delegate = self
+//        collectionView.dataSource = self
         collectionView.register(
             HorizontalImageListCollectionViewCell.self,
             forCellWithReuseIdentifier: HorizontalImageListCollectionViewCell.className
@@ -196,76 +217,87 @@ class RockDetailViewControllerV2: UIViewController {
             .assign(to: \UINavigationItem.title, on: navigationItem)
             .store(in: &bindings)
         
-        
+        viewModel.$rockImageReferences
+            .receive(on: RunLoop.main)
+            .sink { [weak self] references in
+                
+                guard let self = self else { return }
+                if references.isEmpty { return }
+                
+                var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, StorageManager.Reference>()
+                snapShot.appendSections([.headerImages])
+                snapShot.appendItems(references, toSection: .headerImages)
+                self.headerImageDatasource.apply(snapShot)
+            }
+            .store(in: &bindings)
     }
 
 }
 
-extension RockDetailViewControllerV2: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        
-        let sectionType = SectionLayoutKind.allCases[indexPath.section]
-        
-        switch sectionType {
-        case .headerImages:
-            guard
-                let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: HorizontalImageListCollectionViewCell.className,
-                    for: indexPath
-                ) as? HorizontalImageListCollectionViewCell
-            else {
-                return UICollectionViewCell()
-            }
-            cell.imageView.image = UIImage.AssetsImages.rock
-            cell.backgroundColor = UIColor.Pallete.primaryGreen
-            return cell
-            
-        case .overview:
-            guard
-                let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: RockOverviewCollectionViewCell.className,
-                    for: indexPath
-                ) as? RockOverviewCollectionViewCell
-            else {
-                return UICollectionViewCell()
-            }
-            cell.backgroundColor = .blue
-            cell.userIconImageView.image = UIImage.AssetsImages.pencilCircle
-            cell.userNameLabel.text = "hoge"
-            return cell
-            
-        default:
-            return UICollectionViewCell()
-            
-        }
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        
-        let sectionType = SectionLayoutKind.allCases[section]
-        
-        switch sectionType {
-        case .headerImages:
-            return 3
-            
-        case .overview:
-            return 1
-            
-        default:
-            return 0
-        }
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return SectionLayoutKind.allCases.count
-    }
-}
+//extension RockDetailViewControllerV2: UICollectionViewDelegate, UICollectionViewDataSource {
+//    func collectionView(
+//        _ collectionView: UICollectionView,
+//        cellForItemAt indexPath: IndexPath
+//    ) -> UICollectionViewCell {
+//
+//        let sectionType = SectionLayoutKind.allCases[indexPath.section]
+//
+//        switch sectionType {
+//        case .headerImages:
+//            guard
+//                let cell = collectionView.dequeueReusableCell(
+//                    withReuseIdentifier: HorizontalImageListCollectionViewCell.className,
+//                    for: indexPath
+//                ) as? HorizontalImageListCollectionViewCell
+//            else {
+//                return UICollectionViewCell()
+//            }
+//            cell.imageView.image = UIImage.AssetsImages.rock
+//            cell.backgroundColor = UIColor.Pallete.primaryGreen
+//            return cell
+//
+//        case .overview:
+//            guard
+//                let cell = collectionView.dequeueReusableCell(
+//                    withReuseIdentifier: RockOverviewCollectionViewCell.className,
+//                    for: indexPath
+//                ) as? RockOverviewCollectionViewCell
+//            else {
+//                return UICollectionViewCell()
+//            }
+//            cell.userIconImageView.image = UIImage.AssetsImages.pencilCircle
+//            cell.userNameLabel.text = "hoge"
+//            return cell
+//
+//        default:
+//            return UICollectionViewCell()
+//
+//        }
+//    }
+//
+//    func collectionView(
+//        _ collectionView: UICollectionView,
+//        numberOfItemsInSection section: Int
+//    ) -> Int {
+//
+//        let sectionType = SectionLayoutKind.allCases[section]
+//
+//        switch sectionType {
+//        case .headerImages:
+//            return 3
+//
+//        case .overview:
+//            return 1
+//
+//        default:
+//            return 0
+//        }
+//    }
+//
+//    func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        return SectionLayoutKind.allCases.count
+//    }
+//}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
