@@ -21,7 +21,7 @@ final class LocationManager: NSObject {
         return locationManager.authorizationStatus == .authorizedWhenInUse
     }
     
-    @Published var location = CLLocation(latitude: .zero, longitude: .zero)
+    @Published var location = CLLocation(latitude: 35.6804, longitude: 139.7690)
     
     var address = ""
     
