@@ -16,6 +16,15 @@ class RockDetailViewControllerV2: UIViewController {
         case overview
         case cources
         case map
+        
+        var sectionIndex: Int {
+            switch self {
+            case .headerImages: return 0
+            case .overview: return 1
+            case .cources: return 2
+            case .map: return 3
+            }
+        }
     }
     
     private lazy var collectionView: UICollectionView = {
@@ -56,51 +65,178 @@ class RockDetailViewControllerV2: UIViewController {
         ])
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(
+            HorizontalImageListCollectionViewCell.self,
+            forCellWithReuseIdentifier: HorizontalImageListCollectionViewCell.className
+        )
+        collectionView.register(
+            .init(
+                nibName: RockOverviewCollectionViewCell.className,
+                bundle: nil
+            ),
+            forCellWithReuseIdentifier: RockOverviewCollectionViewCell.className
+        )
     }
     
-    static func createLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
+    static private func createLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout {
+            sectionNumber, env -> NSCollectionLayoutSection in
             
-            let item = NSCollectionLayoutItem(
-                layoutSize: .init(
-                    widthDimension: .fractionalWidth(1),
-                    heightDimension: .fractionalHeight(1)
+            let sectionType = SectionLayoutKind.allCases[sectionNumber]
+            
+            switch sectionType {
+            case .headerImages:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)
+                    )
                 )
-            )
-            item.contentInsets.bottom = 16
+                
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(200)
+                    ),
+                    subitems: [item]
+                )
+                group.contentInsets.bottom = 8
+                
+                let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .paging
+                return section
+            case .overview:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)
+                    )
+                )
+                
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .estimated(300)
+                    ),
+                    subitems: [item]
+                )
+                
+                let section = NSCollectionLayoutSection(group: group)
+                return section
+            case .cources:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)
+                    )
+                )
+                
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(200)
+                    ),
+                    subitems: [item]
+                )
+                group.contentInsets.bottom = 8
+                group.contentInsets.leading = 8
+                
+                let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .paging
+                return section
+            case .map:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)
+                    )
+                )
+                
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(200)
+                    ),
+                    subitems: [item]
+                )
+                group.contentInsets.bottom = 8
+                group.contentInsets.leading = 8
+                
+                let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .paging
+                return section
+            }
             
-            let group = NSCollectionLayoutGroup.horizontal(
-                layoutSize: .init(
-                    widthDimension: .fractionalWidth(1),
-                    heightDimension: .absolute(200)
-                ),
-                subitems: [item]
-            )
-            
-            let section = NSCollectionLayoutSection(group: group)
-            section.orthogonalScrollingBehavior = .paging
-            return section
+
         }
     }
+
 }
 
 extension RockDetailViewControllerV2: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        
+        let sectionType = SectionLayoutKind.allCases[indexPath.section]
+        
+        switch sectionType {
+        case .headerImages:
+            guard
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: HorizontalImageListCollectionViewCell.className,
+                    for: indexPath
+                ) as? HorizontalImageListCollectionViewCell
+            else {
+                return UICollectionViewCell()
+            }
+            cell.imageView.image = UIImage.AssetsImages.rock
+            cell.backgroundColor = UIColor.Pallete.primaryGreen
+            return cell
+            
+        case .overview:
+            guard
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: RockOverviewCollectionViewCell.className,
+                    for: indexPath
+                ) as? RockOverviewCollectionViewCell
+            else {
+                return UICollectionViewCell()
+            }
+            cell.backgroundColor = .blue
+            cell.userIconImageView.image = UIImage.AssetsImages.pencilCircle
+            cell.userNameLabel.text = "hoge"
+            return cell
+            
+        default:
+            return UICollectionViewCell()
+            
+        }
+    }
+    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        
+        let sectionType = SectionLayoutKind.allCases[section]
+        
+        switch sectionType {
+        case .headerImages:
+            return 3
+            
+        case .overview:
+            return 1
+            
+        default:
+            return 0
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return SectionLayoutKind.allCases.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = UIColor.Pallete.primaryGreen
-        return cell
-    }
-    
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
