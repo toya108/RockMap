@@ -48,8 +48,8 @@
 		9E60DCBA255714A1000CF2E8 /* RockLocationSelectViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E60DCB9255714A1000CF2E8 /* RockLocationSelectViewController.storyboard */; };
 		9E612BEF2588AFC000B2998A /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E612BEE2588AFC000B2998A /* Map.swift */; };
 		9E613ABC25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E613ABB25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift */; };
-		9E613AC825CB00520040F6F2 /* RockOverviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E613AC625CB00520040F6F2 /* RockOverviewCollectionViewCell.swift */; };
-		9E613AC925CB00520040F6F2 /* RockOverviewCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E613AC725CB00520040F6F2 /* RockOverviewCollectionViewCell.xib */; };
+		9E613AC825CB00520040F6F2 /* RegisteredUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E613AC625CB00520040F6F2 /* RegisteredUserCollectionViewCell.swift */; };
+		9E613AC925CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E613AC725CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib */; };
 		9E623688258A662B00152AF9 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E623687258A662B00152AF9 /* StorageManager.swift */; };
 		9E6AB12F2562CF9800444FBF /* RockDetailMapViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6AB12E2562CF9800444FBF /* RockDetailMapViewController.storyboard */; };
 		9E76C40C258F9E8D00B96926 /* ImageUploadIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76C40B258F9E8D00B96926 /* ImageUploadIndicatorView.swift */; };
@@ -162,8 +162,8 @@
 		9E60DCB9255714A1000CF2E8 /* RockLocationSelectViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RockLocationSelectViewController.storyboard; sourceTree = "<group>"; };
 		9E612BEE2588AFC000B2998A /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		9E613ABB25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalImageListCollectionViewCell.swift; sourceTree = "<group>"; };
-		9E613AC625CB00520040F6F2 /* RockOverviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockOverviewCollectionViewCell.swift; sourceTree = "<group>"; };
-		9E613AC725CB00520040F6F2 /* RockOverviewCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RockOverviewCollectionViewCell.xib; sourceTree = "<group>"; };
+		9E613AC625CB00520040F6F2 /* RegisteredUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredUserCollectionViewCell.swift; sourceTree = "<group>"; };
+		9E613AC725CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisteredUserCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E623687258A662B00152AF9 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		9E6AB12E2562CF9800444FBF /* RockDetailMapViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RockDetailMapViewController.storyboard; sourceTree = "<group>"; };
 		9E76C40B258F9E8D00B96926 /* ImageUploadIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadIndicatorView.swift; sourceTree = "<group>"; };
@@ -445,6 +445,16 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		9E6DC03A25CE1ABC00F9C314 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9E613ABB25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift */,
+				9E613AC625CB00520040F6F2 /* RegisteredUserCollectionViewCell.swift */,
+				9E613AC725CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		9E807CA3254CFCF50091935F /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -592,11 +602,9 @@
 			children = (
 				9EE25B8E25C99C8E0050326D /* RockDetailViewControllerV2.swift */,
 				9EE25B9325C99C990050326D /* RockDetailViewControllerV2.storyboard */,
-				9EF56021255AE76C00D00723 /* RockDetailViewController.swift */,
-				9E613ABB25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift */,
-				9E613AC625CB00520040F6F2 /* RockOverviewCollectionViewCell.swift */,
-				9E613AC725CB00520040F6F2 /* RockOverviewCollectionViewCell.xib */,
 				9E0D09342566B31200D3075F /* RockDetailViewModel.swift */,
+				9E6DC03A25CE1ABC00F9C314 /* Cells */,
+				9EF56021255AE76C00D00723 /* RockDetailViewController.swift */,
 				9EF56029255AE77C00D00723 /* RockDetailViewController.storyboard */,
 				9ED972A4259ACEB20069FB94 /* Tab */,
 				9ED972A1259ACE780069FB94 /* Map */,
@@ -733,7 +741,7 @@
 				9E60DCBA255714A1000CF2E8 /* RockLocationSelectViewController.storyboard in Resources */,
 				9E5CEFD825277B26001C95AA /* LaunchScreen.storyboard in Resources */,
 				9E845B0025ADF0F700EC3BE6 /* RegisterSucceededViewController.storyboard in Resources */,
-				9E613AC925CB00520040F6F2 /* RockOverviewCollectionViewCell.xib in Resources */,
+				9E613AC925CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib in Resources */,
 				9EE25B9425C99C990050326D /* RockDetailViewControllerV2.storyboard in Resources */,
 				9EE8BC5D2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib in Resources */,
 				9E2B113425471F7400D7E56C /* LoginViewController.storyboard in Resources */,
@@ -982,7 +990,7 @@
 				9EE25B8F25C99C8E0050326D /* RockDetailViewControllerV2.swift in Sources */,
 				9E98D51B2552907500EC5AC1 /* UIViewControllerExtension.swift in Sources */,
 				9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */,
-				9E613AC825CB00520040F6F2 /* RockOverviewCollectionViewCell.swift in Sources */,
+				9E613AC825CB00520040F6F2 /* RegisteredUserCollectionViewCell.swift in Sources */,
 				9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */,
 				9E8723C5256BFEDF00735C65 /* RockConfirmViewController.swift in Sources */,
 				9E845AFB25ADF0E800EC3BE6 /* RegisterSucceededViewController.swift in Sources */,

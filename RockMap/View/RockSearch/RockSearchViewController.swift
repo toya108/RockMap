@@ -8,8 +8,6 @@
 import Combine
 import UIKit
 import MapKit
-import FirebaseAuth
-import FirebaseFirestoreSwift
 
 final class RockSearchViewController: UIViewController {
 

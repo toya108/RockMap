@@ -11,7 +11,7 @@ protocol FINameSpaceProtocol {
     static var name: String { get }
 }
 
-protocol FIDocumentProtocol: Codable {
+protocol FIDocumentProtocol: Codable, Hashable {
     associatedtype Collection: FINameSpaceProtocol
 }
 

@@ -13,18 +13,16 @@ class RockDetailViewControllerV2: UIViewController {
     
     enum SectionLayoutKind: CaseIterable {
         case headerImages
-        case overview
+        case registeredUser
         case cources
         case map
-        
-        var sectionIndex: Int {
-            switch self {
-            case .headerImages: return 0
-            case .overview: return 1
-            case .cources: return 2
-            case .map: return 3
-            }
-        }
+    }
+    
+    enum ItemKind: Hashable {
+        case headerImages(referece: StorageManager.Reference)
+        case registeredUser(user: FIDocument.Users)
+        case cources
+        case map
     }
     
     private lazy var collectionView: UICollectionView = {
@@ -49,33 +47,81 @@ class RockDetailViewControllerV2: UIViewController {
         return instance!
     }
     
-    var headerImageDatasource: UICollectionViewDiffableDataSource<SectionLayoutKind, StorageManager.Reference>!
+    private var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
+    
+    private lazy var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> = {
+        
+        let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
+            collectionView: collectionView,
+            cellProvider: { [weak self] collectionView, indexPath, item in
+                
+                guard let self = self else { return UICollectionViewCell() }
+                
+                switch item {
+                case let .headerImages(referece):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureHeaderImageCell(),
+                        for: indexPath,
+                        item: referece
+                    )
+
+                case .registeredUser(user: let user):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureRegisteredUserCell(),
+                        for: indexPath,
+                        item: user
+                    )
+                case .cources:
+                    return UICollectionViewCell()
+                    
+                case .map:
+                    return UICollectionViewCell()
+                    
+                }
+            }
+        )
+        return datasource
+    }()
+    
+    private func configureHeaderImageCell() -> UICollectionView.CellRegistration<
+        HorizontalImageListCollectionViewCell,
+        StorageManager.Reference
+    > {
+        UICollectionView.CellRegistration<
+            HorizontalImageListCollectionViewCell,
+            StorageManager.Reference
+        > { cell, _, reference in
+            cell.imageView.loadImage(reference: reference)
+        }
+    }
+    
+    private func configureRegisteredUserCell() -> UICollectionView.CellRegistration<
+        RegisteredUserCollectionViewCell,
+        FIDocument.Users
+    > {
+        UICollectionView.CellRegistration<
+            RegisteredUserCollectionViewCell,
+            FIDocument.Users
+        >(
+            cellNib: .init(
+                nibName: RegisteredUserCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { cell, _, user in
+            cell.userNameLabel.text = user.name
+            cell.userIconImageView.loadImage(url: user.photoURL)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        headerImageDatasource = UICollectionViewDiffableDataSource(
-            collectionView: collectionView,
-            cellProvider: { colletionView, indexPath, references in
-                guard
-                    let cell = colletionView.dequeueReusableCell(
-                        withReuseIdentifier: HorizontalImageListCollectionViewCell.className,
-                        for: indexPath
-                    ) as? HorizontalImageListCollectionViewCell
-                else {
-                    return UICollectionViewCell()
-                }
-                
-                cell.imageView.loadImage(reference: references)
-                cell.backgroundColor = UIColor.Pallete.primaryGreen
-                return cell
-            }
-        )
-        
+            
         setupColletionView()
         setupNavigationBar()
         bindViewToViewModel()
         
+        snapShot.appendSections(SectionLayoutKind.allCases)
+        datasource.apply(snapShot)
     }
     
     private func setupNavigationBar() {
@@ -100,19 +146,6 @@ class RockDetailViewControllerV2: UIViewController {
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
-//        collectionView.delegate = self
-//        collectionView.dataSource = self
-        collectionView.register(
-            HorizontalImageListCollectionViewCell.self,
-            forCellWithReuseIdentifier: HorizontalImageListCollectionViewCell.className
-        )
-        collectionView.register(
-            .init(
-                nibName: RockOverviewCollectionViewCell.className,
-                bundle: nil
-            ),
-            forCellWithReuseIdentifier: RockOverviewCollectionViewCell.className
-        )
     }
     
     static private func createLayout() -> UICollectionViewCompositionalLayout {
@@ -130,10 +163,11 @@ class RockDetailViewControllerV2: UIViewController {
                     )
                 )
                 
+                let height = UIScreen.main.bounds.width * 9/16
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(200)
+                        heightDimension: .absolute(height)
                     ),
                     subitems: [item]
                 )
@@ -143,7 +177,7 @@ class RockDetailViewControllerV2: UIViewController {
                 section.orthogonalScrollingBehavior = .paging
                 return section
                 
-            case .overview:
+            case .registeredUser:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
@@ -154,10 +188,11 @@ class RockDetailViewControllerV2: UIViewController {
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .estimated(300)
+                        heightDimension: .estimated(48)
                     ),
                     subitems: [item]
                 )
+                group.contentInsets = .init(top: 8, leading: 8, bottom: 8, trailing: 8)
                 
                 let section = NSCollectionLayoutSection(group: group)
                 return section
@@ -224,80 +259,37 @@ class RockDetailViewControllerV2: UIViewController {
                 guard let self = self else { return }
                 if references.isEmpty { return }
                 
-                var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, StorageManager.Reference>()
-                snapShot.appendSections([.headerImages])
-                snapShot.appendItems(references, toSection: .headerImages)
-                self.headerImageDatasource.apply(snapShot)
+                let items = references.map { ItemKind.headerImages(referece: $0) }
+                self.snapShot.appendItems(items, toSection: .headerImages)
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+        
+        viewModel.$rockDesc
+            .map { Optional($0) }
+            .receive(on: RunLoop.main)
+            .sink { [weak self] desc in
+                
+                guard let self = self else { return }
+                
+                
+            }
+            .store(in: &bindings)
+        
+        viewModel.$registeredUser
+            .receive(on: RunLoop.main)
+            .dropFirst()
+            .sink { [weak self] user in
+                
+                guard let self = self else { return }
+                
+                self.snapShot.appendItems([.registeredUser(user: user)], toSection: .registeredUser)
+                self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
     }
 
 }
-
-//extension RockDetailViewControllerV2: UICollectionViewDelegate, UICollectionViewDataSource {
-//    func collectionView(
-//        _ collectionView: UICollectionView,
-//        cellForItemAt indexPath: IndexPath
-//    ) -> UICollectionViewCell {
-//
-//        let sectionType = SectionLayoutKind.allCases[indexPath.section]
-//
-//        switch sectionType {
-//        case .headerImages:
-//            guard
-//                let cell = collectionView.dequeueReusableCell(
-//                    withReuseIdentifier: HorizontalImageListCollectionViewCell.className,
-//                    for: indexPath
-//                ) as? HorizontalImageListCollectionViewCell
-//            else {
-//                return UICollectionViewCell()
-//            }
-//            cell.imageView.image = UIImage.AssetsImages.rock
-//            cell.backgroundColor = UIColor.Pallete.primaryGreen
-//            return cell
-//
-//        case .overview:
-//            guard
-//                let cell = collectionView.dequeueReusableCell(
-//                    withReuseIdentifier: RockOverviewCollectionViewCell.className,
-//                    for: indexPath
-//                ) as? RockOverviewCollectionViewCell
-//            else {
-//                return UICollectionViewCell()
-//            }
-//            cell.userIconImageView.image = UIImage.AssetsImages.pencilCircle
-//            cell.userNameLabel.text = "hoge"
-//            return cell
-//
-//        default:
-//            return UICollectionViewCell()
-//
-//        }
-//    }
-//
-//    func collectionView(
-//        _ collectionView: UICollectionView,
-//        numberOfItemsInSection section: Int
-//    ) -> Int {
-//
-//        let sectionType = SectionLayoutKind.allCases[section]
-//
-//        switch sectionType {
-//        case .headerImages:
-//            return 3
-//
-//        case .overview:
-//            return 1
-//
-//        default:
-//            return 0
-//        }
-//    }
-//
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return SectionLayoutKind.allCases.count
-//    }
-//}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
