@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Rock Detail View ControllerV2-->
+        <!--Rock Detail View Controller-->
         <scene sceneID="dPS-0c-2MY">
             <objects>
-                <viewController id="ZfO-eB-hxc" customClass="RockDetailViewControllerV2" customModule="RockMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ZfO-eB-hxc" customClass="RockDetailViewController" customModule="RockMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EHI-9c-RsQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

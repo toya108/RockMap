@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import SwiftUI
 
-class RockDetailViewControllerV2: UIViewController {
+class RockDetailViewController: UIViewController {
     
     enum SectionLayoutKind: CaseIterable {
         case headerImages
@@ -61,11 +61,11 @@ class RockDetailViewControllerV2: UIViewController {
     private var viewModel: RockDetailViewModel!
     private var bindings = Set<AnyCancellable>()
     
-    static func createInstance(viewModel: RockDetailViewModel) -> RockDetailViewControllerV2 {
+    static func createInstance(viewModel: RockDetailViewModel) -> RockDetailViewController {
         let instance = UIStoryboard.init(
-            name: RockDetailViewControllerV2.className,
+            name: RockDetailViewController.className,
             bundle: nil
-        ).instantiateInitialViewController() as? RockDetailViewControllerV2
+        ).instantiateInitialViewController() as? RockDetailViewController
         instance?.viewModel = viewModel
         return instance!
     }
@@ -387,15 +387,15 @@ struct ContentView_Previews: PreviewProvider {
     }
     
     struct Container: UIViewControllerRepresentable {
-        func makeUIViewController(context: Context) -> RockDetailViewControllerV2 {
-            RockDetailViewControllerV2.createInstance(viewModel: .init(rock: .init()))
+        func makeUIViewController(context: Context) -> RockDetailViewController {
+            RockDetailViewController.createInstance(viewModel: .init(rock: .init()))
         }
         
-        func updateUIViewController(_ uiViewController: RockDetailViewControllerV2, context: Context) {
+        func updateUIViewController(_ uiViewController: RockDetailViewController, context: Context) {
             
         }
         
-        typealias UIViewControllerType = RockDetailViewControllerV2
+        typealias UIViewControllerType = RockDetailViewController
     }
 }
 
