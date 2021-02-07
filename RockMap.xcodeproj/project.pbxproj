@@ -52,6 +52,7 @@
 		9E613AC925CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E613AC725CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib */; };
 		9E623688258A662B00152AF9 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E623687258A662B00152AF9 /* StorageManager.swift */; };
 		9E6AB12F2562CF9800444FBF /* RockDetailMapViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6AB12E2562CF9800444FBF /* RockDetailMapViewController.storyboard */; };
+		9E6CF41C25CF10570098389E /* TitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CF41B25CF10570098389E /* TitleHeaderView.swift */; };
 		9E76C40C258F9E8D00B96926 /* ImageUploadIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76C40B258F9E8D00B96926 /* ImageUploadIndicatorView.swift */; };
 		9E7C1CE32577F415003AD76A /* KeychainDataHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7C1CE22577F415003AD76A /* KeychainDataHolder.swift */; };
 		9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CA7254CFD150091935F /* MyPageViewController.swift */; };
@@ -84,6 +85,7 @@
 		9EE25B9425C99C990050326D /* RockDetailViewControllerV2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EE25B9325C99C990050326D /* RockDetailViewControllerV2.storyboard */; };
 		9EE8BC5C2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE8BC5A2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift */; };
 		9EE8BC5D2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EE8BC5B2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib */; };
+		9EE9DAE925CEDDE600B2BC4E /* RockDescCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE9DAE825CEDDE500B2BC4E /* RockDescCollectionViewCell.swift */; };
 		9EEADA1C255AD39100F20228 /* PlaceHolderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEADA1B255AD39100F20228 /* PlaceHolderTextView.swift */; };
 		9EF1895D258F98C5003492EE /* Uploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF1895C258F98C5003492EE /* Uploader.swift */; };
 		9EF56022255AE76C00D00723 /* RockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF56021255AE76C00D00723 /* RockDetailViewController.swift */; };
@@ -166,6 +168,7 @@
 		9E613AC725CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisteredUserCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E623687258A662B00152AF9 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		9E6AB12E2562CF9800444FBF /* RockDetailMapViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RockDetailMapViewController.storyboard; sourceTree = "<group>"; };
+		9E6CF41B25CF10570098389E /* TitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleHeaderView.swift; sourceTree = "<group>"; };
 		9E76C40B258F9E8D00B96926 /* ImageUploadIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadIndicatorView.swift; sourceTree = "<group>"; };
 		9E7C1CE22577F415003AD76A /* KeychainDataHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainDataHolder.swift; sourceTree = "<group>"; };
 		9E807CA7254CFD150091935F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +201,7 @@
 		9EE25B9325C99C990050326D /* RockDetailViewControllerV2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RockDetailViewControllerV2.storyboard; sourceTree = "<group>"; };
 		9EE8BC5A2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FUICustomAuthPickerViewController.swift; sourceTree = "<group>"; };
 		9EE8BC5B2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FUICustomAuthPickerViewController.xib; sourceTree = "<group>"; };
+		9EE9DAE825CEDDE500B2BC4E /* RockDescCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDescCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EEADA1B255AD39100F20228 /* PlaceHolderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderTextView.swift; sourceTree = "<group>"; };
 		9EF1895C258F98C5003492EE /* Uploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uploader.swift; sourceTree = "<group>"; };
 		9EF56021255AE76C00D00723 /* RockDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewController.swift; sourceTree = "<group>"; };
@@ -445,12 +449,21 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		9E6CF41A25CF10430098389E /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				9E6CF41B25CF10570098389E /* TitleHeaderView.swift */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
 		9E6DC03A25CE1ABC00F9C314 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				9E613ABB25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift */,
 				9E613AC625CB00520040F6F2 /* RegisteredUserCollectionViewCell.swift */,
 				9E613AC725CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib */,
+				9EE9DAE825CEDDE500B2BC4E /* RockDescCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -604,6 +617,7 @@
 				9EE25B9325C99C990050326D /* RockDetailViewControllerV2.storyboard */,
 				9E0D09342566B31200D3075F /* RockDetailViewModel.swift */,
 				9E6DC03A25CE1ABC00F9C314 /* Cells */,
+				9E6CF41A25CF10430098389E /* Header */,
 				9EF56021255AE76C00D00723 /* RockDetailViewController.swift */,
 				9EF56029255AE77C00D00723 /* RockDetailViewController.storyboard */,
 				9ED972A4259ACEB20069FB94 /* Tab */,
@@ -988,8 +1002,10 @@
 				9E98D549255300B900EC5AC1 /* ColorPallet.swift in Sources */,
 				9E04B18D254B1EB30097DA8E /* UITextFieldExtension.swift in Sources */,
 				9EE25B8F25C99C8E0050326D /* RockDetailViewControllerV2.swift in Sources */,
+				9E6CF41C25CF10570098389E /* TitleHeaderView.swift in Sources */,
 				9E98D51B2552907500EC5AC1 /* UIViewControllerExtension.swift in Sources */,
 				9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */,
+				9EE9DAE925CEDDE600B2BC4E /* RockDescCollectionViewCell.swift in Sources */,
 				9E613AC825CB00520040F6F2 /* RegisteredUserCollectionViewCell.swift in Sources */,
 				9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */,
 				9E8723C5256BFEDF00735C65 /* RockConfirmViewController.swift in Sources */,
