@@ -62,12 +62,9 @@ class RockDetailViewController: UIViewController {
     private var bindings = Set<AnyCancellable>()
     
     static func createInstance(viewModel: RockDetailViewModel) -> RockDetailViewController {
-        let instance = UIStoryboard.init(
-            name: RockDetailViewController.className,
-            bundle: nil
-        ).instantiateInitialViewController() as? RockDetailViewController
-        instance?.viewModel = viewModel
-        return instance!
+        let instance = RockDetailViewController()
+        instance.viewModel = viewModel
+        return instance
     }
     
     private var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
