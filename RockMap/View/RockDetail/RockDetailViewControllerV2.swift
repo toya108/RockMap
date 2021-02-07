@@ -15,13 +15,15 @@ class RockDetailViewControllerV2: UIViewController {
         case headerImages
         case registeredUser
         case desc
-        case cources
         case map
         
         var headerTitle: String {
             switch self {
             case .desc:
                 return "岩の説明"
+                
+            case .map:
+                return "岩の位置"
                 
             default:
                 return ""
@@ -31,7 +33,7 @@ class RockDetailViewControllerV2: UIViewController {
         
         var headerIdentifer: String {
             switch self {
-            case .desc:
+            case .desc, .map:
                 return TitleSupplementaryView.className
                 
             default:
@@ -44,8 +46,7 @@ class RockDetailViewControllerV2: UIViewController {
         case headerImages(referece: StorageManager.Reference)
         case registeredUser(user: FIDocument.Users)
         case desc(String)
-        case cources
-        case map
+        case map(RockDetailViewModel.RockLocation)
     }
     
     private lazy var collectionView: UICollectionView = {
@@ -100,12 +101,13 @@ class RockDetailViewControllerV2: UIViewController {
                         for: indexPath,
                         item: desc
                     )
-                    
-                case .cources:
-                    return UICollectionViewCell()
-                    
-                case .map:
-                    return UICollectionViewCell()
+                
+                case let .map(rockLocation):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.cnfigureLocationCell(),
+                        for: indexPath,
+                        item: rockLocation
+                    )
                     
                 }
             }
@@ -113,14 +115,13 @@ class RockDetailViewControllerV2: UIViewController {
         
         let headerRegistration = UICollectionView.SupplementaryRegistration<TitleSupplementaryView>(
             elementKind: TitleSupplementaryView.className
-        ) { [weak self] supplementaryView, title, indexPath in
+        ) { [weak self] supplementaryView, _, indexPath in
             
             guard let self = self else { return }
 
             supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section].headerTitle
         }
         
-    
         datasource.supplementaryViewProvider = { [weak self] collectionView, kind, index in
             
             guard let self = self else { return nil }
@@ -137,10 +138,7 @@ class RockDetailViewControllerV2: UIViewController {
         HorizontalImageListCollectionViewCell,
         StorageManager.Reference
     > {
-        UICollectionView.CellRegistration<
-            HorizontalImageListCollectionViewCell,
-            StorageManager.Reference
-        > { cell, _, reference in
+        .init { cell, _, reference in
             cell.imageView.loadImage(reference: reference)
         }
     }
@@ -149,10 +147,7 @@ class RockDetailViewControllerV2: UIViewController {
         RegisteredUserCollectionViewCell,
         FIDocument.Users
     > {
-        UICollectionView.CellRegistration<
-            RegisteredUserCollectionViewCell,
-            FIDocument.Users
-        >(
+        .init(
             cellNib: .init(
                 nibName: RegisteredUserCollectionViewCell.className,
                 bundle: nil
@@ -167,11 +162,17 @@ class RockDetailViewControllerV2: UIViewController {
         RockDescCollectionViewCell,
         String
     > {
-        UICollectionView.CellRegistration<
-            RockDescCollectionViewCell,
-            String
-        > { cell, _, desc in
+        .init { cell, _, desc in
             cell.descLabel.text = desc
+        }
+    }
+    
+    private func cnfigureLocationCell() -> UICollectionView.CellRegistration<
+        RockLocationCollectionViewCell,
+        RockDetailViewModel.RockLocation
+    > {
+        .init { cell, _, location in
+            cell.configure(rockLocation: location)
         }
     }
     
@@ -211,8 +212,7 @@ class RockDetailViewControllerV2: UIViewController {
     }
     
     static private func createLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout {
-            sectionNumber, env -> NSCollectionLayoutSection in
+        return UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
             
             let sectionType = SectionLayoutKind.allCases[sectionNumber]
             
@@ -271,7 +271,7 @@ class RockDetailViewControllerV2: UIViewController {
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .fractionalHeight(1)
+                        heightDimension: item.layoutSize.heightDimension
                     ),
                     subitems: [item]
                 )
@@ -290,54 +290,38 @@ class RockDetailViewControllerV2: UIViewController {
                 
                 return section
                 
-            case .cources:
-                let item = NSCollectionLayoutItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .fractionalHeight(1)
-                    )
-                )
-                
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(200)
-                    ),
-                    subitems: [item]
-                )
-                group.contentInsets.bottom = 8
-                group.contentInsets.leading = 8
-                
-                let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .paging
-                return section
-                
             case .map:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .fractionalHeight(1)
+                        heightDimension: .estimated(64)
                     )
                 )
                 
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(200)
+                        heightDimension: item.layoutSize.heightDimension
                     ),
                     subitems: [item]
                 )
-                group.contentInsets.bottom = 8
-                group.contentInsets.leading = 8
                 
                 let section = NSCollectionLayoutSection(group: group)
-                section.orthogonalScrollingBehavior = .paging
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .estimated(44)
+                    ),
+                    elementKind: SectionLayoutKind.map.headerIdentifer,
+                    alignment: .top
+                )
+                section.boundarySupplementaryItems = [sectionHeader]
+                section.contentInsets = .init(top: 16, leading: 16, bottom: 16, trailing: 16)
                 return section
+                
             }
-            
         }
     }
-
     
     private func bindViewToViewModel() {
         viewModel.$rockName
@@ -379,6 +363,18 @@ class RockDetailViewControllerV2: UIViewController {
                 
                 self.snapShot.appendItems([.registeredUser(user: user)], toSection: .registeredUser)
                 self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+        
+        viewModel.$rockLocation
+            .receive(on: RunLoop.main)
+            .sink { [weak self] rockLocation in
+                
+                guard let self = self else { return }
+                
+                self.snapShot.appendItems([.map(rockLocation)], toSection: .map)
+                self.datasource.apply(self.snapShot)
+                
             }
             .store(in: &bindings)
     }

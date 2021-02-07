@@ -8,7 +8,8 @@
 import UIKit
 
 class RockDescCollectionViewCell: UICollectionViewCell {
-    var descLabel = UILabel()
+    
+    let descLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

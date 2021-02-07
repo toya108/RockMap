@@ -16,13 +16,13 @@ final class RockDetailViewModel {
     @Published var registeredUserId = ""
     @Published var registeredUser: FIDocument.Users = .init()
     @Published var rockDesc = ""
+    @Published var rockLocation: RockLocation = .init()
     @Published var rockImageReferences: [StorageManager.Reference] = []
     
     private var bindings = Set<AnyCancellable>()
     
     init(rock: FIDocument.Rocks) {
         setupBindings()
-
         self.rockDocument = rock
     }
     
@@ -36,6 +36,11 @@ final class RockDetailViewModel {
                 self.rockName = rock.name
                 self.rockDesc = rock.desc
                 self.registeredUserId = rock.registeredUserId
+                self.rockLocation = .init(
+                    latitude: rock.location.latitude,
+                    longitude: rock.location.longitude,
+                    address: rock.address
+                )
             }
             .store(in: &bindings)
         
@@ -69,6 +74,12 @@ final class RockDetailViewModel {
                 }
             }
             .store(in: &bindings)
+    }
+    
+    struct RockLocation: Hashable {
+        var latitude: Double = 0
+        var longitude: Double = 0
+        var address: String = ""
     }
 }
 
