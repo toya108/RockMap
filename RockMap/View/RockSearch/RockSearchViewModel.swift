@@ -17,7 +17,7 @@ class RockSearchViewModel {
     }
     
     func fetchRockList() {
-        FirestoreManager.fetchCollection { [weak self] (result: Result<[FIDocument.Rocks], Error>) in
+        FirestoreManager.fetchAllDocuments { [weak self] (result: Result<[FIDocument.Rocks], Error>) in
             
             guard let self = self else { return }
             
