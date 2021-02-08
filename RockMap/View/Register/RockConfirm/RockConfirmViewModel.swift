@@ -7,6 +7,7 @@
 
 import CoreLocation
 import Combine
+import FirebaseFirestore
 
 final class RockConfirmViewModel {
     var rockName: String
@@ -68,7 +69,8 @@ final class RockConfirmViewModel {
             ),
             desc: rockDesc,
             registeredUserId: AuthManager.uid,
-            courseId: []
+            courseId: [],
+            registeredAt: .init(date: Date())
         )
         
         FirestoreManager.set(
