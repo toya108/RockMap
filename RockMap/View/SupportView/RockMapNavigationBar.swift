@@ -19,6 +19,23 @@ final class RockMapNavigationBar: UINavigationBar {
     }
     
     func setup() {
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        appearance.backgroundColor = .white
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.backgroundImage = UIGraphicsImageRenderer.init(size: .init(width: 1, height: 1)).image { context in
+            UIColor.white.setFill()
+            context.fill(.init(origin: .init(x: 0, y: 0), size: .init(width: 1, height: 1)))
+        }
+        appearance.shadowImage = UIImage()
+
+        // Large Title 用
+        scrollEdgeAppearance = appearance
+        // 通常の NavigationBar 用
+        standardAppearance = appearance
+        
         barTintColor = .white
         tintColor = .black
         
@@ -29,11 +46,5 @@ final class RockMapNavigationBar: UINavigationBar {
         
         backIndicatorImage = UIImage.AssetsImages.back
         backIndicatorTransitionMaskImage = UIImage.AssetsImages.back
-        
-        setBackgroundImage(UIGraphicsImageRenderer.init(size: .init(width: 1, height: 1)).image { context in
-            UIColor.white.setFill()
-            context.fill(.init(origin: .init(x: 0, y: 0), size: .init(width: 1, height: 1)))
-        }, for: .default)
-        shadowImage = UIImage()
     }
 }

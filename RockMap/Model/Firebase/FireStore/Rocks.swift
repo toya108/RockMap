@@ -6,6 +6,7 @@
 //
 
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 extension FIDocument {
     struct Rocks: FIDocumentProtocol {
