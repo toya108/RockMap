@@ -23,8 +23,6 @@ final class LocationManager: NSObject {
     
     @Published var location = CLLocation(latitude: 35.6804, longitude: 139.7690)
     
-    var address = ""
-    
     private lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
         manager.delegate = self
@@ -61,19 +59,6 @@ extension LocationManager: CLLocationManagerDelegate {
         if self.location == location { return }
         
         self.location = location
-        
-        reverseGeocoding(location: location) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let address):
-                self.address = address
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-                
-            }
-        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

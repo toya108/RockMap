@@ -22,7 +22,7 @@ final class RockRegisterViewController: UIViewController {
     @IBOutlet weak var imageSelectHorizontalScrollView: UIScrollView!
     @IBOutlet weak var imageHorizontalStackView: UIStackView!
     @IBOutlet weak var imageUploadButton: UIButton!
-    @IBOutlet weak var rockAddressTextView: UITextView!
+    @IBOutlet weak var rockAddressLabel: UILabel!
     @IBOutlet weak var rockAddressErrorLabel: UILabel!
     @IBOutlet weak var currentAddressButton: UIButton!
     @IBOutlet weak var mapBaseView: UIView!
@@ -52,7 +52,7 @@ final class RockRegisterViewController: UIViewController {
         bindViewToViewModel()
         bindViewModelToView()
         
-        rockAddressTextView.setText(text: LocationManager.shared.address)
+        viewModel.rockLocation = LocationManager.shared.location
     }
     
     private func setupImageUploadButtonActions() {
@@ -92,7 +92,7 @@ final class RockRegisterViewController: UIViewController {
     }
     
     @IBAction func didCurrentAddressButtonTapped(_ sender: UIButton) {
-        rockAddressTextView.setText(text: LocationManager.shared.address)
+        viewModel.rockLocation = LocationManager.shared.location
     }
     
     @IBAction func didAddressSelectButtonTapped(_ sender: UIButton) {
@@ -144,7 +144,6 @@ final class RockRegisterViewController: UIViewController {
     
     private func bindViewToViewModel() {
         rockNameTextField.textDidChangedPublisher.assign(to: &viewModel.$rockName)
-        rockAddressTextView.textDidChangedPublisher.assign(to: &viewModel.$rockAddress)
         rockDescTextView.textDidChangedPublisher.assign(to: &viewModel.$rockDesc)
     }
     
@@ -208,6 +207,12 @@ final class RockRegisterViewController: UIViewController {
                 rockAddressPin.coordinate = location.coordinate
                 self.rockRegisterMapView.addAnnotation(rockAddressPin)
             }
+            .store(in: &bindings)
+        
+        viewModel.$rockAddress
+            .map { Optional($0) }
+            .receive(on: RunLoop.main)
+            .assign(to: \UILabel.text, on: rockAddressLabel)
             .store(in: &bindings)
         
         viewModel.$rockImageValidationResult

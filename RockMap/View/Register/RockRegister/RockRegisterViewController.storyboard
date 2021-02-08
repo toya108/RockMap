@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Y8S-rP-b4e">
-                                        <rect key="frame" x="16" y="16" width="382" height="746.5"/>
+                                        <rect key="frame" x="16" y="16" width="382" height="724.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="岩の名前を入力" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tee-Vz-nIc">
                                                 <rect key="frame" x="0.0" y="0.0" width="382" height="20.5"/>
@@ -102,38 +102,22 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="sBF-DM-n86">
-                                                <rect key="frame" x="0.0" y="340" width="382" height="215.5"/>
+                                                <rect key="frame" x="0.0" y="340" width="382" height="193.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="9So-DV-J0L">
-                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="61.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="382" height="39.5"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="jxx-Js-p9x">
-                                                                <rect key="frame" x="0.0" y="0.0" width="291" height="61.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="303" height="39.5"/>
                                                                 <subviews>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Y83-JD-DWO">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="291" height="39"/>
-                                                                        <subviews>
-                                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Acw-SP-DD7" customClass="PlaceHolderTextView" customModule="RockMap" customModuleProvider="target">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="291" height="33"/>
-                                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                                <color key="textColor" systemColor="labelColor"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                                                <userDefinedRuntimeAttributes>
-                                                                                    <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="東京都青梅市御岳 １丁目"/>
-                                                                                </userDefinedRuntimeAttributes>
-                                                                            </textView>
-                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bdW-Hg-Cb3">
-                                                                                <rect key="frame" x="0.0" y="38" width="291" height="1"/>
-                                                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="height" constant="1" id="UMX-vE-KwI"/>
-                                                                                </constraints>
-                                                                            </view>
-                                                                        </subviews>
-                                                                    </stackView>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="東京都青梅市" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SI6-aw-GR5" userLabel="RockAddressLabel">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="303" height="17"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                        <nil key="textColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="※エラー" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEf-XL-6yL">
-                                                                        <rect key="frame" x="0.0" y="47" width="291" height="14.5"/>
+                                                                        <rect key="frame" x="0.0" y="25" width="303" height="14.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                         <color key="textColor" red="0.98039215690000003" green="0.49803921569999998" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                         <nil key="highlightedColor"/>
@@ -141,9 +125,9 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="66X-jN-e22">
-                                                                <rect key="frame" x="303" y="12" width="79" height="37.5"/>
+                                                                <rect key="frame" x="315" y="1.5" width="67" height="36.5"/>
                                                                 <color key="backgroundColor" name="primaryGreenColor"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <inset key="contentEdgeInsets" minX="4" minY="8" maxX="4" maxY="8"/>
                                                                 <state key="normal" title="現在地" image="mappin.and.ellipse" catalog="system"/>
@@ -154,7 +138,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QGk-j9-9hZ">
-                                                        <rect key="frame" x="0.0" y="77.5" width="382" height="138"/>
+                                                        <rect key="frame" x="0.0" y="55.5" width="382" height="138"/>
                                                         <subviews>
                                                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="PiP-M5-x8Y">
                                                                 <rect key="frame" x="0.0" y="0.0" width="382" height="138"/>
@@ -192,13 +176,13 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="画像をアップロード" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZKn-cX-sa9">
-                                                <rect key="frame" x="0.0" y="571.5" width="382" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="549.5" width="382" height="20.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Rvd-ab-a76">
-                                                <rect key="frame" x="0.0" y="608" width="382" height="56.5"/>
+                                                <rect key="frame" x="0.0" y="586" width="382" height="56.5"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6uN-Z4-uxl">
                                                         <rect key="frame" x="0.0" y="0.0" width="382" height="34"/>
@@ -221,7 +205,7 @@
                                                 </subviews>
                                             </stackView>
                                             <scrollView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gtc-Bu-J7y">
-                                                <rect key="frame" x="0.0" y="672.5" width="382" height="107.5"/>
+                                                <rect key="frame" x="0.0" y="650.5" width="382" height="107.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ntm-qw-oCA">
                                                         <rect key="frame" x="0.0" y="0.0" width="103.5" height="103.5"/>
@@ -249,7 +233,7 @@
                                                 <viewLayoutGuide key="frameLayoutGuide" id="k3C-y2-gJU"/>
                                             </scrollView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ND5-5R-qJf">
-                                                <rect key="frame" x="0.0" y="680.5" width="382" height="66"/>
+                                                <rect key="frame" x="0.0" y="658.5" width="382" height="66"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="※登録した内容は他のユーザーに公開されます。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMP-nN-58M">
                                                         <rect key="frame" x="37" y="0.0" width="308.5" height="17"/>
@@ -315,7 +299,7 @@
                         <outlet property="indicator" destination="5Zm-nL-cUX" id="EVU-HO-vx8"/>
                         <outlet property="mapBaseView" destination="QGk-j9-9hZ" id="TNX-5p-7LG"/>
                         <outlet property="rockAddressErrorLabel" destination="eEf-XL-6yL" id="ere-VI-O7F"/>
-                        <outlet property="rockAddressTextView" destination="Acw-SP-DD7" id="Mmd-8v-gms"/>
+                        <outlet property="rockAddressLabel" destination="SI6-aw-GR5" id="Tjv-EM-rLA"/>
                         <outlet property="rockDescTextView" destination="rhh-xM-GtP" id="zzY-eM-gAI"/>
                         <outlet property="rockImageErrorLabel" destination="YXy-7M-L8L" id="Kkh-v6-q9C"/>
                         <outlet property="rockNameErrorLabel" destination="hVx-PC-cRk" id="3aS-N5-8N6"/>
@@ -329,9 +313,6 @@
         </scene>
     </scenes>
     <designables>
-        <designable name="Acw-SP-DD7">
-            <size key="intrinsicContentSize" width="10" height="33"/>
-        </designable>
         <designable name="rhh-xM-GtP">
             <size key="intrinsicContentSize" width="10" height="33"/>
         </designable>

@@ -21,8 +21,8 @@ final class RockRegisterViewModel {
     @Published private(set) var rockImageValidationResult = false
     @Published private(set) var isPassedAllValidation = false
     
-    private var rockAddressShared: Publishers.Share<Published<String>.Publisher> {
-        return $rockAddress.share()
+    private var rockLocationShared: Publishers.Share<Published<CLLocation>.Publisher> {
+        return $rockLocation.share()
     }
     
     private var bindings = Set<AnyCancellable>()
@@ -38,27 +38,28 @@ final class RockRegisterViewModel {
             .map { name -> ValidationResult in RockNameValidator().validate(name) }
             .assign(to: &$rockNameValidationResult)
         
-        rockAddressShared
+        rockLocationShared
             .dropFirst()
             .removeDuplicates()
-            .sink { address in
-                LocationManager.shared.geocoding(address: address) { [weak self] result in
+            .sink { location in
+                LocationManager.shared.reverseGeocoding(location: location) { [weak self] result in
+                    
                     guard let self = self else { return }
                     
                     switch result {
-                    case .success(let location):
-                        self.rockLocation = location
+                    case .success(let address):
+                        self.rockAddress = address
                         
                     case .failure(let error):
                         print(error.localizedDescription)
-                        self.rockAddressValidationResult = .invalid(.cannotConvertAddressToLocation)
+                        self.rockAddressValidationResult = .invalid(.cannotConvertLocationToAddrress)
                         
                     }
                 }
             }
             .store(in: &bindings)
         
-        rockAddressShared
+        $rockAddress
             .dropFirst()
             .removeDuplicates()
             .map { address -> ValidationResult in RockAddressValidator().validate(address) }
