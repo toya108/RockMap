@@ -33,7 +33,6 @@ extension RockDetailViewController {
                     ),
                     subitems: [item]
                 )
-                group.contentInsets.bottom = 8
                 
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .paging
