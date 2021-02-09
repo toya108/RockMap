@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		90862925AE716E43169D5A87 /* Pods_RockMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DACC89F758D48EDA36FCE2 /* Pods_RockMap.framework */; };
+		9E010E0025D0539F00A4C336 /* Cource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E010DFF25D0539F00A4C336 /* Cource.swift */; };
 		9E016FBC252CD0C600C2B85C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E016FBB252CD0C600C2B85C /* GoogleService-Info.plist */; };
 		9E04B18D254B1EB30097DA8E /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B18C254B1EB30097DA8E /* UITextFieldExtension.swift */; };
 		9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */; };
@@ -111,6 +112,7 @@
 		615CD656AF40477A302876F6 /* Pods-RockMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMapTests.release.xcconfig"; path = "Target Support Files/Pods-RockMapTests/Pods-RockMapTests.release.xcconfig"; sourceTree = "<group>"; };
 		6A8D4469AB6661D2935D7507 /* Pods-RockMap-RockMapUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMap-RockMapUITests.debug.xcconfig"; path = "Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6AE5AF1B695E4C4FAA592CE0 /* Pods-RockMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMap.debug.xcconfig"; path = "Target Support Files/Pods-RockMap/Pods-RockMap.debug.xcconfig"; sourceTree = "<group>"; };
+		9E010DFF25D0539F00A4C336 /* Cource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cource.swift; sourceTree = "<group>"; };
 		9E016FBB252CD0C600C2B85C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9E04B18C254B1EB30097DA8E /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidator.swift; sourceTree = "<group>"; };
@@ -912,6 +914,7 @@
 				9EE8BC5C2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift in Sources */,
 				9EE1FD482577EED60080787F /* AuthManager.swift in Sources */,
 				9E0C0A152588C7DA00E34FCE /* Rocks.swift in Sources */,
+				9E010E0025D0539F00A4C336 /* Cource.swift in Sources */,
 				9E08AC812572A8AA00D69927 /* RockMapNavigationBar.swift in Sources */,
 				9E04B1B5254BC3FC0097DA8E /* StringExtesnion.swift in Sources */,
 				9E08ACA42573E6C400D69927 /* NameSpace.swift in Sources */,
