@@ -29,7 +29,7 @@ struct FirestoreManager {
         }
     }
     
-    static func fetchCollection<T: FIDocumentProtocol>(completion: @escaping (Result<[T], Error>) -> Void) {
+    static func fetchAllDocuments<T: FIDocumentProtocol>(completion: @escaping (Result<[T], Error>) -> Void) {
         db.collection(T.colletionName).getDocuments { snap, error in
             
             if let error = error {

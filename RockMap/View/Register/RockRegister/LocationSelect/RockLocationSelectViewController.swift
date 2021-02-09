@@ -94,9 +94,15 @@ class RockLocationSelectViewController: UIViewController {
     
     @objc private func didCompleteButtonTapped() {
         dismiss(animated: true) { [weak self] in
-            guard let self = self,
-                  let presenting = self.topViewController(controller: UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController ) as? RockRegisterViewController else { return }
-            presenting.rockAddressTextView.text = self.address
+            
+            guard
+                let self = self,
+                let presenting = self.topViewController(
+                    controller: UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController) as? RockRegisterViewController
+            else {
+                return
+            }
+            
             presenting.viewModel.rockLocation = self.location
         }
     }

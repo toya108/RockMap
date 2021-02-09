@@ -15,5 +15,6 @@ extension FIDocument {
         var name: String = ""
         var email: String?
         var photoURL: URL?
+        var creationDate: Date?
     }
 }
