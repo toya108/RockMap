@@ -414,7 +414,6 @@ PODS:
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
-  - Nuke (9.1.2)
   - PromisesObjC (1.2.11)
   - SDWebImage (5.10.0):
     - SDWebImage/Core (= 5.10.0)
@@ -430,7 +429,6 @@ DEPENDENCIES:
   - FirebaseFirestoreSwift
   - FirebaseUI
   - KeychainAccess
-  - Nuke
 
 SPEC REPOS:
   trunk:
@@ -462,7 +460,6 @@ SPEC REPOS:
     - KeychainAccess
     - leveldb-library
     - nanopb
-    - Nuke
     - PromisesObjC
     - SDWebImage
 
@@ -495,10 +492,9 @@ SPEC CHECKSUMS:
   KeychainAccess: 9b07f665298d13c3a85881bd3171f6f49b8151c1
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
-  Nuke: dd2e6be6a34c042a7861e190632781d11f253026
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
 
-PODFILE CHECKSUM: 94d9a2c18bbfbb1a7e1e9a91212c132c50134d09
+PODFILE CHECKSUM: be9dc88e3c03d1d0121785193ca1628851ef1bf5
 
 COCOAPODS: 1.10.0
