@@ -12,6 +12,7 @@ disabled_rules:
 - todo # すぐに修正できない場合があり、pushの度にlintに引っかかってbotに書き込まれるのがノイズになるから
 - type_contents_order
 - file_types_order
+- identifier_name # 2文字を許容したいから
 
 # 通常無効だけど有効にするルール
 opt_in_rules:
