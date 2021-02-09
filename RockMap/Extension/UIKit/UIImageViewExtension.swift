@@ -6,25 +6,25 @@
 //
 
 import UIKit
-import Nuke
+import FirebaseStorage
 
 extension UIImageView {
     
-    func loadImage(url: URL?) {
-        
-        guard
-            let url = url
-        else {
-            self.image = UIImage.AssetsImages.noimage
-            return
-        }
-        
-        let options = ImageLoadingOptions(
-            placeholder: UIImage.AssetsImages.noimage,
-            failureImage: UIImage.AssetsImages.noimage,
-            contentModes: .init(success: .scaleAspectFill, failure: .center, placeholder: .center)
+    func loadImage(
+        url: URL?
+    ) {
+        sd_setImage(
+            with: url,
+            placeholderImage: UIImage.AssetsImages.noimage
         )
-        
-        Nuke.loadImage(with: url, options: options, into: self)
+    }
+    
+    func loadImage(
+        reference: StorageReference
+    ) {
+        sd_setImage(
+            with: reference,
+            placeholderImage: UIImage.AssetsImages.noimage
+        )
     }
 }

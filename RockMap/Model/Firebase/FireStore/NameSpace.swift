@@ -14,6 +14,9 @@ struct FINameSpace {
     struct Rocks: FINameSpaceProtocol {
         static var name: String { "rocks" }
     }
+    struct Cource: FINameSpaceProtocol {
+        static var name: String { "cources" }
+    }
 }
 
 struct FIDocument {}

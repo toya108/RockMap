@@ -9,7 +9,7 @@ import UIKit
 
 class HorizontalImageListCollectionViewCell: UICollectionViewCell {
     
-    var imageView = UIImageView()
+    let imageView = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,7 +22,10 @@ class HorizontalImageListCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
+        backgroundColor = .black
+        
         addSubview(imageView)
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor),

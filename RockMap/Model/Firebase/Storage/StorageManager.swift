@@ -36,14 +36,3 @@ struct StorageManager {
         }
     }
 }
-
-extension UIImageView {
-    func loadImage(
-        reference: StorageReference
-    ) {
-        self.sd_setImage(
-            with: reference,
-            placeholderImage: UIImage.AssetsImages.noimage
-        )
-    }
-}
