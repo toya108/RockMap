@@ -19,7 +19,7 @@ extension FIDocument {
         var desc: String
         var registeredUserId: String
         var courseId: [String]
-        var registeredAt: Timestamp?
+        var registeredAt: Date?
         
         init(
             name: String = "",
@@ -28,7 +28,7 @@ extension FIDocument {
             desc: String = "",
             registeredUserId: String = "",
             courseId: [String] = [],
-            registeredAt: Timestamp? = .init(date: Date())
+            registeredAt: Date? = Date()
         ) {
             self.name = name
             self.address = address

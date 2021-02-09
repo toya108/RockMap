@@ -70,7 +70,7 @@ final class RockConfirmViewModel {
             desc: rockDesc,
             registeredUserId: AuthManager.uid,
             courseId: [],
-            registeredAt: .init(date: Date())
+            registeredAt: Date()
         )
         
         FirestoreManager.set(
