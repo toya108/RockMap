@@ -10,8 +10,7 @@ import Foundation
 
 final class RockDetailViewModel {
     
-    @Published private var rockDocument: FIDocument.Rocks = .init()
-    
+    @Published var rockDocument: FIDocument.Rocks = .init()
     @Published var rockName = ""
     @Published var registeredUserId = ""
     @Published var registeredUser: FIDocument.Users = .init()

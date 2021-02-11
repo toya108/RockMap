@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import SwiftUI
 
 class RockDetailViewController: UIViewController, ColletionViewControllerProtocol {
     
@@ -147,8 +146,26 @@ class RockDetailViewController: UIViewController, ColletionViewControllerProtoco
     }
     
     private func presentCourceRegisterViewController() {
-        let coureceRegisterVc = CourceRegisterViewController.createInstance(viewModel: .init())
-        let vc = RockMapNavigationController(rootVC: coureceRegisterVc, naviBarClass: RockMapNavigationBar.self)
+        
+        guard
+            let rockImageReference = self.viewModel.rockImageReferences.first
+        else {
+            return
+        }
+        
+        let viewModel = CourceRegisterViewModel(
+            rockHeaderStructure: .init(
+                rockName: self.viewModel.rockName,
+                rockImageReference: rockImageReference,
+                userIconPhotoURL: self.viewModel.registeredUser.photoURL,
+                userName: self.viewModel.registeredUser.name
+            )
+        )
+        
+        let vc = RockMapNavigationController(
+            rootVC: CourceRegisterViewController.createInstance(viewModel: viewModel),
+            naviBarClass: RockMapNavigationBar.self
+        )
         present(vc, animated: true)
     }
 

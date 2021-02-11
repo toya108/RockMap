@@ -12,11 +12,20 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     
     var collectionView: UICollectionView!
     var viewModel: CourceRegisterViewModel!
+    var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
+    var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
+    
+    private var bindings = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupColletionView(layout: .init())
+        setupColletionView(layout: createLayout())
+        setupNavigationBar()
+        bindViewToViewModel()
+        bindViewModelToView()
+        datasource = configureDatasource()
+        configureSections()
     }
 
     static func createInstance(
@@ -27,4 +36,30 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
         return instance
     }
     
+    private func setupNavigationBar() {
+        navigationItem.title = "課題を登録する"
+    }
+    
+    private func bindViewToViewModel() {
+        
+    }
+    
+    private func bindViewModelToView() {
+        viewModel.$rockHeaderStructure
+            .drop { $0.rockName.isEmpty }
+            .receive(on: RunLoop.main)
+            .sink { [weak self] rock in
+                
+                guard let self = self else { return }
+                
+                self.snapShot.appendItems([.rock(rock)], toSection: .rock)
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+    }
+    
+    private func configureSections() {
+        snapShot.appendSections(SectionLayoutKind.allCases)
+        datasource.apply(snapShot)
+    }
 }
