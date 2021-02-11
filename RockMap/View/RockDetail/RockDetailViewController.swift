@@ -1,5 +1,5 @@
 //
-//  RockDetailViewControllerV2.swift
+//  RockDetailViewController.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/02/02.

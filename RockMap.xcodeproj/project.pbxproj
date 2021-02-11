@@ -82,7 +82,7 @@
 		9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED972992596471C0069FB94 /* ArrayExtension.swift */; };
 		9EE1FD482577EED60080787F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE1FD472577EED60080787F /* AuthManager.swift */; };
 		9EE1FD542577EF9D0080787F /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE1FD532577EF9D0080787F /* KeychainStorage.swift */; };
-		9EE25B8F25C99C8E0050326D /* RockDetailViewControllerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE25B8E25C99C8E0050326D /* RockDetailViewControllerV2.swift */; };
+		9EE25B8F25C99C8E0050326D /* RockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */; };
 		9EE8BC5C2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE8BC5A2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift */; };
 		9EE8BC5D2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EE8BC5B2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib */; };
 		9EE9DAE925CEDDE600B2BC4E /* RockDescCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE9DAE825CEDDE500B2BC4E /* RockDescCollectionViewCell.swift */; };
@@ -196,7 +196,7 @@
 		9ED972992596471C0069FB94 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		9EE1FD472577EED60080787F /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		9EE1FD532577EF9D0080787F /* KeychainStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
-		9EE25B8E25C99C8E0050326D /* RockDetailViewControllerV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewControllerV2.swift; sourceTree = "<group>"; };
+		9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewController.swift; sourceTree = "<group>"; };
 		9EE8BC5A2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FUICustomAuthPickerViewController.swift; sourceTree = "<group>"; };
 		9EE8BC5B2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FUICustomAuthPickerViewController.xib; sourceTree = "<group>"; };
 		9EE9DAE825CEDDE500B2BC4E /* RockDescCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDescCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -595,7 +595,7 @@
 		9EF56020255AE74A00D00723 /* RockDetail */ = {
 			isa = PBXGroup;
 			children = (
-				9EE25B8E25C99C8E0050326D /* RockDetailViewControllerV2.swift */,
+				9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */,
 				9EA94F7725D0462700D1272E /* RockDetailKind.swift */,
 				9EA94F6D25D044E700D1272E /* RockDetailLayout.swift */,
 				9EA94F7225D044F500D1272E /* RockDetailDatasource.swift */,
@@ -978,7 +978,7 @@
 				9E0D09352566B31200D3075F /* RockDetailViewModel.swift in Sources */,
 				9E98D549255300B900EC5AC1 /* ColorPallet.swift in Sources */,
 				9E04B18D254B1EB30097DA8E /* UITextFieldExtension.swift in Sources */,
-				9EE25B8F25C99C8E0050326D /* RockDetailViewControllerV2.swift in Sources */,
+				9EE25B8F25C99C8E0050326D /* RockDetailViewController.swift in Sources */,
 				9E6CF41C25CF10570098389E /* TitleHeaderView.swift in Sources */,
 				9E98D51B2552907500EC5AC1 /* UIViewControllerExtension.swift in Sources */,
 				9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */,
