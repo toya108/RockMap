@@ -69,6 +69,9 @@
 		9E8723C5256BFEDF00735C65 /* RockConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8723C4256BFEDF00735C65 /* RockConfirmViewController.swift */; };
 		9E8723CA256BFEF200735C65 /* RockConfirmViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E8723C9256BFEF200735C65 /* RockConfirmViewController.storyboard */; };
 		9E8723D3256C037000735C65 /* RockConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8723D2256C037000735C65 /* RockConfirmViewModel.swift */; };
+		9E9845C125D4F27E00B03C4E /* CourceRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9845C025D4F27E00B03C4E /* CourceRegisterViewController.swift */; };
+		9E9845D125D4F2FE00B03C4E /* CourceRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9845D025D4F2FE00B03C4E /* CourceRegisterViewModel.swift */; };
+		9E9845D725D4F59C00B03C4E /* ColletionViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9845D625D4F59C00B03C4E /* ColletionViewControllerProtocol.swift */; };
 		9E98D51B2552907500EC5AC1 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D51A2552907500EC5AC1 /* UIViewControllerExtension.swift */; };
 		9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D53F2552F8AB00EC5AC1 /* TouchableScrollView.swift */; };
 		9E98D549255300B900EC5AC1 /* ColorPallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D548255300B900EC5AC1 /* ColorPallet.swift */; };
@@ -180,6 +183,9 @@
 		9E8723C4256BFEDF00735C65 /* RockConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmViewController.swift; sourceTree = "<group>"; };
 		9E8723C9256BFEF200735C65 /* RockConfirmViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RockConfirmViewController.storyboard; sourceTree = "<group>"; };
 		9E8723D2256C037000735C65 /* RockConfirmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmViewModel.swift; sourceTree = "<group>"; };
+		9E9845C025D4F27E00B03C4E /* CourceRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourceRegisterViewController.swift; sourceTree = "<group>"; };
+		9E9845D025D4F2FE00B03C4E /* CourceRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourceRegisterViewModel.swift; sourceTree = "<group>"; };
+		9E9845D625D4F59C00B03C4E /* ColletionViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColletionViewControllerProtocol.swift; sourceTree = "<group>"; };
 		9E98D51A2552907500EC5AC1 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		9E98D53F2552F8AB00EC5AC1 /* TouchableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableScrollView.swift; sourceTree = "<group>"; };
 		9E98D548255300B900EC5AC1 /* ColorPallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPallet.swift; sourceTree = "<group>"; };
@@ -317,6 +323,7 @@
 		9E2B112D25471F1800D7E56C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9E9845D525D4F58500B03C4E /* Protocol */,
 				9E98D53D2552F88B00EC5AC1 /* SupportView */,
 				9E04B1A9254BA94C0097DA8E /* RockSearch */,
 				9EF56020255AE74A00D00723 /* RockDetail */,
@@ -476,6 +483,7 @@
 				9E807CB7254CFF560091935F /* RegisterViewController.storyboard */,
 				9E807CCF254E92FD0091935F /* RockRegister */,
 				9E8723CE256BFEF700735C65 /* RockConfirm */,
+				9E9845BF25D4F22D00B03C4E /* CourceRegister */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -520,6 +528,23 @@
 				9E76C40B258F9E8D00B96926 /* ImageUploadIndicatorView.swift */,
 			);
 			path = RockConfirm;
+			sourceTree = "<group>";
+		};
+		9E9845BF25D4F22D00B03C4E /* CourceRegister */ = {
+			isa = PBXGroup;
+			children = (
+				9E9845C025D4F27E00B03C4E /* CourceRegisterViewController.swift */,
+				9E9845D025D4F2FE00B03C4E /* CourceRegisterViewModel.swift */,
+			);
+			path = CourceRegister;
+			sourceTree = "<group>";
+		};
+		9E9845D525D4F58500B03C4E /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				9E9845D625D4F59C00B03C4E /* ColletionViewControllerProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		9E98D53D2552F88B00EC5AC1 /* SupportView */ = {
@@ -921,6 +946,7 @@
 				9E08AC812572A8AA00D69927 /* RockMapNavigationBar.swift in Sources */,
 				9E63584A25D2E4F9002F694D /* NoCourcesCollectionViewCell.swift in Sources */,
 				9E04B1B5254BC3FC0097DA8E /* StringExtesnion.swift in Sources */,
+				9E9845C125D4F27E00B03C4E /* CourceRegisterViewController.swift in Sources */,
 				9E08ACA42573E6C400D69927 /* NameSpace.swift in Sources */,
 				9E0A9F29255104A0007B9A90 /* KeyboardExtension.swift in Sources */,
 				9E807CC6254D00310091935F /* ScreenType.swift in Sources */,
@@ -945,6 +971,7 @@
 				9E5CEFD025277B25001C95AA /* RockSearchViewController.swift in Sources */,
 				9EE1FD542577EF9D0080787F /* KeychainStorage.swift in Sources */,
 				9E8723D3256C037000735C65 /* RockConfirmViewModel.swift in Sources */,
+				9E9845D125D4F2FE00B03C4E /* CourceRegisterViewModel.swift in Sources */,
 				9E613ABC25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift in Sources */,
 				9EA94F7325D044F500D1272E /* RockDetailDatasource.swift in Sources */,
 				9E0C9DF02576ABCE00ABFE5B /* Users.swift in Sources */,
@@ -969,6 +996,7 @@
 				9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */,
 				9E08AC7C2572A84100D69927 /* RockMapNavigationController.swift in Sources */,
 				9E5DD1D725C9857A00E38620 /* UIViewExtension.swift in Sources */,
+				9E9845D725D4F59C00B03C4E /* ColletionViewControllerProtocol.swift in Sources */,
 				9E5CEFCE25277B25001C95AA /* SceneDelegate.swift in Sources */,
 				9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */,
 				9E60DCB52557148A000CF2E8 /* RockLocationSelectViewController.swift in Sources */,
