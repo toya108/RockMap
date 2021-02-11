@@ -45,10 +45,16 @@ class RockDetailViewController: UIViewController, ColletionViewControllerProtoco
 
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
-        let action = UIAction { _ in
-            
-        }
-        let courceCreationButton = UIButton(type: .system, primaryAction: action)
+
+        let courceCreationButton = UIButton(
+            type: .system,
+            primaryAction: .init { [weak self] _ in
+                
+                guard let self = self else { return }
+                
+                self.presentCourceRegisterViewController()
+            }
+        )
         courceCreationButton.setTitle("課題登録", for: .normal)
         courceCreationButton.setImage(UIImage.SystemImages.plusSquare, for: .normal)
         navigationItem.setRightBarButton(
@@ -138,6 +144,12 @@ class RockDetailViewController: UIViewController, ColletionViewControllerProtoco
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
+    }
+    
+    private func presentCourceRegisterViewController() {
+        let coureceRegisterVc = CourceRegisterViewController.createInstance(viewModel: .init())
+        let vc = RockMapNavigationController(rootVC: coureceRegisterVc, naviBarClass: RockMapNavigationBar.self)
+        present(vc, animated: true)
     }
 
 }
