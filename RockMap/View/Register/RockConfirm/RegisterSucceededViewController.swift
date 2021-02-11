@@ -10,7 +10,9 @@ import UIKit
 class RegisterSucceededViewController: UIViewController {}
 
 extension RegisterSucceededViewController: UIPopoverPresentationControllerDelegate {
-    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
+    func popoverPresentationControllerShouldDismissPopover(
+        _ popoverPresentationController: UIPopoverPresentationController
+    ) -> Bool {
         return false
     }
 }
