@@ -27,5 +27,6 @@ extension UIImage {
         static let back = UIImage(named: "back")
         static let rock = UIImage(named: "rock")
         static let noimage = UIImage(named: "no_image")
+        static let penguinGudaGuda = UIImage(named: "penguin_gudaguda")
     }
 }
