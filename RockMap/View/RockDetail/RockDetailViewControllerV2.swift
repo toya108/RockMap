@@ -45,6 +45,16 @@ class RockDetailViewController: UIViewController {
 
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
+        let action = UIAction { _ in
+            
+        }
+        let courceCreationButton = UIButton(type: .system, primaryAction: action)
+        courceCreationButton.setTitle("課題登録", for: .normal)
+        courceCreationButton.setImage(UIImage.AssetsImages.plusSquare, for: .normal)
+        navigationItem.setRightBarButton(
+            .init(customView: courceCreationButton),
+            animated: false
+        )
     }
     
     private func setupColletionView() {

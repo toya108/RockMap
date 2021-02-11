@@ -28,5 +28,6 @@ extension UIImage {
         static let rock = UIImage(named: "rock")
         static let noimage = UIImage(named: "no_image")
         static let penguinGudaGuda = UIImage(named: "penguin_gudaguda")
+        static let plusSquare = UIImage(systemName: "plus.square")!
     }
 }
