@@ -49,6 +49,7 @@
 		9E613AC825CB00520040F6F2 /* RegisteredUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E613AC625CB00520040F6F2 /* RegisteredUserCollectionViewCell.swift */; };
 		9E613AC925CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E613AC725CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib */; };
 		9E623688258A662B00152AF9 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E623687258A662B00152AF9 /* StorageManager.swift */; };
+		9E63584A25D2E4F9002F694D /* NoCourcesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E63584925D2E4F9002F694D /* NoCourcesCollectionViewCell.swift */; };
 		9E6CF41C25CF10570098389E /* TitleHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CF41B25CF10570098389E /* TitleHeaderView.swift */; };
 		9E6CF42725CFF16A0098389E /* RockLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CF42625CFF16A0098389E /* RockLocationCollectionViewCell.swift */; };
 		9E76C40C258F9E8D00B96926 /* ImageUploadIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E76C40B258F9E8D00B96926 /* ImageUploadIndicatorView.swift */; };
@@ -159,6 +160,7 @@
 		9E613AC625CB00520040F6F2 /* RegisteredUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredUserCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E613AC725CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisteredUserCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E623687258A662B00152AF9 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		9E63584925D2E4F9002F694D /* NoCourcesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCourcesCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E6CF41B25CF10570098389E /* TitleHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleHeaderView.swift; sourceTree = "<group>"; };
 		9E6CF42625CFF16A0098389E /* RockLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E76C40B258F9E8D00B96926 /* ImageUploadIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploadIndicatorView.swift; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 				9E613AC725CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib */,
 				9EE9DAE825CEDDE500B2BC4E /* RockDescCollectionViewCell.swift */,
 				9E6CF42625CFF16A0098389E /* RockLocationCollectionViewCell.swift */,
+				9E63584925D2E4F9002F694D /* NoCourcesCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -916,6 +919,7 @@
 				9E0C0A152588C7DA00E34FCE /* Rocks.swift in Sources */,
 				9E010E0025D0539F00A4C336 /* Cource.swift in Sources */,
 				9E08AC812572A8AA00D69927 /* RockMapNavigationBar.swift in Sources */,
+				9E63584A25D2E4F9002F694D /* NoCourcesCollectionViewCell.swift in Sources */,
 				9E04B1B5254BC3FC0097DA8E /* StringExtesnion.swift in Sources */,
 				9E08ACA42573E6C400D69927 /* NameSpace.swift in Sources */,
 				9E0A9F29255104A0007B9A90 /* KeyboardExtension.swift in Sources */,
