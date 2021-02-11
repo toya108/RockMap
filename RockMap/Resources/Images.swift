@@ -9,7 +9,7 @@
 
 import UIKit
 extension UIImage {
-    struct AssetsImages {
+    struct SystemImages {
         static let folderFill = UIImage(systemName: "folder.fill")!
         static let cameraFill = UIImage(systemName: "camera.fill")!
         static let personCircle = UIImage(systemName: "person.circle")!
@@ -24,10 +24,13 @@ extension UIImage {
         static let xmarkCircleFill = UIImage(systemName: "xmark.circle.fill")
         static let flagCircle = UIImage(systemName: "flag.circle")!
         static let flagCircleFill = UIImage(systemName: "flag.circle.fill")!
+        static let plusSquare = UIImage(systemName: "plus.square")!
+    }
+    
+    struct AssetsImages {
         static let back = UIImage(named: "back")
         static let rock = UIImage(named: "rock")
         static let noimage = UIImage(named: "no_image")
         static let penguinGudaGuda = UIImage(named: "penguin_gudaguda")
-        static let plusSquare = UIImage(systemName: "plus.square")!
     }
 }

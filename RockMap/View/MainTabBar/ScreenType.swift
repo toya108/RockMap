@@ -66,15 +66,15 @@ enum ScreenType: CaseIterable {
     var image: UIImage? {
         switch self {
         case .rockSearch:
-            let image = UIImage.AssetsImages.map.withTintColor(.white, renderingMode: .alwaysOriginal)
+            let image = UIImage.SystemImages.map.withTintColor(.white, renderingMode: .alwaysOriginal)
             return image
             
         case .register:
-            let image = UIImage.AssetsImages.pencilCircle.withTintColor(.white, renderingMode: .alwaysOriginal)
+            let image = UIImage.SystemImages.pencilCircle.withTintColor(.white, renderingMode: .alwaysOriginal)
             return image
             
         case .myPage:
-            let image = UIImage.AssetsImages.personCircle.withTintColor(.white, renderingMode: .alwaysOriginal)
+            let image = UIImage.SystemImages.personCircle.withTintColor(.white, renderingMode: .alwaysOriginal)
             return image
 
         #if !RELEASE
@@ -87,15 +87,15 @@ enum ScreenType: CaseIterable {
     var selectedImage: UIImage? {
         switch self {
         case .rockSearch:
-            let image = UIImage.AssetsImages.mapFill.withTintColor(.white, renderingMode: .alwaysOriginal)
+            let image = UIImage.SystemImages.mapFill.withTintColor(.white, renderingMode: .alwaysOriginal)
             return image
             
         case .register:
-            let image = UIImage.AssetsImages.pencilCircleFill.withTintColor(.white, renderingMode: .alwaysOriginal)
+            let image = UIImage.SystemImages.pencilCircleFill.withTintColor(.white, renderingMode: .alwaysOriginal)
             return image
             
         case .myPage:
-            let image = UIImage.AssetsImages.personCircleFill.withTintColor(.white, renderingMode: .alwaysOriginal)
+            let image = UIImage.SystemImages.personCircleFill.withTintColor(.white, renderingMode: .alwaysOriginal)
             return image
         
         #if !RELEASE

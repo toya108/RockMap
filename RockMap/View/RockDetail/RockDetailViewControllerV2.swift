@@ -50,7 +50,7 @@ class RockDetailViewController: UIViewController {
         }
         let courceCreationButton = UIButton(type: .system, primaryAction: action)
         courceCreationButton.setTitle("課題登録", for: .normal)
-        courceCreationButton.setImage(UIImage.AssetsImages.plusSquare, for: .normal)
+        courceCreationButton.setImage(UIImage.SystemImages.plusSquare, for: .normal)
         navigationItem.setRightBarButton(
             .init(customView: courceCreationButton),
             animated: false

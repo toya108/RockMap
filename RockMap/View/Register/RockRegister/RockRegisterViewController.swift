@@ -58,7 +58,7 @@ final class RockRegisterViewController: UIViewController {
     private func setupImageUploadButtonActions() {
         let photoLibraryAction = UIAction(
             title: "フォトライブラリ",
-            image: UIImage.AssetsImages.folderFill
+            image: UIImage.SystemImages.folderFill
         ) { [weak self] _ in
             
             guard let self = self else { return }
@@ -68,7 +68,7 @@ final class RockRegisterViewController: UIViewController {
         
         let cameraAction = UIAction(
             title: "写真を撮る",
-            image: UIImage.AssetsImages.cameraFill
+            image: UIImage.SystemImages.cameraFill
         ) { [weak self] _ in
             
             guard let self = self else { return }
@@ -246,7 +246,7 @@ final class RockRegisterViewController: UIViewController {
             self.viewModel.rockImageDatas.removeAll { $0 == data }
         })
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.setImage(UIImage.AssetsImages.xmarkCircleFill, for: .normal)
+        deleteButton.setImage(UIImage.SystemImages.xmarkCircleFill, for: .normal)
         deleteButton.tintColor = .white
         imageView.addSubview(deleteButton)
         NSLayoutConstraint.activate([
