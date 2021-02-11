@@ -27,20 +27,20 @@
                         <rect key="frame" x="8" y="238.5" width="398" height="62.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YHb-iP-Q3o">
-                                <rect key="frame" x="0.0" y="4.5" width="54" height="54"/>
+                                <rect key="frame" x="0.0" y="7.5" width="48" height="48"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="54" id="bby-tP-hTs"/>
+                                    <constraint firstAttribute="width" constant="48" id="bby-tP-hTs"/>
                                     <constraint firstAttribute="width" secondItem="YHb-iP-Q3o" secondAttribute="height" multiplier="1:1" id="dz8-7Y-rTm"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="登録者：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAv-Wd-sIQ" userLabel="登録者:">
-                                <rect key="frame" x="62" y="21" width="69.5" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="登録者:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAv-Wd-sIQ" userLabel="登録者:">
+                                <rect key="frame" x="56" y="21" width="57" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWx-0r-9Tn">
-                                <rect key="frame" x="139.5" y="21" width="258.5" height="20.5"/>
+                                <rect key="frame" x="121" y="21" width="277" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
