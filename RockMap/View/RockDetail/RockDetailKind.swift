@@ -49,7 +49,9 @@ extension RockDetailViewController {
         case registeredUser(user: FIDocument.Users)
         case desc(String)
         case map(RockDetailViewModel.RockLocation)
+        // cource section
         case cources
+        case noCource
     }
     
 }

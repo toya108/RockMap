@@ -119,6 +119,28 @@ class RockDetailViewController: UIViewController {
                 
             }
             .store(in: &bindings)
+        
+        viewModel.$courseIdList
+            .receive(on: RunLoop.main)
+            .sink { [weak self] idList in
+                
+                guard let self = self else { return }
+                
+                self.snapShot.deleteItems([.cources, .noCource])
+                
+                guard
+                    !idList.isEmpty
+                else {
+                    self.snapShot.appendItems([.noCource], toSection: .cources)
+                    self.datasource.apply(self.snapShot)
+                    
+                    return
+                }
+                
+                self.snapShot.appendItems([.cources], toSection: .cources)
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
     }
 
 }

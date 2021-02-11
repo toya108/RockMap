@@ -118,21 +118,60 @@ extension RockDetailViewController {
                 return section
                 
             case .cources:
-
-                let item = NSCollectionLayoutItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .estimated(64)
-                    )
-                )
                 
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: item.layoutSize.heightDimension
-                    ),
-                    subitems: [item]
-                )
+                let item: NSCollectionLayoutItem
+                let group: NSCollectionLayoutGroup
+                
+                let snapItems = self.snapShot.itemIdentifiers(inSection: .cources)
+                
+                switch snapItems.first {
+                case .noCource:
+                    item = .init(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .absolute(300)
+                        )
+                    )
+                    
+                    group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: item.layoutSize.heightDimension
+                        ),
+                        subitems: [item]
+                    )
+                    
+                case .cources:
+                    item = .init(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .absolute(300)
+                        )
+                    )
+                    
+                    group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: item.layoutSize.heightDimension
+                        ),
+                        subitems: [item]
+                    )
+                
+                default:
+                    item = .init(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .fractionalHeight(1)
+                        )
+                    )
+                    group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .fractionalHeight(1)
+                        ),
+                        subitems: [item]
+                    )
+                }
                 
                 let section = NSCollectionLayoutSection(group: group)
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
