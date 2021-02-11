@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import SwiftUI
 
-class RockDetailViewController: UIViewController {
+class RockDetailViewController: UIViewController, ColletionViewControllerProtocol {
     
     var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
@@ -27,7 +27,7 @@ class RockDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
             
-        setupColletionView()
+        setupColletionView(layout: createLayout())
         setupNavigationBar()
         datasource = configureDatasource()
         bindViewToViewModel()
@@ -55,19 +55,6 @@ class RockDetailViewController: UIViewController {
             .init(customView: courceCreationButton),
             animated: false
         )
-    }
-    
-    private func setupColletionView() {
-        collectionView = .init(frame: .zero, collectionViewLayout: createLayout())
-        collectionView.backgroundColor = .systemBackground
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
     }
     
     private func configureSections() {
