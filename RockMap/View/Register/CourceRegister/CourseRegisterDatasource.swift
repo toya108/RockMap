@@ -37,7 +37,7 @@ extension CourceRegisterViewController {
         ) { [weak self] supplementaryView, _, indexPath in
             
             guard let self = self else { return }
-
+            supplementaryView.backgroundColor = .white
             supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section].headerTitle
         }
         

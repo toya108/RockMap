@@ -20,7 +20,7 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupColletionView(layout: createLayout())
+        setupColletionView()
         setupNavigationBar()
         bindViewToViewModel()
         bindViewModelToView()
@@ -34,6 +34,12 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
         let instance = CourceRegisterViewController()
         instance.viewModel = viewModel
         return instance
+    }
+    
+    private func setupColletionView() {
+        setupColletionView(layout: createLayout())
+        collectionView.backgroundColor = .systemGroupedBackground
+        collectionView.contentInset = .init(top: 16, left: 0, bottom: 0, right: 0)
     }
     
     private func setupNavigationBar() {
