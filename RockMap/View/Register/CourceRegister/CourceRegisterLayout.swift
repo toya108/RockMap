@@ -34,7 +34,7 @@ extension CourceRegisterViewController {
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .estimated(44)
+                        heightDimension: .absolute(44)
                     ),
                     elementKind: SectionLayoutKind.rock.headerIdentifer,
                     alignment: .top

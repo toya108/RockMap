@@ -44,6 +44,19 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     
     private func setupNavigationBar() {
         navigationItem.title = "課題を登録する"
+
+        navigationItem.setLeftBarButton(
+            .init(
+                systemItem: .cancel,
+                primaryAction: .init {  [weak self] _ in
+                    
+                    guard let self = self else { return }
+                    
+                    self.dismiss(animated: true)
+                }
+            ),
+            animated: false
+        )
     }
     
     private func bindViewToViewModel() {

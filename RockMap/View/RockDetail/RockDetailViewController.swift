@@ -166,6 +166,7 @@ class RockDetailViewController: UIViewController, ColletionViewControllerProtoco
             rootVC: CourceRegisterViewController.createInstance(viewModel: viewModel),
             naviBarClass: RockMapNavigationBar.self
         )
+        vc.isModalInPresentation = true
         present(vc, animated: true)
     }
 
