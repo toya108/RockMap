@@ -24,7 +24,13 @@ extension CourceRegisterViewController {
                         for: indexPath,
                         item: rock
                     )
-                    
+                
+                case .courceName:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureCourceNameCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
                 default:
                     return UICollectionViewCell()
                     
@@ -37,11 +43,13 @@ extension CourceRegisterViewController {
         ) { [weak self] supplementaryView, _, indexPath in
             
             guard let self = self else { return }
+            
+            supplementaryView.setSideInset(16)
             supplementaryView.backgroundColor = .white
             supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section].headerTitle
         }
         
-        datasource.supplementaryViewProvider = { [weak self] collectionView, kind, index in
+        datasource.supplementaryViewProvider = { [weak self] collectionView, _, index in
             
             guard let self = self else { return nil }
             
@@ -66,4 +74,13 @@ extension CourceRegisterViewController {
             cell.configure(rockHeaderStructure: rockHeaderStructure)
         }
     }
+    
+    private func configureCourceNameCell() -> UICollectionView.CellRegistration<
+        TextFieldColletionViewCell,
+        Dummy
+    > {
+        .init { cell, _, _ in }
+    }
 }
+
+struct Dummy {}
