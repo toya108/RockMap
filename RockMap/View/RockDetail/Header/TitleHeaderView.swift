@@ -34,8 +34,8 @@ class TitleSupplementaryView: UICollectionReusableView {
     
     func setSideInset(_ inset: CGFloat) {
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16)
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: inset)
         ])
     }
 }
