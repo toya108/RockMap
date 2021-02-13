@@ -10,6 +10,8 @@ import UIKit
 class TextFieldColletionViewCell: UICollectionViewCell {
     
     let textField = UITextField()
+    let stackView = UIStackView()
+    let borderView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,13 +26,28 @@ class TextFieldColletionViewCell: UICollectionViewCell {
     private func setupLayout() {
         backgroundColor = .white
         
-        addSubview(textField)
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(stackView)
+        stackView.distribution = .fill
+        stackView.axis = .vertical
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            textField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-            textField.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
-            textField.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
+            stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+            stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
         ])
+        
+        [textField, borderView].forEach {
+            stackView.addArrangedSubview($0)
+        }
+        
+        borderView.translatesAutoresizingMaskIntoConstraints = false
+        borderView.backgroundColor = .gray
+        NSLayoutConstraint.activate([
+            borderView.heightAnchor.constraint(equalToConstant: 1)
+        ])
+        
+        textField.placeholder = "課題名を入力して下さい。"
     }
 }

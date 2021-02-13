@@ -79,7 +79,13 @@ extension CourceRegisterViewController {
         TextFieldColletionViewCell,
         Dummy
     > {
-        .init { cell, _, _ in }
+        .init { [weak self] cell, _, _ in
+            
+            guard let self = self else { return }
+            
+            cell.textField.textDidChangedPublisher.assign(to: &self.viewModel.$courseName)
+            cell.textField.delegate = self
+        }
     }
 }
 

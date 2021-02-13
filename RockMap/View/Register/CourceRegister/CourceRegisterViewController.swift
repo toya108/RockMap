@@ -17,23 +17,23 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     
     private var bindings = Set<AnyCancellable>()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setupColletionView()
-        setupNavigationBar()
-        bindViewToViewModel()
-        bindViewModelToView()
-        datasource = configureDatasource()
-        configureSections()
-    }
-
     static func createInstance(
         viewModel: CourceRegisterViewModel
     ) -> CourceRegisterViewController {
         let instance = CourceRegisterViewController()
         instance.viewModel = viewModel
         return instance
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setupColletionView()
+        setupNavigationBar()
+        bindViewToViewModel()
+        bindViewModelToView()
+        datasource = configureDatasource()
+        configureSections()
     }
     
     private func setupColletionView() {
@@ -60,7 +60,6 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     }
     
     private func bindViewToViewModel() {
-        
     }
     
     private func bindViewModelToView() {
@@ -81,5 +80,11 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
         snapShot.appendSections(SectionLayoutKind.allCases)
         snapShot.appendItems([.courceName], toSection: .courceName)
         datasource.apply(snapShot)
+    }
+}
+
+extension CourceRegisterViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
     }
 }
