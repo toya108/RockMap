@@ -54,7 +54,7 @@ extension CourceRegisterViewController {
     enum ItemKind: Hashable {
         case rock(CourceRegisterViewModel.RockHeaderStructure)
         case courceName
-        case grade
+        case grade(FIDocument.Cource.Grade)
         case images
         case desc
         case makePrivate

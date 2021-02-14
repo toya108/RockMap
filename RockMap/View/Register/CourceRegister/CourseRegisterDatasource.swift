@@ -31,6 +31,14 @@ extension CourceRegisterViewController {
                         for: indexPath,
                         item: Dummy()
                     )
+                
+                case let .grade(grade):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureGradeSelectingCell(),
+                        for: indexPath,
+                        item: grade
+                    )
+                    
                 default:
                     return UICollectionViewCell()
                     
@@ -85,6 +93,21 @@ extension CourceRegisterViewController {
             
             cell.textField.textDidChangedPublisher.assign(to: &self.viewModel.$courseName)
             cell.textField.delegate = self
+        }
+    }
+    
+    private func configureGradeSelectingCell() -> UICollectionView.CellRegistration<
+        GradeSelectingCollectionViewCell,
+        FIDocument.Cource.Grade
+    > {
+        .init(
+            cellNib: .init(
+                nibName: GradeSelectingCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { cell, _, grade in
+            cell.backView.alpha = grade.alpha
+            cell.configure(grade: grade)
         }
     }
 }

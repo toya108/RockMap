@@ -85,6 +85,8 @@
 		9EA94F7325D044F500D1272E /* RockDetailDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA94F7225D044F500D1272E /* RockDetailDatasource.swift */; };
 		9EA94F7825D0462700D1272E /* RockDetailKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA94F7725D0462700D1272E /* RockDetailKind.swift */; };
 		9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6BA66252E00E400553026 /* MainTabBarController.swift */; };
+		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
+		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
 		9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED972992596471C0069FB94 /* ArrayExtension.swift */; };
 		9EE1FD482577EED60080787F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE1FD472577EED60080787F /* AuthManager.swift */; };
 		9EE1FD542577EF9D0080787F /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE1FD532577EF9D0080787F /* KeychainStorage.swift */; };
@@ -205,6 +207,8 @@
 		9EA94F7225D044F500D1272E /* RockDetailDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailDatasource.swift; sourceTree = "<group>"; };
 		9EA94F7725D0462700D1272E /* RockDetailKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailKind.swift; sourceTree = "<group>"; };
 		9EB6BA66252E00E400553026 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
+		9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradeSelectingCollectionViewCell.xib; sourceTree = "<group>"; };
 		9ED972992596471C0069FB94 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		9EE1FD472577EED60080787F /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		9EE1FD532577EF9D0080787F /* KeychainStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
@@ -569,6 +573,8 @@
 				9E9845F325D5418C00B03C4E /* RockHeaderCollectionViewCell.swift */,
 				9E9845F425D5418C00B03C4E /* RockHeaderCollectionViewCell.xib */,
 				9E2D0F1625D6E4B100652171 /* TextFieldColletionViewCell.swift */,
+				9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */,
+				9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -763,6 +769,7 @@
 				9E016FBC252CD0C600C2B85C /* GoogleService-Info.plist in Resources */,
 				9E5CEFD525277B26001C95AA /* Assets.xcassets in Resources */,
 				9E807CD1254E93120091935F /* RockRegisterViewController.storyboard in Resources */,
+				9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */,
 				9E9845F625D5418C00B03C4E /* RockHeaderCollectionViewCell.xib in Resources */,
 				9E8723CA256BFEF200735C65 /* RockConfirmViewController.storyboard in Resources */,
 				9E807CB8254CFF560091935F /* RegisterViewController.storyboard in Resources */,
@@ -990,6 +997,7 @@
 				9E0C9DE82576AAE300ABFE5B /* FireStoreManager.swift in Sources */,
 				9E08AC9C2573D36A00D69927 /* UI.swift in Sources */,
 				9E5DD1C025C84DA500E38620 /* UIImageViewExtension.swift in Sources */,
+				9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */,
 				9E5C5E372555144000D00087 /* Images.swift in Sources */,
 				9E0A9F192550519F007B9A90 /* RockRegisterViewModel.swift in Sources */,
 				9E807CBD254CFF640091935F /* RegisterViewController.swift in Sources */,

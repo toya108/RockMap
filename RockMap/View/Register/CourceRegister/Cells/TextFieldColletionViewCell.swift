@@ -28,6 +28,7 @@ class TextFieldColletionViewCell: UICollectionViewCell {
         
         addSubview(stackView)
         stackView.distribution = .fill
+        stackView.spacing = 8
         stackView.axis = .vertical
         
         stackView.translatesAutoresizingMaskIntoConstraints = false

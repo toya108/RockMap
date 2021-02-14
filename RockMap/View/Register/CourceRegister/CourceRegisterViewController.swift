@@ -79,6 +79,9 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     private func configureSections() {
         snapShot.appendSections(SectionLayoutKind.allCases)
         snapShot.appendItems([.courceName], toSection: .courceName)
+        FIDocument.Cource.Grade.allCases.forEach {
+            snapShot.appendItems([.grade($0)], toSection: .grade)
+        }
         datasource.apply(snapShot)
     }
 }
