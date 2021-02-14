@@ -229,6 +229,7 @@ final class RockRegisterViewController: UIViewController {
             .sink { [weak self] isPassed in
                 guard let self = self else { return }
                 self.confirmButton.isEnabled = isPassed
+                self.confirmButton.backgroundColor = isPassed ? UIColor.Pallete.primaryGreen : .gray
             }
             .store(in: &bindings)
     }
