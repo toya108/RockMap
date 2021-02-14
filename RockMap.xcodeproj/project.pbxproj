@@ -84,6 +84,7 @@
 		9EA94F6E25D044E700D1272E /* RockDetailLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA94F6D25D044E700D1272E /* RockDetailLayout.swift */; };
 		9EA94F7325D044F500D1272E /* RockDetailDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA94F7225D044F500D1272E /* RockDetailDatasource.swift */; };
 		9EA94F7825D0462700D1272E /* RockDetailKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA94F7725D0462700D1272E /* RockDetailKind.swift */; };
+		9EAB892C25D8D454009F7B97 /* CourceRegisterColletionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAB892B25D8D454009F7B97 /* CourceRegisterColletionViewDelegate.swift */; };
 		9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6BA66252E00E400553026 /* MainTabBarController.swift */; };
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
 		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
@@ -206,6 +207,7 @@
 		9EA94F6D25D044E700D1272E /* RockDetailLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailLayout.swift; sourceTree = "<group>"; };
 		9EA94F7225D044F500D1272E /* RockDetailDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailDatasource.swift; sourceTree = "<group>"; };
 		9EA94F7725D0462700D1272E /* RockDetailKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailKind.swift; sourceTree = "<group>"; };
+		9EAB892B25D8D454009F7B97 /* CourceRegisterColletionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourceRegisterColletionViewDelegate.swift; sourceTree = "<group>"; };
 		9EB6BA66252E00E400553026 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradeSelectingCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -553,6 +555,7 @@
 				9E9845E125D4FA5300B03C4E /* CourceRegisterKind.swift */,
 				9E9845E625D5202500B03C4E /* CourceRegisterLayout.swift */,
 				9E9845EE25D5278C00B03C4E /* CourseRegisterDatasource.swift */,
+				9EAB892B25D8D454009F7B97 /* CourceRegisterColletionViewDelegate.swift */,
 				9E9845D025D4F2FE00B03C4E /* CourceRegisterViewModel.swift */,
 				9E9845FA25D5419500B03C4E /* Cells */,
 			);
@@ -1011,6 +1014,7 @@
 				9E613ABC25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift in Sources */,
 				9EA94F7325D044F500D1272E /* RockDetailDatasource.swift in Sources */,
 				9E0C9DF02576ABCE00ABFE5B /* Users.swift in Sources */,
+				9EAB892C25D8D454009F7B97 /* CourceRegisterColletionViewDelegate.swift in Sources */,
 				9E0D09352566B31200D3075F /* RockDetailViewModel.swift in Sources */,
 				9E98D549255300B900EC5AC1 /* ColorPallet.swift in Sources */,
 				9E04B18D254B1EB30097DA8E /* UITextFieldExtension.swift in Sources */,

@@ -38,6 +38,7 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     
     private func setupColletionView() {
         setupColletionView(layout: createLayout())
+        collectionView.delegate = self
         collectionView.backgroundColor = .systemGroupedBackground
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 0, right: 0)
     }
