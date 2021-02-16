@@ -38,6 +38,12 @@ extension CourceRegisterViewController {
                         for: indexPath,
                         item: grade
                     )
+                case let .desc:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureCourceDescCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
                     
                 default:
                     return UICollectionViewCell()
@@ -106,8 +112,18 @@ extension CourceRegisterViewController {
                 bundle: nil
             )
         ) { cell, _, grade in
-            cell.backView.alpha = grade.alpha
             cell.configure(grade: grade)
+        }
+    }
+    
+    private func configureCourceDescCell() -> UICollectionView.CellRegistration<
+        TextViewColletionViewCell,
+        Dummy
+    > {
+        .init { [weak self] cell, _, _ in
+            
+            guard let self = self else { return }
+            
         }
     }
 }

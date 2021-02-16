@@ -17,10 +17,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="155" height="141"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87V-Oh-aUn">
-                        <rect key="frame" x="0.0" y="0.0" width="155" height="141"/>
-                        <color key="backgroundColor" name="primaryGreenColor"/>
-                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RF3-AS-JXT">
                         <rect key="frame" x="0.0" y="0.0" width="155" height="141"/>
                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
@@ -32,18 +28,13 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <color key="backgroundColor" name="primaryGreenColor"/>
             <constraints>
-                <constraint firstItem="87V-Oh-aUn" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="3AG-HQ-bGY"/>
-                <constraint firstAttribute="trailing" secondItem="87V-Oh-aUn" secondAttribute="trailing" id="F0V-sZ-vBJ"/>
                 <constraint firstItem="RF3-AS-JXT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="GLq-o8-jjR"/>
-                <constraint firstItem="87V-Oh-aUn" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="OYQ-SR-BMB"/>
                 <constraint firstAttribute="trailing" secondItem="RF3-AS-JXT" secondAttribute="trailing" id="Qey-zx-0Yb"/>
                 <constraint firstAttribute="bottom" secondItem="RF3-AS-JXT" secondAttribute="bottom" id="cB1-Nb-3Zl"/>
                 <constraint firstItem="RF3-AS-JXT" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="fC0-yf-Nee"/>
-                <constraint firstAttribute="bottom" secondItem="87V-Oh-aUn" secondAttribute="bottom" id="ooj-jw-ceb"/>
             </constraints>
             <size key="customSize" width="155" height="141"/>
             <connections>
-                <outlet property="backView" destination="87V-Oh-aUn" id="vTQ-j4-344"/>
                 <outlet property="gradeLabel" destination="RF3-AS-JXT" id="6P9-4g-BPi"/>
             </connections>
             <point key="canvasLocation" x="205.07246376811597" y="130.24553571428572"/>

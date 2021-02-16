@@ -23,7 +23,6 @@ extension RockDetailViewController {
                         heightDimension: .fractionalHeight(1)
                     )
                 )
-                item.contentInsets = .init(top: 0, leading: 2, bottom: 0, trailing: 2)
                 
                 let height = UIScreen.main.bounds.width * 9/16
                 let group = NSCollectionLayoutGroup.horizontal(
@@ -33,6 +32,7 @@ extension RockDetailViewController {
                     ),
                     subitems: [item]
                 )
+                group.interItemSpacing = .fixed(2)
                 
                 let section = NSCollectionLayoutSection(group: group)
                 section.orthogonalScrollingBehavior = .paging
