@@ -30,6 +30,7 @@
 		9E26400525B5C0300088DAFB /* RockSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E26400425B5C0300088DAFB /* RockSearchViewModel.swift */; };
 		9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2B112E25471F6100D7E56C /* LoginViewController.swift */; };
 		9E2B113425471F7400D7E56C /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E2B113325471F7400D7E56C /* LoginViewController.storyboard */; };
+		9E2BD65125DD55B00011B020 /* TextViewCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2BD65025DD55B00011B020 /* TextViewCollectionViewCell.xib */; };
 		9E2D0F1725D6E4B100652171 /* TextFieldColletionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D0F1625D6E4B100652171 /* TextFieldColletionViewCell.swift */; };
 		9E34C90C25B09A69005EBE07 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E34C90B25B09A69005EBE07 /* DebugViewController.swift */; };
 		9E5C5E372555144000D00087 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5C5E362555144000D00087 /* Images.swift */; };
@@ -85,7 +86,7 @@
 		9EA94F7325D044F500D1272E /* RockDetailDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA94F7225D044F500D1272E /* RockDetailDatasource.swift */; };
 		9EA94F7825D0462700D1272E /* RockDetailKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA94F7725D0462700D1272E /* RockDetailKind.swift */; };
 		9EAB892C25D8D454009F7B97 /* CourceRegisterColletionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAB892B25D8D454009F7B97 /* CourceRegisterColletionViewDelegate.swift */; };
-		9EAE72AE25DACFC900C37119 /* TextViewColletionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE72AD25DACFC900C37119 /* TextViewColletionViewCell.swift */; };
+		9EAE72AE25DACFC900C37119 /* TextViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE72AD25DACFC900C37119 /* TextViewCollectionViewCell.swift */; };
 		9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6BA66252E00E400553026 /* MainTabBarController.swift */; };
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
 		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
@@ -148,6 +149,7 @@
 		9E26400425B5C0300088DAFB /* RockSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockSearchViewModel.swift; sourceTree = "<group>"; };
 		9E2B112E25471F6100D7E56C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9E2B113325471F7400D7E56C /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
+		9E2BD65025DD55B00011B020 /* TextViewCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E2D0F1625D6E4B100652171 /* TextFieldColletionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldColletionViewCell.swift; sourceTree = "<group>"; };
 		9E34C90B25B09A69005EBE07 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		9E5C5E362555144000D00087 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
@@ -209,7 +211,7 @@
 		9EA94F7225D044F500D1272E /* RockDetailDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailDatasource.swift; sourceTree = "<group>"; };
 		9EA94F7725D0462700D1272E /* RockDetailKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailKind.swift; sourceTree = "<group>"; };
 		9EAB892B25D8D454009F7B97 /* CourceRegisterColletionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourceRegisterColletionViewDelegate.swift; sourceTree = "<group>"; };
-		9EAE72AD25DACFC900C37119 /* TextViewColletionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewColletionViewCell.swift; sourceTree = "<group>"; };
+		9EAE72AD25DACFC900C37119 /* TextViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EB6BA66252E00E400553026 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradeSelectingCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -580,7 +582,8 @@
 				9E2D0F1625D6E4B100652171 /* TextFieldColletionViewCell.swift */,
 				9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */,
 				9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */,
-				9EAE72AD25DACFC900C37119 /* TextViewColletionViewCell.swift */,
+				9EAE72AD25DACFC900C37119 /* TextViewCollectionViewCell.swift */,
+				9E2BD65025DD55B00011B020 /* TextViewCollectionViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -772,6 +775,7 @@
 				9E613AC925CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib in Resources */,
 				9EE8BC5D2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib in Resources */,
 				9E2B113425471F7400D7E56C /* LoginViewController.storyboard in Resources */,
+				9E2BD65125DD55B00011B020 /* TextViewCollectionViewCell.xib in Resources */,
 				9E016FBC252CD0C600C2B85C /* GoogleService-Info.plist in Resources */,
 				9E5CEFD525277B26001C95AA /* Assets.xcassets in Resources */,
 				9E807CD1254E93120091935F /* RockRegisterViewController.storyboard in Resources */,
@@ -1016,7 +1020,7 @@
 				9E9845D125D4F2FE00B03C4E /* CourceRegisterViewModel.swift in Sources */,
 				9E613ABC25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift in Sources */,
 				9EA94F7325D044F500D1272E /* RockDetailDatasource.swift in Sources */,
-				9EAE72AE25DACFC900C37119 /* TextViewColletionViewCell.swift in Sources */,
+				9EAE72AE25DACFC900C37119 /* TextViewCollectionViewCell.swift in Sources */,
 				9E0C9DF02576ABCE00ABFE5B /* Users.swift in Sources */,
 				9EAB892C25D8D454009F7B97 /* CourceRegisterColletionViewDelegate.swift in Sources */,
 				9E0D09352566B31200D3075F /* RockDetailViewModel.swift in Sources */,

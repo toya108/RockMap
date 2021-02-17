@@ -85,6 +85,10 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
         snapShot.appendItems([.desc], toSection: .desc)
         datasource.apply(snapShot)
     }
+    
+    @objc func reloadDescCell() {
+        snapShot.reloadItems([.desc])
+    }
 }
 
 extension CourceRegisterViewController: UITextFieldDelegate {
@@ -92,3 +96,10 @@ extension CourceRegisterViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
     }
 }
+
+extension CourceRegisterViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        snapShot.reloadSections([.desc])
+    }
+}
+

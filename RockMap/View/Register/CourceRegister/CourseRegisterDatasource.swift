@@ -117,13 +117,20 @@ extension CourceRegisterViewController {
     }
     
     private func configureCourceDescCell() -> UICollectionView.CellRegistration<
-        TextViewColletionViewCell,
+        TextViewCollectionViewCell,
         Dummy
     > {
-        .init { [weak self] cell, _, _ in
+        .init(
+            cellNib: .init(
+                nibName: TextViewCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { [weak self] cell, _, _ in
             
             guard let self = self else { return }
             
+            cell.textView.textDidChangedPublisher.assign(to: &self.viewModel.$desc)
+            cell.textView.delegate = self
         }
     }
 }
