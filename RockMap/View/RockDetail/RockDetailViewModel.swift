@@ -46,18 +46,27 @@ final class RockDetailViewModel {
             .store(in: &bindings)
         
         $rockName
-            .flatMap { name -> Future<[StorageManager.Reference], Error> in
+            .sink { [weak self] name in
+                
+                guard let self = self else { return }
                 
                 let reference = StorageManager.makeReference(
                     parent: FINameSpace.Rocks.self,
                     child: name
                 )
                 
-                return StorageManager.getAllReference(reference: reference)
+                StorageManager.getAllReference(reference: reference) { result in
+                    
+                    guard
+                        case let .success(references) = result
+                    else {
+                        return
+                    }
+                    
+                    self.rockImageReferences.append(contentsOf: references)
+                }
             }
-            .eraseToAnyPublisher()
-            .replaceError(with: [])
-            .assign(to: &$rockImageReferences)
+            .store(in: &bindings)
         
         $registeredUserId
             .sink { id in
