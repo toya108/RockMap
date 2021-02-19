@@ -31,6 +31,8 @@
 		9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2B112E25471F6100D7E56C /* LoginViewController.swift */; };
 		9E2B113425471F7400D7E56C /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E2B113325471F7400D7E56C /* LoginViewController.storyboard */; };
 		9E2BD65125DD55B00011B020 /* TextViewCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2BD65025DD55B00011B020 /* TextViewCollectionViewCell.xib */; };
+		9E2BD68625DD6DA90011B020 /* ImageSelactCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2BD68425DD6DA90011B020 /* ImageSelactCollectionViewCell.swift */; };
+		9E2BD68725DD6DA90011B020 /* ImageSelactCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2BD68525DD6DA90011B020 /* ImageSelactCollectionViewCell.xib */; };
 		9E2D0F1725D6E4B100652171 /* TextFieldColletionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D0F1625D6E4B100652171 /* TextFieldColletionViewCell.swift */; };
 		9E34C90C25B09A69005EBE07 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E34C90B25B09A69005EBE07 /* DebugViewController.swift */; };
 		9E5C5E372555144000D00087 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5C5E362555144000D00087 /* Images.swift */; };
@@ -150,6 +152,8 @@
 		9E2B112E25471F6100D7E56C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		9E2B113325471F7400D7E56C /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		9E2BD65025DD55B00011B020 /* TextViewCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewCollectionViewCell.xib; sourceTree = "<group>"; };
+		9E2BD68425DD6DA90011B020 /* ImageSelactCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelactCollectionViewCell.swift; sourceTree = "<group>"; };
+		9E2BD68525DD6DA90011B020 /* ImageSelactCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageSelactCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E2D0F1625D6E4B100652171 /* TextFieldColletionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldColletionViewCell.swift; sourceTree = "<group>"; };
 		9E34C90B25B09A69005EBE07 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		9E5C5E362555144000D00087 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
@@ -584,6 +588,8 @@
 				9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */,
 				9EAE72AD25DACFC900C37119 /* TextViewCollectionViewCell.swift */,
 				9E2BD65025DD55B00011B020 /* TextViewCollectionViewCell.xib */,
+				9E2BD68425DD6DA90011B020 /* ImageSelactCollectionViewCell.swift */,
+				9E2BD68525DD6DA90011B020 /* ImageSelactCollectionViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -781,6 +787,7 @@
 				9E807CD1254E93120091935F /* RockRegisterViewController.storyboard in Resources */,
 				9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */,
 				9E9845F625D5418C00B03C4E /* RockHeaderCollectionViewCell.xib in Resources */,
+				9E2BD68725DD6DA90011B020 /* ImageSelactCollectionViewCell.xib in Resources */,
 				9E8723CA256BFEF200735C65 /* RockConfirmViewController.storyboard in Resources */,
 				9E807CB8254CFF560091935F /* RegisterViewController.storyboard in Resources */,
 				9E5CEFD325277B25001C95AA /* RockSearchViewController.storyboard in Resources */,
@@ -994,6 +1001,7 @@
 				9E08ACA42573E6C400D69927 /* NameSpace.swift in Sources */,
 				9E0A9F29255104A0007B9A90 /* KeyboardExtension.swift in Sources */,
 				9E807CC6254D00310091935F /* ScreenType.swift in Sources */,
+				9E2BD68625DD6DA90011B020 /* ImageSelactCollectionViewCell.swift in Sources */,
 				9E845ADA25ADEA6A00EC3BE6 /* Resouces.swift in Sources */,
 				9E9845E225D4FA5300B03C4E /* CourceRegisterKind.swift in Sources */,
 				9E26400525B5C0300088DAFB /* RockSearchViewModel.swift in Sources */,

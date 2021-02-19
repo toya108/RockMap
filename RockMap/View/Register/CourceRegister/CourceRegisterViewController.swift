@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import PhotosUI
 
 class CourceRegisterViewController: UIViewController, ColletionViewControllerProtocol {
     
@@ -16,6 +17,14 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
     
     private var bindings = Set<AnyCancellable>()
+    
+    let phPickerViewController: PHPickerViewController = {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 0
+        configuration.filter = .images
+
+        return PHPickerViewController(configuration: configuration)
+    }()
     
     static func createInstance(
         viewModel: CourceRegisterViewModel
@@ -34,6 +43,7 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
         bindViewModelToView()
         datasource = configureDatasource()
         configureSections()
+        phPickerViewController.delegate = self
     }
     
     private func setupColletionView() {
@@ -83,6 +93,7 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
         let gradeItems = FIDocument.Cource.Grade.allCases.map { ItemKind.grade($0) }
         snapShot.appendItems(gradeItems, toSection: .grade)
         snapShot.appendItems([.desc], toSection: .desc)
+        snapShot.appendItems([.noImage], toSection: .images)
         datasource.apply(snapShot)
     }
     
@@ -99,7 +110,50 @@ extension CourceRegisterViewController: UITextFieldDelegate {
 
 extension CourceRegisterViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
+        collectionView.layoutIfNeeded()
         snapShot.reloadSections([.desc])
     }
 }
 
+extension CourceRegisterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        
+        guard
+            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
+            let data = image.jpegData(compressionQuality: 1)
+        else {
+            return
+        }
+        
+//        indicator.startAnimating()
+        viewModel.images.append(data)
+        dismiss(animated: true)
+    }
+}
+
+extension CourceRegisterViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+//        indicator.startAnimating()
+
+        picker.dismiss(animated: true)
+        
+        results.map(\.itemProvider).forEach {
+            
+            guard $0.canLoadObject(ofClass: UIImage.self) else { return }
+            
+            $0.loadObject(ofClass: UIImage.self) { [weak self] providerReading, error in
+                guard
+                    case .none = error,
+                    let self = self,
+                    let image = providerReading as? UIImage,
+                    let data = image.jpegData(compressionQuality: 1)
+                else {
+                    return
+                }
+                
+                self.viewModel.images.append(data)
+            }
+        }
+    }
+}

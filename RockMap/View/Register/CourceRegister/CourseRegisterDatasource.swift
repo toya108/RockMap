@@ -45,6 +45,13 @@ extension CourceRegisterViewController {
                         item: Dummy()
                     )
                     
+                case .noImage:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureImageSelectCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
+                    
                 default:
                     return UICollectionViewCell()
                     
@@ -132,6 +139,52 @@ extension CourceRegisterViewController {
             cell.textView.textDidChangedPublisher.assign(to: &self.viewModel.$desc)
             cell.textView.delegate = self
         }
+    }
+    
+    private func configureImageSelectCell() -> UICollectionView.CellRegistration<
+        ImageSelactCollectionViewCell,
+        Dummy
+    > {
+        .init(
+            cellNib: .init(
+                nibName: ImageSelactCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { [weak self] cell, _, _ in
+            
+            guard let self = self else { return }
+            
+            self.setupImageUploadButtonActions(button: cell.uploadButton)
+        }
+    }
+    
+    private func setupImageUploadButtonActions(button: UIButton) {
+        let photoLibraryAction = UIAction(
+            title: "フォトライブラリ",
+            image: UIImage.SystemImages.folderFill
+        ) { [weak self] _ in
+            
+            guard let self = self else { return }
+
+            self.present(self.phPickerViewController, animated: true)
+        }
+        
+        let cameraAction = UIAction(
+            title: "写真を撮る",
+            image: UIImage.SystemImages.cameraFill
+        ) { [weak self] _ in
+            
+            guard let self = self else { return }
+            
+            let vc = UIImagePickerController()
+            vc.delegate = self
+            vc.sourceType = .camera
+            self.present(vc, animated: true)
+        }
+        
+        let menu = UIMenu(title: "", children: [photoLibraryAction, cameraAction])
+        button.menu = menu
+        button.showsMenuAsPrimaryAction = true
     }
 }
 

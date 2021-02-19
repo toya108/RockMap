@@ -55,7 +55,8 @@ extension CourceRegisterViewController {
         case rock(CourceRegisterViewModel.RockHeaderStructure)
         case courceName
         case grade(FIDocument.Cource.Grade)
-        case images
+        case noImage
+        case images(Data)
         case desc
         case makePrivate
     }
