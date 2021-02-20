@@ -56,7 +56,7 @@ extension CourceRegisterViewController {
         case courceName
         case grade(FIDocument.Cource.Grade)
         case noImage
-        case images(Data)
+        case images(IdentifiableData)
         case desc
         case makePrivate
     }

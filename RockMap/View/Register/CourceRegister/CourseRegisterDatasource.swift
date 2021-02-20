@@ -38,7 +38,8 @@ extension CourceRegisterViewController {
                         for: indexPath,
                         item: grade
                     )
-                case let .desc:
+                    
+                case .desc:
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureCourceDescCell(),
                         for: indexPath,
@@ -50,6 +51,13 @@ extension CourceRegisterViewController {
                         using: self.configureImageSelectCell(),
                         for: indexPath,
                         item: Dummy()
+                    )
+                    
+                case let .images(data):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureDeletabelImageCell(),
+                        for: indexPath,
+                        item: data
                     )
                     
                 default:
@@ -155,6 +163,26 @@ extension CourceRegisterViewController {
             guard let self = self else { return }
             
             self.setupImageUploadButtonActions(button: cell.uploadButton)
+        }
+    }
+    
+    private func configureDeletabelImageCell() -> UICollectionView.CellRegistration<
+        DeletableImageCollectionViewCell,
+        IdentifiableData
+    > {
+        .init { cell, indexPath, identifiableData in
+            
+            cell.configure(data: identifiableData.data) { [weak self] in
+                
+                guard
+                    let self = self,
+                    let index = self.viewModel.images.firstIndex(of: identifiableData)
+                else {
+                    return
+                }
+                
+                self.viewModel.images.remove(at: index)
+            }
         }
     }
     

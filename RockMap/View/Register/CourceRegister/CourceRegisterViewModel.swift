@@ -33,7 +33,7 @@ class CourceRegisterViewModel {
     
     @Published var courseName = ""
     @Published var grade: FIDocument.Cource.Grade = .q10
-    @Published var images: [Data] = []
+    @Published var images: [IdentifiableData] = []
     @Published var desc = ""
     @Published var isPrivate = false
     

@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0z9-2R-60n">
-                        <rect key="frame" x="16" y="0.0" width="382" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <color key="backgroundColor" name="primaryGreenColor"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <state key="normal" title="画像をアップロード" image="camera.fill" catalog="system"/>
@@ -27,9 +27,9 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="0z9-2R-60n" secondAttribute="trailing" constant="16" id="50R-FU-qIl"/>
+                <constraint firstAttribute="trailing" secondItem="0z9-2R-60n" secondAttribute="trailing" id="50R-FU-qIl"/>
                 <constraint firstAttribute="bottom" secondItem="0z9-2R-60n" secondAttribute="bottom" id="FHh-wF-TAJ"/>
-                <constraint firstItem="0z9-2R-60n" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="16" id="LpT-V9-Kru"/>
+                <constraint firstItem="0z9-2R-60n" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="LpT-V9-Kru"/>
                 <constraint firstItem="0z9-2R-60n" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="SY0-cs-p0x"/>
             </constraints>
             <size key="customSize" width="412" height="44"/>

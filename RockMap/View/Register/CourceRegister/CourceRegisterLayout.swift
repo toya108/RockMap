@@ -125,20 +125,46 @@ extension CourceRegisterViewController {
                 return section
                 
             case .images:
-                let item = NSCollectionLayoutItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(44)
+                
+                let item: NSCollectionLayoutItem
+                let group: NSCollectionLayoutGroup
+                let section: NSCollectionLayoutSection
+                
+                if self.snapShot.numberOfItems(inSection: .images) == 1 {
+                    item = .init(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .absolute(44)
+                        )
                     )
-                )
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: item.layoutSize.heightDimension
-                    ),
-                    subitems: [item]
-                )
-                let section = NSCollectionLayoutSection(group: group)
+                    group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: item.layoutSize.heightDimension
+                        ),
+                        subitems: [item]
+                    )
+                    section = .init(group: group)
+                    
+                } else {
+                    item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .fractionalWidth(1)
+                        )
+                    )
+                    group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(0.25),
+                            heightDimension: .fractionalWidth(0.25)
+                        ),
+                        subitems: [item]
+                    )
+                    section = .init(group: group)
+                    section.interGroupSpacing = 4
+                    
+                }
+
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
@@ -148,7 +174,9 @@ extension CourceRegisterViewController {
                     alignment: .top
                 )
                 section.boundarySupplementaryItems = [sectionHeader]
+                section.orthogonalScrollingBehavior = .continuous
                 return section
+
                 
             default:
                 let item = NSCollectionLayoutItem(
