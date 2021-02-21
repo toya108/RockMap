@@ -60,6 +60,13 @@ extension CourceRegisterViewController {
                         item: data
                     )
                     
+                case .confirmation:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureConfirmationButtonCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
+                    
                 default:
                     return UICollectionViewCell()
                     
@@ -170,7 +177,7 @@ extension CourceRegisterViewController {
         DeletableImageCollectionViewCell,
         IdentifiableData
     > {
-        .init { cell, indexPath, identifiableData in
+        .init { cell, _, identifiableData in
             
             cell.configure(data: identifiableData.data) { [weak self] in
                 
@@ -183,6 +190,15 @@ extension CourceRegisterViewController {
                 
                 self.viewModel.images.remove(at: index)
             }
+        }
+    }
+    
+    private func configureConfirmationButtonCell() -> UICollectionView.CellRegistration<
+        ConfirmationButtonCollectionViewCell,
+        Dummy
+    > {
+        .init { cell, _, _ in
+            
         }
     }
     
