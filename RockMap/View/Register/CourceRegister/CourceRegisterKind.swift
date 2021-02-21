@@ -16,6 +16,7 @@ extension CourceRegisterViewController {
         case images
         case desc
         case makePrivate
+        case confirmation
         
         var headerTitle: String {
             switch self {
@@ -49,6 +50,28 @@ extension CourceRegisterViewController {
                 return ""
             }
         }
+        
+        var initalItems: [ItemKind] {
+            switch self {
+            case .courceName:
+                return [.courceName]
+            
+            case .grade:
+                return FIDocument.Cource.Grade.allCases.map { ItemKind.grade($0) }
+            
+            case .images:
+                return [.noImage]
+                
+            case .desc:
+                return [.desc]
+                
+            case .confirmation:
+                return [.confirmation]
+                
+            default:
+                return []
+            }
+        }
     }
     
     enum ItemKind: Hashable {
@@ -59,6 +82,7 @@ extension CourceRegisterViewController {
         case images(IdentifiableData)
         case desc
         case makePrivate
+        case confirmation
     }
     
 }
