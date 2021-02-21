@@ -14,6 +14,10 @@ extension CourceRegisterViewController {
             
             let sectionType = SectionLayoutKind.allCases[sectionNumber]
             
+            sectionType.headerIdentifer
+            
+            let section: NSCollectionLayoutSection
+            
             switch sectionType {
             case .rock:
                 let item = NSCollectionLayoutItem(
@@ -29,19 +33,9 @@ extension CourceRegisterViewController {
                     ),
                     subitems: [item]
                 )
-                let section = NSCollectionLayoutSection(group: group)
-
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(44)
-                    ),
-                    elementKind: SectionLayoutKind.rock.headerIdentifer,
-                    alignment: .top
-                )
-                section.boundarySupplementaryItems = [sectionHeader]
+                
+                section = .init(group: group)
                 section.contentInsets = .init(top: 0, leading: 0, bottom: 16, trailing: 0)
-                return section
                 
             case .courceName:
                 let item = NSCollectionLayoutItem(
@@ -57,17 +51,7 @@ extension CourceRegisterViewController {
                     ),
                     subitems: [item]
                 )
-                let section = NSCollectionLayoutSection(group: group)
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(44)
-                    ),
-                    elementKind: SectionLayoutKind.rock.headerIdentifer,
-                    alignment: .top
-                )
-                section.boundarySupplementaryItems = [sectionHeader]
-                return section
+                section = .init(group: group)
                 
             case .grade:
                 let item = NSCollectionLayoutItem(
@@ -84,19 +68,9 @@ extension CourceRegisterViewController {
                     subitems: [item]
                 )
                 
-                let section = NSCollectionLayoutSection(group: group)
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(44)
-                    ),
-                    elementKind: SectionLayoutKind.rock.headerIdentifer,
-                    alignment: .top
-                )
+                section = .init(group: group)
                 section.interGroupSpacing = 4
-                section.boundarySupplementaryItems = [sectionHeader]
                 section.orthogonalScrollingBehavior = .continuous
-                return section
                 
             case .desc:
                 let item = NSCollectionLayoutItem(
@@ -112,23 +86,12 @@ extension CourceRegisterViewController {
                     ),
                     subitems: [item]
                 )
-                let section = NSCollectionLayoutSection(group: group)
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(44)
-                    ),
-                    elementKind: SectionLayoutKind.desc.headerIdentifer,
-                    alignment: .top
-                )
-                section.boundarySupplementaryItems = [sectionHeader]
-                return section
+                section = .init(group: group)
                 
             case .images:
                 
                 let item: NSCollectionLayoutItem
                 let group: NSCollectionLayoutGroup
-                let section: NSCollectionLayoutSection
                 
                 if self.snapShot.numberOfItems(inSection: .images) == 1 {
                     item = .init(
@@ -164,19 +127,26 @@ extension CourceRegisterViewController {
                     section.interGroupSpacing = 4
                     
                 }
+                
+                section.orthogonalScrollingBehavior = .continuous
 
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+            case .confirmation:
+                let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
                         heightDimension: .absolute(44)
-                    ),
-                    elementKind: SectionLayoutKind.desc.headerIdentifer,
-                    alignment: .top
+                    )
                 )
-                section.boundarySupplementaryItems = [sectionHeader]
-                section.orthogonalScrollingBehavior = .continuous
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: item.layoutSize.heightDimension
+                    ),
+                    subitems: [item]
+                )
+                section = .init(group: group)
+                section.contentInsets = .init(top: 16, leading: 0, bottom: 16, trailing:  0)
                 return section
-
                 
             default:
                 let item = NSCollectionLayoutItem(
@@ -192,10 +162,23 @@ extension CourceRegisterViewController {
                     ),
                     subitems: [item]
                 )
-                let section = NSCollectionLayoutSection(group: group)
-                return section
+                section = .init(group: group)
             }
+            
+            if !sectionType.headerIdentifer.isEmpty {
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(44)
+                    ),
+                    elementKind: sectionType.headerIdentifer,
+                    alignment: .top
+                )
+                section.boundarySupplementaryItems = [sectionHeader]
+            }
+            
+            return section
+
         }
     }
-
 }
