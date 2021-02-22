@@ -10,14 +10,11 @@ import UIKit
 extension CourceRegisterViewController {
     func createLayout() -> UICollectionViewCompositionalLayout {
         
-        return .init { sectionNumber, env -> NSCollectionLayoutSection in
-            
-            let sectionType = SectionLayoutKind.allCases[sectionNumber]
-            
-            sectionType.headerIdentifer
+        let layout = UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
             
             let section: NSCollectionLayoutSection
             
+            let sectionType = SectionLayoutKind.allCases[sectionNumber]
             switch sectionType {
             case .rock:
                 let item = NSCollectionLayoutItem(
@@ -35,7 +32,6 @@ extension CourceRegisterViewController {
                 )
                 
                 section = .init(group: group)
-                section.contentInsets = .init(top: 0, leading: 0, bottom: 16, trailing: 0)
                 
             case .courceName:
                 let item = NSCollectionLayoutItem(
@@ -107,6 +103,7 @@ extension CourceRegisterViewController {
                         ),
                         subitems: [item]
                     )
+                    group.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
                     section = .init(group: group)
                     
                 } else {
@@ -145,8 +142,7 @@ extension CourceRegisterViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
-                section.contentInsets = .init(top: 16, leading: 0, bottom: 16, trailing:  0)
-                return section
+                section.contentInsets = .init(top: 16, leading: 0, bottom: 16, trailing: 0)
                 
             default:
                 let item = NSCollectionLayoutItem(
@@ -177,8 +173,17 @@ extension CourceRegisterViewController {
                 section.boundarySupplementaryItems = [sectionHeader]
             }
             
+            let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundDecorationView.className)
+            section.decorationItems = [sectionBackgroundDecoration]
+            
             return section
 
         }
+        
+        layout.register(
+            SectionBackgroundDecorationView.self,
+            forDecorationViewOfKind: SectionBackgroundDecorationView.className
+        )
+        return layout
     }
 }

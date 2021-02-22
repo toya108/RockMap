@@ -28,7 +28,7 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="13O-fw-2tT">
-                        <rect key="frame" x="8" y="238.5" width="398" height="62.5"/>
+                        <rect key="frame" x="16" y="238.5" width="382" height="62.5"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YHb-iP-Q3o">
                                 <rect key="frame" x="0.0" y="7.5" width="48" height="48"/>
@@ -44,7 +44,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWx-0r-9Tn">
-                                <rect key="frame" x="121" y="21" width="277" height="20.5"/>
+                                <rect key="frame" x="121" y="21" width="261" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -61,7 +61,7 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="13O-fw-2tT" secondAttribute="trailing" constant="8" id="2Uh-9i-lQs"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="13O-fw-2tT" secondAttribute="trailing" constant="16" id="2Uh-9i-lQs"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="LHi-dz-hS9" secondAttribute="trailing" constant="16" id="6h6-nR-q1Q"/>
                 <constraint firstItem="LHi-dz-hS9" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="16" id="HSp-9x-53Z"/>
                 <constraint firstAttribute="trailing" secondItem="YqP-5j-vNC" secondAttribute="trailing" constant="2" id="OCL-W6-tX7"/>
@@ -70,7 +70,7 @@
                 <constraint firstItem="13O-fw-2tT" firstAttribute="top" secondItem="YqP-5j-vNC" secondAttribute="bottom" constant="8" id="aXt-M9-dmT"/>
                 <constraint firstItem="YqP-5j-vNC" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="eCu-OZ-WNh"/>
                 <constraint firstItem="C2J-G8-0lW" firstAttribute="top" secondItem="YqP-5j-vNC" secondAttribute="top" id="eZu-fE-qRF"/>
-                <constraint firstItem="13O-fw-2tT" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="8" id="feg-Bq-Gl3"/>
+                <constraint firstItem="13O-fw-2tT" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="16" id="feg-Bq-Gl3"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="13O-fw-2tT" secondAttribute="bottom" constant="8" id="jzI-5T-VRJ"/>
                 <constraint firstItem="LHi-dz-hS9" firstAttribute="bottom" secondItem="YqP-5j-vNC" secondAttribute="bottom" constant="-16" id="lyb-pe-RyD"/>
                 <constraint firstItem="YqP-5j-vNC" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="o8a-bx-7SK"/>

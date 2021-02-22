@@ -13,6 +13,5 @@ class TextViewCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = .white
     }
 }

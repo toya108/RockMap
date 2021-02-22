@@ -24,8 +24,6 @@ class TextFieldColletionViewCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-        backgroundColor = .white
-        
         addSubview(stackView)
         stackView.distribution = .fill
         stackView.spacing = 8
@@ -44,7 +42,7 @@ class TextFieldColletionViewCell: UICollectionViewCell {
         }
         
         borderView.translatesAutoresizingMaskIntoConstraints = false
-        borderView.backgroundColor = .gray
+        borderView.backgroundColor = .lightGray
         NSLayoutConstraint.activate([
             borderView.heightAnchor.constraint(equalToConstant: 1)
         ])

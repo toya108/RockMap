@@ -18,7 +18,6 @@ class RockHeaderCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         
         userIconImageView.layer.cornerRadius = userIconImageView.bounds.width / 2
-        backgroundColor = .white
     }
 
     func configure(rockHeaderStructure: CourceRegisterViewModel.RockHeaderStructure) {
