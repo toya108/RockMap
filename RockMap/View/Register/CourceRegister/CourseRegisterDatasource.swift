@@ -66,6 +66,13 @@ extension CourceRegisterViewController {
                         for: indexPath,
                         item: Dummy()
                     )
+                
+                case let .error(desc):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureErrorLabelCell(),
+                        for: indexPath,
+                        item: desc
+                    )
                     
                 default:
                     return UICollectionViewCell()
@@ -199,6 +206,15 @@ extension CourceRegisterViewController {
     > {
         .init { cell, _, _ in
             
+        }
+    }
+    
+    private func configureErrorLabelCell() -> UICollectionView.CellRegistration<
+        ErrorLabelCollectionViewCell,
+        String
+    > {
+        .init { cell, _, desc in
+            cell.configure(message: desc)
         }
     }
     

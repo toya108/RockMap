@@ -47,7 +47,7 @@ final class RockRegisterViewController: UIViewController {
         super.viewDidLoad()
         setupDelegate()
         setupLayout()
-        setupKeyboard()
+//        setupKeyboard()
         setupImageUploadButtonActions()
         bindViewToViewModel()
         bindViewModelToView()
@@ -178,8 +178,10 @@ final class RockRegisterViewController: UIViewController {
             }
             .store(in: &bindings)
         
-        zip([viewModel.$rockNameValidationResult, viewModel.$rockAddressValidationResult],
-            [rockNameErrorLabel, rockAddressErrorLabel])
+        zip(
+            [viewModel.$rockNameValidationResult, viewModel.$rockAddressValidationResult],
+            [rockNameErrorLabel, rockAddressErrorLabel]
+        )
             .forEach { viewModelResult, label in
             
             viewModelResult.sink { result in
@@ -261,49 +263,6 @@ final class RockRegisterViewController: UIViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
-    }
-}
-
-extension RockRegisterViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-    }
-    
-    private func setupKeyboard() {
-        UIResponder.keyboardInfoPublisher
-            .receive(on: RunLoop.main)
-            .sink { [weak self] keyboardInfo in
-                
-                guard let self = self,
-                      let firstResponder = self.getFirstResponder(view: self.view) else { return }
-                
-                let keyboardHeight = keyboardInfo.rect.size.height
-                let marginFromResponderToViewBottom = self.view.bounds.height - (firstResponder.frame.origin.y + firstResponder.bounds.height + 8)
-
-                let dupricationHeight = keyboardHeight - marginFromResponderToViewBottom
-                
-                guard dupricationHeight > 0 else { return }
-                
-                UIView.animate(withDuration: keyboardInfo.duration) {
-                    let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: dupricationHeight, right: 0)
-                    self.backScrollView.contentInset = contentInsets
-                    self.backScrollView.scrollIndicatorInsets = contentInsets
-                    self.backScrollView.setContentOffset(.init(x: self.backScrollView.frame.minX, y: marginFromResponderToViewBottom), animated: true)
-                }
-            }
-            .store(in: &bindings)
-        
-        UIResponder.keyboardHidePublisher
-            .receive(on: RunLoop.main)
-            .sink { [weak self] duration in
-                guard let self = self else { return }
-
-                UIView.animate(withDuration: duration) {
-                    self.backScrollView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
-                    self.backScrollView.scrollIndicatorInsets = .init(top: 0, left: 0, bottom: 0, right: 0)
-                }
-            }
-            .store(in: &bindings)
     }
 }
 

@@ -10,7 +10,7 @@ import Combine
 
 class RockDetailViewController: UIViewController, ColletionViewControllerProtocol {
     
-    var collectionView: UICollectionView!
+    var collectionView: TouchableColletionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
     

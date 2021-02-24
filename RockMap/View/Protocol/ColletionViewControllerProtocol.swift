@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ColletionViewControllerProtocol: UIViewController {
-    var collectionView: UICollectionView! { get set }
+    var collectionView: TouchableColletionView! { get set }
 }
 
 extension ColletionViewControllerProtocol {

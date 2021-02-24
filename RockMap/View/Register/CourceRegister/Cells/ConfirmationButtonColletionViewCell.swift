@@ -31,8 +31,8 @@ class ConfirmationButtonCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             button.topAnchor.constraint(equalTo: topAnchor),
             button.bottomAnchor.constraint(equalTo: bottomAnchor),
-            button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
-            button.rightAnchor.constraint(equalTo: rightAnchor, constant: -32)
+            button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            button.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
         ])
     }
 }

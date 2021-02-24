@@ -37,6 +37,9 @@ class CourceRegisterViewModel {
     @Published var desc = ""
     @Published var isPrivate = false
     
+    @Published private(set) var courceNameValidationResult: ValidationResult = .none
+
+    
     private var bindings = Set<AnyCancellable>()
 
     init(rockHeaderStructure: RockHeaderStructure) {
@@ -45,6 +48,11 @@ class CourceRegisterViewModel {
     }
     
     private func setupBindings() {
-        // validation
+        $courseName
+            .dropFirst()
+            .removeDuplicates()
+            .map { name -> ValidationResult in CourseNameValidator().validate(name) }
+            .assign(to: &$courceNameValidationResult)
+        
     }
 }

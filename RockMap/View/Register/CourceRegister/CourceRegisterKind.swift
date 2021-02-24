@@ -23,6 +23,9 @@ extension CourceRegisterViewController {
             case .rock:
                 return "登録する岩"
                 
+            case .desc:
+                return "課題詳細"
+            
             case .courceName:
                 return "課題名"
                 
@@ -31,9 +34,6 @@ extension CourceRegisterViewController {
                 
             case .images:
                 return "画像をアップロード"
-            
-            case .desc:
-                return "課題詳細"
                 
             default:
                 return ""
@@ -83,6 +83,17 @@ extension CourceRegisterViewController {
         case desc
         case makePrivate
         case confirmation
+        case error(String)
+        
+        var isErrorItem: Bool {
+            if case .error = self {
+                return true
+                
+            } else {
+                return false
+                
+            }
+        }
     }
     
 }

@@ -17,25 +17,27 @@
                 <rect key="frame" x="0.0" y="0.0" width="155" height="141"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RF3-AS-JXT">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xpw-GL-CS4" userLabel="Grade Button">
                         <rect key="frame" x="0.0" y="0.0" width="155" height="141"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                        <state key="normal" title="10級">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <color key="backgroundColor" name="primaryGreenColor"/>
+            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="RF3-AS-JXT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="GLq-o8-jjR"/>
-                <constraint firstAttribute="trailing" secondItem="RF3-AS-JXT" secondAttribute="trailing" id="Qey-zx-0Yb"/>
-                <constraint firstAttribute="bottom" secondItem="RF3-AS-JXT" secondAttribute="bottom" id="cB1-Nb-3Zl"/>
-                <constraint firstItem="RF3-AS-JXT" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="fC0-yf-Nee"/>
+                <constraint firstItem="Xpw-GL-CS4" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="1fu-ja-aEP"/>
+                <constraint firstAttribute="bottom" secondItem="Xpw-GL-CS4" secondAttribute="bottom" id="JcF-0Y-XY3"/>
+                <constraint firstItem="Xpw-GL-CS4" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="LzQ-75-D5n"/>
+                <constraint firstAttribute="trailing" secondItem="Xpw-GL-CS4" secondAttribute="trailing" id="SgT-EK-S9s"/>
             </constraints>
             <size key="customSize" width="155" height="141"/>
             <connections>
-                <outlet property="gradeLabel" destination="RF3-AS-JXT" id="6P9-4g-BPi"/>
+                <outlet property="gradeButton" destination="Xpw-GL-CS4" id="FWL-fT-1tO"/>
             </connections>
             <point key="canvasLocation" x="205.07246376811597" y="130.24553571428572"/>
         </collectionViewCell>

@@ -11,7 +11,7 @@ import PhotosUI
 
 class CourceRegisterViewController: UIViewController, ColletionViewControllerProtocol {
     
-    var collectionView: UICollectionView!
+    var collectionView: TouchableColletionView!
     var viewModel: CourceRegisterViewModel!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
@@ -102,6 +102,37 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
+        
+        viewModel.$courceNameValidationResult
+            .receive(on: RunLoop.main)
+            .sink { [weak self] result in
+                
+                guard let self = self else { return }
+                
+                switch result {
+                case .valid, .none:
+                    let items = self.snapShot.itemIdentifiers(inSection: .courceName)
+                    
+                    guard
+                        let item = items.first(where: { $0.isErrorItem })
+                    else {
+                        return
+                    }
+                    
+                    self.snapShot.deleteItems([item])
+                    
+                case let .invalid(error):
+                    let items = self.snapShot.itemIdentifiers(inSection: .courceName)
+                    
+                    if let item = items.first(where: { $0.isErrorItem }) {
+                        self.snapShot.deleteItems([item])
+                    }
+
+                    self.snapShot.appendItems([.error(error.description)], toSection: .courceName)
+                }
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
     }
     
     private func configureSections() {
@@ -112,14 +143,12 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
         datasource.apply(snapShot)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     @objc func reloadDescCell() {
         snapShot.reloadItems([.desc])
-    }
-}
-
-extension CourceRegisterViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
     }
 }
 

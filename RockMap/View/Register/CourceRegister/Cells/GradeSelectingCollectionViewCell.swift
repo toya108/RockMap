@@ -9,7 +9,7 @@ import UIKit
 
 class GradeSelectingCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var gradeLabel: UILabel!
+    @IBOutlet weak var gradeButton: UIButton!
     
     var grade: FIDocument.Cource.Grade = .q10
     
@@ -19,7 +19,7 @@ class GradeSelectingCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(grade: FIDocument.Cource.Grade) {
-        gradeLabel.text = grade.name
+        gradeButton.setTitle(grade.name, for: .normal)
         self.grade = grade
     }
     

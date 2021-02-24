@@ -14,3 +14,9 @@ final class TouchableScrollView: UIScrollView {
         next?.touchesBegan(touches, with: event)
     }
 }
+
+class TouchableColletionView: UICollectionView {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        next?.touchesBegan(touches, with: event)
+    }
+}
