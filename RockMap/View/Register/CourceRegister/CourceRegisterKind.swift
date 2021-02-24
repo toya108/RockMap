@@ -11,8 +11,8 @@ extension CourceRegisterViewController {
     
     enum SectionLayoutKind: CaseIterable {
         case rock
-        case desc
         case courceName
+        case desc
         case grade
         case images
         case makePrivate
@@ -23,11 +23,11 @@ extension CourceRegisterViewController {
             case .rock:
                 return "登録する岩"
                 
-            case .desc:
-                return "課題詳細"
-            
             case .courceName:
                 return "課題名"
+                
+            case .desc:
+                return "課題詳細"
                 
             case .grade:
                 return "グレード"
