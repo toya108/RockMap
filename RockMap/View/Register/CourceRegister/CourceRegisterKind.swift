@@ -11,10 +11,10 @@ extension CourceRegisterViewController {
     
     enum SectionLayoutKind: CaseIterable {
         case rock
+        case desc
         case courceName
         case grade
         case images
-        case desc
         case makePrivate
         case confirmation
         
@@ -55,15 +55,15 @@ extension CourceRegisterViewController {
             switch self {
             case .courceName:
                 return [.courceName]
-            
+                
+            case .desc:
+                return [.desc]
+                
             case .grade:
                 return FIDocument.Cource.Grade.allCases.map { ItemKind.grade($0) }
             
             case .images:
                 return [.noImage]
-                
-            case .desc:
-                return [.desc]
                 
             case .confirmation:
                 return [.confirmation]
