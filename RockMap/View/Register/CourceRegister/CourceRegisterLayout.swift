@@ -131,7 +131,7 @@ extension CourceRegisterViewController {
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(44)
+                        heightDimension: .estimated(64)
                     )
                 )
                 let group = NSCollectionLayoutGroup.horizontal(

@@ -205,7 +205,12 @@ extension CourceRegisterViewController {
         Dummy
     > {
         .init { cell, _, _ in
-            
+            cell.configure { [weak self] in
+                
+                guard let self = self else { return }
+                
+                self.navigationController?.pushViewController(CourseConfirmViewController(), animated: true)
+            }
         }
     }
     
