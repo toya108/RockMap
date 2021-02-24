@@ -18,10 +18,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Th9-PJ-Nci">
-                        <rect key="frame" x="16" y="0.0" width="379" height="369"/>
+                        <rect key="frame" x="0.0" y="0.0" width="411" height="369"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FUq-GU-OuX" customClass="PlaceHolderTextView" customModule="RockMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="379" height="360"/>
+                                <rect key="frame" x="0.0" y="0.0" width="411" height="360"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -31,7 +31,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hik-fs-dVw">
-                                <rect key="frame" x="0.0" y="368" width="379" height="1"/>
+                                <rect key="frame" x="0.0" y="368" width="411" height="1"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="aOu-lQ-11q"/>
@@ -42,9 +42,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="Th9-PJ-Nci" secondAttribute="bottom" constant="8" id="LsL-0g-gli"/>
-                    <constraint firstAttribute="trailing" secondItem="Th9-PJ-Nci" secondAttribute="trailing" constant="16" id="WwK-UY-ACn"/>
+                    <constraint firstAttribute="trailing" secondItem="Th9-PJ-Nci" secondAttribute="trailing" id="WwK-UY-ACn"/>
                     <constraint firstItem="Th9-PJ-Nci" firstAttribute="top" secondItem="ouH-tJ-c92" secondAttribute="top" id="abW-xt-nqf"/>
-                    <constraint firstItem="Th9-PJ-Nci" firstAttribute="leading" secondItem="ouH-tJ-c92" secondAttribute="leading" constant="16" id="zfx-MK-eMG"/>
+                    <constraint firstItem="Th9-PJ-Nci" firstAttribute="leading" secondItem="ouH-tJ-c92" secondAttribute="leading" id="zfx-MK-eMG"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="411" height="377"/>

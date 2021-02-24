@@ -33,8 +33,8 @@ class TextFieldColletionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-            stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
-            stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
+            stackView.leftAnchor.constraint(equalTo: leftAnchor),
+            stackView.rightAnchor.constraint(equalTo: rightAnchor)
         ])
         
         [textField, borderView].forEach {

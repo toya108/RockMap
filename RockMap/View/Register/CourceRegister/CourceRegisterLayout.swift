@@ -32,6 +32,7 @@ extension CourceRegisterViewController {
                 )
                 
                 section = .init(group: group)
+                return section
                 
             case .courceName:
                 let item = NSCollectionLayoutItem(
@@ -103,7 +104,6 @@ extension CourceRegisterViewController {
                         ),
                         subitems: [item]
                     )
-                    group.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
                     section = .init(group: group)
                     
                 } else {
@@ -142,7 +142,7 @@ extension CourceRegisterViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
-                section.contentInsets = .init(top: 16, leading: 0, bottom: 16, trailing: 0)
+                section.contentInsets.top = 16
                 
             default:
                 let item = NSCollectionLayoutItem(
@@ -175,6 +175,7 @@ extension CourceRegisterViewController {
             
             let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundDecorationView.className)
             section.decorationItems = [sectionBackgroundDecoration]
+            section.contentInsetsReference = .layoutMargins
             
             return section
 

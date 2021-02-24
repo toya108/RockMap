@@ -33,8 +33,8 @@ class ErrorLabelCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             errorLabel.topAnchor.constraint(equalTo: topAnchor),
             errorLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            errorLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            errorLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16)
+            errorLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            errorLabel.rightAnchor.constraint(equalTo: rightAnchor)
         ])
     }
 }
