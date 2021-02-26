@@ -16,7 +16,9 @@ class ImageSelactCollectionViewCell: UICollectionViewCell {
         backgroundColor = .white
         
         uploadButton.layer.cornerRadius = 8
-        uploadButton.titleLabel?.numberOfLines = 0
+        uploadButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        uploadButton.titleLabel?.minimumScaleFactor = 0.1
+        uploadButton.titleLabel?.numberOfLines = 2
     }
 
 }

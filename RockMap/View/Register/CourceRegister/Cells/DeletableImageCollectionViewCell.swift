@@ -28,13 +28,13 @@ class DeletableImageCollectionViewCell: UICollectionViewCell {
         imageView.layer.cornerRadius = Resources.Const.UI.View.radius
         imageView.clipsToBounds = true
         
-        addSubview(imageView)
+        contentView.addSubview(imageView)
         
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.rightAnchor.constraint(equalTo: rightAnchor)
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
         
         deleteButton.translatesAutoresizingMaskIntoConstraints = false

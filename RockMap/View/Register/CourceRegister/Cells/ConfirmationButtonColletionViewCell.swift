@@ -28,13 +28,13 @@ class ConfirmationButtonCollectionViewCell: UICollectionViewCell {
         stackView.alignment = .center
         stackView.spacing = 16
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(stackView)
+        contentView.addSubview(stackView)
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.rightAnchor.constraint(equalTo: rightAnchor)
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
         
         cautionLabel.font = UIFont.preferredFont(forTextStyle: .footnote)

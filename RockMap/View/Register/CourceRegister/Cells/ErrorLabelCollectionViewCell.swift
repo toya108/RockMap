@@ -26,15 +26,15 @@ class ErrorLabelCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-        addSubview(errorLabel)
+        contentView.addSubview(errorLabel)
         errorLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         errorLabel.textColor = UIColor.Pallete.primaryPink
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            errorLabel.topAnchor.constraint(equalTo: topAnchor),
-            errorLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            errorLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
-            errorLabel.rightAnchor.constraint(equalTo: rightAnchor)
+            errorLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            errorLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            errorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            errorLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
     }
 }

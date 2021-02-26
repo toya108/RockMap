@@ -24,17 +24,17 @@ class TextFieldColletionViewCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-        addSubview(stackView)
+        contentView.addSubview(stackView)
         stackView.distribution = .fill
         stackView.spacing = 8
         stackView.axis = .vertical
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8),
-            stackView.leftAnchor.constraint(equalTo: leftAnchor),
-            stackView.rightAnchor.constraint(equalTo: rightAnchor)
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
         
         [textField, borderView].forEach {
