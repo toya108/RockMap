@@ -36,4 +36,8 @@ extension CourceRegisterViewController: UICollectionViewDelegate {
             
         }
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
 }
