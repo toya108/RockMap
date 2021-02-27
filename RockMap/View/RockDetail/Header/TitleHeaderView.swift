@@ -21,16 +21,21 @@ class TitleSupplementaryView: UICollectionReusableView {
         configure()
     }
 
-    func configure() {
+    private func configure() {
         addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.adjustsFontForContentSizeCategory = true
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: trailingAnchor),
             label.topAnchor.constraint(equalTo: topAnchor),
             label.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         label.font = UIFont.preferredFont(forTextStyle: .headline)
+    }
+    
+    func setSideInset(_ inset: CGFloat) {
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset),
+            label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: inset)
+        ])
     }
 }

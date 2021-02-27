@@ -11,7 +11,7 @@ import UIKit
 
     // MARK: Stored Instance Properties
 
-    @IBInspectable private var placeHolder: String = "" {
+    @IBInspectable var placeHolder: String = "" {
         willSet {
             self.placeHolderLabel.text = newValue
             self.placeHolderLabel.sizeToFit()

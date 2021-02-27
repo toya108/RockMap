@@ -23,3 +23,12 @@ extension Array where Element: AnyObject {
     }
 
 }
+
+extension Array where Element: Any {
+    func any(at position: Int) -> Element? {
+        if position < self.startIndex || position >= self.endIndex {
+            return nil
+        }
+        return self[position]
+    }
+}

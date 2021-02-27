@@ -22,17 +22,15 @@ struct StorageManager {
     }
     
     static func getAllReference(
-        reference: StorageReference
-    ) -> Future<[Reference], Error> {
-        return .init { promise in
-            reference.listAll { result, error in
-                if let error = error {
-                    promise(.failure(error))
-                    return
-                }
-                
-                promise(.success(result.items))
+        reference: StorageReference,
+        completion: @escaping (Result<[Reference], Error>) -> Void
+    ) {
+        reference.listAll { result, error in
+            if let error = error {
+                completion(.failure(error))
+                return
             }
+            completion(.success(result.items))
         }
     }
 }

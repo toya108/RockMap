@@ -41,13 +41,24 @@ extension RockDetailViewController {
                 
                 case let .map(rockLocation):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.cnfigureLocationCell(),
+                        using: self.configureLocationCell(),
                         for: indexPath,
                         item: rockLocation
                     )
                 
                 case .cources:
-                    return UICollectionViewCell()
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureCourcesCell(),
+                        for: indexPath,
+                        item: nil
+                    )
+                
+                case .noCource:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureNoCourceCell(),
+                        for: indexPath,
+                        item: "aaa"
+                    )
                     
                 }
             }
@@ -59,6 +70,7 @@ extension RockDetailViewController {
             
             guard let self = self else { return }
 
+            supplementaryView.setSideInset(0)
             supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section].headerTitle
         }
         
@@ -107,7 +119,7 @@ extension RockDetailViewController {
         }
     }
     
-    private func cnfigureLocationCell() -> UICollectionView.CellRegistration<
+    private func configureLocationCell() -> UICollectionView.CellRegistration<
         RockLocationCollectionViewCell,
         RockDetailViewModel.RockLocation
     > {
@@ -115,5 +127,19 @@ extension RockDetailViewController {
             cell.configure(rockLocation: location)
         }
     }
-
+    
+    private func configureNoCourceCell() -> UICollectionView.CellRegistration<
+        NoCourcesCollectionViewCell,
+        String
+    > {
+        .init { _, _, _ in }
+    }
+    
+    private func configureCourcesCell() -> UICollectionView.CellRegistration<
+        NoCourcesCollectionViewCell,
+        Never
+    > {
+        .init { _, _, _ in }
+    }
+    
 }

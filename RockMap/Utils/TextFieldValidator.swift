@@ -168,6 +168,12 @@ struct RockAddressValidator: CompositeValidator {
     ]
 }
 
+struct CourseNameValidator: CompositeValidator {
+    var validators: [ValidatorProtocol] = [
+        EmptyValidator(formName: "課題名")
+    ]
+}
+
 // MARK: - ValidatorStruct
 
 /// 未入力検証用バリデーター

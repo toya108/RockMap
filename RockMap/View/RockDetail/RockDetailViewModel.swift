@@ -10,14 +10,14 @@ import Foundation
 
 final class RockDetailViewModel {
     
-    @Published private var rockDocument: FIDocument.Rocks = .init()
-    
+    @Published var rockDocument: FIDocument.Rocks = .init()
     @Published var rockName = ""
     @Published var registeredUserId = ""
     @Published var registeredUser: FIDocument.Users = .init()
     @Published var rockDesc = ""
     @Published var rockLocation: RockLocation = .init()
     @Published var rockImageReferences: [StorageManager.Reference] = []
+    @Published var courseIdList: [String] = []
     
     private var bindings = Set<AnyCancellable>()
     
@@ -41,22 +41,32 @@ final class RockDetailViewModel {
                     longitude: rock.location.longitude,
                     address: rock.address
                 )
+                self.courseIdList = rock.courseId
             }
             .store(in: &bindings)
         
         $rockName
-            .flatMap { name -> Future<[StorageManager.Reference], Error> in
+            .sink { [weak self] name in
+                
+                guard let self = self else { return }
                 
                 let reference = StorageManager.makeReference(
                     parent: FINameSpace.Rocks.self,
                     child: name
                 )
                 
-                return StorageManager.getAllReference(reference: reference)
+                StorageManager.getAllReference(reference: reference) { result in
+                    
+                    guard
+                        case let .success(references) = result
+                    else {
+                        return
+                    }
+                    
+                    self.rockImageReferences.append(contentsOf: references)
+                }
             }
-            .eraseToAnyPublisher()
-            .replaceError(with: [])
-            .assign(to: &$rockImageReferences)
+            .store(in: &bindings)
         
         $registeredUserId
             .sink { id in

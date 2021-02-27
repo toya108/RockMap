@@ -23,3 +23,9 @@ extension UITextField {
         NotificationCenter.default.post(name: UITextField.textDidChangeNotification, object: self)
     }
 }
+
+extension UIViewController: UITextFieldDelegate {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
+}

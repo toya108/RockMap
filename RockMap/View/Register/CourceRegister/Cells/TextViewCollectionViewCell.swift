@@ -1,0 +1,16 @@
+//
+//  TextViewCollectionViewCell.swift
+//  RockMap
+//
+//  Created by TOUYA KAWANO on 2021/02/16.
+//
+
+import UIKit
+
+class TextViewCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var textView: PlaceHolderTextView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+}
