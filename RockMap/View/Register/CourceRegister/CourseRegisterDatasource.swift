@@ -270,7 +270,7 @@ extension CourceRegisterViewController {
             }
         }
         
-        let menu = UIMenu(title: "", children: gradeSelectActions)
+        let menu = UIMenu(title: "グレード選択", children: gradeSelectActions)
         button.menu = menu
         button.showsMenuAsPrimaryAction = true
     }
