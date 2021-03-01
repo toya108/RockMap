@@ -21,6 +21,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <color key="backgroundColor" name="primaryGreenColor"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="4" minY="0.0" maxX="4" maxY="0.0"/>
                         <state key="normal" title="画像をアップロード" image="camera.fill" catalog="system"/>
                     </button>
                 </subviews>
