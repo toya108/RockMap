@@ -4,45 +4,71 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="GradeSelectingCollectionViewCell" customModule="RockMap" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="155" height="141"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="155" height="141"/>
-                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="MhL-Aq-KWE" customClass="GradeSelectingCollectionViewCell" customModule="RockMap" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="458" height="38"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="eLb-bz-nvL">
+                <rect key="frame" x="0.0" y="0.0" width="458" height="38"/>
+                <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xpw-GL-CS4" userLabel="Grade Button">
-                        <rect key="frame" x="0.0" y="0.0" width="155" height="141"/>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                        <state key="normal" title="10級">
-                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </state>
-                    </button>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9iX-St-gGy">
+                        <rect key="frame" x="0.0" y="0.0" width="458" height="22"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBK-pT-br0">
+                                <rect key="frame" x="0.0" y="0.0" width="428" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xpw-GL-CS4" userLabel="Grade Button">
+                                <rect key="frame" x="436" y="0.0" width="22" height="22"/>
+                                <color key="backgroundColor" name="primaryGreenColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Xpw-GL-CS4" secondAttribute="height" multiplier="1:1" id="7Py-yb-uT5"/>
+                                    <constraint firstAttribute="height" constant="44" id="gm8-VP-q6J"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <inset key="titleEdgeInsets" minX="16" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" image="mount.fill" catalog="system">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                        </subviews>
+                    </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dJE-le-8Xg">
+                        <rect key="frame" x="0.0" y="29" width="428" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Ahl-yI-280"/>
+                        </constraints>
+                    </view>
                 </subviews>
-            </view>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
-            <color key="backgroundColor" name="primaryGreenColor"/>
-            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-            <constraints>
-                <constraint firstItem="Xpw-GL-CS4" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="1fu-ja-aEP"/>
-                <constraint firstAttribute="bottom" secondItem="Xpw-GL-CS4" secondAttribute="bottom" id="JcF-0Y-XY3"/>
-                <constraint firstItem="Xpw-GL-CS4" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="LzQ-75-D5n"/>
-                <constraint firstAttribute="trailing" secondItem="Xpw-GL-CS4" secondAttribute="trailing" id="SgT-EK-S9s"/>
-            </constraints>
-            <size key="customSize" width="155" height="141"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="9iX-St-gGy" secondAttribute="bottom" id="08h-So-IRJ"/>
+                    <constraint firstItem="9iX-St-gGy" firstAttribute="leading" secondItem="eLb-bz-nvL" secondAttribute="leading" id="BOy-EK-vs8"/>
+                    <constraint firstItem="9iX-St-gGy" firstAttribute="top" secondItem="eLb-bz-nvL" secondAttribute="top" id="JFd-jP-dff"/>
+                    <constraint firstItem="dJE-le-8Xg" firstAttribute="trailing" secondItem="yBK-pT-br0" secondAttribute="trailing" id="VKZ-2e-l7T"/>
+                    <constraint firstItem="dJE-le-8Xg" firstAttribute="bottom" secondItem="9iX-St-gGy" secondAttribute="bottom" constant="8" id="gU5-fW-7RH"/>
+                    <constraint firstAttribute="trailing" secondItem="9iX-St-gGy" secondAttribute="trailing" id="h5N-dg-3ai"/>
+                    <constraint firstItem="dJE-le-8Xg" firstAttribute="leading" secondItem="yBK-pT-br0" secondAttribute="leading" id="yVG-bv-Fkg"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="458" height="38"/>
             <connections>
-                <outlet property="gradeButton" destination="Xpw-GL-CS4" id="FWL-fT-1tO"/>
+                <outlet property="gradeLabel" destination="yBK-pT-br0" id="VdP-gi-Z2V"/>
+                <outlet property="gradeSelectButton" destination="Xpw-GL-CS4" id="py0-iu-QEH"/>
             </connections>
-            <point key="canvasLocation" x="205.07246376811597" y="130.24553571428572"/>
+            <point key="canvasLocation" x="-14.492753623188406" y="5.3571428571428568"/>
         </collectionViewCell>
     </objects>
     <resources>
+        <image name="mount.fill" catalog="system" width="119" height="128"/>
         <namedColor name="primaryGreenColor">
             <color red="0.016000000759959221" green="0.74900001287460327" blue="0.75700002908706665" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

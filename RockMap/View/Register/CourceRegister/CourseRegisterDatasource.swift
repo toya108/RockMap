@@ -140,8 +140,12 @@ extension CourceRegisterViewController {
                 nibName: GradeSelectingCollectionViewCell.className,
                 bundle: nil
             )
-        ) { cell, _, grade in
+        ) { [weak self] cell, _, grade in
+            
+            guard let self = self else { return }
+            
             cell.configure(grade: grade)
+            self.setupGradeSelectingButtonActions(button: cell.gradeSelectButton)
         }
     }
     
@@ -248,6 +252,25 @@ extension CourceRegisterViewController {
         }
         
         let menu = UIMenu(title: "", children: [photoLibraryAction, cameraAction])
+        button.menu = menu
+        button.showsMenuAsPrimaryAction = true
+    }
+    
+    private func setupGradeSelectingButtonActions(button: UIButton) {
+        
+        let gradeSelectActions = FIDocument.Cource.Grade.allCases.map { (grade) -> UIAction in
+            .init(
+                title: grade.name,
+                state: viewModel.grade == grade ? .on : .off
+            ) { [weak self] _ in
+                
+                guard let self = self else { return }
+                
+                self.viewModel.grade = grade
+            }
+        }
+        
+        let menu = UIMenu(title: "", children: gradeSelectActions)
         button.menu = menu
         button.showsMenuAsPrimaryAction = true
     }
