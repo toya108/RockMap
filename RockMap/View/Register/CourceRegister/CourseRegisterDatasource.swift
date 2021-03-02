@@ -212,7 +212,14 @@ extension CourceRegisterViewController {
                 
                 guard let self = self else { return }
                 
-                self.navigationController?.pushViewController(CourseConfirmViewController(), animated: true)
+                if self.viewModel.callValidations() {
+                    self.navigationController?.pushViewController(CourseConfirmViewController(), animated: true)
+                    
+                } else {
+                    self.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
+                    
+                }
+                
             }
         }
     }

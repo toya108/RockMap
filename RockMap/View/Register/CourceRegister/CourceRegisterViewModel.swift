@@ -38,7 +38,7 @@ class CourceRegisterViewModel {
     @Published var isPrivate = false
     
     @Published private(set) var courceNameValidationResult: ValidationResult = .none
-
+    @Published private(set) var courceImageValidationResult = false
     
     private var bindings = Set<AnyCancellable>()
 
@@ -54,5 +54,16 @@ class CourceRegisterViewModel {
             .map { name -> ValidationResult in CourseNameValidator().validate(name) }
             .assign(to: &$courceNameValidationResult)
         
+        $images
+            .dropFirst()
+            .map { !$0.isEmpty }
+            .assign(to: &$courceImageValidationResult)
+    }
+    
+    func callValidations() -> Bool {
+        courceImageValidationResult = !images.isEmpty
+        courceNameValidationResult = CourseNameValidator().validate(courseName)
+        
+        return courceNameValidationResult.isValid && courceImageValidationResult
     }
 }
