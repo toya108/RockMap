@@ -50,7 +50,7 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
         setupColletionView(layout: createLayout())
         collectionView.delegate = self
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
-        collectionView.contentInset = .init(top: 16, left: 0, bottom: 0, right: 0)
+        collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
     }
     
     private func setupNavigationBar() {
@@ -143,6 +143,37 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
                 self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .grade))
                 
                 self.snapShot.appendItems([.grade(grade)], toSection: .grade)
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+        
+        viewModel.$courceImageValidationResult
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isValid in
+                
+                guard let self = self else { return }
+                
+                if isValid {
+                    let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
+                    
+                    guard
+                        let item = items.first(where: { $0.isErrorItem })
+                    else {
+                        return
+                    }
+                    self.snapShot.deleteItems([item])
+
+                } else {
+                    let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
+                    
+                    if let item = items.first(where: { $0.isErrorItem }) {
+                        self.snapShot.deleteItems([item])
+                    }
+
+                    self.snapShot.appendItems([.error("課題の画像は必須です。")], toSection: .confirmation)
+                }
+                
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)

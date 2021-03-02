@@ -25,14 +25,14 @@ class ConfirmationButtonCollectionViewCell: UICollectionViewCell {
     
     private func setupLayout() {
         stackView.axis = .vertical
-        stackView.alignment = .center
+        stackView.alignment = .leading
         stackView.spacing = 16
         stackView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(stackView)
         
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
@@ -47,6 +47,9 @@ class ConfirmationButtonCollectionViewCell: UICollectionViewCell {
         button.backgroundColor = UIColor.Pallete.primaryGreen
         button.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(button)
+        NSLayoutConstraint.activate([
+            button.heightAnchor.constraint(equalToConstant: 44)
+        ])
     }
     
     func configure(confirmationButtonTapped: @escaping () -> Void) {
