@@ -165,13 +165,6 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     }
 }
 
-extension CourceRegisterViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        collectionView.layoutIfNeeded()
-        snapShot.reloadSections([.desc])
-    }
-}
-
 extension CourceRegisterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         

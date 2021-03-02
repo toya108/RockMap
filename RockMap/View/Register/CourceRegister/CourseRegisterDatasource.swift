@@ -163,7 +163,6 @@ extension CourceRegisterViewController {
             guard let self = self else { return }
             
             cell.textView.textDidChangedPublisher.assign(to: &self.viewModel.$desc)
-            cell.textView.delegate = self
         }
     }
     

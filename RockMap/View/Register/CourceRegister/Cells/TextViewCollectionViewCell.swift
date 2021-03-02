@@ -12,8 +12,8 @@ class TextViewCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        textView.layer.cornerRadius = 8
-        textView.layer.borderWidth = 0.5
-        textView.layer.borderColor = UIColor.lightGray.cgColor
+        contentView.layer.cornerRadius = 8
+        contentView.layer.borderWidth = 0.5
+        contentView.layer.borderColor = UIColor.lightGray.cgColor
     }
 }
