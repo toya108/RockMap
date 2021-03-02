@@ -54,20 +54,18 @@ extension CourceRegisterViewController {
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .fractionalHeight(1)
+                        heightDimension: .absolute(44)
                     )
                 )
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: .init(
-                        widthDimension: .fractionalWidth(0.15),
-                        heightDimension: .fractionalWidth(0.15)
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: item.layoutSize.heightDimension
                     ),
                     subitems: [item]
                 )
                 
                 section = .init(group: group)
-                section.interGroupSpacing = 4
-                section.orthogonalScrollingBehavior = .continuous
                 
             case .desc:
                 let item = NSCollectionLayoutItem(

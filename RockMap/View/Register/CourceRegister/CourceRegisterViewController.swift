@@ -133,6 +133,19 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
+        
+        viewModel.$grade
+            .receive(on: RunLoop.main)
+            .sink { [weak self] grade in
+            
+                guard let self = self else { return }
+                
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .grade))
+                
+                self.snapShot.appendItems([.grade(grade)], toSection: .grade)
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
     }
     
     private func configureSections() {
@@ -149,13 +162,6 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     
     @objc func reloadDescCell() {
         snapShot.reloadItems([.desc])
-    }
-}
-
-extension CourceRegisterViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        collectionView.layoutIfNeeded()
-        snapShot.reloadSections([.desc])
     }
 }
 

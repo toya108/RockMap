@@ -182,7 +182,7 @@ final class RockRegisterViewController: UIViewController {
             [viewModel.$rockNameValidationResult, viewModel.$rockAddressValidationResult],
             [rockNameErrorLabel, rockAddressErrorLabel]
         )
-            .forEach { viewModelResult, label in
+        .forEach { viewModelResult, label in
             
             viewModelResult.sink { result in
                 switch result {
@@ -200,9 +200,16 @@ final class RockRegisterViewController: UIViewController {
         viewModel.$rockLocation
             .receive(on: RunLoop.main)
             .sink { [weak self] location in
+                
                 guard let self = self else { return }
                 
-                self.rockRegisterMapView.setRegion(MKCoordinateRegion(center: location.coordinate, span: self.span), animated: true)
+                self.rockRegisterMapView.setRegion(
+                    .init(
+                        center: location.coordinate,
+                        span: self.span
+                    ),
+                    animated: true
+                )
                 
                 self.rockRegisterMapView.removeAnnotations(self.rockRegisterMapView.annotations)
                 let rockAddressPin = MKPointAnnotation()
@@ -220,7 +227,9 @@ final class RockRegisterViewController: UIViewController {
         viewModel.$rockImageValidationResult
             .receive(on: RunLoop.main)
             .sink { [weak self] hasImage in
+                
                 guard let self = self else { return }
+                
                 self.rockImageErrorLabel.isHidden = hasImage
                 self.rockImageErrorLabel.text = hasImage ? "" : "岩の画像のアップロードは必須です。"
             }
@@ -229,7 +238,9 @@ final class RockRegisterViewController: UIViewController {
         viewModel.$isPassedAllValidation
             .receive(on: RunLoop.main)
             .sink { [weak self] isPassed in
+                
                 guard let self = self else { return }
+                
                 self.confirmButton.isEnabled = isPassed
                 self.confirmButton.backgroundColor = isPassed ? UIColor.Pallete.primaryGreen : .gray
             }

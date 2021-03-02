@@ -44,7 +44,7 @@ class TextFieldColletionViewCell: UICollectionViewCell {
         borderView.translatesAutoresizingMaskIntoConstraints = false
         borderView.backgroundColor = .lightGray
         NSLayoutConstraint.activate([
-            borderView.heightAnchor.constraint(equalToConstant: 1)
+            borderView.heightAnchor.constraint(equalToConstant: 0.5)
         ])
         
         textField.placeholder = "課題名を入力して下さい。"

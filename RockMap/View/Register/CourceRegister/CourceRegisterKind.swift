@@ -60,7 +60,7 @@ extension CourceRegisterViewController {
                 return [.desc]
                 
             case .grade:
-                return FIDocument.Cource.Grade.allCases.map { ItemKind.grade($0) }
+                return [.grade(.q10)]
             
             case .images:
                 return [.noImage]

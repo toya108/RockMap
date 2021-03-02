@@ -17,34 +17,22 @@
                 <rect key="frame" x="0.0" y="0.0" width="411" height="377"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Th9-PJ-Nci">
-                        <rect key="frame" x="0.0" y="0.0" width="411" height="369"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FUq-GU-OuX" customClass="PlaceHolderTextView" customModule="RockMap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="411" height="360"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="課題の説明を入力して下さい。"/>
-                                </userDefinedRuntimeAttributes>
-                            </textView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hik-fs-dVw">
-                                <rect key="frame" x="0.0" y="368" width="411" height="1"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="aOu-lQ-11q"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                    </stackView>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="FUq-GU-OuX" customClass="PlaceHolderTextView" customModule="RockMap" customModuleProvider="target">
+                        <rect key="frame" x="4" y="4" width="403" height="369"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="textColor" systemColor="labelColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="課題の説明を入力して下さい。"/>
+                        </userDefinedRuntimeAttributes>
+                    </textView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="Th9-PJ-Nci" secondAttribute="bottom" constant="8" id="LsL-0g-gli"/>
-                    <constraint firstAttribute="trailing" secondItem="Th9-PJ-Nci" secondAttribute="trailing" id="WwK-UY-ACn"/>
-                    <constraint firstItem="Th9-PJ-Nci" firstAttribute="top" secondItem="ouH-tJ-c92" secondAttribute="top" id="abW-xt-nqf"/>
-                    <constraint firstItem="Th9-PJ-Nci" firstAttribute="leading" secondItem="ouH-tJ-c92" secondAttribute="leading" id="zfx-MK-eMG"/>
+                    <constraint firstItem="FUq-GU-OuX" firstAttribute="leading" secondItem="ouH-tJ-c92" secondAttribute="leading" constant="4" id="EvD-nn-eje"/>
+                    <constraint firstAttribute="trailing" secondItem="FUq-GU-OuX" secondAttribute="trailing" constant="4" id="fI1-kU-MK4"/>
+                    <constraint firstAttribute="bottom" secondItem="FUq-GU-OuX" secondAttribute="bottom" constant="4" id="hDd-Cn-8bJ"/>
+                    <constraint firstItem="FUq-GU-OuX" firstAttribute="top" secondItem="ouH-tJ-c92" secondAttribute="top" constant="4" id="xQz-FK-33z"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="411" height="377"/>
@@ -54,11 +42,6 @@
             <point key="canvasLocation" x="112.31884057971016" y="-59.933035714285708"/>
         </collectionViewCell>
     </objects>
-    <designables>
-        <designable name="FUq-GU-OuX">
-            <size key="intrinsicContentSize" width="10" height="33"/>
-        </designable>
-    </designables>
     <resources>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
