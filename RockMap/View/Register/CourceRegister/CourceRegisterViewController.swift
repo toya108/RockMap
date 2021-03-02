@@ -15,6 +15,7 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     var viewModel: CourceRegisterViewModel!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
+    let indicator = UIActivityIndicatorView()
     
     private var bindings = Set<AnyCancellable>()
     
@@ -38,8 +39,8 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
         super.viewDidLoad()
 
         setupColletionView()
+        setupIndicator()
         setupNavigationBar()
-        bindViewToViewModel()
         bindViewModelToView()
         datasource = configureDatasource()
         configureSections()
@@ -51,6 +52,20 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
         collectionView.delegate = self
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
+    }
+    
+    private func setupIndicator() {
+        indicator.hidesWhenStopped = true
+        indicator.backgroundColor = UIColor.Pallete.transparentBlack
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(indicator)
+        NSLayoutConstraint.activate([
+            indicator.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            indicator.rightAnchor.constraint(equalTo: view.rightAnchor),
+            indicator.topAnchor.constraint(equalTo: view.topAnchor),
+            indicator.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        indicator.bringSubviewToFront(collectionView)
     }
     
     private func setupNavigationBar() {
@@ -70,9 +85,6 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
         )
     }
     
-    private func bindViewToViewModel() {
-    }
-    
     private func bindViewModelToView() {
         viewModel.$rockHeaderStructure
             .drop { $0.rockName.isEmpty }
@@ -90,6 +102,10 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
             .drop { $0.isEmpty }
             .receive(on: RunLoop.main)
             .sink { [weak self] images in
+                
+                defer {
+                    self?.indicator.stopAnimating()
+                }
                 
                 guard let self = self else { return }
                 
@@ -206,7 +222,7 @@ extension CourceRegisterViewController: UIImagePickerControllerDelegate & UINavi
             return
         }
         
-//        indicator.startAnimating()
+        indicator.startAnimating()
         viewModel.images.append(.init(data: data))
         dismiss(animated: true)
     }
@@ -215,8 +231,8 @@ extension CourceRegisterViewController: UIImagePickerControllerDelegate & UINavi
 extension CourceRegisterViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
-//        indicator.startAnimating()
-
+        indicator.startAnimating()
+        
         picker.dismiss(animated: true)
         
         results.map(\.itemProvider).forEach {
