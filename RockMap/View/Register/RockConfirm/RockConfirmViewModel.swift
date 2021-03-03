@@ -18,10 +18,10 @@ final class RockConfirmViewModel {
     
     @Published var imageUploadState: StorageUploader.UploadState = .stanby
     @Published var rockUploadState: StoreUploadState = .stanby
-
+    
     let uploader = StorageUploader()
     
-     init(rockName: String, rockImageDatas: [Data], rockAddress: String, rockLocation: CLLocation, rockDesc: String) {
+    init(rockName: String, rockImageDatas: [Data], rockAddress: String, rockLocation: CLLocation, rockDesc: String) {
         self.rockName = rockName
         self.rockImageDatas = rockImageDatas
         self.rockAddress = rockAddress
@@ -60,7 +60,8 @@ final class RockConfirmViewModel {
         
         rockUploadState = .loading
 
-        let rockDocument = FIDocument.Rocks(
+        let rockDocument = FIDocument.Rock(
+            id: UUID().uuidString,
             name: rockName,
             address: rockAddress,
             location: .init(
@@ -74,7 +75,7 @@ final class RockConfirmViewModel {
         )
         
         FirestoreManager.set(
-            key: rockName,
+            key: rockDocument.id,
             rockDocument
         ) { [weak self] result in
             
