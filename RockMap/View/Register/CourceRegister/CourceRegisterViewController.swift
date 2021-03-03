@@ -206,10 +206,6 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-    
-    @objc func reloadDescCell() {
-        snapShot.reloadItems([.desc])
-    }
 }
 
 extension CourceRegisterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
@@ -254,5 +250,11 @@ extension CourceRegisterViewController: PHPickerViewControllerDelegate {
                 self.viewModel.images.append(.init(data: data))
             }
         }
+    }
+}
+
+extension CourceRegisterViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
     }
 }
