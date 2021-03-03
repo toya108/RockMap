@@ -9,7 +9,7 @@ import Foundation
 
 class RockSearchViewModel {
     
-    @Published private(set) var rockDocuments: [FIDocument.Rocks] = []
+    @Published private(set) var rockDocuments: [FIDocument.Rock] = []
     @Published private(set) var error: Error?
     
     init() {
@@ -17,7 +17,7 @@ class RockSearchViewModel {
     }
     
     func fetchRockList() {
-        FirestoreManager.fetchAllDocuments { [weak self] (result: Result<[FIDocument.Rocks], Error>) in
+        FirestoreManager.fetchAllDocuments { [weak self] (result: Result<[FIDocument.Rock], Error>) in
             
             guard let self = self else { return }
             

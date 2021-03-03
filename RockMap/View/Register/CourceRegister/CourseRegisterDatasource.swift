@@ -12,74 +12,73 @@ extension CourceRegisterViewController {
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
         
         let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
-            collectionView: collectionView,
-            cellProvider: { [weak self] collectionView, indexPath, item in
+            collectionView: collectionView
+        ) { [weak self] collectionView, indexPath, item in
+            
+            guard let self = self else { return UICollectionViewCell() }
+            
+            switch item {
+            case let .rock(rock):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureRockCell(),
+                    for: indexPath,
+                    item: rock
+                )
                 
-                guard let self = self else { return UICollectionViewCell() }
+            case .courceName:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureCourceNameCell(),
+                    for: indexPath,
+                    item: Dummy()
+                )
                 
-                switch item {
-                case let .rock(rock):
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureRockCell(),
-                        for: indexPath,
-                        item: rock
-                    )
+            case let .grade(grade):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureGradeSelectingCell(),
+                    for: indexPath,
+                    item: grade
+                )
                 
-                case .courceName:
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureCourceNameCell(),
-                        for: indexPath,
-                        item: Dummy()
-                    )
+            case .desc:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureCourceDescCell(),
+                    for: indexPath,
+                    item: Dummy()
+                )
                 
-                case let .grade(grade):
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureGradeSelectingCell(),
-                        for: indexPath,
-                        item: grade
-                    )
-                    
-                case .desc:
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureCourceDescCell(),
-                        for: indexPath,
-                        item: Dummy()
-                    )
-                    
-                case .noImage:
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureImageSelectCell(),
-                        for: indexPath,
-                        item: Dummy()
-                    )
-                    
-                case let .images(data):
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureDeletabelImageCell(),
-                        for: indexPath,
-                        item: data
-                    )
-                    
-                case .confirmation:
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureConfirmationButtonCell(),
-                        for: indexPath,
-                        item: Dummy()
-                    )
+            case .noImage:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureImageSelectCell(),
+                    for: indexPath,
+                    item: Dummy()
+                )
                 
-                case let .error(desc):
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureErrorLabelCell(),
-                        for: indexPath,
-                        item: desc
-                    )
-                    
-                default:
-                    return UICollectionViewCell()
-                    
-                }
+            case let .images(data):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureDeletabelImageCell(),
+                    for: indexPath,
+                    item: data
+                )
+                
+            case .confirmation:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureConfirmationButtonCell(),
+                    for: indexPath,
+                    item: Dummy()
+                )
+                
+            case let .error(desc):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureErrorLabelCell(),
+                    for: indexPath,
+                    item: desc
+                )
+                
+            default:
+                return UICollectionViewCell()
+                
             }
-        )
+        }
         
         let headerRegistration = UICollectionView.SupplementaryRegistration<TitleSupplementaryView>(
             elementKind: TitleSupplementaryView.className
@@ -213,7 +212,19 @@ extension CourceRegisterViewController {
                 guard let self = self else { return }
                 
                 if self.viewModel.callValidations() {
-                    self.navigationController?.pushViewController(CourseConfirmViewController(), animated: true)
+                    
+                    let viewModel = CourseConfirmViewModel(
+                        rock: self.viewModel.rockHeaderStructure,
+                        courseName: self.viewModel.courseName,
+                        grade: self.viewModel.grade,
+                        images: self.viewModel.images,
+                        desc: self.viewModel.desc
+                    )
+                    
+                    self.navigationController?.pushViewController(
+                        CourseConfirmViewController.createInstance(viewModel: viewModel),
+                        animated: true
+                    )
                     
                 } else {
                     self.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")

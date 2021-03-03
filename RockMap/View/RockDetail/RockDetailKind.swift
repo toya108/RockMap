@@ -46,7 +46,7 @@ extension RockDetailViewController {
     
     enum ItemKind: Hashable {
         case headerImages(referece: StorageManager.Reference)
-        case registeredUser(user: FIDocument.Users)
+        case registeredUser(user: FIDocument.User)
         case desc(String)
         case map(RockDetailViewModel.RockLocation)
         // cource section

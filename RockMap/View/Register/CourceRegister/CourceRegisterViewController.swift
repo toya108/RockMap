@@ -206,10 +206,6 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-    
-    @objc func reloadDescCell() {
-        snapShot.reloadItems([.desc])
-    }
 }
 
 extension CourceRegisterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
@@ -224,16 +220,18 @@ extension CourceRegisterViewController: UIImagePickerControllerDelegate & UINavi
         
         indicator.startAnimating()
         viewModel.images.append(.init(data: data))
-        dismiss(animated: true)
+        picker.dismiss(animated: true)
     }
 }
 
 extension CourceRegisterViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
-        indicator.startAnimating()
-        
         picker.dismiss(animated: true)
+        
+        if results.isEmpty { return }
+        
+        indicator.startAnimating()
         
         results.map(\.itemProvider).forEach {
             
@@ -252,5 +250,11 @@ extension CourceRegisterViewController: PHPickerViewControllerDelegate {
                 self.viewModel.images.append(.init(data: data))
             }
         }
+    }
+}
+
+extension CourceRegisterViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
     }
 }

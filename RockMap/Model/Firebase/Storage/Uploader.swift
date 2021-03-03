@@ -78,7 +78,7 @@ class StorageUploader {
     }
 
     private func prepareUpload() {
-        components.forEach { component in
+        components.enumerated().forEach { index, component in
             
             let reference = component.reference
             let metadata = component.metadata
@@ -87,7 +87,7 @@ class StorageUploader {
                 let file = component.file,
                 let uploadTask = reference?.putFile(from: file, metadata: metadata)
             {
-                observeStatus(uploadTask)
+                observeStatus(uploadTask, total: components.count, index: index)
                 return
             }
             
@@ -95,13 +95,17 @@ class StorageUploader {
                 let data = component.data,
                 let uploadTask = reference?.putData(data, metadata: metadata)
             {
-                observeStatus(uploadTask)
+                observeStatus(uploadTask, total: components.count, index: index)
                 return
             }
         }
     }
 
-    private func observeStatus(_ uploadTask: StorageUploadTask) {
+    private func observeStatus(
+        _ uploadTask: StorageUploadTask,
+        total: Int,
+        index: Int
+    ) {
         
         uploadTasks.append(uploadTask)
         
@@ -132,7 +136,11 @@ class StorageUploader {
             
             guard let self = self else { return }
             
-            guard self.completedUnitCount == self.totalUnitCount else { return }
+            guard
+                total == index + 1
+            else {
+                return
+            }
             
             let metaDatas = self.uploadTasks.map { uploadTask -> StorageMetadata in
                 return uploadTask.snapshot.metadata ?? StorageMetadata()

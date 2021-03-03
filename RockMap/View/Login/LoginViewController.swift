@@ -112,7 +112,7 @@ extension LoginViewController: FUIAuthDelegate {
         
         FirestoreManager.set(
             key: user.uid,
-            FIDocument.Users(
+            FIDocument.User(
                 uid: user.uid,
                 name: user.displayName ?? "-",
                 email: user.email,

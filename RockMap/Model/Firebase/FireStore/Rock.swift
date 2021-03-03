@@ -1,5 +1,5 @@
 //
-//  Rocks.swift
+//  Rock.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2020/12/15.
@@ -9,10 +9,11 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 extension FIDocument {
-    struct Rocks: FIDocumentProtocol {
+    struct Rock: FIDocumentProtocol {
         
         typealias Collection = FINameSpace.Rocks
         
+        var id: String
         var name: String
         var address: String
         var location: GeoPoint
@@ -22,6 +23,7 @@ extension FIDocument {
         var registeredAt: Date?
         
         init(
+            id: String = UUID().uuidString,
             name: String = "",
             address: String = "",
             location: GeoPoint = .init(latitude: 0, longitude: 0),
@@ -30,6 +32,7 @@ extension FIDocument {
             courseId: [String] = [],
             registeredAt: Date? = Date()
         ) {
+            self.id = id
             self.name = name
             self.address = address
             self.location = location

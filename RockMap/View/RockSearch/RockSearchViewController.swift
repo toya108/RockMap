@@ -165,13 +165,13 @@ extension RockSearchViewController: MKMapViewDelegate {
 
 class RockAnnotation: NSObject, MKAnnotation {
     
-    let rock: FIDocument.Rocks
+    let rock: FIDocument.Rock
     let coordinate: CLLocationCoordinate2D
     var title: String?
     
     init(
         coordinate: CLLocationCoordinate2D,
-        rock: FIDocument.Rocks,
+        rock: FIDocument.Rock,
         title: String
     ) {
         self.rock = rock

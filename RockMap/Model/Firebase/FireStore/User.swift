@@ -1,5 +1,5 @@
 //
-//  Users.swift
+//  User.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2020/12/02.
@@ -8,7 +8,7 @@
 import Foundation
 
 extension FIDocument {
-    struct Users: FIDocumentProtocol {
+    struct User: FIDocumentProtocol {
         typealias Collection = FINameSpace.Users
         
         var uid: String = ""

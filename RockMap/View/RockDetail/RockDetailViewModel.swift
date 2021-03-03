@@ -10,10 +10,10 @@ import Foundation
 
 final class RockDetailViewModel {
     
-    @Published var rockDocument: FIDocument.Rocks = .init()
+    @Published var rockDocument: FIDocument.Rock = .init()
     @Published var rockName = ""
     @Published var registeredUserId = ""
-    @Published var registeredUser: FIDocument.Users = .init()
+    @Published var registeredUser: FIDocument.User = .init()
     @Published var rockDesc = ""
     @Published var rockLocation: RockLocation = .init()
     @Published var rockImageReferences: [StorageManager.Reference] = []
@@ -21,7 +21,7 @@ final class RockDetailViewModel {
     
     private var bindings = Set<AnyCancellable>()
     
-    init(rock: FIDocument.Rocks) {
+    init(rock: FIDocument.Rock) {
         setupBindings()
         self.rockDocument = rock
     }
@@ -70,7 +70,7 @@ final class RockDetailViewModel {
         
         $registeredUserId
             .sink { id in
-                FirestoreManager.fetchById(id: id) { [weak self] (result: Result<FIDocument.Users?, Error>) in
+                FirestoreManager.fetchById(id: id) { [weak self] (result: Result<FIDocument.User?, Error>) in
                     
                     guard
                         let self = self,

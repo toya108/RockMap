@@ -97,7 +97,7 @@ extension RockDetailViewController {
     
     private func configureRegisteredUserCell() -> UICollectionView.CellRegistration<
         RegisteredUserCollectionViewCell,
-        FIDocument.Users
+        FIDocument.User
     > {
         .init(
             cellNib: .init(
