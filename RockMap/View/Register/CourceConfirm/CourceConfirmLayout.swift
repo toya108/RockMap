@@ -1,13 +1,14 @@
 //
-//  CourceRegisterLayout.swift
+//  CourceConfirmLayout.swift
 //  RockMap
 //
-//  Created by TOUYA KAWANO on 2021/02/11.
+//  Created by TOUYA KAWANO on 2021/03/03.
 //
+
 
 import UIKit
 
-extension CourceRegisterViewController {
+extension CourseConfirmViewController {
     
     func createLayout() -> UICollectionViewCompositionalLayout {
         

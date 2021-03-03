@@ -7,23 +7,46 @@
 
 import UIKit
 
-class CourseConfirmViewController: UIViewController {
+class CourseConfirmViewController: UIViewController, ColletionViewControllerProtocol {
 
+    var collectionView: TouchableColletionView!
+    var viewModel: CourseConfirmViewModel!
+    var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
+    var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
+    
+    static func createInstance(
+        viewModel: CourseConfirmViewModel
+    ) -> CourseConfirmViewController {
+        let instance = CourseConfirmViewController()
+        instance.viewModel = viewModel
+        return instance
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        setupColletionView(layout: createLayout())
+        setupNavigationBar()
+        bindViewModelToView()
+        datasource = configureDatasource()
+        configureSections()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupNavigationBar() {
+        navigationItem.title = "登録内容を確認"
     }
-    */
-
+    
+    private func bindViewModelToView() {
+        
+    }
+    
+    private func configureSections() {
+        snapShot.appendSections(SectionLayoutKind.allCases)
+        snapShot.appendItems([.rock(viewModel.rock)], toSection: .rock)
+        snapShot.appendItems([.courceName(viewModel.courseName)], toSection: .courceName)
+        snapShot.appendItems([.desc(viewModel.desc)], toSection: .desc)
+        snapShot.appendItems(viewModel.images.map { ItemKind.images($0) }, toSection: .images)
+        snapShot.appendItems([.grade(viewModel.grade)], toSection: .grade)
+        snapShot.appendItems([.confirmation], toSection: .confirmation)
+    }
 }
