@@ -224,16 +224,18 @@ extension CourceRegisterViewController: UIImagePickerControllerDelegate & UINavi
         
         indicator.startAnimating()
         viewModel.images.append(.init(data: data))
-        dismiss(animated: true)
+        picker.dismiss(animated: true)
     }
 }
 
 extension CourceRegisterViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
-        indicator.startAnimating()
-        
         picker.dismiss(animated: true)
+        
+        if results.isEmpty { return }
+        
+        indicator.startAnimating()
         
         results.map(\.itemProvider).forEach {
             
