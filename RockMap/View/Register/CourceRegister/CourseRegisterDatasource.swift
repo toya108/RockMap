@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension CourceRegisterViewController {
+extension CourseRegisterViewController {
     
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
         
@@ -25,9 +25,9 @@ extension CourceRegisterViewController {
                     item: rock
                 )
                 
-            case .courceName:
+            case .courseName:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureCourceNameCell(),
+                    using: self.configurecourseNameCell(),
                     for: indexPath,
                     item: Dummy()
                 )
@@ -41,7 +41,7 @@ extension CourceRegisterViewController {
                 
             case .desc:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureCourceDescCell(),
+                    using: self.configurecourseDescCell(),
                     for: indexPath,
                     item: Dummy()
                 )
@@ -105,7 +105,7 @@ extension CourceRegisterViewController {
     
     private func configureRockCell() -> UICollectionView.CellRegistration<
         RockHeaderCollectionViewCell,
-        CourceRegisterViewModel.RockHeaderStructure
+        CourseRegisterViewModel.RockHeaderStructure
     > {
         .init(
             cellNib: .init(
@@ -117,7 +117,7 @@ extension CourceRegisterViewController {
         }
     }
     
-    private func configureCourceNameCell() -> UICollectionView.CellRegistration<
+    private func configurecourseNameCell() -> UICollectionView.CellRegistration<
         TextFieldColletionViewCell,
         Dummy
     > {
@@ -125,6 +125,7 @@ extension CourceRegisterViewController {
             
             guard let self = self else { return }
             
+            cell.configurePlaceholder("課題名を入力して下さい。")
             cell.textField.textDidChangedPublisher.assign(to: &self.viewModel.$courseName)
             cell.textField.delegate = self
         }
@@ -132,7 +133,7 @@ extension CourceRegisterViewController {
     
     private func configureGradeSelectingCell() -> UICollectionView.CellRegistration<
         GradeSelectingCollectionViewCell,
-        FIDocument.Cource.Grade
+        FIDocument.Course.Grade
     > {
         .init(
             cellNib: .init(
@@ -148,7 +149,7 @@ extension CourceRegisterViewController {
         }
     }
     
-    private func configureCourceDescCell() -> UICollectionView.CellRegistration<
+    private func configurecourseDescCell() -> UICollectionView.CellRegistration<
         TextViewCollectionViewCell,
         Dummy
     > {
@@ -161,6 +162,7 @@ extension CourceRegisterViewController {
             
             guard let self = self else { return }
             
+            cell.configurePlaceholder("課題の説明を入力して下さい。")
             cell.textView.textDidChangedPublisher.assign(to: &self.viewModel.$desc)
         }
     }
@@ -275,7 +277,7 @@ extension CourceRegisterViewController {
     
     private func setupGradeSelectingButtonActions(button: UIButton) {
         
-        let gradeSelectActions = FIDocument.Cource.Grade.allCases.map { (grade) -> UIAction in
+        let gradeSelectActions = FIDocument.Course.Grade.allCases.map { (grade) -> UIAction in
             .init(
                 title: grade.name,
                 state: viewModel.grade == grade ? .on : .off

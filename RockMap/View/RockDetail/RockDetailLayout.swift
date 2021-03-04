@@ -117,15 +117,15 @@ extension RockDetailViewController {
                 section.contentInsets = .init(top: 16, leading: 16, bottom: 16, trailing: 16)
                 return section
                 
-            case .cources:
+            case .courses:
                 
                 let item: NSCollectionLayoutItem
                 let group: NSCollectionLayoutGroup
                 
-                let snapItems = self.snapShot.itemIdentifiers(inSection: .cources)
+                let snapItems = self.snapShot.itemIdentifiers(inSection: .courses)
                 
                 switch snapItems.first {
-                case .noCource:
+                case .nocourse:
                     item = .init(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
@@ -141,7 +141,7 @@ extension RockDetailViewController {
                         subitems: [item]
                     )
                     
-                case .cources:
+                case .courses:
                     item = .init(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),

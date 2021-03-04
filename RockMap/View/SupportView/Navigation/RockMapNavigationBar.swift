@@ -21,7 +21,7 @@ final class RockMapNavigationBar: UINavigationBar {
     func setup() {
         
         let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
+        appearance.configureWithTransparentBackground()
         appearance.backgroundColor = .white
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
         appearance.titleTextAttributes = [.foregroundColor: UIColor.black]

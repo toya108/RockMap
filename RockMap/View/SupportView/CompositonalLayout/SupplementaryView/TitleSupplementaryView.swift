@@ -1,5 +1,5 @@
 //
-//  TitleHeaderView.swift
+//  TitleSupplementaryView.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/02/07.

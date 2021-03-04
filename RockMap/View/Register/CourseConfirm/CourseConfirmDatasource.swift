@@ -1,5 +1,5 @@
 //
-//  CourceConfirmDatasource.swift
+//  courseConfirmDatasource.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/03/03.
@@ -19,7 +19,11 @@ extension CourseConfirmViewController {
             
             switch item {
             case let .rock(rock):
-                return UICollectionViewCell()
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureRockCell(),
+                    for: indexPath,
+                    item: rock
+                )
             
             default:
                 return UICollectionViewCell()
@@ -48,5 +52,19 @@ extension CourseConfirmViewController {
             )
         }
         return datasource
+    }
+    
+    private func configureRockCell() -> UICollectionView.CellRegistration<
+        RockHeaderCollectionViewCell,
+        CourseRegisterViewModel.RockHeaderStructure
+    > {
+        .init(
+            cellNib: .init(
+                nibName: RockHeaderCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { cell, _, rockHeaderStructure in
+            cell.configure(rockHeaderStructure: rockHeaderStructure)
+        }
     }
 }

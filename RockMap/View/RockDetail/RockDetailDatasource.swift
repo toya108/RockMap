@@ -46,16 +46,16 @@ extension RockDetailViewController {
                         item: rockLocation
                     )
                 
-                case .cources:
+                case .courses:
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureCourcesCell(),
+                        using: self.configurecoursesCell(),
                         for: indexPath,
                         item: nil
                     )
                 
-                case .noCource:
+                case .nocourse:
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureNoCourceCell(),
+                        using: self.configureNocourseCell(),
                         for: indexPath,
                         item: "aaa"
                     )
@@ -128,15 +128,15 @@ extension RockDetailViewController {
         }
     }
     
-    private func configureNoCourceCell() -> UICollectionView.CellRegistration<
-        NoCourcesCollectionViewCell,
+    private func configureNocourseCell() -> UICollectionView.CellRegistration<
+        NocoursesCollectionViewCell,
         String
     > {
         .init { _, _, _ in }
     }
     
-    private func configureCourcesCell() -> UICollectionView.CellRegistration<
-        NoCourcesCollectionViewCell,
+    private func configurecoursesCell() -> UICollectionView.CellRegistration<
+        NocoursesCollectionViewCell,
         Never
     > {
         .init { _, _, _ in }

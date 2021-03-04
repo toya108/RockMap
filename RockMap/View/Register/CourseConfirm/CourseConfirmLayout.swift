@@ -1,13 +1,14 @@
 //
-//  CourceRegisterLayout.swift
+//  courseConfirmLayout.swift
 //  RockMap
 //
-//  Created by TOUYA KAWANO on 2021/02/11.
+//  Created by TOUYA KAWANO on 2021/03/03.
 //
+
 
 import UIKit
 
-extension CourceRegisterViewController {
+extension CourseConfirmViewController {
     
     func createLayout() -> UICollectionViewCompositionalLayout {
         
@@ -16,6 +17,14 @@ extension CourceRegisterViewController {
             let section: NSCollectionLayoutSection
             
             let sectionType = SectionLayoutKind.allCases[sectionNumber]
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .absolute(44)
+                ),
+                elementKind: sectionType.headerIdentifer,
+                alignment: .top
+            )
             switch sectionType {
             case .rock:
                 let item = NSCollectionLayoutItem(
@@ -33,9 +42,11 @@ extension CourceRegisterViewController {
                 )
                 
                 section = .init(group: group)
+                sectionHeader.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
+                section.boundarySupplementaryItems = [sectionHeader]
                 return section
                 
-            case .courceName:
+            case .courseName:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
@@ -161,14 +172,6 @@ extension CourceRegisterViewController {
             }
             
             if !sectionType.headerIdentifer.isEmpty {
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(44)
-                    ),
-                    elementKind: sectionType.headerIdentifer,
-                    alignment: .top
-                )
                 section.boundarySupplementaryItems = [sectionHeader]
             }
             

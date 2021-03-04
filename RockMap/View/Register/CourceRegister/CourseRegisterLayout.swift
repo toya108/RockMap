@@ -1,14 +1,13 @@
 //
-//  CourceConfirmLayout.swift
+//  CourseRegisterLayout.swift
 //  RockMap
 //
-//  Created by TOUYA KAWANO on 2021/03/03.
+//  Created by TOUYA KAWANO on 2021/02/11.
 //
-
 
 import UIKit
 
-extension CourseConfirmViewController {
+extension CourseRegisterViewController {
     
     func createLayout() -> UICollectionViewCompositionalLayout {
         
@@ -36,7 +35,7 @@ extension CourseConfirmViewController {
                 section = .init(group: group)
                 return section
                 
-            case .courceName:
+            case .courseName:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),

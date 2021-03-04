@@ -1,5 +1,5 @@
 //
-//  CourceRegisterViewController.swift
+//  CourseRegisterViewController.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/02/11.
@@ -9,10 +9,10 @@ import UIKit
 import Combine
 import PhotosUI
 
-class CourceRegisterViewController: UIViewController, ColletionViewControllerProtocol {
+class CourseRegisterViewController: UIViewController, ColletionViewControllerProtocol {
     
     var collectionView: TouchableColletionView!
-    var viewModel: CourceRegisterViewModel!
+    var viewModel: CourseRegisterViewModel!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
     let indicator = UIActivityIndicatorView()
@@ -28,9 +28,9 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     }()
     
     static func createInstance(
-        viewModel: CourceRegisterViewModel
-    ) -> CourceRegisterViewController {
-        let instance = CourceRegisterViewController()
+        viewModel: CourseRegisterViewModel
+    ) -> CourseRegisterViewController {
+        let instance = CourseRegisterViewController()
         instance.viewModel = viewModel
         return instance
     }
@@ -119,7 +119,7 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
             }
             .store(in: &bindings)
         
-        viewModel.$courceNameValidationResult
+        viewModel.$courseNameValidationResult
             .receive(on: RunLoop.main)
             .sink { [weak self] result in
                 
@@ -127,7 +127,7 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
                 
                 switch result {
                 case .valid, .none:
-                    let items = self.snapShot.itemIdentifiers(inSection: .courceName)
+                    let items = self.snapShot.itemIdentifiers(inSection: .courseName)
                     
                     guard
                         let item = items.first(where: { $0.isErrorItem })
@@ -138,13 +138,13 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
                     self.snapShot.deleteItems([item])
                     
                 case let .invalid(error):
-                    let items = self.snapShot.itemIdentifiers(inSection: .courceName)
+                    let items = self.snapShot.itemIdentifiers(inSection: .courseName)
                     
                     if let item = items.first(where: { $0.isErrorItem }) {
                         self.snapShot.deleteItems([item])
                     }
 
-                    self.snapShot.appendItems([.error(error.description)], toSection: .courceName)
+                    self.snapShot.appendItems([.error(error.description)], toSection: .courseName)
                 }
                 self.datasource.apply(self.snapShot)
             }
@@ -163,7 +163,7 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
             }
             .store(in: &bindings)
         
-        viewModel.$courceImageValidationResult
+        viewModel.$courseImageValidationResult
             .dropFirst()
             .receive(on: RunLoop.main)
             .sink { [weak self] isValid in
@@ -208,7 +208,7 @@ class CourceRegisterViewController: UIViewController, ColletionViewControllerPro
     }
 }
 
-extension CourceRegisterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+extension CourseRegisterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         guard
@@ -224,7 +224,7 @@ extension CourceRegisterViewController: UIImagePickerControllerDelegate & UINavi
     }
 }
 
-extension CourceRegisterViewController: PHPickerViewControllerDelegate {
+extension CourseRegisterViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
         picker.dismiss(animated: true)
@@ -253,7 +253,7 @@ extension CourceRegisterViewController: PHPickerViewControllerDelegate {
     }
 }
 
-extension CourceRegisterViewController: UICollectionViewDelegate {
+extension CourseRegisterViewController: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         view.endEditing(true)
     }

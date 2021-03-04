@@ -1,5 +1,5 @@
 //
-//  Cource.swift
+//  Course.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/02/08.
@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 extension FIDocument {
-    struct Cource: FIDocumentProtocol {
-        typealias Collection = FINameSpace.Cource
+    struct Course: FIDocumentProtocol {
+        typealias Collection = FINameSpace.Course
         
         var id: String = ""
         var name: String = ""

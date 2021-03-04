@@ -20,7 +20,7 @@ class RockHeaderCollectionViewCell: UICollectionViewCell {
         userIconImageView.layer.cornerRadius = userIconImageView.bounds.width / 2
     }
 
-    func configure(rockHeaderStructure: CourceRegisterViewModel.RockHeaderStructure) {
+    func configure(rockHeaderStructure: CourseRegisterViewModel.RockHeaderStructure) {
         rockImageView.loadImage(reference: rockHeaderStructure.rockImageReference)
         rockNameLabel.text = rockHeaderStructure.rockName
         userIconImageView.loadImage(url: rockHeaderStructure.userIconPhotoURL)
