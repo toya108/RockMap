@@ -24,6 +24,13 @@ extension CourseConfirmViewController {
                     for: indexPath,
                     item: rock
                 )
+                
+            case let .courseName(courseName):
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureCourseNameCell(),
+                    for: indexPath,
+                    item: courseName
+                )
             
             default:
                 return UICollectionViewCell()
@@ -65,6 +72,15 @@ extension CourseConfirmViewController {
             )
         ) { cell, _, rockHeaderStructure in
             cell.configure(rockHeaderStructure: rockHeaderStructure)
+        }
+    }
+    
+    private func configureCourseNameCell() -> UICollectionView.CellRegistration<
+        LabelCollectionViewCell,
+        String
+    > {
+        .init { cell, _, courseName in
+            cell.configure(text: courseName)
         }
     }
 }
