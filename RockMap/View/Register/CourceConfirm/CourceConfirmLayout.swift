@@ -17,6 +17,14 @@ extension CourseConfirmViewController {
             let section: NSCollectionLayoutSection
             
             let sectionType = SectionLayoutKind.allCases[sectionNumber]
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .absolute(44)
+                ),
+                elementKind: sectionType.headerIdentifer,
+                alignment: .top
+            )
             switch sectionType {
             case .rock:
                 let item = NSCollectionLayoutItem(
@@ -34,6 +42,8 @@ extension CourseConfirmViewController {
                 )
                 
                 section = .init(group: group)
+                sectionHeader.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
+                section.boundarySupplementaryItems = [sectionHeader]
                 return section
                 
             case .courceName:
@@ -162,14 +172,6 @@ extension CourseConfirmViewController {
             }
             
             if !sectionType.headerIdentifer.isEmpty {
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(44)
-                    ),
-                    elementKind: sectionType.headerIdentifer,
-                    alignment: .top
-                )
                 section.boundarySupplementaryItems = [sectionHeader]
             }
             

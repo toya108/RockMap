@@ -25,7 +25,7 @@ class CourseConfirmViewController: UIViewController, ColletionViewControllerProt
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupColletionView(layout: createLayout())
+        setupColletionView()
         setupNavigationBar()
         bindViewModelToView()
         datasource = configureDatasource()
@@ -40,13 +40,21 @@ class CourseConfirmViewController: UIViewController, ColletionViewControllerProt
         
     }
     
+    private func setupColletionView() {
+        setupColletionView(layout: createLayout())
+        collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
+        collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
+    }
+    
+    
     private func configureSections() {
         snapShot.appendSections(SectionLayoutKind.allCases)
         snapShot.appendItems([.rock(viewModel.rock)], toSection: .rock)
-        snapShot.appendItems([.courceName(viewModel.courseName)], toSection: .courceName)
-        snapShot.appendItems([.desc(viewModel.desc)], toSection: .desc)
-        snapShot.appendItems(viewModel.images.map { ItemKind.images($0) }, toSection: .images)
-        snapShot.appendItems([.grade(viewModel.grade)], toSection: .grade)
-        snapShot.appendItems([.confirmation], toSection: .confirmation)
+//        snapShot.appendItems([.courceName(viewModel.courseName)], toSection: .courceName)
+//        snapShot.appendItems([.desc(viewModel.desc)], toSection: .desc)
+//        snapShot.appendItems(viewModel.images.map { ItemKind.images($0) }, toSection: .images)
+//        snapShot.appendItems([.grade(viewModel.grade)], toSection: .grade)
+//        snapShot.appendItems([.confirmation], toSection: .confirmation)
+        datasource.apply(snapShot)
     }
 }
