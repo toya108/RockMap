@@ -47,6 +47,9 @@ class TextFieldColletionViewCell: UICollectionViewCell {
             borderView.heightAnchor.constraint(equalToConstant: 0.5)
         ])
         
-        textField.placeholder = "課題名を入力して下さい。"
+    }
+    
+    func configurePlaceholder(_ placeholder: String) {
+        textField.placeholder = placeholder
     }
 }

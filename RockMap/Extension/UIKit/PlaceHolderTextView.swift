@@ -13,8 +13,8 @@ import UIKit
 
     @IBInspectable var placeHolder: String = "" {
         willSet {
-            self.placeHolderLabel.text = newValue
-            self.placeHolderLabel.sizeToFit()
+            placeHolderLabel.text = newValue
+            placeHolderLabel.sizeToFit()
         }
     }
 
@@ -34,9 +34,14 @@ import UIKit
         changeVisiblePlaceHolder()
         NotificationCenter.default.addObserver(self, selector: #selector(textChanged), name: UITextView.textDidChangeNotification, object: nil)
     }
+    
+    func updatePlaceholder(_ placeholder: String) {
+        placeHolder = placeholder
+        changeVisiblePlaceHolder()
+    }
 
     private func changeVisiblePlaceHolder() {
-        self.placeHolderLabel.alpha = (self.placeHolder.isEmpty || !self.text.isEmpty) ? 0.0 : 1.0
+        placeHolderLabel.alpha = (self.placeHolder.isEmpty || !self.text.isEmpty) ? 0.0 : 1.0
     }
 
     @objc private func textChanged(notification: NSNotification?) {

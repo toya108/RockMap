@@ -16,4 +16,8 @@ class TextViewCollectionViewCell: UICollectionViewCell {
         contentView.layer.borderWidth = 0.5
         contentView.layer.borderColor = UIColor.lightGray.cgColor
     }
+    
+    func configurePlaceholder(_ placeholder: String) {
+        textView.updatePlaceholder(placeholder)
+    }
 }

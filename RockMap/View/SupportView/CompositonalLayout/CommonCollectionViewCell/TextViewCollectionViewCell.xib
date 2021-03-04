@@ -23,9 +23,6 @@
                         <color key="textColor" systemColor="labelColor"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="課題の説明を入力して下さい。"/>
-                        </userDefinedRuntimeAttributes>
                     </textView>
                 </subviews>
                 <constraints>

@@ -125,6 +125,7 @@ extension CourseRegisterViewController {
             
             guard let self = self else { return }
             
+            cell.configurePlaceholder("課題名を入力して下さい。")
             cell.textField.textDidChangedPublisher.assign(to: &self.viewModel.$courseName)
             cell.textField.delegate = self
         }
@@ -161,6 +162,7 @@ extension CourseRegisterViewController {
             
             guard let self = self else { return }
             
+            cell.configurePlaceholder("課題の説明を入力して下さい。")
             cell.textView.textDidChangedPublisher.assign(to: &self.viewModel.$desc)
         }
     }
