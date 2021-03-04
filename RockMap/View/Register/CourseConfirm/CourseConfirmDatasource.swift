@@ -45,6 +45,13 @@ extension CourseConfirmViewController {
                     for: indexPath,
                     item: grade.name
                 )
+                
+            case let .images(image):
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureImageCell(),
+                    for: indexPath,
+                    item: image
+                )
             
             default:
                 return UICollectionViewCell()
@@ -95,6 +102,15 @@ extension CourseConfirmViewController {
     > {
         .init { cell, _, courseName in
             cell.configure(text: courseName)
+        }
+    }
+    
+    private func configureImageCell() -> UICollectionView.CellRegistration<
+        HorizontalImageListCollectionViewCell,
+        IdentifiableData
+    > {
+        .init { cell, _, image in
+            cell.imageView.image = UIImage(data: image.data)
         }
     }
 }

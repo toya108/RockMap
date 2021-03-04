@@ -63,46 +63,25 @@ extension CourseConfirmViewController {
                 section = .init(group: group)
                 
             case .images:
-                
-                let item: NSCollectionLayoutItem
-                let group: NSCollectionLayoutGroup
-                
-                if self.snapShot.numberOfItems(inSection: .images) == 1 {
-                    item = .init(
-                        layoutSize: .init(
-                            widthDimension: .fractionalWidth(1),
-                            heightDimension: .absolute(44)
-                        )
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)
                     )
-                    group = NSCollectionLayoutGroup.horizontal(
-                        layoutSize: .init(
-                            widthDimension: .fractionalWidth(1),
-                            heightDimension: item.layoutSize.heightDimension
-                        ),
-                        subitems: [item]
-                    )
-                    section = .init(group: group)
-                    
-                } else {
-                    item = NSCollectionLayoutItem(
-                        layoutSize: .init(
-                            widthDimension: .fractionalWidth(1),
-                            heightDimension: .fractionalWidth(1)
-                        )
-                    )
-                    group = NSCollectionLayoutGroup.horizontal(
-                        layoutSize: .init(
-                            widthDimension: .fractionalWidth(0.25),
-                            heightDimension: .fractionalWidth(0.25)
-                        ),
-                        subitems: [item]
-                    )
-                    section = .init(group: group)
-                    section.interGroupSpacing = 4
-                    
-                }
-                
-                section.orthogonalScrollingBehavior = .continuous
+                )
+                let height = UIScreen.main.bounds.width * 9/16
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(height)
+                    ),
+                    subitems: [item]
+                )
+                section = .init(group: group)
+                sectionHeader.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
+                section.boundarySupplementaryItems = [sectionHeader]
+                section.orthogonalScrollingBehavior = .paging
+                return section
 
             case .confirmation:
                 let item = NSCollectionLayoutItem(
