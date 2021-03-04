@@ -27,9 +27,16 @@ extension CourseConfirmViewController {
                 
             case let .courseName(courseName):
                 return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureCourseNameCell(),
+                    using: self.configureLabelCell(),
                     for: indexPath,
                     item: courseName
+                )
+                
+            case let .desc(desc):
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureLabelCell(),
+                    for: indexPath,
+                    item: desc
                 )
             
             default:
@@ -75,7 +82,7 @@ extension CourseConfirmViewController {
         }
     }
     
-    private func configureCourseNameCell() -> UICollectionView.CellRegistration<
+    private func configureLabelCell() -> UICollectionView.CellRegistration<
         LabelCollectionViewCell,
         String
     > {

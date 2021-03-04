@@ -28,6 +28,7 @@ class LabelCollectionViewCell: UICollectionViewCell {
     private func setupLayout() {
         contentView.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: contentView.topAnchor),
             label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),

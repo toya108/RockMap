@@ -62,6 +62,22 @@ extension CourseConfirmViewController {
                 )
                 section = .init(group: group)
                 
+            case .desc:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .estimated(88)
+                    )
+                )
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: item.layoutSize.heightDimension
+                    ),
+                    subitems: [item]
+                )
+                section = .init(group: group)
+                
             case .grade:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
@@ -77,22 +93,6 @@ extension CourseConfirmViewController {
                     subitems: [item]
                 )
                 
-                section = .init(group: group)
-                
-            case .desc:
-                let item = NSCollectionLayoutItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .estimated(88)
-                    )
-                )
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: item.layoutSize.heightDimension
-                    ),
-                    subitems: [item]
-                )
                 section = .init(group: group)
                 
             case .images:
