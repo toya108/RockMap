@@ -618,7 +618,6 @@
 				9E2BD68425DD6DA90011B020 /* ImageSelactCollectionViewCell.swift */,
 				9E2BD68525DD6DA90011B020 /* ImageSelactCollectionViewCell.xib */,
 				9EFEF88225E004A300007AD6 /* DeletableImageCollectionViewCell.swift */,
-				9E5D51B225E0A34700977473 /* ConfirmationButtonColletionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -714,6 +713,7 @@
 				9E902B2425F0DC5300006624 /* LabelCollectionViewCell.swift */,
 				9E9C1E1D25E49AAA0050FDDE /* ErrorLabelCollectionViewCell.swift */,
 				9E613ABB25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift */,
+				9E5D51B225E0A34700977473 /* ConfirmationButtonColletionViewCell.swift */,
 			);
 			path = CommonCollectionViewCell;
 			sourceTree = "<group>";

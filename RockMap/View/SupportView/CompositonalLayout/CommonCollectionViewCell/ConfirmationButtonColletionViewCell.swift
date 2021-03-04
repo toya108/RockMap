@@ -42,7 +42,6 @@ class ConfirmationButtonCollectionViewCell: UICollectionViewCell {
         cautionLabel.text = "※登録内容は他のユーザーに公開されます。"
         stackView.addArrangedSubview(cautionLabel)
         
-        button.setTitle("　登録内容を確認する　", for: .normal)
         button.layer.cornerRadius = Resources.Const.UI.View.radius
         button.backgroundColor = UIColor.Pallete.primaryGreen
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -59,5 +58,9 @@ class ConfirmationButtonCollectionViewCell: UICollectionViewCell {
             },
             for: .touchUpInside
         )
+    }
+    
+    func configure(title: String) {
+        button.setTitle(title, for: .normal)
     }
 }

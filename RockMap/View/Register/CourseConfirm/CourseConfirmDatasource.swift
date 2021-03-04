@@ -52,6 +52,13 @@ extension CourseConfirmViewController {
                     for: indexPath,
                     item: image
                 )
+                
+            case .register:
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureRegisterButtonCell(),
+                    for: indexPath,
+                    item: Dummy()
+                )
             
             default:
                 return UICollectionViewCell()
@@ -111,6 +118,15 @@ extension CourseConfirmViewController {
     > {
         .init { cell, _, image in
             cell.imageView.image = UIImage(data: image.data)
+        }
+    }
+    
+    private func configureRegisterButtonCell() -> UICollectionView.CellRegistration<
+        ConfirmationButtonCollectionViewCell,
+        Dummy
+    > {
+        .init { cell, _, _ in
+            cell.configure(title: "　登録する　")
         }
     }
 }
