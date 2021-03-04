@@ -648,6 +648,7 @@
 				9EF8E2B525EF6E1C00185A3D /* CourceConfirmKind.swift */,
 				9EF8E2BA25EF6E2B00185A3D /* CourceConfirmLayout.swift */,
 				9EF8E2BF25EF6E4300185A3D /* CourceConfirmDatasource.swift */,
+				9EEB0AC125EFE5EF00A86C92 /* Cells */,
 			);
 			path = CourceConfirm;
 			sourceTree = "<group>";
@@ -672,6 +673,13 @@
 				9E60DCB9255714A1000CF2E8 /* RockLocationSelectViewController.storyboard */,
 			);
 			path = LocationSelect;
+			sourceTree = "<group>";
+		};
+		9EEB0AC125EFE5EF00A86C92 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		9EF56020255AE74A00D00723 /* RockDetail */ = {
