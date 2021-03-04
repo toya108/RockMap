@@ -53,8 +53,7 @@ class CourseConfirmViewController: UIViewController, ColletionViewControllerProt
         snapShot.appendItems([.courseName(viewModel.courseName)], toSection: .courseName)
         snapShot.appendItems([.desc(viewModel.desc)], toSection: .desc)
         snapShot.appendItems([.grade(viewModel.grade)], toSection: .grade)
-
-//        snapShot.appendItems(viewModel.images.map { ItemKind.images($0) }, toSection: .images)
+        snapShot.appendItems(viewModel.images.map { ItemKind.images($0) }, toSection: .images)
 //        snapShot.appendItems([.confirmation], toSection: .confirmation)
         datasource.apply(snapShot)
     }
