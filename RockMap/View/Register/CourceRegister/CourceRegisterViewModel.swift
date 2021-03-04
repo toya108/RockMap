@@ -11,17 +11,20 @@ import Foundation
 class CourceRegisterViewModel {
     
     struct RockHeaderStructure: Hashable {
+        let rockId: String
         let rockName: String
         let rockImageReference: StorageManager.Reference
         let userIconPhotoURL: URL?
         let userName: String
         
         init(
+            rockId: String = "",
             rockName: String = "",
             rockImageReference: StorageManager.Reference = .init(),
             userIconPhotoURL: URL? = nil,
             userName: String = ""
         ) {
+            self.rockId = rockId
             self.rockName = rockName
             self.rockImageReference = rockImageReference
             self.userIconPhotoURL = userIconPhotoURL

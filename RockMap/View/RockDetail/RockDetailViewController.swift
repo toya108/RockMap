@@ -155,6 +155,7 @@ class RockDetailViewController: UIViewController, ColletionViewControllerProtoco
         
         let viewModel = CourceRegisterViewModel(
             rockHeaderStructure: .init(
+                rockId: self.viewModel.rockDocument.id,
                 rockName: self.viewModel.rockName,
                 rockImageReference: rockImageReference,
                 userIconPhotoURL: self.viewModel.registeredUser.photoURL,
