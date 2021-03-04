@@ -46,7 +46,7 @@ extension CourseConfirmViewController {
                 section.boundarySupplementaryItems = [sectionHeader]
                 return section
                 
-            case .courseName:
+            case .courseName, .desc, .grade:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
@@ -60,39 +60,6 @@ extension CourseConfirmViewController {
                     ),
                     subitems: [item]
                 )
-                section = .init(group: group)
-                
-            case .desc:
-                let item = NSCollectionLayoutItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .estimated(88)
-                    )
-                )
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: item.layoutSize.heightDimension
-                    ),
-                    subitems: [item]
-                )
-                section = .init(group: group)
-                
-            case .grade:
-                let item = NSCollectionLayoutItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(44)
-                    )
-                )
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: item.layoutSize.heightDimension
-                    ),
-                    subitems: [item]
-                )
-                
                 section = .init(group: group)
                 
             case .images:

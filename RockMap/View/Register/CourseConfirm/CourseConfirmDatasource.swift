@@ -38,6 +38,13 @@ extension CourseConfirmViewController {
                     for: indexPath,
                     item: desc
                 )
+                
+            case let .grade(grade):
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureLabelCell(),
+                    for: indexPath,
+                    item: grade.name
+                )
             
             default:
                 return UICollectionViewCell()
