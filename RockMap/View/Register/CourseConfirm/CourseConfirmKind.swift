@@ -1,5 +1,5 @@
 //
-//  CourceConfirmKind.swift
+//  courseConfirmKind.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/03/03.
@@ -11,7 +11,7 @@ extension CourseConfirmViewController {
     
     enum SectionLayoutKind: CaseIterable {
         case rock
-        case courceName
+        case courseName
         case desc
         case grade
         case images
@@ -23,7 +23,7 @@ extension CourseConfirmViewController {
             case .rock:
                 return "課題を登録する岩"
                 
-            case .courceName:
+            case .courseName:
                 return "課題名"
                 
             case .desc:
@@ -43,7 +43,7 @@ extension CourseConfirmViewController {
         
         var headerIdentifer: String {
             switch self {
-            case .rock, .courceName, .grade, .images, .desc:
+            case .rock, .courseName, .grade, .images, .desc:
                 return TitleSupplementaryView.className
                 
             default:
@@ -53,9 +53,9 @@ extension CourseConfirmViewController {
     }
     
     enum ItemKind: Hashable {
-        case rock(CourceRegisterViewModel.RockHeaderStructure)
-        case courceName(String)
-        case grade(FIDocument.Cource.Grade)
+        case rock(CourseRegisterViewModel.RockHeaderStructure)
+        case courseName(String)
+        case grade(FIDocument.Course.Grade)
         case images(IdentifiableData)
         case desc(String)
         case makePrivate

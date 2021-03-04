@@ -14,7 +14,7 @@ extension RockDetailViewController {
         case registeredUser
         case desc
         case map
-        case cources
+        case courses
         
         var headerTitle: String {
             switch self {
@@ -24,7 +24,7 @@ extension RockDetailViewController {
             case .map:
                 return "岩の位置"
             
-            case .cources:
+            case .courses:
                 return "課題一覧"
                 
             default:
@@ -35,7 +35,7 @@ extension RockDetailViewController {
         
         var headerIdentifer: String {
             switch self {
-            case .desc, .map, .cources:
+            case .desc, .map, .courses:
                 return TitleSupplementaryView.className
                 
             default:
@@ -49,9 +49,9 @@ extension RockDetailViewController {
         case registeredUser(user: FIDocument.User)
         case desc(String)
         case map(RockDetailViewModel.RockLocation)
-        // cource section
-        case cources
-        case noCource
+        // course section
+        case courses
+        case nocourse
     }
     
 }

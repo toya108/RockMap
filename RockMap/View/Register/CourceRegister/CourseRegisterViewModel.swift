@@ -1,5 +1,5 @@
 //
-//  CourceRegisterViewModel.swift
+//  CourseRegisterViewModel.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/02/11.
@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class CourceRegisterViewModel {
+class CourseRegisterViewModel {
     
     struct RockHeaderStructure: Hashable {
         let rockId: String
@@ -35,13 +35,13 @@ class CourceRegisterViewModel {
     @Published var rockHeaderStructure = RockHeaderStructure()
     
     @Published var courseName = ""
-    @Published var grade: FIDocument.Cource.Grade = .q10
+    @Published var grade: FIDocument.Course.Grade = .q10
     @Published var images: [IdentifiableData] = []
     @Published var desc = ""
     @Published var isPrivate = false
     
-    @Published private(set) var courceNameValidationResult: ValidationResult = .none
-    @Published private(set) var courceImageValidationResult = false
+    @Published private(set) var courseNameValidationResult: ValidationResult = .none
+    @Published private(set) var courseImageValidationResult = false
     
     private var bindings = Set<AnyCancellable>()
 
@@ -55,18 +55,18 @@ class CourceRegisterViewModel {
             .dropFirst()
             .removeDuplicates()
             .map { name -> ValidationResult in CourseNameValidator().validate(name) }
-            .assign(to: &$courceNameValidationResult)
+            .assign(to: &$courseNameValidationResult)
         
         $images
             .dropFirst()
             .map { !$0.isEmpty }
-            .assign(to: &$courceImageValidationResult)
+            .assign(to: &$courseImageValidationResult)
     }
     
     func callValidations() -> Bool {
-        courceImageValidationResult = !images.isEmpty
-        courceNameValidationResult = CourseNameValidator().validate(courseName)
+        courseImageValidationResult = !images.isEmpty
+        courseNameValidationResult = CourseNameValidator().validate(courseName)
         
-        return courceNameValidationResult.isValid && courceImageValidationResult
+        return courseNameValidationResult.isValid && courseImageValidationResult
     }
 }

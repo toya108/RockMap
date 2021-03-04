@@ -50,7 +50,7 @@ class CourseConfirmViewController: UIViewController, ColletionViewControllerProt
     private func configureSections() {
         snapShot.appendSections(SectionLayoutKind.allCases)
         snapShot.appendItems([.rock(viewModel.rock)], toSection: .rock)
-//        snapShot.appendItems([.courceName(viewModel.courseName)], toSection: .courceName)
+//        snapShot.appendItems([.courseName(viewModel.courseName)], toSection: .courseName)
 //        snapShot.appendItems([.desc(viewModel.desc)], toSection: .desc)
 //        snapShot.appendItems(viewModel.images.map { ItemKind.images($0) }, toSection: .images)
 //        snapShot.appendItems([.grade(viewModel.grade)], toSection: .grade)

@@ -1,5 +1,5 @@
 //
-//  CourceRegisterKind.swift
+//  courseRegisterKind.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/02/11.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-extension CourceRegisterViewController {
+extension CourseRegisterViewController {
     
     enum SectionLayoutKind: CaseIterable {
         case rock
-        case courceName
+        case courseName
         case desc
         case grade
         case images
@@ -23,7 +23,7 @@ extension CourceRegisterViewController {
             case .rock:
                 return "登録する岩"
                 
-            case .courceName:
+            case .courseName:
                 return "課題名"
                 
             case .desc:
@@ -43,7 +43,7 @@ extension CourceRegisterViewController {
         
         var headerIdentifer: String {
             switch self {
-            case .rock, .courceName, .grade, .images, .desc:
+            case .rock, .courseName, .grade, .images, .desc:
                 return TitleSupplementaryView.className
                 
             default:
@@ -53,8 +53,8 @@ extension CourceRegisterViewController {
         
         var initalItems: [ItemKind] {
             switch self {
-            case .courceName:
-                return [.courceName]
+            case .courseName:
+                return [.courseName]
                 
             case .desc:
                 return [.desc]
@@ -75,9 +75,9 @@ extension CourceRegisterViewController {
     }
     
     enum ItemKind: Hashable {
-        case rock(CourceRegisterViewModel.RockHeaderStructure)
-        case courceName
-        case grade(FIDocument.Cource.Grade)
+        case rock(CourseRegisterViewModel.RockHeaderStructure)
+        case courseName
+        case grade(FIDocument.Course.Grade)
         case noImage
         case images(IdentifiableData)
         case desc

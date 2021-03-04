@@ -10,9 +10,9 @@ import Foundation
 
 class CourseConfirmViewModel {
     
-    let rock: CourceRegisterViewModel.RockHeaderStructure
+    let rock: CourseRegisterViewModel.RockHeaderStructure
     let courseName: String
-    let grade: FIDocument.Cource.Grade
+    let grade: FIDocument.Course.Grade
     let images: [IdentifiableData]
     let desc: String
     
@@ -20,9 +20,9 @@ class CourseConfirmViewModel {
     @Published var rockUploadState: StoreUploadState = .stanby
     
     init(
-        rock: CourceRegisterViewModel.RockHeaderStructure,
+        rock: CourseRegisterViewModel.RockHeaderStructure,
         courseName: String,
-        grade: FIDocument.Cource.Grade,
+        grade: FIDocument.Course.Grade,
         images: [IdentifiableData],
         desc: String
     ) {

@@ -1,5 +1,5 @@
 //
-//  NoCourcesCollectionViewCell.swift
+//  NocoursesCollectionViewCell.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/02/10.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NoCourcesCollectionViewCell: UICollectionViewCell {
+class NocoursesCollectionViewCell: UICollectionViewCell {
     let imageView = UIImageView()
     let label = UILabel()
     

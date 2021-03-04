@@ -1,5 +1,5 @@
 //
-//  CourceConfirmDatasource.swift
+//  courseConfirmDatasource.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/03/03.
@@ -56,7 +56,7 @@ extension CourseConfirmViewController {
     
     private func configureRockCell() -> UICollectionView.CellRegistration<
         RockHeaderCollectionViewCell,
-        CourceRegisterViewModel.RockHeaderStructure
+        CourseRegisterViewModel.RockHeaderStructure
     > {
         .init(
             cellNib: .init(

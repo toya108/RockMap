@@ -1,5 +1,5 @@
 //
-//  CourceConfirmLayout.swift
+//  courseConfirmLayout.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/03/03.
@@ -46,7 +46,7 @@ extension CourseConfirmViewController {
                 section.boundarySupplementaryItems = [sectionHeader]
                 return section
                 
-            case .courceName:
+            case .courseName:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
