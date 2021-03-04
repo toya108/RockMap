@@ -21,7 +21,7 @@ extension CourseConfirmViewController {
         var headerTitle: String {
             switch self {
             case .rock:
-                return "登録する岩"
+                return "課題を登録する岩"
                 
             case .courceName:
                 return "課題名"
