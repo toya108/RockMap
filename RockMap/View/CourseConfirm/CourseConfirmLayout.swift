@@ -83,7 +83,7 @@ extension CourseConfirmViewController {
                 section.orthogonalScrollingBehavior = .paging
                 return section
 
-            case .confirmation:
+            case .register:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),

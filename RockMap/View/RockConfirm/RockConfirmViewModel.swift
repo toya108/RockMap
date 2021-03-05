@@ -16,10 +16,10 @@ final class RockConfirmViewModel {
     var rockLocation: CLLocation
     var rockDesc: String
     
-    @Published var imageUploadState: StorageUploader.UploadState = .stanby
-    @Published var rockUploadState: StoreUploadState = .stanby
+    @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
+    @Published private(set) var rockUploadState: StoreUploadState = .stanby
     
-    let uploader = StorageUploader()
+    private let uploader = StorageUploader()
     
     init(rockName: String, rockImageDatas: [Data], rockAddress: String, rockLocation: CLLocation, rockDesc: String) {
         self.rockName = rockName

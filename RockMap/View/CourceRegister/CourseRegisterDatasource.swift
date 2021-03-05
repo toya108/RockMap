@@ -209,6 +209,7 @@ extension CourseRegisterViewController {
         Dummy
     > {
         .init { cell, _, _ in
+            cell.configure(title: "　登録内容を確認する　")
             cell.configure { [weak self] in
                 
                 guard let self = self else { return }

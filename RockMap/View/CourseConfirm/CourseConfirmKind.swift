@@ -15,8 +15,7 @@ extension CourseConfirmViewController {
         case desc
         case grade
         case images
-        case makePrivate
-        case confirmation
+        case register
         
         var headerTitle: String {
             switch self {
@@ -58,8 +57,7 @@ extension CourseConfirmViewController {
         case desc(String)
         case grade(FIDocument.Course.Grade)
         case images(IdentifiableData)
-        case makePrivate
-        case confirmation
+        case register
     }
     
 }
