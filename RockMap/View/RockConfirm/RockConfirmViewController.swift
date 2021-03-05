@@ -123,7 +123,20 @@ final class RockConfirmViewController: UIViewController {
                     
                 case .finish:
                     self.indicator.stopAnimating()
-                    self.showSuccessView()
+                    RegisterSucceededViewController.showSuccessView(present: self) {
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+                            
+                            guard let self = self else { return }
+                            
+                            self.dismiss(animated: true) { [weak self] in
+                                
+                                guard let self = self else { return }
+                                
+                                self.navigationController?.popToRootViewController(animated: true)
+                            }
+                        }
+                    }
                     
                 case .failure(let error):
                     self.showOKAlert(
@@ -149,39 +162,6 @@ final class RockConfirmViewController: UIViewController {
         navigationItem.title = "登録内容の確認"
         registButton.layer.cornerRadius = Resources.Const.UI.View.radius
         mapView.layer.cornerRadius = Resources.Const.UI.View.radius
-    }
-    
-    private func showSuccessView() {
-        
-        guard let vc = UIStoryboard(name: RegisterSucceededViewController.className, bundle: nil).instantiateInitialViewController() else { return }
-        
-        vc.modalPresentationStyle = .popover
-        vc.popoverPresentationController?.sourceView = UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.view
-        vc.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-        vc.popoverPresentationController?.delegate = self
-        vc.popoverPresentationController?.sourceRect = .init(
-            origin: .init(
-                x: UIScreen.main.bounds.midX,
-                y: UIScreen.main.bounds.midY
-            ),
-            size: .zero
-        )
-        
-        present(vc, animated: true) {
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                
-                guard let self = self else { return }
-                
-                self.dismiss(animated: true) { [weak self] in
-                    
-                    guard let self = self else { return }
-                    
-                    self.navigationController?.popToRootViewController(animated: true)
-                }
-            }
-            
-        }
     }
 }
 

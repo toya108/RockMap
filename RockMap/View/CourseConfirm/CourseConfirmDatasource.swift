@@ -127,6 +127,12 @@ extension CourseConfirmViewController {
     > {
         .init { cell, _, _ in
             cell.configure(title: "　登録する　")
+            cell.configure { [weak self] in
+                
+                guard let self = self else { return }
+                
+                self.viewModel.uploadImages()
+            }
         }
     }
 }

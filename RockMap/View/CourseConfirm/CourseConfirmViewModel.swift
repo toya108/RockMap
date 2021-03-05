@@ -16,8 +16,10 @@ class CourseConfirmViewModel {
     let images: [IdentifiableData]
     let desc: String
     
-    @Published var imageUploadState: StorageUploader.UploadState = .stanby
-    @Published var rockUploadState: StoreUploadState = .stanby
+    @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
+    @Published private(set) var courseUploadState: StoreUploadState = .stanby
+    
+    private let uploader = StorageUploader()
     
     init(
         rock: CourseRegisterViewModel.RockHeaderStructure,
@@ -31,6 +33,56 @@ class CourseConfirmViewModel {
         self.grade = grade
         self.images = images
         self.desc = desc
+        
+        bindImageUploader()
     }
     
+    private func bindImageUploader() {
+        uploader.$uploadState
+            .assign(to: &$imageUploadState)
+    }
+    
+    func uploadImages() {
+        let reference = StorageManager.makeReference(
+            parent: FINameSpace.Course.self,
+            child: courseName
+        )
+        images.forEach {
+            let imageReference = reference.child(UUID().uuidString)
+            uploader.addData(data: $0.data, reference: imageReference)
+        }
+        uploader.start()
+    }
+    
+    func registerCourse() {
+        
+        courseUploadState = .loading
+        
+        let courseDocument = FIDocument.Course(
+            id: UUID().uuidString,
+            name: courseName,
+            desc: desc,
+            grade: grade,
+            climbedUserIdList: [],
+            registedUserId: AuthManager.uid,
+            registeredDate: Date()
+        )
+        
+        FirestoreManager.set(
+            key: courseDocument.id,
+            courseDocument
+        ) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            switch result {
+            case .success:
+                self.courseUploadState = .finish
+                
+            case .failure(let error):
+                self.courseUploadState = .failure(error)
+                
+            }
+        }
+    }
 }

@@ -17,7 +17,7 @@ extension FIDocument {
         var desc: String = ""
         var grade: Grade
         var climbedUserIdList: [String]
-        var isPrivate: Bool
+//        var isPrivate: Bool
         var registedUserId: String
         var registeredDate: Date
         
