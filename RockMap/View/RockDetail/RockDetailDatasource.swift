@@ -69,12 +69,12 @@ extension RockDetailViewController {
         ) { [weak self] supplementaryView, _, indexPath in
             
             guard let self = self else { return }
-
+            
             supplementaryView.setSideInset(0)
             supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section].headerTitle
         }
         
-        datasource.supplementaryViewProvider = { [weak self] collectionView, kind, index in
+        datasource.supplementaryViewProvider = { [weak self] collectionView, _, index in
             
             guard let self = self else { return nil }
             

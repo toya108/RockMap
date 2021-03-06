@@ -18,6 +18,9 @@ extension RockDetailViewController {
         
         var headerTitle: String {
             switch self {
+            case.registeredUser:
+                return "登録者"
+                
             case .desc:
                 return "岩の説明"
                 
@@ -35,7 +38,7 @@ extension RockDetailViewController {
         
         var headerIdentifer: String {
             switch self {
-            case .desc, .map, .courses:
+            case .registeredUser, .desc, .map, .courses:
                 return TitleSupplementaryView.className
                 
             default:
