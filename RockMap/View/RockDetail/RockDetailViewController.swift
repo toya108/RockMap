@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class RockDetailViewController: UIViewController, ColletionViewControllerProtocol {
+class RockDetailViewController: UIViewController, CollectionViewControllerProtocol {
     
     var collectionView: TouchableColletionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
@@ -26,11 +26,17 @@ class RockDetailViewController: UIViewController, ColletionViewControllerProtoco
     override func viewDidLoad() {
         super.viewDidLoad()
             
-        setupColletionView(layout: createLayout())
+        setupCollectionView()
         setupNavigationBar()
         datasource = configureDatasource()
         bindViewToViewModel()
         configureSections()
+    }
+    
+    private func setupCollectionView() {
+        setupCollectionView(layout: createLayout())
+        collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
+        collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
     }
     
     private func setupNavigationBar() {

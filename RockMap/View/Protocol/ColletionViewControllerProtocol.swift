@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol ColletionViewControllerProtocol: UIViewController {
+protocol CollectionViewControllerProtocol: UIViewController {
     var collectionView: TouchableColletionView! { get set }
 }
 
-extension ColletionViewControllerProtocol {
+extension CollectionViewControllerProtocol {
     
-    func setupColletionView(layout: UICollectionViewLayout) {
+    func setupCollectionView(layout: UICollectionViewLayout) {
         collectionView = .init(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .systemBackground
         collectionView.translatesAutoresizingMaskIntoConstraints = false
