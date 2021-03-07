@@ -18,6 +18,7 @@ class CourseConfirmViewModel {
     
     @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
     @Published private(set) var courseUploadState: StoreUploadState = .stanby
+    @Published private(set) var addIdState: StoreUploadState = .stanby
     
     private let uploader = StorageUploader()
     
@@ -68,6 +69,8 @@ class CourseConfirmViewModel {
             registeredDate: Date()
         )
         
+        addCourceIdToRock(courceId: courseDocument.id)
+        
         FirestoreManager.set(
             key: courseDocument.id,
             courseDocument
@@ -83,6 +86,33 @@ class CourseConfirmViewModel {
                 self.courseUploadState = .failure(error)
                 
             }
+        }
+    }
+    
+    private func addCourceIdToRock(courceId: String) {
+        
+        FirestoreManager.fetchById(id: rock.rockId) { (result: Result<FIDocument.Rock?, Error>) in
+            
+            switch result {
+            case .success(let rockDocument):
+                
+                guard
+                    var rockDocument = rockDocument
+                else {
+                    return
+                }
+                
+                rockDocument.courseId.append(courceId)
+                
+                FirestoreManager.set(
+                    key: rockDocument.id,
+                    rockDocument
+                ) { _ in }
+                
+            case .failure:
+                break
+            }
+        
         }
     }
 }
