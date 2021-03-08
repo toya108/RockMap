@@ -70,25 +70,50 @@ final class RockConfirmViewModel {
             ),
             desc: rockDesc,
             registeredUserId: AuthManager.uid,
-            courseId: [],
-            registeredAt: Date()
+            courses: []
         )
         
-        FirestoreManager.set(
-            key: rockDocument.id,
-            rockDocument
-        ) { [weak self] result in
-            
-            guard let self = self else { return }
-            
-            switch result {
-            case .success:
-                self.rockUploadState = .finish
-                
-            case .failure(let error):
-                self.rockUploadState = .failure(error)
-                
-            }
-        }
+        let colle = FirestoreManager.db.collection(FIDocument.User.colletionName).document(AuthManager.uid).collection(FIDocument.Rock.colletionName)
+        colle.addDocument(data: rockDocument.dictionary)
+//        userDocument.setData(["createdRock": FieldValue.arrayUnion([rockDocument])]) {error in
+//            print(error)
+//        }
+//        FirestoreManager.db.runTransaction({ (transaction, errorPointer) -> Any? in
+////            let snap: DocumentSnapshot
+//            
+////            do {
+////                try snap = transaction.getDocument(userDocument)
+////            } catch let fetchError as NSError {
+////                errorPointer?.pointee = fetchError
+////                return nil
+////            }
+//            
+//            transaction.updateData(["createdRock": [rockDocument]], forDocument: userDocument)
+//            return rockDocument
+//        }) { _, error in
+//            if let error = error {
+//                self.rockUploadState = .failure(error)
+//                return
+//            }
+//            
+//            self.rockUploadState = .finish
+//
+//        }
+//        FirestoreManager.set(
+//            key: rockDocument.id,
+//            rockDocument
+//        ) { [weak self] result in
+//
+//            guard let self = self else { return }
+//
+//            switch result {
+//            case .success:
+//                self.rockUploadState = .finish
+//
+//            case .failure(let error):
+//                self.rockUploadState = .failure(error)
+//
+//            }
+//        }
     }
 }

@@ -69,7 +69,7 @@ class CourseConfirmViewModel {
             registeredDate: Date()
         )
         
-        addCourceIdToRock(courceId: courseDocument.id)
+//        addCourceIdToRock(courceId: courseDocument.id)
         
         FirestoreManager.set(
             key: courseDocument.id,
@@ -88,31 +88,31 @@ class CourseConfirmViewModel {
             }
         }
     }
-    
-    private func addCourceIdToRock(courceId: String) {
-        
-        FirestoreManager.fetchById(id: rock.rockId) { (result: Result<FIDocument.Rock?, Error>) in
-            
-            switch result {
-            case .success(let rockDocument):
-                
-                guard
-                    var rockDocument = rockDocument
-                else {
-                    return
-                }
-                
-                rockDocument.courseId.append(courceId)
-                
-                FirestoreManager.set(
-                    key: rockDocument.id,
-                    rockDocument
-                ) { _ in }
-                
-            case .failure:
-                break
-            }
-        
-        }
-    }
+//    
+//    private func addCourceIdToRock(courceId: String) {
+//        
+//        FirestoreManager.fetchById(id: rock.rockId) { (result: Result<FIDocument.Rock?, Error>) in
+//            
+//            switch result {
+//            case .success(let rockDocument):
+//                
+//                guard
+//                    var rockDocument = rockDocument
+//                else {
+//                    return
+//                }
+//                
+//                rockDocument.courseId.append(courceId)
+//                
+//                FirestoreManager.set(
+//                    key: rockDocument.id,
+//                    rockDocument
+//                ) { _ in }
+//                
+//            case .failure:
+//                break
+//            }
+//        
+//        }
+//    }
 }

@@ -113,11 +113,14 @@ extension LoginViewController: FUIAuthDelegate {
         FirestoreManager.set(
             key: user.uid,
             FIDocument.User(
-                uid: user.uid,
+                id: user.uid,
+                createdAt: user.metadata.creationDate ?? Date(),
+                updatedAt: nil,
                 name: user.displayName ?? "-",
                 email: user.email,
                 photoURL: user.photoURL,
-                creationDate: user.metadata.creationDate
+                createdRock: [],
+                createdCources: []
             )
         ) { [weak self] result in
             guard let self = self else { return }

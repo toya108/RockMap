@@ -108,7 +108,12 @@ class RockDetailViewController: UIViewController, CollectionViewControllerProtoc
             .dropFirst()
             .sink { [weak self] user in
                 
-                guard let self = self else { return }
+                guard
+                    let self = self,
+                    let user = user
+                else {
+                    return
+                }
                 
                 self.snapShot.appendItems([.registeredUser(user: user)], toSection: .registeredUser)
                 self.datasource.apply(self.snapShot)
@@ -126,28 +131,28 @@ class RockDetailViewController: UIViewController, CollectionViewControllerProtoc
                 
             }
             .store(in: &bindings)
-        
-        viewModel.$courseIdList
-            .receive(on: RunLoop.main)
-            .sink { [weak self] idList in
-                
-                guard let self = self else { return }
-                
-                self.snapShot.deleteItems([.courses, .nocourse])
-                
-                guard
-                    !idList.isEmpty
-                else {
-                    self.snapShot.appendItems([.nocourse], toSection: .courses)
-                    self.datasource.apply(self.snapShot)
-                    
-                    return
-                }
-                
-                self.snapShot.appendItems([.courses], toSection: .courses)
-                self.datasource.apply(self.snapShot)
-            }
-            .store(in: &bindings)
+//        
+//        viewModel.$courseIdList
+//            .receive(on: RunLoop.main)
+//            .sink { [weak self] idList in
+//                
+//                guard let self = self else { return }
+//                
+//                self.snapShot.deleteItems([.courses, .nocourse])
+//                
+//                guard
+//                    !idList.isEmpty
+//                else {
+//                    self.snapShot.appendItems([.nocourse], toSection: .courses)
+//                    self.datasource.apply(self.snapShot)
+//                    
+//                    return
+//                }
+//                
+//                self.snapShot.appendItems([.courses], toSection: .courses)
+//                self.datasource.apply(self.snapShot)
+//            }
+//            .store(in: &bindings)
     }
     
     private func presentCourseRegisterViewController() {
@@ -163,8 +168,8 @@ class RockDetailViewController: UIViewController, CollectionViewControllerProtoc
                 rockId: self.viewModel.rockDocument.id,
                 rockName: self.viewModel.rockName,
                 rockImageReference: rockImageReference,
-                userIconPhotoURL: self.viewModel.registeredUser.photoURL,
-                userName: self.viewModel.registeredUser.name
+                userIconPhotoURL: self.viewModel.registeredUser?.photoURL,
+                userName: self.viewModel.registeredUser?.name ?? ""
             )
         )
         
