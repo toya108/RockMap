@@ -159,7 +159,9 @@ extension RockDetailViewController {
                 nibName: CourseCollectionViewCell.className,
                 bundle: nil
             )
-        ) { _, _, _ in }
+        ) { cell, _, course in
+            cell.configure(courese: course)
+        }
     }
     
 }

@@ -93,6 +93,7 @@
 		9EA94F7825D0462700D1272E /* RockDetailKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA94F7725D0462700D1272E /* RockDetailKind.swift */; };
 		9EAE72AE25DACFC900C37119 /* TextViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE72AD25DACFC900C37119 /* TextViewCollectionViewCell.swift */; };
 		9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6BA66252E00E400553026 /* MainTabBarController.swift */; };
+		9EBD5A1525F7C998009383F6 /* UICollectionViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD5A1425F7C998009383F6 /* UICollectionViewCellExtension.swift */; };
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
 		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
 		9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED972992596471C0069FB94 /* ArrayExtension.swift */; };
@@ -233,6 +234,7 @@
 		9EA94F7725D0462700D1272E /* RockDetailKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailKind.swift; sourceTree = "<group>"; };
 		9EAE72AD25DACFC900C37119 /* TextViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EB6BA66252E00E400553026 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		9EBD5A1425F7C998009383F6 /* UICollectionViewCellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellExtension.swift; sourceTree = "<group>"; };
 		9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradeSelectingCollectionViewCell.xib; sourceTree = "<group>"; };
 		9ED972992596471C0069FB94 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 				9E5DD1BF25C84DA500E38620 /* UIImageViewExtension.swift */,
 				9EEADA1B255AD39100F20228 /* PlaceHolderTextView.swift */,
 				9E5DD1D625C9857A00E38620 /* UIViewExtension.swift */,
+				9EBD5A1425F7C998009383F6 /* UICollectionViewCellExtension.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1102,6 +1105,7 @@
 				9E2BD68625DD6DA90011B020 /* ImageSelactCollectionViewCell.swift in Sources */,
 				9E845ADA25ADEA6A00EC3BE6 /* Resouces.swift in Sources */,
 				9E9845E225D4FA5300B03C4E /* CourseRegisterKind.swift in Sources */,
+				9EBD5A1525F7C998009383F6 /* UICollectionViewCellExtension.swift in Sources */,
 				9E26400525B5C0300088DAFB /* RockSearchViewModel.swift in Sources */,
 				9E76C40C258F9E8D00B96926 /* ImageUploadIndicatorView.swift in Sources */,
 				9EF8E2B125EF6B8F00185A3D /* CourseConfirmViewModel.swift in Sources */,

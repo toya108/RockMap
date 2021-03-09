@@ -20,5 +20,45 @@ class CourseCollectionViewCell: UICollectionViewCell {
         courseImageView.layer.cornerRadius = 8
         userIconImageView.layer.cornerRadius = 22
     }
+    
+    func configure(courese: FIDocument.Course) {
+        courseNameLabel.text = courese.name
+        infoLabel.text = courese.grade.name
+        
+        FirestoreManager.fetchById(id: courese.registedUserId) { [weak self] (result: Result<FIDocument.User?, Error>) in
+            
+            guard let self = self else { return }
+            
+            guard
+                case let .success(user) = result
+            else {
+                self.userNameLabel.text = "-"
+                self.userIconImageView.image = UIImage.AssetsImages.noimage
+                return
+            }
+            
+            self.userNameLabel.text = user?.name
+            self.userIconImageView.loadImage(url: user?.photoURL)
+        }
+        
+        let reference = StorageManager.makeReference(
+            parent: FINameSpace.Course.self,
+            child: courese.name
+        )
+        
+        StorageManager.getFirstReference(reference: reference) { [weak self] result in
+            
+            guard let self = self else { return }
+            
+            guard
+                case let .success(ref) = result
+            else {
+                self.courseImageView.image = UIImage.AssetsImages.noimage
+                return
+            }
+            
+            self.courseImageView.loadImage(reference: ref)
+        }
+    }
 
 }

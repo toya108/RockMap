@@ -32,8 +32,8 @@ extension RockDetailViewController {
                         heightDimension: .fractionalHeight(1)
                     )
                 )
-                
-                let height = UIScreen.main.bounds.width * 3/4
+                let collectionViewWidth = self.collectionView.bounds.width - (self.collectionView.layoutMargins.left + self.collectionView.layoutMargins.right)
+                let height = collectionViewWidth * 3/4
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
@@ -41,7 +41,6 @@ extension RockDetailViewController {
                     ),
                     subitems: [item]
                 )
-
                 section = .init(group: group)
                 section.orthogonalScrollingBehavior = .paging
                 return section
