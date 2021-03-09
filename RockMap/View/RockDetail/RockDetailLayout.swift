@@ -41,8 +41,7 @@ extension RockDetailViewController {
                     ),
                     subitems: [item]
                 )
-                group.interItemSpacing = .fixed(2)
-                
+
                 section = .init(group: group)
                 section.orthogonalScrollingBehavior = .paging
                 return section
@@ -104,17 +103,16 @@ extension RockDetailViewController {
                 let item: NSCollectionLayoutItem
                 let group: NSCollectionLayoutGroup
                 
-                let snapItems = self.snapShot.itemIdentifiers(inSection: .courses)
-                
-                switch snapItems.first {
-                case .nocourse:
+                if
+                    self.snapShot.itemIdentifiers(inSection: .courses).count == 1,
+                    case .nocourse = self.snapShot.itemIdentifiers(inSection: .courses).first
+                {
                     item = .init(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
-                            heightDimension: .absolute(300)
+                            heightDimension: .estimated(120)
                         )
                     )
-                    
                     group = NSCollectionLayoutGroup.horizontal(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
@@ -122,15 +120,15 @@ extension RockDetailViewController {
                         ),
                         subitems: [item]
                     )
-                    
-                case .courses:
-                    item = .init(
+                    section = .init(group: group)
+
+                } else {
+                    item = NSCollectionLayoutItem(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
-                            heightDimension: .absolute(300)
+                            heightDimension: .estimated(300)
                         )
                     )
-                    
                     group = NSCollectionLayoutGroup.horizontal(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
@@ -138,23 +136,10 @@ extension RockDetailViewController {
                         ),
                         subitems: [item]
                     )
-                
-                default:
-                    item = .init(
-                        layoutSize: .init(
-                            widthDimension: .fractionalWidth(1),
-                            heightDimension: .fractionalHeight(1)
-                        )
-                    )
-                    group = NSCollectionLayoutGroup.horizontal(
-                        layoutSize: .init(
-                            widthDimension: .fractionalWidth(1),
-                            heightDimension: .fractionalHeight(1)
-                        ),
-                        subitems: [item]
-                    )
+                    section = .init(group: group)
+                    section.interGroupSpacing = 8
+                    section.orthogonalScrollingBehavior = .paging
                 }
-                section = .init(group: group)
             }
             
             if !sectionType.headerIdentifer.isEmpty {

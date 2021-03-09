@@ -17,7 +17,7 @@ final class RockDetailViewModel {
     @Published var rockDesc = ""
     @Published var rockLocation: RockLocation = .init()
     @Published var rockImageReferences: [StorageManager.Reference] = []
-//    @Published var courseIdList: [String] = []
+    @Published var courses: [FIDocument.Course] = []
     
     private var bindings = Set<AnyCancellable>()
     
@@ -41,7 +41,7 @@ final class RockDetailViewModel {
                     longitude: rock.location.longitude,
                     address: rock.address
                 )
-//                self.courseIdList = rock.courses
+                self.updateCouses(by: rock)
             }
             .store(in: &bindings)
         
@@ -84,6 +84,29 @@ final class RockDetailViewModel {
                 }
             }
             .store(in: &bindings)
+    }
+    
+    func updateCouses(by rockdocument: FIDocument.Rock) {
+        let coureseCollection = FirestoreManager.db
+            .collection(FIDocument.User.colletionName)
+            .document(rockdocument.registeredUserId)
+            .collection(FIDocument.Rock.colletionName)
+            .document(rockdocument.id)
+            .collection(FIDocument.Course.colletionName)
+        
+        coureseCollection.getDocuments { [weak self] snap, error in
+            
+            guard let self = self else { return }
+            
+            guard
+                error == nil
+            else {
+                self.courses = []
+                return
+            }
+            
+            self.courses = snap?.documents.compactMap { FIDocument.Course.initializeDocument(json: $0.data()) } ?? []
+        }
     }
     
     struct RockLocation: Hashable {

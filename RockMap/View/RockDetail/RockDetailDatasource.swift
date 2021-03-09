@@ -46,20 +46,19 @@ extension RockDetailViewController {
                         item: rockLocation
                     )
                 
-                case .courses:
+                case let .courses(course):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configurecoursesCell(),
+                        using: self.configureCoursesCell(),
                         for: indexPath,
-                        item: nil
+                        item: course
                     )
                 
                 case .nocourse:
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureNocourseCell(),
+                        using: self.configureNoCourseCell(),
                         for: indexPath,
-                        item: "aaa"
+                        item: Dummy()
                     )
-                    
                 }
             }
         )
@@ -129,18 +128,38 @@ extension RockDetailViewController {
         }
     }
     
-    private func configureNocourseCell() -> UICollectionView.CellRegistration<
-        NocoursesCollectionViewCell,
-        String
+    private func configureNoCourseCell() -> UICollectionView.CellRegistration<
+        NoCoursesCollectionViewCell,
+        Dummy
     > {
-        .init { _, _, _ in }
+        .init(
+            cellNib: .init(
+                nibName: NoCoursesCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { [weak self] cell, _, _ in
+            
+            guard let self = self else { return }
+            
+            cell.addCourseButton.addAction(
+                .init { _ in
+                    self.presentCourseRegisterViewController()
+                },
+                for: .touchUpInside
+            )
+        }
     }
     
-    private func configurecoursesCell() -> UICollectionView.CellRegistration<
-        NocoursesCollectionViewCell,
-        Never
+    private func configureCoursesCell() -> UICollectionView.CellRegistration<
+        CourseCollectionViewCell,
+        FIDocument.Course
     > {
-        .init { _, _, _ in }
+        .init(
+            cellNib: .init(
+                nibName: CourseCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { _, _, _ in }
     }
     
 }

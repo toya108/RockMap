@@ -24,7 +24,7 @@ extension UIImage {
         static let xmarkCircleFill = UIImage(systemName: "xmark.circle.fill")
         static let flagCircle = UIImage(systemName: "flag.circle")!
         static let flagCircleFill = UIImage(systemName: "flag.circle.fill")!
-        static let plusSquare = UIImage(systemName: "plus.square")!
+        static let plusCircle = UIImage(systemName: "plus.circle")!
     }
     
     struct AssetsImages {

@@ -37,6 +37,7 @@ class RockDetailViewController: UIViewController, CollectionViewControllerProtoc
     private func setupCollectionView() {
         setupCollectionView(layout: createLayout())
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
+        collectionView.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
     }
     
     private func setupNavigationBar() {
@@ -61,7 +62,7 @@ class RockDetailViewController: UIViewController, CollectionViewControllerProtoc
             }
         )
         courseCreationButton.setTitle("課題登録", for: .normal)
-        courseCreationButton.setImage(UIImage.SystemImages.plusSquare, for: .normal)
+        courseCreationButton.setImage(UIImage.SystemImages.plusCircle, for: .normal)
         navigationItem.setRightBarButton(
             .init(customView: courseCreationButton),
             animated: false
@@ -132,31 +133,26 @@ class RockDetailViewController: UIViewController, CollectionViewControllerProtoc
                 
             }
             .store(in: &bindings)
-//        
-//        viewModel.$courseIdList
-//            .receive(on: RunLoop.main)
-//            .sink { [weak self] idList in
-//                
-//                guard let self = self else { return }
-//                
-//                self.snapShot.deleteItems([.courses, .nocourse])
-//                
-//                guard
-//                    !idList.isEmpty
-//                else {
-//                    self.snapShot.appendItems([.nocourse], toSection: .courses)
-//                    self.datasource.apply(self.snapShot)
-//                    
-//                    return
-//                }
-//                
-//                self.snapShot.appendItems([.courses], toSection: .courses)
-//                self.datasource.apply(self.snapShot)
-//            }
-//            .store(in: &bindings)
+        
+        viewModel.$courses
+            .receive(on: RunLoop.main)
+            .sink { [weak self] courses in
+                
+                guard let self = self else { return }
+                
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .courses))
+                
+                if courses.isEmpty {
+                    self.snapShot.appendItems([.nocourse], toSection: .courses)
+                } else {
+                    self.snapShot.appendItems(courses.map { ItemKind.courses($0) }, toSection: .courses)
+                }
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
     }
     
-    private func presentCourseRegisterViewController() {
+    func presentCourseRegisterViewController() {
         
         guard
             let rockImageReference = self.viewModel.rockImageReferences.first

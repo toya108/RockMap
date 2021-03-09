@@ -53,7 +53,7 @@ extension RockDetailViewController {
         case desc(String)
         case map(RockDetailViewModel.RockLocation)
         // course section
-        case courses
+        case courses(FIDocument.Course)
         case nocourse
     }
     
