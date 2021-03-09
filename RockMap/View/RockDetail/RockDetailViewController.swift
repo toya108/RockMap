@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import MapKit
 
 class RockDetailViewController: UIViewController, CollectionViewControllerProtocol {
     
@@ -182,4 +183,30 @@ class RockDetailViewController: UIViewController, CollectionViewControllerProtoc
         present(vc, animated: true)
     }
 
+}
+
+extension RockDetailViewController: MKMapViewDelegate {
+    func mapView(
+        _ mapView: MKMapView,
+        viewFor annotation: MKAnnotation
+    ) -> MKAnnotationView? {
+        
+        if annotation === mapView.userLocation {
+            return nil
+        }
+        
+        let annotationView = mapView.dequeueReusableAnnotationView(
+            withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier,
+            for: annotation
+        )
+        
+        guard
+            let markerAnnotationView = annotationView as? MKMarkerAnnotationView
+        else {
+            return annotationView
+        }
+
+        markerAnnotationView.markerTintColor = UIColor.Pallete.primaryGreen
+        return markerAnnotationView
+    }
 }

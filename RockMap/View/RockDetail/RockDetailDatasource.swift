@@ -125,6 +125,7 @@ extension RockDetailViewController {
     > {
         .init { cell, _, location in
             cell.configure(rockLocation: location)
+            cell.mapView.delegate = self
         }
     }
     
