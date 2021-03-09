@@ -168,6 +168,7 @@ class RockDetailViewController: UIViewController, CollectionViewControllerProtoc
                 rockId: self.viewModel.rockDocument.id,
                 rockName: self.viewModel.rockName,
                 rockImageReference: rockImageReference,
+                uid: self.viewModel.registeredUser?.id ?? "",
                 userIconPhotoURL: self.viewModel.registeredUser?.photoURL,
                 userName: self.viewModel.registeredUser?.name ?? ""
             )

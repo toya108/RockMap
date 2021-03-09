@@ -60,7 +60,7 @@ final class RockConfirmViewModel {
         
         rockUploadState = .loading
 
-        let rockDocument = FIDocument.Rock(
+        let rock = FIDocument.Rock(
             id: UUID().uuidString,
             name: rockName,
             address: rockAddress,
@@ -69,51 +69,25 @@ final class RockConfirmViewModel {
                 longitude: rockLocation.coordinate.longitude
             ),
             desc: rockDesc,
-            registeredUserId: AuthManager.uid,
-            courses: []
+            registeredUserId: AuthManager.uid
         )
         
-        let colle = FirestoreManager.db.collection(FIDocument.User.colletionName).document(AuthManager.uid).collection(FIDocument.Rock.colletionName)
-        colle.addDocument(data: rockDocument.dictionary)
-//        userDocument.setData(["createdRock": FieldValue.arrayUnion([rockDocument])]) {error in
-//            print(error)
-//        }
-//        FirestoreManager.db.runTransaction({ (transaction, errorPointer) -> Any? in
-////            let snap: DocumentSnapshot
-//            
-////            do {
-////                try snap = transaction.getDocument(userDocument)
-////            } catch let fetchError as NSError {
-////                errorPointer?.pointee = fetchError
-////                return nil
-////            }
-//            
-//            transaction.updateData(["createdRock": [rockDocument]], forDocument: userDocument)
-//            return rockDocument
-//        }) { _, error in
-//            if let error = error {
-//                self.rockUploadState = .failure(error)
-//                return
-//            }
-//            
-//            self.rockUploadState = .finish
-//
-//        }
-//        FirestoreManager.set(
-//            key: rockDocument.id,
-//            rockDocument
-//        ) { [weak self] result in
-//
-//            guard let self = self else { return }
-//
-//            switch result {
-//            case .success:
-//                self.rockUploadState = .finish
-//
-//            case .failure(let error):
-//                self.rockUploadState = .failure(error)
-//
-//            }
-//        }
+        let rockDocument = FirestoreManager.db
+            .collection(FIDocument.User.colletionName)
+            .document(AuthManager.uid)
+            .collection(FIDocument.Rock.colletionName)
+            .document(rock.id)
+        
+        rockDocument.setData(rock.dictionary) { [weak self] error in
+            
+            guard let self = self else { return }
+            
+            if let error = error {
+                self.rockUploadState = .failure(error)
+                return
+            }
+            
+            self.rockUploadState = .finish
+        }
     }
 }

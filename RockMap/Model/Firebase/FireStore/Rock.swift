@@ -21,7 +21,6 @@ extension FIDocument {
         var location: GeoPoint
         var desc: String
         var registeredUserId: String
-        var courses: [Course]
         
         init(
             id: String = UUID().uuidString,
@@ -31,8 +30,7 @@ extension FIDocument {
             address: String = "",
             location: GeoPoint = .init(latitude: 0, longitude: 0),
             desc: String = "",
-            registeredUserId: String = "",
-            courses: [Course] = []
+            registeredUserId: String = ""
         ) {
             self.id = id
             self.createdAt = createdAt
@@ -42,7 +40,6 @@ extension FIDocument {
             self.location = location
             self.desc = desc
             self.registeredUserId = registeredUserId
-            self.courses = courses
         }
     }
 }

@@ -59,60 +59,36 @@ class CourseConfirmViewModel {
         
         courseUploadState = .loading
         
-        let courseDocument = FIDocument.Course(
+        let course = FIDocument.Course(
             id: UUID().uuidString,
+            createdAt: Date(),
+            updatedAt: nil,
             name: courseName,
             desc: desc,
             grade: grade,
             climbedUserIdList: [],
-            registedUserId: AuthManager.uid,
-            registeredDate: Date()
+            registedUserId: AuthManager.uid
         )
         
-//        addCourceIdToRock(courceId: courseDocument.id)
+        let courseDocument = FirestoreManager.db
+            .collection(FIDocument.User.colletionName)
+            .document(rock.uid)
+            .collection(FIDocument.Rock.colletionName)
+            .document(rock.rockId)
+            .collection(FIDocument.Course.colletionName)
+            .document(course.id)
         
-        FirestoreManager.set(
-            key: courseDocument.id,
-            courseDocument
-        ) { [weak self] result in
+        courseDocument.setData(course.dictionary) { [weak self] error in
             
             guard let self = self else { return }
             
-            switch result {
-            case .success:
-                self.courseUploadState = .finish
-                
-            case .failure(let error):
+            if
+                let error = error
+            {
                 self.courseUploadState = .failure(error)
-                
             }
+            
+            self.courseUploadState = .finish
         }
     }
-//    
-//    private func addCourceIdToRock(courceId: String) {
-//        
-//        FirestoreManager.fetchById(id: rock.rockId) { (result: Result<FIDocument.Rock?, Error>) in
-//            
-//            switch result {
-//            case .success(let rockDocument):
-//                
-//                guard
-//                    var rockDocument = rockDocument
-//                else {
-//                    return
-//                }
-//                
-//                rockDocument.courseId.append(courceId)
-//                
-//                FirestoreManager.set(
-//                    key: rockDocument.id,
-//                    rockDocument
-//                ) { _ in }
-//                
-//            case .failure:
-//                break
-//            }
-//        
-//        }
-//    }
 }

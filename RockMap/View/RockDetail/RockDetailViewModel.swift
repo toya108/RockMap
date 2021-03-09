@@ -13,7 +13,7 @@ final class RockDetailViewModel {
     @Published var rockDocument: FIDocument.Rock = .init()
     @Published var rockName = ""
     @Published var registeredUserId = ""
-    @Published var registeredUser: FIDocument.User? = nil
+    @Published var registeredUser: FIDocument.User?
     @Published var rockDesc = ""
     @Published var rockLocation: RockLocation = .init()
     @Published var rockImageReferences: [StorageManager.Reference] = []

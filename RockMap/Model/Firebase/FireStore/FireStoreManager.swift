@@ -56,15 +56,6 @@ struct FirestoreManager {
             completion(.success(document))
         }
     }
-    
-    static func makeCollection<T: FIDocumentProtocol>(document: T.Type) -> CollectionReference {
-        db.collection(T.colletionName)
-    }
-    
-    static func makeDocument(parent: CollectionReference, name: String) -> DocumentReference {
-        parent.document(name)
-    }
-
 }
 
 enum StoreUploadState {

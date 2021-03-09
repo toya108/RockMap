@@ -17,18 +17,19 @@ class RockSearchViewModel {
     }
     
     func fetchRockList() {
-        FirestoreManager.fetchAllDocuments { [weak self] (result: Result<[FIDocument.Rock], Error>) in
+        let rockCollectionGroup = FirestoreManager.db.collectionGroup(FIDocument.Rock.colletionName)
+        rockCollectionGroup.getDocuments { [weak self] snap, error in
             
             guard let self = self else { return }
             
-            switch result {
-            case .success(let documents):
-                self.rockDocuments = documents
-                
-            case .failure(let error):
+            if
+                let error = error
+            {
                 self.error = error
-                
+                return
             }
+            
+            self.rockDocuments = snap?.documents.compactMap { FIDocument.Rock.initializeDocument(json: $0.data()) } ?? []
         }
     }
 }
