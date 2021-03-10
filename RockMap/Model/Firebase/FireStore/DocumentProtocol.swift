@@ -13,6 +13,10 @@ protocol FINameSpaceProtocol {
 
 protocol FIDocumentProtocol: Codable, Hashable {
     associatedtype Collection: FINameSpaceProtocol
+    
+    var id: String { get set }
+    var createdAt: Date { get set }
+    var updatedAt: Date? { get set }
 }
 
 extension FIDocumentProtocol {

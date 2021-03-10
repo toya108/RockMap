@@ -18,6 +18,7 @@ class CourseConfirmViewModel {
     
     @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
     @Published private(set) var courseUploadState: StoreUploadState = .stanby
+    @Published private(set) var addIdState: StoreUploadState = .stanby
     
     private let uploader = StorageUploader()
     
@@ -58,31 +59,36 @@ class CourseConfirmViewModel {
         
         courseUploadState = .loading
         
-        let courseDocument = FIDocument.Course(
+        let course = FIDocument.Course(
             id: UUID().uuidString,
+            createdAt: Date(),
+            updatedAt: nil,
             name: courseName,
             desc: desc,
             grade: grade,
             climbedUserIdList: [],
-            registedUserId: AuthManager.uid,
-            registeredDate: Date()
+            registedUserId: AuthManager.uid
         )
         
-        FirestoreManager.set(
-            key: courseDocument.id,
-            courseDocument
-        ) { [weak self] result in
+        let courseDocument = FirestoreManager.db
+            .collection(FIDocument.User.colletionName)
+            .document(rock.uid)
+            .collection(FIDocument.Rock.colletionName)
+            .document(rock.rockId)
+            .collection(FIDocument.Course.colletionName)
+            .document(course.id)
+        
+        courseDocument.setData(course.dictionary) { [weak self] error in
             
             guard let self = self else { return }
             
-            switch result {
-            case .success:
-                self.courseUploadState = .finish
-                
-            case .failure(let error):
+            if
+                let error = error
+            {
                 self.courseUploadState = .failure(error)
-                
             }
+            
+            self.courseUploadState = .finish
         }
     }
 }

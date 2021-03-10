@@ -7,10 +7,11 @@
 
 import UIKit
 import Combine
+import MapKit
 
-class RockDetailViewController: UIViewController, ColletionViewControllerProtocol {
+class RockDetailViewController: UIViewController {
     
-    var collectionView: TouchableColletionView!
+    var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
     
@@ -26,11 +27,27 @@ class RockDetailViewController: UIViewController, ColletionViewControllerProtoco
     override func viewDidLoad() {
         super.viewDidLoad()
             
-        setupColletionView(layout: createLayout())
+        setupCollectionView()
         setupNavigationBar()
         datasource = configureDatasource()
         bindViewToViewModel()
         configureSections()
+    }
+    
+    private func setupCollectionView() {
+        collectionView = .init(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.backgroundColor = .systemBackground
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
+        collectionView.delegate = self
+        collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
+        collectionView.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
     }
     
     private func setupNavigationBar() {
@@ -55,7 +72,7 @@ class RockDetailViewController: UIViewController, ColletionViewControllerProtoco
             }
         )
         courseCreationButton.setTitle("課題登録", for: .normal)
-        courseCreationButton.setImage(UIImage.SystemImages.plusSquare, for: .normal)
+        courseCreationButton.setImage(UIImage.SystemImages.plusCircle, for: .normal)
         navigationItem.setRightBarButton(
             .init(customView: courseCreationButton),
             animated: false
@@ -103,7 +120,12 @@ class RockDetailViewController: UIViewController, ColletionViewControllerProtoco
             .dropFirst()
             .sink { [weak self] user in
                 
-                guard let self = self else { return }
+                guard
+                    let self = self,
+                    let user = user
+                else {
+                    return
+                }
                 
                 self.snapShot.appendItems([.registeredUser(user: user)], toSection: .registeredUser)
                 self.datasource.apply(self.snapShot)
@@ -122,30 +144,25 @@ class RockDetailViewController: UIViewController, ColletionViewControllerProtoco
             }
             .store(in: &bindings)
         
-        viewModel.$courseIdList
+        viewModel.$courses
             .receive(on: RunLoop.main)
-            .sink { [weak self] idList in
+            .sink { [weak self] courses in
                 
                 guard let self = self else { return }
                 
-                self.snapShot.deleteItems([.courses, .nocourse])
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .courses))
                 
-                guard
-                    !idList.isEmpty
-                else {
+                if courses.isEmpty {
                     self.snapShot.appendItems([.nocourse], toSection: .courses)
-                    self.datasource.apply(self.snapShot)
-                    
-                    return
+                } else {
+                    self.snapShot.appendItems(courses.map { ItemKind.courses($0) }, toSection: .courses)
                 }
-                
-                self.snapShot.appendItems([.courses], toSection: .courses)
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
     }
     
-    private func presentCourseRegisterViewController() {
+    func presentCourseRegisterViewController() {
         
         guard
             let rockImageReference = self.viewModel.rockImageReferences.first
@@ -158,8 +175,9 @@ class RockDetailViewController: UIViewController, ColletionViewControllerProtoco
                 rockId: self.viewModel.rockDocument.id,
                 rockName: self.viewModel.rockName,
                 rockImageReference: rockImageReference,
-                userIconPhotoURL: self.viewModel.registeredUser.photoURL,
-                userName: self.viewModel.registeredUser.name
+                uid: self.viewModel.registeredUser?.id ?? "",
+                userIconPhotoURL: self.viewModel.registeredUser?.photoURL,
+                userName: self.viewModel.registeredUser?.name ?? ""
             )
         )
         
@@ -170,5 +188,55 @@ class RockDetailViewController: UIViewController, ColletionViewControllerProtoco
         vc.isModalInPresentation = true
         present(vc, animated: true)
     }
+    
+    func updateCouses() {
+        viewModel.updateCouses(by: viewModel.rockDocument)
+    }
+}
 
+extension RockDetailViewController: MKMapViewDelegate {
+    func mapView(
+        _ mapView: MKMapView,
+        viewFor annotation: MKAnnotation
+    ) -> MKAnnotationView? {
+        
+        if annotation === mapView.userLocation {
+            return nil
+        }
+        
+        let annotationView = mapView.dequeueReusableAnnotationView(
+            withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier,
+            for: annotation
+        )
+        
+        guard
+            let markerAnnotationView = annotationView as? MKMarkerAnnotationView
+        else {
+            return annotationView
+        }
+
+        markerAnnotationView.markerTintColor = UIColor.Pallete.primaryGreen
+        return markerAnnotationView
+    }
+}
+
+extension RockDetailViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard
+            let item = datasource.itemIdentifier(for: indexPath)
+        else {
+            return
+        }
+        
+        switch item {
+        case let .courses(course):
+            collectionView.cellForItem(at: indexPath)?.executeSelectAnimation()
+            
+            
+        default:
+            break
+            
+        }
+    }
 }

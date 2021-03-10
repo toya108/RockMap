@@ -14,7 +14,6 @@ class RegisteredUserCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        userIconImageView.layer.cornerRadius = 24
+        userIconImageView.layer.cornerRadius = 22
     }
-
 }

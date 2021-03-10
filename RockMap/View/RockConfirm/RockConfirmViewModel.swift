@@ -60,7 +60,7 @@ final class RockConfirmViewModel {
         
         rockUploadState = .loading
 
-        let rockDocument = FIDocument.Rock(
+        let rock = FIDocument.Rock(
             id: UUID().uuidString,
             name: rockName,
             address: rockAddress,
@@ -69,26 +69,25 @@ final class RockConfirmViewModel {
                 longitude: rockLocation.coordinate.longitude
             ),
             desc: rockDesc,
-            registeredUserId: AuthManager.uid,
-            courseId: [],
-            registeredAt: Date()
+            registeredUserId: AuthManager.uid
         )
         
-        FirestoreManager.set(
-            key: rockDocument.id,
-            rockDocument
-        ) { [weak self] result in
+        let rockDocument = FirestoreManager.db
+            .collection(FIDocument.User.colletionName)
+            .document(AuthManager.uid)
+            .collection(FIDocument.Rock.colletionName)
+            .document(rock.id)
+        
+        rockDocument.setData(rock.dictionary) { [weak self] error in
             
             guard let self = self else { return }
             
-            switch result {
-            case .success:
-                self.rockUploadState = .finish
-                
-            case .failure(let error):
+            if let error = error {
                 self.rockUploadState = .failure(error)
-                
+                return
             }
+            
+            self.rockUploadState = .finish
         }
     }
 }

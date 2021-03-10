@@ -56,7 +56,6 @@ struct FirestoreManager {
             completion(.success(document))
         }
     }
-
 }
 
 enum StoreUploadState {

@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-class CourseConfirmViewController: UIViewController, ColletionViewControllerProtocol {
+class CourseConfirmViewController: UIViewController, CollectionViewControllerProtocol {
 
     var collectionView: TouchableColletionView!
     var viewModel: CourseConfirmViewModel!
@@ -87,7 +87,18 @@ class CourseConfirmViewController: UIViewController, ColletionViewControllerProt
                     self.indicator.stopAnimating()
                     RegisterSucceededViewController.showSuccessView(present: self) {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController?.dismiss(animated: true)
+                            UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController?.dismiss(animated: true) { [weak self] in
+                                
+                                guard let self = self else { return }
+                                
+                                guard
+                                    let rockDetailViewController = self.getVisibleViewController() as? RockDetailViewController
+                                else {
+                                    return
+                                }
+                                
+                                rockDetailViewController.updateCouses()
+                            }
                         }
                     }
                     
@@ -103,7 +114,7 @@ class CourseConfirmViewController: UIViewController, ColletionViewControllerProt
     }
     
     private func setupColletionView() {
-        setupColletionView(layout: createLayout())
+        setupCollectionView(layout: createLayout())
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
     }

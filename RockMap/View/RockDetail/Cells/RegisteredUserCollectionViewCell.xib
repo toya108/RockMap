@@ -24,21 +24,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="387" height="56"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iQW-yJ-K85">
-                                        <rect key="frame" x="0.0" y="4" width="48" height="48"/>
+                                        <rect key="frame" x="0.0" y="6" width="44" height="44"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="9A4-ma-TaW"/>
+                                            <constraint firstAttribute="height" constant="44" id="9A4-ma-TaW"/>
                                             <constraint firstAttribute="width" secondItem="iQW-yJ-K85" secondAttribute="height" multiplier="1:1" id="nmW-Sh-QST"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登録者:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yG8-QB-SUd">
-                                        <rect key="frame" x="56" y="16" width="66.5" height="24"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="hoge" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZEE-Mk-pT3">
-                                        <rect key="frame" x="130.5" y="16" width="256.5" height="24"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                        <rect key="frame" x="52" y="18" width="335" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>

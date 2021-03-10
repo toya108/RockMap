@@ -11,10 +11,19 @@ extension RockDetailViewController {
     
     func createLayout() -> UICollectionViewCompositionalLayout {
         
-        return .init { sectionNumber, env -> NSCollectionLayoutSection in
+        let layout = UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
+            
+            let section: NSCollectionLayoutSection
             
             let sectionType = SectionLayoutKind.allCases[sectionNumber]
-            
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: .init(
+                    widthDimension: .fractionalWidth(1),
+                    heightDimension: .absolute(44)
+                ),
+                elementKind: sectionType.headerIdentifer,
+                alignment: .top
+            )
             switch sectionType {
             case .headerImages:
                 let item = NSCollectionLayoutItem(
@@ -23,8 +32,8 @@ extension RockDetailViewController {
                         heightDimension: .fractionalHeight(1)
                     )
                 )
-                
-                let height = UIScreen.main.bounds.width * 9/16
+                let collectionViewWidth = self.collectionView.bounds.width - (self.collectionView.layoutMargins.left + self.collectionView.layoutMargins.right)
+                let height = collectionViewWidth * 3/4
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
@@ -32,9 +41,7 @@ extension RockDetailViewController {
                     ),
                     subitems: [item]
                 )
-                group.interItemSpacing = .fixed(2)
-                
-                let section = NSCollectionLayoutSection(group: group)
+                section = .init(group: group)
                 section.orthogonalScrollingBehavior = .paging
                 return section
                 
@@ -54,9 +61,7 @@ extension RockDetailViewController {
                     subitems: [item]
                 )
                 
-                let section = NSCollectionLayoutSection(group: group)
-                section.contentInsets = .init(top: 16, leading: 16, bottom: 16, trailing: 16)
-                return section
+                section = .init(group: group)
                 
             case .desc:
                 let item = NSCollectionLayoutItem(
@@ -73,20 +78,7 @@ extension RockDetailViewController {
                     ),
                     subitems: [item]
                 )
-
-                let section = NSCollectionLayoutSection(group: group)
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .estimated(44)
-                    ),
-                    elementKind: SectionLayoutKind.desc.headerIdentifer,
-                    alignment: .top
-                )
-                section.boundarySupplementaryItems = [sectionHeader]
-                section.contentInsets = .init(top: 16, leading: 16, bottom: 16, trailing: 16)
-                
-                return section
+                section = .init(group: group)
                 
             case .map:
                 let item = NSCollectionLayoutItem(
@@ -103,36 +95,23 @@ extension RockDetailViewController {
                     ),
                     subitems: [item]
                 )
-                
-                let section = NSCollectionLayoutSection(group: group)
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .estimated(44)
-                    ),
-                    elementKind: SectionLayoutKind.map.headerIdentifer,
-                    alignment: .top
-                )
-                section.boundarySupplementaryItems = [sectionHeader]
-                section.contentInsets = .init(top: 16, leading: 16, bottom: 16, trailing: 16)
-                return section
+                section = .init(group: group)
                 
             case .courses:
                 
                 let item: NSCollectionLayoutItem
                 let group: NSCollectionLayoutGroup
                 
-                let snapItems = self.snapShot.itemIdentifiers(inSection: .courses)
-                
-                switch snapItems.first {
-                case .nocourse:
+                if
+                    self.snapShot.itemIdentifiers(inSection: .courses).count == 1,
+                    case .nocourse = self.snapShot.itemIdentifiers(inSection: .courses).first
+                {
                     item = .init(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
-                            heightDimension: .absolute(300)
+                            heightDimension: .estimated(120)
                         )
                     )
-                    
                     group = NSCollectionLayoutGroup.horizontal(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
@@ -140,15 +119,15 @@ extension RockDetailViewController {
                         ),
                         subitems: [item]
                     )
-                    
-                case .courses:
-                    item = .init(
+                    section = .init(group: group)
+
+                } else {
+                    item = NSCollectionLayoutItem(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
-                            heightDimension: .absolute(300)
+                            heightDimension: .estimated(300)
                         )
                     )
-                    
                     group = NSCollectionLayoutGroup.horizontal(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
@@ -156,38 +135,28 @@ extension RockDetailViewController {
                         ),
                         subitems: [item]
                     )
-                
-                default:
-                    item = .init(
-                        layoutSize: .init(
-                            widthDimension: .fractionalWidth(1),
-                            heightDimension: .fractionalHeight(1)
-                        )
-                    )
-                    group = NSCollectionLayoutGroup.horizontal(
-                        layoutSize: .init(
-                            widthDimension: .fractionalWidth(1),
-                            heightDimension: .fractionalHeight(1)
-                        ),
-                        subitems: [item]
-                    )
+                    section = .init(group: group)
+                    section.interGroupSpacing = 8
+                    section.orthogonalScrollingBehavior = .groupPaging
                 }
-                
-                let section = NSCollectionLayoutSection(group: group)
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .estimated(44)
-                    ),
-                    elementKind: SectionLayoutKind.map.headerIdentifer,
-                    alignment: .top
-                )
-                section.boundarySupplementaryItems = [sectionHeader]
-                section.contentInsets = .init(top: 16, leading: 16, bottom: 16, trailing: 16)
-                return section
-                
             }
+            
+            if !sectionType.headerIdentifer.isEmpty {
+                section.boundarySupplementaryItems = [sectionHeader]
+            }
+            
+            let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundDecorationView.className)
+            section.decorationItems = [sectionBackgroundDecoration]
+            section.contentInsetsReference = .layoutMargins
+            
+            return section
         }
+        
+        layout.register(
+            SectionBackgroundDecorationView.self,
+            forDecorationViewOfKind: SectionBackgroundDecorationView.className
+        )
+        return layout
     }
 
 }

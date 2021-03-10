@@ -6,15 +6,22 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
 extension FIDocument {
     struct User: FIDocumentProtocol {
+        
         typealias Collection = FINameSpace.Users
         
-        var uid: String = ""
-        var name: String = ""
+        var id: String
+        var createdAt: Date
+        var updatedAt: Date?
+        var name: String
         var email: String?
         var photoURL: URL?
-        var creationDate: Date?
+        var createdRock: [Rock]
+        var createdCources: [Course]
+        
+        
     }
 }

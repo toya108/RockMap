@@ -14,32 +14,32 @@ extension FIDocument {
         typealias Collection = FINameSpace.Rocks
         
         var id: String
+        var createdAt: Date
+        var updatedAt: Date?
         var name: String
         var address: String
         var location: GeoPoint
         var desc: String
         var registeredUserId: String
-        var courseId: [String]
-        var registeredAt: Date?
         
         init(
             id: String = UUID().uuidString,
+            createdAt: Date = Date(),
+            updatedAt: Date = Date(),
             name: String = "",
             address: String = "",
             location: GeoPoint = .init(latitude: 0, longitude: 0),
             desc: String = "",
-            registeredUserId: String = "",
-            courseId: [String] = [],
-            registeredAt: Date? = Date()
+            registeredUserId: String = ""
         ) {
             self.id = id
+            self.createdAt = createdAt
+            self.updatedAt = updatedAt
             self.name = name
             self.address = address
             self.location = location
             self.desc = desc
             self.registeredUserId = registeredUserId
-            self.courseId = courseId
-            self.registeredAt = registeredAt
         }
     }
 }

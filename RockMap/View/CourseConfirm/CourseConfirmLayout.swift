@@ -126,7 +126,6 @@ extension CourseConfirmViewController {
             section.contentInsetsReference = .layoutMargins
             
             return section
-
         }
         
         layout.register(
