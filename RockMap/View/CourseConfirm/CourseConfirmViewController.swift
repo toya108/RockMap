@@ -87,7 +87,18 @@ class CourseConfirmViewController: UIViewController, CollectionViewControllerPro
                     self.indicator.stopAnimating()
                     RegisterSucceededViewController.showSuccessView(present: self) {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController?.dismiss(animated: true)
+                            UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController?.dismiss(animated: true) { [weak self] in
+                                
+                                guard let self = self else { return }
+                                
+                                guard
+                                    let rockDetailViewController = self.getVisibleViewController() as? RockDetailViewController
+                                else {
+                                    return
+                                }
+                                
+                                rockDetailViewController.updateCouses()
+                            }
                         }
                     }
                     

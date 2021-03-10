@@ -188,7 +188,10 @@ class RockDetailViewController: UIViewController {
         vc.isModalInPresentation = true
         present(vc, animated: true)
     }
-
+    
+    func updateCouses() {
+        viewModel.updateCouses(by: viewModel.rockDocument)
+    }
 }
 
 extension RockDetailViewController: MKMapViewDelegate {
