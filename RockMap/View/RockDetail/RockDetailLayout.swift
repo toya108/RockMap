@@ -137,7 +137,7 @@ extension RockDetailViewController {
                     )
                     section = .init(group: group)
                     section.interGroupSpacing = 8
-                    section.orthogonalScrollingBehavior = .paging
+                    section.orthogonalScrollingBehavior = .groupPaging
                 }
             }
             

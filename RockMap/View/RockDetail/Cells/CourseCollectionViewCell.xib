@@ -16,35 +16,32 @@
                 <rect key="frame" x="0.0" y="0.0" width="387" height="292"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="l7R-rU-sM6">
-                        <rect key="frame" x="0.0" y="0.0" width="387" height="292"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="48K-A9-Wof">
+                        <rect key="frame" x="0.0" y="0.0" width="387" height="217.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="48K-A9-Wof" secondAttribute="height" multiplier="16:9" id="jZa-NF-NyE"/>
+                        </constraints>
+                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="xVR-Ze-j64">
+                        <rect key="frame" x="8" y="221.5" width="275" height="66.5"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="48K-A9-Wof">
-                                <rect key="frame" x="0.0" y="0.0" width="387" height="217.5"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="48K-A9-Wof" secondAttribute="height" multiplier="16:9" id="jZa-NF-NyE"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="課題名" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="182-0L-RoO">
-                                <rect key="frame" x="0.0" y="225.5" width="283" height="24"/>
+                                <rect key="frame" x="0.0" y="0.0" width="275" height="24"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10級/完投者数 50人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ve-BW-dBI">
-                                <rect key="frame" x="0.0" y="257.5" width="283" height="34.5"/>
+                                <rect key="frame" x="0.0" y="28" width="275" height="38.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="48K-A9-Wof" secondAttribute="trailing" id="Itc-9r-An7"/>
-                        </constraints>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VBC-BU-wQQ">
-                        <rect key="frame" x="291" y="225.5" width="96" height="44"/>
+                        <rect key="frame" x="291" y="233" width="96" height="44"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qbh-Cx-yea">
                                 <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
@@ -67,14 +64,15 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="l7R-rU-sM6" firstAttribute="top" secondItem="YGm-BO-aDO" secondAttribute="top" id="4OT-Xg-V0h"/>
-                    <constraint firstItem="l7R-rU-sM6" firstAttribute="leading" secondItem="YGm-BO-aDO" secondAttribute="leading" id="EbY-MY-5Tn"/>
-                    <constraint firstAttribute="trailing" secondItem="l7R-rU-sM6" secondAttribute="trailing" id="XpD-IB-ApP"/>
-                    <constraint firstItem="qbh-Cx-yea" firstAttribute="leading" secondItem="182-0L-RoO" secondAttribute="trailing" constant="8" id="eU3-h6-28R"/>
+                    <constraint firstItem="xVR-Ze-j64" firstAttribute="leading" secondItem="YGm-BO-aDO" secondAttribute="leading" constant="8" id="0l9-6b-BJx"/>
+                    <constraint firstItem="VBC-BU-wQQ" firstAttribute="leading" secondItem="xVR-Ze-j64" secondAttribute="trailing" constant="8" id="34s-Yw-XP0"/>
+                    <constraint firstAttribute="trailing" secondItem="48K-A9-Wof" secondAttribute="trailing" id="Dey-1u-AIE"/>
+                    <constraint firstItem="48K-A9-Wof" firstAttribute="bottom" secondItem="xVR-Ze-j64" secondAttribute="top" constant="-4" id="NKD-vk-5Pj"/>
+                    <constraint firstItem="VBC-BU-wQQ" firstAttribute="centerY" secondItem="xVR-Ze-j64" secondAttribute="centerY" id="VSD-ft-aE4"/>
+                    <constraint firstAttribute="bottom" secondItem="xVR-Ze-j64" secondAttribute="bottom" constant="4" id="YjB-Fs-gRF"/>
+                    <constraint firstItem="48K-A9-Wof" firstAttribute="top" secondItem="YGm-BO-aDO" secondAttribute="top" id="Za9-Ge-Axq"/>
+                    <constraint firstItem="48K-A9-Wof" firstAttribute="leading" secondItem="YGm-BO-aDO" secondAttribute="leading" id="goE-6k-Qly"/>
                     <constraint firstAttribute="trailing" secondItem="VBC-BU-wQQ" secondAttribute="trailing" id="hu7-Ys-EyQ"/>
-                    <constraint firstItem="VBC-BU-wQQ" firstAttribute="top" secondItem="48K-A9-Wof" secondAttribute="bottom" constant="8" id="jLQ-JZ-ANo"/>
-                    <constraint firstItem="qbh-Cx-yea" firstAttribute="leading" secondItem="2ve-BW-dBI" secondAttribute="trailing" constant="8" id="nvr-Uj-dkK"/>
-                    <constraint firstAttribute="bottom" secondItem="l7R-rU-sM6" secondAttribute="bottom" id="z2C-s9-6UY"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="387" height="292"/>
