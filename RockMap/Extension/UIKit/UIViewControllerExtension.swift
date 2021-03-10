@@ -15,6 +15,47 @@ extension UIViewController {
         }.first
     }
     
+    func getVisibleViewController() -> UIViewController? {
+        guard
+            let rootViewController = rootViewController
+        else {
+            return nil
+        }
+        
+        return getVisibleViewController(rootViewController)
+    }
+    
+    private func getVisibleViewController(_ rootViewController: UIViewController) -> UIViewController? {
+        
+        if let presentedViewController = rootViewController.presentedViewController {
+            return getVisibleViewController(presentedViewController)
+        }
+        
+        if let navigationController = rootViewController as? UINavigationController {
+            return navigationController.visibleViewController
+        }
+        
+        if let tabBarController = rootViewController as? UITabBarController {
+            if let navigationController = tabBarController.selectedViewController as? UINavigationController {
+                
+                let visible = navigationController.visibleViewController
+                
+                if visible is UISearchController || visible is UIAlertController {
+                    return visible?.presentingViewController ?? visible?.parent
+                }
+                
+                return visible
+            }
+            return tabBarController.selectedViewController
+        }
+        
+        return rootViewController
+    }
+
+    var rootViewController: UIViewController? {
+        return UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController
+    }
+    
     func topViewController(controller: UIViewController?) -> UIViewController? {
         if let tabController = controller as? UITabBarController {
             if let selected = tabController.selectedViewController {
