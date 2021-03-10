@@ -53,6 +53,19 @@ class RegisterViewController: UIViewController {
     
     private func setupLayout() {
         navigationItem.title = "岩/課題を登録する"
+        navigationItem.setRightBarButton(
+            .init(
+                title: nil,
+                image: UIImage.SystemImages.xmark,
+                primaryAction: .init { [weak self] _ in
+                    
+                    guard let self = self else { return }
+                    
+                    self.dismiss(animated: true)
+                }, menu: nil
+            ),
+            animated: true
+        )
         
         [rockRegisterButton, courseRegisterButton].forEach {
             $0?.layer.cornerRadius = Resources.Const.UI.View.radius
