@@ -22,7 +22,7 @@ class LocationSelectCollectionViewCell: UICollectionViewCell {
         mapBaseView.layer.cornerRadius = 8
     }
     
-    func configure(locationStructure: RockRegisterViewModel.LocationStructure) {
+    func configure(locationStructure: LocationManager.LocationStructure) {
         addressLabel.text = locationStructure.address
         
         mapView.setRegion(

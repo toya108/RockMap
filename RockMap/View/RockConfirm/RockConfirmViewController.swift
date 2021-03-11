@@ -2,82 +2,43 @@
 //  RockConfirmViewController.swift
 //  RockMap
 //
-//  Created by TOUYA KAWANO on 2020/11/23.
+//  Created by TOUYA KAWANO on 2021/03/12.
 //
 
-import UIKit
-import MapKit
 import Combine
+import UIKit
 
-final class RockConfirmViewController: UIViewController {
+class RockConfirmViewController: UIViewController {
+
+    var collectionView: UICollectionView!
+    var viewModel: RockConfirmViewModel!
+    var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
+    var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
+    let indicator = UIActivityIndicatorView()
     
-    @IBOutlet weak var rockImageScrollView: UIScrollView!
-    @IBOutlet weak var rockImageStackView: UIStackView!
-    @IBOutlet weak var rockNameLabel: UILabel!
-    @IBOutlet weak var rockDescLabel: UILabel!
-    @IBOutlet weak var rockAddressLabel: UILabel!
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var registButton: UIButton!
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
-    
-    private var viewModel: RockConfirmViewModel!
     private var bindings = Set<AnyCancellable>()
-    
-    static func createInstance(viewModel: RockConfirmViewModel) -> RockConfirmViewController {
-        let vc = UIStoryboard(name: RockConfirmViewController.className, bundle: nil).instantiateInitialViewController() as? RockConfirmViewController
-        vc?.viewModel = viewModel
-        return vc!
+
+    static func createInstance(
+        viewModel: RockConfirmViewModel
+    ) -> RockConfirmViewController {
+        let instance = RockConfirmViewController()
+        instance.viewModel = viewModel
+        return instance
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupLayout()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupRockDatas()
+        setupColletionView()
+        setupNavigationBar()
+        setupIndicator()
         bindViewModelToView()
+        datasource = configureDatasource()
+        configureSections()
     }
     
-    @IBAction func registButtonTapped(_ sender: UIButton) {
-        viewModel.uploadImages()
-    }
-    
-    private func setupRockDatas() {
-        func setupLabels() {
-            rockNameLabel.text = viewModel.rockName
-            rockDescLabel.text = viewModel.rockDesc
-            rockAddressLabel.text = viewModel.rockAddress
-        }
-        
-        func setupMap() {
-            let rockAddressPin = MKPointAnnotation()
-            rockAddressPin.coordinate = viewModel.rockLocation.coordinate
-            self.mapView.addAnnotation(rockAddressPin)
-            let span = MKCoordinateSpan(
-                latitudeDelta: Resources.Const.Map.latitudeDelta,
-                longitudeDelta: Resources.Const.Map.longitudeDelta
-            )
-            self.mapView.setRegion(.init(center: viewModel.rockLocation.coordinate, span: span), animated: true)
-        }
-
-        func setupImages() {
-            rockImageStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
-            viewModel.rockImageDatas.forEach {
-                let imageView = makeImageView(data: $0)
-                rockImageStackView.addArrangedSubview(imageView)
-                NSLayoutConstraint.activate([
-                    imageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
-                    imageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width * 9/16)
-                ])
-            }
-        }
-        
-        setupLabels()
-        setupMap()
-        setupImages()
+    private func setupNavigationBar() {
+        navigationItem.title = "登録内容を確認"
     }
     
     private func bindViewModelToView() {
@@ -150,19 +111,43 @@ final class RockConfirmViewController: UIViewController {
             .store(in: &bindings)
     }
     
-    private func makeImageView(data: Data) -> UIImageView {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(data: data)
-        imageView.backgroundColor = .black
-        imageView.contentMode = .scaleAspectFit
-        return imageView
+    private func setupColletionView() {
+        collectionView = .init(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.backgroundColor = .systemBackground
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
+        collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
+        collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
     }
     
-    private func setupLayout() {
-        navigationItem.title = "登録内容の確認"
-        registButton.layer.cornerRadius = Resources.Const.UI.View.radius
-        mapView.layer.cornerRadius = Resources.Const.UI.View.radius
+    private func setupIndicator() {
+        indicator.hidesWhenStopped = true
+        indicator.backgroundColor = UIColor.Pallete.transparentBlack
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(indicator)
+        NSLayoutConstraint.activate([
+            indicator.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            indicator.rightAnchor.constraint(equalTo: view.rightAnchor),
+            indicator.topAnchor.constraint(equalTo: view.topAnchor),
+            indicator.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        indicator.bringSubviewToFront(collectionView)
+    }
+    
+    private func configureSections() {
+        snapShot.appendSections(SectionLayoutKind.allCases)
+        snapShot.appendItems([.name(viewModel.rockName)], toSection: .name)
+        snapShot.appendItems([.desc(viewModel.rockDesc)], toSection: .desc)
+        snapShot.appendItems([.location(viewModel.rockLocation)], toSection: .location)
+        snapShot.appendItems(viewModel.rockImageDatas.map { ItemKind.images($0) }, toSection: .images)
+        snapShot.appendItems([.register], toSection: .register)
+        datasource.apply(snapShot)
     }
 }
 

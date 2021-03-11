@@ -143,7 +143,7 @@ extension RockRegisterViewController {
     
     private func configureLocationCell() -> UICollectionView.CellRegistration<
         LocationSelectCollectionViewCell,
-        RockRegisterViewModel.LocationStructure
+        LocationManager.LocationStructure
     > {
         .init(
             cellNib: .init(
@@ -228,9 +228,9 @@ extension RockRegisterViewController {
                 {
                     let viewModel = RockConfirmViewModel(
                         rockName: self.viewModel.rockName,
-                        rockImageDatas: self.viewModel.rockImageDatas.map(\.data),
+                        rockImageDatas: self.viewModel.rockImageDatas,
                         rockAddress: self.viewModel.rockLocation.address,
-                        rockLocation: self.viewModel.rockLocation.location,
+                        rockLocation: self.viewModel.rockLocation,
                         rockDesc: self.viewModel.rockDesc
                     )
 

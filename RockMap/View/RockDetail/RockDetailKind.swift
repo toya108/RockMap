@@ -51,7 +51,7 @@ extension RockDetailViewController {
         case headerImages(referece: StorageManager.Reference)
         case registeredUser(user: FIDocument.User)
         case desc(String)
-        case map(RockDetailViewModel.RockLocation)
+        case map(LocationManager.LocationStructure)
         // course section
         case courses(FIDocument.Course)
         case nocourse

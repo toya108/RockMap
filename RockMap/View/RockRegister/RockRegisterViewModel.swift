@@ -11,14 +11,9 @@ import CoreLocation
 
 final class RockRegisterViewModel {
     
-    struct LocationStructure: Equatable, Hashable {
-        var location: CLLocation
-        var address: String
-    }
-    
     @Published var rockName = ""
     @Published var rockImageDatas: [IdentifiableData] = []
-    @Published var rockLocation = LocationStructure(location: LocationManager.shared.location, address: "")
+    @Published var rockLocation = LocationManager.LocationStructure()
     @Published var rockDesc = ""
     
     @Published private(set) var rockNameValidationResult: ValidationResult = .none

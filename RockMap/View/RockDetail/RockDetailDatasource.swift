@@ -120,10 +120,10 @@ extension RockDetailViewController {
     
     private func configureLocationCell() -> UICollectionView.CellRegistration<
         RockLocationCollectionViewCell,
-        RockDetailViewModel.RockLocation
+        LocationManager.LocationStructure
     > {
         .init { cell, _, location in
-            cell.configure(rockLocation: location)
+            cell.configure(locationStructure: location)
             cell.mapView.delegate = self
         }
     }

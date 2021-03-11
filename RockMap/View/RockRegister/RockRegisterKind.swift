@@ -70,7 +70,7 @@ extension RockRegisterViewController {
     enum ItemKind: Hashable {
         case name
         case desc
-        case location(RockRegisterViewModel.LocationStructure)
+        case location(LocationManager.LocationStructure)
         case noImage
         case images(IdentifiableData)
         case confirmation
