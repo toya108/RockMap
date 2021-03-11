@@ -31,8 +31,8 @@ class TextFieldColletionViewCell: UICollectionViewCell {
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])

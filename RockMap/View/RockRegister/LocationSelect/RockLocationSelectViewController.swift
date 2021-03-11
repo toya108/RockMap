@@ -43,7 +43,7 @@ class RockLocationSelectViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        navigationController?.navigationBar.
+        navigationItem.title = "岩の位置を選択する"
         navigationItem.setLeftBarButton(
             .init(
                 image: UIImage.SystemImages.xmark,
