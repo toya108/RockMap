@@ -8,7 +8,7 @@
 import UIKit
 import CoreLocation
 
-extension RockRegisterViewControllerV2 {
+extension RockRegisterViewController {
     
     enum SectionLayoutKind: CaseIterable {
         case name

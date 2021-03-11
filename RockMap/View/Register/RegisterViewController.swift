@@ -30,13 +30,13 @@ class RegisterViewController: UIViewController {
         }
         
 //        guard
-            let vc = RockRegisterViewControllerV2()
+            let vc = RockRegisterViewController()
 //        else {
 //            return
 //        }
         let viewModel = RockRegisterViewModel()
         
-        navigationController?.pushViewController(RockRegisterViewControllerV2.createInstance(viewModel: viewModel), animated: true)
+        navigationController?.pushViewController(RockRegisterViewController.createInstance(viewModel: viewModel), animated: true)
 
     }
     

@@ -1,327 +1,246 @@
-////
-////  RockRegisterViewController.swift
-////  RockMap
-////
-////  Created by TOUYA KAWANO on 2020/11/01.
-////
 //
-//import UIKit
-//import Combine
-//import MapKit
-//import PhotosUI
+//  RockRegisterViewController.swift
+//  RockMap
 //
-//final class RockRegisterViewController: UIViewController {
+//  Created by TOUYA KAWANO on 2021/03/10.
 //
-//    @IBOutlet weak var backScrollView: TouchableScrollView!
-//    @IBOutlet weak var backStackView: UIStackView!
-//    @IBOutlet weak var rockNameTextField: UITextField!
-//    @IBOutlet weak var rockNameErrorLabel: UILabel!
-//    @IBOutlet weak var firstImageSelectStackView: UIStackView!
-//    @IBOutlet weak var firstImageUploadButton: UIButton!
-//    @IBOutlet weak var rockImageErrorLabel: UILabel!
-//    @IBOutlet weak var imageSelectHorizontalScrollView: UIScrollView!
-//    @IBOutlet weak var imageHorizontalStackView: UIStackView!
-//    @IBOutlet weak var imageUploadButton: UIButton!
-//    @IBOutlet weak var rockAddressLabel: UILabel!
-//    @IBOutlet weak var rockAddressErrorLabel: UILabel!
-//    @IBOutlet weak var currentAddressButton: UIButton!
-//    @IBOutlet weak var mapBaseView: UIView!
-//    @IBOutlet weak var rockRegisterMapView: MKMapView!
-//    @IBOutlet weak var rockDescTextView: UITextView!
-//    @IBOutlet weak var confirmButton: UIButton!
-//    @IBOutlet weak var indicator: UIActivityIndicatorView!
-//
-//    let viewModel = RockRegisterViewModel()
-//    private let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
-//    private var bindings = Set<AnyCancellable>()
-//
-//    private let phPickerViewController: PHPickerViewController = {
-//        var configuration = PHPickerConfiguration()
-//        configuration.selectionLimit = 0
-//        configuration.filter = .images
-//
-//        return PHPickerViewController(configuration: configuration)
-//    }()
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        setupDelegate()
-//        setupLayout()
-////        setupKeyboard()
-//        setupImageUploadButtonActions()
-//        bindViewToViewModel()
-//        bindViewModelToView()
-//
-//        viewModel.rockLocation = LocationManager.shared.location
-//    }
-//
-//    private func setupImageUploadButtonActions() {
-//        let photoLibraryAction = UIAction(
-//            title: "フォトライブラリ",
-//            image: UIImage.SystemImages.folderFill
-//        ) { [weak self] _ in
-//
-//            guard let self = self else { return }
-//
-//            self.present(self.phPickerViewController, animated: true)
-//        }
-//
-//        let cameraAction = UIAction(
-//            title: "写真を撮る",
-//            image: UIImage.SystemImages.cameraFill
-//        ) { [weak self] _ in
-//
-//            guard let self = self else { return }
-//
-//            let vc = UIImagePickerController()
-//            vc.delegate = self
-//            vc.sourceType = .camera
-//            self.present(vc, animated: true)
-//        }
-//
-//        let menu = UIMenu(title: "", children: [photoLibraryAction, cameraAction])
-//        [imageUploadButton, firstImageUploadButton].forEach {
-//            $0?.menu = menu
-//            $0?.showsMenuAsPrimaryAction = true
-//        }
-//    }
-//
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        navigationController?.setNavigationBarHidden(false, animated: true)
-//    }
-//
-//    @IBAction func didCurrentAddressButtonTapped(_ sender: UIButton) {
-//        viewModel.rockLocation = LocationManager.shared.location
-//    }
-//
-//    @IBAction func didAddressSelectButtonTapped(_ sender: UIButton) {
-//        guard let vc = (UIStoryboard(name: RockLocationSelectViewController.className, bundle: nil).instantiateInitialViewController { [weak self] coder in
-//
-//            guard let self = self else { return RockLocationSelectViewController(coder: coder) }
-//
-//            return RockLocationSelectViewController(coder: coder, location: self.viewModel.rockLocation)
-//
-//        }) else { return }
-//        present(RockMapNavigationController(rootVC: vc, naviBarClass: RockMapNavigationBar.self), animated: true)
-//    }
-//
-//    @IBAction func didConfirmButtonTapped(_ sender: UIButton) {
-//        guard let vc = (UIStoryboard(name: RockConfirmViewController.className, bundle: nil).instantiateInitialViewController { [weak self] coder in
-//
-//            guard let self = self else { return RockConfirmViewController(coder: coder) }
-//
-//            return RockConfirmViewController(
-//                coder: coder,
-//                viewModel: .init(
-//                    rockName: self.viewModel.rockName,
-//                    rockImageDatas: self.viewModel.rockImageDatas,
-//                    rockAddress: self.viewModel.rockAddress,
-//                    rockLocation: self.viewModel.rockLocation,
-//                    rockDesc: self.viewModel.rockDesc
-//                )
-//            )
-//        }) else { return }
-//        navigationController?.pushViewController(vc, animated: true)
-//    }
-//
-//    private func setupDelegate() {
-//        rockNameTextField.delegate = self
-//        phPickerViewController.delegate = self
-//    }
-//
-//    private func setupLayout() {
-//        navigationItem.title = "岩を登録する"
-//
-//        [firstImageUploadButton,
-//         currentAddressButton,
-//         mapBaseView,
-//         imageUploadButton,
-//         confirmButton
-//        ]
-//        .forEach { $0?.layer.cornerRadius = Resources.Const.UI.View.radius }
-//    }
-//
-//    private func bindViewToViewModel() {
-//        rockNameTextField.textDidChangedPublisher.assign(to: &viewModel.$rockName)
-//        rockDescTextView.textDidChangedPublisher.assign(to: &viewModel.$rockDesc)
-//    }
-//
-//    private func bindViewModelToView() {
-//        viewModel.$rockImageDatas
-//            .receive(on: RunLoop.main)
-//            .sink { [weak self] data in
-//
-//                guard let self = self else { return }
-//
-//                defer {
-//                    self.indicator.stopAnimating()
-//                }
-//
-//                self.firstImageSelectStackView.isHidden = !data.isEmpty
-//                self.imageSelectHorizontalScrollView.isHidden = data.isEmpty
-//
-//                if data.isEmpty { return }
-//
-//                self.imageHorizontalStackView.arrangedSubviews
-//                    .filter { $0.self is UIImageView }
-//                    .forEach { $0.removeFromSuperview() }
-//
-//                data.forEach {
-//                    let deletableImageView = self.makeDeletableImageView(data: $0)
-//                    self.imageHorizontalStackView.addArrangedSubview(deletableImageView)
-//                    NSLayoutConstraint.activate([
-//                        deletableImageView.widthAnchor.constraint(equalTo: self.imageUploadButton.widthAnchor),
-//                        deletableImageView.heightAnchor.constraint(equalTo: self.imageUploadButton.widthAnchor)
-//                    ])
-//                }
-//            }
-//            .store(in: &bindings)
-//
-//        zip(
-//            [viewModel.$rockNameValidationResult, viewModel.$rockAddressValidationResult],
-//            [rockNameErrorLabel, rockAddressErrorLabel]
-//        )
-//        .forEach { viewModelResult, label in
-//
-//            viewModelResult.sink { result in
-//                switch result {
-//                case .valid, .none:
-//                    label?.isHidden = true
-//
-//                case .invalid(let error):
-//                    label?.text = error.description
-//                    label?.isHidden = false
-//
-//                }
-//            }.store(in: &bindings)
-//        }
-//
-//        viewModel.$rockLocation
-//            .receive(on: RunLoop.main)
-//            .sink { [weak self] location in
-//
-//                guard let self = self else { return }
-//
-//                self.rockRegisterMapView.setRegion(
-//                    .init(
-//                        center: location.coordinate,
-//                        span: self.span
-//                    ),
-//                    animated: true
-//                )
-//
-//                self.rockRegisterMapView.removeAnnotations(self.rockRegisterMapView.annotations)
-//                let rockAddressPin = MKPointAnnotation()
-//                rockAddressPin.coordinate = location.coordinate
-//                self.rockRegisterMapView.addAnnotation(rockAddressPin)
-//            }
-//            .store(in: &bindings)
-//
-//        viewModel.$rockAddress
-//            .map { Optional($0) }
-//            .receive(on: RunLoop.main)
-//            .assign(to: \UILabel.text, on: rockAddressLabel)
-//            .store(in: &bindings)
-//
-//        viewModel.$rockImageValidationResult
-//            .receive(on: RunLoop.main)
-//            .sink { [weak self] hasImage in
-//
-//                guard let self = self else { return }
-//
-//                self.rockImageErrorLabel.isHidden = hasImage
-//                self.rockImageErrorLabel.text = hasImage ? "" : "岩の画像のアップロードは必須です。"
-//            }
-//            .store(in: &bindings)
-//
-//        viewModel.$isPassedAllValidation
-//            .receive(on: RunLoop.main)
-//            .sink { [weak self] isPassed in
-//
-//                guard let self = self else { return }
-//
-//                self.confirmButton.isEnabled = isPassed
-//                self.confirmButton.backgroundColor = isPassed ? UIColor.Pallete.primaryGreen : .gray
-//            }
-//            .store(in: &bindings)
-//    }
-//
-//    private func makeDeletableImageView(data: Data) -> UIImageView {
-//        let imageView = UIImageView()
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.isUserInteractionEnabled = true
-//        imageView.layer.cornerRadius = Resources.Const.UI.View.radius
-//        imageView.clipsToBounds = true
-//        imageView.image = UIImage(data: data)
-//
-//        let deleteButton = UIButton(primaryAction: UIAction { [weak self] _ in
-//            guard let self = self else { return }
-//            self.viewModel.rockImageDatas.removeAll { $0 == data }
-//        })
-//        deleteButton.translatesAutoresizingMaskIntoConstraints = false
-//        deleteButton.setImage(UIImage.SystemImages.xmarkCircleFill, for: .normal)
-//        deleteButton.tintColor = .white
-//        imageView.addSubview(deleteButton)
-//        NSLayoutConstraint.activate([
-//            deleteButton.heightAnchor.constraint(equalToConstant: 44),
-//            deleteButton.widthAnchor.constraint(equalToConstant: 44),
-//            deleteButton.topAnchor.constraint(equalTo: imageView.topAnchor),
-//            deleteButton.rightAnchor.constraint(equalTo: imageView.rightAnchor)
-//        ])
-//        return imageView
-//    }
-//
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        view.endEditing(true)
-//    }
-//}
-//
-//extension RockRegisterViewController: UIPopoverPresentationControllerDelegate {
-//    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-//        return .none
-//    }
-//}
-//
-//extension RockRegisterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-//
-//        guard
-//            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
-//            let data = image.jpegData(compressionQuality: 1)
-//        else {
-//            return
-//        }
-//        
-//        indicator.startAnimating()
-//        viewModel.rockImageDatas.append(data)
-//        dismiss(animated: true)
-//    }
-//}
-//
-//extension RockRegisterViewController: PHPickerViewControllerDelegate {
-//    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-//
-//        indicator.startAnimating()
-//
-//        picker.dismiss(animated: true)
-//
-//        results.map(\.itemProvider).forEach {
-//
-//            guard $0.canLoadObject(ofClass: UIImage.self) else { return }
-//
-//            $0.loadObject(ofClass: UIImage.self) { [weak self] providerReading, error in
-//                guard
-//                    case .none = error,
-//                    let self = self,
-//                    let image = providerReading as? UIImage,
-//                    let data = image.jpegData(compressionQuality: 1)
-//                else {
-//                    return
-//                }
-//
-//                self.viewModel.rockImageDatas.append(data)
-//            }
-//        }
-//    }
-//}
+
+import UIKit
+import Combine
+import PhotosUI
+
+class RockRegisterViewController: UIViewController {
+
+    var collectionView: TouchableColletionView!
+    var viewModel: RockRegisterViewModel!
+    var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
+    var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
+    let indicator = UIActivityIndicatorView()
+    
+    private var bindings = Set<AnyCancellable>()
+    
+    let phPickerViewController: PHPickerViewController = {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 0
+        configuration.filter = .images
+
+        return PHPickerViewController(configuration: configuration)
+    }()
+    
+    static func createInstance(
+        viewModel: RockRegisterViewModel
+    ) -> RockRegisterViewController {
+        let instance = self.init()
+        instance.viewModel = viewModel
+        return instance
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setupColletionView()
+        setupIndicator()
+        setupNavigationBar()
+        datasource = configureDatasource()
+        bindViewModelToView()
+        phPickerViewController.delegate = self
+        configureSections()
+    }
+    
+    private func setupColletionView() {
+        collectionView = .init(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.backgroundColor = .systemBackground
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
+        collectionView.delegate = self
+        collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
+        collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
+    }
+    
+    private func setupIndicator() {
+        indicator.hidesWhenStopped = true
+        indicator.backgroundColor = UIColor.Pallete.transparentBlack
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(indicator)
+        NSLayoutConstraint.activate([
+            indicator.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            indicator.rightAnchor.constraint(equalTo: view.rightAnchor),
+            indicator.topAnchor.constraint(equalTo: view.topAnchor),
+            indicator.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        indicator.bringSubviewToFront(collectionView)
+    }
+    
+    private func setupNavigationBar() {
+        navigationItem.title = "岩を登録する"
+    }
+    
+    private func bindViewModelToView() {
+        viewModel.$rockImageDatas
+            .drop { $0.isEmpty }
+            .receive(on: RunLoop.main)
+            .sink { [weak self] images in
+                
+                defer {
+                    self?.indicator.stopAnimating()
+                }
+                
+                guard let self = self else { return }
+                
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .images))
+                
+                self.snapShot.appendItems([.noImage], toSection: .images)
+                
+                let items = images.map { ItemKind.images($0) }
+                self.snapShot.appendItems(items, toSection: .images)
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+        
+        viewModel.$rockNameValidationResult
+            .receive(on: RunLoop.main)
+            .sink { [weak self] result in
+                
+                guard let self = self else { return }
+                
+                switch result {
+                case .valid, .none:
+                    let items = self.snapShot.itemIdentifiers(inSection: .name)
+                    
+                    guard
+                        let item = items.first(where: { $0.isErrorItem })
+                    else {
+                        return
+                    }
+                    
+                    self.snapShot.deleteItems([item])
+                    
+                case let .invalid(error):
+                    let items = self.snapShot.itemIdentifiers(inSection: .name)
+                    
+                    if let item = items.first(where: { $0.isErrorItem }) {
+                        self.snapShot.deleteItems([item])
+                    }
+
+                    self.snapShot.appendItems([.error(error.description)], toSection: .name)
+                }
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+        
+        viewModel.$rockImageValidationResult
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isValid in
+                
+                guard let self = self else { return }
+                
+                if isValid {
+                    let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
+                    
+                    guard
+                        let item = items.first(where: { $0.isErrorItem })
+                    else {
+                        return
+                    }
+                    self.snapShot.deleteItems([item])
+
+                } else {
+                    let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
+                    
+                    if let item = items.first(where: { $0.isErrorItem }) {
+                        self.snapShot.deleteItems([item])
+                    }
+
+                    self.snapShot.appendItems([.error("画像のアップロードは必須です。")], toSection: .confirmation)
+                }
+                
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+        
+        viewModel.$rockLocation
+            .receive(on: RunLoop.main)
+            .sink { [weak self] locationStructure in
+                
+                guard let self = self else { return }
+                
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .location))
+                
+                self.snapShot.appendItems([.location(locationStructure)], toSection: .location)
+ 
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+        
+    }
+    
+    private func configureSections() {
+        snapShot.appendSections(SectionLayoutKind.allCases)
+        SectionLayoutKind.allCases.forEach {
+            snapShot.appendItems($0.initalItems, toSection: $0)
+        }
+        datasource.apply(snapShot)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+}
+
+extension RockRegisterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        
+        guard
+            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
+            let data = image.jpegData(compressionQuality: 1)
+        else {
+            return
+        }
+        
+        indicator.startAnimating()
+        viewModel.rockImageDatas.append(.init(data: data))
+        picker.dismiss(animated: true)
+    }
+}
+
+extension RockRegisterViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        picker.dismiss(animated: true)
+        
+        if results.isEmpty { return }
+        
+        indicator.startAnimating()
+        
+        results.map(\.itemProvider).forEach {
+            
+            guard $0.canLoadObject(ofClass: UIImage.self) else { return }
+            
+            $0.loadObject(ofClass: UIImage.self) { [weak self] providerReading, error in
+                guard
+                    case .none = error,
+                    let self = self,
+                    let image = providerReading as? UIImage,
+                    let data = image.jpegData(compressionQuality: 1)
+                else {
+                    return
+                }
+                
+                self.viewModel.rockImageDatas.append(.init(data: data))
+            }
+        }
+    }
+}
+
+extension RockRegisterViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
+}

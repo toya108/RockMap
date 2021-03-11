@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension RockRegisterViewControllerV2 {
+extension RockRegisterViewController {
     
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
         

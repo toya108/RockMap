@@ -122,7 +122,7 @@ class RockLocationSelectViewController: UIViewController {
                 let self = self,
                 let presenting = self.topViewController(
                     controller: UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController
-                ) as? RockRegisterViewControllerV2
+                ) as? RockRegisterViewController
             else {
                 return
             }
