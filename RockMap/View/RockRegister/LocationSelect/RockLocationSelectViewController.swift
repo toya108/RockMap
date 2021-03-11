@@ -98,12 +98,13 @@ class RockLocationSelectViewController: UIViewController {
             guard
                 let self = self,
                 let presenting = self.topViewController(
-                    controller: UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController) as? RockRegisterViewController
+                    controller: UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController
+                ) as? RockRegisterViewControllerV2
             else {
                 return
             }
             
-            presenting.viewModel.rockLocation = self.location
+            presenting.viewModel.rockLocation = .init(location: self.location, address: self.address)
         }
     }
     

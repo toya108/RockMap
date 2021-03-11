@@ -312,11 +312,6 @@
             <point key="canvasLocation" x="128" y="104"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="rhh-xM-GtP">
-            <size key="intrinsicContentSize" width="10" height="33"/>
-        </designable>
-    </designables>
     <resources>
         <image name="camera.fill" catalog="system" width="128" height="94"/>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>

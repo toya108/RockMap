@@ -1,18 +1,18 @@
 //
-//  CourseRegisterViewController.swift
+//  RockRegisterViewControllerV2.swift
 //  RockMap
 //
-//  Created by TOUYA KAWANO on 2021/02/11.
+//  Created by TOUYA KAWANO on 2021/03/10.
 //
 
 import UIKit
 import Combine
 import PhotosUI
 
-class CourseRegisterViewController: UIViewController {
-    
+class RockRegisterViewControllerV2: UIViewController {
+
     var collectionView: TouchableColletionView!
-    var viewModel: CourseRegisterViewModel!
+    var viewModel: RockRegisterViewModel!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
     let indicator = UIActivityIndicatorView()
@@ -28,23 +28,23 @@ class CourseRegisterViewController: UIViewController {
     }()
     
     static func createInstance(
-        viewModel: CourseRegisterViewModel
-    ) -> CourseRegisterViewController {
-        let instance = CourseRegisterViewController()
+        viewModel: RockRegisterViewModel
+    ) -> RockRegisterViewControllerV2 {
+        let instance = self.init()
         instance.viewModel = viewModel
         return instance
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupColletionView()
         setupIndicator()
         setupNavigationBar()
-        bindViewModelToView()
         datasource = configureDatasource()
-        configureSections()
+        bindViewModelToView()
         phPickerViewController.delegate = self
+        configureSections()
     }
     
     private func setupColletionView() {
@@ -78,36 +78,11 @@ class CourseRegisterViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        navigationItem.title = "課題を登録する"
-
-        navigationItem.setLeftBarButton(
-            .init(
-                systemItem: .cancel,
-                primaryAction: .init {  [weak self] _ in
-                    
-                    guard let self = self else { return }
-                    
-                    self.dismiss(animated: true)
-                }
-            ),
-            animated: false
-        )
+        navigationItem.title = "岩を登録する"
     }
     
     private func bindViewModelToView() {
-        viewModel.$rockHeaderStructure
-            .drop { $0.rockName.isEmpty }
-            .receive(on: RunLoop.main)
-            .sink { [weak self] rock in
-                
-                guard let self = self else { return }
-                
-                self.snapShot.appendItems([.rock(rock)], toSection: .rock)
-                self.datasource.apply(self.snapShot)
-            }
-            .store(in: &bindings)
-        
-        viewModel.$images
+        viewModel.$rockImageDatas
             .drop { $0.isEmpty }
             .receive(on: RunLoop.main)
             .sink { [weak self] images in
@@ -128,7 +103,7 @@ class CourseRegisterViewController: UIViewController {
             }
             .store(in: &bindings)
         
-        viewModel.$courseNameValidationResult
+        viewModel.$rockNameValidationResult
             .receive(on: RunLoop.main)
             .sink { [weak self] result in
                 
@@ -136,7 +111,7 @@ class CourseRegisterViewController: UIViewController {
                 
                 switch result {
                 case .valid, .none:
-                    let items = self.snapShot.itemIdentifiers(inSection: .courseName)
+                    let items = self.snapShot.itemIdentifiers(inSection: .name)
                     
                     guard
                         let item = items.first(where: { $0.isErrorItem })
@@ -147,32 +122,19 @@ class CourseRegisterViewController: UIViewController {
                     self.snapShot.deleteItems([item])
                     
                 case let .invalid(error):
-                    let items = self.snapShot.itemIdentifiers(inSection: .courseName)
+                    let items = self.snapShot.itemIdentifiers(inSection: .name)
                     
                     if let item = items.first(where: { $0.isErrorItem }) {
                         self.snapShot.deleteItems([item])
                     }
 
-                    self.snapShot.appendItems([.error(error.description)], toSection: .courseName)
+                    self.snapShot.appendItems([.error(error.description)], toSection: .name)
                 }
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
         
-        viewModel.$grade
-            .receive(on: RunLoop.main)
-            .sink { [weak self] grade in
-            
-                guard let self = self else { return }
-                
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .grade))
-                
-                self.snapShot.appendItems([.grade(grade)], toSection: .grade)
-                self.datasource.apply(self.snapShot)
-            }
-            .store(in: &bindings)
-        
-        viewModel.$courseImageValidationResult
+        viewModel.$rockImageValidationResult
             .dropFirst()
             .receive(on: RunLoop.main)
             .sink { [weak self] isValid in
@@ -196,12 +158,27 @@ class CourseRegisterViewController: UIViewController {
                         self.snapShot.deleteItems([item])
                     }
 
-                    self.snapShot.appendItems([.error("課題の画像は必須です。")], toSection: .confirmation)
+                    self.snapShot.appendItems([.error("画像のアップロードは必須です。")], toSection: .confirmation)
                 }
                 
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
+        
+        viewModel.$rockLocation
+            .receive(on: RunLoop.main)
+            .sink { [weak self] locationStructure in
+                
+                guard let self = self else { return }
+                
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .location))
+                
+                self.snapShot.appendItems([.location(locationStructure)], toSection: .location)
+ 
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+        
     }
     
     private func configureSections() {
@@ -217,7 +194,7 @@ class CourseRegisterViewController: UIViewController {
     }
 }
 
-extension CourseRegisterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+extension RockRegisterViewControllerV2: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         
         guard
@@ -228,12 +205,12 @@ extension CourseRegisterViewController: UIImagePickerControllerDelegate & UINavi
         }
         
         indicator.startAnimating()
-        viewModel.images.append(.init(data: data))
+        viewModel.rockImageDatas.append(.init(data: data))
         picker.dismiss(animated: true)
     }
 }
 
-extension CourseRegisterViewController: PHPickerViewControllerDelegate {
+extension RockRegisterViewControllerV2: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
         picker.dismiss(animated: true)
@@ -256,13 +233,13 @@ extension CourseRegisterViewController: PHPickerViewControllerDelegate {
                     return
                 }
                 
-                self.viewModel.images.append(.init(data: data))
+                self.viewModel.rockImageDatas.append(.init(data: data))
             }
         }
     }
 }
 
-extension CourseRegisterViewController: UICollectionViewDelegate {
+extension RockRegisterViewControllerV2: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         view.endEditing(true)
     }

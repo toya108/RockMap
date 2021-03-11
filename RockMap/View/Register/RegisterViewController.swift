@@ -29,12 +29,14 @@ class RegisterViewController: UIViewController {
             return
         }
         
-        guard
-            let vc = UIStoryboard(name: RockRegisterViewController.className, bundle: nil).instantiateInitialViewController()
-        else {
-            return
-        }
-        navigationController?.pushViewController(vc, animated: true)
+//        guard
+            let vc = RockRegisterViewControllerV2()
+//        else {
+//            return
+//        }
+        let viewModel = RockRegisterViewModel()
+        
+        navigationController?.pushViewController(RockRegisterViewControllerV2.createInstance(viewModel: viewModel), animated: true)
 
     }
     

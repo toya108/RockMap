@@ -10,20 +10,21 @@ import Foundation
 import CoreLocation
 
 final class RockRegisterViewModel {
+    
+    struct LocationStructure: Equatable, Hashable {
+        var location: CLLocation
+        var address: String
+    }
+    
     @Published var rockName = ""
-    @Published var rockImageDatas: [Data] = []
-    @Published var rockAddress = ""
-    @Published var rockLocation = LocationManager.shared.location
+    @Published var rockImageDatas: [IdentifiableData] = []
+    @Published var rockLocation = LocationStructure(location: LocationManager.shared.location, address: "")
     @Published var rockDesc = ""
     
     @Published private(set) var rockNameValidationResult: ValidationResult = .none
     @Published private(set) var rockAddressValidationResult: ValidationResult = .none
     @Published private(set) var rockImageValidationResult = false
     @Published private(set) var isPassedAllValidation = false
-    
-    private var rockLocationShared: Publishers.Share<Published<CLLocation>.Publisher> {
-        return $rockLocation.share()
-    }
     
     private var bindings = Set<AnyCancellable>()
     
@@ -38,17 +39,16 @@ final class RockRegisterViewModel {
             .map { name -> ValidationResult in RockNameValidator().validate(name) }
             .assign(to: &$rockNameValidationResult)
         
-        rockLocationShared
-            .dropFirst()
+        $rockLocation
             .removeDuplicates()
-            .sink { location in
-                LocationManager.shared.reverseGeocoding(location: location) { [weak self] result in
+            .sink { locationStructure in
+                LocationManager.shared.reverseGeocoding(location: locationStructure.location) { [weak self] result in
                     
                     guard let self = self else { return }
                     
                     switch result {
                     case .success(let address):
-                        self.rockAddress = address
+                        self.rockLocation.address = address
                         
                     case .failure(let error):
                         print(error.localizedDescription)
@@ -59,12 +59,14 @@ final class RockRegisterViewModel {
             }
             .store(in: &bindings)
         
-        $rockAddress
+        $rockLocation
             .dropFirst()
             .removeDuplicates()
-            .map { address -> ValidationResult in RockAddressValidator().validate(address) }
+            .map { locationStructure -> ValidationResult in
+                RockAddressValidator().validate(locationStructure.address)
+            }
             .assign(to: &$rockAddressValidationResult)
-        
+
         $rockImageDatas
             .map { !$0.isEmpty }
             .assign(to: &$rockImageValidationResult)
