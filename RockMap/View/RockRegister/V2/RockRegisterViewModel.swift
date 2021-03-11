@@ -76,4 +76,12 @@ final class RockRegisterViewModel {
             .map { [$0.0.isValid, $0.1, $0.2.isValid].allSatisfy { $0 } }
             .assign(to: &$isPassedAllValidation)
     }
+    
+    func callValidations() -> Bool {
+        rockImageValidationResult = !rockImageDatas.isEmpty
+        rockNameValidationResult = RockNameValidator().validate(rockName)
+        rockAddressValidationResult = RockAddressValidator().validate(rockLocation.address)
+        
+        return isPassedAllValidation
+    }
 }

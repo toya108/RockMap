@@ -222,26 +222,27 @@ extension RockRegisterViewControllerV2 {
             cell.configure { [weak self] in
                 
                 guard let self = self else { return }
-//
-//                if self.viewModel.callValidations() {
-//
-//                    let viewModel = CourseConfirmViewModel(
-//                        rock: self.viewModel.rockHeaderStructure,
-//                        courseName: self.viewModel.courseName,
-//                        grade: self.viewModel.grade,
-//                        images: self.viewModel.images,
-//                        desc: self.viewModel.desc
-//                    )
-//
-//                    self.navigationController?.pushViewController(
-//                        CourseConfirmViewController.createInstance(viewModel: viewModel),
-//                        animated: true
-//                    )
-//
-//                } else {
-//                    self.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
-//
-//                }
+
+                if
+                    self.viewModel.callValidations()
+                {
+                    let viewModel = RockConfirmViewModel(
+                        rockName: self.viewModel.rockName,
+                        rockImageDatas: self.viewModel.rockImageDatas.map(\.data),
+                        rockAddress: self.viewModel.rockLocation.address,
+                        rockLocation: self.viewModel.rockLocation.location,
+                        rockDesc: self.viewModel.rockDesc
+                    )
+
+                    self.navigationController?.pushViewController(
+                        RockConfirmViewController.createInstance(viewModel: viewModel),
+                        animated: true
+                    )
+
+                } else {
+                    self.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
+
+                }
                 
             }
         }
