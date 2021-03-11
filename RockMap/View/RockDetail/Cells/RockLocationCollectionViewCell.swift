@@ -88,7 +88,5 @@ class RockLocationCollectionViewCell: UICollectionViewCell {
             trackingButton.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -8),
             trackingButton.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -8)
         ])
-        
-
     }
 }

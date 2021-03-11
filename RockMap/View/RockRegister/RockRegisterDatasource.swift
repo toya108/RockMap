@@ -1,13 +1,13 @@
 //
-//  CourseRegisterDatasource.swift
+//  RockRegisterDatasource.swift
 //  RockMap
 //
-//  Created by TOUYA KAWANO on 2021/02/11.
+//  Created by TOUYA KAWANO on 2021/03/10.
 //
 
 import UIKit
 
-extension CourseRegisterViewController {
+extension RockRegisterViewController {
     
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
         
@@ -18,32 +18,24 @@ extension CourseRegisterViewController {
             guard let self = self else { return UICollectionViewCell() }
             
             switch item {
-            case let .rock(rock):
+            case .name:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureRockCell(),
-                    for: indexPath,
-                    item: rock
-                )
-                
-            case .courseName:
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureCourseNameCell(),
+                    using: self.configureNameCell(),
                     for: indexPath,
                     item: Dummy()
                 )
-                
-            case let .grade(grade):
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureGradeSelectingCell(),
-                    for: indexPath,
-                    item: grade
-                )
-                
+
             case .desc:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configurecourseDescCell(),
+                    using: self.configureDescCell(),
                     for: indexPath,
                     item: Dummy()
+                )
+            case let .location(locationStructure):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureLocationCell(),
+                    for: indexPath,
+                    item: locationStructure
                 )
                 
             case .noImage:
@@ -117,7 +109,7 @@ extension CourseRegisterViewController {
         }
     }
     
-    private func configureCourseNameCell() -> UICollectionView.CellRegistration<
+    private func configureNameCell() -> UICollectionView.CellRegistration<
         TextFieldColletionViewCell,
         Dummy
     > {
@@ -125,31 +117,13 @@ extension CourseRegisterViewController {
             
             guard let self = self else { return }
             
-            cell.configurePlaceholder("課題名を入力して下さい。")
-            cell.textField.textDidChangedPublisher.assign(to: &self.viewModel.$courseName)
+            cell.configurePlaceholder("岩名を入力して下さい。")
+            cell.textField.textDidChangedPublisher.assign(to: &self.viewModel.$rockName)
             cell.textField.delegate = self
         }
     }
     
-    private func configureGradeSelectingCell() -> UICollectionView.CellRegistration<
-        GradeSelectingCollectionViewCell,
-        FIDocument.Course.Grade
-    > {
-        .init(
-            cellNib: .init(
-                nibName: GradeSelectingCollectionViewCell.className,
-                bundle: nil
-            )
-        ) { [weak self] cell, _, grade in
-            
-            guard let self = self else { return }
-            
-            cell.configure(grade: grade)
-            self.setupGradeSelectingButtonActions(button: cell.gradeSelectButton)
-        }
-    }
-    
-    private func configurecourseDescCell() -> UICollectionView.CellRegistration<
+    private func configureDescCell() -> UICollectionView.CellRegistration<
         TextViewCollectionViewCell,
         Dummy
     > {
@@ -163,7 +137,42 @@ extension CourseRegisterViewController {
             guard let self = self else { return }
             
             cell.configurePlaceholder("課題の説明を入力して下さい。")
-            cell.textView.textDidChangedPublisher.assign(to: &self.viewModel.$desc)
+            cell.textView.textDidChangedPublisher.assign(to: &self.viewModel.$rockDesc)
+        }
+    }
+    
+    private func configureLocationCell() -> UICollectionView.CellRegistration<
+        LocationSelectCollectionViewCell,
+        RockRegisterViewModel.LocationStructure
+    > {
+        .init(
+            cellNib: .init(
+                nibName: LocationSelectCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { [weak self] cell, _, locationStructure in
+            
+            cell.configure(locationStructure: locationStructure)
+            
+            cell.currentAddressButton.addAction(
+                .init { [weak self] _ in
+                    
+                    guard let self = self else { return }
+                    
+                    self.viewModel.rockLocation.location = LocationManager.shared.location
+                },
+                for: .touchUpInside
+            )
+            
+            cell.selectLocationButton.addAction(
+                .init { [weak self] _ in
+                    
+                    guard let self = self else { return }
+                    
+                    self.presentLocationSelectViewController()
+                },
+                for: .touchUpInside
+            )
         }
     }
     
@@ -194,12 +203,12 @@ extension CourseRegisterViewController {
                 
                 guard
                     let self = self,
-                    let index = self.viewModel.images.firstIndex(of: identifiableData)
+                    let index = self.viewModel.rockImageDatas.firstIndex(of: identifiableData)
                 else {
                     return
                 }
                 
-                self.viewModel.images.remove(at: index)
+                self.viewModel.rockImageDatas.remove(at: index)
             }
         }
     }
@@ -213,25 +222,26 @@ extension CourseRegisterViewController {
             cell.configure { [weak self] in
                 
                 guard let self = self else { return }
-                
-                if self.viewModel.callValidations() {
-                    
-                    let viewModel = CourseConfirmViewModel(
-                        rock: self.viewModel.rockHeaderStructure,
-                        courseName: self.viewModel.courseName,
-                        grade: self.viewModel.grade,
-                        images: self.viewModel.images,
-                        desc: self.viewModel.desc
+
+                if
+                    self.viewModel.callValidations()
+                {
+                    let viewModel = RockConfirmViewModel(
+                        rockName: self.viewModel.rockName,
+                        rockImageDatas: self.viewModel.rockImageDatas.map(\.data),
+                        rockAddress: self.viewModel.rockLocation.address,
+                        rockLocation: self.viewModel.rockLocation.location,
+                        rockDesc: self.viewModel.rockDesc
                     )
-                    
+
                     self.navigationController?.pushViewController(
-                        CourseConfirmViewController.createInstance(viewModel: viewModel),
+                        RockConfirmViewController.createInstance(viewModel: viewModel),
                         animated: true
                     )
-                    
+
                 } else {
                     self.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
-                    
+
                 }
                 
             }
@@ -276,24 +286,30 @@ extension CourseRegisterViewController {
         button.showsMenuAsPrimaryAction = true
     }
     
-    private func setupGradeSelectingButtonActions(button: UIButton) {
+    private func presentLocationSelectViewController() {
         
-        let gradeSelectActions = FIDocument.Course.Grade.allCases.map { (grade) -> UIAction in
-            .init(
-                title: grade.name,
-                state: viewModel.grade == grade ? .on : .off
-            ) { [weak self] _ in
-                
-                guard let self = self else { return }
-                
-                self.viewModel.grade = grade
-            }
+        let vc = UIStoryboard(
+            name: RockLocationSelectViewController.className,
+            bundle: nil
+        ).instantiateInitialViewController { [weak self] coder in
+            
+            guard let self = self else { return RockLocationSelectViewController(coder: coder) }
+            
+            return RockLocationSelectViewController(coder: coder, location: self.viewModel.rockLocation.location)
         }
         
-        let menu = UIMenu(title: "グレード選択", children: gradeSelectActions)
-        button.menu = menu
-        button.showsMenuAsPrimaryAction = true
+        guard
+            let locationSelectViewController = vc
+        else {
+            return
+        }
+        
+        present(
+            RockMapNavigationController(
+                rootVC: locationSelectViewController,
+                naviBarClass: RockMapNavigationBar.self
+            ),
+            animated: true
+        )
     }
 }
-
-struct Dummy {}

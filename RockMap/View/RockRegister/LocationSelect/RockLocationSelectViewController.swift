@@ -19,6 +19,11 @@ class RockLocationSelectViewController: UIViewController {
     
     @IBOutlet weak var locationSelectMapView: MKMapView!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var mapView: MKMapView!
+    
+    private lazy var trackingButton: MKUserTrackingButton = {
+        return .init(mapView: mapView)
+    }()
     
     init?(coder: NSCoder, location: CLLocation) {
         self.location = location
@@ -39,10 +44,9 @@ class RockLocationSelectViewController: UIViewController {
     
     private func setupNavigationBar() {
         navigationItem.title = "岩の位置を選択する"
-        
         navigationItem.setLeftBarButton(
             .init(
-                title: "戻る",
+                image: UIImage.SystemImages.xmark,
                 style: .plain,
                 target: self,
                 action: #selector(didCancelButtonTapped)
@@ -82,6 +86,25 @@ class RockLocationSelectViewController: UIViewController {
     }
     
     private func setupMapView() {
+        mapView.delegate = self
+        
+        trackingButton.tintColor = UIColor.Pallete.primaryGreen
+        trackingButton.backgroundColor = .white
+        trackingButton.layer.cornerRadius = 4
+        trackingButton.layer.shadowRadius = Resources.Const.UI.Shadow.radius
+        trackingButton.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
+        trackingButton.layer.shadowColor = Resources.Const.UI.Shadow.color
+        trackingButton.layer.shadowOffset = .init(width: 4, height: 4)
+        
+        trackingButton.translatesAutoresizingMaskIntoConstraints = false
+        mapView.addSubview(trackingButton)
+        NSLayoutConstraint.activate([
+            trackingButton.heightAnchor.constraint(equalToConstant: 44),
+            trackingButton.widthAnchor.constraint(equalToConstant: 44),
+            trackingButton.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -8),
+            trackingButton.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -8)
+        ])
+        
         locationSelectMapView.setRegion(.init(center: location.coordinate, span: span), animated: true)
         
         let rockAddressPin = MKPointAnnotation()
@@ -98,12 +121,13 @@ class RockLocationSelectViewController: UIViewController {
             guard
                 let self = self,
                 let presenting = self.topViewController(
-                    controller: UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController) as? RockRegisterViewController
+                    controller: UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController
+                ) as? RockRegisterViewController
             else {
                 return
             }
             
-            presenting.viewModel.rockLocation = self.location
+            presenting.viewModel.rockLocation = .init(location: self.location, address: self.address)
         }
     }
     
@@ -122,4 +146,32 @@ class RockLocationSelectViewController: UIViewController {
         
         self.location = .init(latitude: coordinate.latitude, longitude: coordinate.longitude)
     }
+}
+
+extension RockLocationSelectViewController: MKMapViewDelegate {
+    
+    func mapView(
+        _ mapView: MKMapView,
+        viewFor annotation: MKAnnotation
+    ) -> MKAnnotationView? {
+        
+        if annotation === mapView.userLocation {
+            return nil
+        }
+        
+        let annotationView = mapView.dequeueReusableAnnotationView(
+            withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier,
+            for: annotation
+        )
+        
+        guard
+            let markerAnnotationView = annotationView as? MKMarkerAnnotationView
+        else {
+            return annotationView
+        }
+
+        markerAnnotationView.markerTintColor = UIColor.Pallete.primaryGreen
+        return markerAnnotationView
+    }
+    
 }

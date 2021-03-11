@@ -20,23 +20,24 @@ final class RockConfirmViewController: UIViewController {
     @IBOutlet weak var registButton: UIButton!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
-    private var viewModel: RockConfirmViewModel = .init()
+    private var viewModel: RockConfirmViewModel!
     private var bindings = Set<AnyCancellable>()
     
-    init?(coder: NSCoder, viewModel: RockConfirmViewModel) {
-        self.viewModel = viewModel
-        super.init(coder: coder)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    static func createInstance(viewModel: RockConfirmViewModel) -> RockConfirmViewController {
+        let vc = UIStoryboard(name: RockConfirmViewController.className, bundle: nil).instantiateInitialViewController() as? RockConfirmViewController
+        vc?.viewModel = viewModel
+        return vc!
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupRockDatas()
         setupLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupRockDatas()
         bindViewModelToView()
     }
     

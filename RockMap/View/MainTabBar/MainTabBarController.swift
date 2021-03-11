@@ -12,6 +12,7 @@ final class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        delegate = self
         setupViewControllers()
         setupTabItem()
         setupLayout()
@@ -45,5 +46,24 @@ final class MainTabBarController: UITabBarController {
         tabBar.layer.shadowRadius = Resources.Const.UI.Shadow.radius
         tabBar.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
         tabBar.layer.shadowOffset = .init(width: 0, height: -2)
+    }
+}
+
+extension MainTabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        
+        guard
+            viewController.children.first is RegisterViewController
+        else {
+            return true
+        }
+        
+        let vc = RockMapNavigationController(
+            rootVC: UIStoryboard(name: RegisterViewController.className, bundle: nil).instantiateInitialViewController()!,
+            naviBarClass: RockMapNavigationBar.self
+        )
+        vc.modalPresentationStyle = .fullScreen
+        tabBarController.present(vc, animated: true)
+        return false
     }
 }
