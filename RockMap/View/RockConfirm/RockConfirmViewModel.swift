@@ -10,10 +10,11 @@ import Combine
 import FirebaseFirestore
 
 final class RockConfirmViewModel {
+    
     var rockName: String
-    var rockImageDatas: [Data]
+    var rockImageDatas: [IdentifiableData]
     var rockAddress: String
-    var rockLocation: CLLocation
+    var rockLocation: LocationManager.LocationStructure
     var rockDesc: String
     
     @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
@@ -21,21 +22,18 @@ final class RockConfirmViewModel {
     
     private let uploader = StorageUploader()
     
-    init(rockName: String, rockImageDatas: [Data], rockAddress: String, rockLocation: CLLocation, rockDesc: String) {
+    init(
+        rockName: String,
+        rockImageDatas: [IdentifiableData],
+        rockAddress: String,
+        rockLocation: LocationManager.LocationStructure,
+        rockDesc: String
+    ) {
         self.rockName = rockName
         self.rockImageDatas = rockImageDatas
         self.rockAddress = rockAddress
         self.rockLocation = rockLocation
         self.rockDesc = rockDesc
-        bindImageUploader()
-    }
-    
-    init() {
-        self.rockName = ""
-        self.rockImageDatas = []
-        self.rockAddress = ""
-        self.rockLocation = .init(latitude: 0, longitude: 0)
-        self.rockDesc = ""
         bindImageUploader()
     }
     
@@ -51,7 +49,7 @@ final class RockConfirmViewModel {
         )
         rockImageDatas.forEach {
             let imageReference = reference.child(UUID().uuidString)
-            uploader.addData(data: $0, reference: imageReference)
+            uploader.addData(data: $0.data, reference: imageReference)
         }
         uploader.start()
     }
@@ -65,8 +63,8 @@ final class RockConfirmViewModel {
             name: rockName,
             address: rockAddress,
             location: .init(
-                latitude: rockLocation.coordinate.latitude,
-                longitude: rockLocation.coordinate.longitude
+                latitude: rockLocation.location.coordinate.latitude,
+                longitude: rockLocation.location.coordinate.longitude
             ),
             desc: rockDesc,
             registeredUserId: AuthManager.uid

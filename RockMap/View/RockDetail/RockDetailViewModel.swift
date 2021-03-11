@@ -15,7 +15,7 @@ final class RockDetailViewModel {
     @Published var registeredUserId = ""
     @Published var registeredUser: FIDocument.User?
     @Published var rockDesc = ""
-    @Published var rockLocation: RockLocation = .init()
+    @Published var rockLocation = LocationManager.LocationStructure()
     @Published var rockImageReferences: [StorageManager.Reference] = []
     @Published var courses: [FIDocument.Course] = []
     
@@ -37,9 +37,10 @@ final class RockDetailViewModel {
                 self.rockDesc = rock.desc
                 self.registeredUserId = rock.registeredUserId
                 self.rockLocation = .init(
-                    latitude: rock.location.latitude,
-                    longitude: rock.location.longitude,
-                    address: rock.address
+                    location: .init(
+                        latitude: rock.location.latitude,
+                        longitude: rock.location.longitude
+                    ), address: rock.address
                 )
                 self.updateCouses(by: rock)
             }
@@ -107,12 +108,6 @@ final class RockDetailViewModel {
             
             self.courses = snap?.documents.compactMap { FIDocument.Course.initializeDocument(json: $0.data()) } ?? []
         }
-    }
-    
-    struct RockLocation: Hashable {
-        var latitude: Double = 0
-        var longitude: Double = 0
-        var address: String = ""
     }
 }
 

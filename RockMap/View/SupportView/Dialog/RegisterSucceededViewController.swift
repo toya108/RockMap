@@ -31,7 +31,7 @@ class RegisterSucceededViewController: UIViewController {
         }
         
         vc.modalPresentationStyle = .popover
-        vc.popoverPresentationController?.sourceView = UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.view
+        vc.popoverPresentationController?.sourceView = from.view
         vc.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
         vc.popoverPresentationController?.delegate = delegate
         vc.popoverPresentationController?.sourceRect = .init(

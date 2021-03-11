@@ -9,6 +9,11 @@ import CoreLocation
 
 final class LocationManager: NSObject {
     
+    struct LocationStructure: Equatable, Hashable {
+        var location: CLLocation = LocationManager.shared.location
+        var address: String = ""
+    }
+    
     static let shared = LocationManager()
     
     private override init() {}

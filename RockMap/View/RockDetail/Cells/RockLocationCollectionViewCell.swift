@@ -30,21 +30,19 @@ class RockLocationCollectionViewCell: UICollectionViewCell {
         setupLayout()
     }
     
-    func configure(rockLocation: RockDetailViewModel.RockLocation) {
-        addressLabel.text = rockLocation.address
-        
-        let location = CLLocationCoordinate2D(latitude: rockLocation.latitude, longitude: rockLocation.longitude)
+    func configure(locationStructure: LocationManager.LocationStructure) {
+        addressLabel.text = locationStructure.address
         
         mapView.setRegion(
             .init(
-                center: location,
+                center: locationStructure.location.coordinate,
                 span: span
             ),
             animated: false
         )
         
         let rockAnnotation = MKPointAnnotation()
-        rockAnnotation.coordinate = location
+        rockAnnotation.coordinate = locationStructure.location.coordinate
         mapView.addAnnotation(rockAnnotation)
     }
     
