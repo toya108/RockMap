@@ -384,7 +384,6 @@
 		9E2B112D25471F1800D7E56C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9E9845D525D4F58500B03C4E /* Protocol */,
 				9E98D53D2552F88B00EC5AC1 /* SupportView */,
 				9E04B1A9254BA94C0097DA8E /* RockSearch */,
 				9EF56020255AE74A00D00723 /* RockDetail */,
@@ -646,13 +645,6 @@
 				9E9845FA25D5419500B03C4E /* Cells */,
 			);
 			path = CourceRegister;
-			sourceTree = "<group>";
-		};
-		9E9845D525D4F58500B03C4E /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Protocol;
 			sourceTree = "<group>";
 		};
 		9E9845FA25D5419500B03C4E /* Cells */ = {
