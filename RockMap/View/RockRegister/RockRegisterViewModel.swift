@@ -15,6 +15,7 @@ final class RockRegisterViewModel {
     @Published var rockImageDatas: [IdentifiableData] = []
     @Published var rockLocation = LocationManager.LocationStructure()
     @Published var rockDesc = ""
+    @Published var seasons: [FIDocument.Rock.Season] = [.none]
     
     @Published private(set) var rockNameValidationResult: ValidationResult = .none
     @Published private(set) var rockAddressValidationResult: ValidationResult = .none

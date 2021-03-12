@@ -123,6 +123,25 @@ extension RockRegisterViewController {
                 )
                 section = .init(group: group)
                 section.contentInsets.top = 16
+                
+            case .season:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .estimated(64),
+                        heightDimension: .absolute(40)
+                    )
+                )
+                item.edgeSpacing = .init(leading: .fixed(0), top: .fixed(0), trailing: .fixed(8), bottom: .fixed(0))
+                item.contentInsets = .init(top: 4, leading: 0, bottom: 0, trailing: 0)
+                
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(48)
+                    ),
+                    subitems: [item]
+                )
+                section = .init(group: group)
             }
             
             if !sectionType.headerIdentifer.isEmpty {

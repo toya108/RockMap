@@ -29,9 +29,13 @@ extension UIImage {
     }
     
     struct AssetsImages {
-        static let back = UIImage(named: "back")
-        static let rock = UIImage(named: "rock")
-        static let noimage = UIImage(named: "no_image")
-        static let penguinGudaGuda = UIImage(named: "penguin_gudaguda")
+        static let back = UIImage(named: "back")!
+        static let rock = UIImage(named: "rock")!
+        static let noimage = UIImage(named: "no_image")!
+        static let penguinGudaGuda = UIImage(named: "penguin_gudaguda")!
+        static let spring = UIImage(named: "spring")!
+        static let summer = UIImage(named: "summer")!
+        static let autumn = UIImage(named: "autumn")!
+        static let winter = UIImage(named: "winter")!
     }
 }
