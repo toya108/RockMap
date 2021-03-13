@@ -178,6 +178,21 @@ class RockRegisterViewController: UIViewController {
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
+        
+        viewModel.$seasons
+            .receive(on: RunLoop.main)
+            .sink { [weak self] seasons in
+                
+                guard let self = self else { return }
+                
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .season))
+                
+                let items = FIDocument.Rock.Season.allCases.map { ItemKind.season(season: $0, isSelecting: seasons.contains($0)) }
+                self.snapShot.appendItems(items, toSection: .season)
+ 
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
     }
     
     private func configureSections() {
@@ -253,17 +268,11 @@ extension RockRegisterViewController: UICollectionViewDelegate {
         
         switch item {
         case let .season(season, _):
-            collectionView.cellForItem(at: indexPath)?.executeSelectAnimation()
             
-            if
-                viewModel.seasons.contains(season),
-                let index = viewModel.seasons.firstIndex(of: season)
-            {
-                viewModel.seasons.remove(at: index)
-                
+            if viewModel.seasons.contains(season) {
+                viewModel.seasons.remove(season)
             } else {
-                viewModel.seasons.append(season)
-                
+                viewModel.seasons.insert(season)
             }
             
         default:

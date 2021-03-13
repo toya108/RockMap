@@ -27,18 +27,20 @@ class IconCollectionViewCell: UICollectionViewCell {
         didSet {
             if isSelecting {
                 layer.borderColor = UIColor.Pallete.primaryGreen.cgColor
+                layer.borderWidth = 1.5
                 titleLabel.textColor = UIColor.Pallete.primaryGreen
+                titleLabel.font = .systemFont(ofSize: 17, weight: .medium)
             } else {
                 layer.borderColor = UIColor.gray.cgColor
+                layer.borderWidth = 1
                 titleLabel.textColor = .gray
+                titleLabel.font = .systemFont(ofSize: 17)
             }
         }
     }
     
     private func setupLayout() {
-        backgroundColor = .white
         layer.cornerRadius = 8
-        layer.borderWidth = 1
         
         stackView.axis = .horizontal
         stackView.alignment = .fill
