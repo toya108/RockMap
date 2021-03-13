@@ -248,7 +248,8 @@ extension RockRegisterViewController {
                         rockImageDatas: self.viewModel.rockImageDatas,
                         rockAddress: self.viewModel.rockLocation.address,
                         rockLocation: self.viewModel.rockLocation,
-                        rockDesc: self.viewModel.rockDesc
+                        rockDesc: self.viewModel.rockDesc,
+                        seasons: self.viewModel.seasons
                     )
 
                     self.navigationController?.pushViewController(
