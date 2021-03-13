@@ -14,6 +14,7 @@ extension RockRegisterViewController {
         case name
         case desc
         case location
+        case season
         case images
         case confirmation
         
@@ -28,6 +29,9 @@ extension RockRegisterViewController {
             case .location:
                 return "住所"
                 
+            case .season:
+                return "シーズン"
+                
             case .images:
                 return "画像をアップロード"
                 
@@ -39,7 +43,7 @@ extension RockRegisterViewController {
         
         var headerIdentifer: String {
             switch self {
-            case .name, .desc, .location, .images:
+            case .name, .desc, .location, .season, .images:
                 return TitleSupplementaryView.className
                 
             default:
@@ -71,6 +75,7 @@ extension RockRegisterViewController {
         case name
         case desc
         case location(LocationManager.LocationStructure)
+        case season(season: FIDocument.Rock.Season, isSelecting: Bool)
         case noImage
         case images(IdentifiableData)
         case confirmation

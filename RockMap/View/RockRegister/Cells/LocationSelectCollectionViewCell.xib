@@ -25,15 +25,15 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="東京都青梅市" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6V-ds-eEL" userLabel="RockAddressLabel">
-                                        <rect key="frame" x="0.0" y="0.0" width="339" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="336" height="44"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3qs-tC-IMx">
-                                        <rect key="frame" x="347" y="0.0" width="67" height="44"/>
+                                        <rect key="frame" x="344" y="0.0" width="70" height="44"/>
                                         <color key="backgroundColor" name="primaryGreenColor"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="contentEdgeInsets" minX="4" minY="8" maxX="4" maxY="8"/>
                                         <state key="normal" title="現在地" image="mappin.and.ellipse" catalog="system"/>

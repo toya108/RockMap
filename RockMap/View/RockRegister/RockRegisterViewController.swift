@@ -11,7 +11,7 @@ import PhotosUI
 
 class RockRegisterViewController: UIViewController {
 
-    var collectionView: TouchableColletionView!
+    var collectionView: UICollectionView!
     var viewModel: RockRegisterViewModel!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
@@ -179,6 +179,20 @@ class RockRegisterViewController: UIViewController {
             }
             .store(in: &bindings)
         
+        viewModel.$seasons
+            .receive(on: RunLoop.main)
+            .sink { [weak self] seasons in
+                
+                guard let self = self else { return }
+                
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .season))
+                
+                let items = FIDocument.Rock.Season.allCases.map { ItemKind.season(season: $0, isSelecting: seasons.contains($0)) }
+                self.snapShot.appendItems(items, toSection: .season)
+ 
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
     }
     
     private func configureSections() {
@@ -186,11 +200,11 @@ class RockRegisterViewController: UIViewController {
         SectionLayoutKind.allCases.forEach {
             snapShot.appendItems($0.initalItems, toSection: $0)
         }
+        let seasonItems =  FIDocument.Rock.Season.allCases.map {
+            ItemKind.season(season: $0, isSelecting: viewModel.seasons.contains($0))
+        }
+        snapShot.appendItems(seasonItems, toSection: .season)
         datasource.apply(snapShot)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
     }
 }
 
@@ -242,5 +256,27 @@ extension RockRegisterViewController: PHPickerViewControllerDelegate {
 extension RockRegisterViewController: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         view.endEditing(true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard
+            let item = datasource.itemIdentifier(for: indexPath)
+        else {
+            return
+        }
+        
+        switch item {
+        case let .season(season, _):
+            
+            if viewModel.seasons.contains(season) {
+                viewModel.seasons.remove(season)
+            } else {
+                viewModel.seasons.insert(season)
+            }
+            
+        default:
+            break
+        }
     }
 }

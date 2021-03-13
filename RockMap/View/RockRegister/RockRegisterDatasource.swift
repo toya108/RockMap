@@ -52,6 +52,13 @@ extension RockRegisterViewController {
                     item: data
                 )
                 
+            case .season(let season, let isSelecting):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureSeasonCell(),
+                    for: indexPath,
+                    item: (season, isSelecting)
+                )
+                
             case .confirmation:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureConfirmationButtonCell(),
@@ -213,6 +220,16 @@ extension RockRegisterViewController {
         }
     }
     
+    private func configureSeasonCell() -> UICollectionView.CellRegistration<
+        IconCollectionViewCell,
+        (season: FIDocument.Rock.Season, isSelecting: Bool)
+    > {
+        .init { cell, _, season in
+            cell.configure(icon: season.season.iconImage, title: season.season.name)
+            cell.isSelecting = season.isSelecting
+        }
+    }
+    
     private func configureConfirmationButtonCell() -> UICollectionView.CellRegistration<
         ConfirmationButtonCollectionViewCell,
         Dummy
@@ -231,7 +248,8 @@ extension RockRegisterViewController {
                         rockImageDatas: self.viewModel.rockImageDatas,
                         rockAddress: self.viewModel.rockLocation.address,
                         rockLocation: self.viewModel.rockLocation,
-                        rockDesc: self.viewModel.rockDesc
+                        rockDesc: self.viewModel.rockDesc,
+                        seasons: self.viewModel.seasons
                     )
 
                     self.navigationController?.pushViewController(

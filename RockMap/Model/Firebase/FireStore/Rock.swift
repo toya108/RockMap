@@ -19,6 +19,7 @@ extension FIDocument {
         var name: String
         var address: String
         var location: GeoPoint
+        var seasons: Set<Season>
         var desc: String
         var registeredUserId: String
         
@@ -29,6 +30,7 @@ extension FIDocument {
             name: String = "",
             address: String = "",
             location: GeoPoint = .init(latitude: 0, longitude: 0),
+            seasons: Set<Season> = [],
             desc: String = "",
             registeredUserId: String = ""
         ) {
@@ -38,8 +40,46 @@ extension FIDocument {
             self.name = name
             self.address = address
             self.location = location
+            self.seasons = seasons
             self.desc = desc
             self.registeredUserId = registeredUserId
+        }
+        
+        enum Season: String, CaseIterable, Codable {
+            case spring, summer, autumn, winter
+            
+            var iconImage: UIImage {
+                switch self {
+                case .spring:
+                    return UIImage.AssetsImages.spring
+                    
+                case .summer:
+                    return UIImage.AssetsImages.summer
+                    
+                case .autumn:
+                    return UIImage.AssetsImages.autumn
+                    
+                case .winter:
+                    return UIImage.AssetsImages.winter
+                }
+            }
+            
+            var name: String {
+                switch self {
+                case .spring:
+                    return "春"
+                    
+                case .summer:
+                    return "夏"
+                    
+                case .autumn:
+                    return "秋"
+                    
+                case .winter:
+                    return "冬"
+                    
+                }
+            }
         }
     }
 }
