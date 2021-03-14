@@ -17,6 +17,7 @@ final class RockConfirmViewModel {
     var rockLocation: LocationManager.LocationStructure
     var rockDesc: String
     var seasons: Set<FIDocument.Rock.Season>
+    var lithology: FIDocument.Rock.Lithology
     
     @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
     @Published private(set) var rockUploadState: StoreUploadState = .stanby
@@ -29,7 +30,8 @@ final class RockConfirmViewModel {
         rockAddress: String,
         rockLocation: LocationManager.LocationStructure,
         rockDesc: String,
-        seasons: Set<FIDocument.Rock.Season>
+        seasons: Set<FIDocument.Rock.Season>,
+        lithology: FIDocument.Rock.Lithology
     ) {
         self.rockName = rockName
         self.rockImageDatas = rockImageDatas
@@ -37,6 +39,7 @@ final class RockConfirmViewModel {
         self.rockLocation = rockLocation
         self.rockDesc = rockDesc
         self.seasons = seasons
+        self.lithology = lithology
         bindImageUploader()
     }
     
@@ -70,6 +73,7 @@ final class RockConfirmViewModel {
                 longitude: rockLocation.location.coordinate.longitude
             ),
             seasons: seasons,
+            lithology: lithology,
             desc: rockDesc,
             registeredUserId: AuthManager.uid
         )
