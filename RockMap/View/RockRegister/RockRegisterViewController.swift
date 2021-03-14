@@ -204,6 +204,7 @@ class RockRegisterViewController: UIViewController {
             ItemKind.season(season: $0, isSelecting: viewModel.seasons.contains($0))
         }
         snapShot.appendItems(seasonItems, toSection: .season)
+        snapShot.appendItems([.lithology(viewModel.lithology)], toSection: .lithology)
         datasource.apply(snapShot)
     }
 }
