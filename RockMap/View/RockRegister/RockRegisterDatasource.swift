@@ -242,6 +242,24 @@ extension RockRegisterViewController {
                 items: FIDocument.Rock.Lithology.allCases.map(\.name),
                 selectedIndex: FIDocument.Rock.Lithology.allCases.firstIndex(of: lithology)
             )
+            
+            cell.segmentedControl.addAction(
+                .init { [weak self] action in
+                    
+                    guard let self = self else { return }
+                    
+                    guard
+                        let segmentedControl = action.sender as? UISegmentedControl,
+                        let selected = FIDocument.Rock.Lithology.allCases.any(at: segmentedControl.selectedSegmentIndex)
+                    else {
+                        return
+                    }
+                    
+                    self.viewModel.lithology = selected
+                    
+                },
+                for: .valueChanged
+            )
         }
     }
     
