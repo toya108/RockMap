@@ -59,6 +59,13 @@ extension RockRegisterViewController {
                     item: (season, isSelecting)
                 )
                 
+            case let .lithology(lithology):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureLithologyCell(),
+                    for: indexPath,
+                    item: lithology
+                )
+                
             case .confirmation:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureConfirmationButtonCell(),
@@ -72,10 +79,6 @@ extension RockRegisterViewController {
                     for: indexPath,
                     item: desc
                 )
-                
-            default:
-                return UICollectionViewCell()
-                
             }
         }
         
@@ -227,6 +230,18 @@ extension RockRegisterViewController {
         .init { cell, _, season in
             cell.configure(icon: season.season.iconImage, title: season.season.name)
             cell.isSelecting = season.isSelecting
+        }
+    }
+    
+    private func configureLithologyCell() -> UICollectionView.CellRegistration<
+        SegmentedControllCollectionViewCell,
+        FIDocument.Rock.Lithology
+    > {
+        .init { cell, _, lithology in
+            cell.configure(
+                items: FIDocument.Rock.Lithology.allCases.map(\.name),
+                selectedIndex: FIDocument.Rock.Lithology.allCases.firstIndex(of: lithology)
+            )
         }
     }
     

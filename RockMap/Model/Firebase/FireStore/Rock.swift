@@ -20,6 +20,7 @@ extension FIDocument {
         var address: String
         var location: GeoPoint
         var seasons: Set<Season>
+        var lithology: Lithology?
         var desc: String
         var registeredUserId: String
         
@@ -31,6 +32,7 @@ extension FIDocument {
             address: String = "",
             location: GeoPoint = .init(latitude: 0, longitude: 0),
             seasons: Set<Season> = [],
+            lithology: Lithology? = nil,
             desc: String = "",
             registeredUserId: String = ""
         ) {
@@ -41,6 +43,7 @@ extension FIDocument {
             self.address = address
             self.location = location
             self.seasons = seasons
+            self.lithology = lithology
             self.desc = desc
             self.registeredUserId = registeredUserId
         }
@@ -77,6 +80,36 @@ extension FIDocument {
                     
                 case .winter:
                     return "冬"
+                    
+                }
+            }
+        }
+        
+        enum Lithology: String, CaseIterable, Codable {
+            case unKnown, granite, andesite, chert, limestone, tuff, sandstone
+            
+            var name: String {
+                switch self {
+                case .unKnown:
+                    return "不明"
+                    
+                case .granite:
+                    return "花崗岩"
+                    
+                case .andesite:
+                    return "安山岩"
+                    
+                case .chert:
+                    return "チャート"
+                    
+                case .limestone:
+                    return "石灰岩"
+                    
+                case .tuff:
+                    return "凝灰岩"
+                    
+                case .sandstone:
+                    return "砂岩"
                     
                 }
             }

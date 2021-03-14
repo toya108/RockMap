@@ -141,6 +141,22 @@ extension RockRegisterViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
+                
+            case .lithology:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(44)
+                    )
+                )
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: item.layoutSize.heightDimension
+                    ),
+                    subitems: [item]
+                )
+                section = .init(group: group)
             }
             
             if !sectionType.headerIdentifer.isEmpty {
