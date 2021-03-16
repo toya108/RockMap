@@ -59,6 +59,13 @@ extension RockDetailViewController {
                         for: indexPath,
                         item: Dummy()
                     )
+                    
+                case let .season(seasons):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureSeasonCell(),
+                        for: indexPath,
+                        item: seasons
+                    )
                 }
             }
         )
@@ -150,6 +157,20 @@ extension RockDetailViewController {
         }
     }
     
+    private func configureSeasonCell() -> UICollectionView.CellRegistration<
+        UICollectionViewListCell,
+        Set<FIDocument.Rock.Season>
+    > {
+        .init { cell, _, seasons in
+            var configuration = UIListContentConfiguration.valueCell()
+            configuration.text = "シーズン"
+            configuration.secondaryText = seasons.map(\.name).joined(separator: "/")
+            configuration.image = UIImage.SystemImages.leafFill
+            configuration.imageProperties.tintColor = .gray
+            configuration.imageProperties.reservedLayoutSize = .init(width: 12, height: 12)
+            cell.contentConfiguration = configuration
+        }
+    }
     private func configureCoursesCell() -> UICollectionView.CellRegistration<
         CourseCollectionViewCell,
         FIDocument.Course

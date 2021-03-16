@@ -13,8 +13,9 @@ extension RockDetailViewController {
         case headerImages
         case registeredUser
         case desc
-        case map
+        case info
         case courses
+        case map
         
         var headerTitle: String {
             switch self {
@@ -51,6 +52,7 @@ extension RockDetailViewController {
         case headerImages(referece: StorageManager.Reference)
         case registeredUser(user: FIDocument.User)
         case desc(String)
+        case season(Set<FIDocument.Rock.Season>)
         case map(LocationManager.LocationStructure)
         // course section
         case courses(FIDocument.Course)
