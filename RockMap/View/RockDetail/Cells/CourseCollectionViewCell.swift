@@ -19,9 +19,8 @@ class CourseCollectionViewCell: UICollectionViewCell {
         
         backgroundColor = .white
         layer.masksToBounds = false
-        layer.shadowOffset = .init(width: 2, height: 2)
-        layer.shadowOpacity = 0.5
-        layer.shadowRadius = 4
+        layer.shadowOpacity = 0.2
+        layer.shadowRadius = 8
         layer.cornerRadius = 8
         contentView.layer.cornerRadius = 8
         
