@@ -115,6 +115,17 @@ class RockDetailViewController: UIViewController {
             }
             .store(in: &bindings)
         
+        viewModel.$seasons
+            .receive(on: RunLoop.main)
+            .sink { [weak self] seasons in
+                
+                guard let self = self else { return }
+                
+                self.snapShot.appendItems([.season(seasons)], toSection: .info)
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+        
         viewModel.$registeredUser
             .receive(on: RunLoop.main)
             .dropFirst()

@@ -17,7 +17,13 @@ class CourseCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        courseImageView.layer.cornerRadius = 8
+        backgroundColor = .white
+        layer.masksToBounds = false
+        layer.shadowOpacity = 0.2
+        layer.shadowRadius = 8
+        layer.cornerRadius = 8
+        contentView.layer.cornerRadius = 8
+        
         userIconImageView.layer.cornerRadius = 22
     }
     
