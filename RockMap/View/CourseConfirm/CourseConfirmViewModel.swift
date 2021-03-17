@@ -13,6 +13,7 @@ class CourseConfirmViewModel {
     let rock: CourseRegisterViewModel.RockHeaderStructure
     let courseName: String
     let grade: FIDocument.Course.Grade
+    let shape: Set<FIDocument.Course.Shape>
     let images: [IdentifiableData]
     let desc: String
     
@@ -26,12 +27,14 @@ class CourseConfirmViewModel {
         rock: CourseRegisterViewModel.RockHeaderStructure,
         courseName: String,
         grade: FIDocument.Course.Grade,
+        shape: Set<FIDocument.Course.Shape>,
         images: [IdentifiableData],
         desc: String
     ) {
         self.rock = rock
         self.courseName = courseName
         self.grade = grade
+        self.shape = shape
         self.images = images
         self.desc = desc
         
@@ -66,6 +69,7 @@ class CourseConfirmViewModel {
             name: courseName,
             desc: desc,
             grade: grade,
+            shape: shape,
             climbedUserIdList: [],
             registedUserId: AuthManager.uid
         )

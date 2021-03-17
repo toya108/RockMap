@@ -84,6 +84,24 @@ extension CourseRegisterViewController {
                 )
                 section = .init(group: group)
                 
+            case .shape:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .estimated(64),
+                        heightDimension: .absolute(32)
+                    )
+                )
+                item.contentInsets.bottom = 4
+                item.edgeSpacing = .init(leading: .fixed(0), top: .fixed(0), trailing: .fixed(4), bottom: .fixed(0))
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(32)
+                    ),
+                    subitems: [item]
+                )
+                section = .init(group: group)
+                
             case .images:
                 
                 let item: NSCollectionLayoutItem
@@ -142,22 +160,6 @@ extension CourseRegisterViewController {
                 )
                 section = .init(group: group)
                 section.contentInsets.top = 16
-                
-            default:
-                let item = NSCollectionLayoutItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .fractionalHeight(1)
-                    )
-                )
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: item.layoutSize.heightDimension
-                    ),
-                    subitems: [item]
-                )
-                section = .init(group: group)
             }
             
             if !sectionType.headerIdentifer.isEmpty {

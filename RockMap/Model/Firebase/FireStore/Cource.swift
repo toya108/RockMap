@@ -18,6 +18,7 @@ extension FIDocument {
         var name: String = ""
         var desc: String = ""
         var grade: Grade
+        var shape: Set<Shape>
         var climbedUserIdList: [String]
 //        var isPrivate: Bool
         var registedUserId: String
@@ -74,12 +75,34 @@ extension FIDocument {
                     
                 }
             }
+        }
+        
+        enum Shape: String, CaseIterable, Codable {
+            case roof, slab, face, overhang, kante, lip
             
-            var alpha: CGFloat {
-                let index = Self.allCases.firstIndex(of: self)!
-                let onceAlpha = 1 / Self.allCases.count
-                return CGFloat(index * onceAlpha)
+            var name: String {
+                switch self {
+                case .roof:
+                    return "ルーフ"
+                    
+                case .slab:
+                    return "スラブ"
+                    
+                case .face:
+                    return "垂壁"
+                    
+                case .overhang:
+                    return "オーバーハング"
+                    
+                case .kante:
+                    return "カンテ"
+                    
+                case .lip:
+                    return "リップ"
+                    
+                }
             }
+
         }
     }
 }
