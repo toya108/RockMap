@@ -126,6 +126,17 @@ class RockDetailViewController: UIViewController {
             }
             .store(in: &bindings)
         
+        viewModel.$lithology
+            .receive(on: RunLoop.main)
+            .sink { [weak self] lithology in
+                
+                guard let self = self else { return }
+                
+                self.snapShot.appendItems([.lithology(lithology)], toSection: .info)
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+        
         viewModel.$registeredUser
             .receive(on: RunLoop.main)
             .dropFirst()
@@ -151,7 +162,6 @@ class RockDetailViewController: UIViewController {
                 
                 self.snapShot.appendItems([.map(rockLocation)], toSection: .map)
                 self.datasource.apply(self.snapShot)
-                
             }
             .store(in: &bindings)
         

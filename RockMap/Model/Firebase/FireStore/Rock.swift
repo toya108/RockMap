@@ -20,7 +20,7 @@ extension FIDocument {
         var address: String
         var location: GeoPoint
         var seasons: Set<Season>
-        var lithology: Lithology?
+        var lithology: Lithology
         var desc: String
         var registeredUserId: String
         
@@ -32,7 +32,7 @@ extension FIDocument {
             address: String = "",
             location: GeoPoint = .init(latitude: 0, longitude: 0),
             seasons: Set<Season> = [],
-            lithology: Lithology? = nil,
+            lithology: Lithology = .unKnown,
             desc: String = "",
             registeredUserId: String = ""
         ) {

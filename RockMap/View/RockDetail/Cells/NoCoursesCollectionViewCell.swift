@@ -13,9 +13,16 @@ class NoCoursesCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         contentView.layer.cornerRadius = 8
         contentView.layer.borderColor = UIColor.lightGray.cgColor
         contentView.layer.borderWidth = 0.5
+        
+        addCourseButton.layer.cornerRadius = 8
+        addCourseButton.layer.shadowOffset = .init(width: 1, height: 1)
+        addCourseButton.layer.shadowOpacity = 0.2
+        addCourseButton.layer.shadowRadius = 8
+        addCourseButton.layer.cornerRadius = 8
     }
     
 }

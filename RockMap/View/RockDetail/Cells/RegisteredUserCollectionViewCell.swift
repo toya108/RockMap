@@ -8,8 +8,10 @@
 import UIKit
 
 class RegisteredUserCollectionViewCell: UICollectionViewCell {
+    
     @IBOutlet weak var userIconImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
+    @IBOutlet weak var userView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

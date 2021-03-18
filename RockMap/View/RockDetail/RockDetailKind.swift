@@ -12,16 +12,13 @@ extension RockDetailViewController {
     enum SectionLayoutKind: CaseIterable {
         case headerImages
         case registeredUser
-        case desc
         case info
+        case desc
         case courses
         case map
         
         var headerTitle: String {
             switch self {
-            case.registeredUser:
-                return "登録者"
-                
             case .desc:
                 return "岩の説明"
                 
@@ -39,7 +36,7 @@ extension RockDetailViewController {
         
         var headerIdentifer: String {
             switch self {
-            case .registeredUser, .desc, .map, .courses:
+            case .desc, .map, .courses:
                 return TitleSupplementaryView.className
                 
             default:
@@ -53,6 +50,7 @@ extension RockDetailViewController {
         case registeredUser(user: FIDocument.User)
         case desc(String)
         case season(Set<FIDocument.Rock.Season>)
+        case lithology(FIDocument.Rock.Lithology)
         case map(LocationManager.LocationStructure)
         // course section
         case courses(FIDocument.Course)

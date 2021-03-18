@@ -62,9 +62,23 @@ extension RockDetailViewController {
                     
                 case let .season(seasons):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureSeasonCell(),
+                        using: self.configureValueCell(),
                         for: indexPath,
-                        item: seasons
+                        item: .init(
+                            image: UIImage.SystemImages.leafFill,
+                            title: "シーズン",
+                            subTitle: seasons.map(\.name).joined(separator: "/")
+                        )
+                    )
+                case let .lithology(lithology):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureValueCell(),
+                        for: indexPath,
+                        item: .init(
+                            image: UIImage.AssetsImages.rockFill,
+                            title: "岩質",
+                            subTitle: lithology.name
+                        )
                     )
                 }
             }
@@ -157,18 +171,17 @@ extension RockDetailViewController {
         }
     }
     
-    private func configureSeasonCell() -> UICollectionView.CellRegistration<
-        UICollectionViewListCell,
-        Set<FIDocument.Rock.Season>
+    private func configureValueCell() -> UICollectionView.CellRegistration<
+        ValueCollectionViewCell,
+        ValueCollectionViewCell.ValueCellStructure
     > {
-        .init { cell, _, seasons in
-            var configuration = UIListContentConfiguration.valueCell()
-            configuration.text = "シーズン"
-            configuration.secondaryText = seasons.map(\.name).joined(separator: "/")
-            configuration.image = UIImage.SystemImages.leafFill
-            configuration.imageProperties.tintColor = .gray
-            configuration.imageProperties.reservedLayoutSize = .init(width: 12, height: 12)
-            cell.contentConfiguration = configuration
+        .init(
+            cellNib: .init(
+                nibName: ValueCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { cell, _, structure in
+            cell.configure(structure)
         }
     }
     
