@@ -62,6 +62,7 @@ extension RockDetailViewController {
                 )
                 
                 section = .init(group: group)
+                section.contentInsets.top = 4
                 
             case .desc:
                 let item = NSCollectionLayoutItem(
@@ -96,7 +97,6 @@ extension RockDetailViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
-                section.contentInsets = .init(top: 8, leading: 0, bottom: 8, trailing: 0)
                 
             case .map:
                 let item = NSCollectionLayoutItem(
