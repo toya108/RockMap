@@ -52,10 +52,20 @@ extension RockConfirmViewController {
                     for: indexPath,
                     item: Dummy()
                 )
-            
-            default:
-                return UICollectionViewCell()
                 
+            case let .season(season):
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureLabelCell(),
+                    for: indexPath,
+                    item: season.map(\.name).joined(separator: "/")
+                )
+                
+            case let .lithology(lithology):
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureLabelCell(),
+                    for: indexPath,
+                    item: lithology.name
+                )
             }
         }
         

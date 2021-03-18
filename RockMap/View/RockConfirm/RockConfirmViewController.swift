@@ -144,6 +144,8 @@ class RockConfirmViewController: UIViewController {
         snapShot.appendSections(SectionLayoutKind.allCases)
         snapShot.appendItems([.name(viewModel.rockName)], toSection: .name)
         snapShot.appendItems([.desc(viewModel.rockDesc)], toSection: .desc)
+        snapShot.appendItems([.season(viewModel.seasons)], toSection: .season)
+        snapShot.appendItems([.lithology(viewModel.lithology)], toSection: .lithology)
         snapShot.appendItems([.location(viewModel.rockLocation)], toSection: .location)
         snapShot.appendItems(viewModel.rockImageDatas.map { ItemKind.images($0) }, toSection: .images)
         snapShot.appendItems([.register], toSection: .register)

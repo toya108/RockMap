@@ -12,6 +12,8 @@ extension RockConfirmViewController {
     enum SectionLayoutKind: CaseIterable {
         case name
         case desc
+        case season
+        case lithology
         case location
         case images
         case register
@@ -23,6 +25,12 @@ extension RockConfirmViewController {
                 
             case .desc:
                 return "詳細"
+                
+            case .season:
+                return "シーズン"
+                
+            case .lithology:
+                return "岩質"
                 
             case .location:
                 return "住所"
@@ -38,7 +46,7 @@ extension RockConfirmViewController {
         
         var headerIdentifer: String {
             switch self {
-            case .name, .desc, .location, .images:
+            case .name, .desc, .season, .lithology, .location, .images:
                 return TitleSupplementaryView.className
                 
             default:
@@ -50,6 +58,8 @@ extension RockConfirmViewController {
     enum ItemKind: Hashable {
         case name(String)
         case desc(String)
+        case season(Set<FIDocument.Rock.Season>)
+        case lithology(FIDocument.Rock.Lithology)
         case location(LocationManager.LocationStructure)
         case images(IdentifiableData)
         case register
