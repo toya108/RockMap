@@ -69,7 +69,7 @@ class IconCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configure(icon: UIImage?, title: String) {
+    func configure(icon: UIImage? = nil, title: String) {
         if
             let icon = icon
         {

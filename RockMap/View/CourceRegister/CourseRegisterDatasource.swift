@@ -46,6 +46,13 @@ extension CourseRegisterViewController {
                     item: Dummy()
                 )
                 
+            case let .shape(shape, isSelecting):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureShapeCell(),
+                    for: indexPath,
+                    item: (shape, isSelecting)
+                )
+                
             case .noImage:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureImageSelectCell(),
@@ -149,6 +156,16 @@ extension CourseRegisterViewController {
         }
     }
     
+    private func configureShapeCell() -> UICollectionView.CellRegistration<
+        IconCollectionViewCell,
+        (shape: FIDocument.Course.Shape, isSelecting: Bool)
+    > {
+        .init { cell, _, shape in
+            cell.configure(title: shape.shape.name)
+            cell.isSelecting = shape.isSelecting
+        }
+    }
+    
     private func configurecourseDescCell() -> UICollectionView.CellRegistration<
         TextViewCollectionViewCell,
         Dummy
@@ -220,6 +237,7 @@ extension CourseRegisterViewController {
                         rock: self.viewModel.rockHeaderStructure,
                         courseName: self.viewModel.courseName,
                         grade: self.viewModel.grade,
+                        shape: self.viewModel.shape,
                         images: self.viewModel.images,
                         desc: self.viewModel.desc
                     )

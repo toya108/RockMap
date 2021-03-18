@@ -171,6 +171,7 @@ extension RockDetailViewController {
             cell.contentConfiguration = configuration
         }
     }
+    
     private func configureCoursesCell() -> UICollectionView.CellRegistration<
         CourseCollectionViewCell,
         FIDocument.Course

@@ -14,8 +14,9 @@ extension CourseRegisterViewController {
         case courseName
         case desc
         case grade
+        case shape
         case images
-        case makePrivate
+//        case makePrivate
         case confirmation
         
         var headerTitle: String {
@@ -32,6 +33,9 @@ extension CourseRegisterViewController {
             case .grade:
                 return "グレード"
                 
+            case .shape:
+                return "形状"
+                
             case .images:
                 return "画像をアップロード"
                 
@@ -43,7 +47,7 @@ extension CourseRegisterViewController {
         
         var headerIdentifer: String {
             switch self {
-            case .rock, .courseName, .grade, .images, .desc:
+            case .rock, .courseName, .grade, .shape, .images, .desc:
                 return TitleSupplementaryView.className
                 
             default:
@@ -78,6 +82,7 @@ extension CourseRegisterViewController {
         case rock(CourseRegisterViewModel.RockHeaderStructure)
         case courseName
         case grade(FIDocument.Course.Grade)
+        case shape(shape: FIDocument.Course.Shape, isSelecting: Bool)
         case noImage
         case images(IdentifiableData)
         case desc

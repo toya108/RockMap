@@ -11,7 +11,7 @@ import PhotosUI
 
 class CourseRegisterViewController: UIViewController {
     
-    var collectionView: TouchableColletionView!
+    var collectionView: UICollectionView!
     var viewModel: CourseRegisterViewModel!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
@@ -202,6 +202,21 @@ class CourseRegisterViewController: UIViewController {
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
+        
+        viewModel.$shape
+            .receive(on: RunLoop.main)
+            .sink { [weak self] shape in
+                
+                guard let self = self else { return }
+                
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .shape))
+                
+                let items = FIDocument.Course.Shape.allCases.map { ItemKind.shape(shape: $0, isSelecting: shape.contains($0)) }
+                self.snapShot.appendItems(items, toSection: .shape)
+ 
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
     }
     
     private func configureSections() {
@@ -209,6 +224,10 @@ class CourseRegisterViewController: UIViewController {
         SectionLayoutKind.allCases.forEach {
             snapShot.appendItems($0.initalItems, toSection: $0)
         }
+        let shapeItems = FIDocument.Course.Shape.allCases.map {
+            ItemKind.shape(shape: $0, isSelecting: viewModel.shape.contains($0))
+        }
+        snapShot.appendItems(shapeItems, toSection: .shape)
         datasource.apply(snapShot)
     }
     
@@ -263,7 +282,31 @@ extension CourseRegisterViewController: PHPickerViewControllerDelegate {
 }
 
 extension CourseRegisterViewController: UICollectionViewDelegate {
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         view.endEditing(true)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard
+            let item = datasource.itemIdentifier(for: indexPath)
+        else {
+            return
+        }
+        
+        switch item {
+        case let .shape(shape, _):
+            
+            if viewModel.shape.contains(shape) {
+                viewModel.shape.remove(shape)
+            } else {
+                viewModel.shape.insert(shape)
+            }
+            
+        default:
+            break
+        }
+    }
+    
 }

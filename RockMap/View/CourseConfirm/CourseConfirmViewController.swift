@@ -148,6 +148,7 @@ class CourseConfirmViewController: UIViewController {
         snapShot.appendItems([.courseName(viewModel.courseName)], toSection: .courseName)
         snapShot.appendItems([.desc(viewModel.desc)], toSection: .desc)
         snapShot.appendItems([.grade(viewModel.grade)], toSection: .grade)
+        snapShot.appendItems([.shape(viewModel.shape)], toSection: .shape)
         snapShot.appendItems(viewModel.images.map { ItemKind.images($0) }, toSection: .images)
         snapShot.appendItems([.register], toSection: .register)
         datasource.apply(snapShot)
