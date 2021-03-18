@@ -60,7 +60,8 @@ class RockLocationCollectionViewCell: UICollectionViewCell {
         
         stackView.addArrangedSubview(addressLabel)
         addressLabel.numberOfLines = 0
-        addressLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
+        addressLabel.textColor = .darkGray
+        addressLabel.font = UIFont.preferredFont(forTextStyle: .body)
         
         stackView.addArrangedSubview(mapView)
         mapView.translatesAutoresizingMaskIntoConstraints = false

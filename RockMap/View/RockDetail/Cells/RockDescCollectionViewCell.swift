@@ -24,7 +24,8 @@ class RockDescCollectionViewCell: UICollectionViewCell {
     private func setupLayout() {
         addSubview(descLabel)
         descLabel.numberOfLines = 0
-        descLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
+        descLabel.textColor = .darkGray
+        descLabel.font = UIFont.preferredFont(forTextStyle: .body)
         descLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             descLabel.topAnchor.constraint(equalTo: topAnchor),
