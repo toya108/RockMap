@@ -46,7 +46,7 @@ extension CourseConfirmViewController {
                 section.boundarySupplementaryItems = [sectionHeader]
                 return section
                 
-            case .courseName, .desc, .grade:
+            case .courseName, .desc, .grade, .shape:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),

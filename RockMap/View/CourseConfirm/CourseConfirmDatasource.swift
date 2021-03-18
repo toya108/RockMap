@@ -46,6 +46,13 @@ extension CourseConfirmViewController {
                     item: grade.name
                 )
                 
+            case let .shape(shape):
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureLabelCell(),
+                    for: indexPath,
+                    item: shape.map(\.name).joined(separator: "/")
+                )
+                
             case let .images(image):
                 return self.collectionView.dequeueConfiguredReusableCell(
                     using: self.configureImageCell(),
@@ -59,10 +66,6 @@ extension CourseConfirmViewController {
                     for: indexPath,
                     item: Dummy()
                 )
-            
-            default:
-                return UICollectionViewCell()
-                
             }
         }
         
