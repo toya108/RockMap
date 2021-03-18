@@ -16,6 +16,7 @@ final class RockDetailViewModel {
     @Published var registeredUser: FIDocument.User?
     @Published var rockDesc = ""
     @Published var seasons: Set<FIDocument.Rock.Season> = []
+    @Published var lithology: FIDocument.Rock.Lithology = .unKnown
     @Published var rockLocation = LocationManager.LocationStructure()
     @Published var rockImageReferences: [StorageManager.Reference] = []
     @Published var courses: [FIDocument.Course] = []
@@ -44,6 +45,7 @@ final class RockDetailViewModel {
                     ), address: rock.address
                 )
                 self.seasons = rock.seasons
+                self.lithology = rock.lithology
                 self.updateCouses(by: rock)
             }
             .store(in: &bindings)

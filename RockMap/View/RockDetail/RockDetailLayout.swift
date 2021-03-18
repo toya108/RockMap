@@ -81,9 +81,23 @@ extension RockDetailViewController {
                 section = .init(group: group)
                 
             case .info:
-                let configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-                section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: env)
-
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .estimated(56)
+                    )
+                )
+                
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: item.layoutSize.heightDimension
+                    ),
+                    subitems: [item]
+                )
+                section = .init(group: group)
+                section.contentInsets = .init(top: 8, leading: 0, bottom: 8, trailing: 0)
+                
             case .map:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
