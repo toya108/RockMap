@@ -72,7 +72,10 @@ class RockDetailViewController: UIViewController {
             }
         )
         courseCreationButton.setTitle("課題登録", for: .normal)
+        courseCreationButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         courseCreationButton.setImage(UIImage.SystemImages.plusCircle, for: .normal)
+        courseCreationButton.setTitleColor(UIColor.Pallete.primaryGreen, for: .normal)
+        courseCreationButton.tintColor = UIColor.Pallete.primaryGreen
         navigationItem.setRightBarButton(
             .init(customView: courseCreationButton),
             animated: false
