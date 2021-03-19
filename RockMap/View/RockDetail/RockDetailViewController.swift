@@ -256,7 +256,11 @@ extension RockDetailViewController: UICollectionViewDelegate {
         switch item {
         case let .courses(course):
             collectionView.cellForItem(at: indexPath)?.executeSelectAnimation()
-            
+            let viewModel = CourseDetailViewModel(course: course)
+            navigationController?.pushViewController(
+                CourseDetailViewController.createInstance(viewModel: viewModel),
+                animated: true
+            )
             
         default:
             break
