@@ -9,8 +9,7 @@ import Combine
 import Foundation
 
 final class RockDetailViewModel {
-    
-    @Published var rockDocument: FIDocument.Rock = .init()
+    @Published var rockDocument: FIDocument.Rock
     @Published var rockName = ""
     @Published var registeredUserId = ""
     @Published var registeredUser: FIDocument.User?
@@ -24,32 +23,25 @@ final class RockDetailViewModel {
     private var bindings = Set<AnyCancellable>()
     
     init(rock: FIDocument.Rock) {
-        setupBindings()
         self.rockDocument = rock
+
+        setupBindings()
+        
+        self.rockName = rock.name
+        self.rockDesc = rock.desc
+        self.registeredUserId = rock.registeredUserId
+        self.rockLocation = .init(
+            location: .init(
+                latitude: rock.location.latitude,
+                longitude: rock.location.longitude
+            ), address: rock.address
+        )
+        self.seasons = rock.seasons
+        self.lithology = rock.lithology
+        self.updateCouses(by: rock)
     }
     
     private func setupBindings() {
-        $rockDocument
-            .dropFirst()
-            .sink { [weak self] rock in
-                
-                guard let self = self else { return }
-                
-                self.rockName = rock.name
-                self.rockDesc = rock.desc
-                self.registeredUserId = rock.registeredUserId
-                self.rockLocation = .init(
-                    location: .init(
-                        latitude: rock.location.latitude,
-                        longitude: rock.location.longitude
-                    ), address: rock.address
-                )
-                self.seasons = rock.seasons
-                self.lithology = rock.lithology
-                self.updateCouses(by: rock)
-            }
-            .store(in: &bindings)
-        
         $rockName
             .sink { [weak self] name in
                 

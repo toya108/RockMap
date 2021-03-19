@@ -17,7 +17,15 @@ extension CourseDetailViewController {
                 
                 guard let self = self else { return UICollectionViewCell() }
                 
-                return UICollectionViewCell()
+                switch item {
+                case let .headerImages(referece):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureHeaderImageCell(),
+                        for: indexPath,
+                        item: referece
+                    )
+                    
+                }
             }
         )
         
@@ -45,3 +53,15 @@ extension CourseDetailViewController {
     
 }
 
+extension CourseDetailViewController {
+    
+    private func configureHeaderImageCell() -> UICollectionView.CellRegistration<
+        HorizontalImageListCollectionViewCell,
+        StorageManager.Reference
+    > {
+        .init { cell, _, reference in
+            cell.imageView.loadImage(reference: reference)
+        }
+    }
+    
+}

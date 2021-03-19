@@ -10,7 +10,7 @@ import UIKit
 extension CourseDetailViewController {
     
     enum SectionLayoutKind: CaseIterable {
-        case a
+        case headerImages
         
         var headerTitle: String {
             return ""
@@ -22,7 +22,7 @@ extension CourseDetailViewController {
     }
     
     enum ItemKind: Hashable {
-        case a
+        case headerImages(StorageManager.Reference)
     }
     
 }

@@ -30,7 +30,7 @@ class CourseDetailViewController: UIViewController {
 //        setupNavigationBar()
         datasource = configureDatasource()
         bindViewToViewModel()
-//        configureSections()
+        configureSections()
     }
     
     private func setupCollectionView() {
@@ -62,7 +62,33 @@ class CourseDetailViewController: UIViewController {
 //    }
     
     private func bindViewToViewModel() {
+        viewModel.$courseImageReferences
+            .receive(on: RunLoop.main)
+            .sink { [weak self] references in
+                
+                guard let self = self else { return }
+                
+                if references.isEmpty { return }
+                
+                let items = references.map { ItemKind.headerImages($0) }
+                self.snapShot.appendItems(items, toSection: .headerImages)
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
         
+        viewModel.$courseName
+            .receive(on: RunLoop.main)
+            .sink { [weak self] name in
+                
+                guard let self = self else { return }
+                
+                self.navigationItem.title = name
+            }
+            .store(in: &bindings)
     }
 
+    private func configureSections() {
+        snapShot.appendSections(SectionLayoutKind.allCases)
+        datasource.apply(snapShot)
+    }
 }
