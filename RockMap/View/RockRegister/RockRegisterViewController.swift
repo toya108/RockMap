@@ -198,7 +198,7 @@ class RockRegisterViewController: UIViewController {
     private func configureSections() {
         snapShot.appendSections(SectionLayoutKind.allCases)
         SectionLayoutKind.allCases.forEach {
-            snapShot.appendItems($0.initalItems, toSection: $0)
+            snapShot.appendItems($0.initialItems, toSection: $0)
         }
         let seasonItems = FIDocument.Rock.Season.allCases.map {
             ItemKind.season(season: $0, isSelecting: viewModel.seasons.contains($0))
