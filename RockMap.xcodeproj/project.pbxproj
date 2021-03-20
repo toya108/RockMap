@@ -25,6 +25,8 @@
 		9E0BE37B2605006F00576869 /* LeadingRegisteredUserCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E0BE3792605006F00576869 /* LeadingRegisteredUserCollectionViewCell.xib */; };
 		9E0BE38426058FFE00576869 /* CompleteButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BE38226058FFE00576869 /* CompleteButtonCollectionViewCell.swift */; };
 		9E0BE38526058FFE00576869 /* CompleteButtonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E0BE38326058FFE00576869 /* CompleteButtonCollectionViewCell.xib */; };
+		9E0BE38B2605ACB200576869 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BE38A2605ACB200576869 /* UserDefaultsStorage.swift */; };
+		9E0BE3982605AD2800576869 /* UserDefaultsDataHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BE3972605AD2800576869 /* UserDefaultsDataHolder.swift */; };
 		9E0C0A152588C7DA00E34FCE /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C0A142588C7DA00E34FCE /* Rock.swift */; };
 		9E0C9DE32576AAD500ABFE5B /* DocumentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */; };
 		9E0C9DE82576AAE300ABFE5B /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */; };
@@ -175,6 +177,8 @@
 		9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardExtension.swift; sourceTree = "<group>"; };
 		9E0BE3782605006F00576869 /* LeadingRegisteredUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingRegisteredUserCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E0BE3792605006F00576869 /* LeadingRegisteredUserCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeadingRegisteredUserCollectionViewCell.xib; sourceTree = "<group>"; };
+		9E0BE38226058FFE00576869 /* CompleteButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteButtonCollectionViewCell.swift; sourceTree = "<group>"; };
+		9E0BE38326058FFE00576869 /* CompleteButtonCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompleteButtonCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E0BE38A2605ACB200576869 /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		9E0BE3972605AD2800576869 /* UserDefaultsDataHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsDataHolder.swift; sourceTree = "<group>"; };
 		9E0C0A142588C7DA00E34FCE /* Rock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
@@ -356,6 +360,7 @@
 		9E04B191254B28230097DA8E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9E0BE3892605AC9600576869 /* UserDefaults */,
 				9E427D3225F12EAB00ED7DBE /* Keychain */,
 				9E623685258A65EC00152AF9 /* Firebase */,
 				9E04B1CE254BE7A70097DA8E /* Location */,
@@ -416,6 +421,15 @@
 				9E0BE38326058FFE00576869 /* CompleteButtonCollectionViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		9E0BE3892605AC9600576869 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				9E0BE38A2605ACB200576869 /* UserDefaultsStorage.swift */,
+				9E0BE3972605AD2800576869 /* UserDefaultsDataHolder.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		9E2B112D25471F1800D7E56C /* View */ = {
@@ -1164,6 +1178,7 @@
 				9E0C0A152588C7DA00E34FCE /* Rock.swift in Sources */,
 				9E010E0025D0539F00A4C336 /* Course.swift in Sources */,
 				9E08AC812572A8AA00D69927 /* RockMapNavigationBar.swift in Sources */,
+				9E0BE3982605AD2800576869 /* UserDefaultsDataHolder.swift in Sources */,
 				9EC3A6CE2604D76A001FBCA4 /* CourseDetailDatasource.swift in Sources */,
 				9E9C1E7125E6B1EE0050FDDE /* CourseConfirmViewController.swift in Sources */,
 				9E04B1B5254BC3FC0097DA8E /* StringExtesnion.swift in Sources */,
@@ -1254,6 +1269,7 @@
 				9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */,
 				9EA32A4925FA77EE00FB0C75 /* RockConfirmLayout.swift in Sources */,
 				9EA32A4E25FA77F700FB0C75 /* RockConfirmKind.swift in Sources */,
+				9E0BE38B2605ACB200576869 /* UserDefaultsStorage.swift in Sources */,
 				9E60DCB52557148A000CF2E8 /* RockLocationSelectViewController.swift in Sources */,
 				9E9845EF25D5278C00B03C4E /* CourseRegisterDatasource.swift in Sources */,
 				9E2D0F1725D6E4B100652171 /* TextFieldColletionViewCell.swift in Sources */,
