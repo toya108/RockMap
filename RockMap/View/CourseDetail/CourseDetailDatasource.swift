@@ -25,6 +25,13 @@ extension CourseDetailViewController {
                         item: referece
                     )
                     
+                case .buttons:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureButtonsCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
+                    
                 case let .registeredUser(user):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureUserCell(),
@@ -67,6 +74,20 @@ extension CourseDetailViewController {
     > {
         .init { cell, _, reference in
             cell.imageView.loadImage(reference: reference)
+        }
+    }
+    
+    private func configureButtonsCell() -> UICollectionView.CellRegistration<
+        CompleteButtonCollectionViewCell,
+        Dummy
+    > {
+        .init(
+            cellNib: .init(
+                nibName: CompleteButtonCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { cell, _, _ in
+            
         }
     }
     

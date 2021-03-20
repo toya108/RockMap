@@ -45,18 +45,29 @@ extension CourseDetailViewController {
                 section.orthogonalScrollingBehavior = .paging
                 return section
                 
+            case .buttons:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(44)
+                    )
+                )
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: item.layoutSize,
+                    subitems: [item]
+                )
+                section = .init(group: group)
+                section.contentInsets = .init(top: 8, leading: 0, bottom: 8, trailing: 0)
+                
             case .registeredUser:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .fractionalHeight(1)
+                        heightDimension: .absolute(40)
                     )
                 )
                 let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(40)
-                    ),
+                    layoutSize: item.layoutSize,
                     subitems: [item]
                 )
                 section = .init(group: group)

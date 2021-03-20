@@ -105,6 +105,9 @@ class CourseDetailViewController: UIViewController {
 
     private func configureSections() {
         snapShot.appendSections(SectionLayoutKind.allCases)
+        SectionLayoutKind.allCases.forEach {
+            snapShot.appendItems($0.initialItems, toSection: $0)
+        }
         datasource.apply(snapShot)
     }
 }
