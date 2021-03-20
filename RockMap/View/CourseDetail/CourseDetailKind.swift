@@ -11,6 +11,7 @@ extension CourseDetailViewController {
     
     enum SectionLayoutKind: CaseIterable {
         case headerImages
+        case registeredUser
         
         var headerTitle: String {
             return ""
@@ -23,6 +24,7 @@ extension CourseDetailViewController {
     
     enum ItemKind: Hashable {
         case headerImages(StorageManager.Reference)
+        case registeredUser(CourseDetailViewModel.UserCellStructure)
     }
     
 }

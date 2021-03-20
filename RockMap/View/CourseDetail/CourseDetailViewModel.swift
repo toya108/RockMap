@@ -6,21 +6,32 @@
 //
 
 import Combine
+import Foundation
 
 final class CourseDetailViewModel {
+    
+    struct UserCellStructure: Hashable {
+        var photoURL: URL?
+        var name: String = ""
+        var registeredDate: Date?
+    }
     
     @Published private var course: FIDocument.Course
     @Published var courseImageReferences: [StorageManager.Reference] = []
     @Published var courseName = ""
+    @Published private var registeredUserId = ""
+    @Published var userStructure: UserCellStructure = .init()
 
     private var bindings = Set<AnyCancellable>()
     
     init(course: FIDocument.Course) {
         self.course = course
-
+        
         setupBindings()
         
         courseName = course.name
+        registeredUserId = course.registedUserId
+        userStructure.registeredDate = course.createdAt
     }
     
     private func setupBindings() {
@@ -47,5 +58,22 @@ final class CourseDetailViewModel {
             }
             .store(in: &bindings)
         
+        $registeredUserId
+            .sink { id in
+                FirestoreManager.fetchById(id: id) { [weak self] (result: Result<FIDocument.User?, Error>) in
+                    
+                    guard
+                        let self = self,
+                        case let .success(user) = result,
+                        let unwrappedUser = user
+                    else {
+                        return
+                    }
+                    
+                    self.userStructure.name = unwrappedUser.name
+                    self.userStructure.photoURL = unwrappedUser.photoURL
+                }
+            }
+            .store(in: &bindings)
     }
 }

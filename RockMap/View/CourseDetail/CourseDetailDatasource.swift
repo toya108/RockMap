@@ -25,6 +25,12 @@ extension CourseDetailViewController {
                         item: referece
                     )
                     
+                case let .registeredUser(user):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureUserCell(),
+                        for: indexPath,
+                        item: user
+                    )
                 }
             }
         )
@@ -64,4 +70,17 @@ extension CourseDetailViewController {
         }
     }
     
+    private func configureUserCell() -> UICollectionView.CellRegistration<
+        LeadingRegisteredUserCollectionViewCell,
+        CourseDetailViewModel.UserCellStructure
+    > {
+        .init(
+            cellNib: .init(
+                nibName: LeadingRegisteredUserCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { cell, _, user in
+            cell.configure(name: user.name, photoURL: user.photoURL, registeredDate: user.registeredDate)
+        }
+    }
 }

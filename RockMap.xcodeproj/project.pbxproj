@@ -21,6 +21,8 @@
 		9E0A9F192550519F007B9A90 /* RockRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */; };
 		9E0A9F1E2551006E007B9A90 /* UITextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F1D2551006E007B9A90 /* UITextViewExtension.swift */; };
 		9E0A9F29255104A0007B9A90 /* KeyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */; };
+		9E0BE37A2605006F00576869 /* LeadingRegisteredUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BE3782605006F00576869 /* LeadingRegisteredUserCollectionViewCell.swift */; };
+		9E0BE37B2605006F00576869 /* LeadingRegisteredUserCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E0BE3792605006F00576869 /* LeadingRegisteredUserCollectionViewCell.xib */; };
 		9E0C0A152588C7DA00E34FCE /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C0A142588C7DA00E34FCE /* Rock.swift */; };
 		9E0C9DE32576AAD500ABFE5B /* DocumentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */; };
 		9E0C9DE82576AAE300ABFE5B /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */; };
@@ -169,6 +171,8 @@
 		9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockRegisterViewModel.swift; sourceTree = "<group>"; };
 		9E0A9F1D2551006E007B9A90 /* UITextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewExtension.swift; sourceTree = "<group>"; };
 		9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardExtension.swift; sourceTree = "<group>"; };
+		9E0BE3782605006F00576869 /* LeadingRegisteredUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingRegisteredUserCollectionViewCell.swift; sourceTree = "<group>"; };
+		9E0BE3792605006F00576869 /* LeadingRegisteredUserCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LeadingRegisteredUserCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E0C0A142588C7DA00E34FCE /* Rock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
 		9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentProtocol.swift; sourceTree = "<group>"; };
 		9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
@@ -397,6 +401,15 @@
 				9E04B1CF254BE7B30097DA8E /* LocationManager.swift */,
 			);
 			path = Location;
+			sourceTree = "<group>";
+		};
+		9E0BE3772605005700576869 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9E0BE3782605006F00576869 /* LeadingRegisteredUserCollectionViewCell.swift */,
+				9E0BE3792605006F00576869 /* LeadingRegisteredUserCollectionViewCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		9E2B112D25471F1800D7E56C /* View */ = {
@@ -724,6 +737,7 @@
 				9EC3A6C82604D75C001FBCA4 /* CourseDetailLayout.swift */,
 				9EC3A6CD2604D76A001FBCA4 /* CourseDetailDatasource.swift */,
 				9EC3A6BE2604D5F8001FBCA4 /* CourseDetailViewModel.swift */,
+				9E0BE3772605005700576869 /* Cells */,
 			);
 			path = CourseDetail;
 			sourceTree = "<group>";
@@ -928,6 +942,7 @@
 				9EFEE45725F7975F004BFE34 /* CourseCollectionViewCell.xib in Resources */,
 				9EFEE45E25F79EE6004BFE34 /* NoCoursesCollectionViewCell.xib in Resources */,
 				9EEAEDF52603876A00F5FE19 /* ValueCollectionViewCell.xib in Resources */,
+				9E0BE37B2605006F00576869 /* LeadingRegisteredUserCollectionViewCell.xib in Resources */,
 				9E2B113425471F7400D7E56C /* LoginViewController.storyboard in Resources */,
 				9E2BD65125DD55B00011B020 /* TextViewCollectionViewCell.xib in Resources */,
 				9E016FBC252CD0C600C2B85C /* GoogleService-Info.plist in Resources */,
@@ -1188,6 +1203,7 @@
 				9EE1FD542577EF9D0080787F /* KeychainStorage.swift in Sources */,
 				9E8723D3256C037000735C65 /* RockConfirmViewModel.swift in Sources */,
 				9E9845D125D4F2FE00B03C4E /* CourseRegisterViewModel.swift in Sources */,
+				9E0BE37A2605006F00576869 /* LeadingRegisteredUserCollectionViewCell.swift in Sources */,
 				9E613ABC25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift in Sources */,
 				9EFEE45625F7975F004BFE34 /* CourseCollectionViewCell.swift in Sources */,
 				9EA94F7325D044F500D1272E /* RockDetailDatasource.swift in Sources */,
