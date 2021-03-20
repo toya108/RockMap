@@ -16,7 +16,7 @@ final class CourseDetailViewModel {
         var registeredDate: Date?
     }
     
-    @Published private var course: FIDocument.Course
+    @Published var course: FIDocument.Course
     @Published var courseImageReferences: [StorageManager.Reference] = []
     @Published var courseName = ""
     @Published private var registeredUserId = ""

@@ -14,7 +14,7 @@ class CourseDetailViewController: UIViewController {
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
     
-    private var viewModel: CourseDetailViewModel!
+    var viewModel: CourseDetailViewModel!
     private var bindings = Set<AnyCancellable>()
 
     static func createInstance(viewModel: CourseDetailViewModel) -> CourseDetailViewController {

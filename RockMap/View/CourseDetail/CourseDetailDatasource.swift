@@ -86,8 +86,33 @@ extension CourseDetailViewController {
                 nibName: CompleteButtonCollectionViewCell.className,
                 bundle: nil
             )
-        ) { cell, _, _ in
+        ) {  [weak self] cell, _, _ in
             
+            guard let self = self else { return }
+            
+            cell.isBookMarked = UserDefaultsDataHolder.shared.bookMarkedCourseIDs.contains(self.viewModel.course.id)
+            
+            cell.bookMarkButton.addAction(
+                .init { [weak self] _ in
+                    
+                    guard let self = self else { return }
+                    
+                    cell.bookMarkButton.pop()
+                    
+                    cell.isBookMarked.toggle()
+                    
+                    var ids = UserDefaultsDataHolder.shared.bookMarkedCourseIDs
+                    
+                    if cell.isBookMarked {
+                        ids.append(self.viewModel.course.id)
+                    } else {
+                        if let index = ids.firstIndex(of: self.viewModel.course.id) {
+                            ids.remove(at: index)
+                        }
+                    }
+                },
+                for: .touchUpInside
+            )
         }
     }
     
@@ -101,7 +126,11 @@ extension CourseDetailViewController {
                 bundle: nil
             )
         ) { cell, _, user in
-            cell.configure(name: user.name, photoURL: user.photoURL, registeredDate: user.registeredDate)
+            cell.configure(
+                name: user.name,
+                photoURL: user.photoURL,
+                registeredDate: user.registeredDate
+            )
         }
     }
 }

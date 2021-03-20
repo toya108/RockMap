@@ -23,7 +23,7 @@ class CompleteButtonCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         completeButton.layer.cornerRadius = 8
         bookMarkButton.layer.borderWidth = 0.5
         bookMarkButton.layer.borderColor = UIColor.Pallete.primaryGreen.cgColor
