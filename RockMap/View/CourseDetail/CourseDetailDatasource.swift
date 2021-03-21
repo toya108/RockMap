@@ -38,6 +38,13 @@ extension CourseDetailViewController {
                         for: indexPath,
                         item: user
                     )
+                    
+                case .climbedNumber:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureClimbedNumberCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
                 }
             }
         )
@@ -131,6 +138,20 @@ extension CourseDetailViewController {
                 photoURL: user.photoURL,
                 registeredDate: user.registeredDate
             )
+        }
+    }
+    
+    private func configureClimbedNumberCell() -> UICollectionView.CellRegistration<
+        ClimbedNumberCollectionViewCell,
+        Dummy
+    > {
+        .init(
+            cellNib: .init(
+                nibName: ClimbedNumberCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { cell, _, _ in
+
         }
     }
 }

@@ -13,19 +13,30 @@ extension CourseDetailViewController {
         case headerImages
         case buttons
         case registeredUser
+        case climbedNumber
         
         var headerTitle: String {
-            return ""
+            return "完登者数"
         }
         
         var headerIdentifer: String {
-            return ""
+            switch self {
+            case .climbedNumber:
+                return TitleSupplementaryView.className
+                
+            default:
+                return ""
+            }
+            
         }
         
         var initialItems: [ItemKind] {
             switch self {
             case .buttons:
                 return [.buttons]
+                
+            case .climbedNumber:
+                return [.climbedNumber]
                 
             default:
                 return []
@@ -38,6 +49,7 @@ extension CourseDetailViewController {
         case headerImages(StorageManager.Reference)
         case buttons
         case registeredUser(CourseDetailViewModel.UserCellStructure)
+        case climbedNumber
     }
     
 }

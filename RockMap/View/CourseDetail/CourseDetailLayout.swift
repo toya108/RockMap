@@ -72,6 +72,20 @@ extension CourseDetailViewController {
                 )
                 section = .init(group: group)
                 section.contentInsets = .init(top: 8, leading: 0, bottom: 8, trailing: 0)
+                
+            case .climbedNumber:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .estimated(64)
+                    )
+                )
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: item.layoutSize,
+                    subitems: [item]
+                )
+                section = .init(group: group)
+                
             }
             
             if !sectionType.headerIdentifer.isEmpty {
