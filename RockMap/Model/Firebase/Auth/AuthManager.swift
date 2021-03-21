@@ -51,10 +51,6 @@ struct AuthManager {
         }
     }
     
-    static func saveAccount(uid: String) {
-        KeychainDataHolder.shared.uid = uid
-    }
-    
     private static let providers: [FUIAuthProvider] = {
         return [
             FUIGoogleAuth(),

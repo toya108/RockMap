@@ -163,6 +163,13 @@ extension RockDetailViewController {
                 section.boundarySupplementaryItems = [sectionHeader]
             }
             
+            if
+                let next = SectionLayoutKind.allCases.any(at: sectionNumber + 1),
+                !next.headerIdentifer.isEmpty
+            {
+                section.contentInsets.bottom += 16
+            }
+            
             let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundDecorationView.className)
             section.decorationItems = [sectionBackgroundDecoration]
             section.contentInsetsReference = .layoutMargins

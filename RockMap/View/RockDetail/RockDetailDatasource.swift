@@ -106,6 +106,10 @@ extension RockDetailViewController {
         return datasource
     }
     
+}
+
+extension RockDetailViewController {
+    
     private func configureHeaderImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
         StorageManager.Reference

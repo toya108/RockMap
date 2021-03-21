@@ -127,7 +127,6 @@ extension LoginViewController: FUIAuthDelegate {
             
             switch result {
             case .success:
-                AuthManager.saveAccount(uid: user.uid)
                 self.indicator.stopAnimating()
                 UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = MainTabBarController()
 

@@ -55,7 +55,7 @@ extension RockRegisterViewController {
             }
         }
         
-        var initalItems: [ItemKind] {
+        var initialItems: [ItemKind] {
             switch self {
             case .name:
                 return [.name]
