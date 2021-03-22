@@ -12,11 +12,11 @@ extension FIDocument {
     struct Course: FIDocumentProtocol {
         typealias Collection = FINameSpace.Course
         
-        var id: String = ""
+        var id: String
         var createdAt: Date = Date()
         var updatedAt: Date?
-        var name: String = ""
-        var desc: String = ""
+        var name: String
+        var desc: String
         var grade: Grade
         var shape: Set<Shape>
         var climbedUserIdList: [String]
