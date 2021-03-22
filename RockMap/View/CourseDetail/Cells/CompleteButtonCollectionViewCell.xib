@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fqP-CM-Z82">
-                        <rect key="frame" x="0.0" y="0.0" width="165.5" height="44"/>
+                        <rect key="frame" x="0.0" y="7" width="165.5" height="30"/>
                         <color key="backgroundColor" name="primaryPinkColor"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
@@ -36,9 +36,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="To8-L0-3Q0" secondAttribute="trailing" id="AQg-GY-5oA"/>
-                    <constraint firstAttribute="bottom" secondItem="fqP-CM-Z82" secondAttribute="bottom" id="MOY-Pv-7WS"/>
                     <constraint firstItem="To8-L0-3Q0" firstAttribute="top" secondItem="Z2k-D6-BPt" secondAttribute="top" id="YJN-T7-bsu"/>
-                    <constraint firstItem="fqP-CM-Z82" firstAttribute="top" secondItem="Z2k-D6-BPt" secondAttribute="top" id="f7Z-3U-Mng"/>
+                    <constraint firstItem="fqP-CM-Z82" firstAttribute="centerY" secondItem="Z2k-D6-BPt" secondAttribute="centerY" id="YXX-Ur-RA7"/>
                     <constraint firstAttribute="bottom" secondItem="To8-L0-3Q0" secondAttribute="bottom" id="gO9-JQ-OHQ"/>
                     <constraint firstItem="fqP-CM-Z82" firstAttribute="leading" secondItem="Z2k-D6-BPt" secondAttribute="leading" id="tsw-nT-z6g"/>
                 </constraints>
