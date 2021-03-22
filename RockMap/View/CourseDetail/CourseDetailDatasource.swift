@@ -120,6 +120,16 @@ extension CourseDetailViewController {
                 },
                 for: .touchUpInside
             )
+            
+            cell.completeButton.addAction(
+                .init { [weak self] _ in
+                    
+                    guard let self = self else { return }
+                    
+                    self.presentRegisterClimbedBottomSheetViewController()
+                },
+                for: .touchUpInside
+            )
         }
     }
     
@@ -153,5 +163,9 @@ extension CourseDetailViewController {
         ) { cell, _, _ in
 
         }
+    }
+    
+    private func presentRegisterClimbedBottomSheetViewController() {
+        present(RegisterClimbedBottomSheetViewController(), animated: true)
     }
 }

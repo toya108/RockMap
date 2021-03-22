@@ -30,6 +30,8 @@
 		9E0BE3CB2606637700576869 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BE3CA2606637700576869 /* UIButtonExtension.swift */; };
 		9E0BE3D92607949E00576869 /* ClimbedNumberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BE3D72607949E00576869 /* ClimbedNumberCollectionViewCell.swift */; };
 		9E0BE3DA2607949E00576869 /* ClimbedNumberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E0BE3D82607949E00576869 /* ClimbedNumberCollectionViewCell.xib */; };
+		9E0BE4552608C42D00576869 /* RegisterClimbedBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BE4542608C42D00576869 /* RegisterClimbedBottomSheetViewController.swift */; };
+		9E0BE4622608C51900576869 /* RegisterClimbedBottomSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E0BE4612608C51900576869 /* RegisterClimbedBottomSheetViewController.xib */; };
 		9E0C0A152588C7DA00E34FCE /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C0A142588C7DA00E34FCE /* Rock.swift */; };
 		9E0C9DE32576AAD500ABFE5B /* DocumentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */; };
 		9E0C9DE82576AAE300ABFE5B /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */; };
@@ -185,6 +187,8 @@
 		9E0BE3CA2606637700576869 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		9E0BE3D72607949E00576869 /* ClimbedNumberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbedNumberCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E0BE3D82607949E00576869 /* ClimbedNumberCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClimbedNumberCollectionViewCell.xib; sourceTree = "<group>"; };
+		9E0BE4542608C42D00576869 /* RegisterClimbedBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterClimbedBottomSheetViewController.swift; sourceTree = "<group>"; };
+		9E0BE4612608C51900576869 /* RegisterClimbedBottomSheetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterClimbedBottomSheetViewController.xib; sourceTree = "<group>"; };
 		9E0C0A142588C7DA00E34FCE /* Rock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
 		9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentProtocol.swift; sourceTree = "<group>"; };
 		9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
@@ -752,6 +756,8 @@
 				9EC3A6C82604D75C001FBCA4 /* CourseDetailLayout.swift */,
 				9EC3A6CD2604D76A001FBCA4 /* CourseDetailDatasource.swift */,
 				9EC3A6BE2604D5F8001FBCA4 /* CourseDetailViewModel.swift */,
+				9E0BE4542608C42D00576869 /* RegisterClimbedBottomSheetViewController.swift */,
+				9E0BE4612608C51900576869 /* RegisterClimbedBottomSheetViewController.xib */,
 				9E0BE3772605005700576869 /* Cells */,
 			);
 			path = CourseDetail;
@@ -956,6 +962,7 @@
 				9E613AC925CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib in Resources */,
 				9EE8BC5D2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib in Resources */,
 				9EFEE45725F7975F004BFE34 /* CourseCollectionViewCell.xib in Resources */,
+				9E0BE4622608C51900576869 /* RegisterClimbedBottomSheetViewController.xib in Resources */,
 				9EFEE45E25F79EE6004BFE34 /* NoCoursesCollectionViewCell.xib in Resources */,
 				9EEAEDF52603876A00F5FE19 /* ValueCollectionViewCell.xib in Resources */,
 				9E0BE37B2605006F00576869 /* LeadingRegisteredUserCollectionViewCell.xib in Resources */,
@@ -1258,6 +1265,7 @@
 				9EA32A3F25FA778700FB0C75 /* RockConfirmViewController.swift in Sources */,
 				9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */,
 				9E83EEC625FCA856002392AA /* SegmentedControllCollectionViewCell.swift in Sources */,
+				9E0BE4552608C42D00576869 /* RegisterClimbedBottomSheetViewController.swift in Sources */,
 				9E08AC7C2572A84100D69927 /* RockMapNavigationController.swift in Sources */,
 				9E5DD1D725C9857A00E38620 /* UIViewExtension.swift in Sources */,
 				9E83EEBB25FB4D00002392AA /* IconCollectionViewCell.swift in Sources */,
