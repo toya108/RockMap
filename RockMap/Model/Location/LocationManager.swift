@@ -12,6 +12,7 @@ final class LocationManager: NSObject {
     struct LocationStructure: Equatable, Hashable {
         var location: CLLocation = LocationManager.shared.location
         var address: String = ""
+        var prefecture: String = ""
     }
     
     static let shared = LocationManager()
@@ -70,22 +71,24 @@ extension LocationManager: CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
     }
     
-    func reverseGeocoding(location: CLLocation, completion: @escaping (Result<String, ReverseGeocdingError>) -> Void) {
+    func reverseGeocoding(
+        location: CLLocation,
+        completion: @escaping (Result<CLPlacemark, ReverseGeocdingError>) -> Void
+    ) {
         self.geocoder.reverseGeocodeLocation(location) { placemarks, error in
             if let error = error {
                 completion(.failure(.convertError(error)))
                 return
             }
             
-            guard let placemark = placemarks?.first else {
+            guard
+                let placemark = placemarks?.first
+            else {
                 completion(.failure(.noPlacemark))
                 return
             }
             
-            let administrativeArea = placemark.administrativeArea ?? ""
-            let locality = placemark.locality ?? ""
-            let name = placemark.name ?? ""
-            completion(.success(administrativeArea + locality + name))
+            completion(.success(placemark))
         }
     }
     
@@ -114,4 +117,14 @@ enum ReverseGeocdingError: Error {
 enum GeocodingError: Error {
     case convertError(Error)
     case noPlacemark
+}
+
+extension CLPlacemark {
+    var prefecture: String {
+        administrativeArea ?? ""
+    }
+    
+    var address: String {
+        (administrativeArea ?? "") + (locality ?? "") + (name ?? "")
+    }
 }

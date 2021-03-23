@@ -13,6 +13,7 @@ class RockLocationSelectViewController: UIViewController {
     
     @Published private var location = LocationManager.shared.location
     private var address = ""
+    private var prefecture = ""
     
     private var bindings = Set<AnyCancellable>()
     private let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
@@ -72,9 +73,10 @@ class RockLocationSelectViewController: UIViewController {
                     guard let self = self else { return }
                     
                     switch result {
-                    case .success(let address):
-                        self.address = address
-                        self.addressLabel.text = "📍 " + address
+                    case .success(let placemark):
+                        self.address = placemark.address
+                        self.prefecture = placemark.prefecture
+                        self.addressLabel.text = "📍 " + placemark.address
                         
                     case .failure:
                         break

@@ -279,7 +279,6 @@ extension RockRegisterViewController {
                     let viewModel = RockConfirmViewModel(
                         rockName: self.viewModel.rockName,
                         rockImageDatas: self.viewModel.rockImageDatas,
-                        rockAddress: self.viewModel.rockLocation.address,
                         rockLocation: self.viewModel.rockLocation,
                         rockDesc: self.viewModel.rockDesc,
                         seasons: self.viewModel.seasons,

@@ -18,6 +18,7 @@ extension FIDocument {
         var updatedAt: Date?
         var name: String
         var address: String
+        var prefecture: String
         var location: GeoPoint
         var seasons: Set<Season>
         var lithology: Lithology
@@ -35,12 +36,14 @@ extension FIDocument {
             lithology: Lithology = .unKnown,
             desc: String = "",
             registeredUserId: String = ""
+            prefecture: String,
         ) {
             self.id = id
             self.createdAt = createdAt
             self.updatedAt = updatedAt
             self.name = name
             self.address = address
+            self.prefecture = prefecture
             self.location = location
             self.seasons = seasons
             self.lithology = lithology

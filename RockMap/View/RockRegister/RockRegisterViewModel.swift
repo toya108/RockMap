@@ -44,8 +44,9 @@ final class RockRegisterViewModel {
                     guard let self = self else { return }
                     
                     switch result {
-                    case .success(let address):
-                        self.rockLocation.address = address
+                    case .success(let placemark):
+                        self.rockLocation.address = placemark.address
+                        self.rockLocation.prefecture = placemark.prefecture
                         
                     case .failure(let error):
                         print(error.localizedDescription)
