@@ -16,6 +16,7 @@ extension FIDocument {
         var id: String
         var createdAt: Date
         var updatedAt: Date?
+        var parentPath: String = ""
         var name: String
         var email: String?
         var photoURL: URL?
@@ -23,5 +24,6 @@ extension FIDocument {
         var createdCources: [Course]
         
         
+        var isRoot: Bool { true }
     }
 }

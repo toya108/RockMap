@@ -10,9 +10,11 @@ import UIKit
 
 extension FIDocument {
     struct Course: FIDocumentProtocol {
+        
         typealias Collection = FINameSpace.Course
         
         var id: String
+        var parentPath: String
         var createdAt: Date = Date()
         var updatedAt: Date?
         var name: String

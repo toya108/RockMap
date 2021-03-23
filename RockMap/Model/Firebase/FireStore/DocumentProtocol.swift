@@ -17,11 +17,27 @@ protocol FIDocumentProtocol: Codable, Hashable {
     var id: String { get set }
     var createdAt: Date { get set }
     var updatedAt: Date? { get set }
+    var parentPath: String { get set }
+    
+    var isRoot: Bool { get }
 }
 
 extension FIDocumentProtocol {
+    
+    var isRoot: Bool { false }
+    
     static var colletionName: String {
         return Collection.name
+    }
+    
+    static func makeParentPath(parentPath: String? = nil, parentCollection: String, documentId: String) -> String {
+        if let parentPath = parentPath {
+            return [parentPath, parentCollection, documentId].joined(separator: "/")
+            
+        } else {
+            return [parentCollection, documentId].joined(separator: "/")
+            
+        }
     }
     
     static func initializeDocument(json: [String: Any]) -> Self? {

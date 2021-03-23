@@ -26,15 +26,6 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @IBAction func selectClimebedDate(_ sender: UIDatePicker) {
-        
-    }
-    
-    @IBAction func selectClimbedType(_ sender: UISegmentedControl) {
-        
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,6 +52,9 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
     }
     
     private func setupSegment() {
+        
+        climbedTypeSegmentedControl.removeAllSegments()
+        
         FIDocument.Climbed.ClimbedRecordType.allCases.enumerated()
             .forEach { index, type in
                 climbedTypeSegmentedControl.insertSegment(
@@ -68,7 +62,12 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
                     at: index, animated: true
                 )
             }
+        
+        climbedTypeSegmentedControl.selectedSegmentIndex = 0
     }
 
+    func configureRecordButton(_ didTapAction: UIAction) {
+        recordButton.addAction(didTapAction, for: .touchUpInside)
+    }
 
 }

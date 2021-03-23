@@ -15,6 +15,7 @@
                 <outlet property="climbedDatePicker" destination="GAl-XS-cgV" id="eYZ-5E-hHx"/>
                 <outlet property="climbedTypeSegmentedControl" destination="fXs-QX-Zu1" id="aWb-JE-4jj"/>
                 <outlet property="recordButton" destination="dAe-KA-LbA" id="Qkz-9x-AaN"/>
+                <outlet property="view" destination="iN0-l3-epB" id="QO1-er-kwn"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -38,9 +39,6 @@
                                     <rect key="frame" x="0.0" y="36.5" width="382" height="354"/>
                                     <color key="tintColor" name="primaryGreenColor"/>
                                     <locale key="locale" localeIdentifier="ja"/>
-                                    <connections>
-                                        <action selector="selectClimebedDate:" destination="-1" eventType="valueChanged" id="mOR-aj-2zE"/>
-                                    </connections>
                                 </datePicker>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="完登方法" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3Y-zJ-oxz">
                                     <rect key="frame" x="0.0" y="406.5" width="69.5" height="20.5"/>
@@ -55,9 +53,6 @@
                                         <segment title="RedPoint"/>
                                     </segments>
                                     <color key="selectedSegmentTintColor" name="primaryGreenColor"/>
-                                    <connections>
-                                        <action selector="selectClimbedType:" destination="-1" eventType="valueChanged" id="OkN-ns-6Jk"/>
-                                    </connections>
                                 </segmentedControl>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dAe-KA-LbA">
                                     <rect key="frame" x="0.0" y="490" width="138" height="30"/>

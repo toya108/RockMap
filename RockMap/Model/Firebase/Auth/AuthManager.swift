@@ -33,9 +33,15 @@ struct AuthManager {
     }
     
     static func presentAuthViewController(from: UIViewController) {
-        guard let authViewController = authUI?.authViewController().viewControllers.first else {
+        
+        authUI?.delegate = from as? FUIAuthDelegate
+        
+        guard
+            let authViewController = authUI?.authViewController().viewControllers.first
+        else {
             return
         }
+        
         let vc = RockMapNavigationController(rootVC: authViewController, naviBarClass: RockMapNavigationBar.self)
         vc.modalPresentationStyle = .fullScreen
         vc.modalTransitionStyle = .crossDissolve

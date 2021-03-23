@@ -76,4 +76,37 @@ final class CourseDetailViewModel {
             }
             .store(in: &bindings)
     }
+    
+    func registerClimbed(
+        climbedDate: Date,
+        type: FIDocument.Climbed.ClimbedRecordType,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
+        let parentPath = FIDocument.Climbed.makeParentPath(
+            parentPath: course.parentPath,
+            parentCollection: FIDocument.Course.colletionName,
+            documentId: course.id
+        )
+        let climbed = FIDocument.Climbed(
+            id: UUID().uuidString,
+            parentCourseId: course.id,
+            createdAt: Date(),
+            updatedAt: nil,
+            parentPath: parentPath,
+            climbedDate: climbedDate,
+            type: type,
+            climbedUserId: AuthManager.uid
+        )
+        
+        let path = [climbed.parentPath, FIDocument.Climbed.colletionName].joined(separator: "/")
+        FirestoreManager.db.collection(path).document(climbed.id).setData(climbed.dictionary) { error in
+            
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            completion(.success(()))
+        }
+    }
 }

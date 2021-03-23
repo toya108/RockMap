@@ -63,6 +63,9 @@ final class RockConfirmViewModel {
 
         let rock = FIDocument.Rock(
             id: UUID().uuidString,
+            createdAt: Date(),
+            updatedAt: nil,
+            parentPath: FIDocument.Rock.makeParentPath(parentCollection: FIDocument.User.colletionName, documentId: AuthManager.uid),
             name: rockName,
             address: rockLocation.address,
             prefecture: rockLocation.prefecture,

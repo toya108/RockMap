@@ -9,11 +9,14 @@ import Foundation
 
 extension FIDocument {
     struct Climbed: FIDocumentProtocol {
+        
         typealias Collection = FINameSpace.Climbed
         
         var id: String
+        var parentCourseId: String
         var createdAt: Date
         var updatedAt: Date?
+        var parentPath: String
         var climbedDate: Date
         var type: ClimbedRecordType
         var climbedUserId: String

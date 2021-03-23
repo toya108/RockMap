@@ -100,4 +100,19 @@ extension UIViewController {
         
         present(alert, animated: true)
     }
+    
+    func showNeedsLoginAlert(message: String) {
+        
+        if AuthManager.isLoggedIn { return }
+        
+        showYseOrNoAlert(
+            title: "ログインが必要です。",
+            message: message,
+            positiveHandler: { [weak self] _ in
+                
+                guard let self = self else { return }
+                
+                AuthManager.presentAuthViewController(from: self)
+            })
+    }
 }

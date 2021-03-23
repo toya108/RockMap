@@ -28,6 +28,7 @@ final class LocationManager: NSObject {
     }
     
     @Published var location = CLLocation(latitude: 35.6804, longitude: 139.7690)
+    var prefecture: String = ""
     
     private lazy var locationManager: CLLocationManager = {
         let manager = CLLocationManager()
@@ -58,7 +59,10 @@ extension LocationManager: CLLocationManagerDelegate {
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(
+        _ manager: CLLocationManager,
+        didUpdateLocations locations: [CLLocation]
+    ) {
         
         guard let location = locations.first else { return }
         
@@ -67,7 +71,10 @@ extension LocationManager: CLLocationManagerDelegate {
         self.location = location
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    func locationManager(
+        _ manager: CLLocationManager,
+        didFailWithError error: Error
+    ) {
         locationManager.stopUpdatingLocation()
     }
     
@@ -92,14 +99,19 @@ extension LocationManager: CLLocationManagerDelegate {
         }
     }
     
-    func geocoding(address: String, completion: @escaping (Result<CLLocation, GeocodingError>) -> Void) {
+    func geocoding(
+        address: String,
+        completion: @escaping (Result<CLLocation, GeocodingError>) -> Void
+    ) {
         self.geocoder.geocodeAddressString(address) { placemarks, error in
             if let error = error {
                 completion(.failure(.convertError(error)))
                 return
             }
             
-            guard let location = placemarks?.first?.location else {
+            guard
+                let location = placemarks?.first?.location
+            else {
                 completion(.failure(.noPlacemark))
                 return
             }
