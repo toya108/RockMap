@@ -12,42 +12,41 @@ extension CourseDetailViewController {
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
         
         let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
-            collectionView: collectionView,
-            cellProvider: { [weak self] collectionView, indexPath, item in
+            collectionView: collectionView
+        ){ [weak self] collectionView, indexPath, item in
+            
+            guard let self = self else { return UICollectionViewCell() }
+            
+            switch item {
+            case let .headerImages(referece):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureHeaderImageCell(),
+                    for: indexPath,
+                    item: referece
+                )
                 
-                guard let self = self else { return UICollectionViewCell() }
+            case .buttons:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureButtonsCell(),
+                    for: indexPath,
+                    item: Dummy()
+                )
                 
-                switch item {
-                case let .headerImages(referece):
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureHeaderImageCell(),
-                        for: indexPath,
-                        item: referece
-                    )
-                    
-                case .buttons:
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureButtonsCell(),
-                        for: indexPath,
-                        item: Dummy()
-                    )
-                    
-                case let .registeredUser(user):
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureUserCell(),
-                        for: indexPath,
-                        item: user
-                    )
-                    
-                case .climbedNumber:
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureClimbedNumberCell(),
-                        for: indexPath,
-                        item: Dummy()
-                    )
-                }
+            case let .registeredUser(user):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureUserCell(),
+                    for: indexPath,
+                    item: user
+                )
+                
+            case .climbedNumber:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureClimbedNumberCell(),
+                    for: indexPath,
+                    item: Dummy()
+                )
             }
-        )
+        }
         
         let headerRegistration = UICollectionView.SupplementaryRegistration<TitleSupplementaryView>(
             elementKind: TitleSupplementaryView.className
@@ -120,6 +119,20 @@ extension CourseDetailViewController {
                 },
                 for: .touchUpInside
             )
+            
+            cell.completeButton.addAction(
+                .init { [weak self] _ in
+                    
+                    guard let self = self else { return }
+                    
+                    if AuthManager.isLoggedIn {
+                        self.presentRegisterClimbedBottomSheetViewController()
+                    } else {
+                        self.showNeedsLoginAlert(message: "完登を記録するにはログインが必要です。")
+                    }
+                },
+                for: .touchUpInside
+            )
         }
     }
     
@@ -152,6 +165,41 @@ extension CourseDetailViewController {
             )
         ) { cell, _, _ in
 
+        }
+    }
+    
+    private func presentRegisterClimbedBottomSheetViewController() {
+        let vc = RegisterClimbedBottomSheetViewController()
+        
+        let recodeButtonAction: UIAction = .init { [weak self] _ in
+            
+            guard
+                let self = self,
+                let type = FIDocument.Climbed.ClimbedRecordType.allCases.any(at: vc.climbedTypeSegmentedControl.selectedSegmentIndex)
+            else {
+                return
+            }
+
+            self.viewModel.registerClimbed(
+                climbedDate: vc.climbedDatePicker.date,
+                type: type
+            ) { [weak self] result in
+
+                guard let self = self else { return }
+
+                switch result {
+                case .success(_):
+                    self.dismiss(animated: true)
+
+                case let .failure(error):
+                    break
+
+                }
+            }
+        }
+            
+        present(vc, animated: true) {
+            vc.configureRecordButton(recodeButtonAction)
         }
     }
 }

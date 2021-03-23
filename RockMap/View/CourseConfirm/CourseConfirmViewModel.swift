@@ -62,8 +62,15 @@ class CourseConfirmViewModel {
         
         courseUploadState = .loading
         
+        let parentPath = FIDocument.Course.makeParentPath(
+            parentPath: rock.rockParentPath,
+            parentCollection: FIDocument.Rock.colletionName,
+            documentId: rock.rockId
+        )
+        
         let course = FIDocument.Course(
             id: UUID().uuidString,
+            parentPath: parentPath,
             createdAt: Date(),
             updatedAt: nil,
             name: courseName,

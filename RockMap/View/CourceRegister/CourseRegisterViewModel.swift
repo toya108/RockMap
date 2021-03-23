@@ -14,28 +14,31 @@ class CourseRegisterViewModel {
         let rockId: String
         let rockName: String
         let rockImageReference: StorageManager.Reference
+        let rockParentPath: String
         let uid: String
         let userIconPhotoURL: URL?
         let userName: String
         
         init(
-            rockId: String = "",
-            rockName: String = "",
+            rockId: String,
+            rockName: String,
             rockImageReference: StorageManager.Reference = .init(),
-            uid: String = "",
-            userIconPhotoURL: URL? = nil,
-            userName: String = ""
+            rockParentPath: String,
+            uid: String,
+            userIconPhotoURL: URL?,
+            userName: String
         ) {
             self.rockId = rockId
             self.rockName = rockName
             self.rockImageReference = rockImageReference
+            self.rockParentPath = rockParentPath
             self.uid = uid
             self.userIconPhotoURL = userIconPhotoURL
             self.userName = userName
         }
     }
     
-    @Published var rockHeaderStructure = RockHeaderStructure()
+    @Published var rockHeaderStructure: RockHeaderStructure
     
     @Published var courseName = ""
     @Published var grade: FIDocument.Course.Grade = .q10
@@ -50,8 +53,8 @@ class CourseRegisterViewModel {
     private var bindings = Set<AnyCancellable>()
 
     init(rockHeaderStructure: RockHeaderStructure) {
-        setupBindings()
         self.rockHeaderStructure = rockHeaderStructure
+        setupBindings()
     }
     
     private func setupBindings() {

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterClimbedBottomSheetViewController" customModule="RockMap" customModuleProvider="target">
+            <connections>
+                <outlet property="baseView" destination="M6T-dO-Ybd" id="2GT-p4-VAL"/>
+                <outlet property="climbedDatePicker" destination="GAl-XS-cgV" id="eYZ-5E-hHx"/>
+                <outlet property="climbedTypeSegmentedControl" destination="fXs-QX-Zu1" id="aWb-JE-4jj"/>
+                <outlet property="recordButton" destination="dAe-KA-LbA" id="Qkz-9x-AaN"/>
+                <outlet property="view" destination="iN0-l3-epB" id="QO1-er-kwn"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M6T-dO-Ybd">
+                    <rect key="frame" x="0.0" y="272" width="414" height="624"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="pav-RN-MGH">
+                            <rect key="frame" x="16" y="40" width="382" height="520"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="完登日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="203-Dp-ha7">
+                                    <rect key="frame" x="0.0" y="0.0" width="52" height="20.5"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="GAl-XS-cgV">
+                                    <rect key="frame" x="0.0" y="36.5" width="382" height="354"/>
+                                    <color key="tintColor" name="primaryGreenColor"/>
+                                    <locale key="locale" localeIdentifier="ja"/>
+                                </datePicker>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="完登方法" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3Y-zJ-oxz">
+                                    <rect key="frame" x="0.0" y="406.5" width="69.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fXs-QX-Zu1">
+                                    <rect key="frame" x="0.0" y="443" width="149" height="32"/>
+                                    <segments>
+                                        <segment title="Flash"/>
+                                        <segment title="RedPoint"/>
+                                    </segments>
+                                    <color key="selectedSegmentTintColor" name="primaryGreenColor"/>
+                                </segmentedControl>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dAe-KA-LbA">
+                                    <rect key="frame" x="0.0" y="490" width="138" height="30"/>
+                                    <color key="backgroundColor" name="primaryPinkColor"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" title="　完登を記録する　"/>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cpW-Gz-2Me">
+                            <rect key="frame" x="354" y="16" width="44" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="cpW-Gz-2Me" secondAttribute="height" multiplier="1:1" id="Hwu-rf-fSJ"/>
+                                <constraint firstAttribute="width" constant="44" id="ZyG-CL-Hvq"/>
+                            </constraints>
+                            <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" image="xmark.circle.fill" catalog="system"/>
+                            <connections>
+                                <action selector="didCloseButtonTapped:" destination="-1" eventType="touchUpInside" id="IYp-EG-Dxb"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="pav-RN-MGH" firstAttribute="leading" secondItem="M6T-dO-Ybd" secondAttribute="leading" constant="16" id="Ucv-Qo-R8L"/>
+                        <constraint firstAttribute="trailing" secondItem="cpW-Gz-2Me" secondAttribute="trailing" constant="16" id="fb7-vX-jnL"/>
+                        <constraint firstAttribute="bottom" secondItem="pav-RN-MGH" secondAttribute="bottom" constant="64" id="hSb-OF-I7r"/>
+                        <constraint firstItem="cpW-Gz-2Me" firstAttribute="top" secondItem="M6T-dO-Ybd" secondAttribute="top" constant="16" id="hUI-aa-Vfe"/>
+                        <constraint firstItem="pav-RN-MGH" firstAttribute="top" secondItem="M6T-dO-Ybd" secondAttribute="top" constant="40" id="res-pM-dWg"/>
+                        <constraint firstAttribute="trailing" secondItem="pav-RN-MGH" secondAttribute="trailing" constant="16" id="tzJ-Jo-CSg"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <constraints>
+                <constraint firstItem="M6T-dO-Ybd" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="GUf-WC-HJx"/>
+                <constraint firstAttribute="bottom" secondItem="M6T-dO-Ybd" secondAttribute="bottom" id="g7q-ly-nNv"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="M6T-dO-Ybd" secondAttribute="trailing" id="uue-76-rOY"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="122"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
+        <namedColor name="primaryGreenColor">
+            <color red="0.016000000759959221" green="0.74900001287460327" blue="0.75700002908706665" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primaryPinkColor">
+            <color red="1" green="0.46299999952316284" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

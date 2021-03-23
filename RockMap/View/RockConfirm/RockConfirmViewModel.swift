@@ -13,7 +13,6 @@ final class RockConfirmViewModel {
     
     var rockName: String
     var rockImageDatas: [IdentifiableData]
-    var rockAddress: String
     var rockLocation: LocationManager.LocationStructure
     var rockDesc: String
     var seasons: Set<FIDocument.Rock.Season>
@@ -27,7 +26,6 @@ final class RockConfirmViewModel {
     init(
         rockName: String,
         rockImageDatas: [IdentifiableData],
-        rockAddress: String,
         rockLocation: LocationManager.LocationStructure,
         rockDesc: String,
         seasons: Set<FIDocument.Rock.Season>,
@@ -35,7 +33,6 @@ final class RockConfirmViewModel {
     ) {
         self.rockName = rockName
         self.rockImageDatas = rockImageDatas
-        self.rockAddress = rockAddress
         self.rockLocation = rockLocation
         self.rockDesc = rockDesc
         self.seasons = seasons
@@ -66,8 +63,12 @@ final class RockConfirmViewModel {
 
         let rock = FIDocument.Rock(
             id: UUID().uuidString,
+            createdAt: Date(),
+            updatedAt: nil,
+            parentPath: FIDocument.Rock.makeParentPath(parentCollection: FIDocument.User.colletionName, documentId: AuthManager.uid),
             name: rockName,
-            address: rockAddress,
+            address: rockLocation.address,
+            prefecture: rockLocation.prefecture,
             location: .init(
                 latitude: rockLocation.location.coordinate.latitude,
                 longitude: rockLocation.location.coordinate.longitude

@@ -10,14 +10,16 @@ import FirebaseFirestoreSwift
 
 extension FIDocument {
     struct Rock: FIDocumentProtocol {
-        
         typealias Collection = FINameSpace.Rocks
+        typealias Parent = FIDocument.User
         
         var id: String
         var createdAt: Date
         var updatedAt: Date?
+        var parentPath: String
         var name: String
         var address: String
+        var prefecture: String
         var location: GeoPoint
         var seasons: Set<Season>
         var lithology: Lithology
@@ -25,22 +27,26 @@ extension FIDocument {
         var registeredUserId: String
         
         init(
-            id: String = UUID().uuidString,
-            createdAt: Date = Date(),
-            updatedAt: Date = Date(),
-            name: String = "",
-            address: String = "",
-            location: GeoPoint = .init(latitude: 0, longitude: 0),
-            seasons: Set<Season> = [],
-            lithology: Lithology = .unKnown,
-            desc: String = "",
-            registeredUserId: String = ""
+            id: String,
+            createdAt: Date,
+            updatedAt: Date?,
+            parentPath: String,
+            name: String,
+            address: String,
+            prefecture: String,
+            location: GeoPoint,
+            seasons: Set<Season>,
+            lithology: Lithology,
+            desc: String ,
+            registeredUserId: String
         ) {
             self.id = id
             self.createdAt = createdAt
             self.updatedAt = updatedAt
+            self.parentPath = parentPath
             self.name = name
             self.address = address
+            self.prefecture = prefecture
             self.location = location
             self.seasons = seasons
             self.lithology = lithology

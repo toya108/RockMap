@@ -34,7 +34,9 @@ final class RockDetailViewModel {
             location: .init(
                 latitude: rock.location.latitude,
                 longitude: rock.location.longitude
-            ), address: rock.address
+            ),
+            address: rock.address,
+            prefecture: rock.prefecture
         )
         self.seasons = rock.seasons
         self.lithology = rock.lithology

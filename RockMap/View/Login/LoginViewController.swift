@@ -19,7 +19,6 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        AuthManager.authUI?.delegate = self
     }
     
     @IBAction func didGuestLoginButtonTapped(_ sender: UIButton) {
