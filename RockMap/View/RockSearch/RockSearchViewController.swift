@@ -15,13 +15,6 @@ final class RockSearchViewController: UIViewController {
     
     private let viewModel = RockSearchViewModel()
     private var bindings = Set<AnyCancellable>()
-
-    private lazy var searchBar: UISearchBar = {
-        let bar = UISearchBar()
-        bar.placeholder = "岩の名前で探す"
-        bar.searchTextField.backgroundColor = .white
-        return bar
-    }()
     
     private lazy var trackingButton: MKUserTrackingButton = {
         return .init(mapView: mapView)
@@ -53,12 +46,7 @@ final class RockSearchViewController: UIViewController {
     }
     
     private func setupLayout() {
-        func setupSearchBar() {
-            searchBar.delegate = self
-            navigationItem.titleView = searchBar
-            navigationItem.titleView?.frame = searchBar.frame
-        }
-        
+
         func setupTrackingButton() {
             trackingButton.tintColor = UIColor.Pallete.primaryGreen
             trackingButton.backgroundColor = .white
@@ -78,7 +66,6 @@ final class RockSearchViewController: UIViewController {
             ])
         }
         
-        setupSearchBar()
         setupTrackingButton()
     }
     
@@ -115,10 +102,6 @@ final class RockSearchViewController: UIViewController {
             animated: true
         )
     }
-}
-
-extension RockSearchViewController: UISearchBarDelegate {
-    
 }
 
 extension RockSearchViewController: MKMapViewDelegate {
