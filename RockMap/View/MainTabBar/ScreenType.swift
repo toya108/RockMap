@@ -11,7 +11,6 @@ import UIKit
 
 enum ScreenType: CaseIterable {
     case rockSearch
-    case register
     case myPage
     #if !RELEASE
     case debug
@@ -22,12 +21,6 @@ enum ScreenType: CaseIterable {
         case .rockSearch:
             return RockMapNavigationController(
                 rootVC: UIStoryboard(name: RockSearchViewController.className, bundle: nil).instantiateInitialViewController()!,
-                naviBarClass: RockMapNavigationBar.self
-            )
-            
-        case .register:
-            return RockMapNavigationController(
-                rootVC: UIStoryboard(name: RegisterViewController.className, bundle: nil).instantiateInitialViewController()!,
                 naviBarClass: RockMapNavigationBar.self
             )
 
@@ -50,9 +43,6 @@ enum ScreenType: CaseIterable {
         case .rockSearch:
             return "岩を探す"
             
-        case .register:
-            return "課題を作る"
-            
         case .myPage:
             return "マイページ"
             
@@ -67,10 +57,6 @@ enum ScreenType: CaseIterable {
         switch self {
         case .rockSearch:
             let image = UIImage.SystemImages.map.withTintColor(.white, renderingMode: .alwaysOriginal)
-            return image
-            
-        case .register:
-            let image = UIImage.SystemImages.pencilCircle.withTintColor(.white, renderingMode: .alwaysOriginal)
             return image
             
         case .myPage:
@@ -88,10 +74,6 @@ enum ScreenType: CaseIterable {
         switch self {
         case .rockSearch:
             let image = UIImage.SystemImages.mapFill.withTintColor(.white, renderingMode: .alwaysOriginal)
-            return image
-            
-        case .register:
-            let image = UIImage.SystemImages.pencilCircleFill.withTintColor(.white, renderingMode: .alwaysOriginal)
             return image
             
         case .myPage:
