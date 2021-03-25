@@ -384,8 +384,8 @@
 			isa = PBXGroup;
 			children = (
 				9E5CEFCF25277B25001C95AA /* RockSearchViewController.swift */,
-				9E26400425B5C0300088DAFB /* RockSearchViewModel.swift */,
 				9E5CEFD125277B25001C95AA /* RockSearchViewController.storyboard */,
+				9E26400425B5C0300088DAFB /* RockSearchViewModel.swift */,
 			);
 			path = RockSearch;
 			sourceTree = "<group>";
