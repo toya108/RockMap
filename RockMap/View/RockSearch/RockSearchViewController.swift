@@ -83,6 +83,10 @@ final class RockSearchViewController: UIViewController {
 
     private func setupMapView() {
         mapView.delegate = self
+        mapView.register(
+            MKMarkerAnnotationView.self,
+            forAnnotationViewWithReuseIdentifier: RockAnnotation.className
+        )
     }
     
     private func setupBindings() {
@@ -172,44 +176,102 @@ final class RockSearchViewController: UIViewController {
 }
 
 extension RockSearchViewController: MKMapViewDelegate {
+
     func mapView(
         _ mapView: MKMapView,
         viewFor annotation: MKAnnotation
     ) -> MKAnnotationView? {
         
-        if annotation === mapView.userLocation {
+        if annotation.isKind(of: MKUserLocation.self) {
             return nil
         }
-        
-        let annotationView = mapView.dequeueReusableAnnotationView(
-            withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier,
+
+        let annotationView: MKAnnotationView
+
+        switch annotation {
+            case let rockAnnotation as RockAnnotation:
+                annotationView = makeRockAnnotationView(for: rockAnnotation, on: mapView)
+
+            case let clusterAnnotation as MKClusterAnnotation:
+                annotationView = makeRockClusterAnnotationView(for: clusterAnnotation, on: mapView)
+
+            case let pointAnnotation as MKPointAnnotation:
+                annotationView = makePointAnnotationView(for: pointAnnotation, on: mapView)
+
+            default:
+                annotationView = MKMarkerAnnotationView()
+        }
+        return annotationView
+    }
+
+    private func makeRockAnnotationView(
+        for annotation: RockAnnotation,
+        on mapView: MKMapView
+    ) -> MKAnnotationView {
+
+        let view = mapView.dequeueReusableAnnotationView(
+            withIdentifier: RockAnnotation.className,
             for: annotation
         )
-        
+
         guard
-            let markerAnnotationView = annotationView as? MKMarkerAnnotationView
+            let markerAnnotationView = view as? MKMarkerAnnotationView
         else {
-            return annotationView
+            return view
         }
 
-        markerAnnotationView.clusteringIdentifier = RockAnnotation.className
+        markerAnnotationView.canShowCallout = true
         markerAnnotationView.markerTintColor = UIColor.Pallete.primaryGreen
+        markerAnnotationView.detailCalloutAccessoryView = RockAnnotationDetailView.createView(rock: annotation.rock)
+
+        markerAnnotationView.clusteringIdentifier = RockAnnotation.className
+
         return markerAnnotationView
     }
-    
-    func mapView(
-        _ mapView: MKMapView,
-        didSelect view: MKAnnotationView
-    ) {
-        
+
+    private func makeRockClusterAnnotationView(
+        for annotation: MKClusterAnnotation,
+        on mapView: MKMapView
+    ) -> MKAnnotationView {
+
+        let view = mapView.dequeueReusableAnnotationView(
+            withIdentifier: RockAnnotation.className,
+            for: annotation
+        )
+
         guard
-            let rockAnnotation = view.annotation as? RockAnnotation
+            let markerAnnotationView = view as? MKMarkerAnnotationView
         else {
-            return
+            return view
         }
-        
-        let vc = RockDetailViewController.createInstance(viewModel: .init(rock: rockAnnotation.rock))
-        navigationController?.pushViewController(vc, animated: true)
+
+        markerAnnotationView.canShowCallout = true
+        markerAnnotationView.markerTintColor = UIColor.Pallete.primaryGreen
+        markerAnnotationView.detailCalloutAccessoryView = RockAnnotationDetailView()
+
+        return markerAnnotationView
+    }
+
+    private func makePointAnnotationView(
+        for annotation: MKPointAnnotation,
+        on mapView: MKMapView
+    ) -> MKAnnotationView {
+
+        let view = mapView.dequeueReusableAnnotationView(
+            withIdentifier: RockAnnotation.className,
+            for: annotation
+        )
+
+        guard
+            let markerAnnotationView = view as? MKMarkerAnnotationView
+        else {
+            return view
+        }
+
+        markerAnnotationView.canShowCallout = true
+        markerAnnotationView.markerTintColor = UIColor.Pallete.primaryPink
+
+        return markerAnnotationView
     }
 }
 
@@ -218,7 +280,7 @@ class RockAnnotation: NSObject, MKAnnotation {
     let rock: FIDocument.Rock
     let coordinate: CLLocationCoordinate2D
     var title: String?
-    
+
     init(
         coordinate: CLLocationCoordinate2D,
         rock: FIDocument.Rock,
