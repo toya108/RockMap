@@ -28,6 +28,11 @@ final class RockRegisterViewModel {
     init() {
         setupBindings()
     }
+
+    init(location: CLLocation) {
+        setupBindings()
+        self.rockLocation.location = location
+    }
     
     private func setupBindings() {
         $rockName

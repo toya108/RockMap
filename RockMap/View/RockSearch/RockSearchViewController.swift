@@ -16,6 +16,9 @@ final class RockSearchViewController: UIViewController {
     private let viewModel = RockSearchViewModel()
     private var bindings = Set<AnyCancellable>()
     @IBOutlet weak var buttonStackView: UIStackView!
+    @IBOutlet weak var addressBaseView: UIView!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var addressBaseViewTopConstraint: NSLayoutConstraint!
 
     private lazy var trackingButton: MKUserTrackingButton = {
         return .init(mapView: mapView)
@@ -77,8 +80,14 @@ final class RockSearchViewController: UIViewController {
             selectLocationButton.addShadow()
         }
 
+        func setupAddressBaseView() {
+            addressBaseView.addShadow()
+            addressBaseView.layer.cornerRadius = 8
+        }
+
         setupTrackingButton()
         setupSelectLocationButton()
+        setupAddressBaseView()
     }
 
     private func setupMapView() {
@@ -117,6 +126,22 @@ final class RockSearchViewController: UIViewController {
 
                 self.updateSelectButtonLayout(state: state)
                 self.updateMapView(state: state)
+                self.addressBaseViewTopConstraint.constant = state == .selecting ? -116 : 0
+            }
+            .store(in: &bindings)
+
+        viewModel.$address
+            .removeDuplicates()
+            .sink { [weak self] address in
+
+                guard
+                    let self = self,
+                    let address = address
+                else {
+                    return
+                }
+
+                self.addressLabel.text = "📍" + address
             }
             .store(in: &bindings)
     }
@@ -158,9 +183,9 @@ final class RockSearchViewController: UIViewController {
 
     @objc private func didMapViewLongPressed(_ sender: UILongPressGestureRecognizer) {
 
-        if
-            let pointAnnotation = mapView.annotations.first(where: { $0 is MKPointAnnotation })
-        {
+        if sender.state == .began { return }
+
+        if let pointAnnotation = mapView.annotations.first(where: { $0 is MKPointAnnotation }) {
             mapView.removeAnnotations([pointAnnotation])
         }
 
@@ -235,7 +260,7 @@ extension RockSearchViewController: MKMapViewDelegate {
     ) -> MKAnnotationView {
 
         let view = mapView.dequeueReusableAnnotationView(
-            withIdentifier: RockAnnotation.className,
+            withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier,
             for: annotation
         )
 
@@ -258,7 +283,7 @@ extension RockSearchViewController: MKMapViewDelegate {
     ) -> MKAnnotationView {
 
         let view = mapView.dequeueReusableAnnotationView(
-            withIdentifier: RockAnnotation.className,
+            withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier,
             for: annotation
         )
 
@@ -267,9 +292,27 @@ extension RockSearchViewController: MKMapViewDelegate {
         else {
             return view
         }
-
-        markerAnnotationView.canShowCallout = true
         markerAnnotationView.markerTintColor = UIColor.Pallete.primaryPink
+        markerAnnotationView.canShowCallout = true
+        let button = UIButton(frame: .init(origin: .zero, size: .init(width: 200, height: 44)))
+        button.addAction(
+            .init {_ in
+                let location = CLLocation(
+                    latitude: annotation.coordinate.latitude,
+                    longitude: annotation.coordinate.longitude
+                )
+                let registerVc = RockRegisterViewController.createInstance(viewModel: .init(location: location))
+//                let vc = RockMapNavigationController(rootVC: registerVc, naviBarClass: RockMapNavigationBar.self)
+
+                self.present(registerVc, animated: true)
+            },
+            for: .touchUpInside
+        )
+        button.contentEdgeInsets = .init(top: 4, left: 8, bottom: 4, right: 8)
+        button.setTitle("ここに岩を登録する", for: .normal)
+        button.layer.cornerRadius = 4
+        button.backgroundColor = UIColor.Pallete.primaryPink
+        markerAnnotationView.detailCalloutAccessoryView = button
 
         return markerAnnotationView
     }

@@ -6,16 +6,47 @@
 //
 
 import CoreLocation
+import Combine
 
 class RockSearchViewModel {
     
     @Published private(set) var rockDocuments: [FIDocument.Rock] = []
     @Published private(set) var error: Error?
     @Published var location: CLLocation?
+    @Published var address: String?
     @Published var locationSelectState: LocationSelectButtonState = .standby
-    
+
+    private var bindings = Set<AnyCancellable>()
+
     init() {
+        setupBindings()
         fetchRockList()
+    }
+
+    private func setupBindings() {
+        $location
+            .sink { [weak self] location in
+
+                guard
+                    let self = self,
+                    let location = location
+                else {
+                    return
+                }
+
+                LocationManager.shared.reverseGeocoding(
+                    location: location
+                ) { result in
+                    switch result {
+                        case let .success(placemark):
+                            self.address = placemark.address
+                            
+                        case .failure:
+                            break
+                    }
+                }
+            }
+            .store(in: &bindings)
     }
     
     func fetchRockList() {
