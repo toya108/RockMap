@@ -3,8 +3,7 @@
 
 target 'RockMap' do
 
-  pod 'Firebase/Storage'	
-  pod 'Firebase/Auth'
+  pod 'Firebase/Storage'
   pod 'FirebaseUI'
   pod 'Firebase/Analytics'
   pod 'Firebase/Core'

@@ -420,7 +420,6 @@ PODS:
 
 DEPENDENCIES:
   - Firebase/Analytics
-  - Firebase/Auth
   - Firebase/Core
   - Firebase/Crashlytics
   - Firebase/Firestore
@@ -491,6 +490,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   SDWebImage: 9169792e9eec3e45bba2a0c02f74bf8bd922d1ee
 
-PODFILE CHECKSUM: e2ad433b971867432a65e4d17ea7dd1669959399
+PODFILE CHECKSUM: 753277cf2e637fc6d8c32025117117183e4c7a79
 
 COCOAPODS: 1.10.0
