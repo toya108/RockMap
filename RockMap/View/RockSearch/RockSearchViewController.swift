@@ -151,6 +151,24 @@ final class RockSearchViewController: UIViewController {
             animated: true
         )
     }
+
+    @objc private func didMapViewLongPressed(_ sender: UILongPressGestureRecognizer) {
+
+        if
+            let pointAnnotation = mapView.annotations.first(where: { $0 is MKPointAnnotation })
+        {
+            mapView.removeAnnotations([pointAnnotation])
+        }
+
+        let rockAddressPin = MKPointAnnotation()
+        let tapPoint = sender.location(in: mapView)
+        let coordinate = mapView.convert(tapPoint, toCoordinateFrom: mapView)
+        rockAddressPin.coordinate = coordinate
+        mapView.addAnnotation(rockAddressPin)
+        mapView.selectAnnotation(rockAddressPin, animated: false)
+
+        viewModel.location = .init(latitude: coordinate.latitude, longitude: coordinate.longitude)
+    }
 }
 
 extension RockSearchViewController: MKMapViewDelegate {
