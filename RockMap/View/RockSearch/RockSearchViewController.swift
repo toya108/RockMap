@@ -82,7 +82,7 @@ final class RockSearchViewController: UIViewController {
 
         func setupAddressBaseView() {
             addressBaseView.addShadow()
-            addressBaseView.layer.cornerRadius = 8
+            addressBaseView.layer.cornerRadius = 16
         }
 
         setupTrackingButton()
