@@ -36,5 +36,10 @@ extension UIView {
             }
         )
     }
+
+    func addShadow() {
+        layer.shadowRadius = Resources.Const.UI.Shadow.radius
+        layer.shadowOpacity = 0.3
+    }
 }
 

@@ -15,11 +15,22 @@ final class RockSearchViewController: UIViewController {
     
     private let viewModel = RockSearchViewModel()
     private var bindings = Set<AnyCancellable>()
-    
+    @IBOutlet weak var buttonStackView: UIStackView!
+
     private lazy var trackingButton: MKUserTrackingButton = {
         return .init(mapView: mapView)
     }()
-    
+
+    @IBOutlet weak var selectLocationButton: UIButton!
+
+    @IBAction func selectLocationButtonTapped(_ sender: UIButton) {
+        if viewModel.locationSelectState == .standby {
+            viewModel.locationSelectState = .selecting
+        } else {
+            viewModel.locationSelectState = .standby
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,24 +62,25 @@ final class RockSearchViewController: UIViewController {
             trackingButton.tintColor = UIColor.Pallete.primaryGreen
             trackingButton.backgroundColor = .white
             trackingButton.layer.cornerRadius = 4
-            trackingButton.layer.shadowRadius = Resources.Const.UI.Shadow.radius
-            trackingButton.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
-            trackingButton.layer.shadowColor = Resources.Const.UI.Shadow.color
-            trackingButton.layer.shadowOffset = .init(width: 4, height: 4)
+            trackingButton.addShadow()
             
             trackingButton.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(trackingButton)
+            buttonStackView.addArrangedSubview(trackingButton)
             NSLayoutConstraint.activate([
-                trackingButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-                trackingButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -32),
                 trackingButton.heightAnchor.constraint(equalToConstant: 44),
                 trackingButton.widthAnchor.constraint(equalToConstant: 44)
             ])
         }
-        
+
+        func setupSelectLocationButton() {
+            selectLocationButton.layer.cornerRadius = 22
+            selectLocationButton.addShadow()
+        }
+
         setupTrackingButton()
+        setupSelectLocationButton()
     }
-    
+
     private func setupMapView() {
         mapView.delegate = self
     }
@@ -92,6 +104,43 @@ final class RockSearchViewController: UIViewController {
                 }
             }
             .store(in: &bindings)
+
+        viewModel.$locationSelectState
+            .removeDuplicates()
+            .sink { [weak self] state in
+
+                guard let self = self else { return }
+
+                self.updateSelectButtonLayout(state: state)
+                self.updateMapView(state: state)
+            }
+            .store(in: &bindings)
+    }
+
+    private func updateSelectButtonLayout(state: LocationSelectButtonState) {
+        UIView.animate(withDuration: 0.2) {
+            self.selectLocationButton.backgroundColor = state.backGroundColor
+            self.selectLocationButton.tintColor = state.tintColor
+            self.selectLocationButton.setImage(state.image, for: .normal)
+        }
+    }
+
+    private func updateMapView(state: LocationSelectButtonState) {
+        switch state {
+            case .standby:
+                if let pointAnnotation = mapView.annotations.first(where: { $0 is MKPointAnnotation }) {
+                    mapView.removeAnnotation(pointAnnotation)
+                }
+                mapView.gestureRecognizers?.forEach { mapView.removeGestureRecognizer($0) }
+
+            case .selecting:
+                mapView.addGestureRecognizer(
+                    UILongPressGestureRecognizer(
+                        target: self,
+                        action: #selector(didMapViewLongPressed(_:))
+                    )
+                )
+        }
     }
     
     private func updateLocation(_ location: CLLocation) {

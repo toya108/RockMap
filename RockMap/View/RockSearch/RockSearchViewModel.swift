@@ -5,12 +5,14 @@
 //  Created by TOUYA KAWANO on 2021/01/18.
 //
 
-import Foundation
+import CoreLocation
 
 class RockSearchViewModel {
     
     @Published private(set) var rockDocuments: [FIDocument.Rock] = []
     @Published private(set) var error: Error?
+    @Published var location: CLLocation?
+    @Published var locationSelectState: LocationSelectButtonState = .standby
     
     init() {
         fetchRockList()
