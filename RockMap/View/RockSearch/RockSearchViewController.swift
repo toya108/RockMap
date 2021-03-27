@@ -8,6 +8,7 @@
 import Combine
 import UIKit
 import MapKit
+import FloatingPanel
 
 final class RockSearchViewController: UIViewController {
 
@@ -19,6 +20,7 @@ final class RockSearchViewController: UIViewController {
     @IBOutlet weak var addressBaseView: UIView!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var addressBaseViewTopConstraint: NSLayoutConstraint!
+    private let floatingPanelVc = FloatingPanelController()
 
     private lazy var trackingButton: MKUserTrackingButton = {
         return .init(mapView: mapView)
@@ -232,6 +234,48 @@ extension RockSearchViewController: MKMapViewDelegate {
         return annotationView
     }
 
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        floatingPanelVc.removePanelFromParent(animated: true)
+    }
+
+    func mapView(
+        _ mapView: MKMapView,
+        didSelect view: MKAnnotationView
+    ) {
+
+        switch view.annotation {
+            case let rockAnnotation as RockAnnotation:
+                showFloatingPanel(rocks: [rockAnnotation.rock])
+
+            case let clusterAnnotation as MKClusterAnnotation:
+                showFloatingPanel(
+                    rocks: clusterAnnotation.memberAnnotations.compactMap { $0 as? RockAnnotation  }.map(\.rock)
+                )
+
+            default:
+                break
+
+        }
+    }
+
+    private func showFloatingPanel(rocks: [FIDocument.Rock]) {
+        guard floatingPanelVc.contentViewController == nil else {
+            floatingPanelVc.removePanelFromParent(animated: true) {
+                self.addFloatingPanel(rocks: rocks)
+            }
+            return
+        }
+
+        addFloatingPanel(rocks: rocks)
+    }
+
+    private func addFloatingPanel(rocks: [FIDocument.Rock]) {
+        let contentVC = RockAnnotationsTableViewController.createInstance(rocks: rocks)
+        floatingPanelVc.set(contentViewController: contentVC)
+        floatingPanelVc.track(scrollView: contentVC.tableView)
+        floatingPanelVc.addPanel(toParent: self, animated: true)
+    }
+
     private func makeRockAnnotationView(
         for annotation: RockAnnotation,
         on mapView: MKMapView
@@ -248,12 +292,8 @@ extension RockSearchViewController: MKMapViewDelegate {
             return view
         }
 
-        markerAnnotationView.canShowCallout = true
         markerAnnotationView.markerTintColor = UIColor.Pallete.primaryGreen
-        markerAnnotationView.detailCalloutAccessoryView = RockAnnotationDetailView.createView(rock: annotation.rock)
-
         markerAnnotationView.clusteringIdentifier = RockAnnotation.className
-
         return markerAnnotationView
     }
 
@@ -273,10 +313,7 @@ extension RockSearchViewController: MKMapViewDelegate {
             return view
         }
 
-        markerAnnotationView.canShowCallout = true
         markerAnnotationView.markerTintColor = UIColor.Pallete.primaryGreen
-        markerAnnotationView.detailCalloutAccessoryView = RockAnnotationDetailView()
-
         return markerAnnotationView
     }
 
