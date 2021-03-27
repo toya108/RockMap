@@ -48,3 +48,41 @@ final class RockMapNavigationBar: UINavigationBar {
         backIndicatorTransitionMaskImage = UIImage.AssetsImages.back
     }
 }
+
+final class RockMapNoShadowNavigationBar: UINavigationBar {
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+
+    func setup() {
+
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = .white
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.backgroundImage = UIGraphicsImageRenderer.init(size: .init(width: 1, height: 1)).image { context in
+            UIColor.white.setFill()
+            context.fill(.init(origin: .init(x: 0, y: 0), size: .init(width: 1, height: 1)))
+        }
+        appearance.shadowImage = UIImage()
+
+        // Large Title 用
+        scrollEdgeAppearance = appearance
+        // 通常の NavigationBar 用
+        standardAppearance = appearance
+
+        barTintColor = .white
+        tintColor = .black
+
+        backIndicatorImage = UIImage.AssetsImages.back
+        backIndicatorTransitionMaskImage = UIImage.AssetsImages.back
+    }
+}
+

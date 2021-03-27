@@ -79,6 +79,18 @@ class RockRegisterViewController: UIViewController {
     
     private func setupNavigationBar() {
         navigationItem.title = "岩を登録する"
+        navigationItem.setRightBarButton(
+            .init(
+                image: UIImage.SystemImages.xmark,
+                primaryAction: .init { [weak self] _ in
+
+                    guard let self = self else { return }
+
+                    self.dismiss(animated: true)
+                }
+            ),
+            animated: true
+        )
     }
     
     private func bindViewModelToView() {

@@ -305,9 +305,13 @@ extension RockSearchViewController: MKMapViewDelegate {
                     longitude: annotation.coordinate.longitude
                 )
                 let registerVc = RockRegisterViewController.createInstance(viewModel: .init(location: location))
-//                let vc = RockMapNavigationController(rootVC: registerVc, naviBarClass: RockMapNavigationBar.self)
+                let vc = RockMapNavigationController(
+                    rootVC: registerVc,
+                    naviBarClass: RockMapNoShadowNavigationBar.self
+                )
+                vc.isModalInPresentation = true
 
-                self.present(registerVc, animated: true)
+                self.present(vc, animated: true)
             },
             for: .touchUpInside
         )
