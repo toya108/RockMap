@@ -126,7 +126,8 @@ extension RockRegisterViewController {
         .init { [weak self] cell, _, _ in
             
             guard let self = self else { return }
-            
+
+            cell.textField.text = self.viewModel.rockName
             cell.configurePlaceholder("岩名を入力して下さい。")
             cell.textField.textDidChangedPublisher.assign(to: &self.viewModel.$rockName)
             cell.textField.delegate = self
@@ -145,7 +146,8 @@ extension RockRegisterViewController {
         ) { [weak self] cell, _, _ in
             
             guard let self = self else { return }
-            
+
+            cell.textView.text = self.viewModel.rockDesc
             cell.configurePlaceholder("課題の説明を入力して下さい。")
             cell.textView.textDidChangedPublisher.assign(to: &self.viewModel.$rockDesc)
         }
