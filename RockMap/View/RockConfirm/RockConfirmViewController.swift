@@ -87,16 +87,11 @@ class RockConfirmViewController: UIViewController {
                     self.indicator.stopAnimating()
                     RegisterSucceededViewController.showSuccessView(present: self) {
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                            
-                            guard let self = self else { return }
-                            
-                            self.dismiss(animated: true) { [weak self] in
-                                
-                                guard let self = self else { return }
-                                
-                                self.navigationController?.popToRootViewController(animated: true)
-                            }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            UIApplication.shared.windows
+                                .first(where: { $0.isKeyWindow })?
+                                .rootViewController?
+                                .dismiss(animated: true)
                         }
                     }
                     
