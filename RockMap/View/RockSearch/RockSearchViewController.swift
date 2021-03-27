@@ -42,6 +42,7 @@ final class RockSearchViewController: UIViewController {
         setupLayout()
         setupBindings()
         setupMapView()
+        setupFloatingPanel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,6 +100,18 @@ final class RockSearchViewController: UIViewController {
             MKMarkerAnnotationView.self,
             forAnnotationViewWithReuseIdentifier: RockAnnotation.className
         )
+    }
+
+    private func setupFloatingPanel() {
+        floatingPanelVc.delegate = self
+        floatingPanelVc.isRemovalInteractionEnabled = true
+        let appearence = SurfaceAppearance()
+        appearence.cornerRadius = 16
+        let shadow = SurfaceAppearance.Shadow()
+        shadow.radius = Resources.Const.UI.Shadow.radius
+        shadow.opacity = 0.3
+        appearence.shadows = [shadow]
+        floatingPanelVc.surfaceView.appearance = appearence
     }
     
     private func setupBindings() {
@@ -242,7 +255,6 @@ extension RockSearchViewController: MKMapViewDelegate {
         _ mapView: MKMapView,
         didSelect view: MKAnnotationView
     ) {
-
         switch view.annotation {
             case let rockAnnotation as RockAnnotation:
                 showFloatingPanel(rocks: [rockAnnotation.rock])
@@ -260,7 +272,10 @@ extension RockSearchViewController: MKMapViewDelegate {
 
     private func showFloatingPanel(rocks: [FIDocument.Rock]) {
         guard floatingPanelVc.contentViewController == nil else {
-            floatingPanelVc.removePanelFromParent(animated: true) {
+            floatingPanelVc.removePanelFromParent(animated: true) { [weak self] in
+
+                guard let self = self else { return }
+
                 self.addFloatingPanel(rocks: rocks)
             }
             return
@@ -379,5 +394,26 @@ class RockAnnotation: NSObject, MKAnnotation {
         self.rock = rock
         self.coordinate = coordinate
         self.title = title
+    }
+}
+
+extension RockSearchViewController: FloatingPanelControllerDelegate {
+
+    func floatingPanel(
+        _ fpc: FloatingPanelController,
+        layoutFor newCollection: UITraitCollection
+    ) -> FloatingPanelLayout {
+        return RockSearchFloatingPanelLayout()
+    }
+
+}
+
+class RockSearchFloatingPanelLayout: FloatingPanelLayout {
+    let position: FloatingPanelPosition = .bottom
+    let initialState: FloatingPanelState = .half
+    var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
+        return [
+            .half: FloatingPanelLayoutAnchor(fractionalInset: 0.5, edge: .bottom, referenceGuide: .safeArea),
+        ]
     }
 }

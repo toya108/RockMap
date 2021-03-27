@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RockAnnotationsTableViewController: UITableViewController {
+class RockAnnotationsTableViewController: UIViewController {
 
     private var rocks: [FIDocument.Rock]!
 
@@ -15,6 +15,7 @@ class RockAnnotationsTableViewController: UITableViewController {
         case main
     }
 
+    let tableView = UITableView()
     private var snapShot = NSDiffableDataSourceSnapshot<SectionKind, FIDocument.Rock>()
     private var datasource: UITableViewDiffableDataSource<SectionKind, FIDocument.Rock>!
 
@@ -33,6 +34,16 @@ class RockAnnotationsTableViewController: UITableViewController {
     }
 
     private func setupTableView() {
+        tableView.tableFooterView = UIView()
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 32),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        ])
+
         tableView.register(
             .init(
                 nibName: RockTableViewCell.className,
