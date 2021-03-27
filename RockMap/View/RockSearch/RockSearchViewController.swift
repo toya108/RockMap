@@ -294,9 +294,12 @@ extension RockSearchViewController: MKMapViewDelegate {
         }
         markerAnnotationView.markerTintColor = UIColor.Pallete.primaryPink
         markerAnnotationView.canShowCallout = true
-        let button = UIButton(frame: .init(origin: .zero, size: .init(width: 200, height: 44)))
+        let button = UIButton()
         button.addAction(
-            .init {_ in
+            .init { [weak self] _ in
+
+                guard let self = self else { return }
+
                 let location = CLLocation(
                     latitude: annotation.coordinate.latitude,
                     longitude: annotation.coordinate.longitude
