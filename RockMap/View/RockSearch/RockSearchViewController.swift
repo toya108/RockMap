@@ -163,6 +163,7 @@ final class RockSearchViewController: UIViewController {
                     mapView.removeAnnotation(pointAnnotation)
                 }
                 mapView.gestureRecognizers?.forEach { mapView.removeGestureRecognizer($0) }
+                addressLabel.text = nil
 
             case .selecting:
                 mapView.addGestureRecognizer(
