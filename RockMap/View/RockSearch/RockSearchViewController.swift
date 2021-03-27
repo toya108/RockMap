@@ -83,6 +83,7 @@ final class RockSearchViewController: UIViewController {
         func setupAddressBaseView() {
             addressBaseView.addShadow()
             addressBaseView.layer.cornerRadius = 16
+            addressLabel.layer.cornerRadius = 8
         }
 
         setupTrackingButton()
@@ -126,7 +127,8 @@ final class RockSearchViewController: UIViewController {
 
                 self.updateSelectButtonLayout(state: state)
                 self.updateMapView(state: state)
-                self.addressBaseViewTopConstraint.constant = state == .selecting ? -116 : 0
+                let baseViewHeight = self.addressBaseView.bounds.height
+                self.addressBaseViewTopConstraint.constant = state == .selecting ? -baseViewHeight : 0
             }
             .store(in: &bindings)
 

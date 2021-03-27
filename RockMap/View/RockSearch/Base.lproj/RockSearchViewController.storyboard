@@ -21,19 +21,23 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VFy-rZ-63K">
-                                <rect key="frame" x="0.0" y="862" width="414" height="116.5"/>
+                                <rect key="frame" x="0.0" y="862" width="414" height="128"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="UUX-Xf-Sh3">
-                                        <rect key="frame" x="16" y="32" width="382" height="52.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="UUX-Xf-Sh3">
+                                        <rect key="frame" x="16" y="32" width="382" height="64"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="※地図を長押しすると岩の位置を選択できます。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbx-mx-7B7">
-                                                <rect key="frame" x="0.0" y="0.0" width="382" height="18.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="382" height="16"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTC-Rm-SA6">
-                                                <rect key="frame" x="0.0" y="34.5" width="382" height="18"/>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTC-Rm-SA6">
+                                                <rect key="frame" x="0.0" y="32" width="382" height="32"/>
+                                                <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="zyf-0E-m8D"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -46,7 +50,6 @@
                                     <constraint firstItem="UUX-Xf-Sh3" firstAttribute="top" secondItem="VFy-rZ-63K" secondAttribute="top" constant="32" id="GBy-30-nlv"/>
                                     <constraint firstItem="UUX-Xf-Sh3" firstAttribute="leading" secondItem="VFy-rZ-63K" secondAttribute="leading" constant="16" id="JFi-GX-eLd"/>
                                     <constraint firstAttribute="trailing" secondItem="UUX-Xf-Sh3" secondAttribute="trailing" constant="16" id="VNq-62-Dcg"/>
-                                    <constraint firstAttribute="height" constant="116.5" id="hwv-JB-3wg"/>
                                     <constraint firstAttribute="bottom" secondItem="UUX-Xf-Sh3" secondAttribute="bottom" constant="32" id="yPD-x5-hXr"/>
                                 </constraints>
                             </view>
@@ -105,6 +108,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
