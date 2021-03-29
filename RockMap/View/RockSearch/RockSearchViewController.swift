@@ -143,7 +143,11 @@ final class RockSearchViewController: UIViewController {
                 self.updateSelectButtonLayout(state: state)
                 self.updateMapView(state: state)
                 let baseViewHeight = self.addressBaseView.bounds.height
+
                 self.addressBaseViewTopConstraint.constant = state == .selecting ? -baseViewHeight : 0
+                UIView.animate(withDuration: 0.2) {
+                    self.view.layoutIfNeeded()
+                }
             }
             .store(in: &bindings)
 
