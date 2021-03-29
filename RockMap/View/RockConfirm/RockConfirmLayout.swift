@@ -67,7 +67,7 @@ extension RockConfirmViewController {
                     )
                 )
                 let collectionViewWidth = self.collectionView.bounds.width - (self.collectionView.layoutMargins.left + self.collectionView.layoutMargins.right)
-                let height = collectionViewWidth * 3/4
+                let height = collectionViewWidth * 9/16
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),

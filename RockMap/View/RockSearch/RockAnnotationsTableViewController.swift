@@ -8,7 +8,7 @@
 import UIKit
 
 protocol RockAnnotationTableViewDelegate: class {
-    func didSelectRockAnnotaitonCell(rock: FIDocument.Rock) -> Void
+    func didSelectRockAnnotaitonCell(rock: FIDocument.Rock)
 }
 
 class RockAnnotationsTableViewController: UIViewController {
@@ -21,7 +21,7 @@ class RockAnnotationsTableViewController: UIViewController {
         case main
     }
 
-    let tableView = UITableView()
+    let tableView = UITableView(frame: .zero, style: .insetGrouped)
     private var snapShot = NSDiffableDataSourceSnapshot<SectionKind, FIDocument.Rock>()
     private var datasource: UITableViewDiffableDataSource<SectionKind, FIDocument.Rock>!
 
@@ -74,6 +74,13 @@ class RockAnnotationsTableViewController: UIViewController {
                 return UITableViewCell()
             }
 
+            guard
+                let rock = self.datasource.itemIdentifier(for: index)
+            else {
+                return rockCell
+            }
+
+            rockCell.configure(rock: rock)
             return rockCell
             
         }

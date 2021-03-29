@@ -9,15 +9,37 @@ import UIKit
 
 class RockTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var headerImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+        headerImageView.layer.cornerRadius = 8
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    func configure(rock: FIDocument.Rock) {
+        nameLabel.text = rock.name
+        addressLabel.text = rock.address
 
-        // Configure the view for the selected state
+        let rockReference = StorageManager.makeReference(
+            parent: FINameSpace.Rocks.self,
+            child: rock.name
+        )
+        StorageManager.getHeaderReference(reference: rockReference) { [weak self] result in
+
+            guard let self = self else { return }
+
+            switch result {
+                case let .success(reference):
+                    self.headerImageView.loadImage(reference: reference)
+
+                case let .failure(_):
+                    break
+
+            }
+        }
     }
     
 }
