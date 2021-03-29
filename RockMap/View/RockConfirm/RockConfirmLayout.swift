@@ -30,7 +30,7 @@ extension RockConfirmViewController {
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .estimated(44)
+                        heightDimension: .estimated(32)
                     )
                 )
                 let group = NSCollectionLayoutGroup.horizontal(
@@ -86,8 +86,8 @@ extension RockConfirmViewController {
                 )
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: .init(
-                        widthDimension: .fractionalWidth(0.5),
-                        heightDimension: .fractionalWidth(0.5)
+                        widthDimension: .fractionalWidth(0.4),
+                        heightDimension: .fractionalWidth(0.4)
                     ),
                     subitems: [item]
                 )

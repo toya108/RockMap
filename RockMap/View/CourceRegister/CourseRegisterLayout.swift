@@ -101,6 +101,25 @@ extension CourseRegisterViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
+
+            case .header:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)
+                    )
+                )
+                let collectionViewWidth = self.collectionView.bounds.width - (self.collectionView.layoutMargins.left + self.collectionView.layoutMargins.right)
+                let height = collectionViewWidth * 9/16
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(height)
+                    ),
+                    subitems: [item]
+                )
+
+                section = .init(group: group)
                 
             case .images:
                 

@@ -43,13 +43,15 @@ class CourseRegisterViewModel {
     @Published var courseName = ""
     @Published var grade: FIDocument.Course.Grade = .q10
     @Published var shape: Set<FIDocument.Course.Shape> = []
+    @Published var header: IdentifiableData?
     @Published var images: [IdentifiableData] = []
     @Published var desc = ""
     @Published var isPrivate = false
     
     @Published private(set) var courseNameValidationResult: ValidationResult = .none
-    @Published private(set) var courseImageValidationResult = false
-    
+    @Published private(set) var courseImageValidationResult: ValidationResult = .none
+    @Published private(set) var headerImageValidationResult: ValidationResult = .none
+
     private var bindings = Set<AnyCancellable>()
 
     init(rockHeaderStructure: RockHeaderStructure) {
@@ -66,14 +68,37 @@ class CourseRegisterViewModel {
         
         $images
             .dropFirst()
-            .map { !$0.isEmpty }
+            .map { RockImageValidator().validate($0) }
+            .assign(to: &$courseImageValidationResult)
+
+        $headerImageValidationResult
+            .dropFirst()
+            .map { RockImageValidator().validate($0) }
             .assign(to: &$courseImageValidationResult)
     }
     
     func callValidations() -> Bool {
-        courseImageValidationResult = !images.isEmpty
+        headerImageValidationResult = RockHeaderImageValidator().validate(header)
+        courseImageValidationResult = RockImageValidator().validate(images)
         courseNameValidationResult = CourseNameValidator().validate(courseName)
-        
-        return courseNameValidationResult.isValid && courseImageValidationResult
+
+        return [
+            courseNameValidationResult,
+            courseImageValidationResult,
+            headerImageValidationResult
+        ]
+        .map(\.isValid)
+        .allSatisfy { $0 }
+    }
+
+    func set(data: [IdentifiableData], for imageType: ImageType) {
+        switch imageType {
+            case .header:
+                header = data.first
+
+            case .normal:
+                images.append(contentsOf: data)
+
+        }
     }
 }

@@ -30,7 +30,7 @@ extension CourseConfirmViewController {
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .estimated(414)
+                        heightDimension: .estimated(156)
                     )
                 )
                 let group = NSCollectionLayoutGroup.horizontal(
@@ -50,7 +50,7 @@ extension CourseConfirmViewController {
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .estimated(44)
+                        heightDimension: .estimated(32)
                     )
                 )
                 let group = NSCollectionLayoutGroup.horizontal(
@@ -61,15 +61,16 @@ extension CourseConfirmViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
-                
-            case .images:
+
+            case .header:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
                         heightDimension: .fractionalHeight(1)
                     )
                 )
-                let height = UIScreen.main.bounds.width * 9/16
+                let collectionViewWidth = self.collectionView.bounds.width - (self.collectionView.layoutMargins.left + self.collectionView.layoutMargins.right)
+                let height = collectionViewWidth * 9/16
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
@@ -78,10 +79,24 @@ extension CourseConfirmViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
-                sectionHeader.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
-                section.boundarySupplementaryItems = [sectionHeader]
-                section.orthogonalScrollingBehavior = .paging
-                return section
+
+            case .images:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)
+                    )
+                )
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(0.4),
+                        heightDimension: .fractionalWidth(0.4)
+                    ),
+                    subitems: [item]
+                )
+                section = .init(group: group)
+                section.interGroupSpacing = 4
+                section.orthogonalScrollingBehavior = .continuous
 
             case .register:
                 let item = NSCollectionLayoutItem(
@@ -99,22 +114,6 @@ extension CourseConfirmViewController {
                 )
                 section = .init(group: group)
                 section.contentInsets.top = 16
-                
-            default:
-                let item = NSCollectionLayoutItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .fractionalHeight(1)
-                    )
-                )
-                let group = NSCollectionLayoutGroup.horizontal(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: item.layoutSize.heightDimension
-                    ),
-                    subitems: [item]
-                )
-                section = .init(group: group)
             }
             
             if !sectionType.headerIdentifer.isEmpty {

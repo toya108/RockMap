@@ -53,11 +53,18 @@ extension CourseRegisterViewController {
                     item: (shape, isSelecting)
                 )
                 
-            case .noImage:
+            case let .noImage(imageType):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureImageSelectCell(),
                     for: indexPath,
-                    item: Dummy()
+                    item: imageType
+                )
+
+            case let .header(data):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureDeletabelImageCell(),
+                    for: indexPath,
+                    item: data
                 )
                 
             case let .images(data):
@@ -74,16 +81,12 @@ extension CourseRegisterViewController {
                     item: Dummy()
                 )
                 
-            case let .error(desc):
+            case let .error(error):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureErrorLabelCell(),
                     for: indexPath,
-                    item: desc
+                    item: error
                 )
-                
-            default:
-                return UICollectionViewCell()
-                
             }
         }
         
@@ -188,18 +191,21 @@ extension CourseRegisterViewController {
     
     private func configureImageSelectCell() -> UICollectionView.CellRegistration<
         ImageSelactCollectionViewCell,
-        Dummy
+        ImageType
     > {
         .init(
             cellNib: .init(
                 nibName: ImageSelactCollectionViewCell.className,
                 bundle: nil
             )
-        ) { [weak self] cell, _, _ in
+        ) { [weak self] cell, _, imageType in
             
             guard let self = self else { return }
             
-            self.setupImageUploadButtonActions(button: cell.uploadButton)
+            self.setupImageUploadButtonActions(
+                button: cell.uploadButton,
+                imageType: imageType
+            )
         }
     }
     
@@ -232,42 +238,46 @@ extension CourseRegisterViewController {
             cell.configure { [weak self] in
                 
                 guard let self = self else { return }
-                
-                if self.viewModel.callValidations() {
-                    
-                    let viewModel = CourseConfirmViewModel(
-                        rock: self.viewModel.rockHeaderStructure,
-                        courseName: self.viewModel.courseName,
-                        grade: self.viewModel.grade,
-                        shape: self.viewModel.shape,
-                        images: self.viewModel.images,
-                        desc: self.viewModel.desc
-                    )
-                    
-                    self.navigationController?.pushViewController(
-                        CourseConfirmViewController.createInstance(viewModel: viewModel),
-                        animated: true
-                    )
-                    
-                } else {
+
+                guard
+                    self.viewModel.callValidations(),
+                    let header = self.viewModel.header
+                else {
                     self.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
-                    
+                    return
                 }
-                
+
+                let viewModel = CourseConfirmViewModel(
+                    rock: self.viewModel.rockHeaderStructure,
+                    courseName: self.viewModel.courseName,
+                    grade: self.viewModel.grade,
+                    shape: self.viewModel.shape,
+                    header: header,
+                    images: self.viewModel.images,
+                    desc: self.viewModel.desc
+                )
+
+                self.navigationController?.pushViewController(
+                    CourseConfirmViewController.createInstance(viewModel: viewModel),
+                    animated: true
+                )
             }
         }
     }
     
     private func configureErrorLabelCell() -> UICollectionView.CellRegistration<
         ErrorLabelCollectionViewCell,
-        String
+        ValidationError
     > {
-        .init { cell, _, desc in
-            cell.configure(message: desc)
+        .init { cell, _, error in
+            cell.configure(message: error.description)
         }
     }
     
-    private func setupImageUploadButtonActions(button: UIButton) {
+    private func setupImageUploadButtonActions(
+        button: UIButton,
+        imageType: ImageType
+    ) {
         let photoLibraryAction = UIAction(
             title: "フォトライブラリ",
             image: UIImage.SystemImages.folderFill
@@ -275,7 +285,7 @@ extension CourseRegisterViewController {
             
             guard let self = self else { return }
 
-            self.present(self.phPickerViewController, animated: true)
+            self.pickerManager.presentPhPicker(imageType: imageType)
         }
         
         let cameraAction = UIAction(
@@ -285,10 +295,10 @@ extension CourseRegisterViewController {
             
             guard let self = self else { return }
             
-            let vc = UIImagePickerController()
-            vc.delegate = self
-            vc.sourceType = .camera
-            self.present(vc, animated: true)
+            self.pickerManager.presentImagePicker(
+                sourceType: .camera,
+                imageType: imageType
+            )
         }
         
         let menu = UIMenu(title: "", children: [photoLibraryAction, cameraAction])

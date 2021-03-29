@@ -23,8 +23,7 @@ final class RockRegisterViewModel {
     @Published private(set) var rockAddressValidationResult: ValidationResult = .none
     @Published private(set) var rockImageValidationResult: ValidationResult = .none
     @Published private(set) var headerImageValidationResult: ValidationResult = .none
-    @Published private(set) var isPassedAllValidation = false
-    
+
     private var bindings = Set<AnyCancellable>()
     
     init() {
@@ -77,15 +76,6 @@ final class RockRegisterViewModel {
         $rockImageDatas
             .map { RockImageValidator().validate($0) }
             .assign(to: &$rockImageValidationResult)
-        
-        $rockNameValidationResult
-            .combineLatest(
-                $rockImageValidationResult,
-                $rockAddressValidationResult,
-                $headerImageValidationResult
-            )
-            .map { [$0, $1, $2, $3].map(\.isValid).allSatisfy { $0 } }
-            .assign(to: &$isPassedAllValidation)
     }
     
     func callValidations() -> Bool {
@@ -93,7 +83,16 @@ final class RockRegisterViewModel {
         rockImageValidationResult = RockImageValidator().validate(rockImageDatas)
         rockNameValidationResult = RockNameValidator().validate(rockName)
         rockAddressValidationResult = RockAddressValidator().validate(rockLocation.address)
-        
+
+        let isPassedAllValidation = [
+            headerImageValidationResult,
+            rockImageValidationResult,
+            rockNameValidationResult,
+            rockAddressValidationResult
+        ]
+        .map(\.isValid)
+        .allSatisfy { $0 }
+
         return isPassedAllValidation
     }
 

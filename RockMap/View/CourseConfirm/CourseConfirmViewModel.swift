@@ -14,6 +14,7 @@ class CourseConfirmViewModel {
     let courseName: String
     let grade: FIDocument.Course.Grade
     let shape: Set<FIDocument.Course.Shape>
+    let header: IdentifiableData
     let images: [IdentifiableData]
     let desc: String
     
@@ -28,6 +29,7 @@ class CourseConfirmViewModel {
         courseName: String,
         grade: FIDocument.Course.Grade,
         shape: Set<FIDocument.Course.Shape>,
+        header: IdentifiableData,
         images: [IdentifiableData],
         desc: String
     ) {
@@ -35,6 +37,7 @@ class CourseConfirmViewModel {
         self.courseName = courseName
         self.grade = grade
         self.shape = shape
+        self.header = header
         self.images = images
         self.desc = desc
         
@@ -51,10 +54,20 @@ class CourseConfirmViewModel {
             parent: FINameSpace.Course.self,
             child: courseName
         )
+
+        let headerReference = reference
+            .child(ImageType.header.typeName)
+            .child(UUID().uuidString)
+        uploader.addData(data: header.data, reference: headerReference)
+
+        let normalReference = reference
+            .child(ImageType.normal.typeName)
+            .child(AuthManager.uid)
         images.forEach {
-            let imageReference = reference.child(UUID().uuidString)
+            let imageReference = normalReference.child(UUID().uuidString)
             uploader.addData(data: $0.data, reference: imageReference)
         }
+        
         uploader.start()
     }
     
