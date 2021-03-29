@@ -157,6 +157,26 @@ extension RockRegisterViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
+
+            case .headerImage:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)
+                    )
+                )
+                let collectionViewWidth = self.collectionView.bounds.width - (self.collectionView.layoutMargins.left + self.collectionView.layoutMargins.right)
+                let height = collectionViewWidth * 3/4
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(height)
+                    ),
+                    subitems: [item]
+                )
+
+                section = .init(group: group)
+
             }
             
             if !sectionType.headerIdentifer.isEmpty {

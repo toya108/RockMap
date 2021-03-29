@@ -12,6 +12,7 @@ import CoreLocation
 final class RockRegisterViewModel {
     
     @Published var rockName = ""
+    @Published var rockHeaderImage: IdentifiableData?
     @Published var rockImageDatas: [IdentifiableData] = []
     @Published var rockLocation = LocationManager.LocationStructure()
     @Published var rockDesc = ""
@@ -20,7 +21,8 @@ final class RockRegisterViewModel {
 
     @Published private(set) var rockNameValidationResult: ValidationResult = .none
     @Published private(set) var rockAddressValidationResult: ValidationResult = .none
-    @Published private(set) var rockImageValidationResult = false
+    @Published private(set) var rockImageValidationResult: ValidationResult = .none
+    @Published private(set) var headerImageValidationResult: ValidationResult = .none
     @Published private(set) var isPassedAllValidation = false
     
     private var bindings = Set<AnyCancellable>()
@@ -65,26 +67,44 @@ final class RockRegisterViewModel {
         $rockLocation
             .dropFirst()
             .removeDuplicates()
-            .map { locationStructure -> ValidationResult in
-                RockAddressValidator().validate(locationStructure.address)
-            }
+            .map { RockAddressValidator().validate($0.address) }
             .assign(to: &$rockAddressValidationResult)
 
+        $rockHeaderImage
+            .map { RockHeaderImageValidator().validate($0) }
+            .assign(to: &$headerImageValidationResult)
+
         $rockImageDatas
-            .map { !$0.isEmpty }
+            .map { RockImageValidator().validate($0) }
             .assign(to: &$rockImageValidationResult)
         
         $rockNameValidationResult
-            .combineLatest($rockImageValidationResult, $rockAddressValidationResult)
-            .map { [$0.0.isValid, $0.1, $0.2.isValid].allSatisfy { $0 } }
+            .combineLatest(
+                $rockImageValidationResult,
+                $rockAddressValidationResult,
+                $headerImageValidationResult
+            )
+            .map { [$0, $1, $2, $3].map(\.isValid).allSatisfy { $0 } }
             .assign(to: &$isPassedAllValidation)
     }
     
     func callValidations() -> Bool {
-        rockImageValidationResult = !rockImageDatas.isEmpty
+        headerImageValidationResult = RockHeaderImageValidator().validate(rockHeaderImage)
+        rockImageValidationResult = RockImageValidator().validate(rockImageDatas)
         rockNameValidationResult = RockNameValidator().validate(rockName)
         rockAddressValidationResult = RockAddressValidator().validate(rockLocation.address)
         
         return isPassedAllValidation
+    }
+
+    func set(data: [IdentifiableData], for imageType: ImageType) {
+        switch imageType {
+            case .header:
+                rockHeaderImage = data.first
+
+            case .normal:
+                rockImageDatas.append(contentsOf: data)
+
+        }
     }
 }

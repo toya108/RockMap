@@ -38,6 +38,13 @@ extension RockConfirmViewController {
                     for: indexPath,
                     item: locationStructure
                 )
+
+            case let .headerImage(data):
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureImageCell(),
+                    for: indexPath,
+                    item: data
+                )
                 
             case let .images(image):
                 return self.collectionView.dequeueConfiguredReusableCell(
@@ -115,6 +122,8 @@ extension RockConfirmViewController {
         IdentifiableData
     > {
         .init { cell, _, image in
+            cell.layer.cornerRadius = 8
+            cell.clipsToBounds = true
             cell.imageView.image = UIImage(data: image.data)
         }
     }

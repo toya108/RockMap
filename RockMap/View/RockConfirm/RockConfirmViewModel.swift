@@ -13,6 +13,7 @@ final class RockConfirmViewModel {
     
     var rockName: String
     var rockImageDatas: [IdentifiableData]
+    var rockHeaderImage: IdentifiableData
     var rockLocation: LocationManager.LocationStructure
     var rockDesc: String
     var seasons: Set<FIDocument.Rock.Season>
@@ -26,6 +27,7 @@ final class RockConfirmViewModel {
     init(
         rockName: String,
         rockImageDatas: [IdentifiableData],
+        rockHeaderImage: IdentifiableData,
         rockLocation: LocationManager.LocationStructure,
         rockDesc: String,
         seasons: Set<FIDocument.Rock.Season>,
@@ -33,6 +35,7 @@ final class RockConfirmViewModel {
     ) {
         self.rockName = rockName
         self.rockImageDatas = rockImageDatas
+        self.rockHeaderImage = rockHeaderImage
         self.rockLocation = rockLocation
         self.rockDesc = rockDesc
         self.seasons = seasons
@@ -46,12 +49,23 @@ final class RockConfirmViewModel {
     }
     
     func uploadImages() {
-        let reference = StorageManager.makeReference(
+        let headerReference = StorageManager.makeReference(
             parent: FINameSpace.Rocks.self,
             child: rockName
         )
+        .child(ImageType.header.typeName)
+        .child(UUID().uuidString)
+
+        uploader.addData(data: rockHeaderImage.data, reference: headerReference)
+
+        let normalImageReference = StorageManager.makeReference(
+            parent: FINameSpace.Rocks.self,
+            child: rockName
+        )
+        .child(AuthManager.uid)
+
         rockImageDatas.forEach {
-            let imageReference = reference.child(UUID().uuidString)
+            let imageReference = normalImageReference.child(UUID().uuidString)
             uploader.addData(data: $0.data, reference: imageReference)
         }
         uploader.start()

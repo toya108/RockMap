@@ -26,6 +26,7 @@ class ErrorLabelCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
+        errorLabel.numberOfLines = 0
         contentView.addSubview(errorLabel)
         errorLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         errorLabel.textColor = UIColor.Pallete.primaryPink
