@@ -17,7 +17,6 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
     @IBOutlet weak var climbedTypeSegmentedControl: UISegmentedControl!
     
     override func loadView() {
-        // MyViewController.xib からインスタンスを生成し root view に設定する
         let nib = UINib(nibName: Self.className, bundle: nil)
         view = nib.instantiate(withOwner: self).first as! UIView
     }

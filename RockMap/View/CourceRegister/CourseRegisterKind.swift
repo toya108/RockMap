@@ -15,8 +15,8 @@ extension CourseRegisterViewController {
         case desc
         case grade
         case shape
+        case header
         case images
-//        case makePrivate
         case confirmation
         
         var headerTitle: String {
@@ -35,9 +35,12 @@ extension CourseRegisterViewController {
                 
             case .shape:
                 return "形状"
+
+            case .header:
+                return "ヘッダー画像"
                 
             case .images:
-                return "画像をアップロード"
+                return "その他の画像"
                 
             default:
                 return ""
@@ -47,7 +50,7 @@ extension CourseRegisterViewController {
         
         var headerIdentifer: String {
             switch self {
-            case .rock, .courseName, .grade, .shape, .images, .desc:
+            case .rock, .courseName, .grade, .shape, .header, .images, .desc:
                 return TitleSupplementaryView.className
                 
             default:
@@ -65,9 +68,12 @@ extension CourseRegisterViewController {
                 
             case .grade:
                 return [.grade(.q10)]
+
+            case .header:
+                return [.noImage(.header)]
             
             case .images:
-                return [.noImage]
+                return [.noImage(.normal)]
                 
             case .confirmation:
                 return [.confirmation]
@@ -83,12 +89,12 @@ extension CourseRegisterViewController {
         case courseName
         case grade(FIDocument.Course.Grade)
         case shape(shape: FIDocument.Course.Shape, isSelecting: Bool)
-        case noImage
+        case noImage(ImageType)
+        case header(IdentifiableData)
         case images(IdentifiableData)
         case desc
-        case makePrivate
         case confirmation
-        case error(String)
+        case error(ValidationError)
         
         var isErrorItem: Bool {
             if case .error = self {

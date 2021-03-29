@@ -87,16 +87,11 @@ class RockConfirmViewController: UIViewController {
                     self.indicator.stopAnimating()
                     RegisterSucceededViewController.showSuccessView(present: self) {
                         
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                            
-                            guard let self = self else { return }
-                            
-                            self.dismiss(animated: true) { [weak self] in
-                                
-                                guard let self = self else { return }
-                                
-                                self.navigationController?.popToRootViewController(animated: true)
-                            }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            UIApplication.shared.windows
+                                .first(where: { $0.isKeyWindow })?
+                                .rootViewController?
+                                .dismiss(animated: true)
                         }
                     }
                     
@@ -147,6 +142,7 @@ class RockConfirmViewController: UIViewController {
         snapShot.appendItems([.season(viewModel.seasons)], toSection: .season)
         snapShot.appendItems([.lithology(viewModel.lithology)], toSection: .lithology)
         snapShot.appendItems([.location(viewModel.rockLocation)], toSection: .location)
+        snapShot.appendItems([.headerImage(viewModel.rockHeaderImage)], toSection: .headerImage)
         snapShot.appendItems(viewModel.rockImageDatas.map { ItemKind.images($0) }, toSection: .images)
         snapShot.appendItems([.register], toSection: .register)
         datasource.apply(snapShot)

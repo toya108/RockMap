@@ -25,10 +25,12 @@ extension UIImage {
         static let flagCircle = UIImage(systemName: "flag.circle")!
         static let flagCircleFill = UIImage(systemName: "flag.circle.fill")!
         static let plusCircle = UIImage(systemName: "plus.circle")!
+        static let plus = UIImage(systemName: "plus")!
         static let xmark = UIImage(systemName: "xmark")!
         static let leafFill = UIImage(systemName: "leaf.fill")!
         static let bookMarkFill = UIImage(systemName: "bookmark.fill")!
         static let bookMark = UIImage(systemName: "bookmark")!
+        static let handPointUpLeftFill = UIImage(systemName: "hand.point.up.left.fill")!
     }
     
     struct AssetsImages {

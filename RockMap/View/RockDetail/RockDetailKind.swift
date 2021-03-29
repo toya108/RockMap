@@ -10,7 +10,7 @@ import UIKit
 extension RockDetailViewController {
     
     enum SectionLayoutKind: CaseIterable {
-        case headerImages
+        case header
         case registeredUser
         case info
         case desc
@@ -46,7 +46,7 @@ extension RockDetailViewController {
     }
     
     enum ItemKind: Hashable {
-        case headerImages(referece: StorageManager.Reference)
+        case header(StorageManager.Reference)
         case registeredUser(user: FIDocument.User)
         case desc(String)
         case season(Set<FIDocument.Rock.Season>)

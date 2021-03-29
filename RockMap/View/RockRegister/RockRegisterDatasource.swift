@@ -38,11 +38,11 @@ extension RockRegisterViewController {
                     item: locationStructure
                 )
                 
-            case .noImage:
+            case let .noImage(imageType):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureImageSelectCell(),
                     for: indexPath,
-                    item: Dummy()
+                    item: imageType
                 )
                 
             case let .images(data):
@@ -73,11 +73,18 @@ extension RockRegisterViewController {
                     item: Dummy()
                 )
                 
-            case let .error(desc):
+            case let .error(error):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureErrorLabelCell(),
                     for: indexPath,
-                    item: desc
+                    item: error
+                )
+
+            case let .headerImage(data):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureDeletabelImageCell(),
+                    for: indexPath,
+                    item: data
                 )
             }
         }
@@ -126,7 +133,8 @@ extension RockRegisterViewController {
         .init { [weak self] cell, _, _ in
             
             guard let self = self else { return }
-            
+
+            cell.textField.text = self.viewModel.rockName
             cell.configurePlaceholder("岩名を入力して下さい。")
             cell.textField.textDidChangedPublisher.assign(to: &self.viewModel.$rockName)
             cell.textField.delegate = self
@@ -145,7 +153,8 @@ extension RockRegisterViewController {
         ) { [weak self] cell, _, _ in
             
             guard let self = self else { return }
-            
+
+            cell.textView.text = self.viewModel.rockDesc
             cell.configurePlaceholder("課題の説明を入力して下さい。")
             cell.textView.textDidChangedPublisher.assign(to: &self.viewModel.$rockDesc)
         }
@@ -188,18 +197,21 @@ extension RockRegisterViewController {
     
     private func configureImageSelectCell() -> UICollectionView.CellRegistration<
         ImageSelactCollectionViewCell,
-        Dummy
+        ImageType
     > {
         .init(
             cellNib: .init(
                 nibName: ImageSelactCollectionViewCell.className,
                 bundle: nil
             )
-        ) { [weak self] cell, _, _ in
+        ) { [weak self] cell, _, imageType in
             
             guard let self = self else { return }
             
-            self.setupImageUploadButtonActions(button: cell.uploadButton)
+            self.setupImageUploadButtonActions(
+                button: cell.uploadButton,
+                imageType: imageType
+            )
         }
     }
     
@@ -211,8 +223,14 @@ extension RockRegisterViewController {
             
             cell.configure(data: identifiableData.data) { [weak self] in
                 
+                guard let self = self else { return }
+
+                if self.viewModel.rockHeaderImage == identifiableData {
+                    self.viewModel.rockHeaderImage = nil
+                    return
+                }
+
                 guard
-                    let self = self,
                     let index = self.viewModel.rockImageDatas.firstIndex(of: identifiableData)
                 else {
                     return
@@ -273,42 +291,45 @@ extension RockRegisterViewController {
                 
                 guard let self = self else { return }
 
-                if
-                    self.viewModel.callValidations()
-                {
-                    let viewModel = RockConfirmViewModel(
-                        rockName: self.viewModel.rockName,
-                        rockImageDatas: self.viewModel.rockImageDatas,
-                        rockLocation: self.viewModel.rockLocation,
-                        rockDesc: self.viewModel.rockDesc,
-                        seasons: self.viewModel.seasons,
-                        lithology: self.viewModel.lithology
-                    )
-
-                    self.navigationController?.pushViewController(
-                        RockConfirmViewController.createInstance(viewModel: viewModel),
-                        animated: true
-                    )
-
-                } else {
+                guard
+                    self.viewModel.callValidations(),
+                    let headerImage = self.viewModel.rockHeaderImage
+                else {
                     self.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
-
+                    return
                 }
-                
+
+                let viewModel = RockConfirmViewModel(
+                    rockName: self.viewModel.rockName,
+                    rockImageDatas: self.viewModel.rockImageDatas,
+                    rockHeaderImage: headerImage,
+                    rockLocation: self.viewModel.rockLocation,
+                    rockDesc: self.viewModel.rockDesc,
+                    seasons: self.viewModel.seasons,
+                    lithology: self.viewModel.lithology
+                )
+
+                self.navigationController?.pushViewController(
+                    RockConfirmViewController.createInstance(viewModel: viewModel),
+                    animated: true
+                )
             }
         }
     }
     
     private func configureErrorLabelCell() -> UICollectionView.CellRegistration<
         ErrorLabelCollectionViewCell,
-        String
+        ValidationError
     > {
-        .init { cell, _, desc in
-            cell.configure(message: desc)
+        .init { cell, _, error in
+            cell.configure(message: error.description)
         }
     }
     
-    private func setupImageUploadButtonActions(button: UIButton) {
+    private func setupImageUploadButtonActions(
+        button: UIButton,
+        imageType: ImageType
+    ) {
         let photoLibraryAction = UIAction(
             title: "フォトライブラリ",
             image: UIImage.SystemImages.folderFill
@@ -316,7 +337,7 @@ extension RockRegisterViewController {
             
             guard let self = self else { return }
 
-            self.present(self.phPickerViewController, animated: true)
+            self.pickerManager.presentPhPicker(imageType: imageType)
         }
         
         let cameraAction = UIAction(
@@ -326,10 +347,7 @@ extension RockRegisterViewController {
             
             guard let self = self else { return }
             
-            let vc = UIImagePickerController()
-            vc.delegate = self
-            vc.sourceType = .camera
-            self.present(vc, animated: true)
+            self.pickerManager.presentImagePicker(sourceType: .camera, imageType: imageType)
         }
         
         let menu = UIMenu(title: "", children: [photoLibraryAction, cameraAction])

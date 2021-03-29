@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,11 +20,67 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yo7-GV-UOO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VFy-rZ-63K">
+                                <rect key="frame" x="0.0" y="862" width="414" height="128"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="UUX-Xf-Sh3">
+                                        <rect key="frame" x="16" y="32" width="382" height="64"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="※地図を長押しすると岩の位置を選択できます。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbx-mx-7B7">
+                                                <rect key="frame" x="0.0" y="0.0" width="382" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTC-Rm-SA6">
+                                                <rect key="frame" x="0.0" y="32" width="382" height="32"/>
+                                                <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="32" id="zyf-0E-m8D"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="UUX-Xf-Sh3" firstAttribute="top" secondItem="VFy-rZ-63K" secondAttribute="top" constant="32" id="GBy-30-nlv"/>
+                                    <constraint firstItem="UUX-Xf-Sh3" firstAttribute="leading" secondItem="VFy-rZ-63K" secondAttribute="leading" constant="16" id="JFi-GX-eLd"/>
+                                    <constraint firstAttribute="trailing" secondItem="UUX-Xf-Sh3" secondAttribute="trailing" constant="16" id="VNq-62-Dcg"/>
+                                    <constraint firstAttribute="bottom" secondItem="UUX-Xf-Sh3" secondAttribute="bottom" constant="32" id="yPD-x5-hXr"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Ndg-HL-HfF">
+                                <rect key="frame" x="354" y="802" width="44" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6YK-ce-4Le">
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="7TR-Ea-Ae1"/>
+                                            <constraint firstAttribute="width" secondItem="6YK-ce-4Le" secondAttribute="height" multiplier="1:1" id="9we-hj-Hp0"/>
+                                        </constraints>
+                                        <color key="tintColor" name="primaryGreenColor"/>
+                                        <state key="normal" image="plus" catalog="system"/>
+                                        <connections>
+                                            <action selector="selectLocationButtonTapped:" destination="i5d-oh-wSZ" eventType="touchUpInside" id="srx-cc-XU8"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FBk-H5-d3c"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="FBk-H5-d3c" firstAttribute="trailing" secondItem="VFy-rZ-63K" secondAttribute="trailing" id="52C-gg-tD5"/>
                             <constraint firstItem="Yo7-GV-UOO" firstAttribute="leading" secondItem="FBk-H5-d3c" secondAttribute="leading" id="8v4-LO-3R3"/>
+                            <constraint firstItem="FBk-H5-d3c" firstAttribute="trailing" secondItem="Ndg-HL-HfF" secondAttribute="trailing" constant="16" id="9jr-Rs-xhJ"/>
+                            <constraint firstItem="VFy-rZ-63K" firstAttribute="leading" secondItem="FBk-H5-d3c" secondAttribute="leading" id="G0v-xs-jyf"/>
+                            <constraint firstItem="VFy-rZ-63K" firstAttribute="top" secondItem="Yo7-GV-UOO" secondAttribute="bottom" id="ere-sM-rYv"/>
+                            <constraint firstItem="VFy-rZ-63K" firstAttribute="top" secondItem="Ndg-HL-HfF" secondAttribute="bottom" constant="16" id="sBP-aL-pkV"/>
                             <constraint firstItem="Yo7-GV-UOO" firstAttribute="top" secondItem="Zpy-Qi-fxf" secondAttribute="top" id="v03-Bi-uSk"/>
                             <constraint firstItem="FBk-H5-d3c" firstAttribute="trailing" secondItem="Yo7-GV-UOO" secondAttribute="trailing" id="wiw-Fu-Dlw"/>
                             <constraint firstItem="FBk-H5-d3c" firstAttribute="bottom" secondItem="Yo7-GV-UOO" secondAttribute="bottom" id="zVh-0I-Wy4"/>
@@ -31,7 +88,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="d8b-Xe-Szy"/>
                     <connections>
+                        <outlet property="addressBaseView" destination="VFy-rZ-63K" id="Zgk-lp-JSn"/>
+                        <outlet property="addressBaseViewTopConstraint" destination="ere-sM-rYv" id="7ey-91-tn4"/>
+                        <outlet property="addressLabel" destination="JTC-Rm-SA6" id="bot-v6-kdr"/>
+                        <outlet property="buttonStackView" destination="Ndg-HL-HfF" id="Jdz-Wt-hb2"/>
                         <outlet property="mapView" destination="Yo7-GV-UOO" id="UXg-Uk-f2w"/>
+                        <outlet property="selectLocationButton" destination="6YK-ce-4Le" id="eKj-7a-ddD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ru3-52-0lb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -40,8 +102,15 @@
         </scene>
     </scenes>
     <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <namedColor name="primaryGreenColor">
+            <color red="0.016000000759959221" green="0.74900001287460327" blue="0.75700002908706665" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

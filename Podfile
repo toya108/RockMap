@@ -3,14 +3,14 @@
 
 target 'RockMap' do
 
-  pod 'Firebase/Storage'	
-  pod 'Firebase/Auth'
+  pod 'Firebase/Storage'
   pod 'FirebaseUI'
   pod 'Firebase/Analytics'
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
   pod 'Firebase/Crashlytics'
+  pod 'FloatingPanel'
 	
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!

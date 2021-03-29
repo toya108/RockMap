@@ -8,6 +8,7 @@
 import UIKit
 
 class TextViewCollectionViewCell: UICollectionViewCell {
+    
     @IBOutlet weak var textView: PlaceHolderTextView!
     
     override func awakeFromNib() {

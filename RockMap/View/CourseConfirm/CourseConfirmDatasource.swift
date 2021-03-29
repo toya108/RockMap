@@ -52,6 +52,13 @@ extension CourseConfirmViewController {
                     for: indexPath,
                     item: shape.map(\.name).joined(separator: "/")
                 )
+
+            case let .header(header):
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureImageCell(),
+                    for: indexPath,
+                    item: header
+                )
                 
             case let .images(image):
                 return self.collectionView.dequeueConfiguredReusableCell(
@@ -120,6 +127,8 @@ extension CourseConfirmViewController {
         IdentifiableData
     > {
         .init { cell, _, image in
+            cell.layer.cornerRadius = 8
+            cell.clipsToBounds = true
             cell.imageView.image = UIImage(data: image.data)
         }
     }

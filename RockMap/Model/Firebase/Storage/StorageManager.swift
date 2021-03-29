@@ -46,4 +46,19 @@ struct StorageManager {
             completion(.success(result.items.first ?? .init()))
         }
     }
+
+    static func getHeaderReference(
+        reference: StorageReference,
+        completion: @escaping (Result<Reference, Error>) -> Void
+    ) {
+        let headerReference = reference.child(ImageType.header.typeName)
+
+        headerReference.list(withMaxResults: 1) { result, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            completion(.success(result.items.first ?? .init()))
+        }
+    }
 }

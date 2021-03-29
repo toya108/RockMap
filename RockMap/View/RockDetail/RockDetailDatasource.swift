@@ -18,7 +18,7 @@ extension RockDetailViewController {
                 guard let self = self else { return UICollectionViewCell() }
                 
                 switch item {
-                case let .headerImages(referece):
+                case let .header(referece):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureHeaderImageCell(),
                         for: indexPath,

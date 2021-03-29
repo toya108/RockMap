@@ -15,6 +15,7 @@ extension CourseConfirmViewController {
         case desc
         case grade
         case shape
+        case header
         case images
         case register
         
@@ -34,9 +35,12 @@ extension CourseConfirmViewController {
                 
             case .shape:
                 return "形状"
+
+            case .header:
+                return "ヘッダー画像"
                 
             case .images:
-                return "画像をアップロード"
+                return "その他の画像"
                 
             default:
                 return ""
@@ -46,7 +50,7 @@ extension CourseConfirmViewController {
         
         var headerIdentifer: String {
             switch self {
-            case .rock, .courseName, .grade, .images, .shape, .desc:
+            case .rock, .courseName, .grade, .header, .images, .shape, .desc:
                 return TitleSupplementaryView.className
                 
             default:
@@ -61,6 +65,7 @@ extension CourseConfirmViewController {
         case desc(String)
         case grade(FIDocument.Course.Grade)
         case shape(Set<FIDocument.Course.Shape>)
+        case header(IdentifiableData)
         case images(IdentifiableData)
         case register
     }

@@ -18,14 +18,8 @@ class CourseRegisterViewController: UIViewController {
     let indicator = UIActivityIndicatorView()
     
     private var bindings = Set<AnyCancellable>()
-    
-    let phPickerViewController: PHPickerViewController = {
-        var configuration = PHPickerConfiguration()
-        configuration.selectionLimit = 0
-        configuration.filter = .images
 
-        return PHPickerViewController(configuration: configuration)
-    }()
+    var pickerManager: PickerManager!
     
     static func createInstance(
         viewModel: CourseRegisterViewModel
@@ -39,12 +33,12 @@ class CourseRegisterViewController: UIViewController {
         super.viewDidLoad()
 
         setupColletionView()
+        setupPickerManager()
         setupIndicator()
         setupNavigationBar()
         bindViewModelToView()
         datasource = configureDatasource()
         configureSections()
-        phPickerViewController.delegate = self
     }
     
     private func setupColletionView() {
@@ -61,6 +55,17 @@ class CourseRegisterViewController: UIViewController {
         collectionView.delegate = self
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
+    }
+
+    private func setupPickerManager() {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 10
+        configuration.filter = .images
+        pickerManager = PickerManager(
+            from: self,
+            configuration: configuration
+        )
+        pickerManager.delegate = self
     }
     
     private func setupIndicator() {
@@ -106,6 +111,30 @@ class CourseRegisterViewController: UIViewController {
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
+
+        viewModel.$header
+            .receive(on: RunLoop.main)
+            .sink { [weak self] data in
+
+                defer {
+                    self?.indicator.stopAnimating()
+                }
+
+                guard let self = self else { return }
+
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .header))
+
+                if let data = data {
+                    self.snapShot.appendItems([.header(data)], toSection: .header)
+
+                } else {
+                    self.snapShot.appendItems([.noImage(.header)], toSection: .header)
+
+                }
+
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
         
         viewModel.$images
             .drop { $0.isEmpty }
@@ -120,10 +149,8 @@ class CourseRegisterViewController: UIViewController {
                 
                 self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .images))
                 
-                self.snapShot.appendItems([.noImage], toSection: .images)
-                
-                let items = images.map { ItemKind.images($0) }
-                self.snapShot.appendItems(items, toSection: .images)
+                self.snapShot.appendItems([.noImage(.normal)], toSection: .images)
+                self.snapShot.appendItems(images.map { ItemKind.images($0) }, toSection: .images)
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
@@ -153,7 +180,7 @@ class CourseRegisterViewController: UIViewController {
                         self.snapShot.deleteItems([item])
                     }
 
-                    self.snapShot.appendItems([.error(error.description)], toSection: .courseName)
+                    self.snapShot.appendItems([.error(error)], toSection: .courseName)
                 }
                 self.datasource.apply(self.snapShot)
             }
@@ -175,30 +202,60 @@ class CourseRegisterViewController: UIViewController {
         viewModel.$courseImageValidationResult
             .dropFirst()
             .receive(on: RunLoop.main)
-            .sink { [weak self] isValid in
-                
+            .sink { [weak self] result in
+
                 guard let self = self else { return }
-                
-                if isValid {
-                    let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
-                    
-                    guard
-                        let item = items.first(where: { $0.isErrorItem })
-                    else {
-                        return
-                    }
-                    self.snapShot.deleteItems([item])
 
-                } else {
-                    let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
-                    
-                    if let item = items.first(where: { $0.isErrorItem }) {
+                let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
+
+                switch result {
+                    case .valid, .none:
+                        guard
+                            let item = items.first(where: { $0 == .error(.quantity(formName: "画像", max: 10)) })
+                        else {
+                            return
+                        }
+
                         self.snapShot.deleteItems([item])
-                    }
 
-                    self.snapShot.appendItems([.error("課題の画像は必須です。")], toSection: .confirmation)
+                    case let .invalid(error):
+                        if let item = items.first(where: { $0 == .error(.quantity(formName: "画像", max: 10)) }) {
+                            self.snapShot.deleteItems([item])
+                        }
+
+                        self.snapShot.appendItems([.error(error)], toSection: .confirmation)
                 }
-                
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+
+        viewModel.$headerImageValidationResult
+            .dropFirst()
+            .receive(on: RunLoop.main)
+            .sink { [weak self] result in
+
+                guard let self = self else { return }
+
+                let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
+
+                switch result {
+                    case .valid, .none:
+                        guard
+                            let item = items.first(where: { $0 == .error(.none(formName: "ヘッダー画像")) })
+                        else {
+                            return
+                        }
+
+                        self.snapShot.deleteItems([item])
+
+                    case let .invalid(error):
+                        if let item = items.first(where: { $0 == .error(.none(formName: "ヘッダー画像")) }) {
+                            self.snapShot.deleteItems([item])
+                        }
+                        self.snapShot.appendItems([.error(error)], toSection: .confirmation)
+
+                }
+
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
@@ -236,49 +293,22 @@ class CourseRegisterViewController: UIViewController {
     }
 }
 
-extension CourseRegisterViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-        
-        guard
-            let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage,
-            let data = image.jpegData(compressionQuality: 1)
-        else {
-            return
-        }
-        
-        indicator.startAnimating()
-        viewModel.images.append(.init(data: data))
-        picker.dismiss(animated: true)
-    }
-}
+extension CourseRegisterViewController: PickerManagerDelegate {
 
-extension CourseRegisterViewController: PHPickerViewControllerDelegate {
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        
-        picker.dismiss(animated: true)
-        
-        if results.isEmpty { return }
-        
+    func beganResultHandling() {
         indicator.startAnimating()
-        
-        results.map(\.itemProvider).forEach {
-            
-            guard $0.canLoadObject(ofClass: UIImage.self) else { return }
-            
-            $0.loadObject(ofClass: UIImage.self) { [weak self] providerReading, error in
-                guard
-                    case .none = error,
-                    let self = self,
-                    let image = providerReading as? UIImage,
-                    let data = image.jpegData(compressionQuality: 1)
-                else {
-                    return
-                }
-                
-                self.viewModel.images.append(.init(data: data))
-            }
-        }
     }
+
+    func didReceivePicking(
+        data: Data,
+        imageType: ImageType
+    ) {
+        viewModel.set(
+            data: [.init(data: data)],
+            for: imageType
+        )
+    }
+
 }
 
 extension CourseRegisterViewController: UICollectionViewDelegate {
@@ -287,7 +317,10 @@ extension CourseRegisterViewController: UICollectionViewDelegate {
         view.endEditing(true)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         
         guard
             let item = datasource.itemIdentifier(for: indexPath)
