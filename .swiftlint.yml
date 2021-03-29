@@ -15,6 +15,7 @@ disabled_rules:
 - identifier_name # 2文字を許容したいから
 - switch_case_alignment
 - force_cast
+- cyclomatic_complexity
 
 # 通常無効だけど有効にするルール
 opt_in_rules:
