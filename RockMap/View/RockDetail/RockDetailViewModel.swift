@@ -17,7 +17,7 @@ final class RockDetailViewModel {
     @Published var seasons: Set<FIDocument.Rock.Season> = []
     @Published var lithology: FIDocument.Rock.Lithology = .unKnown
     @Published var rockLocation = LocationManager.LocationStructure()
-    @Published var rockImageReferences: [StorageManager.Reference] = []
+    @Published var headerImageReference: StorageManager.Reference?
     @Published var courses: [FIDocument.Course] = []
     
     private var bindings = Set<AnyCancellable>()
@@ -45,24 +45,26 @@ final class RockDetailViewModel {
     
     private func setupBindings() {
         $rockName
+            .drop(while: { $0.isEmpty })
             .sink { [weak self] name in
                 
                 guard let self = self else { return }
                 
-                let reference = StorageManager.makeReference(
+                let rockReference = StorageManager.makeReference(
                     parent: FINameSpace.Rocks.self,
                     child: name
                 )
-                
-                StorageManager.getAllReference(reference: reference) { result in
-                    
+                StorageManager.getHeaderReference(reference: rockReference) { [weak self] result in
+
+                    guard let self = self else { return }
+
                     guard
-                        case let .success(references) = result
+                        case let .success(reference) = result
                     else {
                         return
                     }
                     
-                    self.rockImageReferences.append(contentsOf: references)
+                    self.headerImageReference = reference
                 }
             }
             .store(in: &bindings)

@@ -25,7 +25,7 @@ extension RockDetailViewController {
                 alignment: .top
             )
             switch sectionType {
-            case .headerImages:
+            case .header:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
@@ -42,7 +42,6 @@ extension RockDetailViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
-                section.orthogonalScrollingBehavior = .paging
                 return section
                 
             case .registeredUser:

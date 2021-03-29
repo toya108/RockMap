@@ -94,15 +94,14 @@ class RockDetailViewController: UIViewController {
             .assign(to: \UINavigationItem.title, on: navigationItem)
             .store(in: &bindings)
         
-        viewModel.$rockImageReferences
+        viewModel.$headerImageReference
+            .compactMap { $0 }
             .receive(on: RunLoop.main)
-            .sink { [weak self] references in
+            .sink { [weak self] reference in
                 
                 guard let self = self else { return }
-                if references.isEmpty { return }
-                
-                let items = references.map { ItemKind.headerImages(referece: $0) }
-                self.snapShot.appendItems(items, toSection: .headerImages)
+
+                self.snapShot.appendItems([.header(reference)], toSection: .header)
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
@@ -189,7 +188,7 @@ class RockDetailViewController: UIViewController {
     func presentCourseRegisterViewController() {
         
         guard
-            let rockImageReference = self.viewModel.rockImageReferences.first
+            let rockImageReference = self.viewModel.headerImageReference
         else {
             return
         }
@@ -220,6 +219,7 @@ class RockDetailViewController: UIViewController {
 }
 
 extension RockDetailViewController: MKMapViewDelegate {
+
     func mapView(
         _ mapView: MKMapView,
         viewFor annotation: MKAnnotation
@@ -243,10 +243,15 @@ extension RockDetailViewController: MKMapViewDelegate {
         markerAnnotationView.markerTintColor = UIColor.Pallete.primaryGreen
         return markerAnnotationView
     }
+
 }
 
 extension RockDetailViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         
         guard
             let item = datasource.itemIdentifier(for: indexPath)
@@ -268,4 +273,5 @@ extension RockDetailViewController: UICollectionViewDelegate {
             
         }
     }
+
 }
