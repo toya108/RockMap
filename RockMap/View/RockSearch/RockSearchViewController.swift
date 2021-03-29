@@ -271,21 +271,23 @@ extension RockSearchViewController: MKMapViewDelegate {
     }
 
     private func showFloatingPanel(rocks: [FIDocument.Rock]) {
-        guard floatingPanelVc.contentViewController == nil else {
-            floatingPanelVc.removePanelFromParent(animated: true) { [weak self] in
 
-                guard let self = self else { return }
-
-                self.addFloatingPanel(rocks: rocks)
-            }
+        if floatingPanelVc.contentViewController == nil {
+            addFloatingPanel(rocks: rocks)
             return
         }
 
-        addFloatingPanel(rocks: rocks)
+        floatingPanelVc.removePanelFromParent(animated: true) { [weak self] in
+
+            guard let self = self else { return }
+
+            self.addFloatingPanel(rocks: rocks)
+        }
     }
 
     private func addFloatingPanel(rocks: [FIDocument.Rock]) {
         let contentVC = RockAnnotationsTableViewController.createInstance(rocks: rocks)
+        contentVC.delegate = self
         floatingPanelVc.set(contentViewController: contentVC)
         floatingPanelVc.track(scrollView: contentVC.tableView)
         floatingPanelVc.addPanel(toParent: self, animated: true)
@@ -395,8 +397,16 @@ class RockSearchFloatingPanelLayout: FloatingPanelLayout {
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .half
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
-        return [
-            .half: FloatingPanelLayoutAnchor(fractionalInset: 0.5, edge: .bottom, referenceGuide: .safeArea),
-        ]
+        return [.half: FloatingPanelLayoutAnchor(fractionalInset: 0.5, edge: .bottom, referenceGuide: .safeArea)]
     }
+}
+
+extension RockSearchViewController: RockAnnotationTableViewDelegate {
+
+    func didSelectRockAnnotaitonCell(rock: FIDocument.Rock) {
+        let viewModel = RockDetailViewModel(rock: rock)
+        let vc = RockDetailViewController.createInstance(viewModel: viewModel)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
 }

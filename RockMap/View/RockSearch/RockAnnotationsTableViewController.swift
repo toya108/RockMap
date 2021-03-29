@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol RockAnnotationTableViewDelegate: class {
+    func didSelectRockAnnotaitonCell(rock: FIDocument.Rock) -> Void
+}
+
 class RockAnnotationsTableViewController: UIViewController {
 
     private var rocks: [FIDocument.Rock]!
+
+    weak var delegate: RockAnnotationTableViewDelegate?
 
     enum SectionKind: Hashable {
         case main
@@ -35,6 +41,7 @@ class RockAnnotationsTableViewController: UIViewController {
 
     private func setupTableView() {
         tableView.tableFooterView = UIView()
+        tableView.delegate = self
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -58,7 +65,14 @@ class RockAnnotationsTableViewController: UIViewController {
 
             guard let self = self else { return UITableViewCell() }
 
-            guard let rockCell = self.tableView.dequeueReusableCell(withIdentifier: RockTableViewCell.className, for: index) as? RockTableViewCell else { return UITableViewCell() }
+            guard
+                let rockCell = self.tableView.dequeueReusableCell(
+                    withIdentifier: RockTableViewCell.className,
+                    for: index
+                ) as? RockTableViewCell
+            else {
+                return UITableViewCell()
+            }
 
             return rockCell
             
@@ -70,4 +84,23 @@ class RockAnnotationsTableViewController: UIViewController {
         snapShot.appendItems(rocks, toSection: .main)
         datasource.apply(snapShot)
     }
+}
+
+extension RockAnnotationsTableViewController: UITableViewDelegate {
+
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        guard
+            let selectedRock = rocks.any(at: indexPath.row)
+        else {
+            return
+        }
+
+        delegate?.didSelectRockAnnotaitonCell(rock: selectedRock)
+    }
+
 }
