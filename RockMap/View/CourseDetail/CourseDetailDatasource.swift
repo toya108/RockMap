@@ -13,7 +13,7 @@ extension CourseDetailViewController {
         
         let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
             collectionView: collectionView
-        ){ [weak self] collectionView, indexPath, item in
+        ) { [weak self] collectionView, indexPath, item in
             
             guard let self = self else { return UICollectionViewCell() }
             
