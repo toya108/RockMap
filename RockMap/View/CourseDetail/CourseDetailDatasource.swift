@@ -18,7 +18,7 @@ extension CourseDetailViewController {
             guard let self = self else { return UICollectionViewCell() }
             
             switch item {
-            case let .headerImages(referece):
+            case let .headerImage(referece):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureHeaderImageCell(),
                     for: indexPath,
@@ -188,10 +188,10 @@ extension CourseDetailViewController {
                 guard let self = self else { return }
 
                 switch result {
-                case .success(_):
+                case .success:
                     self.dismiss(animated: true)
 
-                case let .failure(error):
+                case let .failure:
                     break
 
                 }

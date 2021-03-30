@@ -25,7 +25,7 @@ extension CourseDetailViewController {
             )
             
             switch sectionType {
-            case .headerImages:
+            case .headerImage:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),

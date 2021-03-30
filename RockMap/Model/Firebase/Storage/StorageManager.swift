@@ -33,19 +33,6 @@ struct StorageManager {
             completion(.success(result.items))
         }
     }
-    
-    static func getFirstReference(
-        reference: StorageReference,
-        completion: @escaping (Result<Reference, Error>) -> Void
-    ) {
-        reference.list(withMaxResults: 1) { result, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            completion(.success(result.items.first ?? .init()))
-        }
-    }
 
     static func getHeaderReference(
         reference: StorageReference,

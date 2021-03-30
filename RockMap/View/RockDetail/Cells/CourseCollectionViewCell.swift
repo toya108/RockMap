@@ -52,7 +52,7 @@ class CourseCollectionViewCell: UICollectionViewCell {
             child: courese.name
         )
         
-        StorageManager.getFirstReference(reference: reference) { [weak self] result in
+        StorageManager.getHeaderReference(reference: reference) { [weak self] result in
             
             guard let self = self else { return }
             
