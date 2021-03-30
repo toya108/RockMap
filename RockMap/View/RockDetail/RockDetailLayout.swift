@@ -126,7 +126,7 @@ extension RockDetailViewController {
                     item = .init(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
-                            heightDimension: .estimated(120)
+                            heightDimension: .absolute(160)
                         )
                     )
                     group = NSCollectionLayoutGroup.horizontal(
