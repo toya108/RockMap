@@ -42,9 +42,8 @@ extension CourseDetailViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
-                section.orthogonalScrollingBehavior = .paging
                 return section
-                
+
             case .buttons:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(

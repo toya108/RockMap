@@ -36,6 +36,7 @@ final class CourseDetailViewModel {
     
     private func setupBindings() {
         $courseName
+            .drop(while: { $0.isEmpty })
             .sink { [weak self] name in
                 
                 guard let self = self else { return }
