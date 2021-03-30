@@ -10,7 +10,7 @@ import UIKit
 extension CourseDetailViewController {
     
     enum SectionLayoutKind: CaseIterable {
-        case headerImages
+        case headerImage
         case buttons
         case registeredUser
         case climbedNumber
@@ -46,7 +46,7 @@ extension CourseDetailViewController {
     }
     
     enum ItemKind: Hashable {
-        case headerImages(StorageManager.Reference)
+        case headerImage(StorageManager.Reference)
         case buttons
         case registeredUser(CourseDetailViewModel.UserCellStructure)
         case climbedNumber

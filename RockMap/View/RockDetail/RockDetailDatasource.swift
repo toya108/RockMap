@@ -45,7 +45,18 @@ extension RockDetailViewController {
                         for: indexPath,
                         item: rockLocation
                     )
-                
+
+                case let .containGrade(grades):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureValueCell(),
+                        for: indexPath,
+                        item: .init(
+                            image: UIImage.SystemImages.docPlaintextFill,
+                            title: "課題数",
+                            subTitle: self.makeGradeNumberStrings(dic: grades)
+                        )
+                    )
+
                 case let .courses(course):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureCoursesCell(),
@@ -104,6 +115,10 @@ extension RockDetailViewController {
             )
         }
         return datasource
+    }
+
+    private func makeGradeNumberStrings(dic: [FIDocument.Course.Grade: Int]) -> String {
+        dic.map { $0.key.name + "/" + $0.value.description + "本" }.joined(separator: ",")
     }
     
 }

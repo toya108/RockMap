@@ -24,16 +24,16 @@
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xVR-Ze-j64">
-                        <rect key="frame" x="8" y="225.5" width="267" height="69.5"/>
+                        <rect key="frame" x="16" y="225.5" width="259" height="69.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="課題名" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="182-0L-RoO">
-                                <rect key="frame" x="0.0" y="0.0" width="267" height="20.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="259" height="20.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10級/完投者数 50人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ve-BW-dBI">
-                                <rect key="frame" x="0.0" y="28.5" width="267" height="41"/>
+                                <rect key="frame" x="0.0" y="28.5" width="259" height="41"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -64,7 +64,7 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="xVR-Ze-j64" firstAttribute="leading" secondItem="YGm-BO-aDO" secondAttribute="leading" constant="8" id="0l9-6b-BJx"/>
+                    <constraint firstItem="xVR-Ze-j64" firstAttribute="leading" secondItem="YGm-BO-aDO" secondAttribute="leading" constant="16" id="0l9-6b-BJx"/>
                     <constraint firstItem="VBC-BU-wQQ" firstAttribute="leading" secondItem="xVR-Ze-j64" secondAttribute="trailing" constant="8" id="34s-Yw-XP0"/>
                     <constraint firstAttribute="trailing" secondItem="48K-A9-Wof" secondAttribute="trailing" id="Dey-1u-AIE"/>
                     <constraint firstAttribute="bottom" secondItem="2ve-BW-dBI" secondAttribute="bottom" constant="8" id="Imy-NZ-MGr"/>

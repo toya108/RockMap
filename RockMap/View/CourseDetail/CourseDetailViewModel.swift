@@ -17,7 +17,7 @@ final class CourseDetailViewModel {
     }
     
     @Published var course: FIDocument.Course
-    @Published var courseImageReferences: [StorageManager.Reference] = []
+    @Published var courseImageReference: StorageManager.Reference?
     @Published var courseName = ""
     @Published private var registeredUserId = ""
     @Published var userStructure: UserCellStructure = .init()
@@ -36,6 +36,7 @@ final class CourseDetailViewModel {
     
     private func setupBindings() {
         $courseName
+            .drop(while: { $0.isEmpty })
             .sink { [weak self] name in
                 
                 guard let self = self else { return }
@@ -45,15 +46,15 @@ final class CourseDetailViewModel {
                     child: name
                 )
                 
-                StorageManager.getAllReference(reference: reference) { result in
+                StorageManager.getHeaderReference(reference: reference) { result in
                     
                     guard
-                        case let .success(references) = result
+                        case let .success(reference) = result
                     else {
                         return
                     }
                     
-                    self.courseImageReferences.append(contentsOf: references)
+                    self.courseImageReference = reference
                 }
             }
             .store(in: &bindings)

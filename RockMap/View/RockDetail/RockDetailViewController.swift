@@ -173,16 +173,32 @@ class RockDetailViewController: UIViewController {
                 
                 guard let self = self else { return }
                 
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .courses))
-                
-                if courses.isEmpty {
-                    self.snapShot.appendItems([.nocourse], toSection: .courses)
-                } else {
-                    self.snapShot.appendItems(courses.map { ItemKind.courses($0) }, toSection: .courses)
-                }
-                self.datasource.apply(self.snapShot)
+                self.handleGrades(courses.map(\.grade))
+                self.handleCourses(courses)
             }
             .store(in: &bindings)
+    }
+
+    private func handleGrades(_ grades: [FIDocument.Course.Grade]) {
+
+        if grades.isEmpty { return }
+
+        let gadesCounts = grades.reduce(into: [FIDocument.Course.Grade: Int]()) { dic, grade in
+            dic[grade] = dic[grade] ?? 0 + 1
+        }
+        snapShot.appendItems([.containGrade(gadesCounts)], toSection: .info)
+        datasource.apply(snapShot)
+    }
+
+    private func handleCourses(_ courses: [FIDocument.Course]) {
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .courses))
+
+        if courses.isEmpty {
+            snapShot.appendItems([.nocourse], toSection: .courses)
+        } else {
+            snapShot.appendItems(courses.map { ItemKind.courses($0) }, toSection: .courses)
+        }
+        datasource.apply(snapShot)
     }
     
     func presentCourseRegisterViewController() {

@@ -62,16 +62,14 @@ class CourseDetailViewController: UIViewController {
 //    }
     
     private func bindViewToViewModel() {
-        viewModel.$courseImageReferences
+        viewModel.$courseImageReference
+            .compactMap { $0 }
             .receive(on: RunLoop.main)
-            .sink { [weak self] references in
+            .sink { [weak self] reference in
                 
                 guard let self = self else { return }
-                
-                if references.isEmpty { return }
-                
-                let items = references.map { ItemKind.headerImages($0) }
-                self.snapShot.appendItems(items, toSection: .headerImages)
+
+                self.snapShot.appendItems([.headerImage(reference)], toSection: .headerImage)
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)

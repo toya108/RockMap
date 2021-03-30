@@ -25,7 +25,7 @@ extension CourseDetailViewController {
             )
             
             switch sectionType {
-            case .headerImages:
+            case .headerImage:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
@@ -42,9 +42,8 @@ extension CourseDetailViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
-                section.orthogonalScrollingBehavior = .paging
                 return section
-                
+
             case .buttons:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
