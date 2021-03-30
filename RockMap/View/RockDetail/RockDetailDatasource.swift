@@ -51,7 +51,7 @@ extension RockDetailViewController {
                         using: self.configureValueCell(),
                         for: indexPath,
                         item: .init(
-                            image: UIImage.SystemImages.leafFill,
+                            image: UIImage.SystemImages.docPlaintextFill,
                             title: "課題数",
                             subTitle: self.makeGradeNumberStrings(dic: grades)
                         )
