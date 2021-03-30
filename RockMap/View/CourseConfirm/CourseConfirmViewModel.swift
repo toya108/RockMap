@@ -93,17 +93,10 @@ class CourseConfirmViewModel {
             climbedUserIdList: [],
             registedUserId: AuthManager.uid
         )
-        
-        let courseDocument = FirestoreManager.db
-            .collection(FIDocument.User.colletionName)
-            .document(rock.uid)
-            .collection(FIDocument.Rock.colletionName)
-            .document(rock.rockId)
-            .collection(FIDocument.Course.colletionName)
-            .document(course.id)
-        
-        courseDocument.setData(course.dictionary) { [weak self] error in
-            
+
+        let path = [course.parentPath, FIDocument.Course.colletionName].joined(separator: "/")
+        FirestoreManager.db.collection(path).document(course.id).setData(course.dictionary) { [weak self] error in
+
             guard let self = self else { return }
             
             if

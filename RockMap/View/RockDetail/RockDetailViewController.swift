@@ -214,10 +214,7 @@ class RockDetailViewController: UIViewController {
                 rockId: self.viewModel.rockDocument.id,
                 rockName: self.viewModel.rockName,
                 rockImageReference: rockImageReference,
-                rockParentPath: self.viewModel.rockDocument.parentPath,
-                uid: self.viewModel.registeredUser?.id ?? "",
-                userIconPhotoURL: self.viewModel.registeredUser?.photoURL,
-                userName: self.viewModel.registeredUser?.name ?? ""
+                rockParentPath: self.viewModel.rockDocument.parentPath
             )
         )
         

@@ -15,26 +15,17 @@ class CourseRegisterViewModel {
         let rockName: String
         let rockImageReference: StorageManager.Reference
         let rockParentPath: String
-        let uid: String
-        let userIconPhotoURL: URL?
-        let userName: String
         
         init(
             rockId: String,
             rockName: String,
             rockImageReference: StorageManager.Reference = .init(),
-            rockParentPath: String,
-            uid: String,
-            userIconPhotoURL: URL?,
-            userName: String
+            rockParentPath: String
         ) {
             self.rockId = rockId
             self.rockName = rockName
             self.rockImageReference = rockImageReference
             self.rockParentPath = rockParentPath
-            self.uid = uid
-            self.userIconPhotoURL = userIconPhotoURL
-            self.userName = userName
         }
     }
     
