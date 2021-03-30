@@ -51,6 +51,7 @@ extension RockDetailViewController {
         case desc(String)
         case season(Set<FIDocument.Rock.Season>)
         case lithology(FIDocument.Rock.Lithology)
+        case containGrade([FIDocument.Course.Grade: Int])
         case map(LocationManager.LocationStructure)
         // course section
         case courses(FIDocument.Course)

@@ -106,7 +106,10 @@ final class RockDetailViewModel {
                 return
             }
             
-            self.courses = snap?.documents.compactMap { FIDocument.Course.initializeDocument(json: $0.data()) } ?? []
+            self.courses = snap?.documents
+                .compactMap {
+                    FIDocument.Course.initializeDocument(json: $0.data())
+                } ?? []
         }
     }
 }
