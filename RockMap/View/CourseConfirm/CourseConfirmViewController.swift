@@ -52,10 +52,10 @@ class CourseConfirmViewController: UIViewController {
                 case .stanby:
                     self.indicator.stopAnimating()
                     
-                case .progress(let unitCount):
+                case .progress(let _):
                     self.indicator.startAnimating()
                     
-                case .complete(let metaDatas):
+                case .complete(let _):
                     self.indicator.stopAnimating()
                     self.viewModel.registerCourse()
                     
