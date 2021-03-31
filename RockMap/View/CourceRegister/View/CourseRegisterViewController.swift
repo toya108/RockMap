@@ -13,6 +13,7 @@ class CourseRegisterViewController: UIViewController {
     
     var collectionView: UICollectionView!
     var viewModel: CourseRegisterViewModel!
+    var router: CourseRegisterRouter!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
 
@@ -24,6 +25,7 @@ class CourseRegisterViewController: UIViewController {
         viewModel: CourseRegisterViewModel
     ) -> CourseRegisterViewController {
         let instance = CourseRegisterViewController()
+        instance.router = .init(viewModel: viewModel)
         instance.viewModel = viewModel
         return instance
     }
@@ -75,8 +77,8 @@ class CourseRegisterViewController: UIViewController {
                 primaryAction: .init {  [weak self] _ in
                     
                     guard let self = self else { return }
-                    
-                    self.dismiss(animated: true)
+
+                    self.router.route(to: .rockDetail, from: self)
                 }
             ),
             animated: false
