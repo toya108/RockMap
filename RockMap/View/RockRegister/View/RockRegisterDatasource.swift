@@ -188,7 +188,7 @@ extension RockRegisterViewController {
                     
                     guard let self = self else { return }
                     
-                    self.presentLocationSelectViewController()
+                    self.router.route(to: .locationSelect, from: self)
                 },
                 for: .touchUpInside
             )
@@ -291,28 +291,7 @@ extension RockRegisterViewController {
                 
                 guard let self = self else { return }
 
-                guard
-                    self.viewModel.callValidations(),
-                    let headerImage = self.viewModel.rockHeaderImage
-                else {
-                    self.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
-                    return
-                }
-
-                let viewModel = RockConfirmViewModel(
-                    rockName: self.viewModel.rockName,
-                    rockImageDatas: self.viewModel.rockImageDatas,
-                    rockHeaderImage: headerImage,
-                    rockLocation: self.viewModel.rockLocation,
-                    rockDesc: self.viewModel.rockDesc,
-                    seasons: self.viewModel.seasons,
-                    lithology: self.viewModel.lithology
-                )
-
-                self.navigationController?.pushViewController(
-                    RockConfirmViewController.createInstance(viewModel: viewModel),
-                    animated: true
-                )
+                self.router.route(to: .rockConfirm, from: self)
             }
         }
     }
@@ -353,32 +332,5 @@ extension RockRegisterViewController {
         let menu = UIMenu(title: "", children: [photoLibraryAction, cameraAction])
         button.menu = menu
         button.showsMenuAsPrimaryAction = true
-    }
-    
-    private func presentLocationSelectViewController() {
-        
-        let vc = UIStoryboard(
-            name: RockLocationSelectViewController.className,
-            bundle: nil
-        ).instantiateInitialViewController { [weak self] coder in
-            
-            guard let self = self else { return RockLocationSelectViewController(coder: coder) }
-            
-            return RockLocationSelectViewController(coder: coder, location: self.viewModel.rockLocation.location)
-        }
-        
-        guard
-            let locationSelectViewController = vc
-        else {
-            return
-        }
-        
-        present(
-            RockMapNavigationController(
-                rootVC: locationSelectViewController,
-                naviBarClass: RockMapNavigationBar.self
-            ),
-            animated: true
-        )
     }
 }

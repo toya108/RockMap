@@ -13,6 +13,7 @@ class RockRegisterViewController: UIViewController {
 
     var collectionView: UICollectionView!
     var viewModel: RockRegisterViewModel!
+    var router: RockRegisterRouter!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
     let indicator = UIActivityIndicatorView()
@@ -25,6 +26,7 @@ class RockRegisterViewController: UIViewController {
         viewModel: RockRegisterViewModel
     ) -> RockRegisterViewController {
         let instance = self.init()
+        instance.router = .init(viewModel: viewModel)
         instance.viewModel = viewModel
         return instance
     }
@@ -91,7 +93,7 @@ class RockRegisterViewController: UIViewController {
 
                     guard let self = self else { return }
 
-                    self.dismiss(animated: true)
+                    self.router.route(to: .rockSearch, from: self)
                 }
             ),
             animated: true
