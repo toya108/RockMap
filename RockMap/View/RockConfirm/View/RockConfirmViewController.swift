@@ -12,6 +12,7 @@ class RockConfirmViewController: UIViewController {
 
     var collectionView: UICollectionView!
     var viewModel: RockConfirmViewModel!
+    var router: RockConfirmRouter!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
     let indicator = UIActivityIndicatorView()
@@ -22,6 +23,7 @@ class RockConfirmViewController: UIViewController {
         viewModel: RockConfirmViewModel
     ) -> RockConfirmViewController {
         let instance = RockConfirmViewController()
+        instance.router = .init(viewModel: viewModel)
         instance.viewModel = viewModel
         return instance
     }
@@ -85,15 +87,7 @@ class RockConfirmViewController: UIViewController {
                     
                 case .finish:
                     self.indicator.stopAnimating()
-                    RegisterSucceededViewController.showSuccessView(present: self) {
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            UIApplication.shared.windows
-                                .first(where: { $0.isKeyWindow })?
-                                .rootViewController?
-                                .dismiss(animated: true)
-                        }
-                    }
+                    self.router.route(to: .rockSearch, from: self)
                     
                 case .failure(let error):
                     self.showOKAlert(

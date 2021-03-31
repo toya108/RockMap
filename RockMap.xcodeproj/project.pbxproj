@@ -76,6 +76,7 @@
 		9E613AC825CB00520040F6F2 /* RegisteredUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E613AC625CB00520040F6F2 /* RegisteredUserCollectionViewCell.swift */; };
 		9E613AC925CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E613AC725CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib */; };
 		9E623688258A662B00152AF9 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E623687258A662B00152AF9 /* StorageManager.swift */; };
+		9E6C40BF2614779100F010BE /* RockConfirmRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C40BE2614779100F010BE /* RockConfirmRouter.swift */; };
 		9E6CF41C25CF10570098389E /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CF41B25CF10570098389E /* TitleSupplementaryView.swift */; };
 		9E6CF42725CFF16A0098389E /* RockLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CF42625CFF16A0098389E /* RockLocationCollectionViewCell.swift */; };
 		9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CA7254CFD150091935F /* MyPageViewController.swift */; };
@@ -249,6 +250,7 @@
 		9E613AC625CB00520040F6F2 /* RegisteredUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisteredUserCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E613AC725CB00520040F6F2 /* RegisteredUserCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisteredUserCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E623687258A662B00152AF9 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		9E6C40BE2614779100F010BE /* RockConfirmRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmRouter.swift; sourceTree = "<group>"; };
 		9E6CF41B25CF10570098389E /* TitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSupplementaryView.swift; sourceTree = "<group>"; };
 		9E6CF42625CFF16A0098389E /* RockLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E807CA7254CFD150091935F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -712,6 +714,33 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		9E6C40BB2614775900F010BE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9EA32A3E25FA778700FB0C75 /* RockConfirmViewController.swift */,
+				9EA32A4325FA77DF00FB0C75 /* RockConfirmDatasource.swift */,
+				9EA32A4825FA77EE00FB0C75 /* RockConfirmLayout.swift */,
+				9EA32A4D25FA77F700FB0C75 /* RockConfirmKind.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9E6C40BC2614776900F010BE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9E8723D2256C037000735C65 /* RockConfirmViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9E6C40BD2614777000F010BE /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				9E6C40BE2614779100F010BE /* RockConfirmRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
 		9E6DC03A25CE1ABC00F9C314 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -748,9 +777,9 @@
 		9E807CCF254E92FD0091935F /* RockRegister */ = {
 			isa = PBXGroup;
 			children = (
-				9E39B1FF2614729B0005F6E1 /* Router */,
-				9E39B1FE2614728F0005F6E1 /* ViewModel */,
 				9E39B1FD261472880005F6E1 /* View */,
+				9E39B1FE2614728F0005F6E1 /* ViewModel */,
+				9E39B1FF2614729B0005F6E1 /* Router */,
 				9E2DA75625F91B47008F339E /* Cells */,
 			);
 			path = RockRegister;
@@ -768,11 +797,9 @@
 		9E8723CE256BFEF700735C65 /* RockConfirm */ = {
 			isa = PBXGroup;
 			children = (
-				9EA32A3E25FA778700FB0C75 /* RockConfirmViewController.swift */,
-				9E8723D2256C037000735C65 /* RockConfirmViewModel.swift */,
-				9EA32A4325FA77DF00FB0C75 /* RockConfirmDatasource.swift */,
-				9EA32A4825FA77EE00FB0C75 /* RockConfirmLayout.swift */,
-				9EA32A4D25FA77F700FB0C75 /* RockConfirmKind.swift */,
+				9E6C40BB2614775900F010BE /* View */,
+				9E6C40BC2614776900F010BE /* ViewModel */,
+				9E6C40BD2614777000F010BE /* Router */,
 			);
 			path = RockConfirm;
 			sourceTree = "<group>";
@@ -1311,6 +1338,7 @@
 				9E0A9F29255104A0007B9A90 /* KeyboardExtension.swift in Sources */,
 				9E807CC6254D00310091935F /* ScreenType.swift in Sources */,
 				9E2BD68625DD6DA90011B020 /* ImageSelactCollectionViewCell.swift in Sources */,
+				9E6C40BF2614779100F010BE /* RockConfirmRouter.swift in Sources */,
 				9E845ADA25ADEA6A00EC3BE6 /* Resouces.swift in Sources */,
 				9E9845E225D4FA5300B03C4E /* CourseRegisterKind.swift in Sources */,
 				9EBD5A1525F7C998009383F6 /* UICollectionViewCellExtension.swift in Sources */,
