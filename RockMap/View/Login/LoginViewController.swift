@@ -38,7 +38,7 @@ final class LoginViewController: UIViewController {
             return
         }
         
-        var logoutHandler: () -> Void {{
+        var logoutHandler: (UIAlertAction) -> Void {{ _ in
             AuthManager.logout { [weak self] result in
                 
                 guard let self = self else { return }
@@ -48,18 +48,22 @@ final class LoginViewController: UIViewController {
                     break
                     
                 case .failure(let error):
-                    self.showOKAlert(title: "ログアウトに失敗しました。", message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)")
+                    self.showOKAlert(
+                        title: "ログアウトに失敗しました。",
+                        message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)"
+                    )
                 }
                 
             }
         }}
-        
-        showYseOrNoAlert(
+
+        showAlert(
             title: "ログアウトしますか？",
             message: "こちらのユーザーでログイン中です。\n\(userName)",
-            positiveHandler: { _ in
-                logoutHandler()
-            }
+            actions: [
+                .init(title: "はい", style: .default, handler: logoutHandler),
+                .init(title: "キャンセル", style: .cancel)
+            ]
         )
     }
     

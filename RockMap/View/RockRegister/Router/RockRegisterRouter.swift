@@ -32,7 +32,7 @@ struct RockRegisterRouter: RouterProtocol {
                 pushRockConfirm(from)
 
             case .rockSearch:
-                dismiss(from)
+                dismissToRockSearch(from)
 
             case .locationSelect:
                 presentLocationSelect(from)
@@ -48,7 +48,10 @@ struct RockRegisterRouter: RouterProtocol {
             viewModel.callValidations(),
             let headerImage = self.viewModel?.rockHeaderImage
         else {
-            from.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
+            from.showOKAlert(
+                title: "入力内容に不備があります。",
+                message: "入力内容を見直してください。"
+            )
             return
         }
 
@@ -68,8 +71,17 @@ struct RockRegisterRouter: RouterProtocol {
         )
     }
 
-    private func dismiss(_ from: UIViewController) {
-        from.dismiss(animated: true)
+    private func dismissToRockSearch(_ from: UIViewController) {
+        from.showAlert(
+            title: "編集内容を破棄しますか？",
+            actions: [
+                .init(title: "破棄", style: .destructive) { _ in
+                    from.dismiss(animated: true)
+                },
+                .init(title: "キャンセル", style: .cancel)
+            ],
+            style: .actionSheet
+        )
     }
 
     private func presentLocationSelect(

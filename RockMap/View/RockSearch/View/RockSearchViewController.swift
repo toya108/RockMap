@@ -38,7 +38,9 @@ final class RockSearchViewController: UIViewController {
     }
 
     static func createInstance(viewModel: RockSearchViewModel) -> RockSearchViewController {
-        let instance = RockSearchViewController()
+        let storyboard = UIStoryboard(name: RockSearchViewController.className, bundle: nil)
+
+        let instance = storyboard.instantiateInitialViewController() as! RockSearchViewController
         instance.router = .init(viewModel: viewModel)
         instance.viewModel = viewModel
         return instance
