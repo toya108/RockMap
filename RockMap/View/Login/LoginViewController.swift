@@ -93,8 +93,13 @@ final class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: FUIAuthDelegate {
+
     // User: https://firebase.google.com/docs/reference/swift/firebaseauth/api/reference/Protocols/UserInfo
-    public func authUI(_ authUI: FUIAuth, didSignInWith user: User?, error: Error?) {
+    public func authUI(
+        _ authUI: FUIAuth,
+        didSignInWith user: User?,
+        error: Error?
+    ) {
         if let error = error {
             let nsError = error as NSError
             
@@ -141,11 +146,14 @@ extension LoginViewController: FUIAuthDelegate {
         }
     }
     
-    func authPickerViewController(forAuthUI authUI: FUIAuth) -> FUIAuthPickerViewController {
+    func authPickerViewController(
+        forAuthUI authUI: FUIAuth
+    ) -> FUIAuthPickerViewController {
         return FUICustomAuthPickerViewController(
             nibName: FUICustomAuthPickerViewController.className,
             bundle: Bundle.main,
-            authUI: authUI)
+            authUI: authUI
+        )
     }
 }
 
