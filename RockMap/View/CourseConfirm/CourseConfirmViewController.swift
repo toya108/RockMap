@@ -14,8 +14,7 @@ class CourseConfirmViewController: UIViewController {
     var viewModel: CourseConfirmViewModel!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
-    let indicator = UIActivityIndicatorView()
-    
+
     private var bindings = Set<AnyCancellable>()
 
     static func createInstance(
@@ -31,7 +30,6 @@ class CourseConfirmViewController: UIViewController {
 
         setupColletionView()
         setupNavigationBar()
-        setupIndicator()
         bindViewModelToView()
         datasource = configureDatasource()
         configureSections()
@@ -50,17 +48,17 @@ class CourseConfirmViewController: UIViewController {
                 
                 switch $0 {
                 case .stanby:
-                    self.indicator.stopAnimating()
-                    
+                    self.hideIndicatorView()
+
                 case .progress(let _):
-                    self.indicator.startAnimating()
-                    
+                    self.showIndicatorView()
+
                 case .complete(let _):
-                    self.indicator.stopAnimating()
+                    self.hideIndicatorView()
                     self.viewModel.registerCourse()
                     
                 case .failure(let error):
-                    self.indicator.stopAnimating()
+                    self.hideIndicatorView()
                     self.showOKAlert(
                         title: "画像の登録に失敗しました",
                         message: error.localizedDescription
@@ -81,10 +79,10 @@ class CourseConfirmViewController: UIViewController {
                     break
                     
                 case .loading:
-                    self.indicator.startAnimating()
-                    
+                    self.showIndicatorView()
+
                 case .finish:
-                    self.indicator.stopAnimating()
+                    self.hideIndicatorView()
                     RegisterSucceededViewController.showSuccessView(present: self) {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController?.dismiss(animated: true) { [weak self] in
@@ -126,20 +124,6 @@ class CourseConfirmViewController: UIViewController {
         ])
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
-    }
-    
-    private func setupIndicator() {
-        indicator.hidesWhenStopped = true
-        indicator.backgroundColor = UIColor.Pallete.transparentBlack
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(indicator)
-        NSLayoutConstraint.activate([
-            indicator.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            indicator.rightAnchor.constraint(equalTo: view.rightAnchor),
-            indicator.topAnchor.constraint(equalTo: view.topAnchor),
-            indicator.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        indicator.bringSubviewToFront(collectionView)
     }
     
     private func configureSections() {

@@ -15,8 +15,7 @@ class CourseRegisterViewController: UIViewController {
     var viewModel: CourseRegisterViewModel!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
-    let indicator = UIActivityIndicatorView()
-    
+
     private var bindings = Set<AnyCancellable>()
 
     var pickerManager: PickerManager!
@@ -34,7 +33,6 @@ class CourseRegisterViewController: UIViewController {
 
         setupColletionView()
         setupPickerManager()
-        setupIndicator()
         setupNavigationBar()
         bindViewModelToView()
         datasource = configureDatasource()
@@ -66,20 +64,6 @@ class CourseRegisterViewController: UIViewController {
             configuration: configuration
         )
         pickerManager.delegate = self
-    }
-    
-    private func setupIndicator() {
-        indicator.hidesWhenStopped = true
-        indicator.backgroundColor = UIColor.Pallete.transparentBlack
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(indicator)
-        NSLayoutConstraint.activate([
-            indicator.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            indicator.rightAnchor.constraint(equalTo: view.rightAnchor),
-            indicator.topAnchor.constraint(equalTo: view.topAnchor),
-            indicator.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        indicator.bringSubviewToFront(collectionView)
     }
     
     private func setupNavigationBar() {
@@ -117,7 +101,7 @@ class CourseRegisterViewController: UIViewController {
             .sink { [weak self] data in
 
                 defer {
-                    self?.indicator.stopAnimating()
+                    self?.hideIndicatorView()
                 }
 
                 guard let self = self else { return }
@@ -142,7 +126,7 @@ class CourseRegisterViewController: UIViewController {
             .sink { [weak self] images in
                 
                 defer {
-                    self?.indicator.stopAnimating()
+                    self?.hideIndicatorView()
                 }
                 
                 guard let self = self else { return }
@@ -296,7 +280,7 @@ class CourseRegisterViewController: UIViewController {
 extension CourseRegisterViewController: PickerManagerDelegate {
 
     func beganResultHandling() {
-        indicator.startAnimating()
+        showIndicatorView()
     }
 
     func didReceivePicking(
