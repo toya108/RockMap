@@ -133,6 +133,7 @@
 		9EE25B8F25C99C8E0050326D /* RockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */; };
 		9EE8BC5C2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE8BC5A2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift */; };
 		9EE8BC5D2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EE8BC5B2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib */; };
+		9EE9D0E42614DD5C00570097 /* CourseConfirmRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE9D0E32614DD5C00570097 /* CourseConfirmRouter.swift */; };
 		9EE9DAE925CEDDE600B2BC4E /* RockDescCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE9DAE825CEDDE500B2BC4E /* RockDescCollectionViewCell.swift */; };
 		9EEADA1C255AD39100F20228 /* PlaceHolderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEADA1B255AD39100F20228 /* PlaceHolderTextView.swift */; };
 		9EEAEDF0260385BA00F5FE19 /* ValueCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEAEDEF260385BA00F5FE19 /* ValueCollectionViewCell.swift */; };
@@ -309,6 +310,7 @@
 		9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewController.swift; sourceTree = "<group>"; };
 		9EE8BC5A2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FUICustomAuthPickerViewController.swift; sourceTree = "<group>"; };
 		9EE8BC5B2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FUICustomAuthPickerViewController.xib; sourceTree = "<group>"; };
+		9EE9D0E32614DD5C00570097 /* CourseConfirmRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseConfirmRouter.swift; sourceTree = "<group>"; };
 		9EE9DAE825CEDDE500B2BC4E /* RockDescCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDescCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EEADA1B255AD39100F20228 /* PlaceHolderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderTextView.swift; sourceTree = "<group>"; };
 		9EEAEDEF260385BA00F5FE19 /* ValueCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -887,11 +889,9 @@
 		9E9C1E6F25E6B1B30050FDDE /* CourseConfirm */ = {
 			isa = PBXGroup;
 			children = (
-				9E9C1E7025E6B1EE0050FDDE /* CourseConfirmViewController.swift */,
-				9EF8E2B025EF6B8F00185A3D /* CourseConfirmViewModel.swift */,
-				9EF8E2B525EF6E1C00185A3D /* CourseConfirmKind.swift */,
-				9EF8E2BA25EF6E2B00185A3D /* CourseConfirmLayout.swift */,
-				9EF8E2BF25EF6E4300185A3D /* CourseConfirmDatasource.swift */,
+				9EE9D0E02614DD2000570097 /* View */,
+				9EE9D0E12614DD2800570097 /* ViewModel */,
+				9EE9D0E22614DD3000570097 /* Router */,
 			);
 			path = CourseConfirm;
 			sourceTree = "<group>";
@@ -950,6 +950,33 @@
 				9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */,
 			);
 			path = FireStore;
+			sourceTree = "<group>";
+		};
+		9EE9D0E02614DD2000570097 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9E9C1E7025E6B1EE0050FDDE /* CourseConfirmViewController.swift */,
+				9EF8E2BA25EF6E2B00185A3D /* CourseConfirmLayout.swift */,
+				9EF8E2B525EF6E1C00185A3D /* CourseConfirmKind.swift */,
+				9EF8E2BF25EF6E4300185A3D /* CourseConfirmDatasource.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9EE9D0E12614DD2800570097 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9EF8E2B025EF6B8F00185A3D /* CourseConfirmViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9EE9D0E22614DD3000570097 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				9EE9D0E32614DD5C00570097 /* CourseConfirmRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		9EEADA17255AD1DD00F20228 /* LocationSelect */ = {
@@ -1406,6 +1433,7 @@
 				9E5DD1C025C84DA500E38620 /* UIImageViewExtension.swift in Sources */,
 				9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */,
 				9E5C5E372555144000D00087 /* Images.swift in Sources */,
+				9EE9D0E42614DD5C00570097 /* CourseConfirmRouter.swift in Sources */,
 				9EB6C3CD260FA7A000CDD607 /* RockAnnotation.swift in Sources */,
 				9E0BE3CB2606637700576869 /* UIButtonExtension.swift in Sources */,
 				9E0A9F192550519F007B9A90 /* RockRegisterViewModel.swift in Sources */,

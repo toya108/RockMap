@@ -12,6 +12,7 @@ class CourseConfirmViewController: UIViewController {
 
     var collectionView: UICollectionView!
     var viewModel: CourseConfirmViewModel!
+    var router: CourseConfirmRouter!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
 
@@ -21,6 +22,7 @@ class CourseConfirmViewController: UIViewController {
         viewModel: CourseConfirmViewModel
     ) -> CourseConfirmViewController {
         let instance = CourseConfirmViewController()
+        instance.router = .init(viewModel: viewModel)
         instance.viewModel = viewModel
         return instance
     }
@@ -83,22 +85,7 @@ class CourseConfirmViewController: UIViewController {
 
                 case .finish:
                     self.hideIndicatorView()
-                    RegisterSucceededViewController.showSuccessView(present: self) {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController?.dismiss(animated: true) { [weak self] in
-                                
-                                guard let self = self else { return }
-                                
-                                guard
-                                    let rockDetailViewController = self.getVisibleViewController() as? RockDetailViewController
-                                else {
-                                    return
-                                }
-                                
-                                rockDetailViewController.updateCouses()
-                            }
-                        }
-                    }
+                    self.router.route(to: .rockDetail, from: self)
                     
                 case .failure(let error):
                     self.showOKAlert(
