@@ -55,6 +55,7 @@
 		9E34C90C25B09A69005EBE07 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E34C90B25B09A69005EBE07 /* DebugViewController.swift */; };
 		9E39B1D426144B930005F6E1 /* RockDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39B1D326144B930005F6E1 /* RockDetailRouter.swift */; };
 		9E39B1E0261458860005F6E1 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39B1DF261458860005F6E1 /* Router.swift */; };
+		9E39B1F3261469420005F6E1 /* RockSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39B1F2261469420005F6E1 /* RockSearchRouter.swift */; };
 		9E5C5E372555144000D00087 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5C5E362555144000D00087 /* Images.swift */; };
 		9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCB25277B25001C95AA /* AppDelegate.swift */; };
 		9E5CEFCE25277B25001C95AA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */; };
@@ -220,6 +221,7 @@
 		9E34C90B25B09A69005EBE07 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		9E39B1D326144B930005F6E1 /* RockDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailRouter.swift; sourceTree = "<group>"; };
 		9E39B1DF261458860005F6E1 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		9E39B1F2261469420005F6E1 /* RockSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockSearchRouter.swift; sourceTree = "<group>"; };
 		9E5C5E362555144000D00087 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		9E5CEFC825277B25001C95AA /* RockMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RockMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5CEFCB25277B25001C95AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -401,14 +403,10 @@
 		9E04B1A9254BA94C0097DA8E /* RockSearch */ = {
 			isa = PBXGroup;
 			children = (
-				9E5CEFCF25277B25001C95AA /* RockSearchViewController.swift */,
-				9E5CEFD125277B25001C95AA /* RockSearchViewController.storyboard */,
-				9EB6C3CC260FA7A000CDD607 /* RockAnnotation.swift */,
-				9E26400425B5C0300088DAFB /* RockSearchViewModel.swift */,
-				9EC88E09260CCB5C0057EBEE /* LocationSelectButtonState.swift */,
-				9EB6C3B8260F6F8400CDD607 /* RockAnnotationsTableViewController.swift */,
-				9EB6C3C2260F8F0D00CDD607 /* RockTableViewCell.swift */,
-				9EB6C3C3260F8F0D00CDD607 /* RockTableViewCell.xib */,
+				9E39B1EE2614689E0005F6E1 /* View */,
+				9E39B1EF261468AA0005F6E1 /* ViewModel */,
+				9E39B1F0261468B50005F6E1 /* Router */,
+				9E39B1F1261468E60005F6E1 /* RockAnnotationTableView */,
 			);
 			path = RockSearch;
 			sourceTree = "<group>";
@@ -532,6 +530,43 @@
 				9E0D09342566B31200D3075F /* RockDetailViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9E39B1EE2614689E0005F6E1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9E5CEFCF25277B25001C95AA /* RockSearchViewController.swift */,
+				9E5CEFD125277B25001C95AA /* RockSearchViewController.storyboard */,
+				9EC88E09260CCB5C0057EBEE /* LocationSelectButtonState.swift */,
+				9EB6C3CC260FA7A000CDD607 /* RockAnnotation.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9E39B1EF261468AA0005F6E1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9E26400425B5C0300088DAFB /* RockSearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9E39B1F0261468B50005F6E1 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				9E39B1F2261469420005F6E1 /* RockSearchRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		9E39B1F1261468E60005F6E1 /* RockAnnotationTableView */ = {
+			isa = PBXGroup;
+			children = (
+				9EB6C3B8260F6F8400CDD607 /* RockAnnotationsTableViewController.swift */,
+				9EB6C3C2260F8F0D00CDD607 /* RockTableViewCell.swift */,
+				9EB6C3C3260F8F0D00CDD607 /* RockTableViewCell.xib */,
+			);
+			path = RockAnnotationTableView;
 			sourceTree = "<group>";
 		};
 		9E427D3125F12E1B00ED7DBE /* Dialog */ = {
@@ -1318,6 +1353,7 @@
 				9E9845F525D5418C00B03C4E /* RockHeaderCollectionViewCell.swift in Sources */,
 				9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */,
 				9EC88E0A260CCB5C0057EBEE /* LocationSelectButtonState.swift in Sources */,
+				9E39B1F3261469420005F6E1 /* RockSearchRouter.swift in Sources */,
 				9E845AFB25ADF0E800EC3BE6 /* RegisterSucceededViewController.swift in Sources */,
 				9E8723AE256BF89400735C65 /* HeaderIgnorableScrollView.swift in Sources */,
 				9E0A9F1E2551006E007B9A90 /* UITextViewExtension.swift in Sources */,
