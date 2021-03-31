@@ -53,6 +53,8 @@
 		9E2DA75F25F91BA7008F339E /* LocationSelectCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2DA75D25F91BA7008F339E /* LocationSelectCollectionViewCell.swift */; };
 		9E2DA76025F91BA7008F339E /* LocationSelectCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2DA75E25F91BA7008F339E /* LocationSelectCollectionViewCell.xib */; };
 		9E34C90C25B09A69005EBE07 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E34C90B25B09A69005EBE07 /* DebugViewController.swift */; };
+		9E39B1D426144B930005F6E1 /* RockDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39B1D326144B930005F6E1 /* RockDetailRouter.swift */; };
+		9E39B1E0261458860005F6E1 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39B1DF261458860005F6E1 /* Router.swift */; };
 		9E5C5E372555144000D00087 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5C5E362555144000D00087 /* Images.swift */; };
 		9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCB25277B25001C95AA /* AppDelegate.swift */; };
 		9E5CEFCE25277B25001C95AA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */; };
@@ -216,6 +218,8 @@
 		9E2DA75D25F91BA7008F339E /* LocationSelectCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E2DA75E25F91BA7008F339E /* LocationSelectCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LocationSelectCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E34C90B25B09A69005EBE07 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
+		9E39B1D326144B930005F6E1 /* RockDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailRouter.swift; sourceTree = "<group>"; };
+		9E39B1DF261458860005F6E1 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		9E5C5E362555144000D00087 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		9E5CEFC825277B25001C95AA /* RockMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RockMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5CEFCB25277B25001C95AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -459,6 +463,7 @@
 		9E2B112D25471F1800D7E56C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9E39B1DE2614587C0005F6E1 /* Router */,
 				9E98D53D2552F88B00EC5AC1 /* SupportView */,
 				9E04B1A9254BA94C0097DA8E /* RockSearch */,
 				9EF56020255AE74A00D00723 /* RockDetail */,
@@ -492,6 +497,41 @@
 				9E34C90B25B09A69005EBE07 /* DebugViewController.swift */,
 			);
 			path = Debug;
+			sourceTree = "<group>";
+		};
+		9E39B1DE2614587C0005F6E1 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				9E39B1DF261458860005F6E1 /* Router.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		9E39B1E72614591F0005F6E1 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				9E39B1D326144B930005F6E1 /* RockDetailRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		9E39B1E8261459270005F6E1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */,
+				9EA94F7725D0462700D1272E /* RockDetailKind.swift */,
+				9EA94F6D25D044E700D1272E /* RockDetailLayout.swift */,
+				9EA94F7225D044F500D1272E /* RockDetailDatasource.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9E39B1E9261459310005F6E1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9E0D09342566B31200D3075F /* RockDetailViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		9E427D3125F12E1B00ED7DBE /* Dialog */ = {
@@ -832,11 +872,9 @@
 		9EF56020255AE74A00D00723 /* RockDetail */ = {
 			isa = PBXGroup;
 			children = (
-				9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */,
-				9EA94F7725D0462700D1272E /* RockDetailKind.swift */,
-				9EA94F6D25D044E700D1272E /* RockDetailLayout.swift */,
-				9EA94F7225D044F500D1272E /* RockDetailDatasource.swift */,
-				9E0D09342566B31200D3075F /* RockDetailViewModel.swift */,
+				9E39B1E8261459270005F6E1 /* View */,
+				9E39B1E9261459310005F6E1 /* ViewModel */,
+				9E39B1E72614591F0005F6E1 /* Router */,
 				9E6DC03A25CE1ABC00F9C314 /* Cells */,
 			);
 			path = RockDetail;
@@ -1202,6 +1240,7 @@
 				9E08AC812572A8AA00D69927 /* RockMapNavigationBar.swift in Sources */,
 				9E0BE3982605AD2800576869 /* UserDefaultsDataHolder.swift in Sources */,
 				9EC3A6CE2604D76A001FBCA4 /* CourseDetailDatasource.swift in Sources */,
+				9E39B1D426144B930005F6E1 /* RockDetailRouter.swift in Sources */,
 				9E9C1E7125E6B1EE0050FDDE /* CourseConfirmViewController.swift in Sources */,
 				9E04B1B5254BC3FC0097DA8E /* StringExtesnion.swift in Sources */,
 				9EF8E2BB25EF6E2B00185A3D /* CourseConfirmLayout.swift in Sources */,
@@ -1274,6 +1313,7 @@
 				9EE9DAE925CEDDE600B2BC4E /* RockDescCollectionViewCell.swift in Sources */,
 				9E9845E725D5202500B03C4E /* CourseRegisterLayout.swift in Sources */,
 				9E613AC825CB00520040F6F2 /* RegisteredUserCollectionViewCell.swift in Sources */,
+				9E39B1E0261458860005F6E1 /* Router.swift in Sources */,
 				9EFEF88825E09C8100007AD6 /* IdentifiableData.swift in Sources */,
 				9E9845F525D5418C00B03C4E /* RockHeaderCollectionViewCell.swift in Sources */,
 				9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */,

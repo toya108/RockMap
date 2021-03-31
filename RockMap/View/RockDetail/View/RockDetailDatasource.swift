@@ -183,7 +183,10 @@ extension RockDetailViewController {
             
             cell.addCourseButton.addAction(
                 .init { _ in
-                    self.presentCourseRegisterViewController()
+                    self.router.route(
+                        to: .courseRegister,
+                        from: self
+                    )
                 },
                 for: .touchUpInside
             )

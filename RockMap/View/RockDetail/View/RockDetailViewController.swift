@@ -14,12 +14,14 @@ class RockDetailViewController: UIViewController {
     var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
-    
+
+    var router: RockDetailRouter!
     private var viewModel: RockDetailViewModel!
     private var bindings = Set<AnyCancellable>()
 
     static func createInstance(viewModel: RockDetailViewModel) -> RockDetailViewController {
         let instance = RockDetailViewController()
+        instance.router = .init(viewModel: viewModel)
         instance.viewModel = viewModel
         return instance
     }
@@ -68,7 +70,10 @@ class RockDetailViewController: UIViewController {
                 
                 guard let self = self else { return }
                 
-                self.presentCourseRegisterViewController()
+                self.router.route(
+                    to: .courseRegister,
+                    from: self
+                )
             }
         )
         courseCreationButton.setTitle("課題登録", for: .normal)
@@ -201,31 +206,6 @@ class RockDetailViewController: UIViewController {
         datasource.apply(snapShot)
     }
     
-    func presentCourseRegisterViewController() {
-        
-        guard
-            let rockImageReference = self.viewModel.headerImageReference
-        else {
-            return
-        }
-        
-        let viewModel = CourseRegisterViewModel(
-            rockHeaderStructure: .init(
-                rockId: self.viewModel.rockDocument.id,
-                rockName: self.viewModel.rockName,
-                rockImageReference: rockImageReference,
-                rockParentPath: self.viewModel.rockDocument.parentPath
-            )
-        )
-        
-        let vc = RockMapNavigationController(
-            rootVC: CourseRegisterViewController.createInstance(viewModel: viewModel),
-            naviBarClass: RockMapNavigationBar.self
-        )
-        vc.isModalInPresentation = true
-        present(vc, animated: true)
-    }
-    
     func updateCouses() {
         viewModel.updateCouses(by: viewModel.rockDocument)
     }
@@ -275,10 +255,9 @@ extension RockDetailViewController: UICollectionViewDelegate {
         switch item {
         case let .courses(course):
             collectionView.cellForItem(at: indexPath)?.executeSelectAnimation()
-            let viewModel = CourseDetailViewModel(course: course)
-            navigationController?.pushViewController(
-                CourseDetailViewController.createInstance(viewModel: viewModel),
-                animated: true
+            router.route(
+                to: .courseDetail(course),
+                from: self
             )
             
         default:
