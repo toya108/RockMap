@@ -107,13 +107,11 @@ extension CourseDetailViewController {
                     
                     cell.isBookMarked.toggle()
                     
-                    var ids = UserDefaultsDataHolder.shared.bookMarkedCourseIDs
-                    
                     if cell.isBookMarked {
-                        ids.append(self.viewModel.course.id)
+                        UserDefaultsDataHolder.shared.bookMarkedCourseIDs.append(self.viewModel.course.id)
                     } else {
-                        if let index = ids.firstIndex(of: self.viewModel.course.id) {
-                            ids.remove(at: index)
+                        if let index = UserDefaultsDataHolder.shared.bookMarkedCourseIDs.firstIndex(of: self.viewModel.course.id) {
+                            UserDefaultsDataHolder.shared.bookMarkedCourseIDs.remove(at: index)
                         }
                     }
                 },
