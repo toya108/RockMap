@@ -173,15 +173,23 @@ extension CourseDetailViewController {
             
             guard
                 let self = self,
-                let type = FIDocument.Climbed.ClimbedRecordType.allCases.any(at: vc.climbedTypeSegmentedControl.selectedSegmentIndex)
+                let type = FIDocument.Climbed.ClimbedRecordType.allCases.any(
+                    at: vc.climbedTypeSegmentedControl.selectedSegmentIndex
+                )
             else {
                 return
             }
+
+            vc.showIndicatorView()
 
             self.viewModel.registerClimbed(
                 climbedDate: vc.climbedDatePicker.date,
                 type: type
             ) { [weak self] result in
+
+                defer {
+                    vc.hideIndicatorView()
+                }
 
                 guard let self = self else { return }
 
