@@ -10,7 +10,7 @@ import Foundation
 extension FIDocument {
     struct TotalClimbedNumber: FIDocumentProtocol {
 
-        typealias Collection = FINameSpace.Climbed
+        typealias Collection = FINameSpace.TotalClimbedNumber
 
         var id: String
         var parentCourseId: String
