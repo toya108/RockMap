@@ -20,6 +20,9 @@ struct FINameSpace {
     struct Climbed: FINameSpaceProtocol {
         static var name: String { "climbed" }
     }
+    struct TotalClimbedNumber: FINameSpaceProtocol {
+        static var name: String { "totalClimbedNumber" }
+    }
 }
 
 struct FIDocument {}
