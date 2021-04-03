@@ -109,6 +109,7 @@
 		9EA32A4425FA77DF00FB0C75 /* RockConfirmDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA32A4325FA77DF00FB0C75 /* RockConfirmDatasource.swift */; };
 		9EA32A4925FA77EE00FB0C75 /* RockConfirmLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA32A4825FA77EE00FB0C75 /* RockConfirmLayout.swift */; };
 		9EA32A4E25FA77F700FB0C75 /* RockConfirmKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA32A4D25FA77F700FB0C75 /* RockConfirmKind.swift */; };
+		9EA9451F2618AFA60050ACE2 /* CourseDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9451E2618AFA60050ACE2 /* CourseDetailRouter.swift */; };
 		9EA94F6E25D044E700D1272E /* RockDetailLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA94F6D25D044E700D1272E /* RockDetailLayout.swift */; };
 		9EA94F7325D044F500D1272E /* RockDetailDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA94F7225D044F500D1272E /* RockDetailDatasource.swift */; };
 		9EA94F7825D0462700D1272E /* RockDetailKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA94F7725D0462700D1272E /* RockDetailKind.swift */; };
@@ -286,6 +287,7 @@
 		9EA32A4325FA77DF00FB0C75 /* RockConfirmDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmDatasource.swift; sourceTree = "<group>"; };
 		9EA32A4825FA77EE00FB0C75 /* RockConfirmLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmLayout.swift; sourceTree = "<group>"; };
 		9EA32A4D25FA77F700FB0C75 /* RockConfirmKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmKind.swift; sourceTree = "<group>"; };
+		9EA9451E2618AFA60050ACE2 /* CourseDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailRouter.swift; sourceTree = "<group>"; };
 		9EA94F6D25D044E700D1272E /* RockDetailLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailLayout.swift; sourceTree = "<group>"; };
 		9EA94F7225D044F500D1272E /* RockDetailDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailDatasource.swift; sourceTree = "<group>"; };
 		9EA94F7725D0462700D1272E /* RockDetailKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailKind.swift; sourceTree = "<group>"; };
@@ -926,6 +928,7 @@
 		9EC3A6B52604D580001FBCA4 /* CourseDetail */ = {
 			isa = PBXGroup;
 			children = (
+				9EA9451E2618AFA60050ACE2 /* CourseDetailRouter.swift */,
 				9EC3A6B62604D5A8001FBCA4 /* CourseDetailViewController.swift */,
 				9EC3A6C32604D74F001FBCA4 /* CourseDetailKind.swift */,
 				9EC3A6C82604D75C001FBCA4 /* CourseDetailLayout.swift */,
@@ -1443,6 +1446,7 @@
 				9E5D51B325E0A34700977473 /* ConfirmationButtonColletionViewCell.swift in Sources */,
 				9E2DA73425F91472008F339E /* RockRegisterViewController.swift in Sources */,
 				9EF8E2B625EF6E1C00185A3D /* CourseConfirmKind.swift in Sources */,
+				9EA9451F2618AFA60050ACE2 /* CourseDetailRouter.swift in Sources */,
 				9E04B1D0254BE7B30097DA8E /* LocationManager.swift in Sources */,
 				9E5CEFD025277B25001C95AA /* RockSearchViewController.swift in Sources */,
 				9E8723D3256C037000735C65 /* RockConfirmViewModel.swift in Sources */,
