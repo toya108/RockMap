@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import FirebaseFirestore
 
 final class CourseDetailViewModel {
     
@@ -21,17 +22,24 @@ final class CourseDetailViewModel {
     @Published var courseName = ""
     @Published private var registeredUserId = ""
     @Published var userStructure: UserCellStructure = .init()
+    @Published var totalClimbedNumber: FIDocument.TotalClimbedNumber?
 
+    private var totalNumberListener: ListenerRegistration?
     private var bindings = Set<AnyCancellable>()
     
     init(course: FIDocument.Course) {
         self.course = course
         
         setupBindings()
+        listenToTotalClimbedNumber()
         
         courseName = course.name
         registeredUserId = course.registedUserId
         userStructure.registeredDate = course.createdAt
+    }
+
+    deinit {
+        totalNumberListener?.remove()
     }
     
     private func setupBindings() {
@@ -77,17 +85,62 @@ final class CourseDetailViewModel {
             }
             .store(in: &bindings)
     }
+
+    private func listenToTotalClimbedNumber() {
+
+        let climedNumberPath = [
+            FirestoreManager.makeParentPath(parent: course),
+            FIDocument.TotalClimbedNumber.colletionName
+        ].joined(separator: "/")
+
+        FirestoreManager.db.collection(climedNumberPath).getDocuments { [weak self] snap, error in
+
+            guard let self = self else { return }
+
+            if let _ = error {
+                return
+            }
+
+            guard
+                let document = FIDocument.TotalClimbedNumber.initializeDocument(
+                    json: snap?.documents.first?.data() ?? [:]
+                )
+            else {
+                return
+            }
+
+            self.totalClimbedNumber = document
+
+            let listener = FirestoreManager.db
+                .collection(climedNumberPath)
+                .document(document.id)
+                .addSnapshotListener { [weak self] snap, error in
+
+                    if let error = error {
+                        return
+                    }
+
+                    guard
+                        let self = self,
+                        let snap = snap,
+                        let totalClimbed = FIDocument.TotalClimbedNumber.initializeDocument(json: snap.data() ?? [:])
+                    else {
+                        return
+                    }
+
+                    self.totalClimbedNumber = totalClimbed
+                }
+            self.totalNumberListener = listener
+        }
+    }
     
     func registerClimbed(
         climbedDate: Date,
         type: FIDocument.Climbed.ClimbedRecordType,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        let parentPath = FIDocument.Climbed.makeParentPath(
-            parentPath: course.parentPath,
-            parentCollection: FIDocument.Course.colletionName,
-            documentId: course.id
-        )
+
+        let parentPath = FirestoreManager.makeParentPath(parent: course)
         let climbed = FIDocument.Climbed(
             id: UUID().uuidString,
             parentCourseId: course.id,
@@ -98,16 +151,45 @@ final class CourseDetailViewModel {
             type: type,
             climbedUserId: AuthManager.uid
         )
-        
-        let path = [climbed.parentPath, FIDocument.Climbed.colletionName].joined(separator: "/")
-        FirestoreManager.db.collection(path).document(climbed.id).setData(climbed.dictionary) { error in
-            
-            if let error = error {
-                completion(.failure(error))
-                return
+
+        FirestoreManager.set(
+            parentPath: parentPath,
+            documentId: climbed.id,
+            document: climbed
+        ) { [weak self] result in
+
+            guard let self = self else { return }
+
+            switch result {
+                case .success:
+                    
+                    self.incrementTotalClimbedNumber(type: climbed.type)
+                    completion(.success(()))
+
+                case let .failure(error):
+                    break
+
             }
-            
-            completion(.success(()))
         }
     }
+
+    private func incrementTotalClimbedNumber(type: FIDocument.Climbed.ClimbedRecordType) {
+
+        guard let totalClimbedNumber = totalClimbedNumber else { return }
+
+        let climebedNumberPath = [
+            totalClimbedNumber.parentPath,
+            FIDocument.TotalClimbedNumber.colletionName
+        ].joined(separator: "/")
+
+        let totalClimedNumberRef = FirestoreManager.db
+            .collection(climebedNumberPath)
+            .document(totalClimbedNumber.id)
+
+        totalClimedNumberRef.setData(
+            ["total": FieldValue.increment(1.0), type.fieldName: FieldValue.increment(1.0)],
+            merge: true
+        )
+    }
 }
+

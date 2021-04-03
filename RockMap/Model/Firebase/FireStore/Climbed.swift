@@ -35,6 +35,17 @@ extension FIDocument {
                     
                 }
             }
+
+            var fieldName: String {
+                switch self {
+                    case .flash:
+                        return "flashTotal"
+
+                    case .redpoint:
+                        return "redPointTotal"
+
+                }
+            }
         }
     }
 }

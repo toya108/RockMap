@@ -75,15 +75,17 @@ class CourseConfirmViewModel {
         
         courseUploadState = .loading
         
-        let parentPath = FIDocument.Course.makeParentPath(
+        let rockDocumentPath = FIDocument.Course.makeParentPath(
             parentPath: rock.rockParentPath,
             parentCollection: FIDocument.Rock.colletionName,
             documentId: rock.rockId
         )
-        
+
+        let badge = FirestoreManager.db.batch()
+
         let course = FIDocument.Course(
             id: UUID().uuidString,
-            parentPath: parentPath,
+            parentPath: rockDocumentPath,
             createdAt: Date(),
             updatedAt: nil,
             name: courseName,
@@ -94,18 +96,45 @@ class CourseConfirmViewModel {
             registedUserId: AuthManager.uid
         )
 
-        let path = [course.parentPath, FIDocument.Course.colletionName].joined(separator: "/")
-        FirestoreManager.db.collection(path).document(course.id).setData(course.dictionary) { [weak self] error in
+        let courseCollectionPath = [
+            course.parentPath,
+            FIDocument.Course.colletionName
+        ].joined(separator: "/")
+
+        let courseDocumentRef = FirestoreManager.db.collection(courseCollectionPath).document(course.id)
+        badge.setData(course.dictionary, forDocument: courseDocumentRef)
+
+        let totalClimbedNumber = FIDocument.TotalClimbedNumber(
+            id: UUID().uuidString,
+            parentCourseId: course.id,
+            createdAt: Date(),
+            updatedAt: nil,
+            parentPath: courseDocumentRef.path,
+            total: 0,
+            flashTotal: 0,
+            redPointTotal: 0
+        )
+
+        let totalClimbedNumberCollectionPath = [
+            totalClimbedNumber.parentPath,
+            FIDocument.TotalClimbedNumber.colletionName
+        ].joined(separator: "/")
+
+        let climbedNumberDocumentRef = FirestoreManager.db.collection(totalClimbedNumberCollectionPath).document(totalClimbedNumber.id)
+        badge.setData(totalClimbedNumber.dictionary, forDocument: climbedNumberDocumentRef)
+
+        badge.commit { [weak self] error in
 
             guard let self = self else { return }
-            
+
             if
                 let error = error
             {
                 self.courseUploadState = .failure(error)
             }
-            
+
             self.courseUploadState = .finish
         }
+
     }
 }

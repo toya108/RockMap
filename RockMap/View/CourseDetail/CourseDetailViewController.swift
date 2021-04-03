@@ -15,10 +15,12 @@ class CourseDetailViewController: UIViewController {
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
     
     var viewModel: CourseDetailViewModel!
+    var router: CourseDetailRouter!
     private var bindings = Set<AnyCancellable>()
 
     static func createInstance(viewModel: CourseDetailViewModel) -> CourseDetailViewController {
         let instance = CourseDetailViewController()
+        instance.router = .init(viewModel: viewModel)
         instance.viewModel = viewModel
         return instance
     }
@@ -99,6 +101,19 @@ class CourseDetailViewController: UIViewController {
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
+
+        viewModel.$totalClimbedNumber
+            .receive(on: RunLoop.main)
+            .sink { [weak self] totalClimbedNumber in
+
+                guard let self = self else { return }
+
+                self.snapShot.reloadItems(self.snapShot.itemIdentifiers(inSection: .climbedNumber))
+
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+
     }
 
     private func configureSections() {

@@ -57,6 +57,7 @@
 		9E39B1E0261458860005F6E1 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39B1DF261458860005F6E1 /* Router.swift */; };
 		9E39B1F3261469420005F6E1 /* RockSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39B1F2261469420005F6E1 /* RockSearchRouter.swift */; };
 		9E39B201261472E00005F6E1 /* RockRegisterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39B200261472E00005F6E1 /* RockRegisterRouter.swift */; };
+		9E47B76C26160A0B004BE800 /* TotalClimbedNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E47B76B26160A0B004BE800 /* TotalClimbedNumber.swift */; };
 		9E5C5E372555144000D00087 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5C5E362555144000D00087 /* Images.swift */; };
 		9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCB25277B25001C95AA /* AppDelegate.swift */; };
 		9E5CEFCE25277B25001C95AA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */; };
@@ -229,6 +230,7 @@
 		9E39B1DF261458860005F6E1 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		9E39B1F2261469420005F6E1 /* RockSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockSearchRouter.swift; sourceTree = "<group>"; };
 		9E39B200261472E00005F6E1 /* RockRegisterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockRegisterRouter.swift; sourceTree = "<group>"; };
+		9E47B76B26160A0B004BE800 /* TotalClimbedNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalClimbedNumber.swift; sourceTree = "<group>"; };
 		9E5C5E362555144000D00087 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		9E5CEFC825277B25001C95AA /* RockMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RockMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5CEFCB25277B25001C95AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -949,6 +951,7 @@
 				9E0C0A142588C7DA00E34FCE /* Rock.swift */,
 				9E010DFF25D0539F00A4C336 /* Course.swift */,
 				9E0BE44F2608C1DE00576869 /* Climbed.swift */,
+				9E47B76B26160A0B004BE800 /* TotalClimbedNumber.swift */,
 				9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */,
 				9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */,
 			);
@@ -1436,6 +1439,7 @@
 				9E5DD1C025C84DA500E38620 /* UIImageViewExtension.swift in Sources */,
 				9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */,
 				9E5C5E372555144000D00087 /* Images.swift in Sources */,
+				9E47B76C26160A0B004BE800 /* TotalClimbedNumber.swift in Sources */,
 				9EE9D0E42614DD5C00570097 /* CourseConfirmRouter.swift in Sources */,
 				9EB6C3CD260FA7A000CDD607 /* RockAnnotation.swift in Sources */,
 				9E0BE3CB2606637700576869 /* UIButtonExtension.swift in Sources */,

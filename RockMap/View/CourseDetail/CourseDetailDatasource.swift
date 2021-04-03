@@ -124,7 +124,7 @@ extension CourseDetailViewController {
                     guard let self = self else { return }
                     
                     if AuthManager.isLoggedIn {
-                        self.presentRegisterClimbedBottomSheetViewController()
+                        self.router.route(to: .registerClimbed, from: self)
                     } else {
                         self.showNeedsLoginAlert(message: "完登を記録するにはログインが必要です。")
                     }
@@ -161,51 +161,15 @@ extension CourseDetailViewController {
                 nibName: ClimbedNumberCollectionViewCell.className,
                 bundle: nil
             )
-        ) { cell, _, _ in
+        ) { [weak self] cell, _, _ in
 
-        }
-    }
-    
-    private func presentRegisterClimbedBottomSheetViewController() {
-        let vc = RegisterClimbedBottomSheetViewController()
-        
-        let recodeButtonAction: UIAction = .init { [weak self] _ in
-            
-            guard
-                let self = self,
-                let type = FIDocument.Climbed.ClimbedRecordType.allCases.any(
-                    at: vc.climbedTypeSegmentedControl.selectedSegmentIndex
-                )
-            else {
-                return
-            }
+            guard let self = self else { return }
 
-            vc.showIndicatorView()
-
-            self.viewModel.registerClimbed(
-                climbedDate: vc.climbedDatePicker.date,
-                type: type
-            ) { [weak self] result in
-
-                defer {
-                    vc.hideIndicatorView()
-                }
-
-                guard let self = self else { return }
-
-                switch result {
-                case .success:
-                    self.dismiss(animated: true)
-
-                case let .failure:
-                    break
-
-                }
-            }
-        }
-            
-        present(vc, animated: true) {
-            vc.configureRecordButton(recodeButtonAction)
+            cell.configure(
+                total: self.viewModel.totalClimbedNumber?.total ?? 0 as Int,
+                flash: self.viewModel.totalClimbedNumber?.flashTotal ?? 0 as Int,
+                redPoint: self.viewModel.totalClimbedNumber?.redPointTotal ?? 0 as Int
+            )
         }
     }
 }
