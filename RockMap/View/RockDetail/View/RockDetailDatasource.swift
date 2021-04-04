@@ -149,7 +149,7 @@ extension RockDetailViewController {
     }
     
     private func configureRockDescCell() -> UICollectionView.CellRegistration<
-        RockDescCollectionViewCell,
+        DescCollectionViewCell,
         String
     > {
         .init { cell, _, desc in

@@ -112,6 +112,31 @@ class CourseDetailViewController: UIViewController {
             }
             .store(in: &bindings)
 
+        viewModel.$shape
+            .drop(while: { $0.isEmpty })
+            .receive(on: RunLoop.main)
+            .sink { [weak self] shapes in
+
+                guard let self = self else { return }
+
+                self.snapShot.appendItems([.shape(shapes)], toSection: .info)
+
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+
+        viewModel.$desc
+            .receive(on: RunLoop.main)
+            .sink { [weak self] desc in
+
+                guard let self = self else { return }
+
+                self.snapShot.appendItems([.desc(desc)], toSection: .desc)
+
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+
     }
 
     private func configureSections() {

@@ -14,10 +14,11 @@ final class CourseDetailViewModel {
     @Published var course: FIDocument.Course
     @Published var courseImageReference: StorageManager.Reference?
     @Published var courseName = ""
-    @Published private var registeredUserId = ""
     @Published var registeredUser: FIDocument.User?
     @Published var registeredDate: Date?
     @Published var totalClimbedNumber: FIDocument.TotalClimbedNumber?
+    @Published var shape: Set<FIDocument.Course.Shape> = []
+    @Published var desc: String = ""
 
     private var totalNumberListener: ListenerRegistration?
     private var bindings = Set<AnyCancellable>()
@@ -29,8 +30,10 @@ final class CourseDetailViewModel {
         listenToTotalClimbedNumber()
         
         courseName = course.name
-        registeredUserId = course.registedUserId
         registeredDate = course.createdAt
+        updateRegisterdUser(id: course.registedUserId)
+        shape = course.shape
+        desc = course.desc
     }
 
     deinit {
@@ -61,23 +64,22 @@ final class CourseDetailViewModel {
                 }
             }
             .store(in: &bindings)
-        
-        $registeredUserId
-            .sink { id in
-                FirestoreManager.fetchById(id: id) { [weak self] (result: Result<FIDocument.User?, Error>) in
-                    
-                    guard
-                        let self = self,
-                        case let .success(user) = result,
-                        let unwrappedUser = user
-                    else {
-                        return
-                    }
-                    
-                    self.registeredUser = unwrappedUser
-                }
+    }
+
+    private func updateRegisterdUser(id: String) {
+        FirestoreManager.fetchById(id: id){
+            [weak self] (result: Result<FIDocument.User?, Error>) in
+
+            guard
+                let self = self,
+                case let .success(user) = result,
+                let unwrappedUser = user
+            else {
+                return
             }
-            .store(in: &bindings)
+
+            self.registeredUser = unwrappedUser
+        }
     }
 
     private func listenToTotalClimbedNumber() {

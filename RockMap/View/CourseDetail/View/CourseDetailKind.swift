@@ -15,6 +15,7 @@ extension CourseDetailViewController {
         case registeredUser
         case climbedNumber
         case info
+        case desc
         
         var headerTitle: String {
             switch self {
@@ -51,7 +52,7 @@ extension CourseDetailViewController {
 
                 case .climbedNumber:
                     return [.climbedNumber]
-                
+
                 default:
                     return []
                 
@@ -64,6 +65,8 @@ extension CourseDetailViewController {
         case buttons
         case registeredUser
         case climbedNumber
+        case shape(Set<FIDocument.Course.Shape>)
+        case desc(String)
     }
     
 }

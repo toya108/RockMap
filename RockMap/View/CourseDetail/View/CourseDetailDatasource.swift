@@ -45,6 +45,24 @@ extension CourseDetailViewController {
                     for: indexPath,
                     item: Dummy()
                 )
+
+            case let .shape(shapes):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureShapeCell(),
+                    for: indexPath,
+                    item: .init(
+                        image: UIImage.SystemImages.triangleLefthalfFill,
+                        title: "岩質",
+                        subTitle: shapes.map(\.name).joined(separator: "/")
+                    )
+                )
+
+            case let .desc(desc):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureDescCell(),
+                    for: indexPath,
+                    item: desc
+                )
             }
         }
         
@@ -170,4 +188,28 @@ extension CourseDetailViewController {
             )
         }
     }
+
+    private func configureShapeCell() -> UICollectionView.CellRegistration<
+        ValueCollectionViewCell,
+        ValueCollectionViewCell.ValueCellStructure
+    > {
+        .init(
+            cellNib: .init(
+                nibName: ValueCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { cell, _, data in
+           cell.configure(data)
+        }
+    }
+
+    private func configureDescCell() -> UICollectionView.CellRegistration<
+        DescCollectionViewCell,
+        String
+    > {
+        .init { cell, _, desc in
+            cell.descLabel.text = desc
+        }
+    }
+
 }

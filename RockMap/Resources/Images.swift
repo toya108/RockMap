@@ -32,6 +32,7 @@ extension UIImage {
         static let bookMark = UIImage(systemName: "bookmark")!
         static let handPointUpLeftFill = UIImage(systemName: "hand.point.up.left.fill")!
         static let docPlaintextFill = UIImage(systemName: "doc.plaintext.fill")!
+        static let triangleLefthalfFill = UIImage(systemName: "triangle.lefthalf.fill")!
     }
     
     struct AssetsImages {
