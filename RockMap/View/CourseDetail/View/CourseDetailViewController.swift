@@ -37,6 +37,7 @@ class CourseDetailViewController: UIViewController {
     
     private func setupCollectionView() {
         collectionView = .init(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
@@ -122,5 +123,23 @@ class CourseDetailViewController: UIViewController {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
         datasource.apply(snapShot)
+    }
+}
+
+extension CourseDetailViewController: UICollectionViewDelegate {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        let item = datasource.itemIdentifier(for: indexPath)
+
+        switch item {
+            case .climbedNumber:
+                router.route(to: .climbedUserList, from: self)
+
+            default:
+                break
+        }
     }
 }

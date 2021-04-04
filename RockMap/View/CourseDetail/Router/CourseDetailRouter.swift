@@ -13,6 +13,7 @@ struct CourseDetailRouter: RouterProtocol {
 
     enum DestinationType: DestinationProtocol {
         case registerClimbed
+        case climbedUserList
     }
 
     private weak var viewModel: CourseDetailViewModel!
@@ -28,6 +29,9 @@ struct CourseDetailRouter: RouterProtocol {
         switch destination {
             case .registerClimbed:
                 presentRegisterClimbedBottomSheet(from)
+
+            case .climbedUserList:
+                pushClimbedUserList(from)
 
         }
     }
@@ -78,6 +82,10 @@ struct CourseDetailRouter: RouterProtocol {
         from.present(vc, animated: true) {
             vc.configureRecordButton(recodeButtonAction)
         }
+    }
+
+    private func pushClimbedUserList(_ from: UIViewController) {
+        from.navigationController?.pushViewController(ClimbedUserListViewController(), animated: true)
     }
 
 }
