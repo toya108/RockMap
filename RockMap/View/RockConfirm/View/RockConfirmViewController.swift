@@ -12,16 +12,17 @@ class RockConfirmViewController: UIViewController {
 
     var collectionView: UICollectionView!
     var viewModel: RockConfirmViewModel!
+    var router: RockConfirmRouter!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
-    let indicator = UIActivityIndicatorView()
-    
+
     private var bindings = Set<AnyCancellable>()
 
     static func createInstance(
         viewModel: RockConfirmViewModel
     ) -> RockConfirmViewController {
         let instance = RockConfirmViewController()
+        instance.router = .init(viewModel: viewModel)
         instance.viewModel = viewModel
         return instance
     }
@@ -31,7 +32,6 @@ class RockConfirmViewController: UIViewController {
 
         setupColletionView()
         setupNavigationBar()
-        setupIndicator()
         bindViewModelToView()
         datasource = configureDatasource()
         configureSections()
@@ -50,17 +50,17 @@ class RockConfirmViewController: UIViewController {
                 
                 switch $0 {
                 case .stanby:
-                    self.indicator.stopAnimating()
+                    self.hideIndicatorView()
                     
                 case .progress(let _):
-                    self.indicator.startAnimating()
-                    
+                    self.showIndicatorView()
+
                 case .complete(let _):
-                    self.indicator.stopAnimating()
+                    self.hideIndicatorView()
                     self.viewModel.registerRock()
                     
                 case .failure(let error):
-                    self.indicator.stopAnimating()
+                    self.hideIndicatorView()
                     self.showOKAlert(
                         title: "画像の登録に失敗しました",
                         message: error.localizedDescription
@@ -81,19 +81,11 @@ class RockConfirmViewController: UIViewController {
                     break
                     
                 case .loading:
-                    self.indicator.startAnimating()
-                    
+                    self.showIndicatorView()
+
                 case .finish:
-                    self.indicator.stopAnimating()
-                    RegisterSucceededViewController.showSuccessView(present: self) {
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            UIApplication.shared.windows
-                                .first(where: { $0.isKeyWindow })?
-                                .rootViewController?
-                                .dismiss(animated: true)
-                        }
-                    }
+                    self.hideIndicatorView()
+                    self.router.route(to: .rockSearch, from: self)
                     
                 case .failure(let error):
                     self.showOKAlert(
@@ -119,20 +111,6 @@ class RockConfirmViewController: UIViewController {
         ])
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
-    }
-    
-    private func setupIndicator() {
-        indicator.hidesWhenStopped = true
-        indicator.backgroundColor = UIColor.Pallete.transparentBlack
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(indicator)
-        NSLayoutConstraint.activate([
-            indicator.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            indicator.rightAnchor.constraint(equalTo: view.rightAnchor),
-            indicator.topAnchor.constraint(equalTo: view.topAnchor),
-            indicator.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        indicator.bringSubviewToFront(collectionView)
     }
     
     private func configureSections() {

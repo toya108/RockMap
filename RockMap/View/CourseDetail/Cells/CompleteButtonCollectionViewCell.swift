@@ -15,7 +15,7 @@ class CompleteButtonCollectionViewCell: UICollectionViewCell {
     var isBookMarked: Bool = false {
         didSet {
             bookMarkButton.setImage(
-                isBookMarked ? UIImage.SystemImages.bookMarkFill : UIImage.SystemImages.bookMark,
+                isBookMarked ? UIImage.SystemImages.bookMark : UIImage.SystemImages.bookMarkFill,
                 for: .normal
             )
         }

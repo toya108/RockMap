@@ -14,8 +14,7 @@ final class LoginViewController: UIViewController {
     @IBOutlet weak var penguinImageView: UIImageView!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var guestLoginButton: UIButton!
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
@@ -38,7 +37,7 @@ final class LoginViewController: UIViewController {
             return
         }
         
-        var logoutHandler: () -> Void {{
+        var logoutHandler: (UIAlertAction) -> Void {{ _ in
             AuthManager.logout { [weak self] result in
                 
                 guard let self = self else { return }
@@ -48,18 +47,22 @@ final class LoginViewController: UIViewController {
                     break
                     
                 case .failure(let error):
-                    self.showOKAlert(title: "ログアウトに失敗しました。", message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)")
+                    self.showOKAlert(
+                        title: "ログアウトに失敗しました。",
+                        message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)"
+                    )
                 }
                 
             }
         }}
-        
-        showYseOrNoAlert(
+
+        showAlert(
             title: "ログアウトしますか？",
             message: "こちらのユーザーでログイン中です。\n\(userName)",
-            positiveHandler: { _ in
-                logoutHandler()
-            }
+            actions: [
+                .init(title: "はい", style: .default, handler: logoutHandler),
+                .init(title: "キャンセル", style: .cancel)
+            ]
         )
     }
     
@@ -90,8 +93,13 @@ final class LoginViewController: UIViewController {
 }
 
 extension LoginViewController: FUIAuthDelegate {
+
     // User: https://firebase.google.com/docs/reference/swift/firebaseauth/api/reference/Protocols/UserInfo
-    public func authUI(_ authUI: FUIAuth, didSignInWith user: User?, error: Error?) {
+    public func authUI(
+        _ authUI: FUIAuth,
+        didSignInWith user: User?,
+        error: Error?
+    ) {
         if let error = error {
             let nsError = error as NSError
             
@@ -107,7 +115,7 @@ extension LoginViewController: FUIAuthDelegate {
             return
         }
         
-        indicator.startAnimating()
+        showIndicatorView()
         
         FirestoreManager.set(
             key: user.uid,
@@ -122,26 +130,30 @@ extension LoginViewController: FUIAuthDelegate {
                 createdCources: []
             )
         ) { [weak self] result in
+
+            self?.hideIndicatorView()
+
             guard let self = self else { return }
-            
+
             switch result {
             case .success:
-                self.indicator.stopAnimating()
                 UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = MainTabBarController()
 
             case .failure(let error):
-                self.indicator.stopAnimating()
                 self.showOKAlert(title: "認証に失敗しました。", message: error.localizedDescription)
                 
             }
         }
     }
     
-    func authPickerViewController(forAuthUI authUI: FUIAuth) -> FUIAuthPickerViewController {
+    func authPickerViewController(
+        forAuthUI authUI: FUIAuth
+    ) -> FUIAuthPickerViewController {
         return FUICustomAuthPickerViewController(
             nibName: FUICustomAuthPickerViewController.className,
             bundle: Bundle.main,
-            authUI: authUI)
+            authUI: authUI
+        )
     }
 }
 

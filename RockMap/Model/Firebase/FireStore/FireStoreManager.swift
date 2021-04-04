@@ -12,7 +12,11 @@ struct FirestoreManager {
     static let encoder = Firestore.Encoder()
     static let decoder = Firestore.Decoder()
     
-    static func set<T: FIDocumentProtocol>(key: String = "", _ newDocument: T, completion: ((Result<Void, Error>) -> Void)? = nil) {
+    static func set<T: FIDocumentProtocol>(
+        key: String,
+        _ newDocument: T,
+        completion: ((Result<Void, Error>) -> Void)? = nil
+    ) {
         
         let collection = db.collection(T.colletionName)
         let document = key.isEmpty ? collection.document() : collection.document(key)
@@ -23,8 +27,32 @@ struct FirestoreManager {
             
             if let error = error {
                 completion(.failure(error))
+                return
             }
             
+            completion(.success(()))
+        }
+    }
+
+    static func set<T: FIDocumentProtocol>(
+        parentPath: String,
+        documentId: String,
+        document: T,
+        completion: ((Result<Void, Error>) -> Void)? = nil
+    ) {
+
+        let collectionPath = [parentPath, T.colletionName].joined(separator: "/")
+        let documentRef = db.collection(collectionPath).document(documentId)
+
+        documentRef.setData(document.dictionary) { error in
+
+            guard let completion = completion else { return }
+
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
             completion(.success(()))
         }
     }
@@ -55,6 +83,10 @@ struct FirestoreManager {
             let document = T.initializeDocument(json: snap?.data() ?? [:])
             completion(.success(document))
         }
+    }
+
+    static func makeParentPath<T: FIDocumentProtocol>(parent: T) -> String {
+        return [parent.parentPath, T.colletionName, parent.id].joined(separator: "/")
     }
 }
 

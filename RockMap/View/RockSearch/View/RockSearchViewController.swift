@@ -12,10 +12,11 @@ import FloatingPanel
 
 final class RockSearchViewController: UIViewController {
 
-    @IBOutlet weak var mapView: MKMapView!
-    
-    private let viewModel = RockSearchViewModel()
+    private var viewModel: RockSearchViewModel!
+    private var router: RockSeachRouter!
     private var bindings = Set<AnyCancellable>()
+
+    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var buttonStackView: UIStackView!
     @IBOutlet weak var addressBaseView: UIView!
     @IBOutlet weak var addressLabel: UILabel!
@@ -34,6 +35,15 @@ final class RockSearchViewController: UIViewController {
         } else {
             viewModel.locationSelectState = .standby
         }
+    }
+
+    static func createInstance(viewModel: RockSearchViewModel) -> RockSearchViewController {
+        let storyboard = UIStoryboard(name: RockSearchViewController.className, bundle: nil)
+
+        let instance = storyboard.instantiateInitialViewController() as! RockSearchViewController
+        instance.router = .init(viewModel: viewModel)
+        instance.viewModel = viewModel
+        return instance
     }
 
     override func viewDidLoad() {
@@ -365,14 +375,10 @@ extension RockSearchViewController: MKMapViewDelegate {
                     latitude: annotation.coordinate.latitude,
                     longitude: annotation.coordinate.longitude
                 )
-                let registerVc = RockRegisterViewController.createInstance(viewModel: .init(location: location))
-                let vc = RockMapNavigationController(
-                    rootVC: registerVc,
-                    naviBarClass: RockMapNoShadowNavigationBar.self
+                self.router.route(
+                    to: .rockRegister(location),
+                    from: self
                 )
-                vc.isModalInPresentation = true
-
-                self.present(vc, animated: true)
             },
             for: .touchUpInside
         )
@@ -408,9 +414,7 @@ class RockSearchFloatingPanelLayout: FloatingPanelLayout {
 extension RockSearchViewController: RockAnnotationTableViewDelegate {
 
     func didSelectRockAnnotaitonCell(rock: FIDocument.Rock) {
-        let viewModel = RockDetailViewModel(rock: rock)
-        let vc = RockDetailViewController.createInstance(viewModel: viewModel)
-        navigationController?.pushViewController(vc, animated: true)
+        router.route(to: .rockDetail(rock), from: self)
     }
 
 }

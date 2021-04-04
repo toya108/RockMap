@@ -13,10 +13,10 @@ class RockRegisterViewController: UIViewController {
 
     var collectionView: UICollectionView!
     var viewModel: RockRegisterViewModel!
+    var router: RockRegisterRouter!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
-    let indicator = UIActivityIndicatorView()
-    
+
     private var bindings = Set<AnyCancellable>()
 
     var pickerManager: PickerManager!
@@ -25,6 +25,7 @@ class RockRegisterViewController: UIViewController {
         viewModel: RockRegisterViewModel
     ) -> RockRegisterViewController {
         let instance = self.init()
+        instance.router = .init(viewModel: viewModel)
         instance.viewModel = viewModel
         return instance
     }
@@ -34,7 +35,6 @@ class RockRegisterViewController: UIViewController {
         
         setupColletionView()
         setupPickerManager()
-        setupIndicator()
         setupNavigationBar()
         datasource = configureDatasource()
         bindViewModelToView()
@@ -67,21 +67,7 @@ class RockRegisterViewController: UIViewController {
         )
         pickerManager.delegate = self
     }
-    
-    private func setupIndicator() {
-        indicator.hidesWhenStopped = true
-        indicator.backgroundColor = UIColor.Pallete.transparentBlack
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(indicator)
-        NSLayoutConstraint.activate([
-            indicator.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            indicator.rightAnchor.constraint(equalTo: view.rightAnchor),
-            indicator.topAnchor.constraint(equalTo: view.topAnchor),
-            indicator.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        indicator.bringSubviewToFront(collectionView)
-    }
-    
+
     private func setupNavigationBar() {
         navigationItem.title = "岩を登録する"
         navigationItem.setRightBarButton(
@@ -91,7 +77,7 @@ class RockRegisterViewController: UIViewController {
 
                     guard let self = self else { return }
 
-                    self.dismiss(animated: true)
+                    self.router.route(to: .rockSearch, from: self)
                 }
             ),
             animated: true
@@ -105,7 +91,7 @@ class RockRegisterViewController: UIViewController {
             .sink { [weak self] images in
                 
                 defer {
-                    self?.indicator.stopAnimating()
+                    self?.hideIndicatorView()
                 }
                 
                 guard let self = self else { return }
@@ -126,7 +112,7 @@ class RockRegisterViewController: UIViewController {
             .sink { [weak self] data in
 
                 defer {
-                    self?.indicator.stopAnimating()
+                    self?.hideIndicatorView()
                 }
 
                 guard let self = self else { return }
@@ -284,7 +270,7 @@ class RockRegisterViewController: UIViewController {
 extension RockRegisterViewController: PickerManagerDelegate {
 
     func beganResultHandling() {
-        indicator.startAnimating()
+        showIndicatorView()
     }
 
     func didReceivePicking(data: Data, imageType: ImageType) {

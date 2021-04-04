@@ -20,7 +20,7 @@ enum ScreenType: CaseIterable {
         switch self {
         case .rockSearch:
             return RockMapNavigationController(
-                rootVC: UIStoryboard(name: RockSearchViewController.className, bundle: nil).instantiateInitialViewController()!,
+                rootVC: RockSearchViewController.createInstance(viewModel: .init()),
                 naviBarClass: RockMapNavigationBar.self
             )
 

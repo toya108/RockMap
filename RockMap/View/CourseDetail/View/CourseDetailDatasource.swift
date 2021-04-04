@@ -107,13 +107,11 @@ extension CourseDetailViewController {
                     
                     cell.isBookMarked.toggle()
                     
-                    var ids = UserDefaultsDataHolder.shared.bookMarkedCourseIDs
-                    
                     if cell.isBookMarked {
-                        ids.append(self.viewModel.course.id)
+                        UserDefaultsDataHolder.shared.bookMarkedCourseIDs.append(self.viewModel.course.id)
                     } else {
-                        if let index = ids.firstIndex(of: self.viewModel.course.id) {
-                            ids.remove(at: index)
+                        if let index = UserDefaultsDataHolder.shared.bookMarkedCourseIDs.firstIndex(of: self.viewModel.course.id) {
+                            UserDefaultsDataHolder.shared.bookMarkedCourseIDs.remove(at: index)
                         }
                     }
                 },
@@ -122,14 +120,10 @@ extension CourseDetailViewController {
             
             cell.completeButton.addAction(
                 .init { [weak self] _ in
-                    
+
                     guard let self = self else { return }
-                    
-                    if AuthManager.isLoggedIn {
-                        self.presentRegisterClimbedBottomSheetViewController()
-                    } else {
-                        self.showNeedsLoginAlert(message: "完登を記録するにはログインが必要です。")
-                    }
+
+                    self.router.route(to: .registerClimbed, from: self)
                 },
                 for: .touchUpInside
             )
@@ -163,43 +157,15 @@ extension CourseDetailViewController {
                 nibName: ClimbedNumberCollectionViewCell.className,
                 bundle: nil
             )
-        ) { cell, _, _ in
+        ) { [weak self] cell, _, _ in
 
-        }
-    }
-    
-    private func presentRegisterClimbedBottomSheetViewController() {
-        let vc = RegisterClimbedBottomSheetViewController()
-        
-        let recodeButtonAction: UIAction = .init { [weak self] _ in
-            
-            guard
-                let self = self,
-                let type = FIDocument.Climbed.ClimbedRecordType.allCases.any(at: vc.climbedTypeSegmentedControl.selectedSegmentIndex)
-            else {
-                return
-            }
+            guard let self = self else { return }
 
-            self.viewModel.registerClimbed(
-                climbedDate: vc.climbedDatePicker.date,
-                type: type
-            ) { [weak self] result in
-
-                guard let self = self else { return }
-
-                switch result {
-                case .success:
-                    self.dismiss(animated: true)
-
-                case let .failure:
-                    break
-
-                }
-            }
-        }
-            
-        present(vc, animated: true) {
-            vc.configureRecordButton(recodeButtonAction)
+            cell.configure(
+                total: self.viewModel.totalClimbedNumber?.total ?? 0 as Int,
+                flash: self.viewModel.totalClimbedNumber?.flashTotal ?? 0 as Int,
+                redPoint: self.viewModel.totalClimbedNumber?.redPointTotal ?? 0 as Int
+            )
         }
     }
 }

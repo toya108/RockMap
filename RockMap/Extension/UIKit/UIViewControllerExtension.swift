@@ -84,35 +84,40 @@ extension UIViewController {
         present(alert, animated: true)
     }
     
-    func showYseOrNoAlert(
+    func showAlert(
         title: String,
-        message: String,
-        positiveHandler: ((UIAlertAction) -> Void)?,
-        negativeHandler: ((UIAlertAction) -> Void)? = nil
+        message: String? = nil,
+        actions: [UIAlertAction],
+        style: UIAlertController.Style = .alert
     ) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: style
+        )
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: negativeHandler)
-        alert.addAction(cancelAction)
-        
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: positiveHandler)
-        alert.addAction(okAction)
-        
+        actions.forEach { alert.addAction($0) }
         present(alert, animated: true)
     }
     
     func showNeedsLoginAlert(message: String) {
         
         if AuthManager.isLoggedIn { return }
-        
-        showYseOrNoAlert(
+
+        showAlert(
             title: "ログインが必要です。",
             message: message,
-            positiveHandler: { [weak self] _ in
-                
-                guard let self = self else { return }
-                
-                AuthManager.presentAuthViewController(from: self)
-            })
+            actions: [
+                .init(title: "OK", style: .default) { [weak self] _ in
+
+                    guard let self = self else { return }
+
+                    AuthManager.presentAuthViewController(from: self)
+
+                },
+                .init(title: "Cancel", style: .cancel)
+            ],
+            style: .alert
+        )
     }
 }

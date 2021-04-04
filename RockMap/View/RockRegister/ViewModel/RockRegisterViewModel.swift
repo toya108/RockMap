@@ -25,10 +25,6 @@ final class RockRegisterViewModel {
     @Published private(set) var headerImageValidationResult: ValidationResult = .none
 
     private var bindings = Set<AnyCancellable>()
-    
-    init() {
-        setupBindings()
-    }
 
     init(location: CLLocation) {
         setupBindings()

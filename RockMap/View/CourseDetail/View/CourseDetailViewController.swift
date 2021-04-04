@@ -15,10 +15,12 @@ class CourseDetailViewController: UIViewController {
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
     
     var viewModel: CourseDetailViewModel!
+    var router: CourseDetailRouter!
     private var bindings = Set<AnyCancellable>()
 
     static func createInstance(viewModel: CourseDetailViewModel) -> CourseDetailViewController {
         let instance = CourseDetailViewController()
+        instance.router = .init(viewModel: viewModel)
         instance.viewModel = viewModel
         return instance
     }
@@ -35,6 +37,7 @@ class CourseDetailViewController: UIViewController {
     
     private func setupCollectionView() {
         collectionView = .init(frame: .zero, collectionViewLayout: createLayout())
+        collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
@@ -99,6 +102,19 @@ class CourseDetailViewController: UIViewController {
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
+
+        viewModel.$totalClimbedNumber
+            .receive(on: RunLoop.main)
+            .sink { [weak self] totalClimbedNumber in
+
+                guard let self = self else { return }
+
+                self.snapShot.reloadItems(self.snapShot.itemIdentifiers(inSection: .climbedNumber))
+
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+
     }
 
     private func configureSections() {
@@ -107,5 +123,23 @@ class CourseDetailViewController: UIViewController {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
         datasource.apply(snapShot)
+    }
+}
+
+extension CourseDetailViewController: UICollectionViewDelegate {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        let item = datasource.itemIdentifier(for: indexPath)
+
+        switch item {
+            case .climbedNumber:
+                router.route(to: .climbedUserList, from: self)
+
+            default:
+                break
+        }
     }
 }

@@ -239,28 +239,7 @@ extension CourseRegisterViewController {
                 
                 guard let self = self else { return }
 
-                guard
-                    self.viewModel.callValidations(),
-                    let header = self.viewModel.header
-                else {
-                    self.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
-                    return
-                }
-
-                let viewModel = CourseConfirmViewModel(
-                    rock: self.viewModel.rockHeaderStructure,
-                    courseName: self.viewModel.courseName,
-                    grade: self.viewModel.grade,
-                    shape: self.viewModel.shape,
-                    header: header,
-                    images: self.viewModel.images,
-                    desc: self.viewModel.desc
-                )
-
-                self.navigationController?.pushViewController(
-                    CourseConfirmViewController.createInstance(viewModel: viewModel),
-                    animated: true
-                )
+                self.router.route(to: .courseConfirm, from: self)
             }
         }
     }
