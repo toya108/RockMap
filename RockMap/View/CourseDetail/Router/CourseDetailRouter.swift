@@ -85,7 +85,10 @@ struct CourseDetailRouter: RouterProtocol {
     }
 
     private func pushClimbedUserList(_ from: UIViewController) {
-        from.navigationController?.pushViewController(ClimbedUserListViewController(), animated: true)
+        from.navigationController?.pushViewController(
+            ClimbedUserListViewController.createInstance(course: viewModel.course),
+            animated: true
+        )
     }
 
 }
