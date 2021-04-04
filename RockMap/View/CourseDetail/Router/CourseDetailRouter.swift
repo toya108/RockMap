@@ -32,17 +32,6 @@ struct CourseDetailRouter: RouterProtocol {
         }
     }
 
-    private func pushCourseDetail(
-        _ from: UIViewController,
-        course: FIDocument.Course
-    ) {
-        let courseDetailViewModel = CourseDetailViewModel(course: course)
-        from.navigationController?.pushViewController(
-            CourseDetailViewController.createInstance(viewModel: courseDetailViewModel),
-            animated: true
-        )
-    }
-
     private func presentRegisterClimbedBottomSheet(_ from: UIViewController) {
         let vc = RegisterClimbedBottomSheetViewController()
 
