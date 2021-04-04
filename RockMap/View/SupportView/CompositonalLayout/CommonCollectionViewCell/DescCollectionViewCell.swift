@@ -1,5 +1,5 @@
 //
-//  RockDescCollectionViewCell.swift
+//  DescCollectionViewCell.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/02/06.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RockDescCollectionViewCell: UICollectionViewCell {
+class DescCollectionViewCell: UICollectionViewCell {
     
     let descLabel = UILabel()
     

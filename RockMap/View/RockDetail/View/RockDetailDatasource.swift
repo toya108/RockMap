@@ -135,22 +135,21 @@ extension RockDetailViewController {
     }
     
     private func configureRegisteredUserCell() -> UICollectionView.CellRegistration<
-        RegisteredUserCollectionViewCell,
+        LeadingRegisteredUserCollectionViewCell,
         FIDocument.User
     > {
         .init(
             cellNib: .init(
-                nibName: RegisteredUserCollectionViewCell.className,
+                nibName: LeadingRegisteredUserCollectionViewCell.className,
                 bundle: nil
             )
         ) { cell, _, user in
-            cell.userNameLabel.text = user.name
-            cell.userIconImageView.loadImage(url: user.photoURL)
+            cell.configure(user: user)
         }
     }
     
     private func configureRockDescCell() -> UICollectionView.CellRegistration<
-        RockDescCollectionViewCell,
+        DescCollectionViewCell,
         String
     > {
         .init { cell, _, desc in

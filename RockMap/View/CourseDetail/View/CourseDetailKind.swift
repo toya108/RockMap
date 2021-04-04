@@ -14,32 +14,47 @@ extension CourseDetailViewController {
         case buttons
         case registeredUser
         case climbedNumber
+        case info
+        case desc
         
         var headerTitle: String {
-            return "完登者数"
+            switch self {
+                case .climbedNumber:
+                    return "完登者数"
+
+                case .info:
+                    return "基本情報"
+
+                default:
+                    return ""
+
+            }
         }
         
         var headerIdentifer: String {
             switch self {
-            case .climbedNumber:
-                return TitleSupplementaryView.className
+                case .climbedNumber, .info:
+                    return TitleSupplementaryView.className
                 
-            default:
-                return ""
+                default:
+                    return ""
+
             }
-            
         }
         
         var initialItems: [ItemKind] {
             switch self {
-            case .buttons:
-                return [.buttons]
-                
-            case .climbedNumber:
-                return [.climbedNumber]
-                
-            default:
-                return []
+                case .buttons:
+                    return [.buttons]
+
+                case .registeredUser:
+                    return [.registeredUser]
+
+                case .climbedNumber:
+                    return [.climbedNumber]
+
+                default:
+                    return []
                 
             }
         }
@@ -48,8 +63,10 @@ extension CourseDetailViewController {
     enum ItemKind: Hashable {
         case headerImage(StorageManager.Reference)
         case buttons
-        case registeredUser(CourseDetailViewModel.UserCellStructure)
+        case registeredUser
         case climbedNumber
+        case shape(Set<FIDocument.Course.Shape>)
+        case desc(String)
     }
     
 }

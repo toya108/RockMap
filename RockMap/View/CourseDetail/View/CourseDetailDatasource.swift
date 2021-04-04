@@ -32,11 +32,11 @@ extension CourseDetailViewController {
                     item: Dummy()
                 )
                 
-            case let .registeredUser(user):
+            case .registeredUser:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureUserCell(),
                     for: indexPath,
-                    item: user
+                    item: Dummy()
                 )
                 
             case .climbedNumber:
@@ -44,6 +44,24 @@ extension CourseDetailViewController {
                     using: self.configureClimbedNumberCell(),
                     for: indexPath,
                     item: Dummy()
+                )
+
+            case let .shape(shapes):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureShapeCell(),
+                    for: indexPath,
+                    item: .init(
+                        image: UIImage.SystemImages.triangleLefthalfFill,
+                        title: "岩質",
+                        subTitle: shapes.map(\.name).joined(separator: "/")
+                    )
+                )
+
+            case let .desc(desc):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureDescCell(),
+                    for: indexPath,
+                    item: desc
                 )
             }
         }
@@ -132,18 +150,20 @@ extension CourseDetailViewController {
     
     private func configureUserCell() -> UICollectionView.CellRegistration<
         LeadingRegisteredUserCollectionViewCell,
-        CourseDetailViewModel.UserCellStructure
+        Dummy
     > {
         .init(
             cellNib: .init(
                 nibName: LeadingRegisteredUserCollectionViewCell.className,
                 bundle: nil
             )
-        ) { cell, _, user in
+        ) { [weak self] cell, _, _ in
+
+            guard let self = self else { return }
+
             cell.configure(
-                name: user.name,
-                photoURL: user.photoURL,
-                registeredDate: user.registeredDate
+                user: self.viewModel.registeredUser,
+                registeredDate: self.viewModel.registeredDate
             )
         }
     }
@@ -168,4 +188,28 @@ extension CourseDetailViewController {
             )
         }
     }
+
+    private func configureShapeCell() -> UICollectionView.CellRegistration<
+        ValueCollectionViewCell,
+        ValueCollectionViewCell.ValueCellStructure
+    > {
+        .init(
+            cellNib: .init(
+                nibName: ValueCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { cell, _, data in
+           cell.configure(data)
+        }
+    }
+
+    private func configureDescCell() -> UICollectionView.CellRegistration<
+        DescCollectionViewCell,
+        String
+    > {
+        .init { cell, _, desc in
+            cell.descLabel.text = desc
+        }
+    }
+
 }
