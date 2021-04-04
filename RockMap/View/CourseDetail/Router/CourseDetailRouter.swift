@@ -33,6 +33,14 @@ struct CourseDetailRouter: RouterProtocol {
     }
 
     private func presentRegisterClimbedBottomSheet(_ from: UIViewController) {
+
+        guard
+            AuthManager.isLoggedIn
+        else {
+            from.showNeedsLoginAlert(message: "完登を記録するにはログインが必要です。")
+            return
+        }
+
         let vc = RegisterClimbedBottomSheetViewController()
 
         let recodeButtonAction: UIAction = .init { _ in

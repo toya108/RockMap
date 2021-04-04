@@ -120,14 +120,10 @@ extension CourseDetailViewController {
             
             cell.completeButton.addAction(
                 .init { [weak self] _ in
-                    
+
                     guard let self = self else { return }
-                    
-                    if AuthManager.isLoggedIn {
-                        self.router.route(to: .registerClimbed, from: self)
-                    } else {
-                        self.showNeedsLoginAlert(message: "完登を記録するにはログインが必要です。")
-                    }
+
+                    self.router.route(to: .registerClimbed, from: self)
                 },
                 for: .touchUpInside
             )
