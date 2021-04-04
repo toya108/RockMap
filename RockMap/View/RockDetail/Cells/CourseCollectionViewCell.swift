@@ -8,12 +8,12 @@
 import UIKit
 
 class CourseCollectionViewCell: UICollectionViewCell {
+
     @IBOutlet weak var courseNameLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var userIconImageView: UIImageView!
-    @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var courseImageView: UIImageView!
-    
+    @IBOutlet weak var userView: UserView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -23,8 +23,6 @@ class CourseCollectionViewCell: UICollectionViewCell {
         layer.shadowRadius = 8
         layer.cornerRadius = 8
         contentView.layer.cornerRadius = 8
-        
-        userIconImageView.layer.cornerRadius = 22
     }
     
     func configure(courese: FIDocument.Course) {
@@ -38,13 +36,14 @@ class CourseCollectionViewCell: UICollectionViewCell {
             guard
                 case let .success(user) = result
             else {
-                self.userNameLabel.text = "-"
-                self.userIconImageView.image = UIImage.AssetsImages.noimage
                 return
             }
-            
-            self.userNameLabel.text = user?.name
-            self.userIconImageView.loadImage(url: user?.photoURL)
+
+            self.userView.configure(
+                userName: user?.name ?? "",
+                photoURL: user?.photoURL,
+                registeredDate: courese.createdAt
+            )
         }
         
         let reference = StorageManager.makeReference(

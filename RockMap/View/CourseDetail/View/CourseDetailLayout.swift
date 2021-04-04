@@ -62,7 +62,7 @@ extension CourseDetailViewController {
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(40)
+                        heightDimension: .estimated(40)
                     )
                 )
                 let group = NSCollectionLayoutGroup.horizontal(
@@ -85,6 +85,18 @@ extension CourseDetailViewController {
                 )
                 section = .init(group: group)
                 
+                case .info:
+                    let item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .estimated(64)
+                        )
+                    )
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: item.layoutSize,
+                        subitems: [item]
+                    )
+                    section = .init(group: group)
             }
             
             if !sectionType.headerIdentifer.isEmpty {

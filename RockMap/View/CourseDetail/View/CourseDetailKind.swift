@@ -14,32 +14,46 @@ extension CourseDetailViewController {
         case buttons
         case registeredUser
         case climbedNumber
+        case info
         
         var headerTitle: String {
-            return "完登者数"
+            switch self {
+                case .climbedNumber:
+                    return "完登者数"
+
+                case .info:
+                    return "基本情報"
+
+                default:
+                    return ""
+
+            }
         }
         
         var headerIdentifer: String {
             switch self {
-            case .climbedNumber:
-                return TitleSupplementaryView.className
+                case .climbedNumber, .info:
+                    return TitleSupplementaryView.className
                 
-            default:
-                return ""
+                default:
+                    return ""
+
             }
-            
         }
         
         var initialItems: [ItemKind] {
             switch self {
-            case .buttons:
-                return [.buttons]
+                case .buttons:
+                    return [.buttons]
+
+                case .registeredUser:
+                    return [.registeredUser]
+
+                case .climbedNumber:
+                    return [.climbedNumber]
                 
-            case .climbedNumber:
-                return [.climbedNumber]
-                
-            default:
-                return []
+                default:
+                    return []
                 
             }
         }
@@ -48,7 +62,7 @@ extension CourseDetailViewController {
     enum ItemKind: Hashable {
         case headerImage(StorageManager.Reference)
         case buttons
-        case registeredUser(CourseDetailViewModel.UserCellStructure)
+        case registeredUser
         case climbedNumber
     }
     

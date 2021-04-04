@@ -11,17 +11,12 @@ import FirebaseFirestore
 
 final class CourseDetailViewModel {
     
-    struct UserCellStructure: Hashable {
-        var photoURL: URL?
-        var name: String = ""
-        var registeredDate: Date?
-    }
-    
     @Published var course: FIDocument.Course
     @Published var courseImageReference: StorageManager.Reference?
     @Published var courseName = ""
     @Published private var registeredUserId = ""
-    @Published var userStructure: UserCellStructure = .init()
+    @Published var registeredUser: FIDocument.User?
+    @Published var registeredDate: Date?
     @Published var totalClimbedNumber: FIDocument.TotalClimbedNumber?
 
     private var totalNumberListener: ListenerRegistration?
@@ -35,7 +30,7 @@ final class CourseDetailViewModel {
         
         courseName = course.name
         registeredUserId = course.registedUserId
-        userStructure.registeredDate = course.createdAt
+        registeredDate = course.createdAt
     }
 
     deinit {
@@ -79,8 +74,7 @@ final class CourseDetailViewModel {
                         return
                     }
                     
-                    self.userStructure.name = unwrappedUser.name
-                    self.userStructure.photoURL = unwrappedUser.photoURL
+                    self.registeredUser = unwrappedUser
                 }
             }
             .store(in: &bindings)

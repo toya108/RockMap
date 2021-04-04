@@ -86,26 +86,23 @@ class CourseDetailViewController: UIViewController {
                 self.navigationItem.title = name
             }
             .store(in: &bindings)
-        
-        viewModel.$userStructure
+
+        viewModel.$registeredUser
+            .combineLatest(viewModel.$registeredDate)
             .receive(on: RunLoop.main)
-            .sink { [weak self] user in
-                
+            .sink { [weak self] _ in
+
                 guard let self = self else { return }
-                
-                if !self.snapShot.itemIdentifiers(inSection: .registeredUser).isEmpty {
-                    self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .registeredUser))
-                }
-                
-                self.snapShot.appendItems([.registeredUser(user)], toSection: .registeredUser)
-                
+
+                self.snapShot.reloadSections([.registeredUser])
+
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
 
         viewModel.$totalClimbedNumber
             .receive(on: RunLoop.main)
-            .sink { [weak self] totalClimbedNumber in
+            .sink { [weak self] _ in
 
                 guard let self = self else { return }
 

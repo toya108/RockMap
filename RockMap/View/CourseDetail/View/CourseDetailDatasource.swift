@@ -32,11 +32,11 @@ extension CourseDetailViewController {
                     item: Dummy()
                 )
                 
-            case let .registeredUser(user):
+            case .registeredUser:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureUserCell(),
                     for: indexPath,
-                    item: user
+                    item: Dummy()
                 )
                 
             case .climbedNumber:
@@ -132,18 +132,20 @@ extension CourseDetailViewController {
     
     private func configureUserCell() -> UICollectionView.CellRegistration<
         LeadingRegisteredUserCollectionViewCell,
-        CourseDetailViewModel.UserCellStructure
+        Dummy
     > {
         .init(
             cellNib: .init(
                 nibName: LeadingRegisteredUserCollectionViewCell.className,
                 bundle: nil
             )
-        ) { cell, _, user in
+        ) { [weak self] cell, _, _ in
+
+            guard let self = self else { return }
+
             cell.configure(
-                name: user.name,
-                photoURL: user.photoURL,
-                registeredDate: user.registeredDate
+                user: self.viewModel.registeredUser,
+                registeredDate: self.viewModel.registeredDate
             )
         }
     }
