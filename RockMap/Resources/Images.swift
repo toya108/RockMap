@@ -33,6 +33,8 @@ extension UIImage {
         static let handPointUpLeftFill = UIImage(systemName: "hand.point.up.left.fill")!
         static let docPlaintextFill = UIImage(systemName: "doc.plaintext.fill")!
         static let triangleLefthalfFill = UIImage(systemName: "triangle.lefthalf.fill")!
+        static let trash = UIImage(systemName: "trash")!
+        static let squareAndPencil = UIImage(systemName: "square.and.pencil")!
     }
     
     struct AssetsImages {

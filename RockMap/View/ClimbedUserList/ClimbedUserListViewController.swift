@@ -134,6 +134,26 @@ extension ClimbedUserListViewController: UITableViewDelegate {
 
     func tableView(
         _ tableView: UITableView,
+        contextMenuConfigurationForRowAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
+
+        let actionProvider: ([UIMenuElement]) -> UIMenu? = { _ in
+            let edit = UIAction(title: "編集", image: UIImage.SystemImages.squareAndPencil) { _ in
+                // some action
+            }
+            let delete = UIAction(title: "削除", image: UIImage.SystemImages.trash, attributes: .destructive) { _ in
+                // some action
+            }
+            return UIMenu(title: "", image: nil, identifier: nil, children: [edit, delete])
+        }
+
+        return .init(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
+
+    }
+
+    func tableView(
+        _ tableView: UITableView,
         viewForHeaderInSection section: Int
     ) -> UIView? {
         let header = UITableViewHeaderFooterView()
