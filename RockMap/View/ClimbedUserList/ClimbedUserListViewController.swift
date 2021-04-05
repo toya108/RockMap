@@ -139,11 +139,29 @@ extension ClimbedUserListViewController: UITableViewDelegate {
     ) -> UIContextMenuConfiguration? {
 
         let actionProvider: ([UIMenuElement]) -> UIMenu? = { _ in
-            let edit = UIAction(title: "編集", image: UIImage.SystemImages.squareAndPencil) { _ in
-                // some action
+            let edit = UIAction(title: "編集", image: UIImage.SystemImages.squareAndPencil) { [weak self] _ in
+
+                guard let self = self else { return }
+
             }
-            let delete = UIAction(title: "削除", image: UIImage.SystemImages.trash, attributes: .destructive) { _ in
-                // some action
+            let delete = UIAction(title: "削除", image: UIImage.SystemImages.trash, attributes: .destructive) { [weak self] _ in
+
+                guard let self = self else { return }
+
+                self.showAlert(
+                    title: "記録を削除します。",
+                    message: "削除した記録は復元できません。\n削除してもよろしいですか？",
+                    actions: [
+                        .init(title: "削除", style: .destructive) { [weak self] _ in
+
+                            guard let self = self else { return }
+
+                            // delete
+                        },
+                        .init(title: "キャンセル", style: .cancel)
+                    ],
+                    style: .actionSheet
+                )
             }
             return UIMenu(title: "", image: nil, identifier: nil, children: [edit, delete])
         }
