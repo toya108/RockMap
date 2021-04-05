@@ -16,10 +16,6 @@ class ClimbedUserListViewController: UIViewController {
     private var datasource: UITableViewDiffableDataSource<SectionKind, ClimbedUserListViewModel.ClimbedCellData>!
     private var bindings = Set<AnyCancellable>()
 
-    enum SectionKind: Hashable {
-        case main
-    }
-
     static func createInstance(course: FIDocument.Course) -> Self {
         let instance = Self()
         instance.viewModel = .init(course: course)
@@ -88,7 +84,7 @@ class ClimbedUserListViewController: UIViewController {
     }
 
     private func setupSections() {
-        snapShot.appendSections([.main])
+        snapShot.appendSections(SectionKind.allCases)
         datasource.apply(snapShot)
     }
 
@@ -99,11 +95,31 @@ class ClimbedUserListViewController: UIViewController {
 
                 guard let self = self else { return }
 
-                self.snapShot.appendItems(cellData, toSection: .main)
+                self.snapShot.appendItems(cellData.filter { $0.isOwned }, toSection: .owned)
+                self.snapShot.appendItems(cellData.filter { !$0.isOwned }, toSection: .others)
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
     }
+}
+
+extension ClimbedUserListViewController {
+
+    enum SectionKind: Hashable, CaseIterable {
+        case owned
+        case others
+
+        var headerTitle: String {
+            switch self {
+                case .owned:
+                    return "自分の記録"
+
+                case .others:
+                    return "自分以外の記録"
+            }
+        }
+    }
+
 }
 
 extension ClimbedUserListViewController: UITableViewDelegate {
@@ -115,4 +131,14 @@ extension ClimbedUserListViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
+    func tableView(
+        _ tableView: UITableView,
+        viewForHeaderInSection section: Int
+    ) -> UIView? {
+        let header = UITableViewHeaderFooterView()
+        header.textLabel?.text = SectionKind.allCases[section].headerTitle
+        return header
+    }
+
 }
+

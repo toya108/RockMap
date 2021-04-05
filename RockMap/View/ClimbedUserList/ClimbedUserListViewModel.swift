@@ -12,6 +12,7 @@ class ClimbedUserListViewModel {
     struct ClimbedCellData: Hashable {
         let climbed: FIDocument.Climbed
         let user: FIDocument.User
+        let isOwned: Bool
     }
 
     private let course: FIDocument.Course
@@ -78,7 +79,8 @@ class ClimbedUserListViewModel {
 
                             return .init(
                                 climbed: climbed,
-                                user: user
+                                user: user,
+                                isOwned: user.id == AuthManager.uid
                             )
                         }
                     }
