@@ -32,8 +32,15 @@ final class ZoomImageViewController: UIViewController {
         dismiss(animated: true)
     }
 
-    static func createInstance(images: [UIImage], currentIndex: Int) -> Self {
-        let instance = UIStoryboard(name: Self.className, bundle: nil).instantiateInitialViewController() as! Self
+    static func createInstance(
+        images: [UIImage],
+        currentIndex: Int
+    ) -> Self {
+        let instance = UIStoryboard(
+            name: Self.className,
+            bundle: nil
+        ).instantiateInitialViewController() as! Self
+        
         instance.modalPresentationStyle = .fullScreen
         instance.modalTransitionStyle = .crossDissolve
         instance.images = images
@@ -61,9 +68,16 @@ final class ZoomImageViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+
         if !isZoomingMode {
-            imageScrollView.contentOffset = .init(x: imageScrollView.bounds.size.width * CGFloat(currentIndex), y: 0)
-        } else if needsOffsetCorrect {
+            imageScrollView.contentOffset = .init(
+                x: imageScrollView.bounds.size.width * CGFloat(currentIndex),
+                y: 0
+            )
+            return
+        }
+
+        if needsOffsetCorrect {
             let beforeWidth = imageScrollView.bounds.size.width * CGFloat(currentIndex) * imageScrollView.zoomScale
             imageScrollView.contentOffset = .init(
                 x: imageScrollView.contentOffset.x - beforeWidth,
@@ -86,12 +100,15 @@ extension ZoomImageViewController: UIScrollViewDelegate {
         currentIndex = Int(imageScrollView.contentOffset.x / imageScrollView.frame.width)
     }
 
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(
+        in scrollView: UIScrollView
+    ) -> UIView? {
         imageStackView
     }
 
-    func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        // StackView.arrangeViewのisHidden変更のアニメーションが消しきれないので、ズーム時のみ更新する
+    func scrollViewDidZoom(
+        _ scrollView: UIScrollView
+    ) {
         if isZoomingMode { updateArrangeViews() }
     }
 
@@ -104,25 +121,6 @@ extension ZoomImageViewController: UIScrollViewDelegate {
     }
 
     private func updateArrangeViews() {
-        if imageScrollView.zoomScale > 1 {
-            if let imageView = currentImageView, let image = imageView.image {
-                let ratioW = imageView.frame.width / image.size.width
-                let ratioH = imageView.frame.height / image.size.height
-                let ratio = ratioW < ratioH ? ratioW : ratioH
-
-                let newWidth = image.size.width * ratio
-                let newHeight = image.size.height * ratio
-
-                let left = 0.5 * (newWidth * imageScrollView.zoomScale > imageView.frame.width ?
-                                    (newWidth - imageView.frame.width) : (imageScrollView.frame.width - imageScrollView.contentSize.width))
-                let top = 0.5 * (newHeight * imageScrollView.zoomScale > imageView.frame.height ?
-                                    (newHeight - imageView.frame.height) : (imageScrollView.frame.height - imageScrollView.contentSize.height))
-
-                imageScrollView.contentInset = UIEdgeInsets(top: top, left: left, bottom: top, right: left)
-            }
-        } else {
-            imageScrollView.contentInset = UIEdgeInsets.zero
-        }
 
         needsOffsetCorrect = imageScrollView.isPagingEnabled && isZooming
         imageScrollView.isPagingEnabled = !isZooming
@@ -132,6 +130,42 @@ extension ZoomImageViewController: UIScrollViewDelegate {
                 .forEach { $0.isHidden = isZooming }
             view.layoutIfNeeded()
         }
+    }
+
+    private func updateContentInset() {
+
+        guard
+            imageScrollView.zoomScale > 1
+        else {
+            imageScrollView.contentInset = UIEdgeInsets.zero
+            return
+        }
+        guard
+            let imageView = currentImageView,
+            let image = imageView.image
+        else {
+            return
+        }
+
+        let ratioW = imageView.frame.width / image.size.width
+        let ratioH = imageView.frame.height / image.size.height
+        let ratio = ratioW < ratioH ? ratioW : ratioH
+
+        let newWidth = image.size.width * ratio
+        let newHeight = image.size.height * ratio
+
+        let left = 0.5 * (
+            newWidth * imageScrollView.zoomScale > imageView.frame.width
+                ? (newWidth - imageView.frame.width)
+                : (imageScrollView.frame.width - imageScrollView.contentSize.width)
+        )
+        let top = 0.5 * (
+            newHeight * imageScrollView.zoomScale > imageView.frame.height
+                ? (newHeight - imageView.frame.height)
+                : (imageScrollView.frame.height - imageScrollView.contentSize.height)
+        )
+
+        imageScrollView.contentInset = .init(top: top, left: left, bottom: top, right: left)
     }
 }
 
