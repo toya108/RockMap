@@ -5,7 +5,7 @@
 //  Created by TOUYA KAWANO on 2021/03/22.
 //
 
-import Foundation
+import UIKit
 
 extension FIDocument {
     struct Climbed: FIDocumentProtocol {
@@ -43,6 +43,17 @@ extension FIDocument {
 
                     case .redpoint:
                         return "redPointTotal"
+
+                }
+            }
+
+            var color: UIColor {
+                switch self {
+                    case .flash:
+                        return UIColor.Pallete.primaryGreen
+
+                    case .redpoint:
+                        return UIColor.Pallete.primaryPink
 
                 }
             }

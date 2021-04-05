@@ -14,7 +14,6 @@ class ClimbedTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     func configure(
@@ -29,6 +28,7 @@ class ClimbedTableViewCell: UITableViewCell {
         )
 
         climbedTypeLabel.text = type.name
+        climbedTypeLabel.textColor = type.color
     }
 
 }

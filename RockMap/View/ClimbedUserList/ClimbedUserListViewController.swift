@@ -10,7 +10,7 @@ import Combine
 
 class ClimbedUserListViewController: UIViewController {
 
-    let tableView = UITableView(frame: .zero, style: .insetGrouped)
+    private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     private var viewModel: ClimbedUserListViewModel!
     private var snapShot = NSDiffableDataSourceSnapshot<SectionKind, ClimbedUserListViewModel.ClimbedCellData>()
     private var datasource: UITableViewDiffableDataSource<SectionKind, ClimbedUserListViewModel.ClimbedCellData>!
@@ -43,6 +43,7 @@ class ClimbedUserListViewController: UIViewController {
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
+        tableView.contentInset = .init(top: -16, left: 0, bottom: 0, right: 0)
 
         tableView.register(
             .init(
