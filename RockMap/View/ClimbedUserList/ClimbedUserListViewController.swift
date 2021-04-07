@@ -156,7 +156,27 @@ extension ClimbedUserListViewController: UITableViewDelegate {
 
                             guard let self = self else { return }
 
-                            // delete
+                            guard
+                                let cellData = self.datasource.itemIdentifier(for: indexPath)
+                            else {
+                                return
+                            }
+
+                            self.showIndicatorView()
+
+                            self.viewModel.deleteClimbed(climbed: cellData.climbed) { error in
+
+                                if let error = error {
+                                    self.hideIndicatorView()
+                                    return
+                                }
+
+                                self.snapShot.deleteItems([cellData])
+                                self.datasource.apply(self.snapShot)
+                                self.hideIndicatorView()
+
+                            }
+
                         },
                         .init(title: "キャンセル", style: .cancel)
                     ],

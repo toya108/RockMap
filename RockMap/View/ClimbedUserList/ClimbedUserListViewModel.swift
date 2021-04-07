@@ -87,4 +87,8 @@ class ClimbedUserListViewModel {
             }
             .store(in: &bindings)
     }
+
+    func deleteClimbed(climbed: FIDocument.Climbed, completion: @escaping (Error?) -> Void) {
+        FirestoreManager.db.document(FirestoreManager.makeParentPath(parent: climbed)).delete(completion: completion)
+    }
 }
