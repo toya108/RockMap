@@ -6,6 +6,7 @@
 //
 
 import Combine
+import FirebaseFirestore
 
 class ClimbedUserListViewModel {
 
@@ -88,7 +89,35 @@ class ClimbedUserListViewModel {
             .store(in: &bindings)
     }
 
-    func deleteClimbed(climbed: FIDocument.Climbed, completion: @escaping (Error?) -> Void) {
-        FirestoreManager.db.document(FirestoreManager.makeParentPath(parent: climbed)).delete(completion: completion)
+    func deleteClimbed(climbed: FIDocument.Climbed, completion: @escaping (Result<Void, Error>) -> Void) {
+        FirestoreManager.db.document(FirestoreManager.makeParentPath(parent: climbed)).delete()
+
+        FirestoreManager.db
+            .document(climbed.parentPath)
+            .collection(FIDocument.TotalClimbedNumber.colletionName)
+            .getDocuments { snap, error in
+
+                if let error = error {
+                    completion(.failure(error))
+                }
+
+                guard
+                    let document = snap?.documents.first?.data(),
+                    let id = FIDocument.TotalClimbedNumber.initializeDocument(json: document)?.id
+                else {
+                    return
+                }
+
+                FirestoreManager.db.document(climbed.parentPath)
+                    .collection(FIDocument.TotalClimbedNumber.colletionName)
+                    .document(id)
+                    .setData(
+                        ["total": FieldValue.increment(-1.0), climbed.type.fieldName: FieldValue.increment(-1.0)],
+                        merge: true
+                    )
+
+                completion(.success(()))
+
+            }
     }
 }

@@ -164,13 +164,10 @@ extension ClimbedUserListViewController: UITableViewDelegate {
 
                             self.showIndicatorView()
 
-                            self.viewModel.deleteClimbed(climbed: cellData.climbed) { error in
+                            self.viewModel.deleteClimbed(climbed: cellData.climbed) { result in
 
-                                if let error = error {
-                                    self.hideIndicatorView()
-                                    return
-                                }
-
+                                guard case .success(_) = result else { return }
+                                
                                 self.snapShot.deleteItems([cellData])
                                 self.datasource.apply(self.snapShot)
                                 self.hideIndicatorView()
