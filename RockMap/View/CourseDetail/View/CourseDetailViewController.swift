@@ -29,10 +29,14 @@ class CourseDetailViewController: UIViewController {
         super.viewDidLoad()
         
         setupCollectionView()
-//        setupNavigationBar()
         datasource = configureDatasource()
         bindViewToViewModel()
         configureSections()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBar()
     }
     
     private func setupCollectionView() {
@@ -51,18 +55,18 @@ class CourseDetailViewController: UIViewController {
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
     }
     
-//    private func setupNavigationBar() {
-//        guard
-//            let rockMapNavigationBar = navigationController?.navigationBar as? RockMapNavigationBar
-//        else {
-//            return
-//        }
-//
-//        rockMapNavigationBar.setup()
-//
-//        navigationItem.largeTitleDisplayMode = .always
-//        navigationController?.navigationBar.prefersLargeTitles = true
-//    }
+    private func setupNavigationBar() {
+        guard
+            let rockMapNavigationBar = navigationController?.navigationBar as? RockMapNavigationBar
+        else {
+            return
+        }
+
+        rockMapNavigationBar.setup()
+
+        navigationItem.largeTitleDisplayMode = .always
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
     
     private func bindViewToViewModel() {
         viewModel.$courseImageReference

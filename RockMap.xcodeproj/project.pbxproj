@@ -79,9 +79,14 @@
 		9E6C40D02614D0DA00F010BE /* ActivityIndicatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C40CF2614D0DA00F010BE /* ActivityIndicatorOverlay.swift */; };
 		9E6CF41C25CF10570098389E /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CF41B25CF10570098389E /* TitleSupplementaryView.swift */; };
 		9E6CF42725CFF16A0098389E /* RockLocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CF42625CFF16A0098389E /* RockLocationCollectionViewCell.swift */; };
+		9E6D916B261AEB71006E2297 /* ZoomImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6D916A261AEB71006E2297 /* ZoomImageViewController.swift */; };
+		9E6D9171261AEB82006E2297 /* ZoomImageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6D9170261AEB82006E2297 /* ZoomImageViewController.storyboard */; };
 		9E7812832619933200CAC539 /* ClimbedUserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7812822619933200CAC539 /* ClimbedUserListViewController.swift */; };
 		9E78129126199B1500CAC539 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E78129026199B1500CAC539 /* UserView.swift */; };
 		9E78129E26199DA700CAC539 /* UserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E78129D26199DA700CAC539 /* UserView.xib */; };
+		9E7812E52619FB1600CAC539 /* ClimbedUserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7812E42619FB1600CAC539 /* ClimbedUserListViewModel.swift */; };
+		9E7812FD261A069700CAC539 /* ClimbedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7812FB261A069700CAC539 /* ClimbedTableViewCell.swift */; };
+		9E7812FE261A069700CAC539 /* ClimbedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E7812FC261A069700CAC539 /* ClimbedTableViewCell.xib */; };
 		9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CA7254CFD150091935F /* MyPageViewController.swift */; };
 		9E807CAD254CFD250091935F /* MyPageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E807CAC254CFD250091935F /* MyPageViewController.storyboard */; };
 		9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */; };
@@ -131,6 +136,7 @@
 		9EC88E0A260CCB5C0057EBEE /* LocationSelectButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC88E09260CCB5C0057EBEE /* LocationSelectButtonState.swift */; };
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
 		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
+		9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */; };
 		9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED972992596471C0069FB94 /* ArrayExtension.swift */; };
 		9EE1FD482577EED60080787F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE1FD472577EED60080787F /* AuthManager.swift */; };
 		9EE25B8F25C99C8E0050326D /* RockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */; };
@@ -259,9 +265,14 @@
 		9E6C40CF2614D0DA00F010BE /* ActivityIndicatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorOverlay.swift; sourceTree = "<group>"; };
 		9E6CF41B25CF10570098389E /* TitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSupplementaryView.swift; sourceTree = "<group>"; };
 		9E6CF42625CFF16A0098389E /* RockLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockLocationCollectionViewCell.swift; sourceTree = "<group>"; };
+		9E6D916A261AEB71006E2297 /* ZoomImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomImageViewController.swift; sourceTree = "<group>"; };
+		9E6D9170261AEB82006E2297 /* ZoomImageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ZoomImageViewController.storyboard; sourceTree = "<group>"; };
 		9E7812822619933200CAC539 /* ClimbedUserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbedUserListViewController.swift; sourceTree = "<group>"; };
 		9E78129026199B1500CAC539 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		9E78129D26199DA700CAC539 /* UserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserView.xib; sourceTree = "<group>"; };
+		9E7812E42619FB1600CAC539 /* ClimbedUserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbedUserListViewModel.swift; sourceTree = "<group>"; };
+		9E7812FB261A069700CAC539 /* ClimbedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbedTableViewCell.swift; sourceTree = "<group>"; };
+		9E7812FC261A069700CAC539 /* ClimbedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClimbedTableViewCell.xib; sourceTree = "<group>"; };
 		9E807CA7254CFD150091935F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		9E807CAC254CFD250091935F /* MyPageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPageViewController.storyboard; sourceTree = "<group>"; };
 		9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectProtocolExtension.swift; sourceTree = "<group>"; };
@@ -311,6 +322,7 @@
 		9EC88E09260CCB5C0057EBEE /* LocationSelectButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectButtonState.swift; sourceTree = "<group>"; };
 		9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradeSelectingCollectionViewCell.xib; sourceTree = "<group>"; };
+		9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomImagePresentableImageView.swift; sourceTree = "<group>"; };
 		9ED972992596471C0069FB94 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		9EE1FD472577EED60080787F /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewController.swift; sourceTree = "<group>"; };
@@ -761,6 +773,16 @@
 			path = Indicator;
 			sourceTree = "<group>";
 		};
+		9E6D9175261AEB8D006E2297 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9E6D916A261AEB71006E2297 /* ZoomImageViewController.swift */,
+				9E6D9170261AEB82006E2297 /* ZoomImageViewController.storyboard */,
+				9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		9E6DC03A25CE1ABC00F9C314 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -813,6 +835,9 @@
 			isa = PBXGroup;
 			children = (
 				9E7812822619933200CAC539 /* ClimbedUserListViewController.swift */,
+				9E7812E42619FB1600CAC539 /* ClimbedUserListViewModel.swift */,
+				9E7812FB261A069700CAC539 /* ClimbedTableViewCell.swift */,
+				9E7812FC261A069700CAC539 /* ClimbedTableViewCell.xib */,
 			);
 			path = ClimbedUserList;
 			sourceTree = "<group>";
@@ -920,6 +945,7 @@
 		9E98D53D2552F88B00EC5AC1 /* SupportView */ = {
 			isa = PBXGroup;
 			children = (
+				9E6D9175261AEB8D006E2297 /* ViewController */,
 				9E7812A22619AF6800CAC539 /* View */,
 				9E6C40CE2614D0BD00F010BE /* Indicator */,
 				9E427D3125F12E1B00ED7DBE /* Dialog */,
@@ -1236,12 +1262,14 @@
 				9E2B113425471F7400D7E56C /* LoginViewController.storyboard in Resources */,
 				9E2BD65125DD55B00011B020 /* TextViewCollectionViewCell.xib in Resources */,
 				9E016FBC252CD0C600C2B85C /* GoogleService-Info.plist in Resources */,
+				9E6D9171261AEB82006E2297 /* ZoomImageViewController.storyboard in Resources */,
 				9E78129E26199DA700CAC539 /* UserView.xib in Resources */,
 				9E5CEFD525277B26001C95AA /* Assets.xcassets in Resources */,
 				9E0BE3DA2607949E00576869 /* ClimbedNumberCollectionViewCell.xib in Resources */,
 				9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */,
 				9E9845F625D5418C00B03C4E /* RockHeaderCollectionViewCell.xib in Resources */,
 				9E2BD68725DD6DA90011B020 /* ImageSelactCollectionViewCell.xib in Resources */,
+				9E7812FE261A069700CAC539 /* ClimbedTableViewCell.xib in Resources */,
 				9E2DA76025F91BA7008F339E /* LocationSelectCollectionViewCell.xib in Resources */,
 				9E5CEFD325277B25001C95AA /* RockSearchViewController.storyboard in Resources */,
 				9E807CAD254CFD250091935F /* MyPageViewController.storyboard in Resources */,
@@ -1476,6 +1504,7 @@
 				9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */,
 				9EF71FD62611ADC700D5B375 /* PHPickerManager.swift in Sources */,
 				9E6CF42725CFF16A0098389E /* RockLocationCollectionViewCell.swift in Sources */,
+				9E7812E52619FB1600CAC539 /* ClimbedUserListViewModel.swift in Sources */,
 				9E2DA75F25F91BA7008F339E /* LocationSelectCollectionViewCell.swift in Sources */,
 				9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */,
 				9EC3A6C42604D74F001FBCA4 /* CourseDetailKind.swift in Sources */,
@@ -1491,6 +1520,7 @@
 				9E5DD1C025C84DA500E38620 /* UIImageViewExtension.swift in Sources */,
 				9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */,
 				9E5C5E372555144000D00087 /* Images.swift in Sources */,
+				9E7812FD261A069700CAC539 /* ClimbedTableViewCell.swift in Sources */,
 				9E47B76C26160A0B004BE800 /* TotalClimbedNumber.swift in Sources */,
 				9EE9D0E42614DD5C00570097 /* CourseConfirmRouter.swift in Sources */,
 				9EB6C3CD260FA7A000CDD607 /* RockAnnotation.swift in Sources */,
@@ -1513,6 +1543,7 @@
 				9EFEE45625F7975F004BFE34 /* CourseCollectionViewCell.swift in Sources */,
 				9EA94F7325D044F500D1272E /* RockDetailDatasource.swift in Sources */,
 				9EAE72AE25DACFC900C37119 /* TextViewCollectionViewCell.swift in Sources */,
+				9E6D916B261AEB71006E2297 /* ZoomImageViewController.swift in Sources */,
 				9E0C9DF02576ABCE00ABFE5B /* User.swift in Sources */,
 				9E0D09352566B31200D3075F /* RockDetailViewModel.swift in Sources */,
 				9E98D549255300B900EC5AC1 /* ColorPallet.swift in Sources */,
@@ -1552,6 +1583,7 @@
 				9E08AC7C2572A84100D69927 /* RockMapNavigationController.swift in Sources */,
 				9E5DD1D725C9857A00E38620 /* UIViewExtension.swift in Sources */,
 				9E83EEBB25FB4D00002392AA /* IconCollectionViewCell.swift in Sources */,
+				9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */,
 				9E5CEFCE25277B25001C95AA /* SceneDelegate.swift in Sources */,
 				9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */,
 				9EA32A4925FA77EE00FB0C75 /* RockConfirmLayout.swift in Sources */,

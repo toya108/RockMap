@@ -105,11 +105,12 @@ final class RockDetailViewModel {
                 self.courses = []
                 return
             }
+
+            guard let snap = snap else { return }
             
-            self.courses = snap?.documents
-                .compactMap {
-                    FIDocument.Course.initializeDocument(json: $0.data())
-                } ?? []
+            self.courses = snap.documents.compactMap {
+                FIDocument.Course.initializeDocument(json: $0.data())
+            }
         }
     }
 }

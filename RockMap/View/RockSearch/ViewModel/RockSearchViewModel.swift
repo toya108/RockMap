@@ -63,8 +63,12 @@ class RockSearchViewModel {
                     self.error = error
                     return
                 }
-                
-                self.rockDocuments = snap?.documents.compactMap { FIDocument.Rock.initializeDocument(json: $0.data()) } ?? []
+
+                guard let snap = snap else { return }
+
+                self.rockDocuments = snap.documents.compactMap {
+                    FIDocument.Rock.initializeDocument(json: $0.data())
+                }
             }
         }
     }

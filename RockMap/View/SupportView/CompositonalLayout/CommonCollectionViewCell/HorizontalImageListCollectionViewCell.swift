@@ -9,7 +9,7 @@ import UIKit
 
 class HorizontalImageListCollectionViewCell: UICollectionViewCell {
     
-    let imageView = UIImageView()
+    let imageView = ZoomImagePresentableImageView(frame: .zero)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
