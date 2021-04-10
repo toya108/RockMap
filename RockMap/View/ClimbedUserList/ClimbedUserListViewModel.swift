@@ -23,74 +23,62 @@ class ClimbedUserListViewModel {
 
     init(course: FIDocument.Course) {
         self.course = course
-        updateClimbed(course: course)
+        fetchClimbed(course: course)
         setupBindings()
     }
 
-    private func updateClimbed(course: FIDocument.Course) {
-        let climbedPath = [
-            FirestoreManager.makeParentPath(parent: course),
-            FIDocument.Climbed.colletionName
-        ].joined(separator: "/")
-
-        FirestoreManager.db.collection(climbedPath).getDocuments { [weak self] snap, error in
-
-            guard let self = self else { return }
-
-            if let _ = error {
-                return
+    private func fetchClimbed(course: FIDocument.Course) {
+        course.makeDocumentReference()
+            .collection(FIDocument.Climbed.colletionName)
+            .getDocuments(FIDocument.Climbed.self)
+            .catch { _ -> Just<[FIDocument.Climbed]> in
+                return .init([])
             }
+            .sink { [weak self] climbed in
 
-            guard let snap = snap else { return }
+                guard let self = self else { return }
 
-           let climbedList  = snap.documents
-                .map { $0.data() }
-                .compactMap { FIDocument.Climbed.initializeDocument(json: $0) }
-
-            self.climbedList.append(contentsOf: climbedList)
-        }
+                self.climbedList.append(contentsOf: climbed)
+            }
+            .store(in: &bindings)
     }
 
     private func setupBindings() {
         $climbedList
             .drop(while: { $0.isEmpty })
-            .sink { climbedList in
+            .flatMap {
                 FirestoreManager.db
                     .collection(FIDocument.User.colletionName)
-                    .whereField("id", in: climbedList.map(\.climbedUserId))
-                    .getDocuments { snap, error in
+                    .whereField("id", in: $0.map(\.climbedUserId))
+                    .getDocuments(FIDocument.User.self)
+            }
+            .catch { _ -> Just<[FIDocument.User]> in
+                return .init([])
+            }
+            .sink { [weak self] climbedUserList in
 
-                        if let _ = error {
-                            return
-                        }
+                guard let self = self else { return }
 
-                        guard let snap = snap else { return }
+                self.climbedCellData = self.climbedList.compactMap { climbed -> ClimbedCellData? in
 
-                        let climbedUserList = snap.documents.compactMap {
-                            FIDocument.User.initializeDocument(json: $0.data())
-                        }
-                        self.climbedCellData = self.climbedList.compactMap {
-                            climbed -> ClimbedCellData? in
-
-                            guard
-                                let user = climbedUserList.first(where: { climbed.climbedUserId == $0.id })
-                            else {
-                                return nil
-                            }
-
-                            return .init(
-                                climbed: climbed,
-                                user: user,
-                                isOwned: user.id == AuthManager.uid
-                            )
-                        }
+                    guard
+                        let user = climbedUserList.first(where: { climbed.climbedUserId == $0.id })
+                    else {
+                        return nil
                     }
+
+                    return .init(
+                        climbed: climbed,
+                        user: user,
+                        isOwned: user.id == AuthManager.uid
+                    )
+                }
             }
             .store(in: &bindings)
     }
 
     func deleteClimbed(climbed: FIDocument.Climbed, completion: @escaping (Result<Void, Error>) -> Void) {
-        FirestoreManager.db.document(FirestoreManager.makeParentPath(parent: climbed)).delete()
+        climbed.makeDocumentReference().delete()
 
         FirestoreManager.db
             .document(climbed.parentPath)

@@ -131,10 +131,7 @@ final class CourseDetailViewModel {
 
         let parentPath = FirestoreManager.makeParentPath(parent: course)
         let climbed = FIDocument.Climbed(
-            id: UUID().uuidString,
-            parentCourseId: course.id,
-            createdAt: Date(),
-            updatedAt: nil,
+            parentCourseReference: course.makeDocumentReference(),
             parentPath: parentPath,
             climbedDate: climbedDate,
             type: type,
