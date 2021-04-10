@@ -54,19 +54,18 @@ class CourseCollectionViewCell: UICollectionViewCell {
             child: course.name
         )
         
-        StorageManager.getHeaderReference(reference: reference) { [weak self] result in
-            
-            guard let self = self else { return }
-            
-            guard
-                case let .success(ref) = result
-            else {
-                self.courseImageView.image = UIImage.AssetsImages.noimage
-                return
+        StorageManager
+            .getHeaderReference(reference)
+            .catch { _ -> Just<StorageManager.Reference?> in
+                return .init(nil)
             }
-            
-            self.courseImageView.loadImage(reference: ref)
-        }
+            .sink { [weak self] reference in
+
+                guard let self = self else { return }
+
+                self.courseImageView.loadImage(reference: reference)
+            }
+            .store(in: &bindings)
     }
 
 }

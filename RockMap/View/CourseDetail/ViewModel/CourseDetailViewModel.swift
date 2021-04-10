@@ -43,27 +43,14 @@ final class CourseDetailViewModel {
     private func setupBindings() {
         $courseName
             .drop(while: { $0.isEmpty })
-            .sink { [weak self] name in
-                
-                guard let self = self else { return }
-                
-                let reference = StorageManager.makeReference(
-                    parent: FINameSpace.Course.self,
-                    child: name
-                )
-                
-                StorageManager.getHeaderReference(reference: reference) { result in
-                    
-                    guard
-                        case let .success(reference) = result
-                    else {
-                        return
-                    }
-                    
-                    self.courseImageReference = reference
-                }
+            .map {
+                StorageManager.makeReference(parent: FINameSpace.Course.self, child: $0)
             }
-            .store(in: &bindings)
+            .flatMap { StorageManager.getHeaderReference($0) }
+            .catch { _ -> Just<StorageManager.Reference?> in
+                return .init(nil)
+            }
+            .assign(to: &$courseImageReference)
     }
 
     private func fetchRegisterdUser(reference: DocumentRef) {

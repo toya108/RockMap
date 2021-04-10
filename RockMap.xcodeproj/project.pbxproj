@@ -153,6 +153,7 @@
 		9EF71FD62611ADC700D5B375 /* PHPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF71FD52611ADC700D5B375 /* PHPickerManager.swift */; };
 		9EF71FDE2611BC9400D5B375 /* ImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF71FDD2611BC9400D5B375 /* ImageType.swift */; };
 		9EF74F7426215E2200974EBA /* WriteBadge+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF74F7326215E2200974EBA /* WriteBadge+Combine.swift */; };
+		9EF74F792622044100974EBA /* StorageReference+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF74F782622044100974EBA /* StorageReference+Combine.swift */; };
 		9EF8E2B125EF6B8F00185A3D /* CourseConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF8E2B025EF6B8F00185A3D /* CourseConfirmViewModel.swift */; };
 		9EF8E2B625EF6E1C00185A3D /* CourseConfirmKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF8E2B525EF6E1C00185A3D /* CourseConfirmKind.swift */; };
 		9EF8E2BB25EF6E2B00185A3D /* CourseConfirmLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF8E2BA25EF6E2B00185A3D /* CourseConfirmLayout.swift */; };
@@ -342,6 +343,7 @@
 		9EF71FD52611ADC700D5B375 /* PHPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPickerManager.swift; sourceTree = "<group>"; };
 		9EF71FDD2611BC9400D5B375 /* ImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageType.swift; sourceTree = "<group>"; };
 		9EF74F7326215E2200974EBA /* WriteBadge+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WriteBadge+Combine.swift"; sourceTree = "<group>"; };
+		9EF74F782622044100974EBA /* StorageReference+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageReference+Combine.swift"; sourceTree = "<group>"; };
 		9EF8E2B025EF6B8F00185A3D /* CourseConfirmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseConfirmViewModel.swift; sourceTree = "<group>"; };
 		9EF8E2B525EF6E1C00185A3D /* CourseConfirmKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseConfirmKind.swift; sourceTree = "<group>"; };
 		9EF8E2BA25EF6E2B00185A3D /* CourseConfirmLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseConfirmLayout.swift; sourceTree = "<group>"; };
@@ -739,6 +741,7 @@
 			isa = PBXGroup;
 			children = (
 				9E623687258A662B00152AF9 /* StorageManager.swift */,
+				9EF74F782622044100974EBA /* StorageReference+Combine.swift */,
 				9EF1895C258F98C5003492EE /* Uploader.swift */,
 			);
 			path = Storage;
@@ -1564,6 +1567,7 @@
 				9E5CEFD025277B25001C95AA /* RockSearchViewController.swift in Sources */,
 				9E8723D3256C037000735C65 /* RockConfirmViewModel.swift in Sources */,
 				9E9845D125D4F2FE00B03C4E /* CourseRegisterViewModel.swift in Sources */,
+				9EF74F792622044100974EBA /* StorageReference+Combine.swift in Sources */,
 				9E39B201261472E00005F6E1 /* RockRegisterRouter.swift in Sources */,
 				9E0BE37A2605006F00576869 /* LeadingRegisteredUserCollectionViewCell.swift in Sources */,
 				9E613ABC25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift in Sources */,

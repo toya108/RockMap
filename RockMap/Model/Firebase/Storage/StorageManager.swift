@@ -46,31 +46,21 @@ struct StorageManager {
             .child(UUID().uuidString)
     }
     
-    static func getAllReference(
-        reference: StorageReference,
-        completion: @escaping (Result<[Reference], Error>) -> Void
-    ) {
-        reference.listAll { result, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            completion(.success(result.items))
-        }
-    }
-
     static func getHeaderReference(
-        reference: StorageReference,
-        completion: @escaping (Result<Reference, Error>) -> Void
-    ) {
+        _ reference: StorageReference
+    ) -> AnyPublisher<StorageReference?, Error> {
+
         let headerReference = reference.child(ImageType.header.typeName)
 
-        headerReference.list(withMaxResults: 1) { result, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            completion(.success(result.items.first ?? .init()))
-        }
+        return headerReference.getReference()
+    }
+
+    static func getNormalReference(
+        _ reference: StorageReference
+    ) -> AnyPublisher<[StorageReference], Error> {
+
+        let headerReference = reference.child(ImageType.normal.typeName)
+
+        return headerReference.getReferences()
     }
 }
