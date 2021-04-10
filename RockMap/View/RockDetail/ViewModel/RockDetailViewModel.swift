@@ -11,7 +11,6 @@ import Foundation
 final class RockDetailViewModel {
     @Published var rockDocument: FIDocument.Rock
     @Published var rockName = ""
-    @Published var registeredUserId = ""
     @Published var registeredUser: FIDocument.User?
     @Published var rockDesc = ""
     @Published var seasons: Set<FIDocument.Rock.Season> = []
@@ -29,7 +28,14 @@ final class RockDetailViewModel {
         
         self.rockName = rock.name
         self.rockDesc = rock.desc
-        self.registeredUserId = rock.registeredUserId
+
+        rock.registeredUserReference
+            .getDocument(FIDocument.User.self)
+            .catch { _ -> Just<FIDocument.User?> in
+                return .init(nil)
+            }
+            .assign(to: &$registeredUser)
+
         self.rockLocation = .init(
             location: .init(
                 latitude: rock.location.latitude,
@@ -68,29 +74,10 @@ final class RockDetailViewModel {
                 }
             }
             .store(in: &bindings)
-        
-        $registeredUserId
-            .sink { id in
-                FirestoreManager.fetchById(id: id) { [weak self] (result: Result<FIDocument.User?, Error>) in
-                    
-                    guard
-                        let self = self,
-                        case let .success(user) = result,
-                        let unwrappedUser = user
-                    else {
-                        return
-                    }
-                    
-                    self.registeredUser = unwrappedUser
-                }
-            }
-            .store(in: &bindings)
     }
     
     func updateCouses(by rockdocument: FIDocument.Rock) {
-        let coureseCollection = FirestoreManager.db
-            .collection(FIDocument.User.colletionName)
-            .document(rockdocument.registeredUserId)
+        let coureseCollection = rockdocument.registeredUserReference
             .collection(FIDocument.Rock.colletionName)
             .document(rockdocument.id)
             .collection(FIDocument.Course.colletionName)

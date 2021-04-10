@@ -13,8 +13,8 @@ extension FIDocument {
         typealias Collection = FINameSpace.Rocks
         typealias Parent = FIDocument.User
         
-        var id: String
-        var createdAt: Date
+        var id: String = UUID().uuidString
+        var createdAt: Date = Date()
         var updatedAt: Date?
         var parentPath: String
         var name: String
@@ -24,35 +24,7 @@ extension FIDocument {
         var seasons: Set<Season>
         var lithology: Lithology
         var desc: String
-        var registeredUserId: String
-        
-        init(
-            id: String,
-            createdAt: Date,
-            updatedAt: Date?,
-            parentPath: String,
-            name: String,
-            address: String,
-            prefecture: String,
-            location: GeoPoint,
-            seasons: Set<Season>,
-            lithology: Lithology,
-            desc: String ,
-            registeredUserId: String
-        ) {
-            self.id = id
-            self.createdAt = createdAt
-            self.updatedAt = updatedAt
-            self.parentPath = parentPath
-            self.name = name
-            self.address = address
-            self.prefecture = prefecture
-            self.location = location
-            self.seasons = seasons
-            self.lithology = lithology
-            self.desc = desc
-            self.registeredUserId = registeredUserId
-        }
+        var registeredUserReference: DocumentReference
         
         enum Season: String, CaseIterable, Codable {
             case spring, summer, autumn, winter

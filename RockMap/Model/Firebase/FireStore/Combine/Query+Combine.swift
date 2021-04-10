@@ -5,14 +5,14 @@
 //  Created by TOUYA KAWANO on 2021/04/10.
 //
 
-import Foundation
-
 import FirebaseFirestore
 import Combine
 
 extension Query {
 
-    func getDocuments<T: FIDocumentProtocol>(_ type: T.Type) -> AnyPublisher<[T], Error> {
+    func getDocuments<T: FIDocumentProtocol>(
+        _ type: T.Type
+    ) -> AnyPublisher<[T], Error> {
 
         Deferred {
             Future<[T], Error> { [weak self] promise in
@@ -23,6 +23,7 @@ extension Query {
 
                     if let error = error {
                         promise(.failure(error))
+                        return
                     }
 
                     guard

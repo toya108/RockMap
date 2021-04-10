@@ -21,6 +21,8 @@ final class RockConfirmViewModel {
     
     @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
     @Published private(set) var rockUploadState: StoreUploadState = .stanby
+
+    private var bindings = Set<AnyCancellable>()
     
     private let uploader = StorageUploader()
     
@@ -74,11 +76,9 @@ final class RockConfirmViewModel {
         
         rockUploadState = .loading
 
-        let rock = FIDocument.Rock(
-            id: UUID().uuidString,
-            createdAt: Date(),
+        let rockDocument = FIDocument.Rock(
             updatedAt: nil,
-            parentPath: FIDocument.Rock.makeParentPath(parentCollection: FIDocument.User.colletionName, documentId: AuthManager.uid),
+            parentPath: AuthManager.getAuthUserReference().path,
             name: rockName,
             address: rockLocation.address,
             prefecture: rockLocation.prefecture,
@@ -89,25 +89,24 @@ final class RockConfirmViewModel {
             seasons: seasons,
             lithology: lithology,
             desc: rockDesc,
-            registeredUserId: AuthManager.uid
+            registeredUserReference: AuthManager.getAuthUserReference()
         )
-        
-        let rockDocument = FirestoreManager.db
-            .collection(FIDocument.User.colletionName)
-            .document(AuthManager.uid)
-            .collection(FIDocument.Rock.colletionName)
-            .document(rock.id)
-        
-        rockDocument.setData(rock.dictionary) { [weak self] error in
-            
-            guard let self = self else { return }
-            
-            if let error = error {
+
+        rockDocument.makeDocumentReference()
+            .setData(from: rockDocument)
+            .catch { [weak self] error -> Just<Void> in
+
+                guard let self = self else { return .init(()) }
+
                 self.rockUploadState = .failure(error)
-                return
+                return .init(())
             }
-            
-            self.rockUploadState = .finish
-        }
+            .sink { [weak self] _ in
+
+                guard let self = self else { return }
+
+                self.rockUploadState = .finish
+            }
+            .store(in: &bindings)
     }
 }

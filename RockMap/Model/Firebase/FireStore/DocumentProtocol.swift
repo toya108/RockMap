@@ -9,6 +9,8 @@ import Foundation
 import FirebaseFirestore
 import Combine
 
+typealias DocumentRef = DocumentReference
+
 protocol FINameSpaceProtocol {
     static var name: String { get }
 }
@@ -99,35 +101,7 @@ extension FIDocumentProtocol {
     }
 }
 
-extension DocumentReference {
 
-    func setData<T: FIDocumentProtocol>(
-        from data: T
-    ) -> AnyPublisher<Void, Error> {
-
-        Deferred {
-            Future<Void, Error> { [weak self] promise in
-                
-                guard let self = self else { return }
-
-                do {
-                    try self.setData(data.makedictionary()) { error in
-
-                        if let error = error {
-                            promise(.failure(error))
-                            return
-                        }
-
-                        promise(.success(()))
-                    }
-                } catch {
-                    promise(.failure(error))
-                }
-            }
-        }.eraseToAnyPublisher()
-    }
-
-}
 enum FirestoreError: Error {
     case nilResultError
 }

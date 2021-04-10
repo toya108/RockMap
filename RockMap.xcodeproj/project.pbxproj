@@ -111,6 +111,7 @@
 		9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D53F2552F8AB00EC5AC1 /* TouchableScrollView.swift */; };
 		9E98D549255300B900EC5AC1 /* ColorPallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D548255300B900EC5AC1 /* ColorPallet.swift */; };
 		9E9B3894262125D6001A39A9 /* Query+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9B3893262125D6001A39A9 /* Query+Combine.swift */; };
+		9E9B38F126213B7E001A39A9 /* Document+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9B38F026213B7E001A39A9 /* Document+Combine.swift */; };
 		9E9C1E1E25E49AAA0050FDDE /* ErrorLabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9C1E1D25E49AAA0050FDDE /* ErrorLabelCollectionViewCell.swift */; };
 		9E9C1E7125E6B1EE0050FDDE /* CourseConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9C1E7025E6B1EE0050FDDE /* CourseConfirmViewController.swift */; };
 		9EA32A3F25FA778700FB0C75 /* RockConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA32A3E25FA778700FB0C75 /* RockConfirmViewController.swift */; };
@@ -298,6 +299,7 @@
 		9E98D53F2552F8AB00EC5AC1 /* TouchableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableScrollView.swift; sourceTree = "<group>"; };
 		9E98D548255300B900EC5AC1 /* ColorPallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPallet.swift; sourceTree = "<group>"; };
 		9E9B3893262125D6001A39A9 /* Query+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Query+Combine.swift"; sourceTree = "<group>"; };
+		9E9B38F026213B7E001A39A9 /* Document+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+Combine.swift"; sourceTree = "<group>"; };
 		9E9C1E1D25E49AAA0050FDDE /* ErrorLabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorLabelCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E9C1E7025E6B1EE0050FDDE /* CourseConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseConfirmViewController.swift; sourceTree = "<group>"; };
 		9EA32A3E25FA778700FB0C75 /* RockConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmViewController.swift; sourceTree = "<group>"; };
@@ -971,6 +973,27 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		9E9B38F526213B9D001A39A9 /* DocumentModel */ = {
+			isa = PBXGroup;
+			children = (
+				9E0C9DEF2576ABCE00ABFE5B /* User.swift */,
+				9E0C0A142588C7DA00E34FCE /* Rock.swift */,
+				9E010DFF25D0539F00A4C336 /* Course.swift */,
+				9E0BE44F2608C1DE00576869 /* Climbed.swift */,
+				9E47B76B26160A0B004BE800 /* TotalClimbedNumber.swift */,
+			);
+			path = DocumentModel;
+			sourceTree = "<group>";
+		};
+		9E9B38F626213BE4001A39A9 /* Combine */ = {
+			isa = PBXGroup;
+			children = (
+				9E9B38F026213B7E001A39A9 /* Document+Combine.swift */,
+				9E9B3893262125D6001A39A9 /* Query+Combine.swift */,
+			);
+			path = Combine;
+			sourceTree = "<group>";
+		};
 		9E9C1E6F25E6B1B30050FDDE /* CourseConfirm */ = {
 			isa = PBXGroup;
 			children = (
@@ -1022,14 +1045,10 @@
 		9EE1FD4C2577EF480080787F /* FireStore */ = {
 			isa = PBXGroup;
 			children = (
+				9E9B38F626213BE4001A39A9 /* Combine */,
+				9E9B38F526213B9D001A39A9 /* DocumentModel */,
 				9E08ACA32573E6C400D69927 /* NameSpace.swift */,
-				9E0C9DEF2576ABCE00ABFE5B /* User.swift */,
-				9E0C0A142588C7DA00E34FCE /* Rock.swift */,
-				9E010DFF25D0539F00A4C336 /* Course.swift */,
-				9E0BE44F2608C1DE00576869 /* Climbed.swift */,
-				9E47B76B26160A0B004BE800 /* TotalClimbedNumber.swift */,
 				9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */,
-				9E9B3893262125D6001A39A9 /* Query+Combine.swift */,
 				9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */,
 			);
 			path = FireStore;
@@ -1507,6 +1526,7 @@
 				9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */,
 				9EF71FD62611ADC700D5B375 /* PHPickerManager.swift in Sources */,
 				9E6CF42725CFF16A0098389E /* RockLocationCollectionViewCell.swift in Sources */,
+				9E9B38F126213B7E001A39A9 /* Document+Combine.swift in Sources */,
 				9E7812E52619FB1600CAC539 /* ClimbedUserListViewModel.swift in Sources */,
 				9E2DA75F25F91BA7008F339E /* LocationSelectCollectionViewCell.swift in Sources */,
 				9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */,

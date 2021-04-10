@@ -7,6 +7,7 @@
 
 import FirebaseUI
 import Firebase
+import Combine
 
 struct AuthManager {
     
@@ -26,6 +27,10 @@ struct AuthManager {
     
     static var uid: String {
         Self.currentUser?.uid ?? ""
+    }
+
+    static func getAuthUserReference() -> DocumentReference {
+        return FirestoreManager.db.collection(FIDocument.User.colletionName).document(uid)
     }
     
     static func setDelegate(destination: UIViewController) {
