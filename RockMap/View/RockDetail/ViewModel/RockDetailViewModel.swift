@@ -46,7 +46,7 @@ final class RockDetailViewModel {
         )
         self.seasons = rock.seasons
         self.lithology = rock.lithology
-        self.updateCouses(by: rock)
+        self.fetchCourses()
     }
     
     private func setupBindings() {
@@ -75,30 +75,17 @@ final class RockDetailViewModel {
             }
             .store(in: &bindings)
     }
+
     
-    func updateCouses(by rockdocument: FIDocument.Rock) {
-        let coureseCollection = rockdocument.registeredUserReference
-            .collection(FIDocument.Rock.colletionName)
-            .document(rockdocument.id)
+    
+    func fetchCourses() {
+        rockDocument.makeDocumentReference()
             .collection(FIDocument.Course.colletionName)
-        
-        coureseCollection.getDocuments { [weak self] snap, error in
-            
-            guard let self = self else { return }
-            
-            guard
-                error == nil
-            else {
-                self.courses = []
-                return
+            .getDocuments(FIDocument.Course.self)
+            .catch { _ -> Just<[FIDocument.Course]> in
+                return .init([])
             }
-
-            guard let snap = snap else { return }
-            
-            self.courses = snap.documents.compactMap {
-                FIDocument.Course.initializeDocument(json: $0.data())
-            }
-        }
+            .assign(to: &$courses)
     }
-}
 
+}
