@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import FirebaseUI
 
 final class LoginViewController: UIViewController {
@@ -14,6 +15,8 @@ final class LoginViewController: UIViewController {
     @IBOutlet weak var penguinImageView: UIImageView!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var guestLoginButton: UIButton!
+
+    private var bindings = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,13 +68,6 @@ final class LoginViewController: UIViewController {
             ]
         )
     }
-    
-    private func logout() {
-        AuthManager.logout { result in
-            
-        }
-
-    }
 
     @IBAction func didLoginButtonTapped(_ sender: UIButton) {
         AuthManager.presentAuthViewController(from: self)
@@ -116,34 +112,30 @@ extension LoginViewController: FUIAuthDelegate {
         }
         
         showIndicatorView()
-        
-        FirestoreManager.set(
-            key: user.uid,
-            FIDocument.User(
-                id: user.uid,
-                createdAt: user.metadata.creationDate ?? Date(),
-                updatedAt: nil,
-                name: user.displayName ?? "-",
-                email: user.email,
-                photoURL: user.photoURL,
-                createdRock: [],
-                createdCources: []
-            )
-        ) { [weak self] result in
 
-            self?.hideIndicatorView()
+        let userDocument = FIDocument.User(
+            id: user.uid,
+            createdAt: user.metadata.creationDate ?? Date(),
+            updatedAt: nil,
+            name: user.displayName ?? "-",
+            email: user.email,
+            photoURL: user.photoURL
+        )
 
-            guard let self = self else { return }
+        userDocument.makeDocumentReference()
+            .setData(from: userDocument)
+            .catch { [weak self] error -> Just<Void> in
 
-            switch result {
-            case .success:
-                UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = MainTabBarController()
+                guard let self = self else { return .init(()) }
 
-            case .failure(let error):
+                self.hideIndicatorView()
                 self.showOKAlert(title: "認証に失敗しました。", message: error.localizedDescription)
-                
+                return .init(())
             }
-        }
+            .sink { _ in
+                UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = MainTabBarController()
+            }
+            .store(in: &bindings)
     }
     
     func authPickerViewController(

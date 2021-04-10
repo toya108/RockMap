@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 extension FIDocument {
@@ -13,16 +14,15 @@ extension FIDocument {
         
         typealias Collection = FINameSpace.Users
         
-        var id: String
-        var createdAt: Date
+        var id: String = UUID().uuidString
+        var createdAt: Date = Date()
         var updatedAt: Date?
         var parentPath: String = ""
         var name: String
         var email: String?
         var photoURL: URL?
-        var createdRock: [Rock]
-        var createdCources: [Course]
-        
+        var createdRock: [DocumentReference] = []
+        var createdCources: [DocumentReference] = []
         
         var isRoot: Bool { true }
     }
