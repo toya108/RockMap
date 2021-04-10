@@ -23,7 +23,6 @@ class CourseConfirmViewModel {
     @Published private(set) var addIdState: StoreUploadState = .stanby
 
     private var bindings = Set<AnyCancellable>()
-    
     private let uploader = StorageUploader()
     
     init(
@@ -52,22 +51,23 @@ class CourseConfirmViewModel {
     }
     
     func uploadImages() {
-        let reference = StorageManager.makeReference(
-            parent: FINameSpace.Course.self,
-            child: courseName
+
+        uploader.addData(
+            data: header.data,
+            reference: StorageManager.makeHeaderImageReference(
+                parent: FINameSpace.Course.self,
+                child: courseName
+            )
         )
 
-        let headerReference = reference
-            .child(ImageType.header.typeName)
-            .child(UUID().uuidString)
-        uploader.addData(data: header.data, reference: headerReference)
-
-        let normalReference = reference
-            .child(ImageType.normal.typeName)
-            .child(AuthManager.uid)
         images.forEach {
-            let imageReference = normalReference.child(UUID().uuidString)
-            uploader.addData(data: $0.data, reference: imageReference)
+            uploader.addData(
+                data: $0.data,
+                reference: StorageManager.makeNormalImageReference(
+                    parent: FINameSpace.Course.self,
+                    child: courseName
+                )
+            )
         }
         
         uploader.start()

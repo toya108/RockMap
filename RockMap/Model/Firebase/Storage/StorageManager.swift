@@ -18,7 +18,32 @@ struct StorageManager {
         parent: FINameSpaceProtocol.Type,
         child: String
     ) -> StorageReference {
-        Self.reference.child(parent.name).child(child)
+        Self.reference
+            .child(parent.name)
+            .child(child)
+    }
+
+    static func makeHeaderImageReference(
+        parent: FINameSpaceProtocol.Type,
+        child: String
+    ) -> StorageReference {
+        Self.reference
+            .child(parent.name)
+            .child(child)
+            .child(ImageType.header.typeName)
+            .child(UUID().uuidString)
+    }
+
+    static func makeNormalImageReference(
+        parent: FINameSpaceProtocol.Type,
+        child: String
+    ) -> StorageReference {
+        Self.reference
+            .child(parent.name)
+            .child(child)
+            .child(ImageType.normal.typeName)
+            .child(AuthManager.uid)
+            .child(UUID().uuidString)
     }
     
     static func getAllReference(

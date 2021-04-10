@@ -15,7 +15,7 @@ extension FIDocument {
         
         var id: String = UUID().uuidString
         var createdAt: Date = Date()
-        var updatedAt: Date?
+        var updatedAt: Date? = nil
         var parentPath: String
         var name: String
         var address: String

@@ -51,24 +51,22 @@ final class RockConfirmViewModel {
     }
     
     func uploadImages() {
-        let reference = StorageManager.makeReference(
-            parent: FINameSpace.Rocks.self,
-            child: rockName
+        uploader.addData(
+            data: rockHeaderImage.data,
+            reference: StorageManager.makeHeaderImageReference(
+                parent: FINameSpace.Rocks.self,
+                child: rockName
+            )
         )
-
-        let headerReference = reference
-            .child(ImageType.header.typeName)
-            .child(UUID().uuidString)
-        uploader.addData(data: rockHeaderImage.data, reference: headerReference)
-
-        let normalReference = reference
-            .child(ImageType.normal.typeName)
-            .child(AuthManager.uid)
         rockImageDatas.forEach {
-            let imageReference = normalReference.child(UUID().uuidString)
-            uploader.addData(data: $0.data, reference: imageReference)
+            uploader.addData(
+                data: $0.data,
+                reference: StorageManager.makeNormalImageReference(
+                    parent: FINameSpace.Rocks.self,
+                    child: rockName
+                )
+            )
         }
-
         uploader.start()
     }
     
@@ -77,7 +75,6 @@ final class RockConfirmViewModel {
         rockUploadState = .loading
 
         let rockDocument = FIDocument.Rock(
-            updatedAt: nil,
             parentPath: AuthManager.getAuthUserReference().path,
             name: rockName,
             address: rockLocation.address,
