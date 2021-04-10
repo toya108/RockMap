@@ -75,8 +75,6 @@ final class RockDetailViewModel {
             }
             .store(in: &bindings)
     }
-
-    
     
     func fetchCourses() {
         rockDocument.makeDocumentReference()

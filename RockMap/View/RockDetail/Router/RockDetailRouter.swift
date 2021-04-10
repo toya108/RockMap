@@ -51,17 +51,15 @@ struct RockDetailRouter: RouterProtocol {
 
         guard
             let viewModel = self.viewModel,
-            let headerStructure = viewModel.headerImageReference
+            let headerImageReference = viewModel.headerImageReference
         else {
             return
         }
 
         let courseRegisterViewModel = CourseRegisterViewModel(
             rockHeaderStructure: .init(
-                rockId: viewModel.rockDocument.id,
-                rockName: viewModel.rockName,
-                rockImageReference: headerStructure,
-                rockParentPath: viewModel.rockDocument.parentPath
+                rock: viewModel.rockDocument,
+                rockImageReference: headerImageReference
             )
         )
 

@@ -115,7 +115,7 @@ class CourseConfirmViewController: UIViewController {
     
     private func configureSections() {
         snapShot.appendSections(SectionLayoutKind.allCases)
-        snapShot.appendItems([.rock(viewModel.rock)], toSection: .rock)
+        snapShot.appendItems([.rock(viewModel.rockHeaderStructure)], toSection: .rock)
         snapShot.appendItems([.courseName(viewModel.courseName)], toSection: .courseName)
         snapShot.appendItems([.desc(viewModel.desc)], toSection: .desc)
         snapShot.appendItems([.grade(viewModel.grade)], toSection: .grade)

@@ -43,10 +43,6 @@ extension FIDocumentProtocol {
         }
     }
 
-    func makeDocumentReference(parentRef: DocumentReference, id: String) -> DocumentReference {
-        return parentRef.collection(Self.colletionName).document(id)
-    }
-
     func makeCollectionReference() -> CollectionReference {
         if isRoot {
             return FirestoreManager.db
@@ -58,9 +54,6 @@ extension FIDocumentProtocol {
         }
     }
 
-    func makeCollectionReference(parentRef: DocumentReference) -> CollectionReference {
-        return parentRef.collection(Self.colletionName)
-    }
 
     static var colletionName: String {
         return Collection.name

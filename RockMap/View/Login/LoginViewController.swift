@@ -46,14 +46,14 @@ final class LoginViewController: UIViewController {
                 guard let self = self else { return }
                 
                 switch result {
-                case .success:
-                    break
-                    
-                case .failure(let error):
-                    self.showOKAlert(
-                        title: "ログアウトに失敗しました。",
-                        message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)"
-                    )
+                    case .success:
+                        break
+
+                    case .failure(let error):
+                        self.showOKAlert(
+                            title: "ログアウトに失敗しました。",
+                            message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)"
+                        )
                 }
                 
             }
@@ -124,20 +124,26 @@ extension LoginViewController: FUIAuthDelegate {
 
         userDocument.makeDocumentReference()
             .setData(from: userDocument)
-            .catch { [weak self] error -> Just<Void> in
+            .sink(
+                receiveCompletion: { [weak self] result in
 
-                guard let self = self else { return .init(()) }
+                    guard let self = self else { return }
 
-                self.hideIndicatorView()
-                self.showOKAlert(title: "認証に失敗しました。", message: error.localizedDescription)
-                return .init(())
-            }
-            .sink { _ in
-                UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = MainTabBarController()
-            }
+                    switch result {
+                        case .finished:
+                            UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = MainTabBarController()
+
+                        case .failure(let error):
+                            self.hideIndicatorView()
+                            self.showOKAlert(title: "認証に失敗しました。", message: error.localizedDescription)
+                            
+                    }
+                },
+                receiveValue: {}
+            )
             .store(in: &bindings)
     }
-    
+
     func authPickerViewController(
         forAuthUI authUI: FUIAuth
     ) -> FUIAuthPickerViewController {

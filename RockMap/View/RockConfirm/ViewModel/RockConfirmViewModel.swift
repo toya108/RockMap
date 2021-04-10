@@ -94,19 +94,22 @@ final class RockConfirmViewModel {
 
         rockDocument.makeDocumentReference()
             .setData(from: rockDocument)
-            .catch { [weak self] error -> Just<Void> in
+            .sink(
+                receiveCompletion: { [weak self] result in
 
-                guard let self = self else { return .init(()) }
+                    guard let self = self else { return }
 
-                self.rockUploadState = .failure(error)
-                return .init(())
-            }
-            .sink { [weak self] _ in
+                    switch result {
+                        case .finished:
+                            self.rockUploadState = .finish
 
-                guard let self = self else { return }
+                        case let .failure(error):
+                            self.rockUploadState = .failure(error)
 
-                self.rockUploadState = .finish
-            }
+                    }
+                },
+                receiveValue: {}
+            )
             .store(in: &bindings)
     }
 }

@@ -31,7 +31,7 @@ final class CourseDetailViewModel {
         
         courseName = course.name
         registeredDate = course.createdAt
-        updateRegisterdUser(id: course.registedUserId)
+        fetchRegisterdUser(reference: course.registedUserReference)
         shape = course.shape
         desc = course.desc
     }
@@ -66,20 +66,13 @@ final class CourseDetailViewModel {
             .store(in: &bindings)
     }
 
-    private func updateRegisterdUser(id: String) {
-        FirestoreManager.fetchById(id: id){
-            [weak self] (result: Result<FIDocument.User?, Error>) in
-
-            guard
-                let self = self,
-                case let .success(user) = result,
-                let unwrappedUser = user
-            else {
-                return
+    private func fetchRegisterdUser(reference: DocumentRef) {
+        reference
+            .getDocument(FIDocument.User.self)
+            .catch { _ -> Just<FIDocument.User?> in
+                return .init(nil)
             }
-
-            self.registeredUser = unwrappedUser
-        }
+            .assign(to: &$registeredUser)
     }
 
     private func listenToTotalClimbedNumber() {

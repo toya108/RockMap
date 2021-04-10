@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class CourseCollectionViewCell: UICollectionViewCell {
 
@@ -13,6 +14,8 @@ class CourseCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var courseImageView: UIImageView!
     @IBOutlet weak var userView: UserView!
+
+    private var bindings = Set<AnyCancellable>()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,30 +28,30 @@ class CourseCollectionViewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 8
     }
     
-    func configure(courese: FIDocument.Course) {
-        courseNameLabel.text = courese.name
-        infoLabel.text = courese.grade.name
-        
-        FirestoreManager.fetchById(id: courese.registedUserId) { [weak self] (result: Result<FIDocument.User?, Error>) in
-            
-            guard let self = self else { return }
-            
-            guard
-                case let .success(user) = result
-            else {
-                return
-            }
+    func configure(course: FIDocument.Course) {
+        courseNameLabel.text = course.name
+        infoLabel.text = course.grade.name
 
-            self.userView.configure(
-                userName: user?.name ?? "",
-                photoURL: user?.photoURL,
-                registeredDate: courese.createdAt
-            )
-        }
+        course.registedUserReference
+            .getDocument(FIDocument.User.self)
+            .catch { _ -> Just<FIDocument.User?> in
+                return .init(nil)
+            }
+            .sink { [weak self] user in
+
+                guard let self = self else { return }
+
+                self.userView.configure(
+                    userName: user?.name ?? "",
+                    photoURL: user?.photoURL,
+                    registeredDate: course.createdAt
+                )
+            }
+            .store(in: &bindings)
         
         let reference = StorageManager.makeReference(
             parent: FINameSpace.Course.self,
-            child: courese.name
+            child: course.name
         )
         
         StorageManager.getHeaderReference(reference: reference) { [weak self] result in
