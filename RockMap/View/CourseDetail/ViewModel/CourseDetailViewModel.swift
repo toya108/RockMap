@@ -20,7 +20,6 @@ final class CourseDetailViewModel {
     @Published var shape: Set<FIDocument.Course.Shape> = []
     @Published var desc: String = ""
 
-    private var totalNumberListener: ListenerRegistration?
     private var bindings = Set<AnyCancellable>()
     
     init(course: FIDocument.Course) {
@@ -37,7 +36,7 @@ final class CourseDetailViewModel {
     }
 
     deinit {
-        totalNumberListener?.remove()
+        
     }
     
     private func setupBindings() {
@@ -63,51 +62,21 @@ final class CourseDetailViewModel {
     }
 
     private func listenToTotalClimbedNumber() {
-
-        let climedNumberPath = [
-            FirestoreManager.makeParentPath(parent: course),
-            FIDocument.TotalClimbedNumber.colletionName
-        ].joined(separator: "/")
-
-        FirestoreManager.db.collection(climedNumberPath).getDocuments { [weak self] snap, error in
-
-            guard let self = self else { return }
-
-            if let _ = error {
-                return
+        course.makeDocumentReference()
+            .collection(FIDocument.TotalClimbedNumber.colletionName)
+            .publisher(as: FIDocument.TotalClimbedNumber.self)
+            .catch { _ -> Just<[FIDocument.TotalClimbedNumber]> in
+                return .init([])
             }
+            .sink { [weak self] totalClimbedNumberDocuments in
+                guard
+                    let self = self,
+                    let totalClimbedNumber = totalClimbedNumberDocuments.first
+                else { return }
 
-            guard
-                let document = FIDocument.TotalClimbedNumber.initializeDocument(
-                    json: snap?.documents.first?.data() ?? [:]
-                )
-            else {
-                return
+                self.totalClimbedNumber = totalClimbedNumber
             }
-
-            self.totalClimbedNumber = document
-
-            let listener = FirestoreManager.db
-                .collection(climedNumberPath)
-                .document(document.id)
-                .addSnapshotListener { [weak self] snap, error in
-
-                    if let error = error {
-                        return
-                    }
-
-                    guard
-                        let self = self,
-                        let snap = snap,
-                        let totalClimbed = FIDocument.TotalClimbedNumber.initializeDocument(json: snap.data() ?? [:])
-                    else {
-                        return
-                    }
-
-                    self.totalClimbedNumber = totalClimbed
-                }
-            self.totalNumberListener = listener
-        }
+            .store(in: &bindings)
     }
     
     func registerClimbed(

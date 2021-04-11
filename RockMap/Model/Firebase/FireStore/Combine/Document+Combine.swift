@@ -68,3 +68,92 @@ extension DocumentReference {
         }.eraseToAnyPublisher()
     }
 }
+
+extension DocumentReference {
+
+    struct Publisher: Combine.Publisher {
+
+        typealias Output = DocumentSnapshot
+        typealias Failure = Error
+
+        private let documentReference: DocumentReference
+
+        init(_ documentReference: DocumentReference) {
+            self.documentReference = documentReference
+        }
+
+        func receive<S>(subscriber: S) where
+            S : Subscriber,
+            Publisher.Failure == S.Failure,
+            Publisher.Output == S.Input
+        {
+            let subscription = DocumentSnapshot.Subscription(
+                subscriber: subscriber,
+                documentReference: documentReference
+            )
+            subscriber.receive(subscription: subscription)
+        }
+    }
+
+    func publisher() -> AnyPublisher<DocumentSnapshot, Error> {
+        Publisher(self).eraseToAnyPublisher()
+    }
+
+    func publisher<T: FIDocumentProtocol>(
+        as type: T.Type
+    ) -> AnyPublisher<T?, Error> {
+        publisher()
+            .map {
+                guard
+                    let json = $0.data()
+                else {
+                    return nil
+                }
+
+                return T.initializeDocument(json: json)
+            }
+            .eraseToAnyPublisher()
+    }
+}
+
+extension DocumentSnapshot {
+
+    final class Subscription<SubscriberType: Subscriber>: Combine.Subscription where
+        SubscriberType.Input == DocumentSnapshot,
+        SubscriberType.Failure == Error
+    {
+
+        private var registration: ListenerRegistration?
+
+        init(
+            subscriber: SubscriberType,
+            documentReference: DocumentReference
+        ) {
+            registration = documentReference.addSnapshotListener { (snapshot, error) in
+
+                if let error = error {
+                    subscriber.receive(completion: .failure(error))
+                }
+
+                guard
+                    let snapshot = snapshot
+                else {
+                    subscriber.receive(completion: .failure(FirestoreError.nilResultError))
+                    return
+                }
+
+                _ = subscriber.receive(snapshot)
+            }
+        }
+
+        func request(_ demand: Subscribers.Demand) {
+            // We do nothing here as we only want to send events when they occur.
+            // See, for more info: https://developer.apple.com/documentation/combine/subscribers/demand
+        }
+
+        func cancel() {
+            registration?.remove()
+            registration = nil
+        }
+    }
+}

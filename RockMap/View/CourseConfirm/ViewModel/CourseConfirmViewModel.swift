@@ -91,7 +91,7 @@ class CourseConfirmViewModel {
         badge.setData(course.dictionary, forDocument: courseDocumentReference)
 
         let totalClimbedNumber = FIDocument.TotalClimbedNumber(
-            parentCourseId: course.id,
+            parentCourseReference: course.makeDocumentReference(),
             parentPath: courseDocumentReference.path
         )
         badge.setData(totalClimbedNumber.dictionary, forDocument: totalClimbedNumber.makeDocumentReference())

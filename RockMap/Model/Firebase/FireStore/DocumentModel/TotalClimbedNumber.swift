@@ -13,7 +13,7 @@ extension FIDocument {
         typealias Collection = FINameSpace.TotalClimbedNumber
 
         var id: String = UUID().uuidString
-        var parentCourseId: String
+        var parentCourseReference: DocumentRef
         var createdAt: Date = Date()
         var updatedAt: Date? = nil
         var parentPath: String
