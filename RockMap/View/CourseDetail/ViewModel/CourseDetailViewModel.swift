@@ -84,54 +84,40 @@ final class CourseDetailViewModel {
         type: FIDocument.Climbed.ClimbedRecordType,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
+        let badge = FirestoreManager.db.batch()
 
-        let parentPath = FirestoreManager.makeParentPath(parent: course)
         let climbed = FIDocument.Climbed(
             parentCourseReference: course.makeDocumentReference(),
-            parentPath: parentPath,
+            parentPath: course.makeDocumentReference().path,
             climbedDate: climbedDate,
             type: type,
             climbedUserId: AuthManager.uid
         )
+        badge.setData(climbed.dictionary, forDocument: climbed.makeDocumentReference())
 
-        FirestoreManager.set(
-            parentPath: parentPath,
-            documentId: climbed.id,
-            document: climbed
-        ) { [weak self] result in
-
-            guard let self = self else { return }
-
-            switch result {
-                case .success:
-                    
-                    self.incrementTotalClimbedNumber(type: climbed.type)
-                    completion(.success(()))
-
-                case let .failure(error):
-                    break
-
-            }
+        if let totalClimbedNumber = totalClimbedNumber {
+            badge.updateData(
+                ["total": FieldValue.increment(1.0), type.fieldName: FieldValue.increment(1.0)],
+                forDocument: totalClimbedNumber.makeDocumentReference()
+            )
         }
-    }
 
-    private func incrementTotalClimbedNumber(type: FIDocument.Climbed.ClimbedRecordType) {
+        badge.commit()
+            .sink(
+                receiveCompletion: { result in
 
-        guard let totalClimbedNumber = totalClimbedNumber else { return }
+                    switch result {
+                        case .finished:
+                            completion(.success(()))
 
-        let climebedNumberPath = [
-            totalClimbedNumber.parentPath,
-            FIDocument.TotalClimbedNumber.colletionName
-        ].joined(separator: "/")
-
-        let totalClimedNumberRef = FirestoreManager.db
-            .collection(climebedNumberPath)
-            .document(totalClimbedNumber.id)
-
-        totalClimedNumberRef.setData(
-            ["total": FieldValue.increment(1.0), type.fieldName: FieldValue.increment(1.0)],
-            merge: true
-        )
+                        case .failure(let error):
+                            completion(.failure(error))
+                            
+                    }
+                },
+                receiveValue: {}
+            )
+            .store(in: &bindings)
     }
 }
 
