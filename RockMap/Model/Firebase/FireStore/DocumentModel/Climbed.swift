@@ -14,6 +14,7 @@ extension FIDocument {
         
         var id: String = UUID().uuidString
         var parentCourseReference: DocumentRef
+        var totalNumberReference: DocumentRef
         var createdAt: Date = Date()
         var updatedAt: Date? = nil
         var parentPath: String

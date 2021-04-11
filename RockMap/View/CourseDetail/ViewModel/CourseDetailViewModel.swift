@@ -84,10 +84,14 @@ final class CourseDetailViewModel {
         type: FIDocument.Climbed.ClimbedRecordType,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
+
+        guard let totalClimbedNumber = totalClimbedNumber else { return }
+
         let badge = FirestoreManager.db.batch()
 
         let climbed = FIDocument.Climbed(
             parentCourseReference: course.makeDocumentReference(),
+            totalNumberReference: totalClimbedNumber.makeDocumentReference(),
             parentPath: course.makeDocumentReference().path,
             climbedDate: climbedDate,
             type: type,
@@ -95,12 +99,10 @@ final class CourseDetailViewModel {
         )
         badge.setData(climbed.dictionary, forDocument: climbed.makeDocumentReference())
 
-        if let totalClimbedNumber = totalClimbedNumber {
-            badge.updateData(
-                ["total": FieldValue.increment(1.0), type.fieldName: FieldValue.increment(1.0)],
-                forDocument: totalClimbedNumber.makeDocumentReference()
-            )
-        }
+        badge.updateData(
+            ["total": FieldValue.increment(1.0), type.fieldName: FieldValue.increment(1.0)],
+            forDocument: totalClimbedNumber.makeDocumentReference()
+        )
 
         badge.commit()
             .sink(

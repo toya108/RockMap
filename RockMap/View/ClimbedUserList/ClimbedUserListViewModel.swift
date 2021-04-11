@@ -78,34 +78,26 @@ class ClimbedUserListViewModel {
     }
 
     func deleteClimbed(climbed: FIDocument.Climbed, completion: @escaping (Result<Void, Error>) -> Void) {
-        climbed.makeDocumentReference().delete()
+        let badge = FirestoreManager.db.batch()
+        badge.deleteDocument(climbed.makeDocumentReference())
+        badge.updateData(
+            ["total": FieldValue.increment(-1.0), climbed.type.fieldName: FieldValue.increment(-1.0)],
+            forDocument: climbed.totalNumberReference
+        )
+        badge.commit()
+            .sink(
+                receiveCompletion: { result in
+                    switch result {
+                        case .finished:
+                            completion(.success(()))
 
-        FirestoreManager.db
-            .document(climbed.parentPath)
-            .collection(FIDocument.TotalClimbedNumber.colletionName)
-            .getDocuments { snap, error in
+                        case .failure(let error):
+                            completion(.failure(error))
 
-                if let error = error {
-                    completion(.failure(error))
-                }
-
-                guard
-                    let document = snap?.documents.first?.data(),
-                    let id = FIDocument.TotalClimbedNumber.initializeDocument(json: document)?.id
-                else {
-                    return
-                }
-
-                FirestoreManager.db.document(climbed.parentPath)
-                    .collection(FIDocument.TotalClimbedNumber.colletionName)
-                    .document(id)
-                    .setData(
-                        ["total": FieldValue.increment(-1.0), climbed.type.fieldName: FieldValue.increment(-1.0)],
-                        merge: true
-                    )
-
-                completion(.success(()))
-
-            }
+                    }
+                },
+                receiveValue: {}
+            )
+            .store(in: &bindings)
     }
 }

@@ -82,11 +82,7 @@ extension DocumentReference {
             self.documentReference = documentReference
         }
 
-        func receive<S>(subscriber: S) where
-            S : Subscriber,
-            Publisher.Failure == S.Failure,
-            Publisher.Output == S.Input
-        {
+        func receive<S>(subscriber: S) where S : Subscriber, Publisher.Failure == S.Failure, Publisher.Output == S.Input {
             let subscription = DocumentSnapshot.Subscription(
                 subscriber: subscriber,
                 documentReference: documentReference
