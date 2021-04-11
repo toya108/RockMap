@@ -102,6 +102,51 @@ class ClimbedUserListViewController: UIViewController {
             }
             .store(in: &bindings)
     }
+
+    private func makeDeleteAction(
+        to cellData: ClimbedUserListViewModel.ClimbedCellData
+    ) -> UIAction {
+
+        return .init(
+            title: "削除",
+            image: UIImage.SystemImages.trash,
+            attributes: .destructive
+        ) { [weak self] _ in
+
+            guard let self = self else { return }
+
+            let deleteAction = UIAlertAction(
+                title: "削除",
+                style: .destructive
+            ) { [weak self] _ in
+
+                guard let self = self else { return }
+
+                self.showIndicatorView()
+
+                self.viewModel.deleteClimbed(climbed: cellData.climbed) { result in
+
+                    guard case .success(_) = result else { return }
+
+                    self.snapShot.deleteItems([cellData])
+                    self.datasource.apply(self.snapShot)
+                    self.hideIndicatorView()
+                }
+            }
+
+            let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+
+            self.showAlert(
+                title: "記録を削除します。",
+                message: "削除した記録は復元できません。\n削除してもよろしいですか？",
+                actions: [
+                    deleteAction,
+                    cancelAction
+                ],
+                style: .actionSheet
+            )
+        }
+    }
 }
 
 extension ClimbedUserListViewController {
@@ -138,49 +183,25 @@ extension ClimbedUserListViewController: UITableViewDelegate {
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
 
-        let actionProvider: ([UIMenuElement]) -> UIMenu? = { _ in
-            let edit = UIAction(title: "編集", image: UIImage.SystemImages.squareAndPencil) { [weak self] _ in
+        let actionProvider: ([UIMenuElement]) -> UIMenu? = { [weak self] _ in
 
-                guard let self = self else { return }
+            guard let self = self else { return nil }
 
+            guard
+                let cellData = self.datasource.itemIdentifier(for: indexPath)
+            else {
+                return nil
             }
-            let delete = UIAction(title: "削除", image: UIImage.SystemImages.trash, attributes: .destructive) { [weak self] _ in
 
-                guard let self = self else { return }
+            let edit = UIAction(title: "編集", image: UIImage.SystemImages.squareAndPencil) { _ in }
 
-                self.showAlert(
-                    title: "記録を削除します。",
-                    message: "削除した記録は復元できません。\n削除してもよろしいですか？",
-                    actions: [
-                        .init(title: "削除", style: .destructive) { [weak self] _ in
-
-                            guard let self = self else { return }
-
-                            guard
-                                let cellData = self.datasource.itemIdentifier(for: indexPath)
-                            else {
-                                return
-                            }
-
-                            self.showIndicatorView()
-
-                            self.viewModel.deleteClimbed(climbed: cellData.climbed) { result in
-
-                                guard case .success(_) = result else { return }
-                                
-                                self.snapShot.deleteItems([cellData])
-                                self.datasource.apply(self.snapShot)
-                                self.hideIndicatorView()
-
-                            }
-
-                        },
-                        .init(title: "キャンセル", style: .cancel)
-                    ],
-                    style: .actionSheet
-                )
-            }
-            return UIMenu(title: "", image: nil, identifier: nil, children: [edit, delete])
+            return UIMenu(
+                title: "",
+                children: [
+                    edit,
+                    self.makeDeleteAction(to: cellData)
+                ]
+            )
         }
 
         return .init(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
