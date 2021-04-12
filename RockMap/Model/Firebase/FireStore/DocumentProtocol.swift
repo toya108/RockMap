@@ -58,16 +58,7 @@ extension FIDocumentProtocol {
     static var colletionName: String {
         return Collection.name
     }
-    
-    static func makeParentPath(parentPath: String? = nil, parentCollection: String, documentId: String) -> String {
-        if let parentPath = parentPath {
-            return [parentPath, parentCollection, documentId].joined(separator: "/")
-            
-        } else {
-            return [parentCollection, documentId].joined(separator: "/")
-            
-        }
-    }
+
     
     static func initializeDocument(json: [String: Any]) -> Self? {
         do {
