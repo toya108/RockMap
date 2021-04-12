@@ -45,43 +45,10 @@ struct CourseDetailRouter: RouterProtocol {
             return
         }
 
-        let vc = RegisterClimbedBottomSheetViewController()
+        let vm = RegisterClimbedViewModel(course: viewModel.course)
+        let vc = RegisterClimbedBottomSheetViewController.createInstance(viewModel: vm)
 
-        let recodeButtonAction: UIAction = .init { _ in
-
-            guard
-                let type = FIDocument.Climbed.ClimbedRecordType.allCases.any(
-                    at: vc.climbedTypeSegmentedControl.selectedSegmentIndex
-                )
-            else {
-                return
-            }
-
-            vc.showIndicatorView()
-
-            self.viewModel.registerClimbed(
-                climbedDate: vc.climbedDatePicker.date,
-                type: type
-            ) { result in
-
-                defer {
-                    vc.hideIndicatorView()
-                }
-
-                switch result {
-                    case .success:
-                        from.dismiss(animated: true)
-
-                    case let .failure:
-                        break
-
-                }
-            }
-        }
-
-        from.present(vc, animated: true) {
-            vc.configureRecordButton(recodeButtonAction)
-        }
+        from.present(vc, animated: true)
     }
 
     private func pushClimbedUserList(_ from: UIViewController) {

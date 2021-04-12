@@ -59,6 +59,9 @@
                                     <color key="backgroundColor" name="primaryPinkColor"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="　完登を記録する　"/>
+                                    <connections>
+                                        <action selector="didRecordButtonTapped:" destination="-1" eventType="touchUpInside" id="pby-wC-bRG"/>
+                                    </connections>
                                 </button>
                             </subviews>
                         </stackView>

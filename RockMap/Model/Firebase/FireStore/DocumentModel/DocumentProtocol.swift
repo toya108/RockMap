@@ -6,6 +6,10 @@
 //
 
 import Foundation
+import FirebaseFirestore
+import Combine
+
+typealias DocumentRef = DocumentReference
 
 protocol FINameSpaceProtocol {
     static var name: String { get }
@@ -23,21 +27,35 @@ protocol FIDocumentProtocol: Codable, Hashable {
 }
 
 extension FIDocumentProtocol {
-    
+
     var isRoot: Bool { false }
-    
+
+    func makeDocumentReference() -> DocumentReference {
+        if isRoot {
+            return FirestoreManager.db
+                .collection(Self.colletionName)
+                .document(id)
+        } else {
+            return FirestoreManager.db
+                .document(parentPath)
+                .collection(Self.colletionName)
+                .document(id)
+        }
+    }
+
+    func makeCollectionReference() -> CollectionReference {
+        if isRoot {
+            return FirestoreManager.db
+                .collection(Self.colletionName)
+        } else {
+            return FirestoreManager.db
+                .document(parentPath)
+                .collection(Self.colletionName)
+        }
+    }
+
     static var colletionName: String {
         return Collection.name
-    }
-    
-    static func makeParentPath(parentPath: String? = nil, parentCollection: String, documentId: String) -> String {
-        if let parentPath = parentPath {
-            return [parentPath, parentCollection, documentId].joined(separator: "/")
-            
-        } else {
-            return [parentCollection, documentId].joined(separator: "/")
-            
-        }
     }
     
     static func initializeDocument(json: [String: Any]) -> Self? {
@@ -59,4 +77,13 @@ extension FIDocumentProtocol {
             return [:]
         }
     }
+
+    func makedictionary() throws -> [String: Any] {
+        return try FirestoreManager.encoder.encode(self)
+    }
+}
+
+
+enum FirestoreError: Error {
+    case nilResultError
 }

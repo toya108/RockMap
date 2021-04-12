@@ -216,7 +216,7 @@ extension RockDetailViewController {
                 bundle: nil
             )
         ) { cell, _, course in
-            cell.configure(courese: course)
+            cell.configure(course: course)
         }
     }
     

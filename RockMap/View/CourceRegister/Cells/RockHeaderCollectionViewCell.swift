@@ -20,6 +20,6 @@ class RockHeaderCollectionViewCell: UICollectionViewCell {
 
     func configure(rockHeaderStructure: CourseRegisterViewModel.RockHeaderStructure) {
         rockImageView.loadImage(reference: rockHeaderStructure.rockImageReference)
-        rockNameLabel.text = rockHeaderStructure.rockName
+        rockNameLabel.text = rockHeaderStructure.rock.name
     }
 }

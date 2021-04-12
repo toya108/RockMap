@@ -207,7 +207,7 @@ class RockDetailViewController: UIViewController {
     }
     
     func updateCouses() {
-        viewModel.updateCouses(by: viewModel.rockDocument)
+        viewModel.fetchCourses()
     }
 }
 

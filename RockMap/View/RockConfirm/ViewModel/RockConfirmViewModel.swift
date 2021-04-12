@@ -21,6 +21,8 @@ final class RockConfirmViewModel {
     
     @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
     @Published private(set) var rockUploadState: StoreUploadState = .stanby
+
+    private var bindings = Set<AnyCancellable>()
     
     private let uploader = StorageUploader()
     
@@ -49,24 +51,22 @@ final class RockConfirmViewModel {
     }
     
     func uploadImages() {
-        let reference = StorageManager.makeReference(
-            parent: FINameSpace.Rocks.self,
-            child: rockName
+        uploader.addData(
+            data: rockHeaderImage.data,
+            reference: StorageManager.makeHeaderImageReference(
+                parent: FINameSpace.Rocks.self,
+                child: rockName
+            )
         )
-
-        let headerReference = reference
-            .child(ImageType.header.typeName)
-            .child(UUID().uuidString)
-        uploader.addData(data: rockHeaderImage.data, reference: headerReference)
-
-        let normalReference = reference
-            .child(ImageType.normal.typeName)
-            .child(AuthManager.uid)
         rockImageDatas.forEach {
-            let imageReference = normalReference.child(UUID().uuidString)
-            uploader.addData(data: $0.data, reference: imageReference)
+            uploader.addData(
+                data: $0.data,
+                reference: StorageManager.makeNormalImageReference(
+                    parent: FINameSpace.Rocks.self,
+                    child: rockName
+                )
+            )
         }
-
         uploader.start()
     }
     
@@ -74,11 +74,8 @@ final class RockConfirmViewModel {
         
         rockUploadState = .loading
 
-        let rock = FIDocument.Rock(
-            id: UUID().uuidString,
-            createdAt: Date(),
-            updatedAt: nil,
-            parentPath: FIDocument.Rock.makeParentPath(parentCollection: FIDocument.User.colletionName, documentId: AuthManager.uid),
+        let rockDocument = FIDocument.Rock(
+            parentPath: AuthManager.getAuthUserReference().path,
             name: rockName,
             address: rockLocation.address,
             prefecture: rockLocation.prefecture,
@@ -89,25 +86,27 @@ final class RockConfirmViewModel {
             seasons: seasons,
             lithology: lithology,
             desc: rockDesc,
-            registeredUserId: AuthManager.uid
+            registeredUserReference: AuthManager.getAuthUserReference()
         )
-        
-        let rockDocument = FirestoreManager.db
-            .collection(FIDocument.User.colletionName)
-            .document(AuthManager.uid)
-            .collection(FIDocument.Rock.colletionName)
-            .document(rock.id)
-        
-        rockDocument.setData(rock.dictionary) { [weak self] error in
-            
-            guard let self = self else { return }
-            
-            if let error = error {
-                self.rockUploadState = .failure(error)
-                return
-            }
-            
-            self.rockUploadState = .finish
-        }
+
+        rockDocument.makeDocumentReference()
+            .setData(from: rockDocument)
+            .sink(
+                receiveCompletion: { [weak self] result in
+
+                    guard let self = self else { return }
+
+                    switch result {
+                        case .finished:
+                            self.rockUploadState = .finish
+
+                        case let .failure(error):
+                            self.rockUploadState = .failure(error)
+
+                    }
+                },
+                receiveValue: {}
+            )
+            .store(in: &bindings)
     }
 }

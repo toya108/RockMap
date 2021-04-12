@@ -12,15 +12,15 @@ extension FIDocument {
         
         typealias Collection = FINameSpace.Climbed
         
-        var id: String
-        var parentCourseId: String
-        var createdAt: Date
-        var updatedAt: Date?
+        var id: String = UUID().uuidString
+        var parentCourseReference: DocumentRef
+        var totalNumberReference: DocumentRef
+        var createdAt: Date = Date()
+        var updatedAt: Date? = nil
         var parentPath: String
         var climbedDate: Date
         var type: ClimbedRecordType
         var climbedUserId: String
-//        var isPrivate: Bool
         
         enum ClimbedRecordType: String, CaseIterable, Codable {
             case flash, redpoint

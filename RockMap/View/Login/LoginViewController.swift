@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 import FirebaseUI
 
 final class LoginViewController: UIViewController {
@@ -14,6 +15,8 @@ final class LoginViewController: UIViewController {
     @IBOutlet weak var penguinImageView: UIImageView!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var guestLoginButton: UIButton!
+
+    private var bindings = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,14 +46,14 @@ final class LoginViewController: UIViewController {
                 guard let self = self else { return }
                 
                 switch result {
-                case .success:
-                    break
-                    
-                case .failure(let error):
-                    self.showOKAlert(
-                        title: "ログアウトに失敗しました。",
-                        message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)"
-                    )
+                    case .success:
+                        break
+
+                    case .failure(let error):
+                        self.showOKAlert(
+                            title: "ログアウトに失敗しました。",
+                            message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)"
+                        )
                 }
                 
             }
@@ -64,13 +67,6 @@ final class LoginViewController: UIViewController {
                 .init(title: "キャンセル", style: .cancel)
             ]
         )
-    }
-    
-    private func logout() {
-        AuthManager.logout { result in
-            
-        }
-
     }
 
     @IBAction func didLoginButtonTapped(_ sender: UIButton) {
@@ -116,36 +112,38 @@ extension LoginViewController: FUIAuthDelegate {
         }
         
         showIndicatorView()
-        
-        FirestoreManager.set(
-            key: user.uid,
-            FIDocument.User(
-                id: user.uid,
-                createdAt: user.metadata.creationDate ?? Date(),
-                updatedAt: nil,
-                name: user.displayName ?? "-",
-                email: user.email,
-                photoURL: user.photoURL,
-                createdRock: [],
-                createdCources: []
+
+        let userDocument = FIDocument.User(
+            id: user.uid,
+            createdAt: user.metadata.creationDate ?? Date(),
+            updatedAt: nil,
+            name: user.displayName ?? "-",
+            email: user.email,
+            photoURL: user.photoURL
+        )
+
+        userDocument.makeDocumentReference()
+            .setData(from: userDocument)
+            .sink(
+                receiveCompletion: { [weak self] result in
+
+                    guard let self = self else { return }
+
+                    switch result {
+                        case .finished:
+                            UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = MainTabBarController()
+
+                        case .failure(let error):
+                            self.hideIndicatorView()
+                            self.showOKAlert(title: "認証に失敗しました。", message: error.localizedDescription)
+                            
+                    }
+                },
+                receiveValue: {}
             )
-        ) { [weak self] result in
-
-            self?.hideIndicatorView()
-
-            guard let self = self else { return }
-
-            switch result {
-            case .success:
-                UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = MainTabBarController()
-
-            case .failure(let error):
-                self.showOKAlert(title: "認証に失敗しました。", message: error.localizedDescription)
-                
-            }
-        }
+            .store(in: &bindings)
     }
-    
+
     func authPickerViewController(
         forAuthUI authUI: FUIAuth
     ) -> FUIAuthPickerViewController {

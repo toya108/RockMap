@@ -12,13 +12,13 @@ extension FIDocument {
 
         typealias Collection = FINameSpace.TotalClimbedNumber
 
-        var id: String
-        var parentCourseId: String
-        var createdAt: Date
-        var updatedAt: Date?
+        var id: String = UUID().uuidString
+        var parentCourseReference: DocumentRef
+        var createdAt: Date = Date()
+        var updatedAt: Date? = nil
         var parentPath: String
-        var total: Int
-        var flashTotal: Int
-        var redPointTotal: Int
+        var total: Int = 0
+        var flashTotal: Int = 0
+        var redPointTotal: Int = 0
     }
 }

@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import Combine
 
 class RockTableViewCell: UITableViewCell {
 
     @IBOutlet weak var headerImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+
+    private var bindings = Set<AnyCancellable>()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,19 +30,18 @@ class RockTableViewCell: UITableViewCell {
             parent: FINameSpace.Rocks.self,
             child: rock.name
         )
-        StorageManager.getHeaderReference(reference: rockReference) { [weak self] result in
-
-            guard let self = self else { return }
-
-            switch result {
-                case let .success(reference):
-                    self.headerImageView.loadImage(reference: reference)
-
-                case let .failure(_):
-                    break
-
+        StorageManager
+            .getHeaderReference(rockReference)
+            .catch { error -> Just<StorageManager.Reference?> in
+                return .init(nil)
             }
-        }
+            .sink { [weak self] reference in
+
+                guard let self = self else { return }
+
+                self.headerImageView.loadImage(reference: reference)
+            }
+            .store(in: &bindings)
     }
     
 }

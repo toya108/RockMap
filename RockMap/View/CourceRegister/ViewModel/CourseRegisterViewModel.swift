@@ -9,28 +9,13 @@ import Combine
 import Foundation
 
 class CourseRegisterViewModel {
-    
+
     struct RockHeaderStructure: Hashable {
-        let rockId: String
-        let rockName: String
+        let rock: FIDocument.Rock
         let rockImageReference: StorageManager.Reference
-        let rockParentPath: String
-        
-        init(
-            rockId: String,
-            rockName: String,
-            rockImageReference: StorageManager.Reference = .init(),
-            rockParentPath: String
-        ) {
-            self.rockId = rockId
-            self.rockName = rockName
-            self.rockImageReference = rockImageReference
-            self.rockParentPath = rockParentPath
-        }
     }
-    
+
     @Published var rockHeaderStructure: RockHeaderStructure
-    
     @Published var courseName = ""
     @Published var grade: FIDocument.Course.Grade = .q10
     @Published var shape: Set<FIDocument.Course.Shape> = []

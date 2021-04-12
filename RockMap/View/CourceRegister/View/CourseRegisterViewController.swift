@@ -87,7 +87,7 @@ class CourseRegisterViewController: UIViewController {
     
     private func bindViewModelToView() {
         viewModel.$rockHeaderStructure
-            .drop { $0.rockName.isEmpty }
+            .drop { $0.rock.name.isEmpty }
             .receive(on: RunLoop.main)
             .sink { [weak self] rock in
                 

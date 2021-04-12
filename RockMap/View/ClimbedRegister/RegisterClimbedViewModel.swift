@@ -1,0 +1,89 @@
+//
+//  RegisterClimbedViewModel.swift
+//  RockMap
+//
+//  Created by TOUYA KAWANO on 2021/04/11.
+//
+
+import Combine
+import Foundation
+
+class RegisterClimbedViewModel {
+
+    @Published var course: FIDocument.Course
+
+    @Published var climbedDate: Date?
+    @Published var climbedType: FIDocument.Climbed.ClimbedRecordType = .flash
+    @Published private(set) var uploadState: StoreUploadState = .stanby
+
+    private var bindings = Set<AnyCancellable>()
+
+    init(course: FIDocument.Course) {
+        self.course = course
+    }
+
+    func registerClimbed() {
+
+        guard
+            let climbedDate = climbedDate
+        else {
+            return
+        }
+
+        uploadState = .loading
+
+        course.makeDocumentReference()
+            .collection(FIDocument.TotalClimbedNumber.colletionName)
+            .getDocuments(FIDocument.TotalClimbedNumber.self)
+            .catch { _ -> Just<[FIDocument.TotalClimbedNumber]> in
+                return .init([])
+            }
+            .compactMap { $0.first }
+            .flatMap { [weak self] totalNumber -> AnyPublisher<Void, Error> in
+
+                guard let self = self else {
+                    return .init(Result<Void, Error>.Publisher(.failure(FirestoreError.nilResultError)))
+                }
+
+                let badge = FirestoreManager.db.batch()
+
+                let climbed = FIDocument.Climbed(
+                    parentCourseReference: self.course.makeDocumentReference(),
+                    totalNumberReference: totalNumber.makeDocumentReference(),
+                    parentPath: self.course.makeDocumentReference().path,
+                    climbedDate: climbedDate,
+                    type: self.climbedType,
+                    climbedUserId: AuthManager.uid
+                )
+                badge.setData(climbed.dictionary, forDocument: climbed.makeDocumentReference())
+
+                badge.updateData(
+                    [
+                        "total": FirestoreManager.Value.increment(1.0),
+                        self.climbedType.fieldName: FirestoreManager.Value.increment(1.0)
+                    ],
+                    forDocument: totalNumber.makeDocumentReference()
+                )
+
+                return badge.commit()
+            }
+            .sink(
+                receiveCompletion: { [weak self] result in
+
+                    guard let self = self else { return }
+
+                    switch result {
+                        case .finished:
+                            self.uploadState = .finish
+
+                        case .failure(let error):
+                            self.uploadState = .failure(error)
+
+                    }
+                },
+                receiveValue: {}
+            )
+            .store(in: &bindings)
+    }
+
+}

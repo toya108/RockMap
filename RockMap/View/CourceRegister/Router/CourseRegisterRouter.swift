@@ -47,7 +47,7 @@ struct CourseRegisterRouter: RouterProtocol {
         }
 
         let viewModel = CourseConfirmViewModel(
-            rock: self.viewModel.rockHeaderStructure,
+            rockHeaderStructure: self.viewModel.rockHeaderStructure,
             courseName: self.viewModel.courseName,
             grade: self.viewModel.grade,
             shape: self.viewModel.shape,

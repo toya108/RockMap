@@ -48,28 +48,20 @@ class RockSearchViewModel {
             }
             .store(in: &bindings)
     }
-    
+
     func fetchRockList() {
-        updatePrefectureIfNeeded {
+        updatePrefectureIfNeeded { [weak self] in
+
+            guard let self = self else { return }
+
             let collectionGroup = FirestoreManager.db.collectionGroup(FIDocument.Rock.colletionName)
             let query = collectionGroup.whereField("prefecture", isEqualTo: LocationManager.shared.prefecture)
-            query.getDocuments { [weak self] snap, error in
-                
-                guard let self = self else { return }
-                
-                if
-                    let error = error
-                {
+            query.getDocuments(FIDocument.Rock.self)
+                .catch { error -> Just<[FIDocument.Rock]> in
                     self.error = error
-                    return
+                    return .init([])
                 }
-
-                guard let snap = snap else { return }
-
-                self.rockDocuments = snap.documents.compactMap {
-                    FIDocument.Rock.initializeDocument(json: $0.data())
-                }
-            }
+                .assign(to: &self.$rockDocuments)
         }
     }
     

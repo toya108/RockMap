@@ -11,7 +11,6 @@ import Foundation
 final class RockDetailViewModel {
     @Published var rockDocument: FIDocument.Rock
     @Published var rockName = ""
-    @Published var registeredUserId = ""
     @Published var registeredUser: FIDocument.User?
     @Published var rockDesc = ""
     @Published var seasons: Set<FIDocument.Rock.Season> = []
@@ -29,7 +28,14 @@ final class RockDetailViewModel {
         
         self.rockName = rock.name
         self.rockDesc = rock.desc
-        self.registeredUserId = rock.registeredUserId
+
+        rock.registeredUserReference
+            .getDocument(FIDocument.User.self)
+            .catch { _ -> Just<FIDocument.User?> in
+                return .init(nil)
+            }
+            .assign(to: &$registeredUser)
+
         self.rockLocation = .init(
             location: .init(
                 latitude: rock.location.latitude,
@@ -40,78 +46,30 @@ final class RockDetailViewModel {
         )
         self.seasons = rock.seasons
         self.lithology = rock.lithology
-        self.updateCouses(by: rock)
+        self.fetchCourses()
     }
     
     private func setupBindings() {
         $rockName
             .drop(while: { $0.isEmpty })
-            .sink { [weak self] name in
-                
-                guard let self = self else { return }
-                
-                let rockReference = StorageManager.makeReference(
-                    parent: FINameSpace.Rocks.self,
-                    child: name
-                )
-                StorageManager.getHeaderReference(reference: rockReference) { [weak self] result in
-
-                    guard let self = self else { return }
-
-                    guard
-                        case let .success(reference) = result
-                    else {
-                        return
-                    }
-                    
-                    self.headerImageReference = reference
-                }
+            .map {
+                StorageManager.makeReference(parent: FINameSpace.Rocks.self, child: $0)
             }
-            .store(in: &bindings)
-        
-        $registeredUserId
-            .sink { id in
-                FirestoreManager.fetchById(id: id) { [weak self] (result: Result<FIDocument.User?, Error>) in
-                    
-                    guard
-                        let self = self,
-                        case let .success(user) = result,
-                        let unwrappedUser = user
-                    else {
-                        return
-                    }
-                    
-                    self.registeredUser = unwrappedUser
-                }
+            .flatMap { StorageManager.getHeaderReference($0) }
+            .catch { _ -> Just<StorageManager.Reference?> in
+                return .init(nil)
             }
-            .store(in: &bindings)
+            .assign(to: &$headerImageReference)
     }
     
-    func updateCouses(by rockdocument: FIDocument.Rock) {
-        let coureseCollection = FirestoreManager.db
-            .collection(FIDocument.User.colletionName)
-            .document(rockdocument.registeredUserId)
-            .collection(FIDocument.Rock.colletionName)
-            .document(rockdocument.id)
+    func fetchCourses() {
+        rockDocument.makeDocumentReference()
             .collection(FIDocument.Course.colletionName)
-        
-        coureseCollection.getDocuments { [weak self] snap, error in
-            
-            guard let self = self else { return }
-            
-            guard
-                error == nil
-            else {
-                self.courses = []
-                return
+            .getDocuments(FIDocument.Course.self)
+            .catch { _ -> Just<[FIDocument.Course]> in
+                return .init([])
             }
-
-            guard let snap = snap else { return }
-            
-            self.courses = snap.documents.compactMap {
-                FIDocument.Course.initializeDocument(json: $0.data())
-            }
-        }
+            .assign(to: &$courses)
     }
-}
 
+}

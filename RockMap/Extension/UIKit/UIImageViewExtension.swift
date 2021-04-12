@@ -20,8 +20,15 @@ extension UIImageView {
     }
     
     func loadImage(
-        reference: StorageReference
+        reference: StorageReference?
     ) {
+        guard
+            let reference = reference
+        else {
+            image = UIImage.AssetsImages.noimage
+            return
+        }
+
         sd_setImage(
             with: reference,
             placeholderImage: UIImage.AssetsImages.noimage
