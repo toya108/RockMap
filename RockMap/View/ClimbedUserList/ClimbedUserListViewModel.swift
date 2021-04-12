@@ -77,7 +77,10 @@ class ClimbedUserListViewModel {
             .store(in: &bindings)
     }
 
-    func deleteClimbed(climbed: FIDocument.Climbed, completion: @escaping (Result<Void, Error>) -> Void) {
+    func deleteClimbed(
+        climbed: FIDocument.Climbed,
+        completion: @escaping (Result<Void, Error>) -> Void
+    ) {
         let badge = FirestoreManager.db.batch()
         badge.deleteDocument(climbed.makeDocumentReference())
         badge.updateData(

@@ -12,12 +12,12 @@ struct FirestoreManager {
     static let encoder = Firestore.Encoder()
     static let decoder = Firestore.Decoder()
 
-
+    typealias Value = FieldValue
 }
 
 enum StoreUploadState {
     case stanby
     case loading
     case finish
-    case failure(Error)
+    case failure(Error?)
 }

@@ -90,7 +90,7 @@ class RockConfirmViewController: UIViewController {
                 case .failure(let error):
                     self.showOKAlert(
                         title: "岩の登録に失敗しました",
-                        message: error.localizedDescription
+                        message: error?.localizedDescription ?? ""
                     )
                     
                 }

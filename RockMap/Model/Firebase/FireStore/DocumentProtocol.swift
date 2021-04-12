@@ -54,11 +54,9 @@ extension FIDocumentProtocol {
         }
     }
 
-
     static var colletionName: String {
         return Collection.name
     }
-
     
     static func initializeDocument(json: [String: Any]) -> Self? {
         do {
