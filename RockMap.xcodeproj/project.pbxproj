@@ -989,6 +989,7 @@
 				9E010DFF25D0539F00A4C336 /* Course.swift */,
 				9E0BE44F2608C1DE00576869 /* Climbed.swift */,
 				9E47B76B26160A0B004BE800 /* TotalClimbedNumber.swift */,
+				9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */,
 			);
 			path = DocumentModel;
 			sourceTree = "<group>";
@@ -1057,7 +1058,6 @@
 				9E9B38F626213BE4001A39A9 /* Combine */,
 				9E9B38F526213B9D001A39A9 /* DocumentModel */,
 				9E08ACA32573E6C400D69927 /* NameSpace.swift */,
-				9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */,
 				9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */,
 			);
 			path = FireStore;
