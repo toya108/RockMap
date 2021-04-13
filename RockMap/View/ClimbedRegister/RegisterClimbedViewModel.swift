@@ -10,7 +10,12 @@ import Foundation
 
 class RegisterClimbedViewModel {
 
-    @Published var course: FIDocument.Course
+    enum RegisterType {
+        case edit(FIDocument.Climbed)
+        case create(FIDocument.Course)
+    }
+
+    let registerType: RegisterType
 
     @Published var climbedDate: Date?
     @Published var climbedType: FIDocument.Climbed.ClimbedRecordType = .flash
@@ -18,14 +23,85 @@ class RegisterClimbedViewModel {
 
     private var bindings = Set<AnyCancellable>()
 
-    init(course: FIDocument.Course) {
-        self.course = course
+    init(registerType: RegisterType) {
+        self.registerType = registerType
+    }
+
+    func editClimbed() {
+
+        guard
+            let climbedDate = climbedDate,
+            case let .edit(climbed) = registerType
+        else {
+            return
+        }
+
+        uploadState = .loading
+
+        let badge = FirestoreManager.db.batch()
+
+        if climbed.climbedDate != climbedDate {
+            badge.updateData(
+                ["climbedDate": climbedDate],
+                forDocument: climbed.makeDocumentReference()
+            )
+        }
+
+        if climbed.type != climbedType {
+
+            badge.updateData(
+                ["type": climbedType.rawValue],
+                forDocument: climbed.makeDocumentReference()
+            )
+
+            let recordType = FIDocument.Climbed.ClimbedRecordType.self
+
+            switch climbedType {
+                case .flash:
+                    badge.updateData(
+                        [
+                            recordType.flash.fieldName: FirestoreManager.Value.increment(1.0),
+                            recordType.redpoint.fieldName: FirestoreManager.Value.increment(-1.0)
+                        ],
+                        forDocument: climbed.totalNumberReference
+                    )
+
+                case .redpoint:
+                    badge.updateData(
+                        [
+                            recordType.redpoint.fieldName: FirestoreManager.Value.increment(1.0),
+                            recordType.flash.fieldName: FirestoreManager.Value.increment(-1.0)
+                        ],
+                        forDocument: climbed.totalNumberReference
+                    )
+
+            }
+        }
+        badge.commit()
+            .sink(
+                receiveCompletion: { [weak self] result in
+
+                    guard let self = self else { return }
+
+                    switch result {
+                        case .finished:
+                            self.uploadState = .finish
+
+                        case .failure(let error):
+                            self.uploadState = .failure(error)
+
+                    }
+                },
+                receiveValue: {}
+            )
+            .store(in: &bindings)
     }
 
     func registerClimbed() {
 
         guard
-            let climbedDate = climbedDate
+            let climbedDate = climbedDate,
+            case let .create(course) = registerType
         else {
             return
         }
@@ -48,9 +124,9 @@ class RegisterClimbedViewModel {
                 let badge = FirestoreManager.db.batch()
 
                 let climbed = FIDocument.Climbed(
-                    parentCourseReference: self.course.makeDocumentReference(),
+                    parentCourseReference: course.makeDocumentReference(),
                     totalNumberReference: totalNumber.makeDocumentReference(),
-                    parentPath: self.course.makeDocumentReference().path,
+                    parentPath: course.makeDocumentReference().path,
                     climbedDate: climbedDate,
                     type: self.climbedType,
                     climbedUserId: AuthManager.uid

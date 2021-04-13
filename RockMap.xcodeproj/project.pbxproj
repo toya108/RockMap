@@ -87,6 +87,9 @@
 		9E7812E52619FB1600CAC539 /* ClimbedUserListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7812E42619FB1600CAC539 /* ClimbedUserListViewModel.swift */; };
 		9E7812FD261A069700CAC539 /* ClimbedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7812FB261A069700CAC539 /* ClimbedTableViewCell.swift */; };
 		9E7812FE261A069700CAC539 /* ClimbedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E7812FC261A069700CAC539 /* ClimbedTableViewCell.xib */; };
+		9E7ABF0126258FF50028DB19 /* UIDatePicker+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7ABF0026258FF50028DB19 /* UIDatePicker+Combine.swift */; };
+		9E7ABF09262590450028DB19 /* CombineControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7ABF08262590450028DB19 /* CombineControl.swift */; };
+		9E7ABF0E262593570028DB19 /* UISegmentedControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7ABF0D262593570028DB19 /* UISegmentedControl+Combine.swift */; };
 		9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CA7254CFD150091935F /* MyPageViewController.swift */; };
 		9E807CAD254CFD250091935F /* MyPageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E807CAC254CFD250091935F /* MyPageViewController.storyboard */; };
 		9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */; };
@@ -278,6 +281,9 @@
 		9E7812E42619FB1600CAC539 /* ClimbedUserListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbedUserListViewModel.swift; sourceTree = "<group>"; };
 		9E7812FB261A069700CAC539 /* ClimbedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbedTableViewCell.swift; sourceTree = "<group>"; };
 		9E7812FC261A069700CAC539 /* ClimbedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClimbedTableViewCell.xib; sourceTree = "<group>"; };
+		9E7ABF0026258FF50028DB19 /* UIDatePicker+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDatePicker+Combine.swift"; sourceTree = "<group>"; };
+		9E7ABF08262590450028DB19 /* CombineControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineControl.swift; sourceTree = "<group>"; };
+		9E7ABF0D262593570028DB19 /* UISegmentedControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Combine.swift"; sourceTree = "<group>"; };
 		9E807CA7254CFD150091935F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		9E807CAC254CFD250091935F /* MyPageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPageViewController.storyboard; sourceTree = "<group>"; };
 		9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectProtocolExtension.swift; sourceTree = "<group>"; };
@@ -705,6 +711,7 @@
 		9E60DCAC2556E3DF000CF2E8 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				9E7ABEFF26258FE10028DB19 /* Combine */,
 				9E04B18C254B1EB30097DA8E /* UITextFieldExtension.swift */,
 				9E0A9F1D2551006E007B9A90 /* UITextViewExtension.swift */,
 				9E0A9F28255104A0007B9A90 /* KeyboardExtension.swift */,
@@ -861,6 +868,16 @@
 				9E78129D26199DA700CAC539 /* UserView.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		9E7ABEFF26258FE10028DB19 /* Combine */ = {
+			isa = PBXGroup;
+			children = (
+				9E7ABF0026258FF50028DB19 /* UIDatePicker+Combine.swift */,
+				9E7ABF0D262593570028DB19 /* UISegmentedControl+Combine.swift */,
+				9E7ABF08262590450028DB19 /* CombineControl.swift */,
+			);
+			path = Combine;
 			sourceTree = "<group>";
 		};
 		9E807CA3254CFCF50091935F /* MyPage */ = {
@@ -1538,6 +1555,7 @@
 				9E9B38F126213B7E001A39A9 /* Document+Combine.swift in Sources */,
 				9E7812E52619FB1600CAC539 /* ClimbedUserListViewModel.swift in Sources */,
 				9E2DA75F25F91BA7008F339E /* LocationSelectCollectionViewCell.swift in Sources */,
+				9E7ABF09262590450028DB19 /* CombineControl.swift in Sources */,
 				9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */,
 				9EC3A6C42604D74F001FBCA4 /* CourseDetailKind.swift in Sources */,
 				9EF74F7426215E2200974EBA /* WriteBadge+Combine.swift in Sources */,
@@ -1576,6 +1594,7 @@
 				9E0BE37A2605006F00576869 /* LeadingRegisteredUserCollectionViewCell.swift in Sources */,
 				9E613ABC25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift in Sources */,
 				9EFEE45625F7975F004BFE34 /* CourseCollectionViewCell.swift in Sources */,
+				9E7ABF0126258FF50028DB19 /* UIDatePicker+Combine.swift in Sources */,
 				9EA94F7325D044F500D1272E /* RockDetailDatasource.swift in Sources */,
 				9EAE72AE25DACFC900C37119 /* TextViewCollectionViewCell.swift in Sources */,
 				9E6D916B261AEB71006E2297 /* ZoomImageViewController.swift in Sources */,
@@ -1615,6 +1634,7 @@
 				9E7812832619933200CAC539 /* ClimbedUserListViewController.swift in Sources */,
 				9E83EEC625FCA856002392AA /* SegmentedControllCollectionViewCell.swift in Sources */,
 				9E0BE4552608C42D00576869 /* RegisterClimbedBottomSheetViewController.swift in Sources */,
+				9E7ABF0E262593570028DB19 /* UISegmentedControl+Combine.swift in Sources */,
 				9E08AC7C2572A84100D69927 /* RockMapNavigationController.swift in Sources */,
 				9E5DD1D725C9857A00E38620 /* UIViewExtension.swift in Sources */,
 				9E83EEBB25FB4D00002392AA /* IconCollectionViewCell.swift in Sources */,

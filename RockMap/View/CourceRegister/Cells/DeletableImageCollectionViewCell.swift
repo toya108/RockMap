@@ -27,6 +27,7 @@ class DeletableImageCollectionViewCell: UICollectionViewCell {
         imageView.isUserInteractionEnabled = true
         imageView.layer.cornerRadius = Resources.Const.UI.View.radius
         imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         
         contentView.addSubview(imageView)
         
