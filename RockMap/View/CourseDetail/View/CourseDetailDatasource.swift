@@ -18,51 +18,60 @@ extension CourseDetailViewController {
             guard let self = self else { return UICollectionViewCell() }
             
             switch item {
-            case let .headerImage(referece):
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureHeaderImageCell(),
-                    for: indexPath,
-                    item: referece
-                )
-                
-            case .buttons:
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureButtonsCell(),
-                    for: indexPath,
-                    item: Dummy()
-                )
-                
-            case .registeredUser:
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureUserCell(),
-                    for: indexPath,
-                    item: Dummy()
-                )
-                
-            case .climbedNumber:
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureClimbedNumberCell(),
-                    for: indexPath,
-                    item: Dummy()
-                )
-
-            case let .shape(shapes):
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureShapeCell(),
-                    for: indexPath,
-                    item: .init(
-                        image: UIImage.SystemImages.triangleLefthalfFill,
-                        title: "岩質",
-                        subTitle: shapes.map(\.name).joined(separator: "/")
+                case let .headerImage(referece):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureImageCell(),
+                        for: indexPath,
+                        item: referece
                     )
-                )
 
-            case let .desc(desc):
-                return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDescCell(),
-                    for: indexPath,
-                    item: desc
-                )
+                case .buttons:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureButtonsCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
+
+                case .registeredUser:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureUserCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
+
+                case .climbedNumber:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureClimbedNumberCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
+
+                case let .shape(shapes):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureShapeCell(),
+                        for: indexPath,
+                        item: .init(
+                            image: UIImage.SystemImages.triangleLefthalfFill,
+                            title: "岩質",
+                            subTitle: shapes.map(\.name).joined(separator: "/")
+                        )
+                    )
+
+                case let .desc(desc):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureDescCell(),
+                        for: indexPath,
+                        item: desc
+                    )
+
+
+                case let .image(reference):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureImageCell(),
+                        for: indexPath,
+                        item: reference
+                    )
+
             }
         }
         
@@ -92,7 +101,7 @@ extension CourseDetailViewController {
 
 extension CourseDetailViewController {
     
-    private func configureHeaderImageCell() -> UICollectionView.CellRegistration<
+    private func configureImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
         StorageManager.Reference
     > {
@@ -199,7 +208,7 @@ extension CourseDetailViewController {
                 bundle: nil
             )
         ) { cell, _, data in
-           cell.configure(data)
+            cell.configure(data)
         }
     }
 

@@ -76,10 +76,6 @@ extension Query {
         }
         .eraseToAnyPublisher()
     }
-
-    static func cancel() {
-        
-    }
 }
 
 extension QuerySnapshot {

@@ -16,6 +16,7 @@ extension CourseDetailViewController {
         case climbedNumber
         case info
         case desc
+        case images
         
         var headerTitle: String {
             switch self {
@@ -25,6 +26,9 @@ extension CourseDetailViewController {
                 case .info:
                     return "基本情報"
 
+                case .images:
+                    return "画像"
+
                 default:
                     return ""
 
@@ -33,7 +37,7 @@ extension CourseDetailViewController {
         
         var headerIdentifer: String {
             switch self {
-                case .climbedNumber, .info:
+                case .climbedNumber, .info, .images:
                     return TitleSupplementaryView.className
                 
                 default:
@@ -67,6 +71,7 @@ extension CourseDetailViewController {
         case climbedNumber
         case shape(Set<FIDocument.Course.Shape>)
         case desc(String)
+        case image(StorageManager.Reference)
     }
     
 }

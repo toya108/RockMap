@@ -54,9 +54,9 @@ class RockSearchViewModel {
 
             guard let self = self else { return }
 
-            let collectionGroup = FirestoreManager.db.collectionGroup(FIDocument.Rock.colletionName)
-            let query = collectionGroup.whereField("prefecture", isEqualTo: LocationManager.shared.prefecture)
-            query.getDocuments(FIDocument.Rock.self)
+            FirestoreManager.db
+                .collectionGroup(FIDocument.Rock.colletionName)
+                .getDocuments(FIDocument.Rock.self)
                 .catch { error -> Just<[FIDocument.Rock]> in
                     self.error = error
                     return .init([])

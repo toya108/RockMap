@@ -112,6 +112,24 @@ extension CourseDetailViewController {
                     )
                     section = .init(group: group)
 
+                case .images:
+                    let item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .fractionalHeight(1)
+                        )
+                    )
+                    let group = NSCollectionLayoutGroup.vertical(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(0.4),
+                            heightDimension: .fractionalWidth(0.4)
+                        ),
+                        subitems: [item]
+                    )
+                    section = .init(group: group)
+                    section.interGroupSpacing = 4
+                    section.orthogonalScrollingBehavior = .continuous
+
             }
             
             if !sectionType.headerIdentifer.isEmpty {

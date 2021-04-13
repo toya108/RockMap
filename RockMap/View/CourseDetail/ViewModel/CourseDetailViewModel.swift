@@ -12,7 +12,8 @@ import FirebaseFirestore
 final class CourseDetailViewModel {
     
     @Published var course: FIDocument.Course
-    @Published var courseImageReference: StorageManager.Reference?
+    @Published var courseHeaderImageReference: StorageManager.Reference?
+    @Published var courseImageReferences: [StorageManager.Reference] = []
     @Published var courseName = ""
     @Published var registeredUser: FIDocument.User?
     @Published var registeredDate: Date?
@@ -33,10 +34,6 @@ final class CourseDetailViewModel {
         fetchRegisterdUser(reference: course.registedUserReference)
         shape = course.shape
         desc = course.desc
-    }
-
-    deinit {
-        
     }
     
     private func setupBindings() {
