@@ -23,24 +23,19 @@ class ClimbedUserListViewModel {
 
     init(course: FIDocument.Course) {
         self.course = course
-        fetchClimbed(course: course)
+        fetchClimbed()
         setupBindings()
     }
 
-    private func fetchClimbed(course: FIDocument.Course) {
+    func fetchClimbed() {
         course.makeDocumentReference()
             .collection(FIDocument.Climbed.colletionName)
+            .order(by: "climbedDate")
             .getDocuments(FIDocument.Climbed.self)
             .catch { _ -> Just<[FIDocument.Climbed]> in
                 return .init([])
             }
-            .sink { [weak self] climbed in
-
-                guard let self = self else { return }
-
-                self.climbedList.append(contentsOf: climbed)
-            }
-            .store(in: &bindings)
+            .assign(to: &$climbedList)
     }
 
     private func setupBindings() {
