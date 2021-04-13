@@ -60,7 +60,10 @@ class ClimbedUserListViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
     }
 
-    private func configureDatasource() -> UITableViewDiffableDataSource<SectionKind, ClimbedUserListViewModel.ClimbedCellData> {
+    private func configureDatasource() -> UITableViewDiffableDataSource<
+        SectionKind,
+        ClimbedUserListViewModel.ClimbedCellData
+    > {
         return .init(tableView: tableView) { [weak self] tableView, index, cellData in
 
             guard let self = self else { return UITableViewCell() }
@@ -96,11 +99,31 @@ class ClimbedUserListViewController: UIViewController {
 
                 guard let self = self else { return }
 
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers)
                 self.snapShot.appendItems(cellData.filter { $0.isOwned }, toSection: .owned)
                 self.snapShot.appendItems(cellData.filter { !$0.isOwned }, toSection: .others)
+
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
+    }
+
+    private func makeEditAction(
+        to cellData: ClimbedUserListViewModel.ClimbedCellData
+    ) -> UIAction {
+
+        return .init(
+            title: "編集",
+            image: UIImage.SystemImages.squareAndPencil
+        ) { [weak self] _ in
+
+            guard let self = self else { return }
+
+            let vm = RegisterClimbedViewModel(registerType: .edit(cellData.climbed))
+            let vc = RegisterClimbedBottomSheetViewController.createInstance(viewModel: vm)
+            vc.delegate = self
+            self.present(vc, animated: true)
+        }
     }
 
     private func makeDeleteAction(
@@ -126,7 +149,7 @@ class ClimbedUserListViewController: UIViewController {
 
                 self.viewModel.deleteClimbed(climbed: cellData.climbed) { result in
 
-                    guard case .success(_) = result else { return }
+                    guard case .success = result else { return }
 
                     self.snapShot.deleteItems([cellData])
                     self.datasource.apply(self.snapShot)
@@ -193,12 +216,10 @@ extension ClimbedUserListViewController: UITableViewDelegate {
                 return nil
             }
 
-            let edit = UIAction(title: "編集", image: UIImage.SystemImages.squareAndPencil) { _ in }
-
             return UIMenu(
                 title: "",
                 children: [
-                    edit,
+                    self.makeEditAction(to: cellData),
                     self.makeDeleteAction(to: cellData)
                 ]
             )
@@ -219,3 +240,18 @@ extension ClimbedUserListViewController: UITableViewDelegate {
 
 }
 
+extension ClimbedUserListViewController: RegisterClimbedDetectableDelegate {
+
+    func finishedRegisterClimbed(
+        id: String,
+        date: Date,
+        type: FIDocument.Climbed.ClimbedRecordType
+    ) {
+        viewModel.updateClimbedData(
+            id: id,
+            date: date,
+            type: type
+        )
+    }
+
+}

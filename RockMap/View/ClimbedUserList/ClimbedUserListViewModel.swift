@@ -11,7 +11,7 @@ import FirebaseFirestore
 class ClimbedUserListViewModel {
 
     struct ClimbedCellData: Hashable {
-        let climbed: FIDocument.Climbed
+        var climbed: FIDocument.Climbed
         let user: FIDocument.User
         let isOwned: Bool
     }
@@ -97,5 +97,25 @@ class ClimbedUserListViewModel {
                 receiveValue: {}
             )
             .store(in: &bindings)
+    }
+
+    func updateClimbedData(
+        id: String,
+        date: Date,
+        type: FIDocument.Climbed.ClimbedRecordType
+    ) {
+        guard
+            let index = climbedCellData.firstIndex(where: { $0.climbed.id == id })
+        else {
+            return
+        }
+
+        climbedCellData[index].climbed.climbedDate = date
+        climbedCellData[index].climbed.type = type
+
+        climbedCellData.sort(
+            by: { $0.climbed.climbedDate < $1.climbed.climbedDate }
+        )
+
     }
 }

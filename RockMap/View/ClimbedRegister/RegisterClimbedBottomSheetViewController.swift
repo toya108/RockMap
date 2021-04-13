@@ -8,12 +8,22 @@
 import UIKit
 import Combine
 
+protocol RegisterClimbedDetectableDelegate: AnyObject {
+    func finishedRegisterClimbed(
+        id: String,
+        date: Date,
+        type: FIDocument.Climbed.ClimbedRecordType
+    )
+}
+
 class RegisterClimbedBottomSheetViewController: UIViewController {
 
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var climbedDatePicker: UIDatePicker!
     @IBOutlet weak var climbedTypeSegmentedControl: UISegmentedControl!
+
+    weak var delegate: RegisterClimbedDetectableDelegate?
 
     private var viewModel: RegisterClimbedViewModel!
     private var bindings = Set<AnyCancellable>()
@@ -28,7 +38,14 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
     }
 
     @IBAction func didRecordButtonTapped(_ sender: UIButton) {
-        viewModel.registerClimbed()
+        switch viewModel.registerType {
+            case .create:
+                viewModel.registerClimbed()
+
+            case .edit:
+                viewModel.editClimbed()
+
+        }
     }
 
     static func createInstance(
@@ -47,6 +64,11 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
         setupSegment()
         bindViewToViewModel()
         bindViewModelToView()
+
+        if case let .edit(climbed) = viewModel.registerType {
+            viewModel.climbedDate = climbed.climbedDate
+            viewModel.climbedType = climbed.type
+        }
     }
     
     private func configureModal() {
@@ -83,12 +105,12 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
 
     private func bindViewToViewModel() {
         climbedDatePicker
-            .publisher(for: \.date)
+            .datePublisher
             .map { Optional($0) }
             .assign(to: &viewModel.$climbedDate)
 
         climbedTypeSegmentedControl
-            .publisher(for: \.selectedSegmentIndex)
+            .selectedSegmentIndexPublisher
             .compactMap { FIDocument.Climbed.ClimbedRecordType.allCases.any(at: $0) }
             .assign(to: &viewModel.$climbedType)
     }
@@ -136,6 +158,14 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
                         self.hideIndicatorView()
                         self.dismiss(animated: true)
 
+                        if case let .edit(climbed) = self.viewModel.registerType {
+                            self.delegate?.finishedRegisterClimbed(
+                                id: climbed.id,
+                                date: self.viewModel.climbedDate ?? Date(),
+                                type: self.viewModel.climbedType
+                            )
+                        }
+
                     case .failure(let error):
                         self.hideIndicatorView()
                         self.showOKAlert(
@@ -149,3 +179,4 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
     }
 
 }
+
