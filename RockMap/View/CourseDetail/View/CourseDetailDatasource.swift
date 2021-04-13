@@ -67,7 +67,7 @@ extension CourseDetailViewController {
 
                 case let .image(reference):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureImageCell(),
+                        using: self.configureImageCell(radius: 8.0),
                         for: indexPath,
                         item: reference
                     )
@@ -101,12 +101,14 @@ extension CourseDetailViewController {
 
 extension CourseDetailViewController {
     
-    private func configureImageCell() -> UICollectionView.CellRegistration<
+    private func configureImageCell(radius: CGFloat = 0.0) -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
         StorageManager.Reference
     > {
         .init { cell, _, reference in
             cell.imageView.loadImage(reference: reference)
+            cell.clipsToBounds = true
+            cell.layer.cornerRadius = radius
         }
     }
     

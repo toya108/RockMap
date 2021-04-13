@@ -13,7 +13,7 @@ extension CourseDetailViewController {
         
         let layout = UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
             let section: NSCollectionLayoutSection
-            
+
             let sectionType = SectionLayoutKind.allCases[sectionNumber]
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: .init(
@@ -115,21 +115,20 @@ extension CourseDetailViewController {
                 case .images:
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(
-                            widthDimension: .fractionalWidth(1),
-                            heightDimension: .fractionalHeight(1)
+                            widthDimension: .fractionalWidth(1/3),
+                            heightDimension: .fractionalWidth(1/3)
                         )
                     )
-                    let group = NSCollectionLayoutGroup.vertical(
+                    item.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
+                    let group = NSCollectionLayoutGroup.horizontal(
                         layoutSize: .init(
-                            widthDimension: .fractionalWidth(0.4),
-                            heightDimension: .fractionalWidth(0.4)
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: item.layoutSize.heightDimension
                         ),
                         subitems: [item]
                     )
                     section = .init(group: group)
-                    section.interGroupSpacing = 4
-                    section.orthogonalScrollingBehavior = .continuous
-
+                    section.boundarySupplementaryItems = [sectionHeader]
             }
             
             if !sectionType.headerIdentifer.isEmpty {
@@ -139,7 +138,6 @@ extension CourseDetailViewController {
             let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundDecorationView.className)
             section.decorationItems = [sectionBackgroundDecoration]
             section.contentInsetsReference = .layoutMargins
-            
             return section
         }
         

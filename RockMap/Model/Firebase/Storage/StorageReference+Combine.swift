@@ -31,6 +31,27 @@ extension StorageReference {
         }.eraseToAnyPublisher()
     }
 
+    func getPrefixes() -> AnyPublisher<[StorageReference], Error> {
+
+        Deferred {
+            Future<[StorageReference], Error> { [weak self] promise in
+
+                guard let self = self else { return }
+
+                self.listAll { result, error in
+
+                    if let error = error {
+                        promise(.failure(error))
+                        return
+                    }
+
+                    promise(.success(result.prefixes))
+                }
+            }
+
+        }.eraseToAnyPublisher()
+    }
+
     func getReference() -> AnyPublisher<StorageReference?, Error> {
 
         Deferred {
