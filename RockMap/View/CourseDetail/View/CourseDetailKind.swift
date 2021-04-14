@@ -26,6 +26,9 @@ extension CourseDetailViewController {
                 case .info:
                     return "基本情報"
 
+                case .desc:
+                    return "詳細"
+
                 case .images:
                     return "画像"
 
@@ -37,7 +40,7 @@ extension CourseDetailViewController {
         
         var headerIdentifer: String {
             switch self {
-                case .climbedNumber, .info, .images:
+                case .climbedNumber, .info, .images, .desc:
                     return TitleSupplementaryView.className
                 
                 default:

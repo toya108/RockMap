@@ -13,9 +13,10 @@ extension RockDetailViewController {
         case header
         case registeredUser
         case info
-        case desc
         case courses
+        case desc
         case map
+//        case images
         
         var headerTitle: String {
             switch self {
@@ -24,9 +25,15 @@ extension RockDetailViewController {
                 
             case .map:
                 return "岩の位置"
+
+            case .info:
+                return "基本情報"
             
             case .courses:
                 return "課題一覧"
+
+//            case .images:
+//                return "画像"
                 
             default:
                 return ""
@@ -36,7 +43,7 @@ extension RockDetailViewController {
         
         var headerIdentifer: String {
             switch self {
-            case .desc, .map, .courses:
+            case .desc, .map, .info, .courses:
                 return TitleSupplementaryView.className
                 
             default:
@@ -53,9 +60,9 @@ extension RockDetailViewController {
         case lithology(FIDocument.Rock.Lithology)
         case containGrade([FIDocument.Course.Grade: Int])
         case map(LocationManager.LocationStructure)
-        // course section
         case courses(FIDocument.Course)
         case nocourse
+//        case image
     }
     
 }
