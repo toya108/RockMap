@@ -72,6 +72,12 @@ extension CourseDetailViewController {
                         item: reference
                     )
 
+                case .noImage:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureNoImageCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
             }
         }
         
@@ -221,6 +227,13 @@ extension CourseDetailViewController {
         .init { cell, _, desc in
             cell.descLabel.text = desc
         }
+    }
+
+    private func configureNoImageCell() -> UICollectionView.CellRegistration<
+        NoImageCollectionViewCell,
+        Dummy
+    > {
+        .init { cell, _, _ in }
     }
 
 }

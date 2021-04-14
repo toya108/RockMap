@@ -82,13 +82,19 @@ class CourseDetailViewController: UIViewController {
             .store(in: &bindings)
 
         viewModel.$courseImageReferences
-            .drop(while: { $0.isEmpty })
             .receive(on: RunLoop.main)
             .sink { [weak self] references in
 
                 guard let self = self else { return }
 
-                self.snapShot.appendItems(references.map { ItemKind.image($0) }, toSection: .images)
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .images))
+
+                if references.isEmpty {
+                    self.snapShot.appendItems([.noImage], toSection: .images)
+                } else {
+                    self.snapShot.appendItems(references.map { ItemKind.image($0) }, toSection: .images)
+                }
+
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
