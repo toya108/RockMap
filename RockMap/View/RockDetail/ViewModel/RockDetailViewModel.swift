@@ -17,6 +17,7 @@ final class RockDetailViewModel {
     @Published var lithology: FIDocument.Rock.Lithology = .unKnown
     @Published var rockLocation = LocationManager.LocationStructure()
     @Published var headerImageReference: StorageManager.Reference?
+    @Published var imageReferences: [StorageManager.Reference] = []
     @Published var courses: [FIDocument.Course] = []
     
     private var bindings = Set<AnyCancellable>()
@@ -60,6 +61,33 @@ final class RockDetailViewModel {
                 return .init(nil)
             }
             .assign(to: &$headerImageReference)
+
+        $rockName
+            .drop(while: { $0.isEmpty })
+            .map {
+                StorageManager.makeReference(parent: FINameSpace.Rocks.self, child: $0)
+            }
+            .flatMap { StorageManager.getNormalImagePrefixes($0) }
+            .catch { _ -> Just<[StorageManager.Reference]> in
+                return .init([])
+            }
+            .sink { prefixes in
+                prefixes
+                    .map { $0.getReferences() }
+                    .forEach {
+                        $0.catch { _ -> Just<[StorageManager.Reference]> in
+                            return .init([])
+                        }
+                        .sink { [weak self] references in
+
+                            guard let self = self else { return }
+
+                            self.imageReferences.append(contentsOf: references)
+                        }
+                        .store(in: &self.bindings)
+                    }
+            }
+            .store(in: &bindings)
     }
     
     func fetchCourses() {

@@ -154,6 +154,50 @@ extension RockDetailViewController {
                     section.interGroupSpacing = 8
                     section.orthogonalScrollingBehavior = .groupPaging
                 }
+
+            case .images:
+                let item: NSCollectionLayoutItem
+                let group: NSCollectionLayoutGroup
+
+                if
+                    self.snapShot.itemIdentifiers(inSection: .images).count == 1,
+                    self.snapShot.itemIdentifiers(inSection: .images).first == .some(.noImage)
+                {
+                    item = .init(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .fractionalHeight(1)
+                        )
+                    )
+                    let collectionViewWidth = self.collectionView.bounds.width - (self.collectionView.layoutMargins.left + self.collectionView.layoutMargins.right)
+                    let height = collectionViewWidth * 9/16
+                    group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .absolute(height)
+                        ),
+                        subitems: [item]
+                    )
+                    section = .init(group: group)
+
+                } else {
+                    item = .init(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1/3),
+                            heightDimension: .fractionalWidth(1/3)
+                        )
+                    )
+                    item.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
+                    group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: item.layoutSize.heightDimension
+                        ),
+                        subitems: [item]
+                    )
+                    section = .init(group: group)
+                    section.boundarySupplementaryItems = [sectionHeader]
+                }
             }
             
             if !sectionType.headerIdentifer.isEmpty {

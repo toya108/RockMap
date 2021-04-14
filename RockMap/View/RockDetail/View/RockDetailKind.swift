@@ -16,7 +16,7 @@ extension RockDetailViewController {
         case courses
         case desc
         case map
-//        case images
+        case images
         
         var headerTitle: String {
             switch self {
@@ -32,8 +32,8 @@ extension RockDetailViewController {
             case .courses:
                 return "課題一覧"
 
-//            case .images:
-//                return "画像"
+            case .images:
+                return "画像"
                 
             default:
                 return ""
@@ -43,7 +43,7 @@ extension RockDetailViewController {
         
         var headerIdentifer: String {
             switch self {
-            case .desc, .map, .info, .courses:
+                case .desc, .map, .info, .courses, .images:
                 return TitleSupplementaryView.className
                 
             default:
@@ -62,7 +62,8 @@ extension RockDetailViewController {
         case map(LocationManager.LocationStructure)
         case courses(FIDocument.Course)
         case nocourse
-//        case image
+        case image(StorageManager.Reference)
+        case noImage
     }
     
 }

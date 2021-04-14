@@ -20,7 +20,7 @@ extension RockDetailViewController {
                 switch item {
                 case let .header(referece):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureHeaderImageCell(),
+                        using: self.configureImageCell(),
                         for: indexPath,
                         item: referece
                     )
@@ -81,6 +81,7 @@ extension RockDetailViewController {
                             subTitle: seasons.map(\.name).joined(separator: "/")
                         )
                     )
+
                 case let .lithology(lithology):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureValueCell(),
@@ -91,6 +92,21 @@ extension RockDetailViewController {
                             subTitle: lithology.name
                         )
                     )
+
+                case let .image(reference):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureImageCell(radius: 8.0),
+                        for: indexPath,
+                        item: reference
+                    )
+
+                case .noImage:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureNoImageCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
+
                 }
             }
         )
@@ -125,12 +141,16 @@ extension RockDetailViewController {
 
 extension RockDetailViewController {
     
-    private func configureHeaderImageCell() -> UICollectionView.CellRegistration<
+    private func configureImageCell(
+        radius: CGFloat = 0.0
+    ) -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
         StorageManager.Reference
     > {
         .init { cell, _, reference in
             cell.imageView.loadImage(reference: reference)
+            cell.clipsToBounds = true
+            cell.layer.cornerRadius = radius
         }
     }
     
@@ -219,5 +239,13 @@ extension RockDetailViewController {
             cell.configure(course: course)
         }
     }
+
+    private func configureNoImageCell() -> UICollectionView.CellRegistration<
+        NoImageCollectionViewCell,
+        Dummy
+    > {
+        .init { cell, _, _ in }
+    }
+
     
 }
