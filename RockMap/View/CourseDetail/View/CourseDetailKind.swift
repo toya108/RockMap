@@ -75,6 +75,7 @@ extension CourseDetailViewController {
         case shape(Set<FIDocument.Course.Shape>)
         case desc(String)
         case image(StorageManager.Reference)
+        case noImage
     }
     
 }

@@ -19,7 +19,7 @@ extension RockDetailViewController {
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: .init(
                     widthDimension: .fractionalWidth(1),
-                    heightDimension: .absolute(44)
+                    heightDimension: .absolute(52)
                 ),
                 elementKind: sectionType.headerIdentifer,
                 alignment: .top
@@ -158,13 +158,6 @@ extension RockDetailViewController {
             
             if !sectionType.headerIdentifer.isEmpty {
                 section.boundarySupplementaryItems = [sectionHeader]
-            }
-            
-            if
-                let next = SectionLayoutKind.allCases.any(at: sectionNumber + 1),
-                !next.headerIdentifer.isEmpty
-            {
-                section.contentInsets.bottom += 16
             }
             
             let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundDecorationView.className)
