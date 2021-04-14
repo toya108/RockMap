@@ -16,7 +16,7 @@ class RockDetailViewController: UIViewController {
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
 
     var router: RockDetailRouter!
-    private var viewModel: RockDetailViewModel!
+    var viewModel: RockDetailViewModel!
     private var bindings = Set<AnyCancellable>()
 
     static func createInstance(viewModel: RockDetailViewModel) -> RockDetailViewController {

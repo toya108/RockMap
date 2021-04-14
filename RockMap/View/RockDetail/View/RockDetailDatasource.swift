@@ -163,8 +163,14 @@ extension RockDetailViewController {
                 nibName: LeadingRegisteredUserCollectionViewCell.className,
                 bundle: nil
             )
-        ) { cell, _, user in
-            cell.configure(user: user)
+        ) { [weak self] cell, _, user in
+
+            guard let self = self else { return }
+
+            cell.configure(
+                user: user,
+                registeredDate: self.viewModel.rockDocument.createdAt
+            )
         }
     }
     
