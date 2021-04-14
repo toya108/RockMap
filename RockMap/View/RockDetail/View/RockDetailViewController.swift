@@ -16,7 +16,7 @@ class RockDetailViewController: UIViewController {
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
 
     var router: RockDetailRouter!
-    private var viewModel: RockDetailViewModel!
+    var viewModel: RockDetailViewModel!
     private var bindings = Set<AnyCancellable>()
 
     static func createInstance(viewModel: RockDetailViewModel) -> RockDetailViewController {
@@ -107,6 +107,24 @@ class RockDetailViewController: UIViewController {
                 guard let self = self else { return }
 
                 self.snapShot.appendItems([.header(reference)], toSection: .header)
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+
+        viewModel.$imageReferences
+            .receive(on: RunLoop.main)
+            .sink { [weak self] references in
+
+                guard let self = self else { return }
+
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .images))
+
+                if references.isEmpty {
+                    self.snapShot.appendItems([.noImage], toSection: .images)
+                } else {
+                    self.snapShot.appendItems(references.map { ItemKind.image($0) }, toSection: .images)
+                }
+
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)

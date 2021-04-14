@@ -185,7 +185,7 @@ extension CourseRegisterViewController {
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(44)
+                        heightDimension: .absolute(52)
                     ),
                     elementKind: sectionType.headerIdentifer,
                     alignment: .top

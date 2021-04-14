@@ -13,12 +13,12 @@ extension CourseDetailViewController {
         
         let layout = UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
             let section: NSCollectionLayoutSection
-            
+
             let sectionType = SectionLayoutKind.allCases[sectionNumber]
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: .init(
                     widthDimension: .fractionalWidth(1),
-                    heightDimension: .absolute(44)
+                    heightDimension: .absolute(52)
                 ),
                 elementKind: sectionType.headerIdentifer,
                 alignment: .top
@@ -97,7 +97,6 @@ extension CourseDetailViewController {
                         subitems: [item]
                     )
                     section = .init(group: group)
-                    section.contentInsets = .init(top: 8, leading: 0, bottom: 8, trailing: 0)
 
                 case .desc:
                     let item = NSCollectionLayoutItem(
@@ -112,6 +111,49 @@ extension CourseDetailViewController {
                     )
                     section = .init(group: group)
 
+                case .images:
+                    let item: NSCollectionLayoutItem
+                    let group: NSCollectionLayoutGroup
+
+                    if
+                        self.snapShot.itemIdentifiers(inSection: .images).count == 1,
+                        self.snapShot.itemIdentifiers(inSection: .images).first == .some(.noImage)
+                    {
+                        item = .init(
+                            layoutSize: .init(
+                                widthDimension: .fractionalWidth(1),
+                                heightDimension: .fractionalHeight(1)
+                            )
+                        )
+                        let collectionViewWidth = self.collectionView.bounds.width - (self.collectionView.layoutMargins.left + self.collectionView.layoutMargins.right)
+                        let height = collectionViewWidth * 9/16
+                        group = NSCollectionLayoutGroup.horizontal(
+                            layoutSize: .init(
+                                widthDimension: .fractionalWidth(1),
+                                heightDimension: .absolute(height)
+                            ),
+                            subitems: [item]
+                        )
+                        section = .init(group: group)
+
+                    } else {
+                        item = .init(
+                            layoutSize: .init(
+                                widthDimension: .fractionalWidth(1/3),
+                                heightDimension: .fractionalWidth(1/3)
+                            )
+                        )
+                        item.contentInsets = .init(top: 2, leading: 2, bottom: 2, trailing: 2)
+                        group = NSCollectionLayoutGroup.horizontal(
+                            layoutSize: .init(
+                                widthDimension: .fractionalWidth(1),
+                                heightDimension: item.layoutSize.heightDimension
+                            ),
+                            subitems: [item]
+                        )
+                        section = .init(group: group)
+                        section.boundarySupplementaryItems = [sectionHeader]
+                    }
             }
             
             if !sectionType.headerIdentifer.isEmpty {
@@ -121,7 +163,6 @@ extension CourseDetailViewController {
             let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundDecorationView.className)
             section.decorationItems = [sectionBackgroundDecoration]
             section.contentInsetsReference = .layoutMargins
-            
             return section
         }
         

@@ -12,7 +12,8 @@ import FirebaseFirestore
 final class CourseDetailViewModel {
     
     @Published var course: FIDocument.Course
-    @Published var courseImageReference: StorageManager.Reference?
+    @Published var courseHeaderImageReference: StorageManager.Reference?
+    @Published var courseImageReferences: [StorageManager.Reference] = []
     @Published var courseName = ""
     @Published var registeredUser: FIDocument.User?
     @Published var registeredDate: Date?
@@ -34,10 +35,6 @@ final class CourseDetailViewModel {
         shape = course.shape
         desc = course.desc
     }
-
-    deinit {
-        
-    }
     
     private func setupBindings() {
         $courseName
@@ -49,7 +46,34 @@ final class CourseDetailViewModel {
             .catch { _ -> Just<StorageManager.Reference?> in
                 return .init(nil)
             }
-            .assign(to: &$courseImageReference)
+            .assign(to: &$courseHeaderImageReference)
+
+        $courseName
+            .drop(while: { $0.isEmpty })
+            .map {
+                StorageManager.makeReference(parent: FINameSpace.Course.self, child: $0)
+            }
+            .flatMap { StorageManager.getNormalImagePrefixes($0) }
+            .catch { _ -> Just<[StorageManager.Reference]> in
+                return .init([])
+            }
+            .sink { prefixes in
+                prefixes
+                    .map { $0.getReferences() }
+                    .forEach {
+                        $0.catch { _ -> Just<[StorageManager.Reference]> in
+                            return .init([])
+                        }
+                        .sink { [weak self] references in
+
+                            guard let self = self else { return }
+
+                            self.courseImageReferences.append(contentsOf: references)
+                        }
+                        .store(in: &self.bindings)
+                    }
+            }
+            .store(in: &bindings)
     }
 
     private func fetchRegisterdUser(reference: DocumentRef) {

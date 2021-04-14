@@ -25,10 +25,10 @@
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xVR-Ze-j64">
-                        <rect key="frame" x="16" y="225.5" width="203" height="69.5"/>
+                        <rect key="frame" x="16" y="225.5" width="187" height="69.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="課題名" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="182-0L-RoO">
-                                <rect key="frame" x="0.0" y="0.0" width="203" height="32"/>
+                                <rect key="frame" x="0.0" y="0.0" width="187" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="BeA-Oi-f1Q"/>
                                 </constraints>
@@ -37,7 +37,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="10級/完投者数 50人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ve-BW-dBI">
-                                <rect key="frame" x="0.0" y="40" width="203" height="29.5"/>
+                                <rect key="frame" x="0.0" y="40" width="187" height="29.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -45,7 +45,7 @@
                         </subviews>
                     </stackView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2yO-As-21p" customClass="UserView" customModule="RockMap" customModuleProvider="target">
-                        <rect key="frame" x="227" y="240.5" width="160" height="40"/>
+                        <rect key="frame" x="211" y="240.5" width="160" height="40"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="160" id="ZIO-52-bWu"/>
@@ -59,7 +59,7 @@
                     <constraint firstAttribute="bottom" secondItem="2ve-BW-dBI" secondAttribute="bottom" constant="8" id="Imy-NZ-MGr"/>
                     <constraint firstItem="2yO-As-21p" firstAttribute="centerY" secondItem="xVR-Ze-j64" secondAttribute="centerY" id="LRz-6x-IhZ"/>
                     <constraint firstItem="2yO-As-21p" firstAttribute="leading" secondItem="xVR-Ze-j64" secondAttribute="trailing" constant="8" id="R6i-yO-Koj"/>
-                    <constraint firstAttribute="trailing" secondItem="2yO-As-21p" secondAttribute="trailing" id="WgJ-Jl-5hH"/>
+                    <constraint firstAttribute="trailing" secondItem="2yO-As-21p" secondAttribute="trailing" constant="16" id="WgJ-Jl-5hH"/>
                     <constraint firstItem="48K-A9-Wof" firstAttribute="top" secondItem="YGm-BO-aDO" secondAttribute="top" id="Za9-Ge-Axq"/>
                     <constraint firstItem="48K-A9-Wof" firstAttribute="leading" secondItem="YGm-BO-aDO" secondAttribute="leading" id="goE-6k-Qly"/>
                     <constraint firstItem="182-0L-RoO" firstAttribute="top" secondItem="48K-A9-Wof" secondAttribute="bottom" constant="8" id="xgp-Dh-dhr"/>
