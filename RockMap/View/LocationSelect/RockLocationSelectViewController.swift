@@ -68,21 +68,19 @@ class RockLocationSelectViewController: UIViewController {
     private func setupBindings() {
         $location
             .removeDuplicates()
-            .sink { location in
-                LocationManager.shared.reverseGeocoding(location: location) { [weak self] result in
-                    guard let self = self else { return }
-                    
-                    switch result {
-                    case .success(let placemark):
-                        self.address = placemark.address
-                        self.prefecture = placemark.prefecture
-                        self.addressLabel.text = "📍 " + placemark.address
-                        
-                    case .failure:
-                        break
-                        
-                    }
-                }
+            .flatMap {
+                LocationManager.shared.reverseGeocoding(location: $0)
+            }
+            .catch { _ -> Just<CLPlacemark> in
+                return .init(.init())
+            }
+            .sink { [weak self] placemark in
+
+                guard let self = self else { return }
+
+                self.address = placemark.address
+                self.prefecture = placemark.prefecture
+                self.addressLabel.text = "📍 " + placemark.address
             }
             .store(in: &bindings)
     }

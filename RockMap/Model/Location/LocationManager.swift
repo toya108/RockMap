@@ -6,6 +6,7 @@
 //
 
 import CoreLocation
+import Combine
 
 final class LocationManager: NSObject {
     
@@ -77,47 +78,59 @@ extension LocationManager: CLLocationManagerDelegate {
     ) {
         locationManager.stopUpdatingLocation()
     }
-    
+
     func reverseGeocoding(
-        location: CLLocation,
-        completion: @escaping (Result<CLPlacemark, ReverseGeocdingError>) -> Void
-    ) {
-        self.geocoder.reverseGeocodeLocation(location) { placemarks, error in
-            if let error = error {
-                completion(.failure(.convertError(error)))
-                return
+        location: CLLocation
+    ) -> AnyPublisher<CLPlacemark, ReverseGeocdingError> {
+
+        Deferred {
+            Future<CLPlacemark, ReverseGeocdingError> { promise in
+                self.geocoder.reverseGeocodeLocation(location) { placemarks, error in
+                    if let error = error {
+                        promise(.failure(.convertError(error)))
+                        return
+                    }
+
+                    guard
+                        let placemark = placemarks?.first
+                    else {
+                        promise(.failure(.noPlacemark))
+                        return
+                    }
+
+                    promise(.success(placemark))
+                }
             }
-            
-            guard
-                let placemark = placemarks?.first
-            else {
-                completion(.failure(.noPlacemark))
-                return
-            }
-            
-            completion(.success(placemark))
         }
+        .eraseToAnyPublisher()
+
     }
-    
+
     func geocoding(
-        address: String,
-        completion: @escaping (Result<CLLocation, GeocodingError>) -> Void
-    ) {
-        self.geocoder.geocodeAddressString(address) { placemarks, error in
-            if let error = error {
-                completion(.failure(.convertError(error)))
-                return
+        address: String
+    ) -> AnyPublisher<CLLocation, GeocodingError> {
+
+        Deferred {
+            Future<CLLocation, GeocodingError> { promise in
+                self.geocoder.geocodeAddressString(address) { placemarks, error in
+                    if let error = error {
+                        promise(.failure(.convertError(error)))
+                        return
+                    }
+
+                    guard
+                        let location = placemarks?.first?.location
+                    else {
+                        promise(.failure(.noPlacemark))
+                        return
+                    }
+
+                    promise(.success(location))
+                }
             }
-            
-            guard
-                let location = placemarks?.first?.location
-            else {
-                completion(.failure(.noPlacemark))
-                return
-            }
-            
-            completion(.success(location))
         }
+        .eraseToAnyPublisher()
+
     }
 }
 

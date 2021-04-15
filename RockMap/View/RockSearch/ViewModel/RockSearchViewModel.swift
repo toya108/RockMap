@@ -25,67 +25,24 @@ class RockSearchViewModel {
 
     private func setupBindings() {
         $location
-            .sink { [weak self] location in
-
-                guard
-                    let self = self,
-                    let location = location
-                else {
-                    return
-                }
-
-                LocationManager.shared.reverseGeocoding(
-                    location: location
-                ) { result in
-                    switch result {
-                        case let .success(placemark):
-                            self.address = placemark.address
-                            
-                        case .failure:
-                            break
-                    }
-                }
+            .compactMap { $0 }
+            .flatMap { LocationManager.shared.reverseGeocoding(location: $0) }
+            .catch { placeMark -> Just<CLPlacemark> in
+                return .init(.init())
             }
-            .store(in: &bindings)
+            .map(\.address)
+            .map { Optional($0) }
+            .assign(to: &$address)
     }
 
     func fetchRockList() {
-        updatePrefectureIfNeeded { [weak self] in
-
-            guard let self = self else { return }
-
-            FirestoreManager.db
-                .collectionGroup(FIDocument.Rock.colletionName)
-                .getDocuments(FIDocument.Rock.self)
-                .catch { error -> Just<[FIDocument.Rock]> in
-                    self.error = error
-                    return .init([])
-                }
-                .assign(to: &self.$rockDocuments)
-        }
-    }
-    
-    private func updatePrefectureIfNeeded(completion: (() -> Void)? = nil) {
-        
-        guard
-            LocationManager.shared.prefecture.isEmpty
-        else {
-            completion?()
-            return
-        }
-        
-        LocationManager.shared.reverseGeocoding(location: LocationManager.shared.location) { result in
-            guard
-                case let .success(placemark) = result
-            else {
-                completion?()
-                return
+        FirestoreManager.db
+            .collectionGroup(FIDocument.Rock.colletionName)
+            .getDocuments(FIDocument.Rock.self)
+            .catch { error -> Just<[FIDocument.Rock]> in
+                self.error = error
+                return .init([])
             }
-            
-            if LocationManager.shared.prefecture == placemark.prefecture { return }
-            
-            LocationManager.shared.prefecture = placemark.prefecture
-            completion?()
-        }
+            .assign(to: &self.$rockDocuments)
     }
 }
