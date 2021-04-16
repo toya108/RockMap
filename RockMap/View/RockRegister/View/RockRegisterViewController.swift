@@ -33,7 +33,7 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupColletionView()
+        setupCollectionView()
         setupPickerManager()
         setupNavigationBar()
         datasource = configureDatasource()
@@ -41,7 +41,7 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
         configureSections()
     }
     
-    private func setupColletionView() {
+    private func setupCollectionView() {
         configureCollectionView()
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
