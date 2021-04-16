@@ -12,7 +12,7 @@ extension CourseConfirmViewController {
     
     func createLayout() -> UICollectionViewCompositionalLayout {
         
-        let layout = UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
+        let layout = UICollectionViewCompositionalLayout { sectionNumber, _ -> NSCollectionLayoutSection in
             
             let section: NSCollectionLayoutSection
             
