@@ -433,4 +433,3 @@ extension RockSearchViewController: RockRegisterDetectableViewControllerProtocol
     }
 
 }
-
