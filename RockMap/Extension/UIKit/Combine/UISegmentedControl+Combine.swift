@@ -20,4 +20,3 @@ public extension UISegmentedControl {
     }
 
 }
-
