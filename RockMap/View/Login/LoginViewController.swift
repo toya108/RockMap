@@ -7,7 +7,6 @@
 
 import UIKit
 import Combine
-import FirebaseUI
 
 final class LoginViewController: UIViewController {
 
@@ -21,56 +20,23 @@ final class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        setupBindings()
     }
     
     @IBAction func didGuestLoginButtonTapped(_ sender: UIButton) {
-        
-        guard
-            AuthManager.isLoggedIn
-        else {
-            
+        if AuthManager.shared.isLoggedIn {
+            presentLogoutAlert()
+        } else {
             UIApplication.shared.windows.first { $0.isKeyWindow }? .rootViewController = MainTabBarController()
-            
-            return
         }
-        
-        guard
-            let userName = AuthManager.currentUser?.displayName
-        else {
-            return
-        }
-        
-        var logoutHandler: (UIAlertAction) -> Void {{ _ in
-            AuthManager.logout { [weak self] result in
-                
-                guard let self = self else { return }
-                
-                switch result {
-                    case .success:
-                        break
-
-                    case .failure(let error):
-                        self.showOKAlert(
-                            title: "ログアウトに失敗しました。",
-                            message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)"
-                        )
-                }
-                
-            }
-        }}
-
-        showAlert(
-            title: "ログアウトしますか？",
-            message: "こちらのユーザーでログイン中です。\n\(userName)",
-            actions: [
-                .init(title: "はい", style: .default, handler: logoutHandler),
-                .init(title: "キャンセル", style: .cancel)
-            ]
-        )
     }
 
     @IBAction func didLoginButtonTapped(_ sender: UIButton) {
-        AuthManager.presentAuthViewController(from: self)
+        if AuthManager.shared.isLoggedIn {
+            UIApplication.shared.windows.first { $0.isKeyWindow }? .rootViewController = MainTabBarController()
+        } else {
+            AuthManager.shared.presentAuthViewController(from: self)
+        }
     }
     
     private func setupLayout() {
@@ -86,44 +52,9 @@ final class LoginViewController: UIViewController {
         loginButton.layer.cornerRadius = Resources.Const.UI.View.radius
         guestLoginButton.layer.cornerRadius = Resources.Const.UI.View.radius
     }
-}
 
-extension LoginViewController: FUIAuthDelegate {
-
-    // User: https://firebase.google.com/docs/reference/swift/firebaseauth/api/reference/Protocols/UserInfo
-    public func authUI(
-        _ authUI: FUIAuth,
-        didSignInWith user: User?,
-        error: Error?
-    ) {
-        if let error = error {
-            let nsError = error as NSError
-            
-            // Cancel
-            if nsError.code == 1 { return }
-            
-            self.showOKAlert(title: "認証に失敗しました。", message: error.localizedDescription)
-            return
-        }
-        
-        guard let user = user else {
-            self.showOKAlert(title: "認証に失敗しました。", message: "通信環境をご確認の上再度お試しください。")
-            return
-        }
-        
-        showIndicatorView()
-
-        let userDocument = FIDocument.User(
-            id: user.uid,
-            createdAt: user.metadata.creationDate ?? Date(),
-            updatedAt: nil,
-            name: user.displayName ?? "-",
-            email: user.email,
-            photoURL: user.photoURL
-        )
-
-        userDocument.makeDocumentReference()
-            .setData(from: userDocument)
+    private func setupBindings() {
+        AuthManager.shared.loginFinishedPublisher
             .sink(
                 receiveCompletion: { [weak self] result in
 
@@ -134,32 +65,60 @@ extension LoginViewController: FUIAuthDelegate {
                             UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = MainTabBarController()
 
                         case .failure(let error):
-                            self.hideIndicatorView()
                             self.showOKAlert(title: "認証に失敗しました。", message: error.localizedDescription)
-                            
+
                     }
-                },
-                receiveValue: {}
+                }, receiveValue: {}
             )
             .store(in: &bindings)
     }
 
-    func authPickerViewController(
-        forAuthUI authUI: FUIAuth
-    ) -> FUIAuthPickerViewController {
-        return FUICustomAuthPickerViewController(
-            nibName: FUICustomAuthPickerViewController.className,
-            bundle: Bundle.main,
-            authUI: authUI
-        )
-    }
-}
+    private func presentLogoutAlert() {
 
-extension LoginViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(
-        for controller: UIPresentationController,
-        traitCollection: UITraitCollection
-    ) -> UIModalPresentationStyle {
-        return .none
+        var logoutHandler: (UIAlertAction) -> Void {{ [weak self] _ in
+
+            guard let self = self else { return }
+
+            AuthManager.shared.logout()
+                .sink(
+                    receiveCompletion: { [weak self] result in
+
+                        guard let self = self else { return }
+
+                        switch  result {
+                            case .finished:
+                                self.showOKAlert(
+                                    title: "ログアウトしました。"
+                                )
+
+                            case .failure(let error):
+                                self.showOKAlert(
+                                    title: "ログアウトに失敗しました。",
+                                    message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)"
+                                )
+                        }
+                    },
+                    receiveValue: {}
+                )
+                .store(in: &self.bindings)
+        }}
+
+        let message: String = {
+            guard
+                let userName = AuthManager.shared.currentUser?.displayName
+            else {
+                return ""
+            }
+            return "既にこちらのユーザーとしてログイン中です。\n\(userName)"
+        }()
+
+        showAlert(
+            title: "ログアウトしますか？",
+            message: message,
+            actions: [
+                .init(title: "はい", style: .default, handler: logoutHandler),
+                .init(title: "キャンセル", style: .cancel)
+            ]
+        )
     }
 }
