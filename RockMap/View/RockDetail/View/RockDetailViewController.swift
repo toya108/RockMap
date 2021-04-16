@@ -59,8 +59,6 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
                 )
             }
         )
-        courseCreationButton.setTitle("課題登録", for: .normal)
-        courseCreationButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         courseCreationButton.setImage(UIImage.SystemImages.plusCircle, for: .normal)
         courseCreationButton.setTitleColor(UIColor.Pallete.primaryGreen, for: .normal)
         courseCreationButton.tintColor = UIColor.Pallete.primaryGreen
@@ -86,6 +84,16 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
             .map { Optional($0) }
             .receive(on: RunLoop.main)
             .assign(to: \UINavigationItem.title, on: navigationItem)
+            .store(in: &bindings)
+
+        viewModel.$rockName
+            .receive(on: RunLoop.main)
+            .sink { [weak self] title in
+                guard let self = self else { return }
+
+                self.snapShot.appendItems([.title(title)], toSection: .title)
+                self.datasource.apply(self.snapShot)
+            }
             .store(in: &bindings)
         
         viewModel.$headerImageReference

@@ -32,6 +32,7 @@ extension RockRegisterViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
+                section.contentInsets = .init(top: 16, leading: 16, bottom: 16, trailing: 16)
                 
             case .desc:
                 let item = NSCollectionLayoutItem(
@@ -48,7 +49,7 @@ extension RockRegisterViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
-                
+
             case .location:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
@@ -64,7 +65,7 @@ extension RockRegisterViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
-                
+
             case .images:
                 
                 let item: NSCollectionLayoutItem
@@ -141,7 +142,7 @@ extension RockRegisterViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
-                
+
             case .lithology:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(

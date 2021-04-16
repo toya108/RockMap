@@ -43,7 +43,21 @@ extension RockDetailViewController {
                 )
                 section = .init(group: group)
                 return section
-                
+
+            case .title:
+                let item = NSCollectionLayoutItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .estimated(40)
+                    )
+                )
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: item.layoutSize,
+                    subitems: [item]
+                )
+                section = .init(group: group)
+                section.contentInsets = .init(top: 16, leading: 0, bottom: 16, trailing: 0)
+
             case .registeredUser:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
@@ -51,16 +65,13 @@ extension RockDetailViewController {
                         heightDimension: .estimated(40)
                     )
                 )
-                
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: item.layoutSize,
                     subitems: [item]
                 )
-                
                 section = .init(group: group)
                 section.contentInsets = .init(top: 8, leading: 0, bottom: 8, trailing: 0)
 
-                
             case .desc:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(

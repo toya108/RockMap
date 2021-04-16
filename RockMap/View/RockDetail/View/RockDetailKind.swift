@@ -11,6 +11,7 @@ extension RockDetailViewController {
     
     enum SectionLayoutKind: CaseIterable {
         case header
+        case title
         case registeredUser
         case info
         case courses
@@ -54,6 +55,7 @@ extension RockDetailViewController {
     
     enum ItemKind: Hashable {
         case header(StorageManager.Reference)
+        case title(String)
         case registeredUser(user: FIDocument.User)
         case desc(String)
         case season(Set<FIDocument.Rock.Season>)
