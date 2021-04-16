@@ -62,6 +62,11 @@ final class RockSearchViewController: UIViewController {
         updateLocation(LocationManager.shared.location)
         viewModel.fetchRockList()
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel.locationSelectState = .standby
+    }
     
     private func setupNavigationBar() {
         navigationItem.largeTitleDisplayMode = .never
@@ -115,6 +120,7 @@ final class RockSearchViewController: UIViewController {
     private func setupFloatingPanel() {
         floatingPanelVc.delegate = self
         floatingPanelVc.isRemovalInteractionEnabled = true
+
         let appearence = SurfaceAppearance()
         appearence.cornerRadius = 16
         let shadow = SurfaceAppearance.Shadow()
