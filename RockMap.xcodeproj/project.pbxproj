@@ -128,6 +128,7 @@
 		9EAE72AE25DACFC900C37119 /* TextViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE72AD25DACFC900C37119 /* TextViewCollectionViewCell.swift */; };
 		9EB00BB226295BCD00379182 /* UITextField+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB00BB126295BCD00379182 /* UITextField+Combine.swift */; };
 		9EB00BD42629770200379182 /* CompositionalColectionViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB00BD32629770200379182 /* CompositionalColectionViewControllerProtocol.swift */; };
+		9EB00BDC2629903E00379182 /* RockRegisterDetectableViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB00BDB2629903E00379182 /* RockRegisterDetectableViewControllerProtocol.swift */; };
 		9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6BA66252E00E400553026 /* MainTabBarController.swift */; };
 		9EB6C3B9260F6F8400CDD607 /* RockAnnotationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6C3B8260F6F8400CDD607 /* RockAnnotationsTableViewController.swift */; };
 		9EB6C3C4260F8F0D00CDD607 /* RockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6C3C2260F8F0D00CDD607 /* RockTableViewCell.swift */; };
@@ -324,6 +325,7 @@
 		9EAE72AD25DACFC900C37119 /* TextViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EB00BB126295BCD00379182 /* UITextField+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Combine.swift"; sourceTree = "<group>"; };
 		9EB00BD32629770200379182 /* CompositionalColectionViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalColectionViewControllerProtocol.swift; sourceTree = "<group>"; };
+		9EB00BDB2629903E00379182 /* RockRegisterDetectableViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockRegisterDetectableViewControllerProtocol.swift; sourceTree = "<group>"; };
 		9EB6BA66252E00E400553026 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		9EB6C3B8260F6F8400CDD607 /* RockAnnotationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockAnnotationsTableViewController.swift; sourceTree = "<group>"; };
 		9EB6C3C2260F8F0D00CDD607 /* RockTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockTableViewCell.swift; sourceTree = "<group>"; };
@@ -1040,6 +1042,7 @@
 			isa = PBXGroup;
 			children = (
 				9EB00BD32629770200379182 /* CompositionalColectionViewControllerProtocol.swift */,
+				9EB00BDB2629903E00379182 /* RockRegisterDetectableViewControllerProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1554,6 +1557,7 @@
 				9E845ADA25ADEA6A00EC3BE6 /* Resouces.swift in Sources */,
 				9E9845E225D4FA5300B03C4E /* CourseRegisterKind.swift in Sources */,
 				9EB00BD42629770200379182 /* CompositionalColectionViewControllerProtocol.swift in Sources */,
+				9EB00BDC2629903E00379182 /* RockRegisterDetectableViewControllerProtocol.swift in Sources */,
 				9EBD5A1525F7C998009383F6 /* UICollectionViewCellExtension.swift in Sources */,
 				9E26400525B5C0300088DAFB /* RockSearchViewModel.swift in Sources */,
 				9EEAEDF0260385BA00F5FE19 /* ValueCollectionViewCell.swift in Sources */,

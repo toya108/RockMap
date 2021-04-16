@@ -424,3 +424,13 @@ extension RockSearchViewController: RockAnnotationTableViewDelegate {
     }
 
 }
+
+extension RockSearchViewController: RockRegisterDetectableViewControllerProtocol {
+
+    func didRockRegisterFinished() {
+        viewModel.locationSelectState = .standby
+        viewModel.fetchRockList()
+    }
+
+}
+
