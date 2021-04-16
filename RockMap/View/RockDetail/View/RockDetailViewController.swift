@@ -29,7 +29,7 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureCollectionView()
+        setupCollectionView()
         setupNavigationBar()
         bindViewToViewModel()
         configureSections()
