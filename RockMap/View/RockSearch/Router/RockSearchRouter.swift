@@ -17,7 +17,7 @@ struct RockSeachRouter: RouterProtocol {
         case rockRegister(CLLocation)
     }
 
-    private weak var viewModel: RockSearchViewModel?
+    private weak var viewModel: RockSearchViewModel!
 
     init(viewModel: RockSearchViewModel) {
         self.viewModel = viewModel

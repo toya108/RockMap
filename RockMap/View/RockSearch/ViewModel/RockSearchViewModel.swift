@@ -27,7 +27,7 @@ class RockSearchViewModel {
         $location
             .compactMap { $0 }
             .flatMap { LocationManager.shared.reverseGeocoding(location: $0) }
-            .catch { placeMark -> Just<CLPlacemark> in
+            .catch { _ -> Just<CLPlacemark> in
                 return .init(.init())
             }
             .map(\.address)
