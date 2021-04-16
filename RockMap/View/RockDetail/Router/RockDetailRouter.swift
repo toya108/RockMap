@@ -50,6 +50,13 @@ struct RockDetailRouter: RouterProtocol {
     private func presentCourseRegister(_ from: UIViewController) {
 
         guard
+            AuthManager.shared.isLoggedIn
+        else {
+            from.showNeedsLoginAlert(message: "課題を登録するにはログインが必要です。ログインして登録を続けますか？")
+            return
+        }
+
+        guard
             let viewModel = self.viewModel,
             let headerImageReference = viewModel.headerImageReference
         else {

@@ -76,7 +76,7 @@ extension UIViewController {
     
     func showOKAlert(
         title: String,
-        message: String
+        message: String = ""
     ) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default)
@@ -102,7 +102,7 @@ extension UIViewController {
     
     func showNeedsLoginAlert(message: String) {
         
-        if AuthManager.isLoggedIn { return }
+        if AuthManager.shared.isLoggedIn { return }
 
         showAlert(
             title: "ログインが必要です。",
@@ -112,7 +112,7 @@ extension UIViewController {
 
                     guard let self = self else { return }
 
-                    AuthManager.presentAuthViewController(from: self)
+                    AuthManager.shared.presentAuthViewController(from: self)
 
                 },
                 .init(title: "Cancel", style: .cancel)

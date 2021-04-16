@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import Combine
 
 class DebugViewController: UIViewController {
     
     private lazy var tableView: UITableView = UITableView()
-    
+    private var bindings = Set<AnyCancellable>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,21 +68,20 @@ extension DebugViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch cellType {
         case .logout:
-            AuthManager.logout { result in
-                switch result {
-                case .success:
+            AuthManager.shared.logout()
+                .catch { _ -> Just<Void> in
+                    return .init(())
+                }
+                .sink {
                     guard
                         let vc = UIStoryboard(name: LoginViewController.className, bundle: nil).instantiateInitialViewController()
                     else {
                         return
                     }
-                    
-                    UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController = vc
 
-                case .failure(let error):
-                    showOKAlert(title: "エラー", message: "ログアウトに失敗しました。\(error.localizedDescription)")
+                    UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController = vc
                 }
-            }
+                .store(in: &bindings)
         }
         
     }

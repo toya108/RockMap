@@ -55,6 +55,13 @@ struct RockSeachRouter: RouterProtocol {
         _ from: UIViewController,
         location: CLLocation
     ) {
+        guard
+            AuthManager.shared.isLoggedIn
+        else {
+            from.showNeedsLoginAlert(message: "岩情報を登録するにはログインが必要です。ログインして登録を続けますか？")
+            return
+        }
+
         let rockRegisterViewModel = RockRegisterViewModel(location: location)
         let registerVc = RockRegisterViewController.createInstance(viewModel: rockRegisterViewModel)
         let vc = RockMapNavigationController(

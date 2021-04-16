@@ -39,9 +39,9 @@ struct CourseDetailRouter: RouterProtocol {
     private func presentRegisterClimbedBottomSheet(_ from: UIViewController) {
 
         guard
-            AuthManager.isLoggedIn
+            AuthManager.shared.isLoggedIn
         else {
-            from.showNeedsLoginAlert(message: "完登を記録するにはログインが必要です。")
+            from.showNeedsLoginAlert(message: "完登を記録するにはログインが必要です。ログインして完登を記録しますか？")
             return
         }
 

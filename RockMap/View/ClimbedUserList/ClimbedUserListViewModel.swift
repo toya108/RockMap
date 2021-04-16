@@ -65,7 +65,7 @@ class ClimbedUserListViewModel {
                     return .init(
                         climbed: climbed,
                         user: user,
-                        isOwned: user.id == AuthManager.uid
+                        isOwned: user.id == AuthManager.shared.uid
                     )
                 }
             }
