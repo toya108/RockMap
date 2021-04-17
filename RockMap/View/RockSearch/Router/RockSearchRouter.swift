@@ -17,7 +17,7 @@ struct RockSeachRouter: RouterProtocol {
         case rockRegister(CLLocation)
     }
 
-    private weak var viewModel: RockSearchViewModel?
+    private weak var viewModel: RockSearchViewModel!
 
     init(viewModel: RockSearchViewModel) {
         self.viewModel = viewModel
@@ -55,6 +55,13 @@ struct RockSeachRouter: RouterProtocol {
         _ from: UIViewController,
         location: CLLocation
     ) {
+        guard
+            AuthManager.shared.isLoggedIn
+        else {
+            from.showNeedsLoginAlert(message: "岩情報を登録するにはログインが必要です。ログインして登録を続けますか？")
+            return
+        }
+
         let rockRegisterViewModel = RockRegisterViewModel(location: location)
         let registerVc = RockRegisterViewController.createInstance(viewModel: rockRegisterViewModel)
         let vc = RockMapNavigationController(

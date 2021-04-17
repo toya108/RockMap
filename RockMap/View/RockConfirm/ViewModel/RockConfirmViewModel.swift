@@ -75,7 +75,7 @@ final class RockConfirmViewModel {
         rockUploadState = .loading
 
         let rockDocument = FIDocument.Rock(
-            parentPath: AuthManager.getAuthUserReference().path,
+            parentPath: AuthManager.shared.authUserReference.path,
             name: rockName,
             address: rockLocation.address,
             prefecture: rockLocation.prefecture,
@@ -86,7 +86,7 @@ final class RockConfirmViewModel {
             seasons: seasons,
             lithology: lithology,
             desc: rockDesc,
-            registeredUserReference: AuthManager.getAuthUserReference()
+            registeredUserReference: AuthManager.shared.authUserReference
         )
 
         rockDocument.makeDocumentReference()

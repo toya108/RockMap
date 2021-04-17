@@ -48,7 +48,7 @@ struct StorageManager {
             .child(parent.name)
             .child(child)
             .child(ImageType.normal.typeName)
-            .child(AuthManager.uid)
+            .child(AuthManager.shared.uid)
             .child(UUID().uuidString)
     }
 

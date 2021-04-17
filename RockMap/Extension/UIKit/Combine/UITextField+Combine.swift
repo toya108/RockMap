@@ -1,8 +1,8 @@
 //
-//  UITextFieldExtension.swift
+//  UITextField+Combine.swift
 //  RockMap
 //
-//  Created by TOUYA KAWANO on 2020/10/30.
+//  Created by TOUYA KAWANO on 2021/04/16.
 //
 
 import UIKit
@@ -17,7 +17,7 @@ extension UITextField {
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
-    
+
     func setText(text: String) {
         self.text = text
         NotificationCenter.default.post(name: UITextField.textDidChangeNotification, object: self)

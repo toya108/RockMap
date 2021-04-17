@@ -119,7 +119,7 @@ final class CourseDetailViewModel {
             parentPath: course.makeDocumentReference().path,
             climbedDate: climbedDate,
             type: type,
-            climbedUserId: AuthManager.uid
+            climbedUserId: AuthManager.shared.uid
         )
         badge.setData(climbed.dictionary, forDocument: climbed.makeDocumentReference())
 

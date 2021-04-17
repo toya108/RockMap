@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-class CourseConfirmViewController: UIViewController {
+class CourseConfirmViewController: UIViewController, CompositionalColectionViewControllerProtocol {
 
     var collectionView: UICollectionView!
     var viewModel: CourseConfirmViewModel!
@@ -30,7 +30,7 @@ class CourseConfirmViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupColletionView()
+        setupCollectionView()
         setupNavigationBar()
         bindViewModelToView()
         datasource = configureDatasource()
@@ -98,17 +98,8 @@ class CourseConfirmViewController: UIViewController {
             .store(in: &bindings)
     }
     
-    private func setupColletionView() {
-        collectionView = .init(frame: .zero, collectionViewLayout: createLayout())
-        collectionView.backgroundColor = .systemBackground
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
+    private func setupCollectionView() {
+        configureCollectionView()
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
     }

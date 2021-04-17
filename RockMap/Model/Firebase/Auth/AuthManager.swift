@@ -9,38 +9,41 @@ import FirebaseUI
 import Firebase
 import Combine
 
-struct AuthManager {
-    
-    static let authUI: FUIAuth? = {
-        let authUI = FUIAuth.defaultAuthUI()
-        authUI?.providers = providers
-        return authUI
-    }()
-    
-    static var isLoggedIn: Bool {
-        Self.currentUser != nil
+class AuthManager: NSObject {
+
+    static let shared = AuthManager()
+    private var bindings = Set<AnyCancellable>()
+
+    private override init() {
+        super.init()
+        authUI?.delegate = self
     }
     
-    static var currentUser: User? {
+    let authUI: FUIAuth? = {
+        let authUI = FUIAuth.defaultAuthUI()
+        authUI?.providers = [
+            FUIGoogleAuth(),
+            FUIFacebookAuth(),
+            FUIEmailAuth()
+        ]
+        return authUI
+    }()
+
+    let loginFinishedPublisher: PassthroughSubject<Void, Error> = .init()
+    
+    var isLoggedIn: Bool {
+        currentUser != nil
+    }
+    
+    var currentUser: User? {
         Firebase.Auth.auth().currentUser
     }
     
-    static var uid: String {
-        Self.currentUser?.uid ?? ""
+    var uid: String {
+        currentUser?.uid ?? ""
     }
 
-    static func getAuthUserReference() -> DocumentReference {
-        return FirestoreManager.db.collection(FIDocument.User.colletionName).document(uid)
-    }
-    
-    static func setDelegate(destination: UIViewController) {
-        authUI?.delegate = destination as? FUIAuthDelegate
-    }
-    
-    static func presentAuthViewController(from: UIViewController) {
-        
-        authUI?.delegate = from as? FUIAuthDelegate
-        
+    func presentAuthViewController(from: UIViewController) {
         guard
             let authViewController = authUI?.authViewController().viewControllers.first
         else {
@@ -53,20 +56,88 @@ struct AuthManager {
         from.present(vc, animated: true)
     }
     
-    static func logout(completion: (Result<Void, Error>) -> Void) {
-        do {
-            try authUI?.signOut()
-            completion(.success(()))
-        } catch {
-            completion(.failure(error))
+    func logout() -> AnyPublisher<Void, Error> {
+        Deferred {
+            Future<Void, Error> { [weak self] promise in
+                do {
+                    try self?.authUI?.signOut()
+                    promise(.success(()))
+                } catch {
+                    promise(.failure(error))
+                }
+            }
         }
+        .eraseToAnyPublisher()
     }
-    
-    private static let providers: [FUIAuthProvider] = {
-        return [
-            FUIGoogleAuth(),
-            FUIFacebookAuth(),
-            FUIEmailAuth()
-        ]
-    }()
+
+    var authUserReference: DocumentReference {
+        FirestoreManager.db.collection(FIDocument.User.colletionName).document(uid)
+    }
+
+}
+
+extension AuthManager: FUIAuthDelegate {
+
+    func authUI(
+        _ authUI: FUIAuth,
+        didSignInWith authDataResult: AuthDataResult?,
+        error: Error?
+    ) {
+        if let error = error {
+            loginFinishedPublisher.send(completion: .failure(error))
+            return
+        }
+
+        guard
+            let user = authDataResult?.user
+        else {
+            loginFinishedPublisher.send(completion: .failure(AuthError.noUser))
+            return
+        }
+
+        let userDocument = FIDocument.User(
+            id: user.uid,
+            createdAt: user.metadata.creationDate ?? Date(),
+            updatedAt: nil,
+            name: user.displayName ?? "-",
+            email: user.email,
+            photoURL: user.photoURL
+        )
+
+        userDocument.makeDocumentReference()
+            .setData(from: userDocument)
+            .sink(
+                receiveCompletion: { [weak self] result in
+
+                    guard let self = self else { return }
+
+                    switch result {
+                        case .finished:
+                            self.loginFinishedPublisher.send(completion: .finished)
+
+                        case .failure(let error):
+                            self.loginFinishedPublisher.send(completion: .failure(error))
+
+                    }
+                },
+                receiveValue: {}
+            )
+            .store(in: &bindings)
+
+    }
+
+    func authPickerViewController(
+        forAuthUI authUI: FUIAuth
+    ) -> FUIAuthPickerViewController {
+        return FUICustomAuthPickerViewController(
+            nibName: FUICustomAuthPickerViewController.className,
+            bundle: Bundle.main,
+            authUI: authUI
+        )
+    }
+
+}
+
+enum AuthError: LocalizedError {
+    case noUser
 }

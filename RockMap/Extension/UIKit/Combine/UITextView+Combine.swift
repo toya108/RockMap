@@ -1,5 +1,5 @@
 //
-//  UITextViewExtension.swift
+//  UITextView+Combine.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2020/11/03.

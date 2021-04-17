@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import PhotosUI
 
-class RockRegisterViewController: UIViewController {
+class RockRegisterViewController: UIViewController, CompositionalColectionViewControllerProtocol {
 
     var collectionView: UICollectionView!
     var viewModel: RockRegisterViewModel!
@@ -33,7 +33,7 @@ class RockRegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupColletionView()
+        setupCollectionView()
         setupPickerManager()
         setupNavigationBar()
         datasource = configureDatasource()
@@ -41,18 +41,8 @@ class RockRegisterViewController: UIViewController {
         configureSections()
     }
     
-    private func setupColletionView() {
-        collectionView = .init(frame: .zero, collectionViewLayout: createLayout())
-        collectionView.backgroundColor = .systemBackground
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
-        collectionView.delegate = self
+    private func setupCollectionView() {
+        configureCollectionView()
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
     }
@@ -267,6 +257,35 @@ class RockRegisterViewController: UIViewController {
     }
 }
 
+extension RockRegisterViewController {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        guard
+            let item = datasource.itemIdentifier(for: indexPath)
+        else {
+            return
+        }
+
+        switch item {
+            case let .season(season, _):
+
+                if viewModel.seasons.contains(season) {
+                    viewModel.seasons.remove(season)
+                } else {
+                    viewModel.seasons.insert(season)
+                }
+
+            default:
+                break
+        }
+    }
+}
+
 extension RockRegisterViewController: PickerManagerDelegate {
 
     func beganResultHandling() {
@@ -277,33 +296,4 @@ extension RockRegisterViewController: PickerManagerDelegate {
         viewModel.set(data: [.init(data: data)], for: imageType)
     }
 
-}
-
-extension RockRegisterViewController: UICollectionViewDelegate {
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        view.endEditing(true)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        guard
-            let item = datasource.itemIdentifier(for: indexPath)
-        else {
-            return
-        }
-        
-        switch item {
-        case let .season(season, _):
-            
-            if viewModel.seasons.contains(season) {
-                viewModel.seasons.remove(season)
-            } else {
-                viewModel.seasons.insert(season)
-            }
-            
-        default:
-            break
-        }
-    }
 }

@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import PhotosUI
 
-class CourseRegisterViewController: UIViewController {
+class CourseRegisterViewController: UIViewController, CompositionalColectionViewControllerProtocol {
     
     var collectionView: UICollectionView!
     var viewModel: CourseRegisterViewModel!
@@ -33,7 +33,7 @@ class CourseRegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupColletionView()
+        setupCollectionView()
         setupPickerManager()
         setupNavigationBar()
         bindViewModelToView()
@@ -41,18 +41,8 @@ class CourseRegisterViewController: UIViewController {
         configureSections()
     }
     
-    private func setupColletionView() {
-        collectionView = .init(frame: .zero, collectionViewLayout: createLayout())
-        collectionView.backgroundColor = .systemBackground
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
-        collectionView.delegate = self
+    private func setupCollectionView() {
+        configureCollectionView()
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
     }

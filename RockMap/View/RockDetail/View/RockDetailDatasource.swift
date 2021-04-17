@@ -25,6 +25,13 @@ extension RockDetailViewController {
                         item: referece
                     )
 
+                case let .title(title):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureTitleCell(),
+                        for: indexPath,
+                        item: title
+                    )
+
                 case let .registeredUser(user):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureRegisteredUserCell(),
@@ -151,6 +158,15 @@ extension RockDetailViewController {
             cell.imageView.loadImage(reference: reference)
             cell.clipsToBounds = true
             cell.layer.cornerRadius = radius
+        }
+    }
+
+    private func configureTitleCell() -> UICollectionView.CellRegistration<
+        TitleCollectionViewCell,
+        String
+    > {
+        .init { cell, _, title in
+            cell.configure(title: title)
         }
     }
     

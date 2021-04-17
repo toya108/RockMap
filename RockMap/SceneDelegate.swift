@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
 
         var initialViewController: UIViewController {
-            if AuthManager.isLoggedIn {
+            if AuthManager.shared.isLoggedIn {
                 return MainTabBarController()
 
             } else {

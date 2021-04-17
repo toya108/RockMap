@@ -40,25 +40,32 @@ final class RockRegisterViewModel {
         
         $rockLocation
             .removeDuplicates()
-            .sink { locationStructure in
-                LocationManager.shared.reverseGeocoding(location: locationStructure.location) { [weak self] result in
-                    
-                    guard let self = self else { return }
-                    
-                    switch result {
-                    case .success(let placemark):
-                        self.rockLocation.address = placemark.address
-                        self.rockLocation.prefecture = placemark.prefecture
-                        
-                    case .failure(let error):
-                        print(error.localizedDescription)
-                        self.rockAddressValidationResult = .invalid(.cannotConvertLocationToAddrress)
-                        
-                    }
-                }
+            .map(\.location)
+            .flatMap {
+                LocationManager.shared.reverseGeocoding(location: $0)
             }
+            .sink(
+                receiveCompletion: { [weak self] result in
+
+                    guard let self = self else { return }
+
+                    switch result {
+                        case .finished: break
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                            self.rockAddressValidationResult = .invalid(.cannotConvertLocationToAddrress)
+                    }
+
+                }, receiveValue: { [weak self] placemark in
+
+                    guard let self = self else { return }
+
+                    self.rockLocation.address = placemark.address
+                    self.rockLocation.prefecture = placemark.prefecture
+                }
+            )
             .store(in: &bindings)
-        
+
         $rockLocation
             .dropFirst()
             .removeDuplicates()

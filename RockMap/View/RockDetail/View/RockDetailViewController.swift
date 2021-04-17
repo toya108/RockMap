@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import MapKit
 
-class RockDetailViewController: UIViewController {
+class RockDetailViewController: UIViewController, CompositionalColectionViewControllerProtocol {
     
     var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
@@ -28,28 +28,11 @@ class RockDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+
         setupCollectionView()
         setupNavigationBar()
-        datasource = configureDatasource()
         bindViewToViewModel()
         configureSections()
-    }
-    
-    private func setupCollectionView() {
-        collectionView = .init(frame: .zero, collectionViewLayout: createLayout())
-        collectionView.backgroundColor = .systemBackground
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
-        collectionView.delegate = self
-        collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
-        collectionView.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
     }
     
     private func setupNavigationBar() {
@@ -76,8 +59,6 @@ class RockDetailViewController: UIViewController {
                 )
             }
         )
-        courseCreationButton.setTitle("課題登録", for: .normal)
-        courseCreationButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         courseCreationButton.setImage(UIImage.SystemImages.plusCircle, for: .normal)
         courseCreationButton.setTitleColor(UIColor.Pallete.primaryGreen, for: .normal)
         courseCreationButton.tintColor = UIColor.Pallete.primaryGreen
@@ -86,7 +67,13 @@ class RockDetailViewController: UIViewController {
             animated: false
         )
     }
-    
+
+    private func setupCollectionView() {
+        configureCollectionView()
+        collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
+        collectionView.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
+    }
+
     private func configureSections() {
         snapShot.appendSections(SectionLayoutKind.allCases)
         datasource.apply(snapShot)
@@ -97,6 +84,16 @@ class RockDetailViewController: UIViewController {
             .map { Optional($0) }
             .receive(on: RunLoop.main)
             .assign(to: \UINavigationItem.title, on: navigationItem)
+            .store(in: &bindings)
+
+        viewModel.$rockName
+            .receive(on: RunLoop.main)
+            .sink { [weak self] title in
+                guard let self = self else { return }
+
+                self.snapShot.appendItems([.title(title)], toSection: .title)
+                self.datasource.apply(self.snapShot)
+            }
             .store(in: &bindings)
         
         viewModel.$headerImageReference

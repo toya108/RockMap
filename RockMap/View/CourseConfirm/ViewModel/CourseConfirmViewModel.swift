@@ -85,7 +85,7 @@ class CourseConfirmViewModel {
             desc: desc,
             grade: grade,
             shape: shape,
-            registedUserReference: AuthManager.getAuthUserReference()
+            registedUserReference: AuthManager.shared.authUserReference
         )
         let courseDocumentReference = course.makeDocumentReference()
         badge.setData(course.dictionary, forDocument: courseDocumentReference)

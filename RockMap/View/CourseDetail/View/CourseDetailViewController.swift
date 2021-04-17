@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class CourseDetailViewController: UIViewController {
+class CourseDetailViewController: UIViewController, CompositionalColectionViewControllerProtocol {
     
     var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
@@ -40,17 +40,7 @@ class CourseDetailViewController: UIViewController {
     }
     
     private func setupCollectionView() {
-        collectionView = .init(frame: .zero, collectionViewLayout: createLayout())
-        collectionView.delegate = self
-        collectionView.backgroundColor = .systemBackground
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(collectionView)
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
-        ])
+        configureCollectionView()
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
     }
