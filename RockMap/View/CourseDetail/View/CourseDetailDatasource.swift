@@ -32,6 +32,13 @@ extension CourseDetailViewController {
                         item: Dummy()
                     )
 
+                case .title:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureTitleCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
+
                 case .registeredUser:
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureUserCell(),
@@ -164,6 +171,21 @@ extension CourseDetailViewController {
             )
         }
     }
+
+    private func configureTitleCell() -> UICollectionView.CellRegistration<
+        TitleCollectionViewCell,
+        Dummy
+    > {
+        .init { [weak self] cell, _, _ in
+
+            guard let self = self else { return }
+
+            cell.configure(
+                title: self.viewModel.courseName,
+                supplementalyTitle: self.viewModel.course.grade.name
+            )
+        }
+    }
     
     private func configureUserCell() -> UICollectionView.CellRegistration<
         LeadingRegisteredUserCollectionViewCell,
@@ -233,7 +255,7 @@ extension CourseDetailViewController {
         NoImageCollectionViewCell,
         Dummy
     > {
-        .init { cell, _, _ in }
+        .init { _, _, _ in }
     }
 
 }

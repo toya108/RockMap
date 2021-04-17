@@ -12,6 +12,7 @@ extension CourseDetailViewController {
     enum SectionLayoutKind: CaseIterable {
         case headerImage
         case buttons
+        case title
         case registeredUser
         case climbedNumber
         case info
@@ -54,6 +55,9 @@ extension CourseDetailViewController {
                 case .buttons:
                     return [.buttons]
 
+                case .title:
+                    return [.title]
+                    
                 case .registeredUser:
                     return [.registeredUser]
 
@@ -70,6 +74,7 @@ extension CourseDetailViewController {
     enum ItemKind: Hashable {
         case headerImage(StorageManager.Reference)
         case buttons
+        case title
         case registeredUser
         case climbedNumber
         case shape(Set<FIDocument.Course.Shape>)

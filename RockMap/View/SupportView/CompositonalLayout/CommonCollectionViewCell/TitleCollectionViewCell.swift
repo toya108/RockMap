@@ -37,8 +37,11 @@ class TitleCollectionViewCell: UICollectionViewCell {
         ])
 
         titleLabel.font = .systemFont(ofSize: 24, weight: .bold)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(titleLabel)
+        titleLabel.setContentHuggingPriority(.required, for: .horizontal)
+
+        supplementalyLabel.font = .systemFont(ofSize: 24, weight: .bold)
+        stackView.addArrangedSubview(supplementalyLabel)
     }
 
     func configure(
@@ -46,5 +49,6 @@ class TitleCollectionViewCell: UICollectionViewCell {
         supplementalyTitle: String = ""
     ) {
         titleLabel.text = title
+        supplementalyLabel.text = supplementalyTitle
     }
 }
