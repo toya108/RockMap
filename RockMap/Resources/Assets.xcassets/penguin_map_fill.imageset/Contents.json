@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "名称未設定のアートワーク 3.pdf",
-      "idiom" : "universal"
+      "filename" : "名称未設定のアートワーク 8-圧縮済み-圧縮済み-圧縮-1.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "名称未設定のアートワーク 8-圧縮済み-圧縮済み-圧縮.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "名称未設定のアートワーク 8-圧縮済み-圧縮済み-圧縮-2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {
