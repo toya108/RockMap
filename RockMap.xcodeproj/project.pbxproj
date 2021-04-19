@@ -94,6 +94,9 @@
 		9E807CAD254CFD250091935F /* MyPageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E807CAC254CFD250091935F /* MyPageViewController.storyboard */; };
 		9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */; };
 		9E807CC6254D00310091935F /* ScreenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CC5254D00310091935F /* ScreenType.swift */; };
+		9E810722262DA3640025359C /* MyPageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E810721262DA3640025359C /* MyPageLayout.swift */; };
+		9E81072A262DA3700025359C /* MyPageKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E810729262DA3700025359C /* MyPageKind.swift */; };
+		9E81072F262DA37F0025359C /* MyPageDatasourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81072E262DA37F0025359C /* MyPageDatasourse.swift */; };
 		9E83EEBB25FB4D00002392AA /* IconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E83EEBA25FB4D00002392AA /* IconCollectionViewCell.swift */; };
 		9E83EEC625FCA856002392AA /* SegmentedControllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E83EEC525FCA856002392AA /* SegmentedControllCollectionViewCell.swift */; };
 		9E845ADA25ADEA6A00EC3BE6 /* Resouces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E845AD925ADEA6A00EC3BE6 /* Resouces.swift */; };
@@ -292,6 +295,9 @@
 		9E807CAC254CFD250091935F /* MyPageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPageViewController.storyboard; sourceTree = "<group>"; };
 		9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectProtocolExtension.swift; sourceTree = "<group>"; };
 		9E807CC5254D00310091935F /* ScreenType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenType.swift; sourceTree = "<group>"; };
+		9E810721262DA3640025359C /* MyPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageLayout.swift; sourceTree = "<group>"; };
+		9E810729262DA3700025359C /* MyPageKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageKind.swift; sourceTree = "<group>"; };
+		9E81072E262DA37F0025359C /* MyPageDatasourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDatasourse.swift; sourceTree = "<group>"; };
 		9E83EEBA25FB4D00002392AA /* IconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E83EEC525FCA856002392AA /* SegmentedControllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControllCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E845AD925ADEA6A00EC3BE6 /* Resouces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resouces.swift; sourceTree = "<group>"; };
@@ -892,8 +898,9 @@
 		9E807CA3254CFCF50091935F /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				9E807CA7254CFD150091935F /* MyPageViewController.swift */,
-				9E807CAC254CFD250091935F /* MyPageViewController.storyboard */,
+				9E810720262DA3180025359C /* Router */,
+				9E81071F262DA3120025359C /* ViewModel */,
+				9E81071E262DA30B0025359C /* View */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -916,6 +923,32 @@
 				9E2DA75625F91B47008F339E /* Cells */,
 			);
 			path = RockRegister;
+			sourceTree = "<group>";
+		};
+		9E81071E262DA30B0025359C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9E807CA7254CFD150091935F /* MyPageViewController.swift */,
+				9E810721262DA3640025359C /* MyPageLayout.swift */,
+				9E810729262DA3700025359C /* MyPageKind.swift */,
+				9E81072E262DA37F0025359C /* MyPageDatasourse.swift */,
+				9E807CAC254CFD250091935F /* MyPageViewController.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9E81071F262DA3120025359C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9E810720262DA3180025359C /* Router */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		9E845AD425ADEA3300EC3BE6 /* Const */ = {
@@ -1563,6 +1596,7 @@
 				9EB00BDC2629903E00379182 /* RockRegisterDetectableViewControllerProtocol.swift in Sources */,
 				9EBD5A1525F7C998009383F6 /* UICollectionViewCellExtension.swift in Sources */,
 				9E26400525B5C0300088DAFB /* RockSearchViewModel.swift in Sources */,
+				9E810722262DA3640025359C /* MyPageLayout.swift in Sources */,
 				9EEAEDF0260385BA00F5FE19 /* ValueCollectionViewCell.swift in Sources */,
 				9EF8E2B125EF6B8F00185A3D /* CourseConfirmViewModel.swift in Sources */,
 				9E0BE3D92607949E00576869 /* ClimbedNumberCollectionViewCell.swift in Sources */,
@@ -1668,9 +1702,11 @@
 				9EA32A4925FA77EE00FB0C75 /* RockConfirmLayout.swift in Sources */,
 				9EA32A4E25FA77F700FB0C75 /* RockConfirmKind.swift in Sources */,
 				9E0BE38B2605ACB200576869 /* UserDefaultsStorage.swift in Sources */,
+				9E81072F262DA37F0025359C /* MyPageDatasourse.swift in Sources */,
 				9E60DCB52557148A000CF2E8 /* RockLocationSelectViewController.swift in Sources */,
 				9EB6C3C4260F8F0D00CDD607 /* RockTableViewCell.swift in Sources */,
 				9E9845EF25D5278C00B03C4E /* CourseRegisterDatasource.swift in Sources */,
+				9E81072A262DA3700025359C /* MyPageKind.swift in Sources */,
 				9E9B3894262125D6001A39A9 /* Query+Combine.swift in Sources */,
 				9E2D0F1725D6E4B100652171 /* TextFieldColletionViewCell.swift in Sources */,
 				9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */,
