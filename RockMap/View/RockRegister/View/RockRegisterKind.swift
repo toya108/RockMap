@@ -26,7 +26,7 @@ extension RockRegisterViewController {
                 return "岩名"
                 
             case .desc:
-                return "岩の説明"
+                return "詳細"
                 
             case .location:
                 return "住所"
