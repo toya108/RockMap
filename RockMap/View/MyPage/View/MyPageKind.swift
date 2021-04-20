@@ -10,13 +10,10 @@ import Foundation
 extension MyPageViewController {
 
     enum SectionLayoutKind: CaseIterable {
-        case name
+        case headerImage
 
         var headerTitle: String {
             switch self {
-                case .name:
-                    return "ネーム"
-
                 default:
                     return ""
 
@@ -25,14 +22,21 @@ extension MyPageViewController {
 
         var headerIdentifer: String {
             switch self {
-                case .name:
+                default:
                     return ""
+            }
+        }
+
+        var initialItems: [ItemKind] {
+            switch self {
+                case .headerImage:
+                    return [.headerImage(.init())]
             }
         }
     }
 
     enum ItemKind: Hashable {
-        case name
+        case headerImage(StorageManager.Reference)
     }
 
 }

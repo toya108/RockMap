@@ -36,7 +36,6 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
         setupCollectionView()
         setupPickerManager()
         setupNavigationBar()
-        datasource = configureDatasource()
         bindViewModelToView()
         configureSections()
     }

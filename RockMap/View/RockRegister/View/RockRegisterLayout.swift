@@ -32,7 +32,6 @@ extension RockRegisterViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
-                section.contentInsets = .init(top: 16, leading: 16, bottom: 16, trailing: 16)
                 
             case .desc:
                 let item = NSCollectionLayoutItem(

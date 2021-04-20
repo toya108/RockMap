@@ -10,14 +10,15 @@ import UIKit
 struct RockConfirmRouter: RouterProtocol {
 
     typealias Destination = DestinationType
+    typealias ViewModel = RockConfirmViewModel
 
     enum DestinationType: DestinationProtocol {
         case rockSearch
     }
 
-    private weak var viewModel: RockConfirmViewModel!
+    weak var viewModel: ViewModel!
 
-    init(viewModel: RockConfirmViewModel) {
+    init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
 

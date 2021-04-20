@@ -11,15 +11,16 @@ import CoreLocation
 struct RockSeachRouter: RouterProtocol {
 
     typealias Destination = DestinationType
+    typealias ViewModel = RockSearchViewModel
 
     enum DestinationType: DestinationProtocol {
         case rockDetail(FIDocument.Rock)
         case rockRegister(CLLocation)
     }
 
-    private weak var viewModel: RockSearchViewModel!
+    internal weak var viewModel: ViewModel!
 
-    init(viewModel: RockSearchViewModel) {
+    init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
 

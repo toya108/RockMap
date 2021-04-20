@@ -35,6 +35,7 @@ extension UIImage {
         static let triangleLefthalfFill = UIImage(systemName: "triangle.lefthalf.fill")!
         static let trash = UIImage(systemName: "trash")!
         static let squareAndPencil = UIImage(systemName: "square.and.pencil")!
+        static let gearshapeFill = UIImage(systemName: "gearshape.fill")!
     }
     
     struct AssetsImages {

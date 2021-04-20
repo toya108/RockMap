@@ -9,7 +9,7 @@ import CoreLocation
 import Combine
 import FirebaseFirestore
 
-final class RockConfirmViewModel {
+final class RockConfirmViewModel: ViewModelProtocol {
     
     var rockName: String
     var rockImageDatas: [IdentifiableData]

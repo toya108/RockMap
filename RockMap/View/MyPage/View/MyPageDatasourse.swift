@@ -18,11 +18,11 @@ extension MyPageViewController {
             guard let self = self else { return UICollectionViewCell() }
 
             switch item {
-                case .name:
+                case let .headerImage(reference):
                     return self.collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureRockCell(),
+                        using: self.configureHeaderImageCell(),
                         for: indexPath,
-                        item: Dummy()
+                        item: reference
                     )
             }
         }
@@ -31,10 +31,12 @@ extension MyPageViewController {
     }
 
 
-    private func configureRockCell() -> UICollectionView.CellRegistration<
-        RockHeaderCollectionViewCell,
-        Dummy
+    private func configureHeaderImageCell() -> UICollectionView.CellRegistration<
+        HorizontalImageListCollectionViewCell,
+        StorageManager.Reference
     > {
-        .init {_,_,_ in }
+        .init { cell, _, reference in
+            cell.imageView.loadImage(reference: reference)
+        }
     }
 }

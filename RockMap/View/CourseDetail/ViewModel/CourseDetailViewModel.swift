@@ -7,9 +7,8 @@
 
 import Combine
 import Foundation
-import FirebaseFirestore
 
-final class CourseDetailViewModel {
+final class CourseDetailViewModel: ViewModelProtocol {
     
     @Published var course: FIDocument.Course
     @Published var courseHeaderImageReference: StorageManager.Reference?
@@ -124,7 +123,10 @@ final class CourseDetailViewModel {
         badge.setData(climbed.dictionary, forDocument: climbed.makeDocumentReference())
 
         badge.updateData(
-            ["total": FieldValue.increment(1.0), type.fieldName: FieldValue.increment(1.0)],
+            [
+                "total": FirestoreManager.Value.increment(1.0),
+                type.fieldName: FirestoreManager.Value.increment(1.0)
+            ],
             forDocument: totalClimbedNumber.makeDocumentReference()
         )
 

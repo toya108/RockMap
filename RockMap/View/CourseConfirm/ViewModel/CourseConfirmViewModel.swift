@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class CourseConfirmViewModel {
+class CourseConfirmViewModel: ViewModelProtocol {
     
     let rockHeaderStructure: CourseRegisterViewModel.RockHeaderStructure
     let courseName: String

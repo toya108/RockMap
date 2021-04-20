@@ -10,6 +10,7 @@ import UIKit
 struct RockRegisterRouter: RouterProtocol {
 
     typealias Destination = DestinationType
+    typealias ViewModel = RockRegisterViewModel
 
     enum DestinationType: DestinationProtocol {
         case rockConfirm
@@ -17,9 +18,9 @@ struct RockRegisterRouter: RouterProtocol {
         case locationSelect
     }
 
-    private weak var viewModel: RockRegisterViewModel!
+    weak var viewModel: RockRegisterViewModel!
 
-    init(viewModel: RockRegisterViewModel) {
+    init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
 

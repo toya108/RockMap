@@ -25,7 +25,7 @@ extension MyPageViewController {
                 alignment: .top
             )
             switch sectionType {
-                case .name:
+                case .headerImage:
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
@@ -33,7 +33,7 @@ extension MyPageViewController {
                         )
                     )
                     let collectionViewWidth = self.collectionView.bounds.width - (self.collectionView.layoutMargins.left + self.collectionView.layoutMargins.right)
-                    let height = collectionViewWidth * 9/16
+                    let height = collectionViewWidth * 3/4
                     let group = NSCollectionLayoutGroup.horizontal(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
@@ -42,7 +42,7 @@ extension MyPageViewController {
                         subitems: [item]
                     )
                     section = .init(group: group)
-
+                    return section
             }
 
             if !sectionType.headerIdentifer.isEmpty {

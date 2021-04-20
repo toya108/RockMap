@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import CoreLocation
 
-final class RockRegisterViewModel {
+final class RockRegisterViewModel: ViewModelProtocol {
     
     @Published var rockName = ""
     @Published var rockHeaderImage: IdentifiableData?

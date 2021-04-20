@@ -37,7 +37,6 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
         setupPickerManager()
         setupNavigationBar()
         bindViewModelToView()
-        datasource = configureDatasource()
         configureSections()
     }
     

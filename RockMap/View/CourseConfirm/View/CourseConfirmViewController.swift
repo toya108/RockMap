@@ -33,7 +33,6 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
         setupCollectionView()
         setupNavigationBar()
         bindViewModelToView()
-        datasource = configureDatasource()
         configureSections()
     }
     

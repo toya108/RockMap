@@ -29,7 +29,6 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
         super.viewDidLoad()
         
         setupCollectionView()
-        datasource = configureDatasource()
         bindViewToViewModel()
         configureSections()
     }

@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class RockDetailViewModel {
+final class RockDetailViewModel: ViewModelProtocol {
     @Published var rockDocument: FIDocument.Rock
     @Published var rockName = ""
     @Published var registeredUser: FIDocument.User?

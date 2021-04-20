@@ -33,7 +33,6 @@ class RockConfirmViewController: UIViewController, CompositionalColectionViewCon
         setupCollectionView()
         setupNavigationBar()
         bindViewModelToView()
-        datasource = configureDatasource()
         configureSections()
     }
     
