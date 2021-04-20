@@ -38,6 +38,13 @@ extension MyPageViewController {
                         for: indexPath,
                         item: socialLinkType
                     )
+
+                case .introduction:
+                    return self.collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureIntroductionCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
             }
         }
 
@@ -102,6 +109,18 @@ extension MyPageViewController {
     > {
         .init { cell, _, socialLinkType in
             cell.configure(for: socialLinkType)
+        }
+    }
+
+    private func configureIntroductionCell() -> UICollectionView.CellRegistration<
+        LabelCollectionViewCell,
+        Dummy
+    > {
+        .init { [weak self] cell, _, _ in
+
+            guard let self = self else { return }
+
+            cell.label.text = self.viewModel.user?.introduction
         }
     }
 }

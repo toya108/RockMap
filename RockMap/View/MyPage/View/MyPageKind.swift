@@ -13,6 +13,7 @@ extension MyPageViewController {
         case headerImage
         case user
         case socialLink
+        case introduction
 
         var headerTitle: String {
             switch self {
@@ -37,6 +38,9 @@ extension MyPageViewController {
                 case .user:
                     return [.user]
 
+                case .introduction:
+                    return [.introduction]
+
                 default:
                     return []
             }
@@ -47,6 +51,7 @@ extension MyPageViewController {
         case headerImage(StorageManager.Reference)
         case user
         case socialLink(FIDocument.User.SocialLinkType)
+        case introduction
     }
 
 }

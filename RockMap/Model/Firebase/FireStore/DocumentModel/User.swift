@@ -24,6 +24,7 @@ extension FIDocument {
         var socialLinks: Set<SocialLinkType>? = []
         var createdRock: [DocumentReference] = []
         var createdCources: [DocumentReference] = []
+        var introduction: String?
         
         var isRoot: Bool { true }
 
