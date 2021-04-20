@@ -26,7 +26,7 @@ enum ScreenType: CaseIterable {
 
         case .myPage:
             return RockMapNavigationController(
-                rootVC: UIStoryboard(name: MyPageViewController.className, bundle: nil).instantiateInitialViewController()!,
+                rootVC: MyPageViewController.createInstance(viewModel: .init(user: nil)),
                 naviBarClass: RockMapNavigationBar.self
             )
             

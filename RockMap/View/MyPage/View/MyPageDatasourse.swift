@@ -24,12 +24,39 @@ extension MyPageViewController {
                         for: indexPath,
                         item: reference
                     )
+
+                case .user:
+                    return self.collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureUserCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
             }
+        }
+
+        let headerRegistration = UICollectionView.SupplementaryRegistration<TitleSupplementaryView>(
+            elementKind: TitleSupplementaryView.className
+        ) { [weak self] supplementaryView, _, indexPath in
+
+            guard let self = self else { return }
+
+            supplementaryView.setSideInset(0)
+            supplementaryView.backgroundColor = .white
+            supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section].headerTitle
+        }
+
+        datasource.supplementaryViewProvider = { [weak self] collectionView, _, index in
+
+            guard let self = self else { return nil }
+
+            return self.collectionView.dequeueConfiguredReusableSupplementary(
+                using: headerRegistration,
+                for: index
+            )
         }
 
         return datasource
     }
-
 
     private func configureHeaderImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
@@ -37,6 +64,28 @@ extension MyPageViewController {
     > {
         .init { cell, _, reference in
             cell.imageView.loadImage(reference: reference)
+        }
+    }
+
+    private func configureUserCell() -> UICollectionView.CellRegistration<
+        UserCollectionViewCell,
+        Dummy
+    > {
+        .init(
+            cellNib: .init(
+                nibName: UserCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { [weak self] cell, _, _ in
+
+            guard let self = self else { return }
+
+            cell.userView.configure(
+                prefix: "",
+                userName: self.viewModel.user?.name ?? "-",
+                photoURL: self.viewModel.user?.photoURL,
+                registeredDate: self.viewModel.user?.createdAt
+            )
         }
     }
 }

@@ -43,6 +43,22 @@ extension MyPageViewController {
                     )
                     section = .init(group: group)
                     return section
+
+                case .user:
+                    let item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .estimated(64)
+                        )
+                    )
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: item.layoutSize.heightDimension
+                        ),
+                        subitems: [item]
+                    )
+                    section = .init(group: group)
             }
 
             if !sectionType.headerIdentifer.isEmpty {
@@ -56,6 +72,10 @@ extension MyPageViewController {
             return section
         }
 
+        layout.register(
+            SectionBackgroundDecorationView.self,
+            forDecorationViewOfKind: SectionBackgroundDecorationView.className
+        )
         return layout
     }
 }

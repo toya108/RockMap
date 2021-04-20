@@ -123,6 +123,9 @@
 		9E9E6318262EADA10096340C /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9E6317262EADA10096340C /* MyPageViewModel.swift */; };
 		9E9E631D262EB1240096340C /* MyPageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9E631C262EB1240096340C /* MyPageRouter.swift */; };
 		9E9E632A262EB1FF0096340C /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9E6329262EB1FF0096340C /* ViewModelProtocol.swift */; };
+		9E9E6369262EF0F10096340C /* UserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9E6368262EF0F10096340C /* UserCollectionViewCell.swift */; };
+		9E9E6371262EF1730096340C /* UserCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E9E6370262EF1730096340C /* UserCollectionViewCell.xib */; };
+		9E9E6377262EFE150096340C /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9E6376262EFE150096340C /* LoadingState.swift */; };
 		9EA32A3F25FA778700FB0C75 /* RockConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA32A3E25FA778700FB0C75 /* RockConfirmViewController.swift */; };
 		9EA32A4425FA77DF00FB0C75 /* RockConfirmDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA32A4325FA77DF00FB0C75 /* RockConfirmDatasource.swift */; };
 		9EA32A4925FA77EE00FB0C75 /* RockConfirmLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA32A4825FA77EE00FB0C75 /* RockConfirmLayout.swift */; };
@@ -327,6 +330,9 @@
 		9E9E6317262EADA10096340C /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		9E9E631C262EB1240096340C /* MyPageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageRouter.swift; sourceTree = "<group>"; };
 		9E9E6329262EB1FF0096340C /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
+		9E9E6368262EF0F10096340C /* UserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionViewCell.swift; sourceTree = "<group>"; };
+		9E9E6370262EF1730096340C /* UserCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserCollectionViewCell.xib; sourceTree = "<group>"; };
+		9E9E6376262EFE150096340C /* LoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingState.swift; sourceTree = "<group>"; };
 		9EA32A3E25FA778700FB0C75 /* RockConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmViewController.swift; sourceTree = "<group>"; };
 		9EA32A4325FA77DF00FB0C75 /* RockConfirmDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmDatasource.swift; sourceTree = "<group>"; };
 		9EA32A4825FA77EE00FB0C75 /* RockConfirmLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmLayout.swift; sourceTree = "<group>"; };
@@ -535,7 +541,6 @@
 				9E9845BF25D4F22D00B03C4E /* CourceRegister */,
 				9E9C1E6F25E6B1B30050FDDE /* CourseConfirm */,
 				9E807CA3254CFCF50091935F /* MyPage */,
-				9E9E6364262EE5A10096340C /* Cells */,
 				9E04B192254B28330097DA8E /* Login */,
 				9E033F552577F6CD00A669F8 /* Auth */,
 				9E807CC4254D000A0091935F /* MainTabBar */,
@@ -698,6 +703,7 @@
 				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
 				9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */,
 				9E98D5472553009100EC5AC1 /* Resources */,
+				9E9E6375262EFDEE0096340C /* Emumeration */,
 				9EB00BD2262976AF00379182 /* Protocol */,
 				9E04B1AB254BA9850097DA8E /* Utils */,
 				9E04B1AA254BA9720097DA8E /* Extension */,
@@ -904,6 +910,7 @@
 		9E807CA3254CFCF50091935F /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				9E9E6364262EE5A10096340C /* Cells */,
 				9E810720262DA3180025359C /* Router */,
 				9E81071F262DA3120025359C /* ViewModel */,
 				9E81071E262DA30B0025359C /* View */,
@@ -1101,8 +1108,18 @@
 		9E9E6364262EE5A10096340C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				9E9E6368262EF0F10096340C /* UserCollectionViewCell.swift */,
+				9E9E6370262EF1730096340C /* UserCollectionViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		9E9E6375262EFDEE0096340C /* Emumeration */ = {
+			isa = PBXGroup;
+			children = (
+				9E9E6376262EFE150096340C /* LoadingState.swift */,
+			);
+			path = Emumeration;
 			sourceTree = "<group>";
 		};
 		9EB00BD2262976AF00379182 /* Protocol */ = {
@@ -1403,6 +1420,7 @@
 				9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */,
 				9E9845F625D5418C00B03C4E /* RockHeaderCollectionViewCell.xib in Resources */,
 				9E2BD68725DD6DA90011B020 /* ImageSelactCollectionViewCell.xib in Resources */,
+				9E9E6371262EF1730096340C /* UserCollectionViewCell.xib in Resources */,
 				9E7812FE261A069700CAC539 /* ClimbedTableViewCell.xib in Resources */,
 				9E2DA76025F91BA7008F339E /* LocationSelectCollectionViewCell.xib in Resources */,
 				9E5CEFD325277B25001C95AA /* RockSearchViewController.storyboard in Resources */,
@@ -1664,10 +1682,12 @@
 				9E5C5E372555144000D00087 /* Images.swift in Sources */,
 				9E7812FD261A069700CAC539 /* ClimbedTableViewCell.swift in Sources */,
 				9E47B76C26160A0B004BE800 /* TotalClimbedNumber.swift in Sources */,
+				9E9E6377262EFE150096340C /* LoadingState.swift in Sources */,
 				9EE9D0E42614DD5C00570097 /* CourseConfirmRouter.swift in Sources */,
 				9EB6C3CD260FA7A000CDD607 /* RockAnnotation.swift in Sources */,
 				9E0BE3CB2606637700576869 /* UIButtonExtension.swift in Sources */,
 				9E0A9F192550519F007B9A90 /* RockRegisterViewModel.swift in Sources */,
+				9E9E6369262EF0F10096340C /* UserCollectionViewCell.swift in Sources */,
 				9EC3A6B72604D5A8001FBCA4 /* CourseDetailViewController.swift in Sources */,
 				9E34C90C25B09A69005EBE07 /* DebugViewController.swift in Sources */,
 				9E612BEF2588AFC000B2998A /* Map.swift in Sources */,

@@ -11,6 +11,7 @@ extension MyPageViewController {
 
     enum SectionLayoutKind: CaseIterable {
         case headerImage
+        case user
 
         var headerTitle: String {
             switch self {
@@ -31,12 +32,16 @@ extension MyPageViewController {
             switch self {
                 case .headerImage:
                     return [.headerImage(.init())]
+
+                case .user:
+                    return [.user]
             }
         }
     }
 
     enum ItemKind: Hashable {
         case headerImage(StorageManager.Reference)
+        case user
     }
 
 }

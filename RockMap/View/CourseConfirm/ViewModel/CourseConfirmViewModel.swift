@@ -19,8 +19,8 @@ class CourseConfirmViewModel: ViewModelProtocol {
     let desc: String
     
     @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
-    @Published private(set) var courseUploadState: StoreUploadState = .stanby
-    @Published private(set) var addIdState: StoreUploadState = .stanby
+    @Published private(set) var courseUploadState: LoadingState = .stanby
+    @Published private(set) var addIdState: LoadingState = .stanby
 
     private var bindings = Set<AnyCancellable>()
     private let uploader = StorageUploader()

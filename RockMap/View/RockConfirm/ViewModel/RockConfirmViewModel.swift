@@ -20,7 +20,7 @@ final class RockConfirmViewModel: ViewModelProtocol {
     var lithology: FIDocument.Rock.Lithology
     
     @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
-    @Published private(set) var rockUploadState: StoreUploadState = .stanby
+    @Published private(set) var rockUploadState: LoadingState  = .stanby
 
     private var bindings = Set<AnyCancellable>()
     

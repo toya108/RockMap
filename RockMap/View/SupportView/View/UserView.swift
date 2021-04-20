@@ -44,12 +44,12 @@ class UserView: UIView {
     }
 
     func configure(
+        prefix: String = "登録者：",
         userName: String,
         photoURL: URL?,
         registeredDate: Date? = nil
     ) {
-
-        userNameLabel.text = "登録者：" + userName
+        userNameLabel.text = prefix + userName
 
         if let photoURL = photoURL {
             iconImageView.loadImage(url: photoURL)
