@@ -21,9 +21,35 @@ extension FIDocument {
         var name: String
         var email: String?
         var photoURL: URL?
+        var socialLinks: Set<SocialLinkType>? = []
         var createdRock: [DocumentReference] = []
         var createdCources: [DocumentReference] = []
         
         var isRoot: Bool { true }
+
+        enum SocialLinkType: String, CaseIterable, Codable {
+            case facebook
+            case twitter
+            case instagram
+            case other
+
+            var icon: UIImage {
+                switch self {
+                    case .facebook:
+                        return UIImage.AssetsImages.facebook
+
+                    case .twitter:
+                        return UIImage.AssetsImages.twitter
+
+                    case .instagram:
+                        return UIImage.AssetsImages.instagram
+
+                    case .other:
+                        return UIImage.AssetsImages.link
+
+                }
+            }
+
+        }
     }
 }

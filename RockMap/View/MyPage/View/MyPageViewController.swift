@@ -66,6 +66,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
         SectionLayoutKind.allCases.forEach {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
+        snapShot.appendItems(FIDocument.User.SocialLinkType.allCases.map { ItemKind.socialLink($0) }, toSection: .socialLink)
         datasource.apply(snapShot)
     }
 }

@@ -48,5 +48,9 @@ extension UIImage {
         static let summer = UIImage(named: "summer")!
         static let autumn = UIImage(named: "autumn")!
         static let winter = UIImage(named: "winter")!
+        static let instagram = UIImage(named: "instagram")!
+        static let facebook = UIImage(named: "facebook")!
+        static let twitter = UIImage(named: "twitter")!
+        static let link = UIImage(named: "link")!
     }
 }

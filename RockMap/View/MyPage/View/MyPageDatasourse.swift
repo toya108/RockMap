@@ -31,6 +31,13 @@ extension MyPageViewController {
                         for: indexPath,
                         item: Dummy()
                     )
+
+                case let .socialLink(socialLinkType):
+                    return self.collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureSocialLinkCell(),
+                        for: indexPath,
+                        item: socialLinkType
+                    )
             }
         }
 
@@ -86,6 +93,15 @@ extension MyPageViewController {
                 photoURL: self.viewModel.user?.photoURL,
                 registeredDate: self.viewModel.user?.createdAt
             )
+        }
+    }
+
+    private func configureSocialLinkCell() -> UICollectionView.CellRegistration<
+        SocialLinkCollectionViewCell,
+        FIDocument.User.SocialLinkType
+    > {
+        .init { cell, _, socialLinkType in
+            cell.configure(for: socialLinkType)
         }
     }
 }

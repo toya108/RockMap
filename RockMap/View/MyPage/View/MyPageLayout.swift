@@ -59,6 +59,24 @@ extension MyPageViewController {
                         subitems: [item]
                     )
                     section = .init(group: group)
+
+                case .socialLink:
+                    let item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .estimated(28),
+                            heightDimension: .estimated(28)
+                        )
+                    )
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: item.layoutSize.heightDimension
+                        ),
+                        subitems: [item]
+                    )
+                    group.interItemSpacing = .fixed(8)
+                    section = .init(group: group)
+                    section.contentInsets = .init(top: 16, leading: 0, bottom: 16, trailing: 0)
             }
 
             if !sectionType.headerIdentifer.isEmpty {

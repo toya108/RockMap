@@ -12,6 +12,7 @@ extension MyPageViewController {
     enum SectionLayoutKind: CaseIterable {
         case headerImage
         case user
+        case socialLink
 
         var headerTitle: String {
             switch self {
@@ -35,6 +36,9 @@ extension MyPageViewController {
 
                 case .user:
                     return [.user]
+
+                default:
+                    return []
             }
         }
     }
@@ -42,6 +46,7 @@ extension MyPageViewController {
     enum ItemKind: Hashable {
         case headerImage(StorageManager.Reference)
         case user
+        case socialLink(FIDocument.User.SocialLinkType)
     }
 
 }
