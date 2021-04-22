@@ -7,47 +7,45 @@
 
 import Combine
 
-class MyPageViewModel: ViewModelProtocol {
+protocol MyPageViewModelProtocol {
+    var input: MyPageViewModel.Input { get }
+    var output: MyPageViewModel.Output { get }
+}
 
-    @Published var user: FIDocument.User?
-    @Published var headerImageReference: StorageManager.Reference?
-
-    @Published var fetchUserState: LoadingState = .stanby
+class MyPageViewModel: MyPageViewModelProtocol, ViewModelProtocol {
+    var input: Input
+    var output: Output
 
     private var bindings = Set<AnyCancellable>()
 
-    init(user: FIDocument.User?) {
+    init(userReference: DocumentRef?) {
 
-        guard
-            let user = user
-        else {
-            fetchUser()
-            return
+        self.input = .init()
+
+        do {
+            self.output = .init()
         }
-        
-        self.user = user
 
         setupBindings()
+        fetchUser(reference: userReference)
     }
 
     private func setupBindings() {
-        $user
-            .compactMap { $0?.name }
-            .map {
-                StorageManager.makeReference(parent: FINameSpace.Users.self, child: $0)
-            }
-            .flatMap { StorageManager.getHeaderReference($0) }
-            .catch { _ -> Just<StorageManager.Reference?> in
-                return .init(nil)
-            }
-            .assign(to: &$headerImageReference)
+
     }
 
-    private func fetchUser() {
+    private func fetchUser(reference: DocumentRef?) {
 
-        fetchUserState = .loading
+        guard
+            let reference = reference
+        else {
+            output.isGuest = true
+            return
+        }
 
-        AuthManager.shared.authUserReference
+        output.fetchUserState = .loading
+
+        reference
             .getDocument(FIDocument.User.self)
             .sink(
                 receiveCompletion: { [weak self] result in
@@ -56,10 +54,10 @@ class MyPageViewModel: ViewModelProtocol {
 
                     switch result {
                         case .finished:
-                            self.fetchUserState = .finish
+                            self.output.fetchUserState = .finish
 
                         case .failure(let error):
-                            self.fetchUserState = .failure(error)
+                            self.output.fetchUserState = .failure(error)
 
                     }
                 },
@@ -72,7 +70,7 @@ class MyPageViewModel: ViewModelProtocol {
                         return
                     }
 
-                    self.user = user
+                    self.output.user = user
                 }
             )
             .store(in: &bindings)
@@ -80,3 +78,15 @@ class MyPageViewModel: ViewModelProtocol {
 
 }
 
+extension MyPageViewModel {
+
+    struct Input {}
+
+    final class Output {
+        @Published var user: FIDocument.User?
+        @Published var isGuest = false
+        @Published var headerImageReference: StorageManager.Reference = .init()
+        @Published var fetchUserState: LoadingState = .stanby
+    }
+
+}

@@ -26,7 +26,9 @@ enum ScreenType: CaseIterable {
 
         case .myPage:
             return RockMapNavigationController(
-                rootVC: MyPageViewController.createInstance(viewModel: .init(user: nil)),
+                rootVC: MyPageViewController.createInstance(
+                    viewModel: .init(userReference: AuthManager.shared.authUserReference)
+                ),
                 naviBarClass: RockMapNavigationBar.self
             )
             

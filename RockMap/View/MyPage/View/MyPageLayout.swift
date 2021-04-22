@@ -15,7 +15,7 @@ extension MyPageViewController {
 
             let section: NSCollectionLayoutSection
 
-            let sectionType = SectionLayoutKind.allCases[sectionNumber]
+            let sectionType = SectionKind.allCases[sectionNumber]
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: .init(
                     widthDimension: .fractionalWidth(1),

@@ -9,7 +9,7 @@ import Foundation
 
 extension MyPageViewController {
 
-    enum SectionLayoutKind: CaseIterable {
+    enum SectionKind: CaseIterable {
         case headerImage
         case user
         case socialLink

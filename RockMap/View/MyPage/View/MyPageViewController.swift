@@ -13,8 +13,8 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
     var collectionView: UICollectionView!
     var viewModel: MyPageViewModel!
     var router: MyPageRouter!
-    var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
-    var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
+    var snapShot = NSDiffableDataSourceSnapshot<SectionKind, ItemKind>()
+    var datasource: UICollectionViewDiffableDataSource<SectionKind, ItemKind>!
 
     private var bindings = Set<AnyCancellable>()
 
@@ -32,8 +32,8 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
         setupNavigationBar()
         setupCollectionView()
-        bindViewModelToView()
         configureSections()
+        bindViewModelOutput()
     }
 
     private func setupNavigationBar() {
@@ -57,13 +57,23 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
     }
 
-    private func bindViewModelToView() {
-        
+    private func bindViewModelOutput() {
+        viewModel.output
+            .$headerImageReference
+            .receive(on: RunLoop.main)
+            .sink { [weak self] reference in
+
+                guard let self = self else { return }
+
+                self.snapShot.appendItems([.headerImage(reference)], toSection: .headerImage)
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
     }
 
     private func configureSections() {
-        snapShot.appendSections(SectionLayoutKind.allCases)
-        SectionLayoutKind.allCases.forEach {
+        snapShot.appendSections(SectionKind.allCases)
+        SectionKind.allCases.forEach {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
         snapShot.appendItems(FIDocument.User.SocialLinkType.allCases.map { ItemKind.socialLink($0) }, toSection: .socialLink)

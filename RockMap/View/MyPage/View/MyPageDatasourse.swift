@@ -9,9 +9,9 @@ import UIKit
 
 extension MyPageViewController {
 
-    func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
+    func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, ItemKind> {
 
-        let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
+        let datasource = UICollectionViewDiffableDataSource<SectionKind, ItemKind>(
             collectionView: collectionView
         ) { [weak self] collectionView, indexPath, item in
 
@@ -96,9 +96,9 @@ extension MyPageViewController {
 
             cell.userView.configure(
                 prefix: "",
-                userName: self.viewModel.user?.name ?? "-",
-                photoURL: self.viewModel.user?.photoURL,
-                registeredDate: self.viewModel.user?.createdAt
+                userName: self.viewModel.output.user?.name ?? "-",
+                photoURL: self.viewModel.output.user?.photoURL,
+                registeredDate: self.viewModel.output.user?.createdAt
             )
         }
     }
@@ -120,7 +120,7 @@ extension MyPageViewController {
 
             guard let self = self else { return }
 
-            cell.label.text = self.viewModel.user?.introduction
+            cell.label.text = self.viewModel.output.user?.introduction
         }
     }
 }

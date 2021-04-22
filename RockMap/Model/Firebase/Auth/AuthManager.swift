@@ -70,8 +70,11 @@ class AuthManager: NSObject {
         .eraseToAnyPublisher()
     }
 
-    var authUserReference: DocumentReference {
-        FirestoreManager.db.collection(FIDocument.User.colletionName).document(uid)
+    var authUserReference: DocumentReference? {
+
+        guard isLoggedIn else { return nil }
+
+        return FirestoreManager.db.collection(FIDocument.User.colletionName).document(uid)
     }
 
 }
