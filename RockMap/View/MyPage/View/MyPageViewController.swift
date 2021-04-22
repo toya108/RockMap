@@ -65,7 +65,19 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
                 guard let self = self else { return }
 
-                self.snapShot.appendItems([.headerImage(reference)], toSection: .headerImage)
+                self.snapShot.reloadSections([.headerImage])
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+
+        viewModel.output
+            .$climbedList
+            .receive(on: RunLoop.main)
+            .sink { [weak self] _ in
+
+                guard let self = self else { return }
+
+                self.snapShot.reloadSections([.climbedNumber])
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)

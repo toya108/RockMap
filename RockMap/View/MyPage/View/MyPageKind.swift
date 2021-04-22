@@ -14,9 +14,13 @@ extension MyPageViewController {
         case user
         case socialLink
         case introduction
+        case climbedNumber
 
         var headerTitle: String {
             switch self {
+                case .climbedNumber:
+                    return "完登数"
+
                 default:
                     return ""
 
@@ -25,8 +29,12 @@ extension MyPageViewController {
 
         var headerIdentifer: String {
             switch self {
+                case .climbedNumber:
+                    return TitleSupplementaryView.className
+
                 default:
                     return ""
+
             }
         }
 
@@ -41,6 +49,9 @@ extension MyPageViewController {
                 case .introduction:
                     return [.introduction]
 
+                case .climbedNumber:
+                    return [.climbedNumber]
+
                 default:
                     return []
             }
@@ -52,6 +63,7 @@ extension MyPageViewController {
         case user
         case socialLink(FIDocument.User.SocialLinkType)
         case introduction
+        case climbedNumber
     }
 
 }

@@ -57,6 +57,14 @@ extension FIDocument {
 
                 }
             }
+
+            var isFlash: Bool {
+                self == .flash
+            }
+
+            var isRedpoint: Bool {
+                self == .redpoint
+            }
         }
     }
 }

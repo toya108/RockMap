@@ -31,7 +31,18 @@ class MyPageViewModel: MyPageViewModelProtocol, ViewModelProtocol {
     }
 
     private func setupBindings() {
-
+        output.$user
+            .compactMap { $0 }
+            .flatMap {
+                FirestoreManager.db
+                    .collection(FIDocument.Climbed.colletionName)
+                    .whereField("climbedUserId", in: [$0.id])
+                    .getDocuments(FIDocument.Climbed.self)
+            }
+            .catch { _ -> Just<[FIDocument.Climbed]> in
+                return .init([])
+            }
+            .assign(to: &output.$climbedList)
     }
 
     private func fetchUser(reference: DocumentRef?) {
@@ -87,6 +98,7 @@ extension MyPageViewModel {
         @Published var isGuest = false
         @Published var headerImageReference: StorageManager.Reference = .init()
         @Published var fetchUserState: LoadingState = .stanby
+        @Published var climbedList: [FIDocument.Climbed] = []
     }
 
 }

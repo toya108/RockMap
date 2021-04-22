@@ -45,6 +45,13 @@ extension MyPageViewController {
                         for: indexPath,
                         item: Dummy()
                     )
+
+                case .climbedNumber:
+                    return self.collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureClimbedNumberCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
             }
         }
 
@@ -121,6 +128,27 @@ extension MyPageViewController {
             guard let self = self else { return }
 
             cell.label.text = self.viewModel.output.user?.introduction
+        }
+    }
+
+    private func configureClimbedNumberCell() -> UICollectionView.CellRegistration<
+        ClimbedNumberCollectionViewCell,
+        Dummy
+    > {
+        .init(
+            cellNib: .init(
+                nibName: ClimbedNumberCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { [weak self] cell, _, _ in
+
+            guard let self = self else { return }
+
+            cell.configure(
+                total: self.viewModel.output.climbedList.count,
+                flash: self.viewModel.output.climbedList.filter(\.type.isFlash).count,
+                redPoint: self.viewModel.output.climbedList.filter(\.type.isRedpoint).count
+            )
         }
     }
 }
