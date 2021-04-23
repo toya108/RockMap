@@ -16,12 +16,16 @@ extension MyPageViewController {
         case socialLink
         case introduction
         case climbedNumber
+        case recentClimbedCourses
         case registered
 
         var headerTitle: String {
             switch self {
                 case .climbedNumber:
                     return "完登数"
+
+                case .recentClimbedCourses:
+                    return "最近登った課題"
 
                 case .registered:
                     return "登録した岩/課題"
@@ -34,7 +38,7 @@ extension MyPageViewController {
 
         var headerIdentifer: String {
             switch self {
-                case .climbedNumber, .registered:
+                case .climbedNumber, .recentClimbedCourses, .registered:
                     return TitleSupplementaryView.className
 
                 default:
@@ -72,6 +76,8 @@ extension MyPageViewController {
         case socialLink(FIDocument.User.SocialLinkType)
         case introduction
         case climbedNumber
+        case noCourse
+        case climbedCourse(FIDocument.Course)
         case registeredRock(RegisteredKind)
         case registeredCourse(RegisteredKind)
 

@@ -24,8 +24,8 @@ class CourseCollectionViewCell: UICollectionViewCell {
         layer.masksToBounds = false
         layer.shadowOpacity = 0.2
         layer.shadowRadius = 8
-        layer.cornerRadius = 8
-        contentView.layer.cornerRadius = 8
+        layer.cornerRadius = 20
+        contentView.layer.cornerRadius = 20
     }
     
     func configure(course: FIDocument.Course) {

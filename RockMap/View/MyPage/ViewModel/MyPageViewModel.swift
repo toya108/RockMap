@@ -42,7 +42,31 @@ class MyPageViewModel: MyPageViewModelProtocol, ViewModelProtocol {
             .catch { _ -> Just<[FIDocument.Climbed]> in
                 return .init([])
             }
+            .map { Set<FIDocument.Climbed>($0) }
             .assign(to: &output.$climbedList)
+
+        output.$climbedList
+            .map { $0.map(\.parentCourseReference) }
+            .map { Set<DocumentRef>($0) }
+            .map { $0.prefix(5).map { $0 } }
+            .sink { prefixes in
+                prefixes
+                    .map { $0.getDocument(FIDocument.Course.self) }
+                    .forEach {
+                        $0.catch { _ -> Just<FIDocument.Course?> in
+                            return .init(nil)
+                        }
+                        .compactMap { $0 }
+                        .sink { [weak self] course in
+
+                            guard let self = self else { return }
+
+                            self.output.recentClimbedCourses.insert(course)
+                        }
+                        .store(in: &self.bindings)
+                    }
+            }
+            .store(in: &bindings)
     }
 
     private func fetchUser(reference: DocumentRef?) {
@@ -98,7 +122,8 @@ extension MyPageViewModel {
         @Published var isGuest = false
         @Published var headerImageReference: StorageManager.Reference = .init()
         @Published var fetchUserState: LoadingState = .stanby
-        @Published var climbedList: [FIDocument.Climbed] = []
+        @Published var climbedList: Set<FIDocument.Climbed> = []
+        @Published var recentClimbedCourses: Set<FIDocument.Course> = []
     }
 
 }

@@ -75,6 +75,27 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
+
+        viewModel.output
+            .$recentClimbedCourses
+            .receive(on: RunLoop.main)
+            .sink { [weak self] courses in
+
+                guard let self = self else { return }
+
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .recentClimbedCourses))
+
+                if courses.isEmpty {
+                    self.snapShot.appendItems([.noCourse], toSection: .recentClimbedCourses)
+                } else {
+                    self.snapShot.appendItems(
+                        courses.map { ItemKind.climbedCourse($0) },
+                        toSection: .recentClimbedCourses
+                    )
+                }
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
     }
 
     private func configureSections() {

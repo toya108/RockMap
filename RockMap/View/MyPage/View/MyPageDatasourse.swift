@@ -59,6 +59,20 @@ extension MyPageViewController {
                         for: indexPath,
                         item: kind
                     )
+
+                case .noCourse:
+                    return self.collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureNoCourseCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
+
+                case let .climbedCourse(course):
+                    return self.collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureCoursesCell(),
+                        for: indexPath,
+                        item: course
+                    )
             }
         }
 
@@ -169,6 +183,35 @@ extension MyPageViewController {
             content.image = kind.iconImage
             content.text = kind.cellTitle
             cell.contentConfiguration = content
+        }
+    }
+
+    private func configureNoCourseCell() -> UICollectionView.CellRegistration<
+        NoCoursesCollectionViewCell,
+        Dummy
+    > {
+        .init(
+            cellNib: .init(
+                nibName: NoCoursesCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { cell, _, _ in
+            cell.titleLabel.text = "まだ登った課題はありません。"
+            cell.addCourseButton.isHidden = true
+        }
+    }
+
+    private func configureCoursesCell() -> UICollectionView.CellRegistration<
+        CourseCollectionViewCell,
+        FIDocument.Course
+    > {
+        .init(
+            cellNib: .init(
+                nibName: CourseCollectionViewCell.className,
+                bundle: nil
+            )
+        ) { cell, _, course in
+            cell.configure(course: course)
         }
     }
 }

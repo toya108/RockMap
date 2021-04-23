@@ -106,6 +106,49 @@ extension MyPageViewController {
                         subitems: [item]
                     )
                     section = .init(group: group)
+
+                case .recentClimbedCourses:
+                    let item: NSCollectionLayoutItem
+                    let group: NSCollectionLayoutGroup
+
+                    if
+                        self.snapShot.itemIdentifiers(inSection: .recentClimbedCourses).count == 1,
+                        case .noCourse = self.snapShot.itemIdentifiers(inSection: .recentClimbedCourses).first
+                    {
+                        item = .init(
+                            layoutSize: .init(
+                                widthDimension: .fractionalWidth(1),
+                                heightDimension: .absolute(160)
+                            )
+                        )
+                        group = NSCollectionLayoutGroup.horizontal(
+                            layoutSize: .init(
+                                widthDimension: .fractionalWidth(1),
+                                heightDimension: item.layoutSize.heightDimension
+                            ),
+                            subitems: [item]
+                        )
+                        section = .init(group: group)
+
+                    } else {
+                        item = NSCollectionLayoutItem(
+                            layoutSize: .init(
+                                widthDimension: .fractionalWidth(1),
+                                heightDimension: .estimated(300)
+                            )
+                        )
+                        group = NSCollectionLayoutGroup.horizontal(
+                            layoutSize: .init(
+                                widthDimension: .fractionalWidth(1),
+                                heightDimension: item.layoutSize.heightDimension
+                            ),
+                            subitems: [item]
+                        )
+                        section = .init(group: group)
+                        section.interGroupSpacing = 8
+                        section.orthogonalScrollingBehavior = .groupPaging
+                    }
+
                     section.contentInsets.bottom = 16
 
                 case .registered:
@@ -114,6 +157,7 @@ extension MyPageViewController {
                     section.boundarySupplementaryItems = [sectionHeader]
                     section.contentInsets.top = 0
                     return section
+
 
             }
 

@@ -9,6 +9,7 @@ import UIKit
 
 class NoCoursesCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var addCourseButton: UIButton!
     
     override func awakeFromNib() {

@@ -830,8 +830,6 @@
 			isa = PBXGroup;
 			children = (
 				9E6CF42625CFF16A0098389E /* RockLocationCollectionViewCell.swift */,
-				9EFEE45B25F79EE6004BFE34 /* NoCoursesCollectionViewCell.swift */,
-				9EFEE45C25F79EE6004BFE34 /* NoCoursesCollectionViewCell.xib */,
 				9EFEE45425F7975F004BFE34 /* CourseCollectionViewCell.swift */,
 				9EFEE45525F7975F004BFE34 /* CourseCollectionViewCell.xib */,
 			);
@@ -1253,6 +1251,8 @@
 				9EEAEDF42603876A00F5FE19 /* ValueCollectionViewCell.xib */,
 				9E11A7D926272ABA006C925A /* NoImageCollectionViewCell.swift */,
 				9EB00BF02629BC4D00379182 /* TitleCollectionViewCell.swift */,
+				9EFEE45B25F79EE6004BFE34 /* NoCoursesCollectionViewCell.swift */,
+				9EFEE45C25F79EE6004BFE34 /* NoCoursesCollectionViewCell.xib */,
 			);
 			path = CommonCollectionViewCell;
 			sourceTree = "<group>";

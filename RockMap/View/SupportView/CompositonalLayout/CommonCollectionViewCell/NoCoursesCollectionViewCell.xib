@@ -48,6 +48,7 @@
             <size key="customSize" width="414" height="222"/>
             <connections>
                 <outlet property="addCourseButton" destination="fXM-mk-LmH" id="t1O-IE-eJS"/>
+                <outlet property="titleLabel" destination="Rte-i8-35P" id="PuT-ls-9Bu"/>
             </connections>
             <point key="canvasLocation" x="-188.40579710144928" y="50.892857142857139"/>
         </collectionViewCell>
