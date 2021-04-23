@@ -26,7 +26,6 @@
 		9E0BE38526058FFE00576869 /* CompleteButtonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E0BE38326058FFE00576869 /* CompleteButtonCollectionViewCell.xib */; };
 		9E0BE38B2605ACB200576869 /* UserDefaultsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BE38A2605ACB200576869 /* UserDefaultsStorage.swift */; };
 		9E0BE3982605AD2800576869 /* UserDefaultsDataHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BE3972605AD2800576869 /* UserDefaultsDataHolder.swift */; };
-		9E0BE3CB2606637700576869 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BE3CA2606637700576869 /* UIButtonExtension.swift */; };
 		9E0BE3D92607949E00576869 /* ClimbedNumberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BE3D72607949E00576869 /* ClimbedNumberCollectionViewCell.swift */; };
 		9E0BE3DA2607949E00576869 /* ClimbedNumberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E0BE3D82607949E00576869 /* ClimbedNumberCollectionViewCell.xib */; };
 		9E0BE4502608C1DE00576869 /* Climbed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BE44F2608C1DE00576869 /* Climbed.swift */; };
@@ -227,7 +226,6 @@
 		9E0BE38326058FFE00576869 /* CompleteButtonCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompleteButtonCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E0BE38A2605ACB200576869 /* UserDefaultsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsStorage.swift; sourceTree = "<group>"; };
 		9E0BE3972605AD2800576869 /* UserDefaultsDataHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsDataHolder.swift; sourceTree = "<group>"; };
-		9E0BE3CA2606637700576869 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		9E0BE3D72607949E00576869 /* ClimbedNumberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbedNumberCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E0BE3D82607949E00576869 /* ClimbedNumberCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClimbedNumberCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E0BE44F2608C1DE00576869 /* Climbed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Climbed.swift; sourceTree = "<group>"; };
@@ -745,7 +743,6 @@
 				9EEADA1B255AD39100F20228 /* PlaceHolderTextView.swift */,
 				9E5DD1D625C9857A00E38620 /* UIViewExtension.swift */,
 				9EBD5A1425F7C998009383F6 /* UICollectionViewCellExtension.swift */,
-				9E0BE3CA2606637700576869 /* UIButtonExtension.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1685,7 +1682,6 @@
 				9E9E6377262EFE150096340C /* LoadingState.swift in Sources */,
 				9EE9D0E42614DD5C00570097 /* CourseConfirmRouter.swift in Sources */,
 				9EB6C3CD260FA7A000CDD607 /* RockAnnotation.swift in Sources */,
-				9E0BE3CB2606637700576869 /* UIButtonExtension.swift in Sources */,
 				9E0A9F192550519F007B9A90 /* RockRegisterViewModel.swift in Sources */,
 				9E9E6369262EF0F10096340C /* UserCollectionViewCell.swift in Sources */,
 				9EC3A6B72604D5A8001FBCA4 /* CourseDetailViewController.swift in Sources */,

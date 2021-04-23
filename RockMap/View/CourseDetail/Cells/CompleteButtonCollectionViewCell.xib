@@ -24,38 +24,21 @@
                         <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
                         <state key="normal" title="完登を記録する" image="square.and.pencil" catalog="system"/>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="To8-L0-3Q0">
-                        <rect key="frame" x="370" y="0.0" width="44" height="44"/>
-                        <color key="backgroundColor" name="primaryGreenColor"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="To8-L0-3Q0" secondAttribute="height" multiplier="1:1" id="sde-vz-PYe"/>
-                        </constraints>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <state key="normal" image="bookmark.fill" catalog="system"/>
-                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="To8-L0-3Q0" secondAttribute="trailing" id="AQg-GY-5oA"/>
-                    <constraint firstItem="To8-L0-3Q0" firstAttribute="top" secondItem="Z2k-D6-BPt" secondAttribute="top" id="YJN-T7-bsu"/>
                     <constraint firstItem="fqP-CM-Z82" firstAttribute="centerY" secondItem="Z2k-D6-BPt" secondAttribute="centerY" id="YXX-Ur-RA7"/>
-                    <constraint firstAttribute="bottom" secondItem="To8-L0-3Q0" secondAttribute="bottom" id="gO9-JQ-OHQ"/>
                     <constraint firstItem="fqP-CM-Z82" firstAttribute="leading" secondItem="Z2k-D6-BPt" secondAttribute="leading" id="tsw-nT-z6g"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="414" height="44"/>
             <connections>
-                <outlet property="bookMarkButton" destination="To8-L0-3Q0" id="Rlf-Hv-dPh"/>
                 <outlet property="completeButton" destination="fqP-CM-Z82" id="K5Y-UU-RUk"/>
             </connections>
             <point key="canvasLocation" x="86.956521739130437" y="24.776785714285712"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="bookmark.fill" catalog="system" width="112" height="128"/>
         <image name="square.and.pencil" catalog="system" width="128" height="115"/>
-        <namedColor name="primaryGreenColor">
-            <color red="0.016000000759959221" green="0.74900001287460327" blue="0.75700002908706665" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="primaryPinkColor">
             <color red="1" green="0.46299999952316284" blue="0.42699998617172241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
