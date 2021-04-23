@@ -28,7 +28,7 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupCollectionView()
+        configureCollectionView()
         bindViewToViewModel()
         configureSections()
     }
@@ -36,12 +36,6 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavigationBar()
-    }
-    
-    private func setupCollectionView() {
-        configureCollectionView()
-        collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
-        collectionView.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
     }
     
     private func setupNavigationBar() {
