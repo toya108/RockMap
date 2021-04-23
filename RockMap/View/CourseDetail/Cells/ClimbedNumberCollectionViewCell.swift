@@ -8,7 +8,7 @@
 import UIKit
 
 class ClimbedNumberCollectionViewCell: UICollectionViewCell {
-    
+
     @IBOutlet weak var totalNumberLabel: UILabel!
     @IBOutlet weak var totalFlashLabel: UILabel!
     @IBOutlet weak var totalRedPointLabel: UILabel!

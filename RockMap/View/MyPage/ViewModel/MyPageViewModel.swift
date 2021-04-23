@@ -35,7 +35,7 @@ class MyPageViewModel: MyPageViewModelProtocol, ViewModelProtocol {
             .compactMap { $0 }
             .flatMap {
                 FirestoreManager.db
-                    .collection(FIDocument.Climbed.colletionName)
+                    .collectionGroup(FIDocument.Climbed.colletionName)
                     .whereField("climbedUserId", in: [$0.id])
                     .getDocuments(FIDocument.Climbed.self)
             }
