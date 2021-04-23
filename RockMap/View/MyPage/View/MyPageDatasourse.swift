@@ -53,18 +53,11 @@ extension MyPageViewController {
                         item: Dummy()
                     )
 
-                case .registeredRock:
+                case .registeredRock(let kind), .registeredCourse(let kind):
                     return self.collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureListCell(type: .rock),
+                        using: self.configureListCell(),
                         for: indexPath,
-                        item: Dummy()
-                    )
-
-                case .registeredCourse:
-                    return self.collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureListCell(type: .course),
-                        for: indexPath,
-                        item: Dummy()
+                        item: kind
                     )
             }
         }
@@ -165,18 +158,16 @@ extension MyPageViewController {
         }
     }
 
-    private func configureListCell(
-        type: MyPageViewModel.RegisteredKind
-    ) -> UICollectionView.CellRegistration<
+    private func configureListCell() -> UICollectionView.CellRegistration<
         UICollectionViewListCell,
-        Dummy
+        ItemKind.RegisteredKind
     > {
-        .init { cell, _, _ in
+        .init { cell, _, kind in
             var content = cell.defaultContentConfiguration()
             content.imageProperties.maximumSize = CGSize(width: 24, height: 24)
             content.imageProperties.tintColor = .black
-            content.image = type.iconImage
-            content.text = type.cellTitle
+            content.image = kind.iconImage
+            content.text = kind.cellTitle
             cell.contentConfiguration = content
         }
     }

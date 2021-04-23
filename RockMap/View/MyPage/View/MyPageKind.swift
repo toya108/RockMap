@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension MyPageViewController {
 
@@ -57,7 +58,7 @@ extension MyPageViewController {
                     return [.climbedNumber]
 
                 case .registered:
-                    return [.registeredRock, .registeredCourse]
+                    return [.registeredRock(.rock), .registeredCourse(.course)]
 
                 default:
                     return []
@@ -71,8 +72,31 @@ extension MyPageViewController {
         case socialLink(FIDocument.User.SocialLinkType)
         case introduction
         case climbedNumber
-        case registeredRock
-        case registeredCourse
+        case registeredRock(RegisteredKind)
+        case registeredCourse(RegisteredKind)
+
+        enum RegisteredKind {
+            case rock, course
+
+            var cellTitle: String {
+                switch self {
+                    case .rock:
+                        return "登録した岩"
+                    case .course:
+                        return "登録した課題"
+                }
+            }
+
+            var iconImage: UIImage {
+                switch self {
+                    case .rock:
+                        return UIImage.AssetsImages.rockFill
+                    case .course:
+                        return UIImage.SystemImages.docPlaintextFill
+                }
+
+            }
+        }
     }
 
 }

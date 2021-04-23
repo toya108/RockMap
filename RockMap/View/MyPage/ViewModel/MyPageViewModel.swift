@@ -6,7 +6,6 @@
 //
 
 import Combine
-import UIKit
 
 protocol MyPageViewModelProtocol {
     var input: MyPageViewModel.Input { get }
@@ -103,31 +102,3 @@ extension MyPageViewModel {
     }
 
 }
-
-extension MyPageViewModel {
-
-    enum RegisteredKind {
-        case rock, course
-
-        var cellTitle: String {
-            switch self {
-                case .rock:
-                    return "登録した岩"
-                case .course:
-                    return "登録した課題"
-            }
-        }
-
-        var iconImage: UIImage {
-            switch self {
-                case .rock:
-                    return UIImage.AssetsImages.rockFill
-                case .course:
-                    return UIImage.SystemImages.docPlaintextFill
-            }
-
-        }
-    }
-
-}
-
