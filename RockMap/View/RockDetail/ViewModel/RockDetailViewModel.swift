@@ -19,7 +19,7 @@ final class RockDetailViewModel: ViewModelProtocol {
     @Published var headerImageReference: StorageManager.Reference?
     @Published var imageReferences: [StorageManager.Reference] = []
     @Published var courses: [FIDocument.Course] = []
-    
+
     private var bindings = Set<AnyCancellable>()
     
     init(rock: FIDocument.Rock) {

@@ -92,7 +92,6 @@
 		9E7ABF09262590450028DB19 /* CombineControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7ABF08262590450028DB19 /* CombineControl.swift */; };
 		9E7ABF0E262593570028DB19 /* UISegmentedControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7ABF0D262593570028DB19 /* UISegmentedControl+Combine.swift */; };
 		9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CA7254CFD150091935F /* MyPageViewController.swift */; };
-		9E807CAD254CFD250091935F /* MyPageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E807CAC254CFD250091935F /* MyPageViewController.storyboard */; };
 		9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */; };
 		9E807CC6254D00310091935F /* ScreenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CC5254D00310091935F /* ScreenType.swift */; };
 		9E810722262DA3640025359C /* MyPageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E810721262DA3640025359C /* MyPageLayout.swift */; };
@@ -300,7 +299,6 @@
 		9E7ABF08262590450028DB19 /* CombineControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineControl.swift; sourceTree = "<group>"; };
 		9E7ABF0D262593570028DB19 /* UISegmentedControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Combine.swift"; sourceTree = "<group>"; };
 		9E807CA7254CFD150091935F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
-		9E807CAC254CFD250091935F /* MyPageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPageViewController.storyboard; sourceTree = "<group>"; };
 		9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectProtocolExtension.swift; sourceTree = "<group>"; };
 		9E807CC5254D00310091935F /* ScreenType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenType.swift; sourceTree = "<group>"; };
 		9E810721262DA3640025359C /* MyPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageLayout.swift; sourceTree = "<group>"; };
@@ -947,7 +945,6 @@
 				9E810721262DA3640025359C /* MyPageLayout.swift */,
 				9E810729262DA3700025359C /* MyPageKind.swift */,
 				9E81072E262DA37F0025359C /* MyPageDatasourse.swift */,
-				9E807CAC254CFD250091935F /* MyPageViewController.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1427,7 +1424,6 @@
 				9E7812FE261A069700CAC539 /* ClimbedTableViewCell.xib in Resources */,
 				9E2DA76025F91BA7008F339E /* LocationSelectCollectionViewCell.xib in Resources */,
 				9E5CEFD325277B25001C95AA /* RockSearchViewController.storyboard in Resources */,
-				9E807CAD254CFD250091935F /* MyPageViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
