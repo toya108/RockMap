@@ -13,7 +13,7 @@ struct MyPageRouter: RouterProtocol {
     typealias ViewModel = MyPageViewModel
 
     enum DestinationType: DestinationProtocol {
-        case hoge
+        case courseDetail(FIDocument.Course)
     }
 
     weak var viewModel: ViewModel!
@@ -26,7 +26,20 @@ struct MyPageRouter: RouterProtocol {
         to destination: DestinationType,
         from context: UIViewController
     ) {
+        switch destination {
+            case .courseDetail(let course):
+                pushCourseDetail(context, course: course)
 
+        }
+    }
+
+    private func pushCourseDetail(
+        _ from: UIViewController,
+        course: FIDocument.Course
+    ) {
+        let viewModel = CourseDetailViewModel(course: course)
+        let vc = CourseDetailViewController.createInstance(viewModel: viewModel)
+        from.navigationController?.pushViewController(vc, animated: true)
     }
 
 }
