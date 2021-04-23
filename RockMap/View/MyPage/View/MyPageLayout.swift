@@ -11,7 +11,7 @@ extension MyPageViewController {
 
     func createLayout() -> UICollectionViewCompositionalLayout {
 
-        let layout = UICollectionViewCompositionalLayout { sectionNumber, _ -> NSCollectionLayoutSection in
+        let layout = UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
 
             let section: NSCollectionLayoutSection
 
@@ -106,6 +106,15 @@ extension MyPageViewController {
                         subitems: [item]
                     )
                     section = .init(group: group)
+                    section.contentInsets.bottom = 16
+
+                case .registered:
+                    let configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+                    section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: env)
+                    section.boundarySupplementaryItems = [sectionHeader]
+                    section.contentInsets.top = 0
+                    return section
+
             }
 
             if !sectionType.headerIdentifer.isEmpty {

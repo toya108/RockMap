@@ -52,6 +52,20 @@ extension MyPageViewController {
                         for: indexPath,
                         item: Dummy()
                     )
+
+                case .registeredRock:
+                    return self.collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureListCell(type: .rock),
+                        for: indexPath,
+                        item: Dummy()
+                    )
+
+                case .registeredCourse:
+                    return self.collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureListCell(type: .course),
+                        for: indexPath,
+                        item: Dummy()
+                    )
             }
         }
 
@@ -62,7 +76,6 @@ extension MyPageViewController {
             guard let self = self else { return }
 
             supplementaryView.setSideInset(0)
-            supplementaryView.backgroundColor = .white
             supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section].headerTitle
         }
 
@@ -149,6 +162,22 @@ extension MyPageViewController {
                 flash: self.viewModel.output.climbedList.filter(\.type.isFlash).count,
                 redPoint: self.viewModel.output.climbedList.filter(\.type.isRedpoint).count
             )
+        }
+    }
+
+    private func configureListCell(
+        type: MyPageViewModel.RegisteredKind
+    ) -> UICollectionView.CellRegistration<
+        UICollectionViewListCell,
+        Dummy
+    > {
+        .init { cell, _, _ in
+            var content = cell.defaultContentConfiguration()
+            content.imageProperties.maximumSize = CGSize(width: 24, height: 24)
+            content.imageProperties.tintColor = .black
+            content.image = type.iconImage
+            content.text = type.cellTitle
+            cell.contentConfiguration = content
         }
     }
 }

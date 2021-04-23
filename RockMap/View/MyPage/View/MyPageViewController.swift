@@ -86,3 +86,31 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
         datasource.apply(snapShot)
     }
 }
+
+extension MyPageViewController {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+
+        guard
+            let item = datasource.itemIdentifier(for: indexPath)
+        else {
+            return
+        }
+
+        switch item {
+            case .climbedNumber:
+                break
+            case .registeredRock:
+                break
+            case .registeredCourse:
+                break
+            default:
+                break
+        }
+    }
+
+}
