@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class CourseRegisterViewModel {
+class CourseRegisterViewModel: ViewModelProtocol {
 
     struct RockHeaderStructure: Hashable {
         let rock: FIDocument.Rock

@@ -141,7 +141,7 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
             }
             .store(in: &bindings)
 
-        viewModel.$uploadState
+        viewModel.$loadingState
             .receive(on: RunLoop.main)
             .sink { [weak self] in
 

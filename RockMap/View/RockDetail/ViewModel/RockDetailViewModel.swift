@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class RockDetailViewModel {
+final class RockDetailViewModel: ViewModelProtocol {
     @Published var rockDocument: FIDocument.Rock
     @Published var rockName = ""
     @Published var registeredUser: FIDocument.User?
@@ -19,7 +19,7 @@ final class RockDetailViewModel {
     @Published var headerImageReference: StorageManager.Reference?
     @Published var imageReferences: [StorageManager.Reference] = []
     @Published var courses: [FIDocument.Course] = []
-    
+
     private var bindings = Set<AnyCancellable>()
     
     init(rock: FIDocument.Rock) {

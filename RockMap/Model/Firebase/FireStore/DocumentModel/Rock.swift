@@ -15,7 +15,7 @@ extension FIDocument {
         
         var id: String = UUID().uuidString
         var createdAt: Date = Date()
-        var updatedAt: Date? = nil
+        var updatedAt: Date?
         var parentPath: String
         var name: String
         var address: String
@@ -25,7 +25,7 @@ extension FIDocument {
         var lithology: Lithology
         var desc: String
         var registeredUserReference: DocumentReference
-        
+
         enum Season: String, CaseIterable, Codable {
             case spring, summer, autumn, winter
             

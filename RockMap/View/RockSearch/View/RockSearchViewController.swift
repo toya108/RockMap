@@ -133,6 +133,8 @@ final class RockSearchViewController: UIViewController {
     private func setupBindings() {
         viewModel.$rockDocuments
             .dropFirst()
+            .removeDuplicates()
+            .receive(on: RunLoop.main)
             .sink { [weak self] documents in
                 
                 guard let self = self else { return }
@@ -152,6 +154,7 @@ final class RockSearchViewController: UIViewController {
 
         viewModel.$locationSelectState
             .removeDuplicates()
+            .receive(on: RunLoop.main)
             .sink { [weak self] state in
 
                 guard let self = self else { return }
@@ -169,6 +172,7 @@ final class RockSearchViewController: UIViewController {
 
         viewModel.$address
             .removeDuplicates()
+            .receive(on: RunLoop.main)
             .sink { [weak self] address in
 
                 guard

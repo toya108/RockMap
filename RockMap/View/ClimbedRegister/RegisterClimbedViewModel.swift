@@ -19,7 +19,7 @@ class RegisterClimbedViewModel {
 
     @Published var climbedDate: Date?
     @Published var climbedType: FIDocument.Climbed.ClimbedRecordType = .flash
-    @Published private(set) var uploadState: StoreUploadState = .stanby
+    @Published private(set) var loadingState: LoadingState = .stanby
 
     private var bindings = Set<AnyCancellable>()
 
@@ -36,7 +36,7 @@ class RegisterClimbedViewModel {
             return
         }
 
-        uploadState = .loading
+        loadingState = .loading
 
         let badge = FirestoreManager.db.batch()
 
@@ -85,10 +85,10 @@ class RegisterClimbedViewModel {
 
                     switch result {
                         case .finished:
-                            self.uploadState = .finish
+                            self.loadingState = .finish
 
                         case .failure(let error):
-                            self.uploadState = .failure(error)
+                            self.loadingState = .failure(error)
 
                     }
                 },
@@ -106,7 +106,7 @@ class RegisterClimbedViewModel {
             return
         }
 
-        uploadState = .loading
+        loadingState = .loading
 
         course.makeDocumentReference()
             .collection(FIDocument.TotalClimbedNumber.colletionName)
@@ -150,10 +150,10 @@ class RegisterClimbedViewModel {
 
                     switch result {
                         case .finished:
-                            self.uploadState = .finish
+                            self.loadingState = .finish
 
                         case .failure(let error):
-                            self.uploadState = .failure(error)
+                            self.loadingState = .failure(error)
 
                     }
                 },

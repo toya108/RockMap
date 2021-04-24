@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class CourseConfirmViewModel {
+class CourseConfirmViewModel: ViewModelProtocol {
     
     let rockHeaderStructure: CourseRegisterViewModel.RockHeaderStructure
     let courseName: String
@@ -19,8 +19,8 @@ class CourseConfirmViewModel {
     let desc: String
     
     @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
-    @Published private(set) var courseUploadState: StoreUploadState = .stanby
-    @Published private(set) var addIdState: StoreUploadState = .stanby
+    @Published private(set) var courseUploadState: LoadingState = .stanby
+    @Published private(set) var addIdState: LoadingState = .stanby
 
     private var bindings = Set<AnyCancellable>()
     private let uploader = StorageUploader()
@@ -85,7 +85,8 @@ class CourseConfirmViewModel {
             desc: desc,
             grade: grade,
             shape: shape,
-            registedUserReference: AuthManager.shared.authUserReference
+            parentRockName: rockHeaderStructure.rock.name,
+            registedUserId: AuthManager.shared.uid
         )
         let courseDocumentReference = course.makeDocumentReference()
         badge.setData(course.dictionary, forDocument: courseDocumentReference)

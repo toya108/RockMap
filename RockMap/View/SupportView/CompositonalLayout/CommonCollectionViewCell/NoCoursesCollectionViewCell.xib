@@ -28,11 +28,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fXM-mk-LmH" userLabel="課題を追加する">
-                                <rect key="frame" x="47.5" y="36.5" width="165" height="30"/>
+                                <rect key="frame" x="57.5" y="36.5" width="145" height="30"/>
                                 <color key="backgroundColor" name="primaryGreenColor"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="contentEdgeInsets" minX="8" minY="4" maxX="8" maxY="4"/>
-                                <state key="normal" title="課題を追加する" image="plus.circle.fill" catalog="system">
+                                <state key="normal" title="課題を追加する">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
@@ -48,12 +48,12 @@
             <size key="customSize" width="414" height="222"/>
             <connections>
                 <outlet property="addCourseButton" destination="fXM-mk-LmH" id="t1O-IE-eJS"/>
+                <outlet property="titleLabel" destination="Rte-i8-35P" id="PuT-ls-9Bu"/>
             </connections>
             <point key="canvasLocation" x="-188.40579710144928" y="50.892857142857139"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="primaryGreenColor">
             <color red="0.016000000759959221" green="0.74900001287460327" blue="0.75700002908706665" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

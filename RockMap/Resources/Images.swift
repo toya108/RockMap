@@ -35,6 +35,7 @@ extension UIImage {
         static let triangleLefthalfFill = UIImage(systemName: "triangle.lefthalf.fill")!
         static let trash = UIImage(systemName: "trash")!
         static let squareAndPencil = UIImage(systemName: "square.and.pencil")!
+        static let gearshapeFill = UIImage(systemName: "gearshape.fill")!
     }
     
     struct AssetsImages {
@@ -47,5 +48,10 @@ extension UIImage {
         static let summer = UIImage(named: "summer")!
         static let autumn = UIImage(named: "autumn")!
         static let winter = UIImage(named: "winter")!
+        static let instagram = UIImage(named: "instagram")!
+        static let facebook = UIImage(named: "facebook")!
+        static let twitter = UIImage(named: "twitter")!
+        static let link = UIImage(named: "link")!
+        static let penguinRock = UIImage(named: "penguin_rock")!
     }
 }

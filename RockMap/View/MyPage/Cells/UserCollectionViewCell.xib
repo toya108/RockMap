@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U5S-mX-ju6" customClass="UserCollectionViewCell" customModule="RockMap" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="415" height="56"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="kNw-Q3-AbL">
+                <rect key="frame" x="0.0" y="0.0" width="415" height="56"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bVD-Fq-ML8" customClass="UserView" customModule="RockMap" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="276" height="56"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJZ-Kl-7WS">
+                        <rect key="frame" x="284" y="13" width="131" height="30"/>
+                        <color key="backgroundColor" name="primaryGreenColor"/>
+                        <state key="normal" title=" プロフィール編集 ">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="bVD-Fq-ML8" firstAttribute="leading" secondItem="kNw-Q3-AbL" secondAttribute="leading" id="8Qx-NU-deS"/>
+                    <constraint firstItem="bVD-Fq-ML8" firstAttribute="trailing" secondItem="GJZ-Kl-7WS" secondAttribute="leading" constant="-8" id="NOq-b8-G1C"/>
+                    <constraint firstAttribute="trailing" secondItem="GJZ-Kl-7WS" secondAttribute="trailing" id="ZDE-JS-gNe"/>
+                    <constraint firstAttribute="bottom" secondItem="bVD-Fq-ML8" secondAttribute="bottom" id="a1v-rf-V3f"/>
+                    <constraint firstItem="GJZ-Kl-7WS" firstAttribute="centerY" secondItem="kNw-Q3-AbL" secondAttribute="centerY" id="iKo-L3-e5z"/>
+                    <constraint firstItem="bVD-Fq-ML8" firstAttribute="top" secondItem="kNw-Q3-AbL" secondAttribute="top" id="ygz-NQ-urF"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="415" height="56"/>
+            <connections>
+                <outlet property="editProfileButton" destination="GJZ-Kl-7WS" id="5Oe-di-exN"/>
+                <outlet property="userView" destination="bVD-Fq-ML8" id="fM1-jV-Fsm"/>
+            </connections>
+            <point key="canvasLocation" x="315.21739130434787" y="46.875"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <namedColor name="primaryGreenColor">
+            <color red="0.016000000759959221" green="0.74900001287460327" blue="0.75700002908706665" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

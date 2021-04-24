@@ -19,7 +19,5 @@ class SectionBackgroundDecorationView: UICollectionReusableView {
         setupLayout()
     }
     
-    private func setupLayout() {
-        backgroundColor = .white
-    }
+    private func setupLayout() {}
 }

@@ -9,7 +9,7 @@ import CoreLocation
 import Combine
 import FirebaseFirestore
 
-final class RockConfirmViewModel {
+final class RockConfirmViewModel: ViewModelProtocol {
     
     var rockName: String
     var rockImageDatas: [IdentifiableData]
@@ -20,7 +20,7 @@ final class RockConfirmViewModel {
     var lithology: FIDocument.Rock.Lithology
     
     @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
-    @Published private(set) var rockUploadState: StoreUploadState = .stanby
+    @Published private(set) var rockUploadState: LoadingState  = .stanby
 
     private var bindings = Set<AnyCancellable>()
     
@@ -74,8 +74,15 @@ final class RockConfirmViewModel {
         
         rockUploadState = .loading
 
+        guard
+            let authUserReference = AuthManager.shared.authUserReference
+        else {
+            assertionFailure()
+            return
+        }
+
         let rockDocument = FIDocument.Rock(
-            parentPath: AuthManager.shared.authUserReference.path,
+            parentPath: authUserReference.path,
             name: rockName,
             address: rockLocation.address,
             prefecture: rockLocation.prefecture,
@@ -86,7 +93,7 @@ final class RockConfirmViewModel {
             seasons: seasons,
             lithology: lithology,
             desc: rockDesc,
-            registeredUserReference: AuthManager.shared.authUserReference
+            registeredUserReference: authUserReference
         )
 
         rockDocument.makeDocumentReference()

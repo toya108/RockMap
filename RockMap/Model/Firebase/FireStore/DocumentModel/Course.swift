@@ -16,13 +16,14 @@ extension FIDocument {
         var id: String = UUID().uuidString
         var parentPath: String
         var createdAt: Date = Date()
-        var updatedAt: Date? = nil
+        var updatedAt: Date?
         var name: String
         var desc: String
         var grade: Grade
         var shape: Set<Shape>
+        var parentRockName: String
         var climbedUserReferences: [DocumentRef] = []
-        var registedUserReference: DocumentRef
+        var registedUserId: String
         
         enum Grade: String, CaseIterable, Codable {
             case d5, d4, d3, d2, d1, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10

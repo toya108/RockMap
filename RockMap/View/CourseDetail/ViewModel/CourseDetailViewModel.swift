@@ -7,9 +7,8 @@
 
 import Combine
 import Foundation
-import FirebaseFirestore
 
-final class CourseDetailViewModel {
+final class CourseDetailViewModel: ViewModelProtocol {
     
     @Published var course: FIDocument.Course
     @Published var courseHeaderImageReference: StorageManager.Reference?
@@ -31,7 +30,7 @@ final class CourseDetailViewModel {
         
         courseName = course.name
         registeredDate = course.createdAt
-        fetchRegisterdUser(reference: course.registedUserReference)
+        fetchRegisterdUser()
         shape = course.shape
         desc = course.desc
     }
@@ -76,8 +75,10 @@ final class CourseDetailViewModel {
             .store(in: &bindings)
     }
 
-    private func fetchRegisterdUser(reference: DocumentRef) {
-        reference
+    private func fetchRegisterdUser() {
+        FirestoreManager.db
+            .collection(FIDocument.User.colletionName)
+            .document(course.registedUserId)
             .getDocument(FIDocument.User.self)
             .catch { _ -> Just<FIDocument.User?> in
                 return .init(nil)
@@ -124,7 +125,10 @@ final class CourseDetailViewModel {
         badge.setData(climbed.dictionary, forDocument: climbed.makeDocumentReference())
 
         badge.updateData(
-            ["total": FieldValue.increment(1.0), type.fieldName: FieldValue.increment(1.0)],
+            [
+                "total": FirestoreManager.Value.increment(1.0),
+                type.fieldName: FirestoreManager.Value.increment(1.0)
+            ],
             forDocument: totalClimbedNumber.makeDocumentReference()
         )
 

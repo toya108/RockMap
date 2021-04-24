@@ -6,7 +6,7 @@
 //
 
 import Combine
-import FirebaseFirestore
+import Foundation
 
 class ClimbedUserListViewModel {
 
@@ -79,7 +79,10 @@ class ClimbedUserListViewModel {
         let badge = FirestoreManager.db.batch()
         badge.deleteDocument(climbed.makeDocumentReference())
         badge.updateData(
-            ["total": FieldValue.increment(-1.0), climbed.type.fieldName: FieldValue.increment(-1.0)],
+            [
+                "total": FirestoreManager.Value.increment(-1.0),
+                climbed.type.fieldName: FirestoreManager.Value.increment(-1.0)
+            ],
             forDocument: climbed.totalNumberReference
         )
         badge.commit()

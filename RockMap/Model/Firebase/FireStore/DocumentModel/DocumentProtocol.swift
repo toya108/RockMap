@@ -83,7 +83,6 @@ extension FIDocumentProtocol {
     }
 }
 
-
 enum FirestoreError: Error {
     case nilResultError
 }

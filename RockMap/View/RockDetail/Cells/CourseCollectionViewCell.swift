@@ -24,15 +24,17 @@ class CourseCollectionViewCell: UICollectionViewCell {
         layer.masksToBounds = false
         layer.shadowOpacity = 0.2
         layer.shadowRadius = 8
-        layer.cornerRadius = 8
-        contentView.layer.cornerRadius = 8
+        layer.cornerRadius = 20
+        contentView.layer.cornerRadius = 20
     }
     
     func configure(course: FIDocument.Course) {
         courseNameLabel.text = course.name
         infoLabel.text = course.grade.name
 
-        course.registedUserReference
+        FirestoreManager.db
+            .collection(FIDocument.User.colletionName)
+            .document(course.registedUserId)
             .getDocument(FIDocument.User.self)
             .catch { _ -> Just<FIDocument.User?> in
                 return .init(nil)

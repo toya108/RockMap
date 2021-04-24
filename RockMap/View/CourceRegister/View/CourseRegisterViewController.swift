@@ -33,18 +33,11 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupCollectionView()
+        configureCollectionView()
         setupPickerManager()
         setupNavigationBar()
         bindViewModelToView()
-        datasource = configureDatasource()
         configureSections()
-    }
-    
-    private func setupCollectionView() {
-        configureCollectionView()
-        collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
-        collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
     }
 
     private func setupPickerManager() {

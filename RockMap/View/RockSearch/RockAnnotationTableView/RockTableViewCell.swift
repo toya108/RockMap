@@ -32,7 +32,7 @@ class RockTableViewCell: UITableViewCell {
         )
         StorageManager
             .getHeaderReference(rockReference)
-            .catch { error -> Just<StorageManager.Reference?> in
+            .catch { _ -> Just<StorageManager.Reference?> in
                 return .init(nil)
             }
             .sink { [weak self] reference in

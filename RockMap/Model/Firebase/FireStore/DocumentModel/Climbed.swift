@@ -16,7 +16,7 @@ extension FIDocument {
         var parentCourseReference: DocumentRef
         var totalNumberReference: DocumentRef
         var createdAt: Date = Date()
-        var updatedAt: Date? = nil
+        var updatedAt: Date?
         var parentPath: String
         var climbedDate: Date
         var type: ClimbedRecordType
@@ -56,6 +56,14 @@ extension FIDocument {
                         return UIColor.Pallete.primaryPink
 
                 }
+            }
+
+            var isFlash: Bool {
+                self == .flash
+            }
+
+            var isRedpoint: Bool {
+                self == .redpoint
             }
         }
     }

@@ -30,10 +30,9 @@ class RockConfirmViewController: UIViewController, CompositionalColectionViewCon
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupCollectionView()
+        configureCollectionView()
         setupNavigationBar()
         bindViewModelToView()
-        datasource = configureDatasource()
         configureSections()
     }
     
@@ -96,12 +95,6 @@ class RockConfirmViewController: UIViewController, CompositionalColectionViewCon
                 }
             }
             .store(in: &bindings)
-    }
-    
-    private func setupCollectionView() {
-        configureCollectionView()
-        collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
-        collectionView.contentInset = .init(top: 16, left: 0, bottom: 8, right: 0)
     }
     
     private func configureSections() {

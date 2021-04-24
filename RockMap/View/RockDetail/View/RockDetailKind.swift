@@ -22,7 +22,7 @@ extension RockDetailViewController {
         var headerTitle: String {
             switch self {
             case .desc:
-                return "岩の説明"
+                return "詳細"
                 
             case .map:
                 return "岩の位置"

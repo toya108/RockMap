@@ -138,28 +138,6 @@ extension CourseDetailViewController {
             
             guard let self = self else { return }
             
-            cell.isBookMarked = UserDefaultsDataHolder.shared.bookMarkedCourseIDs.contains(self.viewModel.course.id)
-            
-            cell.bookMarkButton.addAction(
-                .init { [weak self] _ in
-                    
-                    guard let self = self else { return }
-                    
-                    cell.bookMarkButton.pop()
-                    
-                    cell.isBookMarked.toggle()
-                    
-                    if cell.isBookMarked {
-                        UserDefaultsDataHolder.shared.bookMarkedCourseIDs.append(self.viewModel.course.id)
-                    } else {
-                        if let index = UserDefaultsDataHolder.shared.bookMarkedCourseIDs.firstIndex(of: self.viewModel.course.id) {
-                            UserDefaultsDataHolder.shared.bookMarkedCourseIDs.remove(at: index)
-                        }
-                    }
-                },
-                for: .touchUpInside
-            )
-            
             cell.completeButton.addAction(
                 .init { [weak self] _ in
 

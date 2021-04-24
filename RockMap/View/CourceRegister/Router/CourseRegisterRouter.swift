@@ -10,15 +10,16 @@ import UIKit
 struct CourseRegisterRouter: RouterProtocol {
 
     typealias Destination = DestinationType
+    typealias ViewModel = CourseRegisterViewModel
 
     enum DestinationType: DestinationProtocol {
         case courseConfirm
         case rockDetail
     }
 
-    private weak var viewModel: CourseRegisterViewModel!
+    weak var viewModel: ViewModel!
 
-    init(viewModel: CourseRegisterViewModel) {
+    init(viewModel: ViewModel) {
         self.viewModel = viewModel
     }
 

@@ -8,7 +8,7 @@
 import CoreLocation
 import Combine
 
-class RockSearchViewModel {
+class RockSearchViewModel: ViewModelProtocol {
     
     @Published private(set) var rockDocuments: [FIDocument.Rock] = []
     @Published private(set) var error: Error?
