@@ -52,5 +52,6 @@ extension UIImage {
         static let facebook = UIImage(named: "facebook")!
         static let twitter = UIImage(named: "twitter")!
         static let link = UIImage(named: "link")!
+        static let penguinRock = UIImage(named: "penguin_rock")!
     }
 }

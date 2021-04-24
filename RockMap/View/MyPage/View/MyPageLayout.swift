@@ -42,6 +42,7 @@ extension MyPageViewController {
                         subitems: [item]
                     )
                     section = .init(group: group)
+                    section.contentInsets.bottom = 16
                     return section
 
                 case .user:

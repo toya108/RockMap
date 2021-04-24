@@ -92,6 +92,7 @@ class CourseConfirmViewModel: ViewModelProtocol {
             desc: desc,
             grade: grade,
             shape: shape,
+            parentRockName: rockHeaderStructure.rock.name,
             registedUserReference: authUserReference
         )
         let courseDocumentReference = course.makeDocumentReference()

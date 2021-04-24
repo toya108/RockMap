@@ -22,8 +22,6 @@ extension FIDocument {
         var email: String?
         var photoURL: URL?
         var socialLinks: Set<SocialLinkType>? = []
-        var createdRock: [DocumentReference] = []
-        var createdCources: [DocumentReference] = []
         var introduction: String?
         
         var isRoot: Bool { true }

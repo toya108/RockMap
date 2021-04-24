@@ -7,27 +7,29 @@
 
 import Combine
 
-protocol MyPageViewModelProtocol {
+protocol MyPageViewModelProtocol: ViewModelProtocol {
     var input: MyPageViewModel.Input { get }
     var output: MyPageViewModel.Output { get }
 }
 
-class MyPageViewModel: MyPageViewModelProtocol, ViewModelProtocol {
+class MyPageViewModel: MyPageViewModelProtocol {
+
     var input: Input
     var output: Output
+
+    private let userReference: DocumentRef?
 
     private var bindings = Set<AnyCancellable>()
 
     init(userReference: DocumentRef?) {
 
-        self.input = .init()
+        self.userReference = userReference
 
-        do {
-            self.output = .init()
-        }
+        self.input = .init()
+        self.output = .init()
 
         setupBindings()
-        fetchUser(reference: userReference)
+        fetchUser()
     }
 
     private func setupBindings() {
@@ -69,10 +71,10 @@ class MyPageViewModel: MyPageViewModelProtocol, ViewModelProtocol {
             .store(in: &bindings)
     }
 
-    private func fetchUser(reference: DocumentRef?) {
+    func fetchUser() {
 
         guard
-            let reference = reference
+            let reference = userReference
         else {
             output.isGuest = true
             return

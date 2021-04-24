@@ -104,7 +104,7 @@ extension MyPageViewController {
         StorageManager.Reference
     > {
         .init { cell, _, reference in
-            cell.imageView.loadImage(reference: reference)
+            cell.imageView.image = UIImage.AssetsImages.penguinRock
         }
     }
 

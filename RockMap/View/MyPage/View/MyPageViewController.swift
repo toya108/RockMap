@@ -34,6 +34,16 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
         configureCollectionView()
         configureSections()
         bindViewModelOutput()
+
+        collectionView.refreshControl?.addAction(
+            .init { [weak self] _ in
+
+                guard let self = self else { return }
+
+                self.viewModel.fetchUser()
+            },
+            for: .valueChanged
+        )
     }
 
     private func setupNavigationBar() {
@@ -52,8 +62,20 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
     }
 
     private func bindViewModelOutput() {
+        viewModel.output.$user
+            .receive(on: RunLoop.main)
+            .sink { [weak self] user in
+
+                guard let self = self else { return }
+
+                self.snapShot.reloadItems(self.snapShot.itemIdentifiers(inSection: .user))
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+
         viewModel.output
             .$headerImageReference
+            .removeDuplicates()
             .receive(on: RunLoop.main)
             .sink { [weak self] reference in
 
@@ -131,8 +153,13 @@ extension MyPageViewController {
 
             case .registeredRock:
                 break
+
             case .registeredCourse:
-                break
+                router.route(
+                    to: .courseList(AuthManager.shared.authUserReference),
+                    from: self
+                )
+
             default:
                 break
         }
