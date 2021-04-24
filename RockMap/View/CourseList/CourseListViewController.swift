@@ -34,6 +34,9 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .systemGroupedBackground
+
+        setupEmptyView()
         configureCollectionView()
         snapShot.appendSections(SectionKind.allCases)
         setupViewModelOutput()
@@ -69,7 +72,7 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
 
                 guard let self = self else { return }
 
-                self.collectionView.isHidden = !isEmpty
+                self.collectionView.isHidden = isEmpty
             }
             .store(in: &bindings)
     }
