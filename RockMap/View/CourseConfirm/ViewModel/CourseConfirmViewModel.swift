@@ -79,13 +79,6 @@ class CourseConfirmViewModel: ViewModelProtocol {
 
         let badge = FirestoreManager.db.batch()
 
-        guard
-            let authUserReference = AuthManager.shared.authUserReference
-        else {
-            assertionFailure()
-            return
-        }
-
         let course = FIDocument.Course(
             parentPath: rockHeaderStructure.rock.makeDocumentReference().path,
             name: courseName,
@@ -93,7 +86,7 @@ class CourseConfirmViewModel: ViewModelProtocol {
             grade: grade,
             shape: shape,
             parentRockName: rockHeaderStructure.rock.name,
-            registedUserReference: authUserReference
+            registedUserId: AuthManager.shared.uid
         )
         let courseDocumentReference = course.makeDocumentReference()
         badge.setData(course.dictionary, forDocument: courseDocumentReference)

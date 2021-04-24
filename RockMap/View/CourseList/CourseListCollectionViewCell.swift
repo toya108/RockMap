@@ -12,6 +12,7 @@ class CourseListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var mainImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var gradeLabel: UILabel!
+    @IBOutlet weak var rockNameLabel: UILabel!
 
     private var bindings = Set<AnyCancellable>()
 
@@ -23,7 +24,8 @@ class CourseListCollectionViewCell: UICollectionViewCell {
 
     func configure(course: FIDocument.Course) {
         titleLabel.text = course.name
-        gradeLabel.text = course.grade.name
+        gradeLabel.text = "グレード：" + course.grade.name
+        rockNameLabel.text = "岩名：" + course.parentRockName
 
         let courseReference = StorageManager.makeReference(
             parent: FINameSpace.Course.self,

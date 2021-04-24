@@ -23,7 +23,7 @@ extension FIDocument {
         var shape: Set<Shape>
         var parentRockName: String
         var climbedUserReferences: [DocumentRef] = []
-        var registedUserReference: DocumentRef
+        var registedUserId: String
         
         enum Grade: String, CaseIterable, Codable {
             case d5, d4, d3, d2, d1, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10

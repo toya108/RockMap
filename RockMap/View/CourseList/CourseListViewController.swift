@@ -62,6 +62,7 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
                 guard let self = self else { return }
 
                 self.snapShot.appendItems(couses.map { ItemKind.course($0) }, toSection: .main)
+                self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
 
@@ -93,9 +94,15 @@ extension CourseListViewController {
                     let registration = UICollectionView.CellRegistration<
                         CourseListCollectionViewCell,
                         FIDocument.Course
-                    > { cell, _, _ in
+                    >(
+                        cellNib: .init(
+                            nibName: CourseListCollectionViewCell.className,
+                            bundle: nil
+                        )
+                    ) { cell, _, _ in
                         cell.configure(course: course)
                     }
+
                     return self.collectionView.dequeueConfiguredReusableCell(
                         using: registration,
                         for: indexPath,

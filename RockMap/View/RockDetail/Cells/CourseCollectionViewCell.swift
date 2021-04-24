@@ -32,7 +32,9 @@ class CourseCollectionViewCell: UICollectionViewCell {
         courseNameLabel.text = course.name
         infoLabel.text = course.grade.name
 
-        course.registedUserReference
+        FirestoreManager.db
+            .collection(FIDocument.User.colletionName)
+            .document(course.registedUserId)
             .getDocument(FIDocument.User.self)
             .catch { _ -> Just<FIDocument.User?> in
                 return .init(nil)

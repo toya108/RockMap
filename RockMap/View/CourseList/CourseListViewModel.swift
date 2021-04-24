@@ -28,17 +28,9 @@ class CourseListViewModel: CourseListViewModelProtocol {
     }
 
     func fetchCourseList() {
-
-        guard
-            let userReference = userReference
-        else {
-            output.isEmpty = true
-            return
-        }
-
         FirestoreManager.db
             .collectionGroup(FIDocument.Course.colletionName)
-            .whereField("registedUserReference", in: [userReference])
+            .whereField("registedUserId", in: [AuthManager.shared.uid])
             .getDocuments(FIDocument.Course.self)
             .catch { _ -> Just<[FIDocument.Course]> in
                 return .init([])

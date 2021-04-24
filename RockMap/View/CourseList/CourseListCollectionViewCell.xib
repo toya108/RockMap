@@ -24,7 +24,7 @@
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="a6R-yP-dsg">
-                        <rect key="frame" x="128" y="16" width="270" height="43"/>
+                        <rect key="frame" x="128" y="16" width="270" height="65.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rnp-TT-vQP">
                                 <rect key="frame" x="0.0" y="0.0" width="270" height="20.5"/>
@@ -38,9 +38,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6CF-oM-go8">
+                                <rect key="frame" x="0.0" y="51" width="270" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                     </stackView>
                 </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="I1M-Xr-BNj" firstAttribute="width" secondItem="I1M-Xr-BNj" secondAttribute="height" multiplier="1:1" id="6ig-Bo-AWB"/>
                     <constraint firstAttribute="trailing" secondItem="a6R-yP-dsg" secondAttribute="trailing" constant="16" id="7Bf-Vv-Iv1"/>
@@ -55,6 +62,7 @@
             <connections>
                 <outlet property="gradeLabel" destination="g7R-JJ-2fw" id="sLM-BQ-Cjr"/>
                 <outlet property="mainImageView" destination="I1M-Xr-BNj" id="LBs-ub-KWc"/>
+                <outlet property="rockNameLabel" destination="6CF-oM-go8" id="Qes-mJ-mOx"/>
                 <outlet property="titleLabel" destination="Rnp-TT-vQP" id="etc-1w-Mpg"/>
             </connections>
             <point key="canvasLocation" x="401.44927536231887" y="173.4375"/>

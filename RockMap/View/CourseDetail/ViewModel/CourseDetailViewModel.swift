@@ -30,7 +30,7 @@ final class CourseDetailViewModel: ViewModelProtocol {
         
         courseName = course.name
         registeredDate = course.createdAt
-        fetchRegisterdUser(reference: course.registedUserReference)
+        fetchRegisterdUser()
         shape = course.shape
         desc = course.desc
     }
@@ -75,8 +75,10 @@ final class CourseDetailViewModel: ViewModelProtocol {
             .store(in: &bindings)
     }
 
-    private func fetchRegisterdUser(reference: DocumentRef) {
-        reference
+    private func fetchRegisterdUser() {
+        FirestoreManager.db
+            .collection(FIDocument.User.colletionName)
+            .document(course.registedUserId)
             .getDocument(FIDocument.User.self)
             .catch { _ -> Just<FIDocument.User?> in
                 return .init(nil)
