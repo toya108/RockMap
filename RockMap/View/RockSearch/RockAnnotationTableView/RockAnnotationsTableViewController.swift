@@ -34,6 +34,7 @@ class RockAnnotationsTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .systemGroupedBackground
         setupTableView()
         datasource = configureDatasource()
         setupSections()
