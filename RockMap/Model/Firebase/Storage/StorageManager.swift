@@ -78,4 +78,14 @@ struct StorageManager {
     ) -> AnyPublisher<[StorageReference], Error> {
         return reference.child(ImageType.normal.typeName).getPrefixes()
     }
+
+    static func deleteReference<T: FIDocumentProtocol>(
+        _ documentType: T.Type,
+        id: String
+    ) {
+        Self.reference
+            .child(documentType.colletionName)
+            .child(id)
+            .delete(completion: { _ in })
+    }
 }
