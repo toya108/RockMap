@@ -11,6 +11,7 @@ import Foundation
 final class RockDetailViewModel: ViewModelProtocol {
     @Published var rockDocument: FIDocument.Rock
     @Published var rockName = ""
+    @Published var rockId = ""
     @Published var registeredUser: FIDocument.User?
     @Published var rockDesc = ""
     @Published var seasons: Set<FIDocument.Rock.Season> = []
@@ -28,6 +29,7 @@ final class RockDetailViewModel: ViewModelProtocol {
         setupBindings()
         
         self.rockName = rock.name
+        self.rockId = rock.id
         self.rockDesc = rock.desc
 
         rock.registeredUserReference
@@ -51,7 +53,7 @@ final class RockDetailViewModel: ViewModelProtocol {
     }
     
     private func setupBindings() {
-        $rockName
+        $rockId
             .drop(while: { $0.isEmpty })
             .map {
                 StorageManager.makeReference(parent: FINameSpace.Rocks.self, child: $0)
@@ -62,7 +64,7 @@ final class RockDetailViewModel: ViewModelProtocol {
             }
             .assign(to: &$headerImageReference)
 
-        $rockName
+        $rockId
             .drop(while: { $0.isEmpty })
             .map {
                 StorageManager.makeReference(parent: FINameSpace.Rocks.self, child: $0)

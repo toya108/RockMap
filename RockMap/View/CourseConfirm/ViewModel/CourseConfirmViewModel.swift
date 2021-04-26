@@ -17,7 +17,8 @@ class CourseConfirmViewModel: ViewModelProtocol {
     let header: IdentifiableData
     let images: [IdentifiableData]
     let desc: String
-    
+    private let courseDocument: FIDocument.Course
+
     @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
     @Published private(set) var courseUploadState: LoadingState = .stanby
     @Published private(set) var addIdState: LoadingState = .stanby
@@ -41,7 +42,16 @@ class CourseConfirmViewModel: ViewModelProtocol {
         self.header = header
         self.images = images
         self.desc = desc
-        
+
+        courseDocument = FIDocument.Course(
+            parentPath: rockHeaderStructure.rock.makeDocumentReference().path,
+            name: courseName,
+            desc: desc,
+            grade: grade,
+            shape: shape,
+            parentRockName: rockHeaderStructure.rock.name,
+            registedUserId: AuthManager.shared.uid
+        )
         bindImageUploader()
     }
     
@@ -56,7 +66,7 @@ class CourseConfirmViewModel: ViewModelProtocol {
             data: header.data,
             reference: StorageManager.makeHeaderImageReference(
                 parent: FINameSpace.Course.self,
-                child: courseName
+                child: courseDocument.id
             )
         )
 
@@ -65,7 +75,7 @@ class CourseConfirmViewModel: ViewModelProtocol {
                 data: $0.data,
                 reference: StorageManager.makeNormalImageReference(
                     parent: FINameSpace.Course.self,
-                    child: courseName
+                    child: courseDocument.id
                 )
             )
         }
@@ -79,20 +89,11 @@ class CourseConfirmViewModel: ViewModelProtocol {
 
         let badge = FirestoreManager.db.batch()
 
-        let course = FIDocument.Course(
-            parentPath: rockHeaderStructure.rock.makeDocumentReference().path,
-            name: courseName,
-            desc: desc,
-            grade: grade,
-            shape: shape,
-            parentRockName: rockHeaderStructure.rock.name,
-            registedUserId: AuthManager.shared.uid
-        )
-        let courseDocumentReference = course.makeDocumentReference()
-        badge.setData(course.dictionary, forDocument: courseDocumentReference)
+        let courseDocumentReference = courseDocument.makeDocumentReference()
+        badge.setData(courseDocument.dictionary, forDocument: courseDocumentReference)
 
         let totalClimbedNumber = FIDocument.TotalClimbedNumber(
-            parentCourseReference: course.makeDocumentReference(),
+            parentCourseReference: courseDocument.makeDocumentReference(),
             parentPath: courseDocumentReference.path
         )
         badge.setData(totalClimbedNumber.dictionary, forDocument: totalClimbedNumber.makeDocumentReference())

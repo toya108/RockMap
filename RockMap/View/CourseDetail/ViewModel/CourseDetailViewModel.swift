@@ -14,6 +14,7 @@ final class CourseDetailViewModel: ViewModelProtocol {
     @Published var courseHeaderImageReference: StorageManager.Reference?
     @Published var courseImageReferences: [StorageManager.Reference] = []
     @Published var courseName = ""
+    @Published var courseId = ""
     @Published var registeredUser: FIDocument.User?
     @Published var registeredDate: Date?
     @Published var totalClimbedNumber: FIDocument.TotalClimbedNumber?
@@ -29,6 +30,7 @@ final class CourseDetailViewModel: ViewModelProtocol {
         listenToTotalClimbedNumber()
         
         courseName = course.name
+        courseId = course.id
         registeredDate = course.createdAt
         fetchRegisterdUser()
         shape = course.shape
@@ -36,7 +38,7 @@ final class CourseDetailViewModel: ViewModelProtocol {
     }
     
     private func setupBindings() {
-        $courseName
+        $courseId
             .drop(while: { $0.isEmpty })
             .map {
                 StorageManager.makeReference(parent: FINameSpace.Course.self, child: $0)
@@ -47,7 +49,7 @@ final class CourseDetailViewModel: ViewModelProtocol {
             }
             .assign(to: &$courseHeaderImageReference)
 
-        $courseName
+        $courseId
             .drop(while: { $0.isEmpty })
             .map {
                 StorageManager.makeReference(parent: FINameSpace.Course.self, child: $0)
