@@ -34,12 +34,20 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemGroupedBackground
-
+        setupSubViews()
+        setupNavigationBar()
         setupEmptyView()
         configureCollectionView()
         snapShot.appendSections(SectionKind.allCases)
         setupViewModelOutput()
+    }
+
+    private func setupSubViews() {
+        view.backgroundColor = .systemGroupedBackground
+    }
+
+    private func setupNavigationBar() {
+        navigationItem.title = "登録した課題一覧"
     }
 
     private func setupEmptyView() {
@@ -61,6 +69,7 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
 
                 guard let self = self else { return }
 
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers)
                 self.snapShot.appendItems(couses.map { ItemKind.course($0) }, toSection: .main)
                 self.datasource.apply(self.snapShot)
             }
@@ -74,6 +83,30 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
                 guard let self = self else { return }
 
                 self.collectionView.isHidden = isEmpty
+            }
+            .store(in: &bindings)
+
+        viewModel.output.$deleteState
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+
+                guard let self = self else { return }
+
+                switch state {
+                    case .loading:
+                        self.showIndicatorView()
+
+                    case .finish, .stanby:
+                        self.hideIndicatorView()
+
+                    case .failure(let error):
+                        self.hideIndicatorView()
+                        self.showOKAlert(
+                            title: "削除に失敗しました",
+                            message: error?.localizedDescription ?? ""
+                        )
+                }
             }
             .store(in: &bindings)
     }
@@ -134,4 +167,90 @@ extension CourseListViewController {
         return layout
     }
 
+}
+
+extension CourseListViewController {
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        contextMenuConfigurationForItemAt indexPath: IndexPath,
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
+
+        let actionProvider: ([UIMenuElement]) -> UIMenu? = { [weak self] _ in
+
+            guard let self = self else { return nil }
+
+            guard
+                let item = self.datasource.itemIdentifier(for: indexPath),
+                case let .course(course) = item
+            else {
+                return nil
+            }
+
+            return UIMenu(
+                title: "",
+                children: [
+                    self.makeEditAction(),
+                    self.makeDeleteAction(course: course)
+                ]
+            )
+        }
+
+        return .init(
+            identifier: nil,
+            previewProvider: nil,
+            actionProvider: actionProvider
+        )
+
+    }
+
+    private func makeEditAction() -> UIAction {
+
+        return .init(
+            title: "編集",
+            image: UIImage.SystemImages.squareAndPencil
+        ) { [weak self] _ in
+
+            guard let self = self else { return }
+
+        }
+    }
+
+    private func makeDeleteAction(
+        course: FIDocument.Course
+    ) -> UIAction {
+
+        return .init(
+            title: "削除",
+            image: UIImage.SystemImages.trash,
+            attributes: .destructive
+        ) { [weak self] _ in
+
+            guard let self = self else { return }
+
+            let deleteAction = UIAlertAction(
+                title: "削除",
+                style: .destructive
+            ) { [weak self] _ in
+
+                guard let self = self else { return }
+
+                self.viewModel.input.deleteCourse(course)
+            }
+
+            let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
+
+            self.showAlert(
+                title: "課題を削除します。",
+                message: "削除した課題は復元できません。\n削除してもよろしいですか？",
+                actions: [
+                    deleteAction,
+                    cancelAction
+                ],
+                style: .actionSheet
+            )
+        }
+    }
+    
 }
