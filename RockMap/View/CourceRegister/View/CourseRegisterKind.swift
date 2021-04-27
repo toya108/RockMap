@@ -60,6 +60,8 @@ extension CourseRegisterViewController {
         
         var initalItems: [ItemKind] {
             switch self {
+            case .rock:
+                return [.rock]
             case .courseName:
                 return [.courseName]
                 
@@ -85,7 +87,7 @@ extension CourseRegisterViewController {
     }
     
     enum ItemKind: Hashable {
-        case rock(CourseRegisterViewModel.RockHeaderStructure)
+        case rock
         case courseName
         case grade(FIDocument.Course.Grade)
         case shape(shape: FIDocument.Course.Shape, isSelecting: Bool)

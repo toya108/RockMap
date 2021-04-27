@@ -18,11 +18,11 @@ extension CourseRegisterViewController {
             guard let self = self else { return UICollectionViewCell() }
             
             switch item {
-            case let .rock(rock):
+            case .rock:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureRockCell(),
                     for: indexPath,
-                    item: rock
+                    item: Dummy()
                 )
                 
             case .courseName:
@@ -115,15 +115,18 @@ extension CourseRegisterViewController {
     
     private func configureRockCell() -> UICollectionView.CellRegistration<
         RockHeaderCollectionViewCell,
-        CourseRegisterViewModel.RockHeaderStructure
+        Dummy
     > {
         .init(
             cellNib: .init(
                 nibName: RockHeaderCollectionViewCell.className,
                 bundle: nil
             )
-        ) { cell, _, rockHeaderStructure in
-            cell.configure(rockHeaderStructure: rockHeaderStructure)
+        ) { [weak self] cell, _, rockHeaderStructure in
+
+            guard let self = self else { return }
+
+            cell.configure(rockHeaderStructure: self.viewModel.rockHeaderStructure)
         }
     }
     

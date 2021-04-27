@@ -69,18 +69,6 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
     }
     
     private func bindViewModelToView() {
-        viewModel.$rockHeaderStructure
-            .drop { $0.rock.name.isEmpty }
-            .receive(on: RunLoop.main)
-            .sink { [weak self] rock in
-                
-                guard let self = self else { return }
-                
-                self.snapShot.appendItems([.rock(rock)], toSection: .rock)
-                self.datasource.apply(self.snapShot)
-            }
-            .store(in: &bindings)
-
         viewModel.$header
             .receive(on: RunLoop.main)
             .sink { [weak self] data in
