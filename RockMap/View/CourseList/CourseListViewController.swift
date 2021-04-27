@@ -173,6 +173,21 @@ extension CourseListViewController {
 
     func collectionView(
         _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
+        guard
+            let item = datasource.itemIdentifier(for: indexPath),
+            case let .course(course) = item
+        else {
+            return
+        }
+
+        let vc = CourseDetailViewController.createInstance(viewModel: .init(course: course))
+        navigationController?.pushViewController(vc, animated: true)
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
         contextMenuConfigurationForItemAt indexPath: IndexPath,
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
