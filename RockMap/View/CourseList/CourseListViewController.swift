@@ -18,14 +18,18 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
     private var bindings = Set<AnyCancellable>()
 
     enum SectionKind: CaseIterable, Hashable {
+        case annotationHeader
         case main
     }
 
     enum ItemKind: Hashable {
+        case annotationHeader
         case course(FIDocument.Course)
     }
 
-    static func createInstance(viewModel: CourseListViewModelProtocol) -> CourseListViewController {
+    static func createInstance(
+        viewModel: CourseListViewModelProtocol
+    ) -> CourseListViewController {
         let instance = CourseListViewController()
         instance.viewModel = viewModel
         return instance
@@ -38,7 +42,7 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
         setupNavigationBar()
         setupEmptyView()
         configureCollectionView()
-        snapShot.appendSections(SectionKind.allCases)
+        setupSections()
         setupViewModelOutput()
     }
 
@@ -60,6 +64,12 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
         ])
     }
 
+    private func setupSections() {
+        snapShot.appendSections(SectionKind.allCases)
+        snapShot.appendItems([.annotationHeader], toSection: .annotationHeader)
+        datasource.apply(snapShot)
+    }
+
     private func setupViewModelOutput() {
         viewModel.output.$courses
             .removeDuplicates()
@@ -69,7 +79,7 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
 
                 guard let self = self else { return }
 
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers)
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .main))
                 self.snapShot.appendItems(couses.map { ItemKind.course($0) }, toSection: .main)
                 self.datasource.apply(self.snapShot)
             }
@@ -122,8 +132,21 @@ extension CourseListViewController {
             guard let self = self else { return UICollectionViewCell() }
 
             switch item {
-                case let .course(course):
+                case .annotationHeader:
+                    let registration = UICollectionView.CellRegistration<
+                        AnnotationHeaderCollectionViewCell,
+                        Dummy
+                    > { cell, _, _ in
+                        cell.configure(title: "課題を長押しすると編集/削除ができます。")
+                    }
+
+                    return self.collectionView.dequeueConfiguredReusableCell(
+                        using: registration,
+                        for: indexPath,
+                        item: Dummy()
+                    )
                     
+                case let .course(course):
                     let registration = UICollectionView.CellRegistration<
                         CourseListCollectionViewCell,
                         FIDocument.Course
@@ -156,6 +179,10 @@ extension CourseListViewController {
             let sectionType = SectionKind.allCases[sectionNumber]
 
             switch sectionType {
+                case .annotationHeader:
+                    section = .list(using: .init(appearance: .insetGrouped), layoutEnvironment: env)
+                    section.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
+                    
                 case .main:
                     section = .list(using: .init(appearance: .insetGrouped), layoutEnvironment: env)
             }
