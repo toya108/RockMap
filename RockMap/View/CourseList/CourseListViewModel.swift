@@ -29,7 +29,17 @@ class CourseListViewModel: CourseListViewModelProtocol {
             deleteCourse: deleteCourse.send
         )
 
-        deleteCourse
+        setupDeleteCourseSubject(deleteCourse)
+
+        output.$courses
+            .map(\.isEmpty)
+            .assign(to: &output.$isEmpty)
+
+        fetchCourseList()
+    }
+
+    private func setupDeleteCourseSubject(_ subject: PassthroughSubject<FIDocument.Course, Never>) {
+        subject
             .flatMap {
                 $0.makeDocumentReference().delete(document: $0)
             }
@@ -43,12 +53,6 @@ class CourseListViewModel: CourseListViewModelProtocol {
                 }
             )
             .store(in: &bindings)
-
-        output.$courses
-            .map(\.isEmpty)
-            .assign(to: &output.$isEmpty)
-
-        fetchCourseList()
     }
 
     func fetchCourseList() {
@@ -68,7 +72,7 @@ class CourseListViewModel: CourseListViewModelProtocol {
             }
             .store(in: &bindings)
     }
-    
+
 }
 
 extension CourseListViewModel {

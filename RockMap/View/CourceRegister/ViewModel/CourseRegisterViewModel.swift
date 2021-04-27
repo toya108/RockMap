@@ -8,7 +8,15 @@
 import Combine
 import Foundation
 
-class CourseRegisterViewModel: ViewModelProtocol {
+protocol CourseRegisterViewModelProtocol: ViewModelProtocol {
+    var input: CourseRegisterViewModel.Input { get }
+    var output: CourseRegisterViewModel.Output { get }
+}
+
+class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
+
+    var input: Input = .init()
+    var output: Output = .init()
 
     struct RockHeaderStructure: Hashable {
         let rock: FIDocument.Rock
@@ -22,11 +30,6 @@ class CourseRegisterViewModel: ViewModelProtocol {
     @Published var header: IdentifiableData?
     @Published var images: [IdentifiableData] = []
     @Published var desc = ""
-    @Published var isPrivate = false
-    
-    @Published private(set) var courseNameValidationResult: ValidationResult = .none
-    @Published private(set) var courseImageValidationResult: ValidationResult = .none
-    @Published private(set) var headerImageValidationResult: ValidationResult = .none
 
     private var bindings = Set<AnyCancellable>()
 
@@ -40,28 +43,28 @@ class CourseRegisterViewModel: ViewModelProtocol {
             .dropFirst()
             .removeDuplicates()
             .map { name -> ValidationResult in CourseNameValidator().validate(name) }
-            .assign(to: &$courseNameValidationResult)
+            .assign(to: &output.$courseNameValidationResult)
         
         $images
             .dropFirst()
             .map { RockImageValidator().validate($0) }
-            .assign(to: &$courseImageValidationResult)
+            .assign(to: &output.$courseImageValidationResult)
 
-        $headerImageValidationResult
+        output.$headerImageValidationResult
             .dropFirst()
             .map { RockImageValidator().validate($0) }
-            .assign(to: &$courseImageValidationResult)
+            .assign(to: &output.$courseImageValidationResult)
     }
     
     func callValidations() -> Bool {
-        headerImageValidationResult = RockHeaderImageValidator().validate(header)
-        courseImageValidationResult = RockImageValidator().validate(images)
-        courseNameValidationResult = CourseNameValidator().validate(courseName)
+        output.headerImageValidationResult = RockHeaderImageValidator().validate(header)
+        output.courseImageValidationResult = RockImageValidator().validate(images)
+        output.courseNameValidationResult = CourseNameValidator().validate(courseName)
 
         return [
-            courseNameValidationResult,
-            courseImageValidationResult,
-            headerImageValidationResult
+            output.courseNameValidationResult,
+            output.courseImageValidationResult,
+            output.headerImageValidationResult
         ]
         .map(\.isValid)
         .allSatisfy { $0 }
@@ -76,5 +79,18 @@ class CourseRegisterViewModel: ViewModelProtocol {
                 images.append(contentsOf: data)
 
         }
+    }
+}
+
+extension CourseRegisterViewModel {
+
+    struct Input {
+
+    }
+
+    final class Output {
+        @Published var courseNameValidationResult: ValidationResult = .none
+        @Published var courseImageValidationResult: ValidationResult = .none
+        @Published var headerImageValidationResult: ValidationResult = .none
     }
 }

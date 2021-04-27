@@ -112,7 +112,7 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
             }
             .store(in: &bindings)
         
-        viewModel.$courseNameValidationResult
+        viewModel.output.$courseNameValidationResult
             .receive(on: RunLoop.main)
             .sink { [weak self] result in
                 
@@ -156,7 +156,7 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
             }
             .store(in: &bindings)
         
-        viewModel.$courseImageValidationResult
+        viewModel.output.$courseImageValidationResult
             .dropFirst()
             .receive(on: RunLoop.main)
             .sink { [weak self] result in
@@ -186,7 +186,7 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
             }
             .store(in: &bindings)
 
-        viewModel.$headerImageValidationResult
+        viewModel.output.$headerImageValidationResult
             .dropFirst()
             .receive(on: RunLoop.main)
             .sink { [weak self] result in
