@@ -44,6 +44,10 @@ class CourseListViewModel: CourseListViewModelProtocol {
             )
             .store(in: &bindings)
 
+        output.$courses
+            .map(\.isEmpty)
+            .assign(to: &output.$isEmpty)
+
         fetchCourseList()
     }
 
@@ -60,12 +64,11 @@ class CourseListViewModel: CourseListViewModelProtocol {
 
                 guard let self = self else { return }
 
-                self.output.isEmpty = courses.isEmpty
                 self.output.courses = courses
             }
             .store(in: &bindings)
     }
-
+    
 }
 
 extension CourseListViewModel {
