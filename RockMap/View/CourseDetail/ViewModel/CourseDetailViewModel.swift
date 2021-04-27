@@ -105,51 +105,5 @@ final class CourseDetailViewModel: ViewModelProtocol {
             }
             .store(in: &bindings)
     }
-    
-    func registerClimbed(
-        climbedDate: Date,
-        type: FIDocument.Climbed.ClimbedRecordType,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
-
-        guard let totalClimbedNumber = totalClimbedNumber else { return }
-
-        let badge = FirestoreManager.db.batch()
-
-        let climbed = FIDocument.Climbed(
-            parentCourseReference: course.makeDocumentReference(),
-            totalNumberReference: totalClimbedNumber.makeDocumentReference(),
-            parentPath: course.makeDocumentReference().path,
-            climbedDate: climbedDate,
-            type: type,
-            climbedUserId: AuthManager.shared.uid
-        )
-        badge.setData(climbed.dictionary, forDocument: climbed.makeDocumentReference())
-
-        badge.updateData(
-            [
-                "total": FirestoreManager.Value.increment(1.0),
-                type.fieldName: FirestoreManager.Value.increment(1.0)
-            ],
-            forDocument: totalClimbedNumber.makeDocumentReference()
-        )
-
-        badge.commit()
-            .sink(
-                receiveCompletion: { result in
-
-                    switch result {
-                        case .finished:
-                            completion(.success(()))
-
-                        case .failure(let error):
-                            completion(.failure(error))
-                            
-                    }
-                },
-                receiveValue: {}
-            )
-            .store(in: &bindings)
-    }
 }
 

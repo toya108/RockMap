@@ -13,6 +13,8 @@ extension FIDocument {
         typealias Collection = FINameSpace.Climbed
         
         var id: String = UUID().uuidString
+        var registeredUserId: String
+        var parentCourseId: String
         var parentCourseReference: DocumentRef
         var totalNumberReference: DocumentRef
         var createdAt: Date = Date()
@@ -20,8 +22,7 @@ extension FIDocument {
         var parentPath: String
         var climbedDate: Date
         var type: ClimbedRecordType
-        var climbedUserId: String
-        
+
         enum ClimbedRecordType: String, CaseIterable, Codable {
             case flash, redpoint
             

@@ -93,8 +93,9 @@ final class RockDetailViewModel: ViewModelProtocol {
     }
     
     func fetchCourses() {
-        rockDocument.makeDocumentReference()
-            .collection(FIDocument.Course.colletionName)
+        FirestoreManager.db
+            .collectionGroup(FIDocument.Course.colletionName)
+            .whereField("parentRockId", in: [rockDocument.id])
             .getDocuments(FIDocument.Course.self)
             .catch { _ -> Just<[FIDocument.Course]> in
                 return .init([])

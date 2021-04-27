@@ -22,6 +22,7 @@ extension FIDocument {
         var grade: Grade
         var shape: Set<Shape>
         var parentRockName: String
+        var parentRockId: String
         var climbedUserReferences: [DocumentRef] = []
         var registedUserId: String
         

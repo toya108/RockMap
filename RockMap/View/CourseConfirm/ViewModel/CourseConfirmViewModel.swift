@@ -44,12 +44,13 @@ class CourseConfirmViewModel: ViewModelProtocol {
         self.desc = desc
 
         courseDocument = FIDocument.Course(
-            parentPath: rockHeaderStructure.rock.makeDocumentReference().path,
+            parentPath: AuthManager.shared.authUserReference?.path ?? "",
             name: courseName,
             desc: desc,
             grade: grade,
             shape: shape,
             parentRockName: rockHeaderStructure.rock.name,
+            parentRockId: rockHeaderStructure.rock.id,
             registedUserId: AuthManager.shared.uid
         )
         bindImageUploader()

@@ -28,8 +28,9 @@ class ClimbedUserListViewModel {
     }
 
     func fetchClimbed() {
-        course.makeDocumentReference()
-            .collection(FIDocument.Climbed.colletionName)
+        FirestoreManager.db
+            .collectionGroup(FIDocument.Climbed.colletionName)
+            .whereField("parentCourseId", in: [course.id])
             .order(by: "climbedDate")
             .getDocuments(FIDocument.Climbed.self)
             .catch { _ -> Just<[FIDocument.Climbed]> in
@@ -44,7 +45,7 @@ class ClimbedUserListViewModel {
             .flatMap {
                 FirestoreManager.db
                     .collection(FIDocument.User.colletionName)
-                    .whereField("id", in: $0.map(\.climbedUserId))
+                    .whereField("id", in: $0.map(\.registeredUserId))
                     .getDocuments(FIDocument.User.self)
             }
             .catch { _ -> Just<[FIDocument.User]> in
@@ -57,7 +58,7 @@ class ClimbedUserListViewModel {
                 self.climbedCellData = self.climbedList.compactMap { climbed -> ClimbedCellData? in
 
                     guard
-                        let user = climbedUserList.first(where: { climbed.climbedUserId == $0.id })
+                        let user = climbedUserList.first(where: { climbed.registeredUserId == $0.id })
                     else {
                         return nil
                     }
