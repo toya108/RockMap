@@ -17,7 +17,7 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
 
-    private var bindings = Set<AnyCancellable>()
+    var bindings = Set<AnyCancellable>()
 
     var pickerManager: PickerManager!
     
@@ -69,47 +69,36 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
     }
     
     private func bindViewModelToView() {
-        viewModel.$header
+        viewModel.output.$courseName
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: courseNameSink)
+            .store(in: &bindings)
+
+        viewModel.output.$courseDesc
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: courseDescSink)
+            .store(in: &bindings)
+
+        viewModel.output.$grade
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: gradeSink)
+            .store(in: &bindings)
+
+
+        viewModel.output.$shape
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: shapeSink)
+            .store(in: &bindings)
+
+        viewModel.output.$header
             .receive(on: RunLoop.main)
-            .sink { [weak self] data in
-
-                defer {
-                    self?.hideIndicatorView()
-                }
-
-                guard let self = self else { return }
-
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .header))
-
-                if let data = data {
-                    self.snapShot.appendItems([.header(data)], toSection: .header)
-
-                } else {
-                    self.snapShot.appendItems([.noImage(.header)], toSection: .header)
-
-                }
-
-                self.datasource.apply(self.snapShot)
-            }
+            .sink(receiveValue: headerSink)
             .store(in: &bindings)
         
-        viewModel.$images
+        viewModel.output.$images
             .drop { $0.isEmpty }
             .receive(on: RunLoop.main)
-            .sink { [weak self] images in
-                
-                defer {
-                    self?.hideIndicatorView()
-                }
-                
-                guard let self = self else { return }
-                
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .images))
-                
-                self.snapShot.appendItems([.noImage(.normal)], toSection: .images)
-                self.snapShot.appendItems(images.map { ItemKind.images($0) }, toSection: .images)
-                self.datasource.apply(self.snapShot)
-            }
+            .sink(receiveValue: imagesSink)
             .store(in: &bindings)
         
         viewModel.output.$courseNameValidationResult
@@ -139,19 +128,6 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
 
                     self.snapShot.appendItems([.error(error)], toSection: .courseName)
                 }
-                self.datasource.apply(self.snapShot)
-            }
-            .store(in: &bindings)
-        
-        viewModel.$grade
-            .receive(on: RunLoop.main)
-            .sink { [weak self] grade in
-            
-                guard let self = self else { return }
-                
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .grade))
-                
-                self.snapShot.appendItems([.grade(grade)], toSection: .grade)
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
@@ -216,21 +192,6 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
-        
-        viewModel.$shape
-            .receive(on: RunLoop.main)
-            .sink { [weak self] shape in
-                
-                guard let self = self else { return }
-                
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .shape))
-                
-                let items = FIDocument.Course.Shape.allCases.map { ItemKind.shape(shape: $0, isSelecting: shape.contains($0)) }
-                self.snapShot.appendItems(items, toSection: .shape)
- 
-                self.datasource.apply(self.snapShot)
-            }
-            .store(in: &bindings)
     }
     
     private func configureSections() {
@@ -239,7 +200,7 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
             snapShot.appendItems($0.initalItems, toSection: $0)
         }
         let shapeItems = FIDocument.Course.Shape.allCases.map {
-            ItemKind.shape(shape: $0, isSelecting: viewModel.shape.contains($0))
+            ItemKind.shape(shape: $0, isSelecting: viewModel.output.shape.contains($0))
         }
         snapShot.appendItems(shapeItems, toSection: .shape)
         datasource.apply(snapShot)
@@ -260,12 +221,13 @@ extension CourseRegisterViewController: PickerManagerDelegate {
         data: Data,
         imageType: ImageType
     ) {
-        viewModel.set(
-            data: [.init(data: data)],
-            for: imageType
+        viewModel.input.setImageSubject.send(
+            .init(
+                dataList: [.init(data: data)],
+                imageType: imageType
+            )
         )
     }
-
 }
 
 extension CourseRegisterViewController: UICollectionViewDelegate {
@@ -286,17 +248,77 @@ extension CourseRegisterViewController: UICollectionViewDelegate {
         }
         
         switch item {
-        case let .shape(shape, _):
+            case let .shape(shape, _):
+                viewModel.input.shapeSubject.send(shape)
             
-            if viewModel.shape.contains(shape) {
-                viewModel.shape.remove(shape)
-            } else {
-                viewModel.shape.insert(shape)
-            }
-            
-        default:
-            break
+            default:
+                break
         }
     }
     
+}
+
+extension CourseRegisterViewController {
+
+    private func courseNameSink(_ courseName: String) {
+        guard
+            let courseNameItem = snapShot.itemIdentifiers(inSection: .courseName).first,
+            let cell = cell(
+                for: TextFieldColletionViewCell.self,
+                item: courseNameItem
+            )
+        else {
+            return
+        }
+        cell.textField.text = courseName
+    }
+
+    private func courseDescSink(_ courseDesc: String) {
+        guard
+            let courseNameItem = snapShot.itemIdentifiers(inSection: .desc).first,
+            let cell = cell(
+                for: TextViewCollectionViewCell.self,
+                item: courseNameItem
+            )
+        else {
+            return
+        }
+        cell.textView.setText(text: courseDesc)
+    }
+
+    private func gradeSink(_ grade: FIDocument.Course.Grade) {
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .grade))
+        snapShot.appendItems([.grade(grade)], toSection: .grade)
+        datasource.apply(snapShot)
+    }
+
+    private func shapeSink(_ shapes: Set<FIDocument.Course.Shape>) {
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .shape))
+        let items = FIDocument.Course.Shape.allCases.map {
+            ItemKind.shape(shape: $0, isSelecting: shapes.contains($0))
+        }
+        snapShot.appendItems(items, toSection: .shape)
+        datasource.apply(snapShot)
+    }
+
+    private func headerSink(_ identifiableData: IdentifiableData?) {
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .header))
+        if let data = identifiableData {
+            snapShot.appendItems([.header(data)], toSection: .header)
+        } else {
+            snapShot.appendItems([.noImage(.header)], toSection: .header)
+        }
+        datasource.apply(snapShot)
+
+        hideIndicatorView()
+    }
+
+    private func imagesSink(_ identifiableDataList: [IdentifiableData]) {
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .images))
+        snapShot.appendItems([.noImage(.normal)], toSection: .images)
+        snapShot.appendItems(identifiableDataList.map { ItemKind.images($0) }, toSection: .images)
+        datasource.apply(snapShot)
+
+        hideIndicatorView()
+    }
 }
