@@ -84,113 +84,37 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
             .sink(receiveValue: gradeSink)
             .store(in: &bindings)
 
-
         viewModel.output.$shape
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: shapeSink)
             .store(in: &bindings)
 
         viewModel.output.$header
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink(receiveValue: headerSink)
             .store(in: &bindings)
         
         viewModel.output.$images
             .drop { $0.isEmpty }
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink(receiveValue: imagesSink)
             .store(in: &bindings)
         
         viewModel.output.$courseNameValidationResult
-            .receive(on: RunLoop.main)
-            .sink { [weak self] result in
-                
-                guard let self = self else { return }
-                
-                switch result {
-                case .valid, .none:
-                    let items = self.snapShot.itemIdentifiers(inSection: .courseName)
-                    
-                    guard
-                        let item = items.first(where: { $0.isErrorItem })
-                    else {
-                        return
-                    }
-                    
-                    self.snapShot.deleteItems([item])
-                    
-                case let .invalid(error):
-                    let items = self.snapShot.itemIdentifiers(inSection: .courseName)
-                    
-                    if let item = items.first(where: { $0.isErrorItem }) {
-                        self.snapShot.deleteItems([item])
-                    }
-
-                    self.snapShot.appendItems([.error(error)], toSection: .courseName)
-                }
-                self.datasource.apply(self.snapShot)
-            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: courseNameValidationSink)
             .store(in: &bindings)
         
         viewModel.output.$courseImageValidationResult
             .dropFirst()
-            .receive(on: RunLoop.main)
-            .sink { [weak self] result in
-
-                guard let self = self else { return }
-
-                let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
-
-                switch result {
-                    case .valid, .none:
-                        guard
-                            let item = items.first(where: { $0 == .error(.quantity(formName: "画像", max: 10)) })
-                        else {
-                            return
-                        }
-
-                        self.snapShot.deleteItems([item])
-
-                    case let .invalid(error):
-                        if let item = items.first(where: { $0 == .error(.quantity(formName: "画像", max: 10)) }) {
-                            self.snapShot.deleteItems([item])
-                        }
-
-                        self.snapShot.appendItems([.error(error)], toSection: .confirmation)
-                }
-                self.datasource.apply(self.snapShot)
-            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: courseImageValidationSink)
             .store(in: &bindings)
 
         viewModel.output.$headerImageValidationResult
             .dropFirst()
             .receive(on: RunLoop.main)
-            .sink { [weak self] result in
-
-                guard let self = self else { return }
-
-                let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
-
-                switch result {
-                    case .valid, .none:
-                        guard
-                            let item = items.first(where: { $0 == .error(.none(formName: "ヘッダー画像")) })
-                        else {
-                            return
-                        }
-
-                        self.snapShot.deleteItems([item])
-
-                    case let .invalid(error):
-                        if let item = items.first(where: { $0 == .error(.none(formName: "ヘッダー画像")) }) {
-                            self.snapShot.deleteItems([item])
-                        }
-                        self.snapShot.appendItems([.error(error)], toSection: .confirmation)
-
-                }
-
-                self.datasource.apply(self.snapShot)
-            }
+            .sink(receiveValue: headerImageValidationSink)
             .store(in: &bindings)
     }
     
@@ -321,4 +245,77 @@ extension CourseRegisterViewController {
 
         hideIndicatorView()
     }
+
+    private func courseNameValidationSink(_ result: ValidationResult) {
+        switch result {
+            case .valid, .none:
+                let items = snapShot.itemIdentifiers(inSection: .courseName)
+
+                guard
+                    let item = items.first(where: { $0.isErrorItem })
+                else {
+                    return
+                }
+
+                snapShot.deleteItems([item])
+
+            case let .invalid(error):
+                let items = snapShot.itemIdentifiers(inSection: .courseName)
+
+                if let item = items.first(where: { $0.isErrorItem }) {
+                    snapShot.deleteItems([item])
+                }
+
+                snapShot.appendItems([.error(error)], toSection: .courseName)
+        }
+        datasource.apply(snapShot)
+    }
+
+    private func courseImageValidationSink(_ result: ValidationResult) {
+        let items = snapShot.itemIdentifiers(inSection: .confirmation)
+
+        switch result {
+            case .valid, .none:
+                guard
+                    let item = items.first(where: { $0 == .error(.quantity(formName: "画像", max: 10)) })
+                else {
+                    return
+                }
+
+                snapShot.deleteItems([item])
+
+            case let .invalid(error):
+                if let item = items.first(where: { $0 == .error(.quantity(formName: "画像", max: 10)) }) {
+                    snapShot.deleteItems([item])
+                }
+
+                snapShot.appendItems([.error(error)], toSection: .confirmation)
+        }
+        datasource.apply(snapShot)
+    }
+
+    private func headerImageValidationSink(_ result: ValidationResult) {
+        let items = snapShot.itemIdentifiers(inSection: .confirmation)
+
+        switch result {
+            case .valid, .none:
+                guard
+                    let item = items.first(where: { $0 == .error(.none(formName: "ヘッダー画像")) })
+                else {
+                    return
+                }
+
+                self.snapShot.deleteItems([item])
+
+            case let .invalid(error):
+                if let item = items.first(where: { $0 == .error(.none(formName: "ヘッダー画像")) }) {
+                    self.snapShot.deleteItems([item])
+                }
+                self.snapShot.appendItems([.error(error)], toSection: .confirmation)
+
+        }
+
+        datasource.apply(snapShot)
+    }
+
 }
