@@ -54,9 +54,9 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
     private func setupNavigationBar() {
         navigationItem.title = "課題を登録する"
 
-        navigationItem.setLeftBarButton(
+        navigationItem.setRightBarButton(
             .init(
-                systemItem: .cancel,
+                image: UIImage.SystemImages.xmark,
                 primaryAction: .init {  [weak self] _ in
                     
                     guard let self = self else { return }
