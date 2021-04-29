@@ -23,12 +23,27 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         let rockImageReference: StorageManager.Reference
     }
 
-    let rockHeaderStructure: RockHeaderStructure
+    enum RegisterType {
+        case create(RockHeaderStructure)
+        case edit(rockHeaderStructure: RockHeaderStructure, course: FIDocument.Course)
+
+        var rockHeaderStructure: RockHeaderStructure {
+            switch self {
+                case .create(let rockHeaderStructure):
+                    return rockHeaderStructure
+
+                case .edit(let rockHeaderStructure, _):
+                    return rockHeaderStructure
+            }
+        }
+    }
+
+    let registerType: RegisterType
 
     private var bindings = Set<AnyCancellable>()
 
-    init(rockHeaderStructure: RockHeaderStructure) {
-        self.rockHeaderStructure = rockHeaderStructure
+    init(registerType: RegisterType) {
+        self.registerType = registerType
         bindInput()
         bindOutput()
     }

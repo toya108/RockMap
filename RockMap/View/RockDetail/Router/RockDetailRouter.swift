@@ -65,9 +65,11 @@ struct RockDetailRouter: RouterProtocol {
         }
 
         let courseRegisterViewModel = CourseRegisterViewModel(
-            rockHeaderStructure: .init(
-                rock: viewModel.rockDocument,
-                rockImageReference: headerImageReference
+            registerType: .create(
+                .init(
+                    rock: viewModel.rockDocument,
+                    rockImageReference: headerImageReference
+                )
             )
         )
 

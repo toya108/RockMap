@@ -126,7 +126,7 @@ extension CourseRegisterViewController {
 
             guard let self = self else { return }
 
-            cell.configure(rockHeaderStructure: self.viewModel.rockHeaderStructure)
+            cell.configure(rockHeaderStructure: self.viewModel.registerType.rockHeaderStructure)
         }
     }
     
