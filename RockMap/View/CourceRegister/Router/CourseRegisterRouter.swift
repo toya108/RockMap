@@ -51,7 +51,7 @@ struct CourseRegisterRouter: RouterProtocol {
             rockHeaderStructure: viewModel.registerType.rockHeaderStructure,
             courseName: viewModel.output.courseName,
             grade: viewModel.output.grade,
-            shape: viewModel.output.shape,
+            shape: viewModel.output.shapes,
             header: header,
             images: viewModel.output.images,
             desc: viewModel.output.courseDesc

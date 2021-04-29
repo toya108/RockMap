@@ -84,7 +84,7 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
             .sink(receiveValue: gradeSink)
             .store(in: &bindings)
 
-        viewModel.output.$shape
+        viewModel.output.$shapes
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: shapeSink)
             .store(in: &bindings)
@@ -124,7 +124,7 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
             snapShot.appendItems($0.initalItems, toSection: $0)
         }
         let shapeItems = FIDocument.Course.Shape.allCases.map {
-            ItemKind.shape(shape: $0, isSelecting: viewModel.output.shape.contains($0))
+            ItemKind.shape(shape: $0, isSelecting: viewModel.output.shapes.contains($0))
         }
         snapShot.appendItems(shapeItems, toSection: .shape)
         datasource.apply(snapShot)
@@ -173,7 +173,7 @@ extension CourseRegisterViewController: UICollectionViewDelegate {
         
         switch item {
             case let .shape(shape, _):
-                viewModel.input.shapeSubject.send(shape)
+                viewModel.input.shapeSubject.send([shape])
             
             default:
                 break

@@ -18,26 +18,6 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
     var input: Input = .init()
     var output: Output = .init()
 
-    struct RockHeaderStructure: Hashable {
-        let rock: FIDocument.Rock
-        let rockImageReference: StorageManager.Reference
-    }
-
-    enum RegisterType {
-        case create(RockHeaderStructure)
-        case edit(rockHeaderStructure: RockHeaderStructure, course: FIDocument.Course)
-
-        var rockHeaderStructure: RockHeaderStructure {
-            switch self {
-                case .create(let rockHeaderStructure):
-                    return rockHeaderStructure
-
-                case .edit(let rockHeaderStructure, _):
-                    return rockHeaderStructure
-            }
-        }
-    }
-
     let registerType: RegisterType
 
     private var bindings = Set<AnyCancellable>()
@@ -46,6 +26,18 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         self.registerType = registerType
         bindInput()
         bindOutput()
+
+        guard
+            case let .edit(_, course) = registerType
+        else {
+            return
+        }
+
+        input.courseNameSubject.send(course.name)
+        input.courseDescSubject.send(course.desc)
+        input.gradeSubject.send(course.grade)
+        input.shapeSubject.send(course.shape)
+        input.courseNameSubject.send(course.name)
     }
 
     private func bindInput() {
@@ -64,14 +56,16 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
             .assign(to: &output.$grade)
 
         input.shapeSubject
-            .sink { [weak self] shape in
+            .sink { [weak self] shapes in
 
                 guard let self = self else { return }
 
-                if self.output.shape.contains(shape) {
-                    self.output.shape.remove(shape)
-                } else {
-                    self.output.shape.insert(shape)
+                shapes.forEach {
+                    if self.output.shapes.contains($0) {
+                        self.output.shapes.remove($0)
+                    } else {
+                        self.output.shapes.insert($0)
+                    }
                 }
             }
             .store(in: &bindings)
@@ -148,11 +142,35 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
 extension CourseRegisterViewModel {
 
+    struct RockHeaderStructure: Hashable {
+        let rock: FIDocument.Rock
+        let rockImageReference: StorageManager.Reference
+    }
+
+    enum RegisterType {
+        case create(RockHeaderStructure)
+        case edit(rockHeaderStructure: RockHeaderStructure, course: FIDocument.Course)
+
+        var rockHeaderStructure: RockHeaderStructure {
+            switch self {
+                case .create(let rockHeaderStructure):
+                    return rockHeaderStructure
+
+                case .edit(let rockHeaderStructure, _):
+                    return rockHeaderStructure
+            }
+        }
+    }
+
+}
+
+extension CourseRegisterViewModel {
+
     struct Input {
         let courseNameSubject = PassthroughSubject<String?, Never>()
         let courseDescSubject = PassthroughSubject<String?, Never>()
         let gradeSubject = PassthroughSubject<FIDocument.Course.Grade, Never>()
-        let shapeSubject = PassthroughSubject<FIDocument.Course.Shape, Never>()
+        let shapeSubject = PassthroughSubject<Set<FIDocument.Course.Shape>, Never>()
         let setImageSubject = PassthroughSubject<(ImageStructure), Never>()
         let deleteImageSubject = PassthroughSubject<(ImageStructure), Never>()
     }
@@ -161,7 +179,7 @@ extension CourseRegisterViewModel {
         @Published var courseName = ""
         @Published var courseDesc = ""
         @Published var grade = FIDocument.Course.Grade.q10
-        @Published var shape = Set<FIDocument.Course.Shape>()
+        @Published var shapes = Set<FIDocument.Course.Shape>()
         @Published var header: IdentifiableData?
         @Published var images: [IdentifiableData] = []
         @Published var courseNameValidationResult: ValidationResult = .none
