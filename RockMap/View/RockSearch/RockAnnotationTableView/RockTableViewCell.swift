@@ -28,7 +28,7 @@ class RockTableViewCell: UITableViewCell {
 
         let rockReference = StorageManager.makeReference(
             parent: FINameSpace.Rocks.self,
-            child: rock.name
+            child: rock.id
         )
         StorageManager
             .getHeaderReference(rockReference)

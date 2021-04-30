@@ -42,4 +42,18 @@ extension CompositionalColectionViewControllerProtocol {
         collectionView.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
     }
 
+    func cell<T: UICollectionViewCell>(
+        for type: T.Type,
+        item: ItemKind
+    ) -> T? {
+        guard
+            let indexPath = datasource.indexPath(for: item),
+            case let cell as T = collectionView.cellForItem(at: indexPath)
+        else {
+            return nil
+        }
+        
+        return cell
+    }
+
 }

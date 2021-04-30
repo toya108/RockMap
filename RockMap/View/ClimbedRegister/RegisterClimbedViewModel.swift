@@ -124,12 +124,13 @@ class RegisterClimbedViewModel {
                 let badge = FirestoreManager.db.batch()
 
                 let climbed = FIDocument.Climbed(
+                    registeredUserId: AuthManager.shared.uid,
+                    parentCourseId: course.id,
                     parentCourseReference: course.makeDocumentReference(),
                     totalNumberReference: totalNumber.makeDocumentReference(),
-                    parentPath: course.makeDocumentReference().path,
+                    parentPath: AuthManager.shared.authUserReference?.path ?? "",
                     climbedDate: climbedDate,
-                    type: self.climbedType,
-                    climbedUserId: AuthManager.shared.uid
+                    type: self.climbedType
                 )
                 badge.setData(climbed.dictionary, forDocument: climbed.makeDocumentReference())
 

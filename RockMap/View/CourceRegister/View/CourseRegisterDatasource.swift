@@ -18,11 +18,11 @@ extension CourseRegisterViewController {
             guard let self = self else { return UICollectionViewCell() }
             
             switch item {
-            case let .rock(rock):
+            case .rock:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureRockCell(),
                     for: indexPath,
-                    item: rock
+                    item: Dummy()
                 )
                 
             case .courseName:
@@ -62,14 +62,14 @@ extension CourseRegisterViewController {
 
             case let .header(data):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDeletabelImageCell(),
+                    using: self.configureDeletabelImageCell(imageType: .header),
                     for: indexPath,
                     item: data
                 )
                 
             case let .images(data):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDeletabelImageCell(),
+                    using: self.configureDeletabelImageCell(imageType: .normal),
                     for: indexPath,
                     item: data
                 )
@@ -115,15 +115,18 @@ extension CourseRegisterViewController {
     
     private func configureRockCell() -> UICollectionView.CellRegistration<
         RockHeaderCollectionViewCell,
-        CourseRegisterViewModel.RockHeaderStructure
+        Dummy
     > {
         .init(
             cellNib: .init(
                 nibName: RockHeaderCollectionViewCell.className,
                 bundle: nil
             )
-        ) { cell, _, rockHeaderStructure in
-            cell.configure(rockHeaderStructure: rockHeaderStructure)
+        ) { [weak self] cell, _, rockHeaderStructure in
+
+            guard let self = self else { return }
+
+            cell.configure(rockHeaderStructure: self.viewModel.registerType.rockHeaderStructure)
         }
     }
     
@@ -134,11 +137,17 @@ extension CourseRegisterViewController {
         .init { [weak self] cell, _, _ in
             
             guard let self = self else { return }
-
-            cell.textField.text = self.viewModel.courseName
-            cell.configurePlaceholder("課題名を入力して下さい。")
-            cell.textField.textDidChangedPublisher.assign(to: &self.viewModel.$courseName)
+            
             cell.textField.delegate = self
+            cell.configurePlaceholder("課題名を入力して下さい。")
+            cell.textField.textDidChangedPublisher
+                .sink { [weak self] text in
+
+                    guard let self = self else { return }
+
+                    self.viewModel.input.courseNameSubject.send(text)
+                }
+                .store(in: &self.bindings)
         }
     }
     
@@ -183,9 +192,15 @@ extension CourseRegisterViewController {
             
             guard let self = self else { return }
 
-            cell.textView.text = self.viewModel.desc
             cell.configurePlaceholder("課題の説明を入力して下さい。")
-            cell.textView.textDidChangedPublisher.assign(to: &self.viewModel.$desc)
+            cell.textView.textDidChangedPublisher
+                .sink { [weak self] text in
+
+                    guard let self = self else { return }
+
+                    self.viewModel.input.courseDescSubject.send(text)
+                }
+                .store(in: &self.bindings)
         }
     }
     
@@ -209,7 +224,9 @@ extension CourseRegisterViewController {
         }
     }
     
-    private func configureDeletabelImageCell() -> UICollectionView.CellRegistration<
+    private func configureDeletabelImageCell(
+        imageType: ImageType
+    ) -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
         IdentifiableData
     > {
@@ -217,14 +234,14 @@ extension CourseRegisterViewController {
             
             cell.configure(data: identifiableData.data) { [weak self] in
                 
-                guard
-                    let self = self,
-                    let index = self.viewModel.images.firstIndex(of: identifiableData)
-                else {
-                    return
-                }
+                guard let self = self else { return }
                 
-                self.viewModel.images.remove(at: index)
+                self.viewModel.input.deleteImageSubject.send(
+                    .init(
+                        dataList: [identifiableData],
+                        imageType: imageType
+                    )
+                )
             }
         }
     }
@@ -287,15 +304,15 @@ extension CourseRegisterViewController {
     
     private func setupGradeSelectingButtonActions(button: UIButton) {
         
-        let gradeSelectActions = FIDocument.Course.Grade.allCases.map { (grade) -> UIAction in
+        let gradeSelectActions = FIDocument.Course.Grade.allCases.map { grade -> UIAction in
             .init(
                 title: grade.name,
-                state: viewModel.grade == grade ? .on : .off
+                state: viewModel.output.grade == grade ? .on : .off
             ) { [weak self] _ in
                 
                 guard let self = self else { return }
                 
-                self.viewModel.grade = grade
+                self.viewModel.input.gradeSubject.send(grade)
             }
         }
         

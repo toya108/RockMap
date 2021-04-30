@@ -29,7 +29,7 @@ class CourseListCollectionViewCell: UICollectionViewCell {
 
         let courseReference = StorageManager.makeReference(
             parent: FINameSpace.Course.self,
-            child: course.name
+            child: course.id
         )
         StorageManager
             .getHeaderReference(courseReference)

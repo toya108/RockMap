@@ -158,8 +158,6 @@ extension MyPageViewController {
                     section.boundarySupplementaryItems = [sectionHeader]
                     section.contentInsets.top = 0
                     return section
-
-
             }
 
             if !sectionType.headerIdentifer.isEmpty {

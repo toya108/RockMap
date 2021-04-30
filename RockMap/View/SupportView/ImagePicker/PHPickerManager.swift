@@ -8,7 +8,7 @@
 import Foundation
 import PhotosUI
 
-protocol PickerManagerDelegate: class {
+protocol PickerManagerDelegate: AnyObject {
     func beganResultHandling()
     func didReceivePicking(data: Data, imageType: ImageType)
 }

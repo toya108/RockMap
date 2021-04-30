@@ -14,6 +14,7 @@ final class CourseDetailViewModel: ViewModelProtocol {
     @Published var courseHeaderImageReference: StorageManager.Reference?
     @Published var courseImageReferences: [StorageManager.Reference] = []
     @Published var courseName = ""
+    @Published var courseId = ""
     @Published var registeredUser: FIDocument.User?
     @Published var registeredDate: Date?
     @Published var totalClimbedNumber: FIDocument.TotalClimbedNumber?
@@ -29,6 +30,7 @@ final class CourseDetailViewModel: ViewModelProtocol {
         listenToTotalClimbedNumber()
         
         courseName = course.name
+        courseId = course.id
         registeredDate = course.createdAt
         fetchRegisterdUser()
         shape = course.shape
@@ -36,7 +38,7 @@ final class CourseDetailViewModel: ViewModelProtocol {
     }
     
     private func setupBindings() {
-        $courseName
+        $courseId
             .drop(while: { $0.isEmpty })
             .map {
                 StorageManager.makeReference(parent: FINameSpace.Course.self, child: $0)
@@ -47,7 +49,7 @@ final class CourseDetailViewModel: ViewModelProtocol {
             }
             .assign(to: &$courseHeaderImageReference)
 
-        $courseName
+        $courseId
             .drop(while: { $0.isEmpty })
             .map {
                 StorageManager.makeReference(parent: FINameSpace.Course.self, child: $0)
@@ -101,52 +103,6 @@ final class CourseDetailViewModel: ViewModelProtocol {
 
                 self.totalClimbedNumber = totalClimbedNumber
             }
-            .store(in: &bindings)
-    }
-    
-    func registerClimbed(
-        climbedDate: Date,
-        type: FIDocument.Climbed.ClimbedRecordType,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
-
-        guard let totalClimbedNumber = totalClimbedNumber else { return }
-
-        let badge = FirestoreManager.db.batch()
-
-        let climbed = FIDocument.Climbed(
-            parentCourseReference: course.makeDocumentReference(),
-            totalNumberReference: totalClimbedNumber.makeDocumentReference(),
-            parentPath: course.makeDocumentReference().path,
-            climbedDate: climbedDate,
-            type: type,
-            climbedUserId: AuthManager.shared.uid
-        )
-        badge.setData(climbed.dictionary, forDocument: climbed.makeDocumentReference())
-
-        badge.updateData(
-            [
-                "total": FirestoreManager.Value.increment(1.0),
-                type.fieldName: FirestoreManager.Value.increment(1.0)
-            ],
-            forDocument: totalClimbedNumber.makeDocumentReference()
-        )
-
-        badge.commit()
-            .sink(
-                receiveCompletion: { result in
-
-                    switch result {
-                        case .finished:
-                            completion(.success(()))
-
-                        case .failure(let error):
-                            completion(.failure(error))
-                            
-                    }
-                },
-                receiveValue: {}
-            )
             .store(in: &bindings)
     }
 }

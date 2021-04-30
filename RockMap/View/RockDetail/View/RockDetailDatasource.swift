@@ -247,7 +247,7 @@ extension RockDetailViewController {
             cell.configure(structure)
         }
     }
-    
+
     private func configureCoursesCell() -> UICollectionView.CellRegistration<
         CourseCollectionViewCell,
         FIDocument.Course
@@ -268,6 +268,5 @@ extension RockDetailViewController {
     > {
         .init { cell, _, _ in }
     }
-
     
 }

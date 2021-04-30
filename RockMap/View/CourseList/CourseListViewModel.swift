@@ -14,7 +14,7 @@ protocol CourseListViewModelProtocol: ViewModelProtocol {
 
 class CourseListViewModel: CourseListViewModelProtocol {
 
-    var input: Input = .init()
+    var input: Input
     var output: Output = .init()
 
     private let userReference: DocumentRef?
@@ -24,7 +24,35 @@ class CourseListViewModel: CourseListViewModelProtocol {
     init(userReference: DocumentRef?) {
         self.userReference = userReference
 
+        let deleteCourse = PassthroughSubject<FIDocument.Course, Never>()
+        self.input = Input(
+            deleteCourse: deleteCourse.send
+        )
+
+        setupDeleteCourseSubject(deleteCourse)
+
+        output.$courses
+            .map(\.isEmpty)
+            .assign(to: &output.$isEmpty)
+
         fetchCourseList()
+    }
+
+    private func setupDeleteCourseSubject(_ subject: PassthroughSubject<FIDocument.Course, Never>) {
+        subject
+            .flatMap {
+                $0.makeDocumentReference().delete(document: $0)
+            }
+            .sink(
+                receiveCompletion: { _ in },
+                receiveValue: { [weak self] course in
+
+                    guard let self = self else { return }
+
+                    self.output.courses.remove(course)
+                }
+            )
+            .store(in: &bindings)
     }
 
     func fetchCourseList() {
@@ -40,7 +68,6 @@ class CourseListViewModel: CourseListViewModelProtocol {
 
                 guard let self = self else { return }
 
-                self.output.isEmpty = courses.isEmpty
                 self.output.courses = courses
             }
             .store(in: &bindings)
@@ -50,11 +77,14 @@ class CourseListViewModel: CourseListViewModelProtocol {
 
 extension CourseListViewModel {
 
-    struct Input {}
+    struct Input {
+        let deleteCourse: (FIDocument.Course) -> Void
+    }
 
     final class Output {
         @Published var courses: Set<FIDocument.Course> = []
         @Published var isEmpty: Bool = false
+        @Published var deleteState: LoadingState = .stanby
     }
 
 }

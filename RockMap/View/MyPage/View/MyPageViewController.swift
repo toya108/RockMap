@@ -48,6 +48,8 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
     private func setupNavigationBar() {
         navigationItem.title = "マイページ"
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.setRightBarButton(
             .init(
                 title: nil,

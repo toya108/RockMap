@@ -11,14 +11,16 @@ import FirebaseFirestore
 
 final class RockConfirmViewModel: ViewModelProtocol {
     
-    var rockName: String
-    var rockImageDatas: [IdentifiableData]
-    var rockHeaderImage: IdentifiableData
-    var rockLocation: LocationManager.LocationStructure
-    var rockDesc: String
-    var seasons: Set<FIDocument.Rock.Season>
-    var lithology: FIDocument.Rock.Lithology
-    
+    let rockName: String
+    let rockImageDatas: [IdentifiableData]
+    let rockHeaderImage: IdentifiableData
+    let rockLocation: LocationManager.LocationStructure
+    let rockDesc: String
+    let seasons: Set<FIDocument.Rock.Season>
+    let lithology: FIDocument.Rock.Lithology
+
+    private let rockDocument: FIDocument.Rock
+
     @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
     @Published private(set) var rockUploadState: LoadingState  = .stanby
 
@@ -42,6 +44,21 @@ final class RockConfirmViewModel: ViewModelProtocol {
         self.rockDesc = rockDesc
         self.seasons = seasons
         self.lithology = lithology
+
+        self.rockDocument = FIDocument.Rock(
+            parentPath: AuthManager.shared.authUserReference?.path ?? "",
+            name: rockName,
+            address: rockLocation.address,
+            prefecture: rockLocation.prefecture,
+            location: .init(
+                latitude: rockLocation.location.coordinate.latitude,
+                longitude: rockLocation.location.coordinate.longitude
+            ),
+            seasons: seasons,
+            lithology: lithology,
+            desc: rockDesc,
+            registeredUserReference: AuthManager.shared.authUserReference!
+        )
         bindImageUploader()
     }
     
@@ -55,7 +72,7 @@ final class RockConfirmViewModel: ViewModelProtocol {
             data: rockHeaderImage.data,
             reference: StorageManager.makeHeaderImageReference(
                 parent: FINameSpace.Rocks.self,
-                child: rockName
+                child: rockDocument.id
             )
         )
         rockImageDatas.forEach {
@@ -63,7 +80,7 @@ final class RockConfirmViewModel: ViewModelProtocol {
                 data: $0.data,
                 reference: StorageManager.makeNormalImageReference(
                     parent: FINameSpace.Rocks.self,
-                    child: rockName
+                    child: rockDocument.id
                 )
             )
         }
@@ -73,28 +90,6 @@ final class RockConfirmViewModel: ViewModelProtocol {
     func registerRock() {
         
         rockUploadState = .loading
-
-        guard
-            let authUserReference = AuthManager.shared.authUserReference
-        else {
-            assertionFailure()
-            return
-        }
-
-        let rockDocument = FIDocument.Rock(
-            parentPath: authUserReference.path,
-            name: rockName,
-            address: rockLocation.address,
-            prefecture: rockLocation.prefecture,
-            location: .init(
-                latitude: rockLocation.location.coordinate.latitude,
-                longitude: rockLocation.location.coordinate.longitude
-            ),
-            seasons: seasons,
-            lithology: lithology,
-            desc: rockDesc,
-            registeredUserReference: authUserReference
-        )
 
         rockDocument.makeDocumentReference()
             .setData(from: rockDocument)

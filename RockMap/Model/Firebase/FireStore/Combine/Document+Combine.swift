@@ -68,7 +68,7 @@ extension DocumentReference {
         }.eraseToAnyPublisher()
     }
 
-    public func updateData(
+    func updateData(
         _ fields: [AnyHashable: Any]
     ) -> AnyPublisher<Void, Error> {
         
@@ -88,6 +88,30 @@ extension DocumentReference {
                 }
             }
         }.eraseToAnyPublisher()
+    }
+
+    func delete<T: FIDocumentProtocol>(
+        document: T
+    ) -> AnyPublisher<T, Error> {
+
+        Deferred {
+            Future<T, Error> { [weak self] promise in
+
+                guard let self = self else { return }
+
+                self.delete { error in
+
+                    if let error = error {
+                        promise(.failure(error))
+                        return
+                    }
+
+                    promise(.success(document))
+                    StorageManager.deleteReference(T.self, id: document.id)
+                }
+            }
+        }
+        .eraseToAnyPublisher()
     }
 }
 
