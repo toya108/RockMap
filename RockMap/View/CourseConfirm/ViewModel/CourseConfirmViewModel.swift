@@ -8,57 +8,40 @@
 import Combine
 import Foundation
 
-class CourseConfirmViewModel: ViewModelProtocol {
+protocol CourseConfirmViewModelModelProtocol: ViewModelProtocol {
+    var input: CourseConfirmViewModel.Input { get }
+    var output: CourseConfirmViewModel.Output { get }
+}
+
+class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
+
+    var input: Input = .init()
+    var output: Output = .init()
     
     let rockHeaderStructure: CourseRegisterViewModel.RockHeaderStructure
-    let courseName: String
-    let grade: FIDocument.Course.Grade
-    let shape: Set<FIDocument.Course.Shape>
+    let courseDocument: FIDocument.Course
     let header: IdentifiableData
     let images: [IdentifiableData]
-    let desc: String
-    private let courseDocument: FIDocument.Course
-
-    @Published private(set) var imageUploadState: StorageUploader.UploadState = .stanby
-    @Published private(set) var courseUploadState: LoadingState = .stanby
-    @Published private(set) var addIdState: LoadingState = .stanby
 
     private var bindings = Set<AnyCancellable>()
     private let uploader = StorageUploader()
     
     init(
         rockHeaderStructure: CourseRegisterViewModel.RockHeaderStructure,
-        courseName: String,
-        grade: FIDocument.Course.Grade,
-        shape: Set<FIDocument.Course.Shape>,
+        courseDocument: FIDocument.Course,
         header: IdentifiableData,
-        images: [IdentifiableData],
-        desc: String
+        images: [IdentifiableData]
     ) {
         self.rockHeaderStructure = rockHeaderStructure
-        self.courseName = courseName
-        self.grade = grade
-        self.shape = shape
+        self.courseDocument = courseDocument
         self.header = header
         self.images = images
-        self.desc = desc
-
-        courseDocument = FIDocument.Course(
-            parentPath: AuthManager.shared.authUserReference?.path ?? "",
-            name: courseName,
-            desc: desc,
-            grade: grade,
-            shape: shape,
-            parentRockName: rockHeaderStructure.rock.name,
-            parentRockId: rockHeaderStructure.rock.id,
-            registedUserId: AuthManager.shared.uid
-        )
         bindImageUploader()
     }
     
     private func bindImageUploader() {
         uploader.$uploadState
-            .assign(to: &$imageUploadState)
+            .assign(to: &output.$imageUploadState)
     }
     
     func uploadImages() {
@@ -86,7 +69,7 @@ class CourseConfirmViewModel: ViewModelProtocol {
     
     func registerCourse() {
         
-        courseUploadState = .loading
+        output.courseUploadState = .loading
 
         let badge = FirestoreManager.db.batch()
 
@@ -107,15 +90,25 @@ class CourseConfirmViewModel: ViewModelProtocol {
 
                     switch result {
                         case .finished:
-                            self.courseUploadState = .finish
+                            self.output.courseUploadState = .finish
 
                         case let .failure(error):
-                            self.courseUploadState = .failure(error)
+                            self.output.courseUploadState = .failure(error)
 
                     }
                 }, receiveValue: {}
             )
             .store(in: &bindings)
 
+    }
+}
+
+extension CourseConfirmViewModel {
+
+    struct Input {}
+
+    final class Output {
+        @Published var imageUploadState: StorageUploader.UploadState = .stanby
+        @Published var courseUploadState: LoadingState = .stanby
     }
 }

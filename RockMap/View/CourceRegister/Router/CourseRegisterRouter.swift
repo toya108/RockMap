@@ -40,7 +40,13 @@ struct CourseRegisterRouter: RouterProtocol {
     private func pushCourseConfirm(_ from: UIViewController) {
 
         guard
-            viewModel.callValidations(),
+            viewModel.callValidations()
+        else {
+            from.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
+            return
+        }
+        
+        guard
             let header = viewModel.output.header
         else {
             from.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
@@ -49,12 +55,9 @@ struct CourseRegisterRouter: RouterProtocol {
 
         let viewModel = CourseConfirmViewModel(
             rockHeaderStructure: viewModel.registerType.rockHeaderStructure,
-            courseName: viewModel.output.courseName,
-            grade: viewModel.output.grade,
-            shape: viewModel.output.shapes,
+            courseDocument: viewModel.makeCourseDocument(),
             header: header,
-            images: viewModel.output.images,
-            desc: viewModel.output.courseDesc
+            images: viewModel.output.images
         )
 
         from.navigationController?.pushViewController(

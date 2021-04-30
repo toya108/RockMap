@@ -119,16 +119,22 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
             .map { RockImageValidator().validate($0) }
             .assign(to: &output.$courseImageValidationResult)
 
-        output.$headerImageValidationResult
+        output.$header
             .dropFirst()
-            .map { RockImageValidator().validate($0) }
-            .assign(to: &output.$courseImageValidationResult)
+            .map { RockHeaderImageValidator().validate($0) }
+            .assign(to: &output.$headerImageValidationResult)
     }
     
     func callValidations() -> Bool {
-        output.headerImageValidationResult = RockHeaderImageValidator().validate(output.header)
-        output.courseImageValidationResult = RockImageValidator().validate(output.images)
-        output.courseNameValidationResult = CourseNameValidator().validate(output.courseName)
+        if !output.headerImageValidationResult.isValid {
+            output.headerImageValidationResult = RockHeaderImageValidator().validate(output.header)
+        }
+        if !output.courseImageValidationResult.isValid {
+            output.courseImageValidationResult = RockImageValidator().validate(output.images)
+        }
+        if !output.courseNameValidationResult.isValid {
+            output.courseNameValidationResult = CourseNameValidator().validate(output.courseName)
+        }
 
         return [
             output.courseNameValidationResult,
@@ -137,6 +143,30 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         ]
         .map(\.isValid)
         .allSatisfy { $0 }
+    }
+
+
+    func makeCourseDocument() -> FIDocument.Course {
+        switch registerType {
+            case .create:
+                return .init(
+                    parentPath: AuthManager.shared.authUserReference?.path ?? "",
+                    name: output.courseName,
+                    desc: output.courseDesc,
+                    grade: output.grade,
+                    shape: output.shapes,
+                    parentRockName: registerType.rockHeaderStructure.rock.name,
+                    parentRockId: registerType.rockHeaderStructure.rock.id,
+                    registedUserId: AuthManager.shared.uid
+                )
+                
+            case .edit(_, var course):
+                course.name = output.courseName
+                course.desc = output.courseDesc
+                course.grade = output.grade
+                course.shape = output.shapes
+                return course
+        }
     }
 }
 

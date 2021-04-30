@@ -41,7 +41,7 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
     }
     
     private func bindViewModelToView() {
-        viewModel.$imageUploadState
+        viewModel.output.$imageUploadState
             .receive(on: RunLoop.main)
             .sink { [weak self] in
                 
@@ -51,10 +51,10 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
                 case .stanby:
                     self.hideIndicatorView()
 
-                case .progress(let _):
+                case .progress:
                     self.showIndicatorView()
 
-                case .complete(let _):
+                case .complete:
                     self.hideIndicatorView()
                     self.viewModel.registerCourse()
                     
@@ -69,7 +69,7 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
             }
             .store(in: &bindings)
         
-        viewModel.$courseUploadState
+        viewModel.output.$courseUploadState
             .receive(on: RunLoop.main)
             .sink { [weak self] in
                 
@@ -100,10 +100,10 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
     private func configureSections() {
         snapShot.appendSections(SectionLayoutKind.allCases)
         snapShot.appendItems([.rock(viewModel.rockHeaderStructure)], toSection: .rock)
-        snapShot.appendItems([.courseName(viewModel.courseName)], toSection: .courseName)
-        snapShot.appendItems([.desc(viewModel.desc)], toSection: .desc)
-        snapShot.appendItems([.grade(viewModel.grade)], toSection: .grade)
-        snapShot.appendItems([.shape(viewModel.shape)], toSection: .shape)
+        snapShot.appendItems([.courseName(viewModel.courseDocument.name)], toSection: .courseName)
+        snapShot.appendItems([.desc(viewModel.courseDocument.desc)], toSection: .desc)
+        snapShot.appendItems([.grade(viewModel.courseDocument.grade)], toSection: .grade)
+        snapShot.appendItems([.shape(viewModel.courseDocument.shape)], toSection: .shape)
         snapShot.appendItems([.header(viewModel.header)], toSection: .header)
         snapShot.appendItems(viewModel.images.map { ItemKind.images($0) }, toSection: .images)
         snapShot.appendItems([.register], toSection: .register)
