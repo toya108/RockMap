@@ -12,7 +12,7 @@ extension RockDetailViewController {
     func createLayout() -> UICollectionViewCompositionalLayout {
         
         let layout = UICollectionViewCompositionalLayout { sectionNumber, _ -> NSCollectionLayoutSection in
-            
+
             let section: NSCollectionLayoutSection
             
             let sectionType = SectionLayoutKind.allCases[sectionNumber]
@@ -96,7 +96,7 @@ extension RockDetailViewController {
                         heightDimension: .estimated(56)
                     )
                 )
-                
+
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),
@@ -105,7 +105,7 @@ extension RockDetailViewController {
                     subitems: [item]
                 )
                 section = .init(group: group)
-                
+
             case .map:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
