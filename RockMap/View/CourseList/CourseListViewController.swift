@@ -233,7 +233,7 @@ extension CourseListViewController {
             return UIMenu(
                 title: "",
                 children: [
-                    self.makeEditAction(),
+                    self.makeEditAction(course: course),
                     self.makeDeleteAction(course: course)
                 ]
             )
@@ -247,7 +247,7 @@ extension CourseListViewController {
 
     }
 
-    private func makeEditAction() -> UIAction {
+    private func makeEditAction(course: FIDocument.Course) -> UIAction {
 
         return .init(
             title: "編集",
@@ -256,6 +256,11 @@ extension CourseListViewController {
 
             guard let self = self else { return }
 
+            let viewModel = CourseRegisterViewModel(
+                registerType: .edit(course)
+            )
+            let vc = CourseRegisterViewController.createInstance(viewModel: viewModel)
+            self.present(vc, animated: true)
         }
     }
 

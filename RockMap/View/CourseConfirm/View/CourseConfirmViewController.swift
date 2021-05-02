@@ -98,8 +98,11 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
     }
     
     private func configureSections() {
-        snapShot.appendSections(SectionLayoutKind.allCases)
-        snapShot.appendItems([.rock(viewModel.rockHeaderStructure)], toSection: .rock)
+        if case let .create(rockHeader) = viewModel.registerType {
+            snapShot.appendSections([.rock])
+            snapShot.appendItems([.rock(rockHeader)], toSection: .rock)
+        }
+        snapShot.appendSections(SectionLayoutKind.allCases.filter { $0 != .rock })
         snapShot.appendItems([.courseName(viewModel.courseDocument.name)], toSection: .courseName)
         snapShot.appendItems([.desc(viewModel.courseDocument.desc)], toSection: .desc)
         snapShot.appendItems([.grade(viewModel.courseDocument.grade)], toSection: .grade)

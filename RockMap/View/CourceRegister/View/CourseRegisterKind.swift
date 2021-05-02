@@ -60,8 +60,6 @@ extension CourseRegisterViewController {
         
         var initalItems: [ItemKind] {
             switch self {
-            case .rock:
-                return [.rock]
             case .courseName:
                 return [.courseName]
                 

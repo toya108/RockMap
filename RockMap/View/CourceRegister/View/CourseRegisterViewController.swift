@@ -119,8 +119,14 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
     }
     
     private func configureSections() {
-        snapShot.appendSections(SectionLayoutKind.allCases)
-        SectionLayoutKind.allCases.forEach {
+        if case .create = viewModel.registerType {
+            snapShot.appendSections([.rock])
+            snapShot.appendItems([.rock], toSection: .rock)
+        }
+
+        snapShot.appendSections(SectionLayoutKind.allCases.filter { $0 != .rock })
+
+        SectionLayoutKind.allCases.filter { $0 != .rock }.forEach {
             snapShot.appendItems($0.initalItems, toSection: $0)
         }
         let shapeItems = FIDocument.Course.Shape.allCases.map {

@@ -18,7 +18,7 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     var input: Input = .init()
     var output: Output = .init()
     
-    let rockHeaderStructure: CourseRegisterViewModel.RockHeaderStructure
+    let registerType: CourseRegisterViewModel.RegisterType
     let courseDocument: FIDocument.Course
     let header: IdentifiableData
     let images: [IdentifiableData]
@@ -27,12 +27,12 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     private let uploader = StorageUploader()
     
     init(
-        rockHeaderStructure: CourseRegisterViewModel.RockHeaderStructure,
+        registerType: CourseRegisterViewModel.RegisterType,
         courseDocument: FIDocument.Course,
         header: IdentifiableData,
         images: [IdentifiableData]
     ) {
-        self.rockHeaderStructure = rockHeaderStructure
+        self.registerType = registerType
         self.courseDocument = courseDocument
         self.header = header
         self.images = images

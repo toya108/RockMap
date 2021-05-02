@@ -12,11 +12,28 @@ extension CourseConfirmViewController {
     
     func createLayout() -> UICollectionViewCompositionalLayout {
         
-        let layout = UICollectionViewCompositionalLayout { sectionNumber, _ -> NSCollectionLayoutSection in
+        let layout = UICollectionViewCompositionalLayout { [weak self] sectionNumber, _ -> NSCollectionLayoutSection in
+
+            guard let self = self else {
+                return .init(
+                    group: .init(
+                        layoutSize: .init(
+                            widthDimension: .absolute(0),
+                            heightDimension: .absolute(0)
+                        )
+                    )
+                )
+            }
             
             let section: NSCollectionLayoutSection
+            let sectionType: SectionLayoutKind
+
+            if case .edit = self.viewModel.registerType {
+                sectionType = SectionLayoutKind.allCases.filter { $0 != .rock } [sectionNumber]
+            } else {
+                sectionType = SectionLayoutKind.allCases[sectionNumber]
+            }
             
-            let sectionType = SectionLayoutKind.allCases[sectionNumber]
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: .init(
                     widthDimension: .fractionalWidth(1),

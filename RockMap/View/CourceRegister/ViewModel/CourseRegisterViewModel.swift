@@ -28,7 +28,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         bindOutput()
 
         guard
-            case let .edit(_, course) = registerType
+            case let .edit(course) = registerType
         else {
             return
         }
@@ -38,6 +38,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         input.gradeSubject.send(course.grade)
         input.shapeSubject.send(course.shape)
         input.courseNameSubject.send(course.name)
+        fetchCourseStorage(courseId: course.id)
     }
 
     private func bindInput() {
@@ -148,25 +149,43 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
     func makeCourseDocument() -> FIDocument.Course {
         switch registerType {
-            case .create:
+            case let .create(rockHeader):
                 return .init(
                     parentPath: AuthManager.shared.authUserReference?.path ?? "",
                     name: output.courseName,
                     desc: output.courseDesc,
                     grade: output.grade,
                     shape: output.shapes,
-                    parentRockName: registerType.rockHeaderStructure.rock.name,
-                    parentRockId: registerType.rockHeaderStructure.rock.id,
+                    parentRockName: rockHeader.rock.name,
+                    parentRockId: rockHeader.rock.id,
                     registedUserId: AuthManager.shared.uid
                 )
                 
-            case .edit(_, var course):
+            case var .edit(course):
                 course.name = output.courseName
                 course.desc = output.courseDesc
                 course.grade = output.grade
                 course.shape = output.shapes
                 return course
         }
+    }
+
+    private func fetchCourseStorage(courseId: String) {
+        let courseStorageReference = StorageManager.makeReference(
+            parent: FINameSpace.Course.self,
+            child: courseId
+        )
+        StorageManager
+            .getHeaderReference(courseStorageReference)
+            .catch { _ -> Just<StorageManager.Reference?> in
+                return .init(nil)
+            }
+
+        StorageManager
+            .getNormalReference(courseStorageReference)
+            .catch { _ -> Just<[StorageManager.Reference]> in
+                return .init([])
+            }
     }
 }
 
@@ -179,17 +198,7 @@ extension CourseRegisterViewModel {
 
     enum RegisterType {
         case create(RockHeaderStructure)
-        case edit(rockHeaderStructure: RockHeaderStructure, course: FIDocument.Course)
-
-        var rockHeaderStructure: RockHeaderStructure {
-            switch self {
-                case .create(let rockHeaderStructure):
-                    return rockHeaderStructure
-
-                case .edit(let rockHeaderStructure, _):
-                    return rockHeaderStructure
-            }
-        }
+        case edit(FIDocument.Course)
     }
 
 }
