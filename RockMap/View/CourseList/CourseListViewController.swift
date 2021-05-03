@@ -259,7 +259,11 @@ extension CourseListViewController {
             let viewModel = CourseRegisterViewModel(
                 registerType: .edit(course)
             )
-            let vc = CourseRegisterViewController.createInstance(viewModel: viewModel)
+            let vc = RockMapNavigationController(
+                rootVC: CourseRegisterViewController.createInstance(viewModel: viewModel),
+                naviBarClass: RockMapNavigationBar.self
+            )
+            vc.isModalInPresentation = true
             self.present(vc, animated: true)
         }
     }
