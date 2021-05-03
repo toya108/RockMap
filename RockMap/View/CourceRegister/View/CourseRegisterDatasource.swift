@@ -145,6 +145,7 @@ extension CourseRegisterViewController {
             guard let self = self else { return }
             
             cell.textField.delegate = self
+            cell.textField.text = self.viewModel.output.courseName
             cell.configurePlaceholder("課題名を入力して下さい。")
             cell.textField.textDidChangedPublisher
                 .sink { [weak self] text in
@@ -198,6 +199,7 @@ extension CourseRegisterViewController {
             
             guard let self = self else { return }
 
+            cell.textView.text = self.viewModel.output.courseDesc
             cell.configurePlaceholder("課題の説明を入力して下さい。")
             cell.textView.textDidChangedPublisher
                 .sink { [weak self] text in
