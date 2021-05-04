@@ -305,3 +305,11 @@ extension CourseListViewController {
     }
     
 }
+
+extension CourseListViewController: CourseRegisterDetectableViewControllerProtocol {
+
+    func didCourseRegisterFinished() {
+        viewModel.fetchCourseList()
+    }
+
+}

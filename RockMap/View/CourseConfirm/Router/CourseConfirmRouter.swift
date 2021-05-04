@@ -37,16 +37,22 @@ struct CourseConfirmRouter: RouterProtocol {
 
         RegisterSucceededViewController.showSuccessView(present: from) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController?.dismiss(animated: true) {
 
-                    guard
-                        let rockDetailViewController = from.getVisibleViewController() as? RockDetailViewController
-                    else {
-                        return
-                    }
+                UIApplication.shared.windows
+                    .first(where: { $0.isKeyWindow })?
+                    .rootViewController?
+                    .dismiss(animated: true)
 
-                    rockDetailViewController.updateCouses()
+                guard
+                    let tabbarVC = from.presentingViewController as? UITabBarController,
+                    let nc = tabbarVC.selectedViewController as? UINavigationController,
+                    let vc = nc.viewControllers.last,
+                    let presentedVc = vc as? CourseRegisterDetectableViewControllerProtocol
+                else {
+                    return
                 }
+
+                presentedVc.didCourseRegisterFinished()
             }
         }
     }

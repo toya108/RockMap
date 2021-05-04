@@ -214,10 +214,6 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
         }
         datasource.apply(snapShot)
     }
-    
-    func updateCouses() {
-        viewModel.fetchCourses()
-    }
 }
 
 extension RockDetailViewController: MKMapViewDelegate {
@@ -273,6 +269,14 @@ extension RockDetailViewController: UICollectionViewDelegate {
             break
             
         }
+    }
+
+}
+
+extension RockDetailViewController: CourseRegisterDetectableViewControllerProtocol {
+
+    func didCourseRegisterFinished() {
+        viewModel.fetchCourses()
     }
 
 }
