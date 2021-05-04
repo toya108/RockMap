@@ -129,14 +129,7 @@ extension CourseConfirmViewController {
         .init { cell, _, imageDataKind in
             cell.layer.cornerRadius = 8
             cell.clipsToBounds = true
-
-            switch imageDataKind {
-                case .data(let data):
-                    cell.imageView.image = UIImage(data: data.data)
-
-                case .storage(let storage):
-                    cell.imageView.loadImage(reference: storage.storageReference)
-            }
+            cell.configure(imageDataKind: imageDataKind)
         }
     }
     
