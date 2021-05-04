@@ -266,7 +266,7 @@ extension RockDetailViewController {
         NoImageCollectionViewCell,
         Dummy
     > {
-        .init { cell, _, _ in }
+        .init { _, _, _ in }
     }
     
 }

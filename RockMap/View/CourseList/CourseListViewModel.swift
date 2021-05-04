@@ -10,6 +10,8 @@ import Combine
 protocol CourseListViewModelProtocol: ViewModelProtocol {
     var input: CourseListViewModel.Input { get }
     var output: CourseListViewModel.Output { get }
+
+    func fetchCourseList()
 }
 
 class CourseListViewModel: CourseListViewModelProtocol {
@@ -66,6 +68,7 @@ class CourseListViewModel: CourseListViewModelProtocol {
             .catch { _ -> Just<[FIDocument.Course]> in
                 return .init([])
             }
+            .map { $0.sorted { $0.createdAt > $1.createdAt } }
             .assign(to: &output.$courses)
     }
 

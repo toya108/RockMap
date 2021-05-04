@@ -100,6 +100,7 @@ final class RockDetailViewModel: ViewModelProtocol {
             .catch { _ -> Just<[FIDocument.Course]> in
                 return .init([])
             }
+            .map { $0.sorted { $0.createdAt > $1.createdAt } }
             .assign(to: &$courses)
     }
 
