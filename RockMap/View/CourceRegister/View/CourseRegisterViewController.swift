@@ -52,7 +52,7 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
     }
     
     private func setupNavigationBar() {
-        navigationItem.title = "課題を登録する"
+        navigationItem.title = "課題を\(viewModel.registerType.name)する"
 
         navigationItem.setRightBarButton(
             .init(

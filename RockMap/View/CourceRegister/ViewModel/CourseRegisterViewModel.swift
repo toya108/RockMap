@@ -259,6 +259,15 @@ extension CourseRegisterViewModel {
     enum RegisterType {
         case create(RockHeaderStructure)
         case edit(FIDocument.Course)
+
+        var name: String {
+            switch self {
+                case .create:
+                    return "作成"
+                case .edit:
+                    return "編集"
+            }
+        }
     }
 
 }
