@@ -55,7 +55,31 @@ class DeletableImageCollectionViewCell: UICollectionViewCell {
         deleteButtonTapped: @escaping () -> Void
     ) {
         imageView.image = UIImage(data: data)
-        
+
+        deleteButton.addAction(
+            .init { _ in
+                deleteButtonTapped()
+            },
+            for: .touchUpInside
+        )
+    }
+
+    func configure(
+        imageDataKind: ImageDataKind,
+        deleteButtonTapped: @escaping () -> Void
+    ) {
+        switch imageDataKind {
+            case .data(let data):
+                imageView.image = UIImage(data: data.data)
+
+            case .storage(let storage):
+                if let data = storage.updateData {
+                    imageView.image = UIImage(data: data)
+                } else {
+                    imageView.loadImage(reference: storage.storageReference)
+                }
+        }
+
         deleteButton.addAction(
             .init { _ in
                 deleteButtonTapped()

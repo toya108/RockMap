@@ -124,12 +124,19 @@ extension CourseConfirmViewController {
     
     private func configureImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
-        IdentifiableData
+        ImageDataKind
     > {
-        .init { cell, _, image in
+        .init { cell, _, imageDataKind in
             cell.layer.cornerRadius = 8
             cell.clipsToBounds = true
-            cell.imageView.image = UIImage(data: image.data)
+
+            switch imageDataKind {
+                case .data(let data):
+                    cell.imageView.image = UIImage(data: data.data)
+
+                case .storage(let storage):
+                    cell.imageView.loadImage(reference: storage.storageReference)
+            }
         }
     }
     

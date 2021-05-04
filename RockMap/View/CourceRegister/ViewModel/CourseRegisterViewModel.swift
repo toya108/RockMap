@@ -78,10 +78,10 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
                 switch imageStructure.imageType {
                     case .header:
-                        self.output.header = imageStructure.dataList.first
+                        self.setHeaderImage(kind: imageStructure.imageDataKind)
 
                     case .normal:
-                        self.output.images.append(contentsOf: imageStructure.dataList)
+                        self.setImage(kind: imageStructure.imageDataKind)
                 }
             }
             .store(in: &bindings)
@@ -93,19 +93,60 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
                 switch imageStructure.imageType {
                     case .header:
-                        self.output.header = nil
+                        self.deleteHeaderImage()
 
                     case .normal:
-                        guard
-                            let imageData = imageStructure.dataList.first,
-                            let index = self.output.images.firstIndex(of: imageData)
-                        else {
-                            return
-                        }
-                        self.output.images.remove(at: index)
+                        self.deleteImage(target: imageStructure.imageDataKind)
                 }
             }
             .store(in: &bindings)
+    }
+
+    private func setHeaderImage(kind: ImageDataKind) {
+        switch output.header {
+            case .data, .none:
+                output.header = kind
+
+            case .storage(var storage):
+                storage.updateData = kind.data?.data
+                storage.shouldUpdate = true
+                output.header?.update(.storage(storage))
+        }
+    }
+
+    private func setImage(kind: ImageDataKind) {
+        self.output.images.append(kind)
+    }
+
+    private func deleteHeaderImage() {
+        switch output.header {
+            case .data:
+                output.header = nil
+
+            case .storage:
+                output.header?.toggleStorageUpdateFlag()
+
+            default:
+                break
+        }
+    }
+
+    private func deleteImage(target: ImageDataKind) {
+
+        guard
+            let index = self.output.images.firstIndex(of: target)
+        else {
+            return
+        }
+
+        switch target {
+            case .data:
+                self.output.images.remove(at: index)
+
+            case .storage:
+                self.output.images[index].toggleStorageUpdateFlag()
+        }
+
     }
     
     private func bindOutput() {
@@ -180,12 +221,31 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
             .catch { _ -> Just<StorageManager.Reference?> in
                 return .init(nil)
             }
+            .compactMap { $0 }
+            .map { ImageDataKind.storage(.init(storageReference: $0)) }
+            .assign(to: &output.$header)
 
-        StorageManager
-            .getNormalReference(courseStorageReference)
+        StorageManager.getNormalImagePrefixes(courseStorageReference)
             .catch { _ -> Just<[StorageManager.Reference]> in
                 return .init([])
             }
+            .sink { [weak self] prefixes in
+
+                guard let self = self else { return }
+
+                prefixes
+                    .map { $0.getReferences() }
+                    .forEach {
+                        $0.catch { _ -> Just<[StorageManager.Reference]> in
+                            return .init([])
+                        }
+                        .map {
+                            $0.map { ImageDataKind.storage(.init(storageReference: $0)) }
+                        }
+                        .assign(to: &self.output.$images)
+                    }
+            }
+            .store(in: &bindings)
     }
 }
 
@@ -219,8 +279,8 @@ extension CourseRegisterViewModel {
         @Published var courseDesc = ""
         @Published var grade = FIDocument.Course.Grade.q10
         @Published var shapes = Set<FIDocument.Course.Shape>()
-        @Published var header: IdentifiableData?
-        @Published var images: [IdentifiableData] = []
+        @Published var header: ImageDataKind?
+        @Published var images: [ImageDataKind] = []
         @Published var courseNameValidationResult: ValidationResult = .none
         @Published var courseImageValidationResult: ValidationResult = .none
         @Published var headerImageValidationResult: ValidationResult = .none

@@ -60,18 +60,18 @@ extension CourseRegisterViewController {
                     item: imageType
                 )
 
-            case let .header(data):
+            case let .header(imageDataKind):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureDeletabelImageCell(imageType: .header),
                     for: indexPath,
-                    item: data
+                    item: imageDataKind
                 )
                 
-            case let .images(data):
+            case let .images(imageDataKind):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureDeletabelImageCell(imageType: .normal),
                     for: indexPath,
-                    item: data
+                    item: imageDataKind
                 )
                 
             case .confirmation:
@@ -236,17 +236,17 @@ extension CourseRegisterViewController {
         imageType: ImageType
     ) -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
-        IdentifiableData
+        ImageDataKind
     > {
-        .init { cell, _, identifiableData in
+        .init { cell, _, imageDataKind in
             
-            cell.configure(data: identifiableData.data) { [weak self] in
+            cell.configure(imageDataKind: imageDataKind) { [weak self] in
                 
                 guard let self = self else { return }
                 
                 self.viewModel.input.deleteImageSubject.send(
                     .init(
-                        dataList: [identifiableData],
+                        imageDataKind: imageDataKind,
                         imageType: imageType
                     )
                 )

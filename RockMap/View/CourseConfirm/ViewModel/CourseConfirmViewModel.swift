@@ -20,8 +20,8 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     
     let registerType: CourseRegisterViewModel.RegisterType
     let courseDocument: FIDocument.Course
-    let header: IdentifiableData
-    let images: [IdentifiableData]
+    let header: ImageDataKind
+    let images: [ImageDataKind]
 
     private var bindings = Set<AnyCancellable>()
     private let uploader = StorageUploader()
@@ -29,8 +29,8 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     init(
         registerType: CourseRegisterViewModel.RegisterType,
         courseDocument: FIDocument.Course,
-        header: IdentifiableData,
-        images: [IdentifiableData]
+        header: ImageDataKind,
+        images: [ImageDataKind]
     ) {
         self.registerType = registerType
         self.courseDocument = courseDocument
@@ -46,22 +46,48 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     
     func uploadImages() {
 
-        uploader.addData(
-            data: header.data,
-            reference: StorageManager.makeHeaderImageReference(
-                parent: FINameSpace.Course.self,
-                child: courseDocument.id
-            )
-        )
-
-        images.forEach {
-            uploader.addData(
-                data: $0.data,
-                reference: StorageManager.makeNormalImageReference(
-                    parent: FINameSpace.Course.self,
-                    child: courseDocument.id
+        switch header {
+            case .data(let data):
+                uploader.addData(
+                    data: data.data,
+                    reference: StorageManager.makeHeaderImageReference(
+                        parent: FINameSpace.Course.self,
+                        child: courseDocument.id
+                    )
                 )
-            )
+            case .storage(let storage):
+
+                if
+                    storage.shouldUpdate,
+                    let updateData = storage.updateData
+                {
+                    uploader.addData(
+                        data: updateData,
+                        reference: storage.storageReference
+                    )
+                }
+        }
+
+        images.forEach { imageDataKind in
+
+            switch imageDataKind {
+                case .data(let data):
+                    uploader.addData(
+                        data: data.data,
+                        reference: StorageManager.makeNormalImageReference(
+                            parent: FINameSpace.Course.self,
+                            child: courseDocument.id
+                        )
+                    )
+                case .storage(let storage):
+                    if storage.shouldUpdate {
+                        storage.storageReference.delete()
+                            .sink(receiveCompletion: {_ in }, receiveValue: {})
+                            .store(in: &bindings)
+                    }
+            }
+
+
         }
         
         uploader.start()
