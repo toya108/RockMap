@@ -57,9 +57,17 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
                 )
             case .storage(let storage):
                 if let updateData = storage.updateData {
+
+                    storage.storageReference.delete()
+                        .sink(receiveCompletion: {_ in }, receiveValue: {})
+                        .store(in: &bindings)
+
                     uploader.addData(
                         data: updateData,
-                        reference: storage.storageReference
+                        reference: StorageManager.makeHeaderImageReference(
+                            parent: FINameSpace.Course.self,
+                            child: courseDocument.id
+                        )
                     )
                 }
         }
