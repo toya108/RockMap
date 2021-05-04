@@ -198,7 +198,11 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
         if grades.isEmpty { return }
 
         let gadesCounts = grades.reduce(into: [FIDocument.Course.Grade: Int]()) { dic, grade in
-            dic[grade] = dic[grade] ?? 0 + 1
+            if dic[grade] == nil {
+                dic[grade] = 1
+            } else {
+                dic[grade]! += 1
+            }
         }
         snapShot.appendItems([.containGrade(gadesCounts)], toSection: .info)
         datasource.apply(snapShot)
