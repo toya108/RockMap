@@ -46,10 +46,13 @@ class CourseListViewModel: CourseListViewModelProtocol {
             .sink(
                 receiveCompletion: { _ in },
                 receiveValue: { [weak self] course in
-
-                    guard let self = self else { return }
-
-                    self.output.courses.remove(course)
+                    guard
+                        let self = self,
+                        let index = self.output.courses.firstIndex(of: course)
+                    else {
+                        return
+                    }
+                    self.output.courses.remove(at: index)
                 }
             )
             .store(in: &bindings)
@@ -63,14 +66,7 @@ class CourseListViewModel: CourseListViewModelProtocol {
             .catch { _ -> Just<[FIDocument.Course]> in
                 return .init([])
             }
-            .map { Set<FIDocument.Course>($0) }
-            .sink { [weak self] courses in
-
-                guard let self = self else { return }
-
-                self.output.courses = courses
-            }
-            .store(in: &bindings)
+            .assign(to: &output.$courses)
     }
 
 }
@@ -82,7 +78,7 @@ extension CourseListViewModel {
     }
 
     final class Output {
-        @Published var courses: Set<FIDocument.Course> = []
+        @Published var courses: [FIDocument.Course] = []
         @Published var isEmpty: Bool = false
         @Published var deleteState: LoadingState = .stanby
     }
