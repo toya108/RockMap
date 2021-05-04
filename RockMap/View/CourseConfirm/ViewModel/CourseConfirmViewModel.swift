@@ -56,11 +56,7 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
                     )
                 )
             case .storage(let storage):
-
-                if
-                    storage.shouldUpdate,
-                    let updateData = storage.updateData
-                {
+                if let updateData = storage.updateData {
                     uploader.addData(
                         data: updateData,
                         reference: storage.storageReference
@@ -94,9 +90,18 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     }
     
     func registerCourse() {
-        
         output.courseUploadState = .loading
 
+        switch registerType {
+            case .create:
+                createCourse()
+
+            case .edit:
+                editCourse()
+        }
+    }
+
+    private func createCourse() {
         let badge = FirestoreManager.db.batch()
 
         let courseDocumentReference = courseDocument.makeDocumentReference()
@@ -125,7 +130,27 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
                 }, receiveValue: {}
             )
             .store(in: &bindings)
+    }
 
+    private func editCourse() {
+        courseDocument.makeDocumentReference()
+            .updateData(courseDocument.dictionary)
+            .sink(
+                receiveCompletion: { [weak self] result in
+
+                    guard let self = self else { return }
+
+                    switch result {
+                        case .finished:
+                            self.output.courseUploadState = .finish
+
+                        case let .failure(error):
+                            self.output.courseUploadState = .failure(error)
+
+                    }
+                }, receiveValue: {}
+            )
+            .store(in: &bindings)
     }
 }
 
