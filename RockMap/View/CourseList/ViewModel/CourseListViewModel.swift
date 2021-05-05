@@ -16,7 +16,7 @@ protocol CourseListViewModelProtocol: ViewModelProtocol {
 
 class CourseListViewModel: CourseListViewModelProtocol {
 
-    var input: Input
+    var input: Input = .init()
     var output: Output = .init()
 
     private let userReference: DocumentRef?
@@ -26,22 +26,13 @@ class CourseListViewModel: CourseListViewModelProtocol {
     init(userReference: DocumentRef?) {
         self.userReference = userReference
 
-        let deleteCourse = PassthroughSubject<FIDocument.Course, Never>()
-        self.input = Input(
-            deleteCourse: deleteCourse.send
-        )
-
-        setupDeleteCourseSubject(deleteCourse)
-
-        output.$courses
-            .map(\.isEmpty)
-            .assign(to: &output.$isEmpty)
-
+        bindInput()
+        bindOutput()
         fetchCourseList()
     }
 
-    private func setupDeleteCourseSubject(_ subject: PassthroughSubject<FIDocument.Course, Never>) {
-        subject
+    private func bindInput() {
+        input.deleteCourseSubject
             .flatMap {
                 $0.makeDocumentReference().delete(document: $0)
             }
@@ -58,6 +49,12 @@ class CourseListViewModel: CourseListViewModelProtocol {
                 }
             )
             .store(in: &bindings)
+    }
+
+    private func bindOutput() {
+        output.$courses
+            .map(\.isEmpty)
+            .assign(to: &output.$isEmpty)
     }
 
     func fetchCourseList() {
@@ -77,7 +74,7 @@ class CourseListViewModel: CourseListViewModelProtocol {
 extension CourseListViewModel {
 
     struct Input {
-        let deleteCourse: (FIDocument.Course) -> Void
+        let deleteCourseSubject = PassthroughSubject<FIDocument.Course, Never>()
     }
 
     final class Output {

@@ -9,29 +9,22 @@ import UIKit
 import Combine
 
 class CourseListViewController: UIViewController, CompositionalColectionViewControllerProtocol {
+
     let emptyLabel = UILabel()
     var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionKind, ItemKind>!
-    var viewModel: CourseListViewModelProtocol!
+    var viewModel: CourseListViewModel!
+    var router: CourselistRouter!
 
     private var bindings = Set<AnyCancellable>()
 
-    enum SectionKind: CaseIterable, Hashable {
-        case annotationHeader
-        case main
-    }
-
-    enum ItemKind: Hashable {
-        case annotationHeader
-        case course(FIDocument.Course)
-    }
-
     static func createInstance(
-        viewModel: CourseListViewModelProtocol
+        viewModel: CourseListViewModel
     ) -> CourseListViewController {
         let instance = CourseListViewController()
         instance.viewModel = viewModel
+        instance.router = .init(viewModel: viewModel)
         return instance
     }
 
@@ -74,126 +67,52 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
         viewModel.output.$courses
             .removeDuplicates()
             .drop(while: { $0.isEmpty })
-            .receive(on: RunLoop.main)
-            .sink { [weak self] couses in
-
-                guard let self = self else { return }
-
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .main))
-                self.snapShot.appendItems(couses.map { ItemKind.course($0) }, toSection: .main)
-                self.datasource.apply(self.snapShot)
-            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: coursesSink)
             .store(in: &bindings)
 
         viewModel.output.$isEmpty
             .removeDuplicates()
-            .receive(on: RunLoop.main)
-            .sink { [weak self] isEmpty in
-
-                guard let self = self else { return }
-
-                self.collectionView.isHidden = isEmpty
-            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: isEmptySink)
             .store(in: &bindings)
 
         viewModel.output.$deleteState
             .removeDuplicates()
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] state in
-
-                guard let self = self else { return }
-
-                switch state {
-                    case .loading:
-                        self.showIndicatorView()
-
-                    case .finish, .stanby:
-                        self.hideIndicatorView()
-
-                    case .failure(let error):
-                        self.hideIndicatorView()
-                        self.showOKAlert(
-                            title: "削除に失敗しました",
-                            message: error?.localizedDescription ?? ""
-                        )
-                }
-            }
+            .sink(receiveValue: deleteStateSink)
             .store(in: &bindings)
     }
 }
 
 extension CourseListViewController {
 
-    func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, ItemKind> {
-        let datasource = UICollectionViewDiffableDataSource<SectionKind, ItemKind>(
-            collectionView: collectionView
-        ) { [weak self] collectionView, indexPath, item in
-
-            guard let self = self else { return UICollectionViewCell() }
-
-            switch item {
-                case .annotationHeader:
-                    let registration = UICollectionView.CellRegistration<
-                        AnnotationHeaderCollectionViewCell,
-                        Dummy
-                    > { cell, _, _ in
-                        cell.configure(title: "課題を長押しすると編集/削除ができます。")
-                    }
-
-                    return self.collectionView.dequeueConfiguredReusableCell(
-                        using: registration,
-                        for: indexPath,
-                        item: Dummy()
-                    )
-                    
-                case let .course(course):
-                    let registration = UICollectionView.CellRegistration<
-                        CourseListCollectionViewCell,
-                        FIDocument.Course
-                    >(
-                        cellNib: .init(
-                            nibName: CourseListCollectionViewCell.className,
-                            bundle: nil
-                        )
-                    ) { cell, _, _ in
-                        cell.configure(course: course)
-                    }
-
-                    return self.collectionView.dequeueConfiguredReusableCell(
-                        using: registration,
-                        for: indexPath,
-                        item: course
-                    )
-            }
-
-        }
-        return datasource
+    private func coursesSink(_ courses: [FIDocument.Course]) {
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .main))
+        snapShot.appendItems(courses.map { ItemKind.course($0) }, toSection: .main)
+        datasource.apply(snapShot)
     }
 
-    func createLayout() -> UICollectionViewCompositionalLayout {
-
-        let layout = UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
-
-            let section: NSCollectionLayoutSection
-
-            let sectionType = SectionKind.allCases[sectionNumber]
-
-            switch sectionType {
-                case .annotationHeader:
-                    section = .list(using: .init(appearance: .insetGrouped), layoutEnvironment: env)
-                    section.contentInsets = .init(top: 0, leading: 16, bottom: 0, trailing: 16)
-                    
-                case .main:
-                    section = .list(using: .init(appearance: .insetGrouped), layoutEnvironment: env)
-            }
-
-            return section
-
-        }
-
-        return layout
+    private func isEmptySink(_ isEmpty: Bool) {
+        collectionView.isHidden = isEmpty
     }
 
+    private func deleteStateSink(_ state: LoadingState) {
+        switch state {
+            case .loading:
+                self.showIndicatorView()
+
+            case .finish, .stanby:
+                self.hideIndicatorView()
+
+            case .failure(let error):
+                self.hideIndicatorView()
+                self.showOKAlert(
+                    title: "削除に失敗しました",
+                    message: error?.localizedDescription ?? ""
+                )
+        }
+    }
 }
 
 extension CourseListViewController {
@@ -209,8 +128,7 @@ extension CourseListViewController {
             return
         }
 
-        let vc = CourseDetailViewController.createInstance(viewModel: .init(course: course))
-        navigationController?.pushViewController(vc, animated: true)
+        router.route(to: .courseDetail(course), from: self)
     }
 
     func collectionView(
@@ -256,15 +174,7 @@ extension CourseListViewController {
 
             guard let self = self else { return }
 
-            let viewModel = CourseRegisterViewModel(
-                registerType: .edit(course)
-            )
-            let vc = RockMapNavigationController(
-                rootVC: CourseRegisterViewController.createInstance(viewModel: viewModel),
-                naviBarClass: RockMapNavigationBar.self
-            )
-            vc.isModalInPresentation = true
-            self.present(vc, animated: true)
+            self.router.route(to: .courseRegister(course), from: self)
         }
     }
 
@@ -287,7 +197,7 @@ extension CourseListViewController {
 
                 guard let self = self else { return }
 
-                self.viewModel.input.deleteCourse(course)
+                self.viewModel.input.deleteCourseSubject.send(course)
             }
 
             let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)
