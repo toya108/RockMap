@@ -113,7 +113,7 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
 
         viewModel.output.$headerImageValidationResult
             .dropFirst()
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink(receiveValue: headerImageValidationSink)
             .store(in: &bindings)
     }
