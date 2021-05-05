@@ -37,14 +37,25 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
         self.header = header
         self.images = images
         bindImageUploader()
+        bindInput()
     }
     
     private func bindImageUploader() {
         uploader.$uploadState
             .assign(to: &output.$imageUploadState)
     }
+
+    private func bindInput() {
+        input.uploadImageSubject
+            .sink(receiveValue: uploadImages)
+            .store(in: &bindings)
+
+        input.registerCourseSubject
+            .sink(receiveValue: registerCourse)
+            .store(in: &bindings)
+    }
     
-    func uploadImages() {
+    private func uploadImages() {
         prepareHeaderUploading()
         prepareImagesUploading()
         uploader.start()
@@ -106,7 +117,7 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
         }
     }
     
-    func registerCourse() {
+    private func registerCourse() {
         output.courseUploadState = .loading
 
         switch registerType {
@@ -173,7 +184,10 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
 
 extension CourseConfirmViewModel {
 
-    struct Input {}
+    struct Input {
+        let uploadImageSubject = PassthroughSubject<Void, Never>()
+        let registerCourseSubject = PassthroughSubject<Void, Never>()
+    }
 
     final class Output {
         @Published var imageUploadState: StorageUploader.UploadState = .stanby

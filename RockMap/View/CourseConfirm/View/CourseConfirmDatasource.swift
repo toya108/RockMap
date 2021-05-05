@@ -137,14 +137,14 @@ extension CourseConfirmViewController {
         ConfirmationButtonCollectionViewCell,
         Dummy
     > {
-        .init { cell, _, _ in
+        .init { [weak self] cell, _, _ in
+
+            guard let self = self else { return }
+
             cell.configure(title: "　登録する　")
-            cell.configure { [weak self] in
-                
-                guard let self = self else { return }
-                
-                self.viewModel.uploadImages()
-            }
+            cell.configure(
+                confirmationButtonTapped: self.viewModel.input.uploadImageSubject.send
+            )
         }
     }
 }

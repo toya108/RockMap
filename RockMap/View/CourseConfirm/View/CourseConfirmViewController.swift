@@ -81,7 +81,7 @@ extension CourseConfirmViewController {
 
             case .complete:
                 hideIndicatorView()
-                viewModel.registerCourse()
+                viewModel.input.registerCourseSubject.send()
 
             case .failure(let error):
                 hideIndicatorView()

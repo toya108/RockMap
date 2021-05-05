@@ -80,6 +80,61 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
             .store(in: &bindings)
     }
 
+    private func bindOutput() {
+        output.$courseName
+            .dropFirst()
+            .removeDuplicates()
+            .map { name -> ValidationResult in CourseNameValidator().validate(name) }
+            .assign(to: &output.$courseNameValidationResult)
+
+        output.$images
+            .dropFirst()
+            .map { RockImageValidator().validate($0) }
+            .assign(to: &output.$courseImageValidationResult)
+
+        output.$header
+            .dropFirst()
+            .map { RockHeaderImageValidator().validate($0) }
+            .assign(to: &output.$headerImageValidationResult)
+    }
+
+    private func fetchCourseStorage(courseId: String) {
+        let courseStorageReference = StorageManager.makeReference(
+            parent: FINameSpace.Course.self,
+            child: courseId
+        )
+        StorageManager
+            .getHeaderReference(courseStorageReference)
+            .catch { _ -> Just<StorageManager.Reference?> in
+                return .init(nil)
+            }
+            .compactMap { $0 }
+            .map { ImageDataKind.storage(.init(storageReference: $0)) }
+            .assign(to: &output.$header)
+
+        StorageManager.getNormalImagePrefixes(courseStorageReference)
+            .catch { _ -> Just<[StorageManager.Reference]> in
+                return .init([])
+            }
+            .sink { [weak self] prefixes in
+
+                guard let self = self else { return }
+
+                prefixes
+                    .map { $0.getReferences() }
+                    .forEach {
+                        $0.catch { _ -> Just<[StorageManager.Reference]> in
+                            return .init([])
+                        }
+                        .map {
+                            $0.map { ImageDataKind.storage(.init(storageReference: $0)) }
+                        }
+                        .assign(to: &self.output.$images)
+                    }
+            }
+            .store(in: &bindings)
+    }
+
     private func setImage(_ imageStructure: ImageStructure) {
         switch imageStructure.imageType {
             case .header:
@@ -147,24 +202,6 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
     }
     
-    private func bindOutput() {
-        output.$courseName
-            .dropFirst()
-            .removeDuplicates()
-            .map { name -> ValidationResult in CourseNameValidator().validate(name) }
-            .assign(to: &output.$courseNameValidationResult)
-        
-        output.$images
-            .dropFirst()
-            .map { RockImageValidator().validate($0) }
-            .assign(to: &output.$courseImageValidationResult)
-
-        output.$header
-            .dropFirst()
-            .map { RockHeaderImageValidator().validate($0) }
-            .assign(to: &output.$headerImageValidationResult)
-    }
-    
     func callValidations() -> Bool {
         if !output.headerImageValidationResult.isValid {
             output.headerImageValidationResult = RockHeaderImageValidator().validate(output.header)
@@ -207,43 +244,6 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
                 course.shape = output.shapes
                 return course
         }
-    }
-
-    private func fetchCourseStorage(courseId: String) {
-        let courseStorageReference = StorageManager.makeReference(
-            parent: FINameSpace.Course.self,
-            child: courseId
-        )
-        StorageManager
-            .getHeaderReference(courseStorageReference)
-            .catch { _ -> Just<StorageManager.Reference?> in
-                return .init(nil)
-            }
-            .compactMap { $0 }
-            .map { ImageDataKind.storage(.init(storageReference: $0)) }
-            .assign(to: &output.$header)
-
-        StorageManager.getNormalImagePrefixes(courseStorageReference)
-            .catch { _ -> Just<[StorageManager.Reference]> in
-                return .init([])
-            }
-            .sink { [weak self] prefixes in
-
-                guard let self = self else { return }
-
-                prefixes
-                    .map { $0.getReferences() }
-                    .forEach {
-                        $0.catch { _ -> Just<[StorageManager.Reference]> in
-                            return .init([])
-                        }
-                        .map {
-                            $0.map { ImageDataKind.storage(.init(storageReference: $0)) }
-                        }
-                        .assign(to: &self.output.$images)
-                    }
-            }
-            .store(in: &bindings)
     }
 }
 
