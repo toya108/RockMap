@@ -559,6 +559,7 @@
 				9E9845BF25D4F22D00B03C4E /* CourceRegister */,
 				9E9C1E6F25E6B1B30050FDDE /* CourseConfirm */,
 				9E807CA3254CFCF50091935F /* MyPage */,
+				9E9975012642303D00E8562B /* RockList */,
 				9EB87ECF2632C8CC0042EA9C /* CourseList */,
 				9E04B192254B28330097DA8E /* Login */,
 				9E033F552577F6CD00A669F8 /* Auth */,
@@ -1103,6 +1104,45 @@
 				9EA58D15263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift */,
 				9E171172263305B900D35BFE /* CourseListCollectionViewCell.swift */,
 				9E171173263305B900D35BFE /* CourseListCollectionViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		9E9975012642303D00E8562B /* RockList */ = {
+			isa = PBXGroup;
+			children = (
+				9E9975052642306600E8562B /* Cells */,
+				9E9975042642305C00E8562B /* Router */,
+				9E9975032642305600E8562B /* ViewModel */,
+				9E9975022642304C00E8562B /* View */,
+			);
+			path = RockList;
+			sourceTree = "<group>";
+		};
+		9E9975022642304C00E8562B /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9E9975032642305600E8562B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9E9975042642305C00E8562B /* Router */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		9E9975052642306600E8562B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = Cells;
 			sourceTree = "<group>";
