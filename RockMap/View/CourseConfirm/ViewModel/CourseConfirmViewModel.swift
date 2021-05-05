@@ -45,7 +45,12 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     }
     
     func uploadImages() {
+        prepareHeaderUploading()
+        prepareImagesUploading()
+        uploader.start()
+    }
 
+    private func prepareHeaderUploading() {
         switch header {
             case .data(let data):
                 uploader.addData(
@@ -56,24 +61,28 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
                     )
                 )
             case .storage(let storage):
-                if let updateData = storage.updateData {
 
-                    storage.storageReference.delete()
-                        .sink(receiveCompletion: {_ in }, receiveValue: {})
-                        .store(in: &bindings)
+                guard let updateData = storage.updateData else { return }
 
-                    uploader.addData(
-                        data: updateData,
-                        reference: StorageManager.makeHeaderImageReference(
-                            parent: FINameSpace.Course.self,
-                            child: courseDocument.id
-                        )
+                storage.storageReference.delete()
+                    .sink(
+                        receiveCompletion: { _ in },
+                        receiveValue: {}
                     )
-                }
+                    .store(in: &bindings)
+
+                uploader.addData(
+                    data: updateData,
+                    reference: StorageManager.makeHeaderImageReference(
+                        parent: FINameSpace.Course.self,
+                        child: courseDocument.id
+                    )
+                )
         }
+    }
 
+    private func prepareImagesUploading() {
         images.forEach { imageDataKind in
-
             switch imageDataKind {
                 case .data(let data):
                     uploader.addData(
@@ -84,17 +93,17 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
                         )
                     )
                 case .storage(let storage):
-                    if storage.shouldUpdate {
-                        storage.storageReference.delete()
-                            .sink(receiveCompletion: {_ in }, receiveValue: {})
-                            .store(in: &bindings)
-                    }
+
+                    guard storage.shouldUpdate else { return }
+
+                    storage.storageReference.delete()
+                        .sink(
+                            receiveCompletion: { _ in },
+                            receiveValue: {}
+                        )
+                        .store(in: &bindings)
             }
-
-
         }
-        
-        uploader.start()
     }
     
     func registerCourse() {

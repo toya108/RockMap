@@ -72,34 +72,22 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
             .store(in: &bindings)
 
         input.setImageSubject
-            .sink { [weak self] imageStructure in
-
-                guard let self = self else { return }
-
-                switch imageStructure.imageType {
-                    case .header:
-                        self.setHeaderImage(kind: imageStructure.imageDataKind)
-
-                    case .normal:
-                        self.setImage(kind: imageStructure.imageDataKind)
-                }
-            }
+            .sink(receiveValue: setImage)
             .store(in: &bindings)
 
         input.deleteImageSubject
-            .sink { [weak self] imageStructure in
-
-                guard let self = self else { return }
-
-                switch imageStructure.imageType {
-                    case .header:
-                        self.deleteHeaderImage()
-
-                    case .normal:
-                        self.deleteImage(target: imageStructure.imageDataKind)
-                }
-            }
+            .sink(receiveValue: deleteImage)
             .store(in: &bindings)
+    }
+
+    private func setImage(_ imageStructure: ImageStructure) {
+        switch imageStructure.imageType {
+            case .header:
+                setHeaderImage(kind: imageStructure.imageDataKind)
+
+            case .normal:
+                setNormalImage(kind: imageStructure.imageDataKind)
+        }
     }
 
     private func setHeaderImage(kind: ImageDataKind) {
@@ -114,8 +102,18 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         }
     }
 
-    private func setImage(kind: ImageDataKind) {
+    private func setNormalImage(kind: ImageDataKind) {
         self.output.images.append(kind)
+    }
+
+    private func deleteImage(_ imageStructure: ImageStructure) {
+        switch imageStructure.imageType {
+            case .header:
+                deleteHeaderImage()
+
+            case .normal:
+                deleteNormalImage(target: imageStructure.imageDataKind)
+        }
     }
 
     private func deleteHeaderImage() {
@@ -131,7 +129,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         }
     }
 
-    private func deleteImage(target: ImageDataKind) {
+    private func deleteNormalImage(target: ImageDataKind) {
 
         guard
             let index = self.output.images.firstIndex(of: target)

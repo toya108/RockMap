@@ -42,58 +42,13 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
     
     private func bindViewModelToView() {
         viewModel.output.$imageUploadState
-            .receive(on: RunLoop.main)
-            .sink { [weak self] in
-                
-                guard let self = self else { return }
-                
-                switch $0 {
-                case .stanby:
-                    self.hideIndicatorView()
-
-                case .progress:
-                    self.showIndicatorView()
-
-                case .complete:
-                    self.hideIndicatorView()
-                    self.viewModel.registerCourse()
-                    
-                case .failure(let error):
-                    self.hideIndicatorView()
-                    self.showOKAlert(
-                        title: "画像の登録に失敗しました",
-                        message: error.localizedDescription
-                    )
-                    
-                }
-            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: imageUploadStateSink)
             .store(in: &bindings)
         
         viewModel.output.$courseUploadState
-            .receive(on: RunLoop.main)
-            .sink { [weak self] in
-                
-                guard let self = self else { return }
-                
-                switch $0 {
-                case .stanby:
-                    break
-                    
-                case .loading:
-                    self.showIndicatorView()
-
-                case .finish:
-                    self.hideIndicatorView()
-                    self.router.route(to: .rockDetail, from: self)
-                    
-                case .failure(let error):
-                    self.showOKAlert(
-                        title: "岩の登録に失敗しました",
-                        message: error?.localizedDescription ?? ""
-                    )
-                    
-                }
-            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: courseUploadStateSink)
             .store(in: &bindings)
     }
     
@@ -112,6 +67,51 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
         snapShot.appendItems([.register], toSection: .register)
         datasource.apply(snapShot)
     }
+}
+
+extension CourseConfirmViewController {
+
+    private func imageUploadStateSink(_ state: StorageUploader.UploadState) {
+        switch state {
+            case .stanby:
+                hideIndicatorView()
+
+            case .progress:
+                showIndicatorView()
+
+            case .complete:
+                hideIndicatorView()
+                viewModel.registerCourse()
+
+            case .failure(let error):
+                hideIndicatorView()
+                showOKAlert(
+                    title: "画像の登録に失敗しました",
+                    message: error.localizedDescription
+                )
+        }
+    }
+
+    private func courseUploadStateSink(_ state: LoadingState) {
+        switch state {
+            case .stanby:
+                break
+
+            case .loading:
+                showIndicatorView()
+
+            case .finish:
+                hideIndicatorView()
+                router.route(to: .rockDetail, from: self)
+
+            case .failure(let error):
+                showOKAlert(
+                    title: "岩の登録に失敗しました",
+                    message: error?.localizedDescription ?? ""
+                )
+        }
+    }
+
 }
 
 extension CourseConfirmViewController: UIPopoverPresentationControllerDelegate {
