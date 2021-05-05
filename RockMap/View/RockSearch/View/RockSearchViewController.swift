@@ -310,10 +310,10 @@ extension RockSearchViewController: MKMapViewDelegate {
     }
 
     private func addFloatingPanel(rocks: [FIDocument.Rock]) {
-        let contentVC = RockAnnotationsTableViewController.createInstance(rocks: rocks)
+        let contentVC = RockAnnotationListViewController.createInstance(rocks: rocks)
         contentVC.delegate = self
         floatingPanelVc.set(contentViewController: contentVC)
-        floatingPanelVc.track(scrollView: contentVC.tableView)
+        floatingPanelVc.track(scrollView: contentVC.collectionView)
         floatingPanelVc.addPanel(toParent: self, animated: true)
     }
 
