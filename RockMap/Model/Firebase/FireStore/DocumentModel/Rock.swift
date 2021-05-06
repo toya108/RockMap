@@ -24,7 +24,7 @@ extension FIDocument {
         var seasons: Set<Season>
         var lithology: Lithology
         var desc: String
-        var registeredUserReference: DocumentReference
+        var registedUserId: String
 
         enum Season: String, CaseIterable, Codable {
             case spring, summer, autumn, winter

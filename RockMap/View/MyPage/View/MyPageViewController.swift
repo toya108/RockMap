@@ -154,7 +154,10 @@ extension MyPageViewController {
                 router.route(to: .courseDetail(course), from: self)
 
             case .registeredRock:
-                break
+                router.route(
+                    to: .rockList(AuthManager.shared.authUserReference),
+                    from: self
+                )
 
             case .registeredCourse:
                 router.route(

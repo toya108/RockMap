@@ -57,7 +57,7 @@ final class RockConfirmViewModel: ViewModelProtocol {
             seasons: seasons,
             lithology: lithology,
             desc: rockDesc,
-            registeredUserReference: AuthManager.shared.authUserReference!
+            registedUserId: AuthManager.shared.uid
         )
         bindImageUploader()
     }

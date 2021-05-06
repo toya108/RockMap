@@ -14,6 +14,7 @@ struct MyPageRouter: RouterProtocol {
 
     enum DestinationType: DestinationProtocol {
         case courseDetail(FIDocument.Course)
+        case rockList(DocumentRef?)
         case courseList(DocumentRef?)
     }
 
@@ -31,6 +32,9 @@ struct MyPageRouter: RouterProtocol {
             case .courseDetail(let course):
                 pushCourseDetail(context, course: course)
 
+            case .rockList(let userReference):
+                pushRockList(context, userReference: userReference)
+
             case .courseList(let userReference):
                 pushCourseList(context, userReference: userReference)
 
@@ -43,6 +47,15 @@ struct MyPageRouter: RouterProtocol {
     ) {
         let viewModel = CourseDetailViewModel(course: course)
         let vc = CourseDetailViewController.createInstance(viewModel: viewModel)
+        from.navigationController?.pushViewController(vc, animated: true)
+    }
+
+    private func pushRockList(
+        _ from: UIViewController,
+        userReference: DocumentRef?
+    ) {
+        let viewModel = RockListViewModel(userReference: userReference)
+        let vc = RockListViewController.createInstance(viewModel: viewModel)
         from.navigationController?.pushViewController(vc, animated: true)
     }
 
