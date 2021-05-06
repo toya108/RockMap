@@ -222,7 +222,6 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         .allSatisfy { $0 }
     }
 
-
     func makeCourseDocument() -> FIDocument.Course {
         switch registerType {
             case let .create(rockHeader):

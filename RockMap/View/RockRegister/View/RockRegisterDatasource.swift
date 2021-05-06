@@ -45,11 +45,11 @@ extension RockRegisterViewController {
                     item: imageType
                 )
                 
-            case let .images(data):
+            case let .images(imageDataKind):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDeletabelImageCell(),
+                    using: self.configureDeletabelImageCell(imageType: .normal),
                     for: indexPath,
-                    item: data
+                    item: imageDataKind
                 )
                 
             case .season(let season, let isSelecting):
@@ -80,11 +80,11 @@ extension RockRegisterViewController {
                     item: error
                 )
 
-            case let .headerImage(data):
+            case let .header(imageDataKind):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDeletabelImageCell(),
+                    using: self.configureDeletabelImageCell(imageType: .header),
                     for: indexPath,
-                    item: data
+                    item: imageDataKind
                 )
             }
         }
@@ -134,10 +134,17 @@ extension RockRegisterViewController {
             
             guard let self = self else { return }
 
-            cell.textField.text = self.viewModel.rockName
+            cell.textField.text = self.viewModel.output.rockName
             cell.configurePlaceholder("岩名を入力して下さい。")
-            cell.textField.textDidChangedPublisher.assign(to: &self.viewModel.$rockName)
             cell.textField.delegate = self
+            cell.textField.textDidChangedPublisher
+                .sink { [weak self] text in
+
+                    guard let self = self else { return }
+
+                    self.viewModel.input.rockNameSubject.send(text)
+                }
+                .store(in: &self.bindings)
         }
     }
     
@@ -154,9 +161,16 @@ extension RockRegisterViewController {
             
             guard let self = self else { return }
 
-            cell.textView.text = self.viewModel.rockDesc
+            cell.textView.text = self.viewModel.output.rockDesc
             cell.configurePlaceholder("課題の説明を入力して下さい。")
-            cell.textView.textDidChangedPublisher.assign(to: &self.viewModel.$rockDesc)
+            cell.textView.textDidChangedPublisher
+                .sink { [weak self] text in
+
+                    guard let self = self else { return }
+
+                    self.viewModel.input.rockDescSubject.send(text)
+                }
+                .store(in: &self.bindings)
         }
     }
     
@@ -177,8 +191,8 @@ extension RockRegisterViewController {
                 .init { [weak self] _ in
                     
                     guard let self = self else { return }
-                    
-                    self.viewModel.rockLocation.location = LocationManager.shared.location
+
+                    self.viewModel.input.locationSubject.send(.init(location: LocationManager.shared.location))
                 },
                 for: .touchUpInside
             )
@@ -215,28 +229,24 @@ extension RockRegisterViewController {
         }
     }
     
-    private func configureDeletabelImageCell() -> UICollectionView.CellRegistration<
+    private func configureDeletabelImageCell(
+        imageType: ImageType
+    ) -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
-        IdentifiableData
+        ImageDataKind
     > {
-        .init { cell, _, identifiableData in
+        .init { cell, _, imageDataKind in
             
-            cell.configure(data: identifiableData.data) { [weak self] in
-                
+            cell.configure(imageDataKind: imageDataKind) { [weak self] in
+
                 guard let self = self else { return }
 
-                if self.viewModel.rockHeaderImage == identifiableData {
-                    self.viewModel.rockHeaderImage = nil
-                    return
-                }
-
-                guard
-                    let index = self.viewModel.rockImageDatas.firstIndex(of: identifiableData)
-                else {
-                    return
-                }
-                
-                self.viewModel.rockImageDatas.remove(at: index)
+                self.viewModel.input.deleteImageSubject.send(
+                    .init(
+                        imageDataKind: imageDataKind,
+                        imageType: imageType
+                    )
+                )
             }
         }
     }
@@ -273,7 +283,7 @@ extension RockRegisterViewController {
                         return
                     }
                     
-                    self.viewModel.lithology = selected
+                    self.viewModel.input.lithologySubject.send(selected)
                     
                 },
                 for: .valueChanged

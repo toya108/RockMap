@@ -158,7 +158,7 @@ extension RockRegisterViewController {
                 )
                 section = .init(group: group)
 
-            case .headerImage:
+            case .header:
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),

@@ -41,7 +41,7 @@ extension CourseRegisterViewController {
                 
             case .desc:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configurecourseDescCell(),
+                    using: self.configureCourseDescCell(),
                     for: indexPath,
                     item: Dummy()
                 )
@@ -186,7 +186,7 @@ extension CourseRegisterViewController {
         }
     }
     
-    private func configurecourseDescCell() -> UICollectionView.CellRegistration<
+    private func configureCourseDescCell() -> UICollectionView.CellRegistration<
         TextViewCollectionViewCell,
         Dummy
     > {

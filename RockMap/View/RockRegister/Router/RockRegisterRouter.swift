@@ -46,24 +46,24 @@ struct RockRegisterRouter: RouterProtocol {
     ) {
 
         guard
-            viewModel.callValidations(),
-            let headerImage = self.viewModel?.rockHeaderImage
+            viewModel.callValidations()
         else {
-            from.showOKAlert(
-                title: "入力内容に不備があります。",
-                message: "入力内容を見直してください。"
-            )
+            from.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
+            return
+        }
+
+        guard
+            let header = viewModel.output.header
+        else {
+            from.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
             return
         }
 
         let viewModel = RockConfirmViewModel(
-            rockName: self.viewModel.rockName,
-            rockImageDatas: self.viewModel.rockImageDatas,
-            rockHeaderImage: headerImage,
-            rockLocation: self.viewModel.rockLocation,
-            rockDesc: self.viewModel.rockDesc,
-            seasons: self.viewModel.seasons,
-            lithology: self.viewModel.lithology
+            registerType: viewModel.registerType,
+            rockDocument: viewModel.makeRockDocument(),
+            header: header,
+            images: viewModel.output.images
         )
 
         from.navigationController?.pushViewController(
@@ -89,7 +89,7 @@ struct RockRegisterRouter: RouterProtocol {
         _ from: UIViewController
     ) {
         guard
-            let location = viewModel?.rockLocation.location
+            let location = viewModel?.output.rockLocation.location
         else {
             return
         }

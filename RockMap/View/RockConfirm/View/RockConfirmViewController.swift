@@ -41,74 +41,85 @@ class RockConfirmViewController: UIViewController, CompositionalColectionViewCon
     }
     
     private func bindViewModelToView() {
-        viewModel.$imageUploadState
-            .receive(on: RunLoop.main)
-            .sink { [weak self] in
-                
-                guard let self = self else { return }
-                
-                switch $0 {
-                case .stanby:
-                    self.hideIndicatorView()
-                    
-                case .progress(let _):
-                    self.showIndicatorView()
-
-                case .complete(let _):
-                    self.hideIndicatorView()
-                    self.viewModel.registerRock()
-                    
-                case .failure(let error):
-                    self.hideIndicatorView()
-                    self.showOKAlert(
-                        title: "画像の登録に失敗しました",
-                        message: error.localizedDescription
-                    )
-                    
-                }
-            }
+        viewModel.output.$imageUploadState
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: imageUploadStateSink)
             .store(in: &bindings)
-        
-        viewModel.$rockUploadState
-            .receive(on: RunLoop.main)
-            .sink { [weak self] in
-                
-                guard let self = self else { return }
-                
-                switch $0 {
-                case .stanby:
-                    break
-                    
-                case .loading:
-                    self.showIndicatorView()
 
-                case .finish:
-                    self.hideIndicatorView()
-                    self.router.route(to: .rockSearch, from: self)
-                    
-                case .failure(let error):
-                    self.showOKAlert(
-                        title: "岩の登録に失敗しました",
-                        message: error?.localizedDescription ?? ""
-                    )
-                    
-                }
-            }
+        viewModel.output.$rockUploadState
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: rockUploadStateSink)
             .store(in: &bindings)
     }
     
     private func configureSections() {
         snapShot.appendSections(SectionLayoutKind.allCases)
-        snapShot.appendItems([.name(viewModel.rockName)], toSection: .name)
-        snapShot.appendItems([.desc(viewModel.rockDesc)], toSection: .desc)
-        snapShot.appendItems([.season(viewModel.seasons)], toSection: .season)
-        snapShot.appendItems([.lithology(viewModel.lithology)], toSection: .lithology)
-        snapShot.appendItems([.location(viewModel.rockLocation)], toSection: .location)
-        snapShot.appendItems([.headerImage(viewModel.rockHeaderImage)], toSection: .headerImage)
-        snapShot.appendItems(viewModel.rockImageDatas.map { ItemKind.images($0) }, toSection: .images)
+        snapShot.appendItems([.name(viewModel.rockDocument.name)], toSection: .name)
+        snapShot.appendItems([.desc(viewModel.rockDocument.desc)], toSection: .desc)
+        snapShot.appendItems([.season(viewModel.rockDocument.seasons)], toSection: .season)
+        snapShot.appendItems([.lithology(viewModel.rockDocument.lithology)], toSection: .lithology)
+        let location = LocationManager.LocationStructure(
+            location: .init(
+                latitude: viewModel.rockDocument.location.latitude,
+                longitude: viewModel.rockDocument.location.longitude
+            ),
+            address: viewModel.rockDocument.address,
+            prefecture: viewModel.rockDocument.prefecture
+        )
+        snapShot.appendItems([.location(location)], toSection: .location)
+        snapShot.appendItems([.header(viewModel.header)], toSection: .header)
+        snapShot.appendItems(
+            viewModel.images.filter(\.shouldAppendItem).map { ItemKind.images($0) },
+            toSection: .images
+        )
         snapShot.appendItems([.register], toSection: .register)
         datasource.apply(snapShot)
     }
+}
+
+extension RockConfirmViewController {
+
+    private func imageUploadStateSink(_ state: StorageUploader.UploadState) {
+        switch state {
+            case .stanby:
+                hideIndicatorView()
+
+            case .progress:
+                showIndicatorView()
+
+            case .complete:
+                hideIndicatorView()
+                viewModel.input.registerCourseSubject.send()
+
+            case .failure(let error):
+                hideIndicatorView()
+                showOKAlert(
+                    title: "画像の登録に失敗しました",
+                    message: error.localizedDescription
+                )
+        }
+    }
+
+    private func rockUploadStateSink(_ state: LoadingState) {
+        switch state {
+            case .stanby:
+                break
+
+            case .loading:
+                showIndicatorView()
+
+            case .finish:
+                hideIndicatorView()
+                router.route(to: .rockSearch, from: self)
+
+            case .failure(let error):
+                showOKAlert(
+                    title: "岩の登録に失敗しました",
+                    message: error?.localizedDescription ?? ""
+                )
+        }
+    }
+
 }
 
 extension RockConfirmViewController: UIPopoverPresentationControllerDelegate {

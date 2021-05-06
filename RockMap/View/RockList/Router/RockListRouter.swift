@@ -50,15 +50,15 @@ struct RocklistRouter: RouterProtocol {
         _ from: UIViewController,
         rock: FIDocument.Rock
     ) {
-//        let viewModel = (
-//            registerType: .edit(course)
-//        )
-//        let vc = RockMapNavigationController(
-//            rootVC: CourseRegisterViewController.createInstance(viewModel: viewModel),
-//            naviBarClass: RockMapNavigationBar.self
-//        )
-//        vc.isModalInPresentation = true
-//        from.present(vc, animated: true)
+        let viewModel = RockRegisterViewModel(
+            registerType: .edit(rock)
+        )
+        let vc = RockMapNavigationController(
+            rootVC: RockRegisterViewController.createInstance(viewModel: viewModel),
+            naviBarClass: RockMapNavigationBar.self
+        )
+        vc.isModalInPresentation = true
+        from.present(vc, animated: true)
     }
 
 }

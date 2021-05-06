@@ -16,8 +16,7 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
     var router: RockRegisterRouter!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
-
-    private var bindings = Set<AnyCancellable>()
+    var bindings = Set<AnyCancellable>()
 
     var pickerManager: PickerManager!
     
@@ -68,54 +67,20 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
     }
     
     private func bindViewModelToView() {
-        viewModel.$rockImageDatas
+        viewModel.output.$images
             .drop { $0.isEmpty }
-            .receive(on: RunLoop.main)
-            .sink { [weak self] images in
-                
-                defer {
-                    self?.hideIndicatorView()
-                }
-                
-                guard let self = self else { return }
-                
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .images))
-                
-                self.snapShot.appendItems([.noImage(.normal)], toSection: .images)
-                
-                let items = images.map { ItemKind.images($0) }
-                self.snapShot.appendItems(items, toSection: .images)
-                self.datasource.apply(self.snapShot)
-            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: imagesSink)
             .store(in: &bindings)
 
-        viewModel.$rockHeaderImage
-            .receive(on: RunLoop.main)
+        viewModel.output.$header
+            .receive(on: DispatchQueue.main)
             .removeDuplicates()
-            .sink { [weak self] data in
-
-                defer {
-                    self?.hideIndicatorView()
-                }
-
-                guard let self = self else { return }
-
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .headerImage))
-
-                if let data = data {
-                    self.snapShot.appendItems([.headerImage(data)], toSection: .headerImage)
-
-                } else {
-                    self.snapShot.appendItems([.noImage(.header)], toSection: .headerImage)
-
-                }
-
-                self.datasource.apply(self.snapShot)
-            }
+            .sink(receiveValue: headerSink)
             .store(in: &bindings)
         
-        viewModel.$rockNameValidationResult
-            .receive(on: RunLoop.main)
+        viewModel.output.$rockNameValidationResult
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
                 
                 guard let self = self else { return }
@@ -145,9 +110,9 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
             }
             .store(in: &bindings)
         
-        viewModel.$rockImageValidationResult
+        viewModel.output.$rockImageValidationResult
             .dropFirst()
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
                 
                 guard let self = self else { return }
@@ -175,9 +140,9 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
             }
             .store(in: &bindings)
 
-        viewModel.$headerImageValidationResult
+        viewModel.output.$headerImageValidationResult
             .dropFirst()
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
 
                 guard let self = self else { return }
@@ -206,8 +171,8 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
             }
             .store(in: &bindings)
         
-        viewModel.$rockLocation
-            .receive(on: RunLoop.main)
+        viewModel.output.$rockLocation
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] locationStructure in
                 
                 guard let self = self else { return }
@@ -220,8 +185,8 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
             }
             .store(in: &bindings)
         
-        viewModel.$seasons
-            .receive(on: RunLoop.main)
+        viewModel.output.$seasons
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] seasons in
                 
                 guard let self = self else { return }
@@ -242,11 +207,44 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
         let seasonItems = FIDocument.Rock.Season.allCases.map {
-            ItemKind.season(season: $0, isSelecting: viewModel.seasons.contains($0))
+            ItemKind.season(season: $0, isSelecting: viewModel.output.seasons.contains($0))
         }
         snapShot.appendItems(seasonItems, toSection: .season)
-        snapShot.appendItems([.lithology(viewModel.lithology)], toSection: .lithology)
+        snapShot.appendItems([.lithology(viewModel.output.lithology)], toSection: .lithology)
         datasource.apply(snapShot)
+    }
+}
+
+extension RockRegisterViewController {
+
+    private func headerSink(_ imageDataKind: ImageDataKind?) {
+
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .header))
+
+        if
+            let kind = imageDataKind,
+            kind.shouldAppendItem
+        {
+            snapShot.appendItems([.header(kind)], toSection: .header)
+        } else {
+            snapShot.appendItems([.noImage(.header)], toSection: .header)
+        }
+        datasource.apply(snapShot)
+
+        hideIndicatorView()
+    }
+
+    private func imagesSink(_ imageDataKindList: [ImageDataKind]) {
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .images))
+        snapShot.appendItems([.noImage(.normal)], toSection: .images)
+
+        let items = imageDataKindList
+            .filter { $0.shouldAppendItem }
+            .map { ItemKind.images($0) }
+        snapShot.appendItems(items, toSection: .images)
+        datasource.apply(snapShot)
+
+        hideIndicatorView()
     }
 }
 
@@ -266,12 +264,7 @@ extension RockRegisterViewController {
 
         switch item {
             case let .season(season, _):
-
-                if viewModel.seasons.contains(season) {
-                    viewModel.seasons.remove(season)
-                } else {
-                    viewModel.seasons.insert(season)
-                }
+                viewModel.input.selectSeasonSubject.send(season)
 
             default:
                 break
@@ -285,8 +278,16 @@ extension RockRegisterViewController: PickerManagerDelegate {
         showIndicatorView()
     }
 
-    func didReceivePicking(data: Data, imageType: ImageType) {
-        viewModel.set(data: [.init(data: data)], for: imageType)
+    func didReceivePicking(
+        data: Data,
+        imageType: ImageType
+    ) {
+        viewModel.input.setImageSubject.send(
+            .init(
+                imageDataKind: .data(.init(data: data)),
+                imageType: imageType
+            )
+        )
     }
 
 }
