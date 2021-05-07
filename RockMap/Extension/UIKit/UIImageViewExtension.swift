@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 import FirebaseStorage
 
 extension UIImageView {
@@ -13,9 +14,10 @@ extension UIImageView {
     func loadImage(
         url: URL?
     ) {
+        sd_imageIndicator = SDWebImageActivityIndicator.gray
+
         sd_setImage(
-            with: url,
-            placeholderImage: UIImage.AssetsImages.noimage
+            with: url
         )
     }
     
@@ -29,9 +31,9 @@ extension UIImageView {
             return
         }
 
+        sd_imageIndicator = SDWebImageActivityIndicator.gray
         sd_setImage(
-            with: reference,
-            placeholderImage: UIImage.AssetsImages.noimage
+            with: reference
         )
     }
 }
