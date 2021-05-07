@@ -13,7 +13,7 @@ struct CourseConfirmRouter: RouterProtocol {
     typealias ViewModel = CourseConfirmViewModel
 
     enum DestinationType: DestinationProtocol {
-        case rockDetail
+        case dismiss
     }
 
     weak var viewModel: CourseConfirmViewModel!
@@ -27,14 +27,13 @@ struct CourseConfirmRouter: RouterProtocol {
         from: UIViewController
     ) {
         switch destination {
-            case .rockDetail:
-                dismissToRockDetail(from)
+            case .dismiss:
+                dismiss(from)
 
         }
     }
 
-    private func dismissToRockDetail(_ from: UIViewController) {
-
+    private func dismiss(_ from: UIViewController) {
         RegisterSucceededViewController.showSuccessView(present: from) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 
