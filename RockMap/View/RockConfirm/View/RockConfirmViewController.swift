@@ -110,7 +110,7 @@ extension RockConfirmViewController {
 
             case .finish:
                 hideIndicatorView()
-                router.route(to: .rockSearch, from: self)
+                router.route(to: .dismiss, from: self)
 
             case .failure(let error):
                 showOKAlert(

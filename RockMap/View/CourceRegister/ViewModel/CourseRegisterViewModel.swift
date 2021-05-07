@@ -89,11 +89,17 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
         output.$images
             .dropFirst()
-            .map { RockImageValidator().validate($0) }
+            .map { RockImageValidator().validate($0.filter(\.shouldAppendItem)) }
             .assign(to: &output.$courseImageValidationResult)
 
         output.$header
             .dropFirst()
+            .map {
+                guard let imageDataKind = $0 else {
+                    return nil
+                }
+                return imageDataKind.shouldAppendItem ? $0 : nil
+            }
             .map { RockHeaderImageValidator().validate($0) }
             .assign(to: &output.$headerImageValidationResult)
     }
@@ -204,10 +210,20 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
     
     func callValidations() -> Bool {
         if !output.headerImageValidationResult.isValid {
-            output.headerImageValidationResult = RockHeaderImageValidator().validate(output.header)
+            let header: ImageDataKind? = {
+                guard
+                    let imageDataKind = output.header
+                else {
+                    return nil
+                }
+                return imageDataKind.shouldAppendItem ? output.header : nil
+            }()
+
+            output.headerImageValidationResult = RockHeaderImageValidator().validate(header)
         }
         if !output.courseImageValidationResult.isValid {
-            output.courseImageValidationResult = RockImageValidator().validate(output.images)
+            let images = output.images.filter(\.shouldAppendItem)
+            output.courseImageValidationResult = RockImageValidator().validate(images)
         }
         if !output.courseNameValidationResult.isValid {
             output.courseNameValidationResult = CourseNameValidator().validate(output.courseName)

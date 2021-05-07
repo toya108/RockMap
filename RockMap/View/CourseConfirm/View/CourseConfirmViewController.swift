@@ -105,7 +105,7 @@ extension CourseConfirmViewController {
 
             case .finish:
                 hideIndicatorView()
-                router.route(to: .rockDetail, from: self)
+                router.route(to: .dismiss, from: self)
 
             case .failure(let error):
                 showOKAlert(

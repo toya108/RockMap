@@ -27,14 +27,37 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
         self.registerType = registerType
         bindInput()
         bindOutput()
-        
-        guard
-            case let .edit(rock) = registerType
-        else {
-            return
+
+        switch registerType {
+            case let .create(location):
+                guard
+                    let location = location
+                else {
+                    return
+                }
+                input.locationSubject.send(.init(location: location))
+
+            case let .edit(rock):
+                input.rockNameSubject.send(rock.name)
+                input.rockDescSubject.send(rock.desc)
+                let location = LocationManager.LocationStructure(
+                    location: .init(
+                        latitude: rock.location.latitude,
+                        longitude: rock.location.longitude
+                    ),
+                    address: rock.address,
+                    prefecture: rock.prefecture
+                )
+                input.locationSubject.send(location)
+                rock.seasons.forEach {
+                    input.selectSeasonSubject.send($0)
+                }
+                input.lithologySubject.send(rock.lithology)
+
+                fetchRockStorage(rockId: rock.id)
         }
 
-        fetchRockStorage(rockId: rock.id)
+
     }
 
     private func bindInput() {
@@ -47,6 +70,10 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             .removeDuplicates()
             .compactMap { $0 }
             .assign(to: &output.$rockDesc)
+
+        input.locationSubject
+            .removeDuplicates()
+            .assign(to: &output.$rockLocation)
 
         input.selectSeasonSubject
             .removeDuplicates()
@@ -122,11 +149,17 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
 
         output.$images
             .dropFirst()
-            .map { RockImageValidator().validate($0) }
+            .map { RockImageValidator().validate($0.filter(\.shouldAppendItem)) }
             .assign(to: &output.$rockImageValidationResult)
 
         output.$header
             .dropFirst()
+            .map {
+                guard let imageDataKind = $0 else {
+                    return nil
+                }
+                return imageDataKind.shouldAppendItem ? $0 : nil
+            }
             .map { RockHeaderImageValidator().validate($0) }
             .assign(to: &output.$headerImageValidationResult)
 
@@ -244,10 +277,20 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             output.rockNameValidationResult = RockNameValidator().validate(output.rockName)
         }
         if !output.headerImageValidationResult.isValid {
-            output.headerImageValidationResult = RockHeaderImageValidator().validate(output.header)
+            let header: ImageDataKind? = {
+                guard
+                    let imageDataKind = output.header
+                else {
+                    return nil
+                }
+                return imageDataKind.shouldAppendItem ? output.header : nil
+            }()
+
+            output.headerImageValidationResult = RockHeaderImageValidator().validate(header)
         }
         if !output.rockImageValidationResult.isValid {
-            output.rockImageValidationResult = RockImageValidator().validate(output.images)
+            let images = output.images.filter(\.shouldAppendItem)
+            output.rockImageValidationResult = RockImageValidator().validate(images)
         }
 
         let isPassedAllValidation = [
