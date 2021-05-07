@@ -51,7 +51,7 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
     }
 
     private func setupNavigationBar() {
-        navigationItem.title = "岩を登録する"
+        navigationItem.title = "岩を\(viewModel.registerType.name)する"
         navigationItem.setRightBarButton(
             .init(
                 image: UIImage.SystemImages.xmark,
