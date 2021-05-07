@@ -15,7 +15,6 @@ extension UIImageView {
         url: URL?
     ) {
         sd_imageIndicator = SDWebImageActivityIndicator.gray
-
         sd_setImage(
             with: url
         )
