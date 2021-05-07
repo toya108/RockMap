@@ -67,6 +67,16 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
     }
     
     private func bindViewModelToView() {
+        viewModel.output.$rockLocation
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: locationSink)
+            .store(in: &bindings)
+
+        viewModel.output.$seasons
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: seasonsSink)
+            .store(in: &bindings)
+
         viewModel.output.$images
             .drop { $0.isEmpty }
             .receive(on: DispatchQueue.main)
@@ -81,123 +91,19 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
         
         viewModel.output.$rockNameValidationResult
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] result in
-                
-                guard let self = self else { return }
-                
-                switch result {
-                case .valid, .none:
-                    let items = self.snapShot.itemIdentifiers(inSection: .name)
-                    
-                    guard
-                        let item = items.first(where: { $0.isErrorItem })
-                    else {
-                        return
-                    }
-                    
-                    self.snapShot.deleteItems([item])
-                    
-                case let .invalid(error):
-                    let items = self.snapShot.itemIdentifiers(inSection: .name)
-                    
-                    if let item = items.first(where: { $0.isErrorItem }) {
-                        self.snapShot.deleteItems([item])
-                    }
-
-                    self.snapShot.appendItems([.error(error)], toSection: .name)
-                }
-                self.datasource.apply(self.snapShot)
-            }
+            .sink(receiveValue: rockNameValidationSink)
             .store(in: &bindings)
         
         viewModel.output.$rockImageValidationResult
             .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] result in
-                
-                guard let self = self else { return }
-
-                let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
-
-                switch result {
-                case .valid, .none:
-                    guard
-                        let item = items.first(where: { $0 == .error(.quantity(formName: "画像", max: 10)) })
-                    else {
-                        return
-                    }
-
-                    self.snapShot.deleteItems([item])
-
-                case let .invalid(error):
-                    if let item = items.first(where: { $0 == .error(.quantity(formName: "画像", max: 10)) }) {
-                        self.snapShot.deleteItems([item])
-                    }
-
-                    self.snapShot.appendItems([.error(error)], toSection: .confirmation)
-                }
-                self.datasource.apply(self.snapShot)
-            }
+            .sink(receiveValue: rockImageValidationSink)
             .store(in: &bindings)
 
         viewModel.output.$headerImageValidationResult
             .dropFirst()
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] result in
-
-                guard let self = self else { return }
-
-                let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
-
-                switch result {
-                case .valid, .none:
-                    guard
-                        let item = items.first(where: { $0 == .error(.none(formName: "ヘッダー画像")) })
-                    else {
-                        return
-                    }
-
-                    self.snapShot.deleteItems([item])
-
-                case let .invalid(error):
-                    if let item = items.first(where: { $0 == .error(.none(formName: "ヘッダー画像")) }) {
-                        self.snapShot.deleteItems([item])
-                    }
-                    self.snapShot.appendItems([.error(error)], toSection: .confirmation)
-
-                }
-
-                self.datasource.apply(self.snapShot)
-            }
-            .store(in: &bindings)
-        
-        viewModel.output.$rockLocation
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] locationStructure in
-                
-                guard let self = self else { return }
-                
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .location))
-                
-                self.snapShot.appendItems([.location(locationStructure)], toSection: .location)
- 
-                self.datasource.apply(self.snapShot)
-            }
-            .store(in: &bindings)
-        
-        viewModel.output.$seasons
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] seasons in
-                
-                guard let self = self else { return }
-                
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .season))
-                
-                let items = FIDocument.Rock.Season.allCases.map { ItemKind.season(season: $0, isSelecting: seasons.contains($0)) }
-                self.snapShot.appendItems(items, toSection: .season)
- 
-                self.datasource.apply(self.snapShot)
-            }
+            .sink(receiveValue: headerImageValidationSink)
             .store(in: &bindings)
     }
     
@@ -216,6 +122,21 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
 }
 
 extension RockRegisterViewController {
+
+    private func locationSink(_ location: LocationManager.LocationStructure) {
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .location))
+        snapShot.appendItems([.location(location)], toSection: .location)
+        datasource.apply(snapShot)
+    }
+
+    private func seasonsSink(_ seasons: Set<FIDocument.Rock.Season>) {
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .season))
+        let items = FIDocument.Rock.Season.allCases.map {
+            ItemKind.season(season: $0, isSelecting: seasons.contains($0))
+        }
+        snapShot.appendItems(items, toSection: .season)
+        datasource.apply(snapShot)
+    }
 
     private func headerSink(_ imageDataKind: ImageDataKind?) {
 
@@ -245,6 +166,78 @@ extension RockRegisterViewController {
         datasource.apply(snapShot)
 
         hideIndicatorView()
+    }
+
+    private func rockNameValidationSink(_ result: ValidationResult) {
+        switch result {
+            case .valid, .none:
+                let items = snapShot.itemIdentifiers(inSection: .name)
+
+                guard
+                    let item = items.first(where: { $0.isErrorItem })
+                else {
+                    return
+                }
+
+                self.snapShot.deleteItems([item])
+
+            case let .invalid(error):
+                let items = snapShot.itemIdentifiers(inSection: .name)
+
+                if let item = items.first(where: { $0.isErrorItem }) {
+                    snapShot.deleteItems([item])
+                }
+
+                snapShot.appendItems([.error(error)], toSection: .name)
+        }
+        datasource.apply(snapShot)
+    }
+
+    private func rockImageValidationSink(_ result: ValidationResult) {
+
+        let items = snapShot.itemIdentifiers(inSection: .confirmation)
+
+        switch result {
+            case .valid, .none:
+                guard
+                    let item = items.first(where: { $0 == .error(.quantity(formName: "画像", max: 10)) })
+                else {
+                    return
+                }
+
+                snapShot.deleteItems([item])
+
+            case let .invalid(error):
+                if let item = items.first(where: { $0 == .error(.quantity(formName: "画像", max: 10)) }) {
+                    snapShot.deleteItems([item])
+                }
+
+                snapShot.appendItems([.error(error)], toSection: .confirmation)
+        }
+        datasource.apply(snapShot)
+    }
+
+    private func headerImageValidationSink(_ result: ValidationResult) {
+        let items = snapShot.itemIdentifiers(inSection: .confirmation)
+
+        switch result {
+            case .valid, .none:
+                guard
+                    let item = items.first(where: { $0 == .error(.none(formName: "ヘッダー画像")) })
+                else {
+                    return
+                }
+
+                snapShot.deleteItems([item])
+
+            case let .invalid(error):
+                if let item = items.first(where: { $0 == .error(.none(formName: "ヘッダー画像")) }) {
+                    snapShot.deleteItems([item])
+                }
+                snapShot.appendItems([.error(error)], toSection: .confirmation)
+        }
+
+        datasource.apply(snapShot)
     }
 }
 
