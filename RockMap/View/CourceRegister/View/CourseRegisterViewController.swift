@@ -69,16 +69,6 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
     }
     
     private func bindViewModelToView() {
-        viewModel.output.$courseName
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: courseNameSink)
-            .store(in: &bindings)
-
-        viewModel.output.$courseDesc
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: courseDescSink)
-            .store(in: &bindings)
-
         viewModel.output.$grade
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: gradeSink)
@@ -189,32 +179,6 @@ extension CourseRegisterViewController: UICollectionViewDelegate {
 }
 
 extension CourseRegisterViewController {
-
-    private func courseNameSink(_ courseName: String) {
-        guard
-            let courseNameItem = snapShot.itemIdentifiers(inSection: .courseName).first,
-            let cell = cell(
-                for: TextFieldColletionViewCell.self,
-                item: courseNameItem
-            )
-        else {
-            return
-        }
-        cell.textField.text = courseName
-    }
-
-    private func courseDescSink(_ courseDesc: String) {
-        guard
-            let courseNameItem = snapShot.itemIdentifiers(inSection: .desc).first,
-            let cell = cell(
-                for: TextViewCollectionViewCell.self,
-                item: courseNameItem
-            )
-        else {
-            return
-        }
-        cell.textView.setText(text: courseDesc)
-    }
 
     private func gradeSink(_ grade: FIDocument.Course.Grade) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .grade))
