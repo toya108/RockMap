@@ -52,7 +52,7 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
     }
     
     private func setupNavigationBar() {
-        navigationItem.title = "課題を登録する"
+        navigationItem.title = "課題を\(viewModel.registerType.name)する"
 
         navigationItem.setRightBarButton(
             .init(
@@ -69,16 +69,6 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
     }
     
     private func bindViewModelToView() {
-        viewModel.output.$courseName
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: courseNameSink)
-            .store(in: &bindings)
-
-        viewModel.output.$courseDesc
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: courseDescSink)
-            .store(in: &bindings)
-
         viewModel.output.$grade
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: gradeSink)
@@ -113,14 +103,20 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
 
         viewModel.output.$headerImageValidationResult
             .dropFirst()
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink(receiveValue: headerImageValidationSink)
             .store(in: &bindings)
     }
     
     private func configureSections() {
-        snapShot.appendSections(SectionLayoutKind.allCases)
-        SectionLayoutKind.allCases.forEach {
+        if case .create = viewModel.registerType {
+            snapShot.appendSections([.rock])
+            snapShot.appendItems([.rock], toSection: .rock)
+        }
+
+        snapShot.appendSections(SectionLayoutKind.allCases.filter { $0 != .rock })
+
+        SectionLayoutKind.allCases.filter { $0 != .rock }.forEach {
             snapShot.appendItems($0.initalItems, toSection: $0)
         }
         let shapeItems = FIDocument.Course.Shape.allCases.map {
@@ -147,7 +143,7 @@ extension CourseRegisterViewController: PickerManagerDelegate {
     ) {
         viewModel.input.setImageSubject.send(
             .init(
-                dataList: [.init(data: data)],
+                imageDataKind: .data(.init(data: data)),
                 imageType: imageType
             )
         )
@@ -184,32 +180,6 @@ extension CourseRegisterViewController: UICollectionViewDelegate {
 
 extension CourseRegisterViewController {
 
-    private func courseNameSink(_ courseName: String) {
-        guard
-            let courseNameItem = snapShot.itemIdentifiers(inSection: .courseName).first,
-            let cell = cell(
-                for: TextFieldColletionViewCell.self,
-                item: courseNameItem
-            )
-        else {
-            return
-        }
-        cell.textField.text = courseName
-    }
-
-    private func courseDescSink(_ courseDesc: String) {
-        guard
-            let courseNameItem = snapShot.itemIdentifiers(inSection: .desc).first,
-            let cell = cell(
-                for: TextViewCollectionViewCell.self,
-                item: courseNameItem
-            )
-        else {
-            return
-        }
-        cell.textView.setText(text: courseDesc)
-    }
-
     private func gradeSink(_ grade: FIDocument.Course.Grade) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .grade))
         snapShot.appendItems([.grade(grade)], toSection: .grade)
@@ -225,10 +195,14 @@ extension CourseRegisterViewController {
         datasource.apply(snapShot)
     }
 
-    private func headerSink(_ identifiableData: IdentifiableData?) {
+    private func headerSink(_ imageDataKind: ImageDataKind?) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .header))
-        if let data = identifiableData {
-            snapShot.appendItems([.header(data)], toSection: .header)
+
+        if
+            let kind = imageDataKind,
+            kind.shouldAppendItem
+        {
+            snapShot.appendItems([.header(kind)], toSection: .header)
         } else {
             snapShot.appendItems([.noImage(.header)], toSection: .header)
         }
@@ -237,10 +211,14 @@ extension CourseRegisterViewController {
         hideIndicatorView()
     }
 
-    private func imagesSink(_ identifiableDataList: [IdentifiableData]) {
+    private func imagesSink(_ imageDataKindList: [ImageDataKind]) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .images))
         snapShot.appendItems([.noImage(.normal)], toSection: .images)
-        snapShot.appendItems(identifiableDataList.map { ItemKind.images($0) }, toSection: .images)
+
+        let items = imageDataKindList
+            .filter { $0.shouldAppendItem }
+            .map { ItemKind.images($0) }
+        snapShot.appendItems(items, toSection: .images)
         datasource.apply(snapShot)
 
         hideIndicatorView()

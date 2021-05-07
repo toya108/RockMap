@@ -8,6 +8,6 @@
 import Foundation
 
 struct ImageStructure {
-    let dataList: [IdentifiableData]
+    let imageDataKind: ImageDataKind
     let imageType: ImageType
 }

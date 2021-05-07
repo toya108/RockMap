@@ -28,7 +28,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         bindOutput()
 
         guard
-            case let .edit(_, course) = registerType
+            case let .edit(course) = registerType
         else {
             return
         }
@@ -38,6 +38,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         input.gradeSubject.send(course.grade)
         input.shapeSubject.send(course.shape)
         input.courseNameSubject.send(course.name)
+        fetchCourseStorage(courseId: course.id)
     }
 
     private func bindInput() {
@@ -71,66 +72,158 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
             .store(in: &bindings)
 
         input.setImageSubject
-            .sink { [weak self] imageStructure in
-
-                guard let self = self else { return }
-
-                switch imageStructure.imageType {
-                    case .header:
-                        self.output.header = imageStructure.dataList.first
-
-                    case .normal:
-                        self.output.images.append(contentsOf: imageStructure.dataList)
-                }
-            }
+            .sink(receiveValue: setImage)
             .store(in: &bindings)
 
         input.deleteImageSubject
-            .sink { [weak self] imageStructure in
-
-                guard let self = self else { return }
-
-                switch imageStructure.imageType {
-                    case .header:
-                        self.output.header = nil
-
-                    case .normal:
-                        guard
-                            let imageData = imageStructure.dataList.first,
-                            let index = self.output.images.firstIndex(of: imageData)
-                        else {
-                            return
-                        }
-                        self.output.images.remove(at: index)
-                }
-            }
+            .sink(receiveValue: deleteImage)
             .store(in: &bindings)
     }
-    
+
     private func bindOutput() {
         output.$courseName
             .dropFirst()
             .removeDuplicates()
             .map { name -> ValidationResult in CourseNameValidator().validate(name) }
             .assign(to: &output.$courseNameValidationResult)
-        
+
         output.$images
             .dropFirst()
-            .map { RockImageValidator().validate($0) }
+            .map { RockImageValidator().validate($0.filter(\.shouldAppendItem)) }
             .assign(to: &output.$courseImageValidationResult)
 
         output.$header
             .dropFirst()
+            .map {
+                guard let imageDataKind = $0 else {
+                    return nil
+                }
+                return imageDataKind.shouldAppendItem ? $0 : nil
+            }
             .map { RockHeaderImageValidator().validate($0) }
             .assign(to: &output.$headerImageValidationResult)
+    }
+
+    private func fetchCourseStorage(courseId: String) {
+        let courseStorageReference = StorageManager.makeReference(
+            parent: FINameSpace.Course.self,
+            child: courseId
+        )
+        StorageManager
+            .getHeaderReference(courseStorageReference)
+            .catch { _ -> Just<StorageManager.Reference?> in
+                return .init(nil)
+            }
+            .compactMap { $0 }
+            .map { ImageDataKind.storage(.init(storageReference: $0)) }
+            .assign(to: &output.$header)
+
+        StorageManager.getNormalImagePrefixes(courseStorageReference)
+            .catch { _ -> Just<[StorageManager.Reference]> in
+                return .init([])
+            }
+            .sink { [weak self] prefixes in
+
+                guard let self = self else { return }
+
+                prefixes
+                    .map { $0.getReferences() }
+                    .forEach {
+                        $0.catch { _ -> Just<[StorageManager.Reference]> in
+                            return .init([])
+                        }
+                        .map {
+                            $0.map { ImageDataKind.storage(.init(storageReference: $0)) }
+                        }
+                        .assign(to: &self.output.$images)
+                    }
+            }
+            .store(in: &bindings)
+    }
+
+    private func setImage(_ imageStructure: ImageStructure) {
+        switch imageStructure.imageType {
+            case .header:
+                setHeaderImage(kind: imageStructure.imageDataKind)
+
+            case .normal:
+                setNormalImage(kind: imageStructure.imageDataKind)
+        }
+    }
+
+    private func setHeaderImage(kind: ImageDataKind) {
+        switch output.header {
+            case .data, .none:
+                output.header = kind
+
+            case .storage(var storage):
+                storage.updateData = kind.data?.data
+                storage.shouldUpdate = true
+                output.header?.update(.storage(storage))
+        }
+    }
+
+    private func setNormalImage(kind: ImageDataKind) {
+        self.output.images.append(kind)
+    }
+
+    private func deleteImage(_ imageStructure: ImageStructure) {
+        switch imageStructure.imageType {
+            case .header:
+                deleteHeaderImage()
+
+            case .normal:
+                deleteNormalImage(target: imageStructure.imageDataKind)
+        }
+    }
+
+    private func deleteHeaderImage() {
+        switch output.header {
+            case .data:
+                output.header = nil
+
+            case .storage:
+                output.header?.toggleStorageUpdateFlag()
+
+            default:
+                break
+        }
+    }
+
+    private func deleteNormalImage(target: ImageDataKind) {
+
+        guard
+            let index = self.output.images.firstIndex(of: target)
+        else {
+            return
+        }
+
+        switch target {
+            case .data:
+                self.output.images.remove(at: index)
+
+            case .storage:
+                self.output.images[index].toggleStorageUpdateFlag()
+        }
+
     }
     
     func callValidations() -> Bool {
         if !output.headerImageValidationResult.isValid {
-            output.headerImageValidationResult = RockHeaderImageValidator().validate(output.header)
+            let header: ImageDataKind? = {
+                guard
+                    let imageDataKind = output.header
+                else {
+                    return nil
+                }
+                return imageDataKind.shouldAppendItem ? output.header : nil
+            }()
+
+            output.headerImageValidationResult = RockHeaderImageValidator().validate(header)
         }
         if !output.courseImageValidationResult.isValid {
-            output.courseImageValidationResult = RockImageValidator().validate(output.images)
+            let images = output.images.filter(\.shouldAppendItem)
+            output.courseImageValidationResult = RockImageValidator().validate(images)
         }
         if !output.courseNameValidationResult.isValid {
             output.courseNameValidationResult = CourseNameValidator().validate(output.courseName)
@@ -145,22 +238,21 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         .allSatisfy { $0 }
     }
 
-
     func makeCourseDocument() -> FIDocument.Course {
         switch registerType {
-            case .create:
+            case let .create(rockHeader):
                 return .init(
                     parentPath: AuthManager.shared.authUserReference?.path ?? "",
                     name: output.courseName,
                     desc: output.courseDesc,
                     grade: output.grade,
                     shape: output.shapes,
-                    parentRockName: registerType.rockHeaderStructure.rock.name,
-                    parentRockId: registerType.rockHeaderStructure.rock.id,
+                    parentRockName: rockHeader.rock.name,
+                    parentRockId: rockHeader.rock.id,
                     registedUserId: AuthManager.shared.uid
                 )
                 
-            case .edit(_, var course):
+            case var .edit(course):
                 course.name = output.courseName
                 course.desc = output.courseDesc
                 course.grade = output.grade
@@ -179,15 +271,14 @@ extension CourseRegisterViewModel {
 
     enum RegisterType {
         case create(RockHeaderStructure)
-        case edit(rockHeaderStructure: RockHeaderStructure, course: FIDocument.Course)
+        case edit(FIDocument.Course)
 
-        var rockHeaderStructure: RockHeaderStructure {
+        var name: String {
             switch self {
-                case .create(let rockHeaderStructure):
-                    return rockHeaderStructure
-
-                case .edit(let rockHeaderStructure, _):
-                    return rockHeaderStructure
+                case .create:
+                    return "作成"
+                case .edit:
+                    return "編集"
             }
         }
     }
@@ -210,8 +301,8 @@ extension CourseRegisterViewModel {
         @Published var courseDesc = ""
         @Published var grade = FIDocument.Course.Grade.q10
         @Published var shapes = Set<FIDocument.Course.Shape>()
-        @Published var header: IdentifiableData?
-        @Published var images: [IdentifiableData] = []
+        @Published var header: ImageDataKind?
+        @Published var images: [ImageDataKind] = []
         @Published var courseNameValidationResult: ValidationResult = .none
         @Published var courseImageValidationResult: ValidationResult = .none
         @Published var headerImageValidationResult: ValidationResult = .none

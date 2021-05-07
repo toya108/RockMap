@@ -13,7 +13,7 @@ struct RockConfirmRouter: RouterProtocol {
     typealias ViewModel = RockConfirmViewModel
 
     enum DestinationType: DestinationProtocol {
-        case rockSearch
+        case dismiss
     }
 
     weak var viewModel: ViewModel!
@@ -27,13 +27,13 @@ struct RockConfirmRouter: RouterProtocol {
         from: UIViewController
     ) {
         switch destination {
-            case .rockSearch:
-                dismissToRockSearch(from)
+            case .dismiss:
+                dismiss(from)
 
         }
     }
 
-    private func dismissToRockSearch(_ from: UIViewController) {
+    private func dismiss(_ from: UIViewController) {
         
         RegisterSucceededViewController.showSuccessView(present: from) {
 

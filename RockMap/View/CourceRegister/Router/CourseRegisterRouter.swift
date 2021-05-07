@@ -54,7 +54,7 @@ struct CourseRegisterRouter: RouterProtocol {
         }
 
         let viewModel = CourseConfirmViewModel(
-            rockHeaderStructure: viewModel.registerType.rockHeaderStructure,
+            registerType: viewModel.registerType,
             courseDocument: viewModel.makeCourseDocument(),
             header: header,
             images: viewModel.output.images

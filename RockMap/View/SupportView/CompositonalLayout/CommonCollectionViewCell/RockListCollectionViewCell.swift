@@ -1,37 +1,39 @@
 //
-//  RockTableViewCell.swift
+//  RockListCollectionViewCell.swift
 //  RockMap
 //
-//  Created by TOUYA KAWANO on 2021/03/28.
+//  Created by TOUYA KAWANO on 2021/05/05.
 //
 
 import UIKit
 import Combine
 
-class RockTableViewCell: UITableViewCell {
+class RockListCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var headerImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var mainImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var descLabel: UILabel!
 
     private var bindings = Set<AnyCancellable>()
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        headerImageView.layer.cornerRadius = 8
+        mainImageView.layer.cornerRadius = 8
     }
 
-    func configure(rock: FIDocument.Rock) {
-        nameLabel.text = rock.name
+    func configure(_ rock: FIDocument.Rock) {
+        titleLabel.text = rock.name
         addressLabel.text = rock.address
+        descLabel.text = rock.desc
 
-        let rockReference = StorageManager.makeReference(
+        let courseReference = StorageManager.makeReference(
             parent: FINameSpace.Rocks.self,
             child: rock.id
         )
         StorageManager
-            .getHeaderReference(rockReference)
+            .getHeaderReference(courseReference)
             .catch { _ -> Just<StorageManager.Reference?> in
                 return .init(nil)
             }
@@ -39,9 +41,9 @@ class RockTableViewCell: UITableViewCell {
 
                 guard let self = self else { return }
 
-                self.headerImageView.loadImage(reference: reference)
+                self.mainImageView.loadImage(reference: reference)
             }
             .store(in: &bindings)
     }
-    
+
 }

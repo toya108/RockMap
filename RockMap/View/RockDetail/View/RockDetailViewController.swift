@@ -198,7 +198,11 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
         if grades.isEmpty { return }
 
         let gadesCounts = grades.reduce(into: [FIDocument.Course.Grade: Int]()) { dic, grade in
-            dic[grade] = dic[grade] ?? 0 + 1
+            if dic[grade] == nil {
+                dic[grade] = 1
+            } else {
+                dic[grade]! += 1
+            }
         }
         snapShot.appendItems([.containGrade(gadesCounts)], toSection: .info)
         datasource.apply(snapShot)
@@ -213,10 +217,6 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
             snapShot.appendItems(courses.map { ItemKind.courses($0) }, toSection: .courses)
         }
         datasource.apply(snapShot)
-    }
-    
-    func updateCouses() {
-        viewModel.fetchCourses()
     }
 }
 
@@ -273,6 +273,14 @@ extension RockDetailViewController: UICollectionViewDelegate {
             break
             
         }
+    }
+
+}
+
+extension RockDetailViewController: CourseRegisterDetectableViewControllerProtocol {
+
+    func didCourseRegisterFinished() {
+        viewModel.fetchCourses()
     }
 
 }

@@ -39,18 +39,18 @@ extension RockConfirmViewController {
                     item: locationStructure
                 )
 
-            case let .headerImage(data):
+            case let .header(imageDataKind):
                 return self.collectionView.dequeueConfiguredReusableCell(
                     using: self.configureImageCell(),
                     for: indexPath,
-                    item: data
+                    item: imageDataKind
                 )
                 
-            case let .images(image):
+            case let .images(imageDataKind):
                 return self.collectionView.dequeueConfiguredReusableCell(
                     using: self.configureImageCell(),
                     for: indexPath,
-                    item: image
+                    item: imageDataKind
                 )
                 
             case .register:
@@ -119,12 +119,12 @@ extension RockConfirmViewController {
     
     private func configureImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
-        IdentifiableData
+        ImageDataKind
     > {
-        .init { cell, _, image in
+        .init { cell, _, imageDataKind in
             cell.layer.cornerRadius = 8
             cell.clipsToBounds = true
-            cell.imageView.image = UIImage(data: image.data)
+            cell.configure(imageDataKind: imageDataKind)
         }
     }
     
@@ -132,14 +132,14 @@ extension RockConfirmViewController {
         ConfirmationButtonCollectionViewCell,
         Dummy
     > {
-        .init { cell, _, _ in
+        .init { [weak self] cell, _, _ in
+
+            guard let self = self else { return }
+
             cell.configure(title: "　登録する　")
-            cell.configure { [weak self] in
-                
-                guard let self = self else { return }
-                
-                self.viewModel.uploadImages()
-            }
+            cell.configure(
+                confirmationButtonTapped: self.viewModel.input.uploadImageSubject.send
+            )
         }
     }
 }

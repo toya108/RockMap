@@ -63,7 +63,7 @@ struct RockSeachRouter: RouterProtocol {
             return
         }
 
-        let rockRegisterViewModel = RockRegisterViewModel(location: location)
+        let rockRegisterViewModel = RockRegisterViewModel(registerType: .create(location))
         let registerVc = RockRegisterViewController.createInstance(viewModel: rockRegisterViewModel)
         let vc = RockMapNavigationController(
             rootVC: registerVc,

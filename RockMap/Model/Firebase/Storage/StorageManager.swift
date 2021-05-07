@@ -89,3 +89,9 @@ struct StorageManager {
             .delete(completion: { _ in })
     }
 }
+
+struct UpdatableStorage: Hashable {
+    let storageReference: StorageReference
+    var shouldUpdate: Bool = false
+    var updateData: Data?
+}

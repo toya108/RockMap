@@ -41,7 +41,7 @@ extension CourseRegisterViewController {
                 
             case .desc:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configurecourseDescCell(),
+                    using: self.configureCourseDescCell(),
                     for: indexPath,
                     item: Dummy()
                 )
@@ -60,18 +60,18 @@ extension CourseRegisterViewController {
                     item: imageType
                 )
 
-            case let .header(data):
+            case let .header(imageDataKind):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureDeletabelImageCell(imageType: .header),
                     for: indexPath,
-                    item: data
+                    item: imageDataKind
                 )
                 
-            case let .images(data):
+            case let .images(imageDataKind):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureDeletabelImageCell(imageType: .normal),
                     for: indexPath,
-                    item: data
+                    item: imageDataKind
                 )
                 
             case .confirmation:
@@ -126,7 +126,13 @@ extension CourseRegisterViewController {
 
             guard let self = self else { return }
 
-            cell.configure(rockHeaderStructure: self.viewModel.registerType.rockHeaderStructure)
+            guard
+                case let .create(rockHeader) = self.viewModel.registerType
+            else {
+                return
+            }
+
+            cell.configure(rockHeaderStructure: rockHeader)
         }
     }
     
@@ -139,6 +145,7 @@ extension CourseRegisterViewController {
             guard let self = self else { return }
             
             cell.textField.delegate = self
+            cell.textField.text = self.viewModel.output.courseName
             cell.configurePlaceholder("課題名を入力して下さい。")
             cell.textField.textDidChangedPublisher
                 .sink { [weak self] text in
@@ -179,7 +186,7 @@ extension CourseRegisterViewController {
         }
     }
     
-    private func configurecourseDescCell() -> UICollectionView.CellRegistration<
+    private func configureCourseDescCell() -> UICollectionView.CellRegistration<
         TextViewCollectionViewCell,
         Dummy
     > {
@@ -192,6 +199,7 @@ extension CourseRegisterViewController {
             
             guard let self = self else { return }
 
+            cell.textView.text = self.viewModel.output.courseDesc
             cell.configurePlaceholder("課題の説明を入力して下さい。")
             cell.textView.textDidChangedPublisher
                 .sink { [weak self] text in
@@ -228,17 +236,17 @@ extension CourseRegisterViewController {
         imageType: ImageType
     ) -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
-        IdentifiableData
+        ImageDataKind
     > {
-        .init { cell, _, identifiableData in
+        .init { cell, _, imageDataKind in
             
-            cell.configure(data: identifiableData.data) { [weak self] in
+            cell.configure(imageDataKind: imageDataKind) { [weak self] in
                 
                 guard let self = self else { return }
                 
                 self.viewModel.input.deleteImageSubject.send(
                     .init(
-                        dataList: [identifiableData],
+                        imageDataKind: imageDataKind,
                         imageType: imageType
                     )
                 )

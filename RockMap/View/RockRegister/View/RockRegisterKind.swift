@@ -16,7 +16,7 @@ extension RockRegisterViewController {
         case location
         case season
         case lithology
-        case headerImage
+        case header
         case images
         case confirmation
         
@@ -37,7 +37,7 @@ extension RockRegisterViewController {
             case .lithology:
                 return "岩質"
 
-            case .headerImage:
+            case .header:
                 return "ヘッダー画像"
                 
             case .images:
@@ -51,7 +51,7 @@ extension RockRegisterViewController {
         
         var headerIdentifer: String {
             switch self {
-                case .name, .desc, .location, .season, .lithology, .images, .headerImage:
+                case .name, .desc, .location, .season, .lithology, .images, .header:
                 return TitleSupplementaryView.className
                 
             default:
@@ -67,7 +67,7 @@ extension RockRegisterViewController {
             case .desc:
                 return [.desc]
 
-            case .headerImage:
+            case .header:
                 return [.noImage(.header)]
 
             case .images:
@@ -89,8 +89,8 @@ extension RockRegisterViewController {
         case season(season: FIDocument.Rock.Season, isSelecting: Bool)
         case lithology(FIDocument.Rock.Lithology)
         case noImage(ImageType)
-        case headerImage(IdentifiableData)
-        case images(IdentifiableData)
+        case header(ImageDataKind)
+        case images(ImageDataKind)
         case confirmation
         case error(ValidationError)
         

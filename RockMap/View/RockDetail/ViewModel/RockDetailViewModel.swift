@@ -32,7 +32,9 @@ final class RockDetailViewModel: ViewModelProtocol {
         self.rockId = rock.id
         self.rockDesc = rock.desc
 
-        rock.registeredUserReference
+        FirestoreManager.db
+            .collection(FIDocument.User.colletionName)
+            .document(rock.registedUserId)
             .getDocument(FIDocument.User.self)
             .catch { _ -> Just<FIDocument.User?> in
                 return .init(nil)
@@ -100,6 +102,7 @@ final class RockDetailViewModel: ViewModelProtocol {
             .catch { _ -> Just<[FIDocument.Course]> in
                 return .init([])
             }
+            .map { $0.sorted { $0.createdAt > $1.createdAt } }
             .assign(to: &$courses)
     }
 

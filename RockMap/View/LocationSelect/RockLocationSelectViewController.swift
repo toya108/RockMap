@@ -127,7 +127,9 @@ class RockLocationSelectViewController: UIViewController {
                 return
             }
             
-            presenting.viewModel.rockLocation = .init(location: self.location, address: self.address)
+            presenting.viewModel.input.locationSubject.send(
+                .init(location: self.location, address: self.address)
+            )
         }
     }
     
