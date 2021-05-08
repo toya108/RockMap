@@ -22,7 +22,7 @@ class HorizontalImageListCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupLayout() {
-        backgroundColor = .black
+        backgroundColor = .systemGroupedBackground
 
         contentView.addSubview(imageView)
         imageView.contentMode = .scaleAspectFill
