@@ -53,9 +53,9 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
     
     private func bindViewToViewModel() {
         viewModel.$courseHeaderImageReference
-            .compactMap { $0 }
-            .receive(on: RunLoop.main)
-            .sink { [weak self] reference in
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
                 
                 guard let self = self else { return }
 
