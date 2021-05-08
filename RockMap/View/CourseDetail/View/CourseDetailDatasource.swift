@@ -18,11 +18,11 @@ extension CourseDetailViewController {
             guard let self = self else { return UICollectionViewCell() }
             
             switch item {
-                case let .headerImage(referece):
+                case .headerImage:
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureImageCell(),
                         for: indexPath,
-                        item: referece
+                        item: self.viewModel.courseHeaderImageReference ?? .init()
                     )
 
                 case .buttons:

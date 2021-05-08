@@ -52,6 +52,9 @@ extension CourseDetailViewController {
         
         var initialItems: [ItemKind] {
             switch self {
+                case .headerImage:
+                    return [.headerImage]
+
                 case .buttons:
                     return [.buttons]
 
@@ -72,7 +75,7 @@ extension CourseDetailViewController {
     }
     
     enum ItemKind: Hashable {
-        case headerImage(StorageManager.Reference)
+        case headerImage
         case buttons
         case title
         case registeredUser

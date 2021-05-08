@@ -65,60 +65,27 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
     private func bindViewModelOutput() {
         viewModel.output.$user
-            .receive(on: RunLoop.main)
-            .sink { [weak self] user in
-
-                guard let self = self else { return }
-
-                self.snapShot.reloadItems(self.snapShot.itemIdentifiers(inSection: .user))
-                self.datasource.apply(self.snapShot)
-            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: userSink)
             .store(in: &bindings)
 
         viewModel.output
             .$headerImageReference
             .removeDuplicates()
-            .receive(on: RunLoop.main)
-            .sink { [weak self] reference in
-
-                guard let self = self else { return }
-
-                self.snapShot.reloadSections([.headerImage])
-                self.datasource.apply(self.snapShot)
-            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: headerImageReferenceSink)
             .store(in: &bindings)
 
         viewModel.output
             .$climbedList
-            .receive(on: RunLoop.main)
-            .sink { [weak self] _ in
-
-                guard let self = self else { return }
-
-                self.snapShot.reloadSections([.climbedNumber])
-                self.datasource.apply(self.snapShot)
-            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: climbedListSink)
             .store(in: &bindings)
 
         viewModel.output
             .$recentClimbedCourses
-            .receive(on: RunLoop.main)
-            .sink { [weak self] courses in
-
-                guard let self = self else { return }
-
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .recentClimbedCourses))
-
-                if courses.isEmpty {
-                    self.snapShot.appendItems([.noCourse], toSection: .recentClimbedCourses)
-                } else {
-                    self.snapShot.appendItems(
-                        courses.map { ItemKind.climbedCourse($0) },
-                        toSection: .recentClimbedCourses
-                    )
-                }
-                self.datasource.apply(self.snapShot)
-            }
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: recentClimbedCoursesSink)
             .store(in: &bindings)
     }
 
@@ -130,6 +97,39 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
         snapShot.appendItems(FIDocument.User.SocialLinkType.allCases.map { ItemKind.socialLink($0) }, toSection: .socialLink)
         datasource.apply(snapShot)
     }
+}
+
+extension MyPageViewController {
+
+    private func userSink(_ user: FIDocument.User?) {
+        snapShot.reloadItems(snapShot.itemIdentifiers(inSection: .user))
+        datasource.apply(snapShot)
+    }
+
+    private func headerImageReferenceSink(_ header: StorageManager.Reference) {
+        snapShot.reloadSections([.headerImage])
+        datasource.apply(snapShot)
+    }
+
+    private func climbedListSink(_ climbedList: Set<FIDocument.Climbed>) {
+        self.snapShot.reloadSections([.climbedNumber])
+        self.datasource.apply(self.snapShot)
+    }
+
+    private func recentClimbedCoursesSink(_ courses: Set<FIDocument.Course>) {
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .recentClimbedCourses))
+
+        if courses.isEmpty {
+            snapShot.appendItems([.noCourse], toSection: .recentClimbedCourses)
+        } else {
+            snapShot.appendItems(
+                courses.map { ItemKind.climbedCourse($0) },
+                toSection: .recentClimbedCourses
+            )
+        }
+        datasource.apply(snapShot)
+    }
+
 }
 
 extension MyPageViewController {
