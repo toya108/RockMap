@@ -22,6 +22,7 @@ class ClimbedTableViewCell: UITableViewCell {
         type: FIDocument.Climbed.ClimbedRecordType
     ) {
         userView.configure(
+            prefix: "",
             userName: user.name,
             photoURL: user.photoURL,
             registeredDate: climbedDate
