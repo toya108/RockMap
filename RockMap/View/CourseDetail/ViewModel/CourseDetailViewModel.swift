@@ -101,7 +101,9 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
                 guard
                     let self = self,
                     let totalClimbedNumber = totalClimbedNumberDocuments.first
-                else { return }
+                else {
+                    return
+                }
 
                 self.output.totalClimbedNumber = totalClimbedNumber
             }
@@ -118,7 +120,6 @@ extension CourseDetailViewModel {
         @Published var fetchCourseHeaderState: LoadingState<StorageManager.Reference> = .stanby
         @Published var fetchCourseImageState: LoadingState<[StorageManager.Reference]> = .stanby
         @Published var fetchRegisteredUserState: LoadingState<FIDocument.User> = .stanby
-        @Published var registeredDate: Date?
         @Published var totalClimbedNumber: FIDocument.TotalClimbedNumber?
     }
 }
