@@ -33,8 +33,8 @@ class MyPageViewModel: MyPageViewModelProtocol {
     }
 
     private func setupBindings() {
-        output.$user
-            .compactMap { $0 }
+        output.$fetchUserState
+            .compactMap { $0.content }
             .flatMap {
                 FirestoreManager.db
                     .collectionGroup(FIDocument.Climbed.colletionName)
@@ -91,23 +91,20 @@ class MyPageViewModel: MyPageViewModelProtocol {
 
                     switch result {
                         case .finished:
-                            self.output.fetchUserState = .finish
-
+                            break
                         case .failure(let error):
                             self.output.fetchUserState = .failure(error)
 
                     }
                 },
                 receiveValue: { [weak self] user in
-
                     guard
                         let self = self,
                         let user = user
                     else {
                         return
                     }
-
-                    self.output.user = user
+                    self.output.fetchUserState = .finish(content: user)
                 }
             )
             .store(in: &bindings)
@@ -120,10 +117,9 @@ extension MyPageViewModel {
     struct Input {}
 
     final class Output {
-        @Published var user: FIDocument.User?
         @Published var isGuest = false
         @Published var headerImageReference: StorageManager.Reference = .init()
-        @Published var fetchUserState: LoadingState = .stanby
+        @Published var fetchUserState: LoadingState<FIDocument.User> = .stanby
         @Published var climbedList: Set<FIDocument.Climbed> = []
         @Published var recentClimbedCourses: Set<FIDocument.Course> = []
     }

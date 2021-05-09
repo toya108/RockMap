@@ -80,7 +80,7 @@ extension RockListViewModel {
     final class Output {
         @Published var rocks: [FIDocument.Rock] = []
         @Published var isEmpty: Bool = false
-        @Published var deleteState: LoadingState = .stanby
+        @Published var deleteState: LoadingState<Void> = .stanby
     }
 
 }

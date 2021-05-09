@@ -100,7 +100,7 @@ extension RockConfirmViewController {
         }
     }
 
-    private func rockUploadStateSink(_ state: LoadingState) {
+    private func rockUploadStateSink(_ state: LoadingState<Void>) {
         switch state {
             case .stanby:
                 break

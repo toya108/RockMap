@@ -95,7 +95,7 @@ extension CourseConfirmViewController {
         }
     }
 
-    private func courseUploadStateSink(_ state: LoadingState) {
+    private func courseUploadStateSink(_ state: LoadingState<Void>) {
         switch state {
             case .stanby:
                 break

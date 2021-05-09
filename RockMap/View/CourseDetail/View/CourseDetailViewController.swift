@@ -46,7 +46,7 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
         }
 
         rockMapNavigationBar.setup()
-
+        navigationItem.title = viewModel.course.name
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -81,16 +81,6 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
-        
-        viewModel.$courseName
-            .receive(on: RunLoop.main)
-            .sink { [weak self] name in
-                
-                guard let self = self else { return }
-                
-                self.navigationItem.title = name
-            }
-            .store(in: &bindings)
 
         viewModel.$registeredUser
             .combineLatest(viewModel.$registeredDate)
@@ -116,32 +106,6 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
-
-        viewModel.$shape
-            .drop(while: { $0.isEmpty })
-            .receive(on: RunLoop.main)
-            .sink { [weak self] shapes in
-
-                guard let self = self else { return }
-
-                self.snapShot.appendItems([.shape(shapes)], toSection: .info)
-
-                self.datasource.apply(self.snapShot)
-            }
-            .store(in: &bindings)
-
-        viewModel.$desc
-            .receive(on: RunLoop.main)
-            .sink { [weak self] desc in
-
-                guard let self = self else { return }
-
-                self.snapShot.appendItems([.desc(desc)], toSection: .desc)
-
-                self.datasource.apply(self.snapShot)
-            }
-            .store(in: &bindings)
-
     }
 
     private func configureSections() {
