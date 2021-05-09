@@ -61,10 +61,7 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
 
         fetchImagesSubject
             .handleEvents(receiveOutput: { [weak self] _ in
-
-                guard let self = self else { return }
-
-                self.output.fetchCourseImageState = .loading
+                self?.output.fetchCourseImageState = .loading
             })
             .map {
                 StorageManager.makeReference(parent: FINameSpace.Course.self, child: $0)
@@ -80,6 +77,9 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
             .store(in: &bindings)
 
         fetchRegisteredUserSubject
+            .handleEvents(receiveOutput: { [weak self] _ in
+                self?.output.fetchRegisteredUserState = .loading
+            })
             .map {
                 FirestoreManager.db
                     .collection(FIDocument.User.colletionName)

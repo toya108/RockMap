@@ -55,17 +55,19 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
     
     private func bindViewToViewModel() {
         viewModel.output.$fetchCourseHeaderState
-            .removeDuplicates()
+            .drop(while: { $0 == .stanby })
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: fetchCourseHeaderStateSink)
             .store(in: &bindings)
 
         viewModel.output.$fetchCourseImageState
+            .drop(while: { $0 == .stanby })
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: fetchCourseImageStateSink)
             .store(in: &bindings)
 
         viewModel.output.$fetchRegisteredUserState
+            .drop(while: { $0 == .stanby })
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: fetchRegisteredUserStateSink)
             .store(in: &bindings)
@@ -90,8 +92,14 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
 extension CourseDetailViewController {
 
     private func fetchCourseHeaderStateSink(_ state: LoadingState<StorageManager.Reference>) {
-        snapShot.reloadSections([.headerImage])
-        datasource.apply(snapShot)
+        switch state {
+            case .stanby, .failure, .loading:
+                break
+
+            case .finish:
+                snapShot.reloadSections([.headerImage])
+                datasource.apply(snapShot)
+        }
     }
 
     private func fetchCourseImageStateSink(_ state: LoadingState<[StorageManager.Reference]>) {
@@ -112,8 +120,14 @@ extension CourseDetailViewController {
     }
 
     private func fetchRegisteredUserStateSink(_ state: LoadingState<FIDocument.User>) {
-        snapShot.reloadSections([.registeredUser])
-        datasource.apply(snapShot)
+        switch state {
+            case .stanby, .failure, .loading:
+                break
+
+            case .finish:
+                snapShot.reloadSections([.registeredUser])
+                datasource.apply(snapShot)
+        }
     }
 
     private func totalClimbedNumberSink(_ state: FIDocument.TotalClimbedNumber?) {
