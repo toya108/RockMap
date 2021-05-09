@@ -18,7 +18,9 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
     var router: CourseDetailRouter!
     private var bindings = Set<AnyCancellable>()
 
-    static func createInstance(viewModel: CourseDetailViewModel) -> CourseDetailViewController {
+    static func createInstance(
+        viewModel: CourseDetailViewModel
+    ) -> CourseDetailViewController {
         let instance = CourseDetailViewController()
         instance.router = .init(viewModel: viewModel)
         instance.viewModel = viewModel
@@ -46,102 +48,34 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
         }
 
         rockMapNavigationBar.setup()
-
+        navigationItem.title = viewModel.course.name
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func bindViewToViewModel() {
-        viewModel.$courseHeaderImageReference
-            .removeDuplicates()
+        viewModel.output.$fetchCourseHeaderState
+            .drop(while: { $0 == .stanby })
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                
-                guard let self = self else { return }
-
-                self.snapShot.reloadSections([.headerImage])
-                self.datasource.apply(self.snapShot)
-            }
+            .sink(receiveValue: fetchCourseHeaderStateSink)
             .store(in: &bindings)
 
-        viewModel.$courseImageReferences
-            .receive(on: RunLoop.main)
-            .sink { [weak self] references in
-
-                guard let self = self else { return }
-
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .images))
-
-                if references.isEmpty {
-                    self.snapShot.appendItems([.noImage], toSection: .images)
-                } else {
-                    self.snapShot.appendItems(references.map { ItemKind.image($0) }, toSection: .images)
-                }
-
-                self.datasource.apply(self.snapShot)
-            }
-            .store(in: &bindings)
-        
-        viewModel.$courseName
-            .receive(on: RunLoop.main)
-            .sink { [weak self] name in
-                
-                guard let self = self else { return }
-                
-                self.navigationItem.title = name
-            }
+        viewModel.output.$fetchCourseImageState
+            .drop(while: { $0 == .stanby })
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: fetchCourseImageStateSink)
             .store(in: &bindings)
 
-        viewModel.$registeredUser
-            .combineLatest(viewModel.$registeredDate)
-            .receive(on: RunLoop.main)
-            .sink { [weak self] _ in
-
-                guard let self = self else { return }
-
-                self.snapShot.reloadSections([.registeredUser])
-
-                self.datasource.apply(self.snapShot)
-            }
+        viewModel.output.$fetchRegisteredUserState
+            .drop(while: { $0 == .stanby })
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: fetchRegisteredUserStateSink)
             .store(in: &bindings)
 
-        viewModel.$totalClimbedNumber
-            .receive(on: RunLoop.main)
-            .sink { [weak self] _ in
-
-                guard let self = self else { return }
-
-                self.snapShot.reloadItems(self.snapShot.itemIdentifiers(inSection: .climbedNumber))
-
-                self.datasource.apply(self.snapShot)
-            }
+        viewModel.output.$totalClimbedNumber
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: totalClimbedNumberSink)
             .store(in: &bindings)
-
-        viewModel.$shape
-            .drop(while: { $0.isEmpty })
-            .receive(on: RunLoop.main)
-            .sink { [weak self] shapes in
-
-                guard let self = self else { return }
-
-                self.snapShot.appendItems([.shape(shapes)], toSection: .info)
-
-                self.datasource.apply(self.snapShot)
-            }
-            .store(in: &bindings)
-
-        viewModel.$desc
-            .receive(on: RunLoop.main)
-            .sink { [weak self] desc in
-
-                guard let self = self else { return }
-
-                self.snapShot.appendItems([.desc(desc)], toSection: .desc)
-
-                self.datasource.apply(self.snapShot)
-            }
-            .store(in: &bindings)
-
     }
 
     private func configureSections() {
@@ -149,8 +83,58 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
         SectionLayoutKind.allCases.forEach {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
+        datasource.apply(snapShot) { [weak self] in
+            self?.viewModel.input.finishedCollectionViewSetup.send()
+        }
+    }
+}
+
+extension CourseDetailViewController {
+
+    private func fetchCourseHeaderStateSink(_ state: LoadingState<StorageManager.Reference>) {
+        switch state {
+            case .stanby, .failure, .loading:
+                break
+
+            case .finish:
+                snapShot.reloadSections([.headerImage])
+                datasource.apply(snapShot)
+        }
+    }
+
+    private func fetchCourseImageStateSink(_ state: LoadingState<[StorageManager.Reference]>) {
+        switch state {
+            case .stanby, .failure, .loading:
+                break
+
+            case .finish(let references):
+                snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .images))
+
+                if references.isEmpty {
+                    snapShot.appendItems([.noImage], toSection: .images)
+                } else {
+                    snapShot.appendItems(references.map { ItemKind.image($0) }, toSection: .images)
+                }
+                datasource.apply(snapShot)
+        }
+    }
+
+    private func fetchRegisteredUserStateSink(_ state: LoadingState<FIDocument.User>) {
+        switch state {
+            case .stanby, .failure, .loading:
+                break
+
+            case .finish:
+                snapShot.reloadSections([.registeredUser])
+                datasource.apply(snapShot)
+        }
+    }
+
+    private func totalClimbedNumberSink(_ state: FIDocument.TotalClimbedNumber?) {
+        snapShot.reloadItems(snapShot.itemIdentifiers(inSection: .climbedNumber))
         datasource.apply(snapShot)
     }
+
 }
 
 extension CourseDetailViewController: UICollectionViewDelegate {

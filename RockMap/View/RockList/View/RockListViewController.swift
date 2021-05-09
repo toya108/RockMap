@@ -97,7 +97,7 @@ extension RockListViewController {
         collectionView.isHidden = isEmpty
     }
 
-    private func deleteStateSink(_ state: LoadingState) {
+    private func deleteStateSink(_ state: LoadingState<Void>) {
         switch state {
             case .loading:
                 self.showIndicatorView()

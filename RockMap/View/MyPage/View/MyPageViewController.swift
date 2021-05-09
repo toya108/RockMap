@@ -64,7 +64,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
     }
 
     private func bindViewModelOutput() {
-        viewModel.output.$user
+        viewModel.output.$fetchUserState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: userSink)
             .store(in: &bindings)
@@ -101,7 +101,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
 extension MyPageViewController {
 
-    private func userSink(_ user: FIDocument.User?) {
+    private func userSink(_ user: LoadingState<FIDocument.User>) {
         snapShot.reloadItems(snapShot.itemIdentifiers(inSection: .user))
         datasource.apply(snapShot)
     }

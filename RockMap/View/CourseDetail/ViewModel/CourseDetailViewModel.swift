@@ -8,49 +8,61 @@
 import Combine
 import Foundation
 
-final class CourseDetailViewModel: ViewModelProtocol {
+protocol CourseDetailViewModelProtocol: ViewModelProtocol {
+    var input: CourseDetailViewModel.Input { get }
+    var output: CourseDetailViewModel.Output { get }
+}
+
+final class CourseDetailViewModel: CourseDetailViewModelProtocol {
+    var input: Input = .init()
+    var output: Output = .init()
     
-    @Published var course: FIDocument.Course
-    @Published var courseHeaderImageReference: StorageManager.Reference?
-    @Published var courseImageReferences: [StorageManager.Reference] = []
-    @Published var courseName = ""
-    @Published var courseId = ""
-    @Published var registeredUser: FIDocument.User?
-    @Published var registeredDate: Date?
-    @Published var totalClimbedNumber: FIDocument.TotalClimbedNumber?
-    @Published var shape: Set<FIDocument.Course.Shape> = []
-    @Published var desc: String = ""
+    let course: FIDocument.Course
+    let fetchHeaderImageSubject = PassthroughSubject<String, Error>()
+    let fetchImagesSubject = PassthroughSubject<String, Error>()
+    let fetchRegisteredUserSubject = PassthroughSubject<String, Error>()
 
     private var bindings = Set<AnyCancellable>()
     
     init(course: FIDocument.Course) {
         self.course = course
-        
-        setupBindings()
-        listenToTotalClimbedNumber()
-        
-        courseName = course.name
-        courseId = course.id
-        registeredDate = course.createdAt
-        fetchRegisterdUser()
-        shape = course.shape
-        desc = course.desc
+
+        setupInput()
+        setupOutput()
+    }
+
+    private func setupInput() {
+        input.finishedCollectionViewSetup
+            .sink { [weak self] in
+
+                guard let self = self else { return }
+
+                self.fetchHeaderImageSubject.send(self.course.id)
+                self.fetchImagesSubject.send(self.course.id)
+                self.fetchRegisteredUserSubject.send(self.course.registedUserId)
+            }
+            .store(in: &bindings)
     }
     
-    private func setupBindings() {
-        $courseId
-            .drop(while: { $0.isEmpty })
+    private func setupOutput() {
+
+        fetchHeaderImageSubject
+            .handleEvents(receiveRequest: { [weak self] _ in
+                self?.output.fetchCourseHeaderState = .loading
+            })
             .map {
                 StorageManager.makeReference(parent: FINameSpace.Course.self, child: $0)
             }
             .flatMap { StorageManager.getHeaderReference($0) }
-            .catch { _ -> Just<StorageManager.Reference?> in
-                return .init(nil)
+            .sinkState { [weak self] state in
+                self?.output.fetchCourseHeaderState = state
             }
-            .assign(to: &$courseHeaderImageReference)
+            .store(in: &bindings)
 
-        $courseId
-            .drop(while: { $0.isEmpty })
+        fetchImagesSubject
+            .handleEvents(receiveOutput: { [weak self] _ in
+                self?.output.fetchCourseImageState = .loading
+            })
             .map {
                 StorageManager.makeReference(parent: FINameSpace.Course.self, child: $0)
             }
@@ -58,37 +70,27 @@ final class CourseDetailViewModel: ViewModelProtocol {
             .catch { _ -> Just<[StorageManager.Reference]> in
                 return .init([])
             }
-            .sink { prefixes in
-                prefixes
-                    .map { $0.getReferences() }
-                    .forEach {
-                        $0.catch { _ -> Just<[StorageManager.Reference]> in
-                            return .init([])
-                        }
-                        .sink { [weak self] references in
-
-                            guard let self = self else { return }
-
-                            self.courseImageReferences.append(contentsOf: references)
-                        }
-                        .store(in: &self.bindings)
-                    }
+            .flatMap { $0.getReferences() }
+            .sinkState { [weak self] state in
+                self?.output.fetchCourseImageState = state
             }
             .store(in: &bindings)
-    }
 
-    private func fetchRegisterdUser() {
-        FirestoreManager.db
-            .collection(FIDocument.User.colletionName)
-            .document(course.registedUserId)
-            .getDocument(FIDocument.User.self)
-            .catch { _ -> Just<FIDocument.User?> in
-                return .init(nil)
+        fetchRegisteredUserSubject
+            .handleEvents(receiveOutput: { [weak self] _ in
+                self?.output.fetchRegisteredUserState = .loading
+            })
+            .map {
+                FirestoreManager.db
+                    .collection(FIDocument.User.colletionName)
+                    .document($0)
             }
-            .assign(to: &$registeredUser)
-    }
+            .flatMap { $0.getDocument(FIDocument.User.self) }
+            .sinkState { [weak self] state in
+                self?.output.fetchRegisteredUserState = state
+            }
+            .store(in: &bindings)
 
-    private func listenToTotalClimbedNumber() {
         course.makeDocumentReference()
             .collection(FIDocument.TotalClimbedNumber.colletionName)
             .publisher(as: FIDocument.TotalClimbedNumber.self)
@@ -99,11 +101,25 @@ final class CourseDetailViewModel: ViewModelProtocol {
                 guard
                     let self = self,
                     let totalClimbedNumber = totalClimbedNumberDocuments.first
-                else { return }
+                else {
+                    return
+                }
 
-                self.totalClimbedNumber = totalClimbedNumber
+                self.output.totalClimbedNumber = totalClimbedNumber
             }
             .store(in: &bindings)
     }
 }
 
+extension CourseDetailViewModel {
+    struct Input {
+        let finishedCollectionViewSetup = PassthroughSubject<(Void), Never>()
+    }
+
+    final class Output {
+        @Published var fetchCourseHeaderState: LoadingState<StorageManager.Reference> = .stanby
+        @Published var fetchCourseImageState: LoadingState<[StorageManager.Reference]> = .stanby
+        @Published var fetchRegisteredUserState: LoadingState<FIDocument.User> = .stanby
+        @Published var totalClimbedNumber: FIDocument.TotalClimbedNumber?
+    }
+}

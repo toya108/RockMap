@@ -149,7 +149,7 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
 
                     switch result {
                         case .finished:
-                            self.output.courseUploadState = .finish
+                            self.output.courseUploadState = .finish(content: ())
 
                         case let .failure(error):
                             self.output.courseUploadState = .failure(error)
@@ -170,7 +170,7 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
 
                     switch result {
                         case .finished:
-                            self.output.courseUploadState = .finish
+                            self.output.courseUploadState = .finish(content: ())
 
                         case let .failure(error):
                             self.output.courseUploadState = .failure(error)
@@ -191,6 +191,6 @@ extension CourseConfirmViewModel {
 
     final class Output {
         @Published var imageUploadState: StorageUploader.UploadState = .stanby
-        @Published var courseUploadState: LoadingState = .stanby
+        @Published var courseUploadState: LoadingState<Void> = .stanby
     }
 }

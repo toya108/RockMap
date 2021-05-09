@@ -101,3 +101,15 @@ extension StorageReference {
         }.eraseToAnyPublisher()
     }
 }
+
+extension Array where Element: StorageReference {
+
+    func getReferences() -> AnyPublisher<[StorageReference], Error> {
+        publisher
+            .flatMap { $0.getReferences() }
+            .collect()
+            .map { $0.flatMap { $0 } }
+            .eraseToAnyPublisher()
+    }
+
+}

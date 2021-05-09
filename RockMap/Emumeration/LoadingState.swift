@@ -5,7 +5,8 @@
 //  Created by TOUYA KAWANO on 2021/04/20.
 //
 
-enum LoadingState: Equatable {
+enum LoadingState<T>: Equatable {
+
     static func == (lhs: LoadingState, rhs: LoadingState) -> Bool {
         switch (lhs, rhs) {
             case (.stanby, .stanby), (.loading, .loading), (.finish, .finish), (.failure, failure):
@@ -18,6 +19,15 @@ enum LoadingState: Equatable {
 
     case stanby
     case loading
-    case finish
+    case finish(content: T)
     case failure(Error?)
+
+    var content: T? {
+        guard
+            case let .finish(content) = self
+        else {
+            return nil
+        }
+        return content
+    }
 }

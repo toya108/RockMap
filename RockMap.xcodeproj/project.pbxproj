@@ -59,6 +59,7 @@
 		9E30EFF32643B33A0054C7C4 /* RockListDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E30EFF22643B33A0054C7C4 /* RockListDatasource.swift */; };
 		9E30EFF52643B3840054C7C4 /* RockListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E30EFF42643B3840054C7C4 /* RockListViewModel.swift */; };
 		9E30EFF72643B3900054C7C4 /* RockListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E30EFF62643B3900054C7C4 /* RockListRouter.swift */; };
+		9E33AB8F26478F320034B4E3 /* LoadingState+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E33AB8E26478F320034B4E3 /* LoadingState+Combine.swift */; };
 		9E34C90C25B09A69005EBE07 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E34C90B25B09A69005EBE07 /* DebugViewController.swift */; };
 		9E39B1D426144B930005F6E1 /* RockDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39B1D326144B930005F6E1 /* RockDetailRouter.swift */; };
 		9E39B1E0261458860005F6E1 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39B1DF261458860005F6E1 /* RouterProtocol.swift */; };
@@ -275,6 +276,7 @@
 		9E30EFF22643B33A0054C7C4 /* RockListDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockListDatasource.swift; sourceTree = "<group>"; };
 		9E30EFF42643B3840054C7C4 /* RockListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockListViewModel.swift; sourceTree = "<group>"; };
 		9E30EFF62643B3900054C7C4 /* RockListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockListRouter.swift; sourceTree = "<group>"; };
+		9E33AB8E26478F320034B4E3 /* LoadingState+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoadingState+Combine.swift"; sourceTree = "<group>"; };
 		9E34C90B25B09A69005EBE07 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		9E39B1D326144B930005F6E1 /* RockDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailRouter.swift; sourceTree = "<group>"; };
 		9E39B1DF261458860005F6E1 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
@@ -930,6 +932,7 @@
 				9EB00BB126295BCD00379182 /* UITextField+Combine.swift */,
 				9E0A9F1D2551006E007B9A90 /* UITextView+Combine.swift */,
 				9E7ABF08262590450028DB19 /* CombineControl.swift */,
+				9E33AB8E26478F320034B4E3 /* LoadingState+Combine.swift */,
 			);
 			path = Combine;
 			sourceTree = "<group>";
@@ -1871,6 +1874,7 @@
 				9E9845F525D5418C00B03C4E /* RockHeaderCollectionViewCell.swift in Sources */,
 				9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */,
 				9EC88E0A260CCB5C0057EBEE /* LocationSelectButtonState.swift in Sources */,
+				9E33AB8F26478F320034B4E3 /* LoadingState+Combine.swift in Sources */,
 				9E39B1F3261469420005F6E1 /* RockSearchRouter.swift in Sources */,
 				9E845AFB25ADF0E800EC3BE6 /* RegisterSucceededViewController.swift in Sources */,
 				9E8723AE256BF89400735C65 /* HeaderIgnorableScrollView.swift in Sources */,

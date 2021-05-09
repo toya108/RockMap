@@ -67,6 +67,12 @@ extension CourseDetailViewController {
                 case .climbedNumber:
                     return [.climbedNumber]
 
+                case .info:
+                    return [.shape]
+
+                case .desc:
+                    return [.desc]
+
                 default:
                     return []
                 
@@ -80,8 +86,8 @@ extension CourseDetailViewController {
         case title
         case registeredUser
         case climbedNumber
-        case shape(Set<FIDocument.Course.Shape>)
-        case desc(String)
+        case shape
+        case desc
         case image(StorageManager.Reference)
         case noImage
     }

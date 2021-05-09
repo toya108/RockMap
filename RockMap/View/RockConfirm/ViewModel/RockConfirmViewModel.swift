@@ -150,7 +150,7 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
 
                     switch result {
                         case .finished:
-                            self.output.rockUploadState = .finish
+                            self.output.rockUploadState = .finish(content: ())
 
                         case let .failure(error):
                             self.output.rockUploadState = .failure(error)
@@ -171,7 +171,7 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
 
                     switch result {
                         case .finished:
-                            self.output.rockUploadState = .finish
+                            self.output.rockUploadState = .finish(content: ())
 
                         case let .failure(error):
                             self.output.rockUploadState = .failure(error)
@@ -192,6 +192,6 @@ extension RockConfirmViewModel {
 
     final class Output {
         @Published var imageUploadState: StorageUploader.UploadState = .stanby
-        @Published var rockUploadState: LoadingState = .stanby
+        @Published var rockUploadState: LoadingState<Void> = .stanby
     }
 }

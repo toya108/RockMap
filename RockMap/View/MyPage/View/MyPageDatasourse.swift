@@ -119,13 +119,18 @@ extension MyPageViewController {
             )
         ) { [weak self] cell, _, _ in
 
-            guard let self = self else { return }
+            guard
+                let self = self,
+                let user = self.viewModel.output.fetchUserState.content
+            else {
+                return
+            }
 
             cell.userView.configure(
                 prefix: "",
-                userName: self.viewModel.output.user?.name ?? "-",
-                photoURL: self.viewModel.output.user?.photoURL,
-                registeredDate: self.viewModel.output.user?.createdAt
+                userName: user.name,
+                photoURL: user.photoURL,
+                registeredDate: user.createdAt
             )
         }
     }
@@ -145,9 +150,14 @@ extension MyPageViewController {
     > {
         .init { [weak self] cell, _, _ in
 
-            guard let self = self else { return }
+            guard
+                let self = self,
+                let user = self.viewModel.output.fetchUserState.content
+            else {
+                return
+            }
 
-            cell.label.text = self.viewModel.output.user?.introduction
+            cell.label.text = user.introduction
         }
     }
 

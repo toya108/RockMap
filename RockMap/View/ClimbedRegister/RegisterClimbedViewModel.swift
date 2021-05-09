@@ -19,7 +19,7 @@ class RegisterClimbedViewModel {
 
     @Published var climbedDate: Date?
     @Published var climbedType: FIDocument.Climbed.ClimbedRecordType = .flash
-    @Published private(set) var loadingState: LoadingState = .stanby
+    @Published private(set) var loadingState: LoadingState<Void> = .stanby
 
     private var bindings = Set<AnyCancellable>()
 
@@ -85,7 +85,7 @@ class RegisterClimbedViewModel {
 
                     switch result {
                         case .finished:
-                            self.loadingState = .finish
+                            self.loadingState = .finish(content: ())
 
                         case .failure(let error):
                             self.loadingState = .failure(error)
@@ -151,7 +151,7 @@ class RegisterClimbedViewModel {
 
                     switch result {
                         case .finished:
-                            self.loadingState = .finish
+                            self.loadingState = .finish(content: ())
 
                         case .failure(let error):
                             self.loadingState = .failure(error)

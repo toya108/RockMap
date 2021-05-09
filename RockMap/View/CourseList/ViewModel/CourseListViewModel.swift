@@ -80,7 +80,7 @@ extension CourseListViewModel {
     final class Output {
         @Published var courses: [FIDocument.Course] = []
         @Published var isEmpty: Bool = false
-        @Published var deleteState: LoadingState = .stanby
+        @Published var deleteState: LoadingState<Void> = .stanby
     }
 
 }
