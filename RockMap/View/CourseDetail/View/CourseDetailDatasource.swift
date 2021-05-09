@@ -53,15 +53,11 @@ extension CourseDetailViewController {
                         item: Dummy()
                     )
 
-                case .shape:
+                case let .shape(cellData):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureShapeCell(),
                         for: indexPath,
-                        item: .init(
-                            image: UIImage.SystemImages.triangleLefthalfFill,
-                            title: "岩質",
-                            subTitle: self.viewModel.course.shape.map(\.name).joined(separator: "/")
-                        )
+                        item: cellData
                     )
 
                 case .desc:

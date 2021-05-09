@@ -67,9 +67,6 @@ extension CourseDetailViewController {
                 case .climbedNumber:
                     return [.climbedNumber]
 
-                case .info:
-                    return [.shape]
-
                 case .desc:
                     return [.desc]
 
@@ -86,7 +83,7 @@ extension CourseDetailViewController {
         case title
         case registeredUser
         case climbedNumber
-        case shape
+        case shape(ValueCollectionViewCell.ValueCellStructure)
         case desc
         case image(StorageManager.Reference)
         case noImage
