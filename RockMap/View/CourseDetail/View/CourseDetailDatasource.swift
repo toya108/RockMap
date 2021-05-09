@@ -22,7 +22,7 @@ extension CourseDetailViewController {
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureImageCell(),
                         for: indexPath,
-                        item: self.viewModel.courseHeaderImageReference ?? .init()
+                        item: self.viewModel.output.fetchCourseHeaderState.content ?? .init()
                     )
 
                 case .buttons:
@@ -53,22 +53,22 @@ extension CourseDetailViewController {
                         item: Dummy()
                     )
 
-                case let .shape(shapes):
+                case .shape:
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureShapeCell(),
                         for: indexPath,
                         item: .init(
                             image: UIImage.SystemImages.triangleLefthalfFill,
                             title: "岩質",
-                            subTitle: shapes.map(\.name).joined(separator: "/")
+                            subTitle: self.viewModel.course.shape.map(\.name).joined(separator: "/")
                         )
                     )
 
-                case let .desc(desc):
+                case .desc:
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureDescCell(),
                         for: indexPath,
-                        item: desc
+                        item: Dummy()
                     )
 
 
@@ -159,7 +159,7 @@ extension CourseDetailViewController {
             guard let self = self else { return }
 
             cell.configure(
-                title: self.viewModel.courseName,
+                title: self.viewModel.course.name,
                 supplementalyTitle: self.viewModel.course.grade.name
             )
         }
@@ -179,8 +179,8 @@ extension CourseDetailViewController {
             guard let self = self else { return }
 
             cell.configure(
-                user: self.viewModel.registeredUser,
-                registeredDate: self.viewModel.registeredDate
+                user: self.viewModel.output.fetchRegisteredUserState.content,
+                registeredDate: self.viewModel.course.createdAt
             )
         }
     }
@@ -199,9 +199,9 @@ extension CourseDetailViewController {
             guard let self = self else { return }
 
             cell.configure(
-                total: self.viewModel.totalClimbedNumber?.total ?? 0 as Int,
-                flash: self.viewModel.totalClimbedNumber?.flashTotal ?? 0 as Int,
-                redPoint: self.viewModel.totalClimbedNumber?.redPointTotal ?? 0 as Int
+                total: self.viewModel.output.totalClimbedNumber?.total ?? 0 as Int,
+                flash: self.viewModel.output.totalClimbedNumber?.flashTotal ?? 0 as Int,
+                redPoint: self.viewModel.output.totalClimbedNumber?.redPointTotal ?? 0 as Int
             )
         }
     }
@@ -222,10 +222,13 @@ extension CourseDetailViewController {
 
     private func configureDescCell() -> UICollectionView.CellRegistration<
         DescCollectionViewCell,
-        String
+        Dummy
     > {
-        .init { cell, _, desc in
-            cell.descLabel.text = desc
+        .init { [weak self] cell, _, desc in
+
+            guard let self = self else { return }
+
+            cell.descLabel.text = self.viewModel.course.desc
         }
     }
 

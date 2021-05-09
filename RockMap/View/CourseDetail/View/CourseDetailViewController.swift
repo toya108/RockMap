@@ -52,7 +52,7 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
     }
     
     private func bindViewToViewModel() {
-        viewModel.$courseHeaderImageReference
+        viewModel.output.$fetchCourseHeaderState
             .removeDuplicates()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -64,26 +64,30 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
             }
             .store(in: &bindings)
 
-        viewModel.$courseImageReferences
+        viewModel.output.$fetchCourseImageState
             .receive(on: RunLoop.main)
-            .sink { [weak self] references in
+            .sink { [weak self] state in
 
                 guard let self = self else { return }
 
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .images))
+                switch state {
+                    case .stanby, .failure, .loading:
+                        break
 
-                if references.isEmpty {
-                    self.snapShot.appendItems([.noImage], toSection: .images)
-                } else {
-                    self.snapShot.appendItems(references.map { ItemKind.image($0) }, toSection: .images)
+                    case .finish(let references):
+                        self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .images))
+
+                        if references.isEmpty {
+                            self.snapShot.appendItems([.noImage], toSection: .images)
+                        } else {
+                            self.snapShot.appendItems(references.map { ItemKind.image($0) }, toSection: .images)
+                        }
+                        self.datasource.apply(self.snapShot)
                 }
-
-                self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
 
-        viewModel.$registeredUser
-            .combineLatest(viewModel.$registeredDate)
+        viewModel.output.$fetchRegisteredUserState
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
 
@@ -95,7 +99,7 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
             }
             .store(in: &bindings)
 
-        viewModel.$totalClimbedNumber
+        viewModel.output.$totalClimbedNumber
             .receive(on: RunLoop.main)
             .sink { [weak self] _ in
 
@@ -113,7 +117,9 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
         SectionLayoutKind.allCases.forEach {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
-        datasource.apply(snapShot)
+        datasource.apply(snapShot) { [weak self] in
+            self?.viewModel.input.finishedCollectionViewSetup.send()
+        }
     }
 }
 
