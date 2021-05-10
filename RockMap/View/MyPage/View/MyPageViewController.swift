@@ -112,8 +112,8 @@ extension MyPageViewController {
     }
 
     private func climbedListSink(_ climbedList: Set<FIDocument.Climbed>) {
-        self.snapShot.reloadSections([.climbedNumber])
-        self.datasource.apply(self.snapShot)
+        snapShot.reloadSections([.climbedNumber])
+        datasource.apply(snapShot, animatingDifferences: false)
     }
 
     private func recentClimbedCoursesSink(_ courses: Set<FIDocument.Course>) {
