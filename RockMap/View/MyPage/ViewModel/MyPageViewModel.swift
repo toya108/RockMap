@@ -16,23 +16,22 @@ class MyPageViewModel: MyPageViewModelProtocol {
 
     var input: Input
     var output: Output
-
-    private let userReference: DocumentRef?
+    let userKind: UserKind
 
     private var bindings = Set<AnyCancellable>()
 
-    init(userReference: DocumentRef?) {
+    init(userKind: UserKind) {
 
-        self.userReference = userReference
+        self.userKind = userKind
 
         self.input = .init()
         self.output = .init()
 
-        setupBindings()
+        setupOutput()
         fetchUser()
     }
 
-    private func setupBindings() {
+    private func setupOutput() {
         output.$fetchUserState
             .compactMap { $0.content }
             .flatMap {
@@ -73,13 +72,20 @@ class MyPageViewModel: MyPageViewModelProtocol {
 
     func fetchUser() {
 
-        guard
-            let reference = userReference
-        else {
-            output.isGuest = true
-            return
-        }
+        switch userKind {
+            case .mine:
+                if let reference = AuthManager.shared.authUserReference {
+                    fetchUser(reference: reference)
+                }
+            case .guest:
+                break
 
+            case .other(let user):
+                output.fetchUserState = .finish(content: user)
+        }
+    }
+
+    private func fetchUser(reference: DocumentRef) {
         output.fetchUserState = .loading
 
         reference
@@ -110,6 +116,33 @@ class MyPageViewModel: MyPageViewModelProtocol {
             .store(in: &bindings)
     }
 
+}
+
+extension MyPageViewModel {
+
+    enum UserKind {
+        case guest
+        case mine
+        case other(user: FIDocument.User)
+
+        var title: String {
+            switch self {
+                case .guest, .mine:
+                    return "マイページ"
+                    
+                case .other(let user):
+                    return user.name
+            }
+        }
+
+        var isMine: Bool {
+            if case .mine = self {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
 }
 
 extension MyPageViewModel {

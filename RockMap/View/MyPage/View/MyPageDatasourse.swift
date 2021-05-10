@@ -126,6 +126,8 @@ extension MyPageViewController {
                 return
             }
 
+            cell.editProfileButton.isHidden = !self.viewModel.userKind.isMine
+
             cell.userView.configure(
                 prefix: "",
                 userName: user.name,
