@@ -128,6 +128,20 @@ extension MyPageViewController {
 
             cell.editProfileButton.isHidden = !self.viewModel.userKind.isMine
 
+            cell.editProfileButton.addAction(
+                .init { [weak self] _ in
+
+                    guard let self = self else { return }
+
+                    let viewModel = EditProfileViewModel(user: user)
+                    let vc = EditProfileViewController.createInstance(viewModel: viewModel)
+                    let nc = RockMapNavigationController(rootVC: vc, naviBarClass: RockMapNoShadowNavigationBar.self)
+                    nc.isModalInPresentation = true
+                    self.present(nc, animated: true)
+                },
+                for: .touchUpInside
+            )
+
             cell.userView.configure(
                 prefix: "",
                 userName: user.name,
