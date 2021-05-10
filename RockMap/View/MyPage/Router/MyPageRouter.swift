@@ -1,5 +1,5 @@
 //
-//  UserRouter.swift
+//  MyPageRouter.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/04/20.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-struct UserRouter: RouterProtocol {
+struct MyPageRouter: RouterProtocol {
     
     typealias Destination = DestinationType
-    typealias ViewModel = UserViewModel
+    typealias ViewModel = MyPageViewModel
 
     enum DestinationType: DestinationProtocol {
         case courseDetail(FIDocument.Course)

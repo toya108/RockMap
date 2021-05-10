@@ -1,5 +1,5 @@
 //
-//  UserViewModel.swift
+//  MyPageViewModel.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/04/20.
@@ -7,12 +7,12 @@
 
 import Combine
 
-protocol UserViewModelProtocol: ViewModelProtocol {
-    var input: UserViewModel.Input { get }
-    var output: UserViewModel.Output { get }
+protocol MyPageViewModelProtocol: ViewModelProtocol {
+    var input: MyPageViewModel.Input { get }
+    var output: MyPageViewModel.Output { get }
 }
 
-class UserViewModel: UserViewModelProtocol {
+class MyPageViewModel: MyPageViewModelProtocol {
 
     var input: Input
     var output: Output
@@ -112,16 +112,7 @@ class UserViewModel: UserViewModelProtocol {
 
 }
 
-extension UserViewModel {
-
-    enum UserKind {
-        case guest
-        case mine
-        case other
-    }
-}
-
-extension UserViewModel {
+extension MyPageViewModel {
 
     struct Input {}
 

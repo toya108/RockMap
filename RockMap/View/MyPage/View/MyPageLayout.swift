@@ -1,5 +1,5 @@
 //
-//  UserLayout.swift
+//  MyPageLayout.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/04/19.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UserViewController {
+extension MyPageViewController {
 
     func createLayout() -> UICollectionViewCompositionalLayout {
 
