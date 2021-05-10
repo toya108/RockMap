@@ -1,5 +1,5 @@
 //
-//  MyPageKind.swift
+//  UserKind.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/04/19.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension MyPageViewController {
+extension UserViewController {
 
     enum SectionKind: CaseIterable {
         case headerImage

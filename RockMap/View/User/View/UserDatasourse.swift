@@ -1,5 +1,5 @@
 //
-//  MyPageDatasourse.swift
+//  UserDatasourse.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2021/04/19.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension MyPageViewController {
+extension UserViewController {
 
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, ItemKind> {
 

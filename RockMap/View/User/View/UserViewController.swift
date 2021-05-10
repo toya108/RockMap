@@ -1,5 +1,5 @@
 //
-//  MyPageViewController.swift
+//  UserViewController.swift
 //  RockMap
 //
 //  Created by TOUYA KAWANO on 2020/10/31.
@@ -8,11 +8,11 @@
 import Combine
 import UIKit
 
-class MyPageViewController: UIViewController, CompositionalColectionViewControllerProtocol {
+class UserViewController: UIViewController, CompositionalColectionViewControllerProtocol {
 
     var collectionView: UICollectionView!
-    var viewModel: MyPageViewModel!
-    var router: MyPageRouter!
+    var viewModel: UserViewModel!
+    var router: UserRouter!
     var snapShot = NSDiffableDataSourceSnapshot<SectionKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionKind, ItemKind>!
 
@@ -21,9 +21,9 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
     private let refreshControl = UIRefreshControl()
 
     static func createInstance(
-        viewModel: MyPageViewModel
-    ) -> MyPageViewController {
-        let instance = MyPageViewController()
+        viewModel: UserViewModel
+    ) -> UserViewController {
+        let instance = UserViewController()
         instance.router = .init(viewModel: viewModel)
         instance.viewModel = viewModel
         return instance
@@ -103,7 +103,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
     }
 }
 
-extension MyPageViewController {
+extension UserViewController {
 
     private func userSink(_ user: LoadingState<FIDocument.User>) {
         snapShot.reloadItems(snapShot.itemIdentifiers(inSection: .user))
@@ -136,7 +136,7 @@ extension MyPageViewController {
 
 }
 
-extension MyPageViewController {
+extension UserViewController {
 
     func collectionView(
         _ collectionView: UICollectionView,
