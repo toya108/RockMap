@@ -83,6 +83,12 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
         SectionLayoutKind.allCases.forEach {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
+        let valueCellData = ValueCollectionViewCell.ValueCellStructure(
+            image: UIImage.SystemImages.triangleLefthalfFill,
+            title: "岩質",
+            subTitle: viewModel.course.shape.map(\.name).joined(separator: "/")
+        )
+        snapShot.appendItems([.shape(valueCellData)], toSection: .info)
         datasource.apply(snapShot) { [weak self] in
             self?.viewModel.input.finishedCollectionViewSetup.send()
         }
@@ -131,8 +137,8 @@ extension CourseDetailViewController {
     }
 
     private func totalClimbedNumberSink(_ state: FIDocument.TotalClimbedNumber?) {
-        snapShot.reloadItems(snapShot.itemIdentifiers(inSection: .climbedNumber))
-        datasource.apply(snapShot)
+        snapShot.reloadSections([.climbedNumber])
+        datasource.apply(snapShot, animatingDifferences: false)
     }
 
 }

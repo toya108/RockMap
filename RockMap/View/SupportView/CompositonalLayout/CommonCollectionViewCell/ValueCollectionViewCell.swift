@@ -9,7 +9,7 @@ import UIKit
 
 class ValueCollectionViewCell: UICollectionViewCell {
     
-    struct ValueCellStructure {
+    struct ValueCellStructure: Hashable {
         let image: UIImage
         let title: String
         let subTitle: String
