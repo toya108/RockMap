@@ -18,6 +18,8 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
     private var bindings = Set<AnyCancellable>()
 
+    private let refreshControl = UIRefreshControl()
+
     static func createInstance(
         viewModel: MyPageViewModel
     ) -> MyPageViewController {
@@ -34,13 +36,15 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
         configureCollectionView()
         configureSections()
         bindViewModelOutput()
+        setupRefreshControl()
+    }
 
-        collectionView.refreshControl?.addAction(
+    private func setupRefreshControl() {
+        collectionView.refreshControl = refreshControl
+        refreshControl.addAction(
             .init { [weak self] _ in
-
-                guard let self = self else { return }
-
-                self.viewModel.fetchUser()
+                self?.viewModel.fetchUser()
+                self?.refreshControl.endRefreshing()
             },
             for: .valueChanged
         )
