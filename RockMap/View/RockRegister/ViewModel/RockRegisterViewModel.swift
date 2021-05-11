@@ -183,23 +183,14 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             .catch { _ -> Just<[StorageManager.Reference]> in
                 return .init([])
             }
-            .sink { [weak self] prefixes in
-
-                guard let self = self else { return }
-
-                prefixes
-                    .map { $0.getReferences() }
-                    .forEach {
-                        $0.catch { _ -> Just<[StorageManager.Reference]> in
-                            return .init([])
-                        }
-                        .map {
-                            $0.map { ImageDataKind.storage(.init(storageReference: $0)) }
-                        }
-                        .assign(to: &self.output.$images)
-                    }
+            .flatMap { $0.getReferences() }
+            .catch { _ -> Just<[StorageManager.Reference]> in
+                return .init([])
             }
-            .store(in: &bindings)
+            .map {
+                $0.map { ImageDataKind.storage(.init(storageReference: $0)) }
+            }
+            .assign(to: &self.output.$images)
     }
 
     private func setImage(_ imageStructure: ImageStructure) {
