@@ -27,6 +27,13 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
         self.user = user
         bindInput()
         bindOutput()
+
+        input.nameSubject.send(user.name)
+        input.introductionSubject.send(user.introduction)
+        fetchHeaderStorage()
+        user.socialLinks?.forEach {
+            input.snsLinkSubject.send($0)
+        }
     }
 
     private func bindInput() {
@@ -68,41 +75,25 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             .assign(to: &output.$headerImageValidationResult)
     }
 
-    private func fetchCourseStorage(courseId: String) {
-//        let courseStorageReference = StorageManager.makeReference(
-//            parent: FINameSpace.Course.self,
-//            child: courseId
-//        )
-//        StorageManager
-//            .getHeaderReference(courseStorageReference)
-//            .catch { _ -> Just<StorageManager.Reference?> in
-//                return .init(nil)
-//            }
-//            .compactMap { $0 }
-//            .map { ImageDataKind.storage(.init(storageReference: $0)) }
-//            .assign(to: &output.$header)
-//
-//        StorageManager.getNormalImagePrefixes(courseStorageReference)
-//            .catch { _ -> Just<[StorageManager.Reference]> in
-//                return .init([])
-//            }
-//            .sink { [weak self] prefixes in
-//
-//                guard let self = self else { return }
-//
-//                prefixes
-//                    .map { $0.getReferences() }
-//                    .forEach {
-//                        $0.catch { _ -> Just<[StorageManager.Reference]> in
-//                            return .init([])
-//                        }
-//                        .map {
-//                            $0.map { ImageDataKind.storage(.init(storageReference: $0)) }
-//                        }
-//                        .assign(to: &self.output.$images)
-//                    }
-//            }
-//            .store(in: &bindings)
+    private func fetchHeaderStorage() {
+        let userStorageReference = StorageManager.makeReference(
+            parent: FINameSpace.Users.self,
+            child: user.id
+        )
+
+        StorageManager
+            .getHeaderReference(userStorageReference)
+            .catch { _ -> Just<StorageManager.Reference?> in
+                return .init(nil)
+            }
+            .map {
+                if let header = $0 {
+                    return ImageDataKind.storage(.init(storageReference: header))
+                } else {
+                    return nil
+                }
+            }
+            .assign(to: &output.$header)
     }
 
     private func setHeaderImage(kind: ImageDataKind) {
@@ -160,6 +151,7 @@ extension EditProfileViewModel {
         let introductionSubject = PassthroughSubject<String?, Never>()
         let setImageSubject = PassthroughSubject<(ImageDataKind), Never>()
         let deleteImageSubject = PassthroughSubject<(ImageDataKind), Never>()
+        let snsLinkSubject = PassthroughSubject<FIDocument.User.SocialLinkType, Never>()
     }
 
     final class Output {
