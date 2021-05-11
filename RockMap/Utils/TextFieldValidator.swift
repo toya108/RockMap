@@ -132,6 +132,12 @@ struct CourseNameValidator: CompositeValidator {
     ]
 }
 
+struct UserNameValidator: CompositeValidator {
+    var validators: [ValidatorProtocol] = [
+        EmptyValidator(formName: "ユーザー名")
+    ]
+}
+
 // MARK: - ValidatorStruct
 
 /// 未入力検証用バリデーター

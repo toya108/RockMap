@@ -74,15 +74,17 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
             animated: false
         )
 
-        navigationItem.setRightBarButton(
-            .init(
-                title: "保存",
-                image: nil,
-                primaryAction: .init { _ in
+        let saveButton = UIBarButtonItem(
+            title: "保存",
+            image: nil,
+            primaryAction: .init { _ in
 
-                },
-                menu: nil
-            ),
+            },
+            menu: nil
+        )
+        saveButton.tintColor = UIColor.Pallete.primaryGreen
+        navigationItem.setRightBarButton(
+            saveButton,
             animated: true
         )
     }
@@ -97,12 +99,6 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
         viewModel.output.$nameValidationResult
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: nameValidationSink)
-            .store(in: &bindings)
-
-        viewModel.output.$headerImageValidationResult
-            .dropFirst()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: headerImageValidationSink)
             .store(in: &bindings)
     }
 
@@ -182,28 +178,6 @@ extension EditProfileViewController {
                 snapShot.appendItems([.error(error)], toSection: .name)
         }
         datasource.apply(snapShot)
-    }
-
-    private func headerImageValidationSink(_ result: ValidationResult) {
-//        switch result {
-//            case .valid, .none:
-//                guard
-//                    let item = items.first(where: { $0 == .error(.none(formName: "ヘッダー画像")) })
-//                else {
-//                    return
-//                }
-//
-//                self.snapShot.deleteItems([item])
-//
-//            case let .invalid(error):
-//                if let item = items.first(where: { $0 == .error(.none(formName: "ヘッダー画像")) }) {
-//                    self.snapShot.deleteItems([item])
-//                }
-//                self.snapShot.appendItems([.error(error)], toSection: .confirmation)
-//
-//        }
-//
-//        datasource.apply(snapShot)
     }
 
 }
