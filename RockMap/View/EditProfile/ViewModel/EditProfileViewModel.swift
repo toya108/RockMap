@@ -18,10 +18,10 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
 
     var input: Input = .init()
     var output: Output = .init()
-
     let user: FIDocument.User
 
     private var bindings = Set<AnyCancellable>()
+    private let uploader = StorageUploader()
 
     init(user: FIDocument.User) {
         self.user = user
@@ -32,7 +32,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
         input.introductionSubject.send(user.introduction)
         fetchHeaderStorage()
         user.socialLinks?.forEach {
-            input.snsLinkSubject.send($0)
+            input.socialLinkSubject.send($0)
         }
     }
 
@@ -57,22 +57,14 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
     }
 
     private func bindOutput() {
+        uploader.$uploadState
+            .assign(to: &output.$imageUploadState)
+
         output.$name
             .dropFirst()
             .removeDuplicates()
             .map { name -> ValidationResult in CourseNameValidator().validate(name) }
             .assign(to: &output.$nameValidationResult)
-
-        output.$header
-            .dropFirst()
-            .map {
-                guard let imageDataKind = $0 else {
-                    return nil
-                }
-                return imageDataKind.shouldAppendItem ? $0 : nil
-            }
-            .map { RockHeaderImageValidator().validate($0) }
-            .assign(to: &output.$headerImageValidationResult)
     }
 
     private func fetchHeaderStorage() {
@@ -122,25 +114,69 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
     }
 
     func callValidations() -> Bool {
-        if !output.headerImageValidationResult.isValid {
-            let header: ImageDataKind? = {
-                guard
-                    let imageDataKind = output.header
-                else {
-                    return nil
-                }
-                return imageDataKind.shouldAppendItem ? output.header : nil
-            }()
-
-            output.headerImageValidationResult = RockHeaderImageValidator().validate(header)
+        if !output.nameValidationResult.isValid {
+            output.nameValidationResult = UserNameValidator().validate(output.name)
         }
-
         return [
             output.nameValidationResult,
-            output.headerImageValidationResult
         ]
         .map(\.isValid)
         .allSatisfy { $0 }
+    }
+
+    func uploadImage() {
+        switch output.header {
+            case .data(let data):
+                uploader.addData(
+                    data: data.data,
+                    reference: StorageManager.makeHeaderImageReference(
+                        parent: FINameSpace.Users.self,
+                        child: user.id
+                    )
+                )
+            case .storage(let storage):
+
+                guard let updateData = storage.updateData else { return }
+
+                storage.storageReference.delete()
+                    .sink(
+                        receiveCompletion: { _ in },
+                        receiveValue: {}
+                    )
+                    .store(in: &bindings)
+
+                uploader.addData(
+                    data: updateData,
+                    reference: StorageManager.makeHeaderImageReference(
+                        parent: FINameSpace.Users.self,
+                        child: user.id
+                    )
+                )
+            case .none:
+                output.imageUploadState = .complete([])
+                return
+
+        }
+        uploader.start()
+    }
+
+    func editProfile() {
+
+        output.loadingState = .loading
+
+        var updateUserDocument: FIDocument.User {
+            var updateUser = user
+            updateUser.name = output.name
+            updateUser.introduction = output.introduction
+            updateUser.socialLinks = output.socialLinks
+            return updateUser
+        }
+        updateUserDocument.makeDocumentReference()
+            .setData(from: updateUserDocument)
+            .sinkState { [weak self] state in
+                self?.output.loadingState = state
+            }
+            .store(in: &bindings)
     }
 }
 
@@ -151,14 +187,16 @@ extension EditProfileViewModel {
         let introductionSubject = PassthroughSubject<String?, Never>()
         let setImageSubject = PassthroughSubject<(ImageDataKind), Never>()
         let deleteImageSubject = PassthroughSubject<(ImageDataKind), Never>()
-        let snsLinkSubject = PassthroughSubject<FIDocument.User.SocialLinkType, Never>()
+        let socialLinkSubject = PassthroughSubject<FIDocument.User.SocialLinkType, Never>()
     }
 
     final class Output {
         @Published var name = ""
         @Published var introduction = ""
         @Published var header: ImageDataKind?
+        @Published var socialLinks: Set<FIDocument.User.SocialLinkType> = []
         @Published var nameValidationResult: ValidationResult = .none
-        @Published var headerImageValidationResult: ValidationResult = .none
+        @Published var imageUploadState: StorageUploader.UploadState = .stanby
+        @Published var loadingState: LoadingState<Void> = .stanby
     }
 }
