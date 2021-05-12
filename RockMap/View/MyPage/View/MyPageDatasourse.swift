@@ -18,11 +18,11 @@ extension MyPageViewController {
             guard let self = self else { return UICollectionViewCell() }
 
             switch item {
-                case let .headerImage(reference):
+                case let .headerImage(header):
                     return self.collectionView.dequeueConfiguredReusableCell(
                         using: self.configureHeaderImageCell(),
                         for: indexPath,
-                        item: reference
+                        item: header ?? .init()
                     )
 
                 case .user:
@@ -104,7 +104,7 @@ extension MyPageViewController {
         StorageManager.Reference
     > {
         .init { cell, _, reference in
-            cell.imageView.image = UIImage.AssetsImages.penguinRock
+            cell.imageView.loadImage(reference: reference)
         }
     }
 

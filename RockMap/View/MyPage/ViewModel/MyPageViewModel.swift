@@ -27,12 +27,22 @@ class MyPageViewModel: MyPageViewModelProtocol {
         self.input = .init()
         self.output = .init()
 
+        setupInput()
         setupOutput()
-        fetchUser()
+    }
+
+    private func setupInput() {
+        input.finishedCollectionViewSetup
+            .sink { [weak self] in
+                self?.fetchUser()
+            }
+            .store(in: &bindings)
     }
 
     private func setupOutput() {
-        output.$fetchUserState
+        let userStateShare = output.$fetchUserState.share()
+
+        userStateShare
             .compactMap { $0.content }
             .flatMap {
                 FirestoreManager.db
@@ -46,32 +56,35 @@ class MyPageViewModel: MyPageViewModelProtocol {
             .map { Set<FIDocument.Climbed>($0) }
             .assign(to: &output.$climbedList)
 
+        userStateShare
+            .drop(while: { !$0.isFinished })
+            .breakpoint()
+            .compactMap { $0.content?.id }
+            .flatMap { id -> AnyPublisher<StorageManager.Reference?, Error> in
+                let userStorageReference = StorageManager.makeReference(
+                    parent: FINameSpace.Users.self,
+                    child: id
+                )
+                return StorageManager.getHeaderReference(userStorageReference)
+            }
+            .catch { _ -> Just<StorageManager.Reference?> in
+                return .init(nil)
+            }
+            .assign(to: &output.$headerImageReference)
+
         output.$climbedList
             .map { $0.map(\.parentCourseReference) }
             .map { Set<DocumentRef>($0) }
             .map { $0.prefix(5).map { $0 } }
-            .sink { prefixes in
-                prefixes
-                    .map { $0.getDocument(FIDocument.Course.self) }
-                    .forEach {
-                        $0.catch { _ -> Just<FIDocument.Course?> in
-                            return .init(nil)
-                        }
-                        .compactMap { $0 }
-                        .sink { [weak self] course in
-
-                            guard let self = self else { return }
-
-                            self.output.recentClimbedCourses.insert(course)
-                        }
-                        .store(in: &self.bindings)
-                    }
+            .flatMap { $0.getDocuments(FIDocument.Course.self) }
+            .catch { _ -> Just<[FIDocument.Course]> in
+                return .init([])
             }
-            .store(in: &bindings)
+            .map {Set<FIDocument.Course>($0) }
+            .assign(to: &output.$recentClimbedCourses)
     }
 
     func fetchUser() {
-
         switch userKind {
             case .mine:
                 if let reference = AuthManager.shared.authUserReference {
@@ -90,29 +103,9 @@ class MyPageViewModel: MyPageViewModelProtocol {
 
         reference
             .getDocument(FIDocument.User.self)
-            .sink(
-                receiveCompletion: { [weak self] result in
-
-                    guard let self = self else { return }
-
-                    switch result {
-                        case .finished:
-                            break
-                        case .failure(let error):
-                            self.output.fetchUserState = .failure(error)
-
-                    }
-                },
-                receiveValue: { [weak self] user in
-                    guard
-                        let self = self,
-                        let user = user
-                    else {
-                        return
-                    }
-                    self.output.fetchUserState = .finish(content: user)
-                }
-            )
+            .sinkState { [weak self] state in
+                self?.output.fetchUserState = state
+            }
             .store(in: &bindings)
     }
 
@@ -147,11 +140,13 @@ extension MyPageViewModel {
 
 extension MyPageViewModel {
 
-    struct Input {}
+    struct Input {
+        let finishedCollectionViewSetup = PassthroughSubject<(Void), Never>()
+    }
 
     final class Output {
         @Published var isGuest = false
-        @Published var headerImageReference: StorageManager.Reference = .init()
+        @Published var headerImageReference: StorageManager.Reference?
         @Published var fetchUserState: LoadingState<FIDocument.User> = .stanby
         @Published var climbedList: Set<FIDocument.Climbed> = []
         @Published var recentClimbedCourses: Set<FIDocument.Course> = []

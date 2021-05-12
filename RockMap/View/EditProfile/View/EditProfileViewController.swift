@@ -77,8 +77,11 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
         let saveButton = UIBarButtonItem(
             title: "保存",
             image: nil,
-            primaryAction: .init { _ in
+            primaryAction: .init { [weak self] _ in
 
+                guard let self = self else { return }
+
+                self.startUpdateSequence()
             },
             menu: nil
         )
@@ -90,7 +93,6 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
     }
 
     private func bindViewModelToView() {
-
         viewModel.output.$header
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: headerSink)
@@ -100,6 +102,16 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: nameValidationSink)
             .store(in: &bindings)
+
+        viewModel.output.$imageUploadState
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: imageUploadStateSink)
+            .store(in: &bindings)
+
+        viewModel.output.$loadingState
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: uploadLoadingStateSink)
+            .store(in: &bindings)
     }
 
     private func configureSections() {
@@ -108,6 +120,19 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
         datasource.apply(snapShot)
+    }
+
+    private func startUpdateSequence() {
+        guard
+            viewModel.callValidations()
+        else {
+            showOKAlert(
+                title: "入力内容に不備があります。",
+                message: "入力内容を見直してください。"
+            )
+            return
+        }
+        viewModel.uploadImage()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -178,6 +203,55 @@ extension EditProfileViewController {
                 snapShot.appendItems([.error(error)], toSection: .name)
         }
         datasource.apply(snapShot)
+    }
+
+    private func imageUploadStateSink(_ state: StorageUploader.UploadState) {
+        switch state {
+            case .stanby:
+                hideIndicatorView()
+
+            case .progress:
+                showIndicatorView()
+
+            case .complete:
+                hideIndicatorView()
+                viewModel.editProfile()
+
+            case .failure(let error):
+                hideIndicatorView()
+                showOKAlert(
+                    title: "画像の登録に失敗しました",
+                    message: error.localizedDescription
+                )
+        }
+    }
+
+    private func uploadLoadingStateSink(_ state: LoadingState<Void>) {
+        switch state {
+            case .stanby:
+                break
+
+            case .loading:
+                showIndicatorView()
+
+            case .finish:
+                hideIndicatorView()
+                dismiss(animated: true) { [weak self] in
+                    guard
+                        let self = self,
+                        case let myPageVc as MyPageViewController = self.getVisibleViewController()
+                    else {
+                        return
+                    }
+                    myPageVc.viewModel.fetchUser()
+                }
+
+            case .failure(let error):
+                showOKAlert(
+                    title: "編集に失敗しました",
+                    message: error?.localizedDescription ?? ""
+                )
+        }
     }
 
 }

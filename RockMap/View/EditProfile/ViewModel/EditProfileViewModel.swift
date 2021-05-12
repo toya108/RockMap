@@ -118,7 +118,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             output.nameValidationResult = UserNameValidator().validate(output.name)
         }
         return [
-            output.nameValidationResult,
+            output.nameValidationResult
         ]
         .map(\.isValid)
         .allSatisfy { $0 }
@@ -135,15 +135,19 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                     )
                 )
             case .storage(let storage):
-
-                guard let updateData = storage.updateData else { return }
-
                 storage.storageReference.delete()
                     .sink(
                         receiveCompletion: { _ in },
                         receiveValue: {}
                     )
                     .store(in: &bindings)
+
+                guard
+                    let updateData = storage.updateData
+                else {
+                    output.imageUploadState = .complete([])
+                    return
+                }
 
                 uploader.addData(
                     data: updateData,

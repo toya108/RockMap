@@ -50,7 +50,7 @@ extension MyPageViewController {
         var initialItems: [ItemKind] {
             switch self {
                 case .headerImage:
-                    return [.headerImage(.init())]
+                    return [.headerImage(nil)]
 
                 case .user:
                     return [.user]
@@ -71,7 +71,7 @@ extension MyPageViewController {
     }
 
     enum ItemKind: Hashable {
-        case headerImage(StorageManager.Reference)
+        case headerImage(StorageManager.Reference?)
         case user
         case socialLink(FIDocument.User.SocialLinkType)
         case introduction

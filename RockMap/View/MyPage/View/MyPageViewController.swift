@@ -98,8 +98,13 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
         SectionKind.allCases.forEach {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
-        snapShot.appendItems(FIDocument.User.SocialLinkType.allCases.map { ItemKind.socialLink($0) }, toSection: .socialLink)
-        datasource.apply(snapShot)
+        snapShot.appendItems(
+            FIDocument.User.SocialLinkType.allCases.map { ItemKind.socialLink($0) },
+            toSection: .socialLink
+        )
+        datasource.apply(snapShot) { [weak self] in
+            self?.viewModel.input.finishedCollectionViewSetup.send()
+        }
     }
 }
 
@@ -107,11 +112,12 @@ extension MyPageViewController {
 
     private func userSink(_ user: LoadingState<FIDocument.User>) {
         snapShot.reloadItems(snapShot.itemIdentifiers(inSection: .user))
-        datasource.apply(snapShot)
+        datasource.apply(snapShot, animatingDifferences: false)
     }
 
-    private func headerImageReferenceSink(_ header: StorageManager.Reference) {
-        snapShot.reloadSections([.headerImage])
+    private func headerImageReferenceSink(_ header: StorageManager.Reference?) {
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .headerImage))
+        snapShot.appendItems([.headerImage(header)], toSection: .headerImage)
         datasource.apply(snapShot)
     }
 
