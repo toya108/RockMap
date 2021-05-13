@@ -118,7 +118,7 @@ extension MyPageViewController {
     private func headerImageReferenceSink(_ header: StorageManager.Reference?) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .headerImage))
         snapShot.appendItems([.headerImage(header)], toSection: .headerImage)
-        datasource.apply(snapShot)
+        datasource.apply(snapShot, animatingDifferences: false)
     }
 
     private func climbedListSink(_ climbedList: Set<FIDocument.Climbed>) {
@@ -137,7 +137,7 @@ extension MyPageViewController {
                 toSection: .recentClimbedCourses
             )
         }
-        datasource.apply(snapShot)
+        datasource.apply(snapShot, animatingDifferences: false)
     }
 
 }
