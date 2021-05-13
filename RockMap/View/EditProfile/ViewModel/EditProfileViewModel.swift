@@ -31,7 +31,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
         input.nameSubject.send(user.name)
         input.introductionSubject.send(user.introduction)
         fetchHeaderStorage()
-        user.socialLinks?.forEach {
+        user.socialLinks.forEach {
             input.socialLinkSubject.send($0)
         }
     }
@@ -191,14 +191,14 @@ extension EditProfileViewModel {
         let introductionSubject = PassthroughSubject<String?, Never>()
         let setImageSubject = PassthroughSubject<(ImageDataKind), Never>()
         let deleteImageSubject = PassthroughSubject<(ImageDataKind), Never>()
-        let socialLinkSubject = PassthroughSubject<FIDocument.User.SocialLinkType, Never>()
+        let socialLinkSubject = PassthroughSubject<FIDocument.User.SocialLink, Never>()
     }
 
     final class Output {
         @Published var name = ""
         @Published var introduction = ""
         @Published var header: ImageDataKind?
-        @Published var socialLinks: Set<FIDocument.User.SocialLinkType> = []
+        @Published var socialLinks: Set<FIDocument.User.SocialLink> = []
         @Published var nameValidationResult: ValidationResult = .none
         @Published var imageUploadState: StorageUploader.UploadState = .stanby
         @Published var loadingState: LoadingState<Void> = .stanby

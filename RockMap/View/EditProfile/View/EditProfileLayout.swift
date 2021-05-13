@@ -12,7 +12,7 @@ extension EditProfileViewController {
 
     func createLayout() -> UICollectionViewCompositionalLayout {
 
-        let layout = UICollectionViewCompositionalLayout { [weak self] sectionNumber, _ -> NSCollectionLayoutSection in
+        let layout = UICollectionViewCompositionalLayout { [weak self] sectionNumber, env -> NSCollectionLayoutSection in
 
             guard let self = self else {
                 return .init(
@@ -61,6 +61,13 @@ extension EditProfileViewController {
                     )
                     section = .init(group: group)
 
+                case .socialLink:
+                    var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+                    configuration.showsSeparators = false
+                    section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: env)
+                    section.interGroupSpacing = 16
+                    section.contentInsets.bottom = 12
+
                 case .header:
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(
@@ -74,23 +81,6 @@ extension EditProfileViewController {
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
                             heightDimension: .absolute(height)
-                        ),
-                        subitems: [item]
-                    )
-
-                    section = .init(group: group)
-
-                case .socialLink:
-                    let item = NSCollectionLayoutItem(
-                        layoutSize: .init(
-                            widthDimension: .fractionalWidth(1),
-                            heightDimension: .estimated(44)
-                        )
-                    )
-                    let group = NSCollectionLayoutGroup.horizontal(
-                        layoutSize: .init(
-                            widthDimension: .fractionalWidth(1),
-                            heightDimension: item.layoutSize.heightDimension
                         ),
                         subitems: [item]
                     )

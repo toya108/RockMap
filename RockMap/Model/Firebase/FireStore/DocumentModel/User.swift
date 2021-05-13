@@ -21,10 +21,15 @@ extension FIDocument {
         var name: String
         var email: String?
         var photoURL: URL?
-        var socialLinks: Set<SocialLinkType>? = []
+        var socialLinks: Set<SocialLink> = []
         var introduction: String?
         
         var isRoot: Bool { true }
+
+        struct SocialLink: Hashable, Codable {
+            let linkType: SocialLinkType
+            var link: String
+        }
 
         enum SocialLinkType: String, CaseIterable, Codable {
             case facebook
@@ -45,6 +50,17 @@ extension FIDocument {
 
                     case .other:
                         return UIImage.AssetsImages.link
+
+                }
+            }
+
+            var placeHolder: String {
+                switch self {
+                    case .facebook, .twitter, .instagram:
+                        return "@"
+
+                    case .other:
+                        return "ページURL"
 
                 }
             }

@@ -53,8 +53,12 @@ extension EditProfileViewController {
                         item: .header
                     )
 
-                case .socialLink(_):
-                    return UICollectionViewCell()
+                case .socialLink(let socialLink):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureSocialLinkCell(),
+                        for: indexPath,
+                        item: socialLink
+                    )
             }
         }
 
@@ -93,12 +97,7 @@ extension EditProfileViewController {
             cell.textField.text = self.viewModel.output.name
             cell.configurePlaceholder("ユーザー名を入力して下さい。")
             cell.textField.textDidChangedPublisher
-                .sink { [weak self] text in
-
-                    guard let self = self else { return }
-
-                    self.viewModel.input.nameSubject.send(text)
-                }
+                .sink(receiveValue: self.viewModel.input.nameSubject.send)
                 .store(in: &self.bindings)
         }
     }
@@ -119,12 +118,7 @@ extension EditProfileViewController {
             cell.textView.text = self.viewModel.output.introduction
             cell.configurePlaceholder("自己紹介を入力して下さい。")
             cell.textView.textDidChangedPublisher
-                .sink { [weak self] text in
-
-                    guard let self = self else { return }
-
-                    self.viewModel.input.introductionSubject.send(text)
-                }
+                .sink(receiveValue: self.viewModel.input.introductionSubject.send)
                 .store(in: &self.bindings)
         }
     }
@@ -203,6 +197,37 @@ extension EditProfileViewController {
         let menu = UIMenu(title: "", children: [photoLibraryAction, cameraAction])
         button.menu = menu
         button.showsMenuAsPrimaryAction = true
+    }
+
+    private func configureSocialLinkCell() -> UICollectionView.CellRegistration<
+        IconTextFieldCollectionViewCell,
+        FIDocument.User.SocialLink
+    > {
+        .init { [weak self] cell, _, socialLink in
+
+            guard let self = self else { return }
+
+            cell.textField.delegate = self
+            cell.textField.text = socialLink.link
+            cell.configurePlaceholder(
+                iconImage: socialLink.linkType.icon,
+                placeholder: socialLink.linkType.placeHolder
+            )
+            
+            cell.textField.textDidChangedPublisher
+                .sink { [weak self] text in
+
+                    guard let self = self else { return }
+
+                    self.viewModel.input.socialLinkSubject.send(
+                        .init(
+                            linkType: socialLink.linkType,
+                            link: text
+                        )
+                    )
+                }
+                .store(in: &self.bindings)
+        }
     }
 
 }
