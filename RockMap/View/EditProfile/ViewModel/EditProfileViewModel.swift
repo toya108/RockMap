@@ -135,19 +135,33 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                     )
                 )
             case .storage(let storage):
+                guard
+                    storage.shouldUpdate
+                else {
+                    output.imageUploadState = .complete([])
+                    return
+                }
+
+                guard
+                    let updateData = storage.updateData
+                else {
+                    storage.storageReference.delete()
+                        .sink(
+                            receiveCompletion: { _ in },
+                            receiveValue: {}
+                        )
+                        .store(in: &bindings)
+
+                    output.imageUploadState = .complete([])
+                    return
+                }
+
                 storage.storageReference.delete()
                     .sink(
                         receiveCompletion: { _ in },
                         receiveValue: {}
                     )
                     .store(in: &bindings)
-
-                guard
-                    let updateData = storage.updateData
-                else {
-                    output.imageUploadState = .complete([])
-                    return
-                }
 
                 uploader.addData(
                     data: updateData,
