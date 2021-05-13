@@ -40,35 +40,27 @@ class MyPageViewModel: MyPageViewModelProtocol {
     }
 
     private func setupOutput() {
-        let userStateShare = output.$fetchUserState.share()
+        let userIDShare = output.$fetchUserState
+            .compactMap { $0.content?.id }
+            .share()
 
-        userStateShare
-            .compactMap { $0.content }
+        userIDShare
             .flatMap {
                 FirestoreManager.db
                     .collectionGroup(FIDocument.Climbed.colletionName)
-                    .whereField("registeredUserId", in: [$0.id])
+                    .whereField("registeredUserId", in: [$0])
                     .getDocuments(FIDocument.Climbed.self)
-            }
-            .catch { _ -> Just<[FIDocument.Climbed]> in
-                return .init([])
+                    .catch { _ in Just([]) }
             }
             .map { Set<FIDocument.Climbed>($0) }
             .assign(to: &output.$climbedList)
 
-        userStateShare
-            .drop(while: { !$0.isFinished })
-            .breakpoint()
-            .compactMap { $0.content?.id }
-            .flatMap { id -> AnyPublisher<StorageManager.Reference?, Error> in
-                let userStorageReference = StorageManager.makeReference(
-                    parent: FINameSpace.Users.self,
-                    child: id
-                )
-                return StorageManager.getHeaderReference(userStorageReference)
+        userIDShare
+            .map {
+                StorageManager.makeReference(parent: FINameSpace.Users.self, child: $0)
             }
-            .catch { _ -> Just<StorageManager.Reference?> in
-                return .init(nil)
+            .flatMap {
+                StorageManager.getHeaderReference($0).catch { _ in Just(nil) }
             }
             .assign(to: &output.$headerImageReference)
 
@@ -76,11 +68,10 @@ class MyPageViewModel: MyPageViewModelProtocol {
             .map { $0.map(\.parentCourseReference) }
             .map { Set<DocumentRef>($0) }
             .map { $0.prefix(5).map { $0 } }
-            .flatMap { $0.getDocuments(FIDocument.Course.self) }
-            .catch { _ -> Just<[FIDocument.Course]> in
-                return .init([])
+            .flatMap {
+                $0.getDocuments(FIDocument.Course.self).catch { _ in Just([]) }
             }
-            .map {Set<FIDocument.Course>($0) }
+            .map { Set<FIDocument.Course>($0) }
             .assign(to: &output.$recentClimbedCourses)
     }
 
