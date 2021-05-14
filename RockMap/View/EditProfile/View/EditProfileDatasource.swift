@@ -53,11 +53,11 @@ extension EditProfileViewController {
                         item: .header
                     )
 
-                case .socialLink(let socialLink):
+                case .socialLink(let socialLinkType):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureSocialLinkCell(),
                         for: indexPath,
-                        item: socialLink
+                        item: socialLinkType
                     )
             }
         }
@@ -201,17 +201,22 @@ extension EditProfileViewController {
 
     private func configureSocialLinkCell() -> UICollectionView.CellRegistration<
         IconTextFieldCollectionViewCell,
-        FIDocument.User.SocialLink
+        FIDocument.User.SocialLinkType
     > {
-        .init { [weak self] cell, _, socialLink in
+        .init { [weak self] cell, _, socialLinkType in
 
-            guard let self = self else { return }
+            guard
+                let self = self,
+                let sociallink = self.viewModel.output.socialLinks.getLink(type: socialLinkType)
+            else {
+                return
+            }
 
             cell.textField.delegate = self
-            cell.textField.text = socialLink.link
+            cell.textField.text = sociallink.link
             cell.configurePlaceholder(
-                iconImage: socialLink.linkType.icon,
-                placeholder: socialLink.linkType.placeHolder
+                iconImage: socialLinkType.icon,
+                placeholder: socialLinkType.placeHolder
             )
             
             cell.textField.textDidChangedPublisher
@@ -221,7 +226,7 @@ extension EditProfileViewController {
 
                     self.viewModel.input.socialLinkSubject.send(
                         .init(
-                            linkType: socialLink.linkType,
+                            linkType: socialLinkType,
                             link: text
                         )
                     )

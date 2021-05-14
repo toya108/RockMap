@@ -21,7 +21,7 @@ extension FIDocument {
         var name: String
         var email: String?
         var photoURL: URL?
-        var socialLinks: Set<SocialLink> = []
+        var socialLinks: [SocialLink] = []
         var introduction: String?
         
         var isRoot: Bool { true }
@@ -66,5 +66,23 @@ extension FIDocument {
             }
 
         }
+    }
+}
+
+extension Array where Element == FIDocument.User.SocialLink {
+
+    func getLink(type: FIDocument.User.SocialLinkType) -> FIDocument.User.SocialLink? {
+        return self.first(where: { $0.linkType == type })
+    }
+
+    mutating func updateLink(type: FIDocument.User.SocialLinkType, link: String) {
+
+        guard
+            let index = self.firstIndex(where: { $0.linkType == type })
+        else {
+            return
+        }
+
+        self[index].link = link
     }
 }

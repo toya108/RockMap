@@ -59,9 +59,7 @@ extension EditProfileViewController {
 //                    return [.icon(.)]
 
                 case .socialLink:
-                    return FIDocument.User.SocialLinkType.allCases.map {
-                        ItemKind.socialLink(.init(linkType: $0, link: ""))
-                    }
+                    return FIDocument.User.SocialLinkType.allCases.map { .socialLink($0) }
             }
         }
     }
@@ -72,7 +70,7 @@ extension EditProfileViewController {
         case header(ImageDataKind)
         case noImage
 //        case icon(ImageDataKind)
-        case socialLink(FIDocument.User.SocialLink)
+        case socialLink(FIDocument.User.SocialLinkType)
         case error(ValidationError)
 
         var isErrorItem: Bool {

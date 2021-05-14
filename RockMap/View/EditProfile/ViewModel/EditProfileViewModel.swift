@@ -54,6 +54,22 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
         input.deleteImageSubject
             .sink(receiveValue: deleteImage)
             .store(in: &bindings)
+
+        input.socialLinkSubject
+            .sink { [weak self] socialLink in
+
+                guard
+                    let self = self,
+                    let index = self.output.socialLinks.firstIndex(
+                        where: { $0.linkType == socialLink.linkType }
+                    )
+                else {
+                    return
+                }
+
+                self.output.socialLinks[index].link = socialLink.link
+            }
+            .store(in: &bindings)
     }
 
     private func bindOutput() {
@@ -212,7 +228,9 @@ extension EditProfileViewModel {
         @Published var name = ""
         @Published var introduction = ""
         @Published var header: ImageDataKind?
-        @Published var socialLinks: Set<FIDocument.User.SocialLink> = []
+        @Published var socialLinks: [FIDocument.User.SocialLink] = FIDocument.User.SocialLinkType.allCases.map {
+            FIDocument.User.SocialLink(linkType: $0, link: "")
+        }
         @Published var nameValidationResult: ValidationResult = .none
         @Published var imageUploadState: StorageUploader.UploadState = .stanby
         @Published var loadingState: LoadingState<Void> = .stanby
