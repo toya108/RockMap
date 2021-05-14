@@ -32,11 +32,11 @@ extension MyPageViewController {
                         item: Dummy()
                     )
 
-                case let .socialLink(socialLinkType):
+                case let .socialLink(socialLink):
                     return self.collectionView.dequeueConfiguredReusableCell(
                         using: self.configureSocialLinkCell(),
                         for: indexPath,
-                        item: socialLinkType
+                        item: socialLink
                     )
 
                 case .introduction:
@@ -155,8 +155,21 @@ extension MyPageViewController {
         SocialLinkCollectionViewCell,
         FIDocument.User.SocialLinkType
     > {
-        .init { cell, _, socialLinkType in
-            cell.configure(for: socialLinkType)
+        .init { [weak self] cell, _, socialLinkType in
+
+            guard let self = self else { return }
+
+            var socialLink: FIDocument.User.SocialLink {
+                guard
+                    let user = self.viewModel.output.fetchUserState.content,
+                    let socialLink = user.socialLinks.getLink(type: socialLinkType)
+                else {
+                    return .init(linkType: socialLinkType, link: "")
+                }
+                return socialLink
+            }
+
+            cell.configure(for: socialLink)
         }
     }
 

@@ -54,6 +54,23 @@ extension FIDocument {
                 }
             }
 
+            var color: UIColor {
+                switch self {
+                    case .facebook:
+                        return UIColor.Pallete.facebook
+
+                    case .twitter:
+                        return UIColor.Pallete.twitter
+
+                    case .instagram:
+                        return UIColor.Pallete.instagram
+
+                    case .other:
+                        return .black
+
+                }
+            }
+
             var placeHolder: String {
                 switch self {
                     case .facebook, .twitter, .instagram:

@@ -69,6 +69,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
     private func bindViewModelOutput() {
         viewModel.output.$fetchUserState
+            .filter { $0.isFinished }
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: userSink)
             .store(in: &bindings)
@@ -98,10 +99,6 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
         SectionKind.allCases.forEach {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
-        snapShot.appendItems(
-            FIDocument.User.SocialLinkType.allCases.map { ItemKind.socialLink($0) },
-            toSection: .socialLink
-        )
         datasource.apply(snapShot) { [weak self] in
             self?.viewModel.input.finishedCollectionViewSetup.send()
         }
@@ -111,7 +108,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 extension MyPageViewController {
 
     private func userSink(_ user: LoadingState<FIDocument.User>) {
-        snapShot.reloadItems(snapShot.itemIdentifiers(inSection: .user))
+        snapShot.reloadSections([.user, .socialLink])
         datasource.apply(snapShot, animatingDifferences: false)
     }
 

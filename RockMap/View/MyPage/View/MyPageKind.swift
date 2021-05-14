@@ -55,6 +55,9 @@ extension MyPageViewController {
                 case .user:
                     return [.user]
 
+                case .socialLink:
+                    return FIDocument.User.SocialLinkType.allCases.map { .socialLink($0) }
+
                 case .introduction:
                     return [.introduction]
 

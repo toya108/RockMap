@@ -41,6 +41,7 @@ class MyPageViewModel: MyPageViewModelProtocol {
 
     private func setupOutput() {
         let userIDShare = output.$fetchUserState
+            .filter { $0.isFinished }
             .compactMap { $0.content?.id }
             .share()
 
@@ -50,7 +51,7 @@ class MyPageViewModel: MyPageViewModelProtocol {
                     .collectionGroup(FIDocument.Climbed.colletionName)
                     .whereField("registeredUserId", in: [$0])
                     .getDocuments(FIDocument.Climbed.self)
-                    .catch { _ in Just([]) }
+                    .catch { _ in Empty() }
             }
             .map { Set<FIDocument.Climbed>($0) }
             .assign(to: &output.$climbedList)
@@ -60,7 +61,7 @@ class MyPageViewModel: MyPageViewModelProtocol {
                 StorageManager.makeReference(parent: FINameSpace.Users.self, child: $0)
             }
             .flatMap {
-                StorageManager.getHeaderReference($0).catch { _ in Just(nil) }
+                StorageManager.getHeaderReference($0).catch { _ in Empty() }
             }
             .assign(to: &output.$headerImageReference)
 
@@ -69,7 +70,7 @@ class MyPageViewModel: MyPageViewModelProtocol {
             .map { Set<DocumentRef>($0) }
             .map { $0.prefix(5).map { $0 } }
             .flatMap {
-                $0.getDocuments(FIDocument.Course.self).catch { _ in Just([]) }
+                $0.getDocuments(FIDocument.Course.self).catch { _ in Empty() }
             }
             .map { Set<FIDocument.Course>($0) }
             .assign(to: &output.$recentClimbedCourses)
