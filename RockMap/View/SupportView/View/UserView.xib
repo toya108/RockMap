@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UserView" customModule="RockMap" customModuleProvider="target">
             <connections>
-                <outlet property="iconImageView" destination="Gc9-N2-lSC" id="mnF-V9-wYh"/>
+                <outlet property="iconButton" destination="hCE-gj-KCR" id="H7b-5E-Hxl"/>
                 <outlet property="registeredDateLabel" destination="CVy-hc-h5s" id="5uF-pE-gIe"/>
                 <outlet property="userNameLabel" destination="rcS-Go-dxC" id="QEp-Q9-pdg"/>
             </connections>
@@ -20,24 +20,25 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gc9-N2-lSC">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCE-gj-KCR">
                     <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                     <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="rip-5O-UWE"/>
+                        <constraint firstAttribute="height" constant="40" id="2z0-IS-ZI0"/>
+                        <constraint firstAttribute="width" secondItem="hCE-gj-KCR" secondAttribute="height" multiplier="1:1" id="gGc-c2-yyS"/>
                     </constraints>
-                </imageView>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="2tp-dw-B4e">
-                    <rect key="frame" x="48" y="0.0" width="366" height="40"/>
+                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="2tp-dw-B4e">
+                    <rect key="frame" x="56" y="0.0" width="358" height="40"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcS-Go-dxC">
-                            <rect key="frame" x="0.0" y="0.0" width="366" height="20.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="358" height="20"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVy-hc-h5s">
-                            <rect key="frame" x="0.0" y="26.5" width="366" height="13.5"/>
+                            <rect key="frame" x="0.0" y="20" width="358" height="20"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -48,14 +49,13 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="2tp-dw-B4e" firstAttribute="leading" secondItem="Gc9-N2-lSC" secondAttribute="trailing" constant="8" id="265-Gr-wa0"/>
-                <constraint firstItem="Gc9-N2-lSC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Rav-iV-SYq"/>
-                <constraint firstItem="Gc9-N2-lSC" firstAttribute="width" secondItem="Gc9-N2-lSC" secondAttribute="height" multiplier="1:1" id="V0T-Xz-Yb6"/>
+                <constraint firstItem="hCE-gj-KCR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="IA9-Di-m0W"/>
+                <constraint firstAttribute="top" secondItem="hCE-gj-KCR" secondAttribute="top" id="IYr-Zf-Mr0"/>
                 <constraint firstItem="2tp-dw-B4e" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="fVx-bJ-r6I"/>
                 <constraint firstAttribute="bottom" secondItem="2tp-dw-B4e" secondAttribute="bottom" id="jgz-qJ-pVb"/>
-                <constraint firstItem="Gc9-N2-lSC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="oFL-SV-Nw5"/>
                 <constraint firstAttribute="trailing" secondItem="2tp-dw-B4e" secondAttribute="trailing" id="oO2-sQ-J2U"/>
-                <constraint firstAttribute="bottom" secondItem="Gc9-N2-lSC" secondAttribute="bottom" id="zUp-CY-NJe"/>
+                <constraint firstItem="2tp-dw-B4e" firstAttribute="leading" secondItem="hCE-gj-KCR" secondAttribute="trailing" constant="16" id="rYv-jz-djW"/>
+                <constraint firstItem="hCE-gj-KCR" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="xZN-Ni-PqZ"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="137.68115942028987" y="132.58928571428572"/>

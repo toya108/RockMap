@@ -44,8 +44,7 @@ class CourseCollectionViewCell: UICollectionViewCell {
                 guard let self = self else { return }
 
                 self.userView.configure(
-                    userName: user?.name ?? "",
-                    photoURL: user?.photoURL,
+                    user: user,
                     registeredDate: course.createdAt
                 )
             }

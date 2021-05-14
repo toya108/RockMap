@@ -10,7 +10,7 @@ import UIKit
 @IBDesignable
 class UserView: UIView {
 
-    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var iconButton: UIButton!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var registeredDateLabel: UILabel!
 
@@ -40,21 +40,20 @@ class UserView: UIView {
             view.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
 
-        iconImageView.layer.cornerRadius = 20
+        iconButton.layer.cornerRadius = 20
     }
 
     func configure(
         prefix: String = "登録者：",
-        userName: String,
-        photoURL: URL?,
+        user: FIDocument.User?,
         registeredDate: Date? = nil
     ) {
-        userNameLabel.text = prefix + userName
+        userNameLabel.text = prefix + (user?.name ?? "")
 
-        if let photoURL = photoURL {
-            iconImageView.loadImage(url: photoURL)
+        if let photoURL = user?.photoURL {
+            iconButton.imageView?.loadImage(url: photoURL)
         } else {
-            iconImageView.image = UIImage.AssetsImages.noimage
+            iconButton.setImage(UIImage.AssetsImages.noimage, for: .normal)
         }
 
         if let registeredDate = registeredDate {
@@ -67,5 +66,13 @@ class UserView: UIView {
             registeredDateLabel.isHidden = true
         }
 
+        iconButton.addAction(
+            .init { _ in
+
+            }
+            ,
+            for: .touchUpInside
+        )
     }
+
 }

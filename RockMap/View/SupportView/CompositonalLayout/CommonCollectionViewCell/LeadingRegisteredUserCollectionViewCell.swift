@@ -16,8 +16,7 @@ class LeadingRegisteredUserCollectionViewCell: UICollectionViewCell {
         registeredDate: Date? = nil
     ) {
         userView.configure(
-            userName: user?.name ?? "",
-            photoURL: user?.photoURL,
+            user: user,
             registeredDate: registeredDate
         )
     }

@@ -144,8 +144,7 @@ extension MyPageViewController {
 
             cell.userView.configure(
                 prefix: "",
-                userName: user.name,
-                photoURL: user.photoURL,
+                user: user,
                 registeredDate: user.createdAt
             )
         }

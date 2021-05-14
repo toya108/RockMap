@@ -23,8 +23,7 @@ class ClimbedTableViewCell: UITableViewCell {
     ) {
         userView.configure(
             prefix: "",
-            userName: user.name,
-            photoURL: user.photoURL,
+            user: user,
             registeredDate: climbedDate
         )
 
