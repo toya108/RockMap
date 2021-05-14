@@ -69,7 +69,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
     private func bindViewModelOutput() {
         viewModel.output.$fetchUserState
-            .filter { $0.isFinished }
+            .filter(\.isFinished)
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: userSink)
             .store(in: &bindings)
