@@ -27,6 +27,8 @@ class SocialLinkCollectionViewCell: UICollectionViewCell {
         socialLinkButton.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(socialLinkButton)
 
+        socialLinkButton.tintColor = UIColor.Pallete.primaryGreen
+
         NSLayoutConstraint.activate([
             socialLinkButton.heightAnchor.constraint(equalToConstant: 28),
             socialLinkButton.widthAnchor.constraint(equalToConstant: 28),
@@ -37,7 +39,17 @@ class SocialLinkCollectionViewCell: UICollectionViewCell {
         ])
     }
 
-    func configure(for type: FIDocument.User.SocialLinkType) {
-        socialLinkButton.setImage(type.icon, for: .normal)
+    func configure(
+        for socialLink: FIDocument.User.SocialLink
+    ) {
+        socialLinkButton.setImage(socialLink.linkType.icon, for: .normal)
+        socialLinkButton.isEnabled = !socialLink.link.isEmpty
+        socialLinkButton.tintColor = socialLink.linkType.color
+        socialLinkButton.addAction(
+            .init { _ in
+
+            },
+            for: .touchUpInside
+        )
     }
 }

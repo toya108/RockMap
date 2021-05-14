@@ -77,7 +77,7 @@ extension MyPageViewController {
                     )
                     group.interItemSpacing = .fixed(8)
                     section = .init(group: group)
-                    section.contentInsets = .init(top: 16, leading: 0, bottom: 16, trailing: 0)
+                    section.contentInsets = .init(top: 20, leading: 0, bottom: 20, trailing: 0)
 
                 case .introduction:
                     let item = NSCollectionLayoutItem(

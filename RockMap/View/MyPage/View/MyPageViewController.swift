@@ -18,6 +18,8 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
     private var bindings = Set<AnyCancellable>()
 
+    private let refreshControl = UIRefreshControl()
+
     static func createInstance(
         viewModel: MyPageViewModel
     ) -> MyPageViewController {
@@ -34,13 +36,15 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
         configureCollectionView()
         configureSections()
         bindViewModelOutput()
+        setupRefreshControl()
+    }
 
-        collectionView.refreshControl?.addAction(
+    private func setupRefreshControl() {
+        collectionView.refreshControl = refreshControl
+        refreshControl.addAction(
             .init { [weak self] _ in
-
-                guard let self = self else { return }
-
-                self.viewModel.fetchUser()
+                self?.viewModel.fetchUser()
+                self?.refreshControl.endRefreshing()
             },
             for: .valueChanged
         )
@@ -65,6 +69,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
     private func bindViewModelOutput() {
         viewModel.output.$fetchUserState
+            .filter(\.isFinished)
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: userSink)
             .store(in: &bindings)
@@ -94,26 +99,28 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
         SectionKind.allCases.forEach {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
-        snapShot.appendItems(FIDocument.User.SocialLinkType.allCases.map { ItemKind.socialLink($0) }, toSection: .socialLink)
-        datasource.apply(snapShot)
+        datasource.apply(snapShot) { [weak self] in
+            self?.viewModel.input.finishedCollectionViewSetup.send()
+        }
     }
 }
 
 extension MyPageViewController {
 
     private func userSink(_ user: LoadingState<FIDocument.User>) {
-        snapShot.reloadItems(snapShot.itemIdentifiers(inSection: .user))
-        datasource.apply(snapShot)
+        snapShot.reloadSections([.user, .socialLink])
+        datasource.apply(snapShot, animatingDifferences: false)
     }
 
-    private func headerImageReferenceSink(_ header: StorageManager.Reference) {
-        snapShot.reloadSections([.headerImage])
-        datasource.apply(snapShot)
+    private func headerImageReferenceSink(_ header: StorageManager.Reference?) {
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .headerImage))
+        snapShot.appendItems([.headerImage(header)], toSection: .headerImage)
+        datasource.apply(snapShot, animatingDifferences: false)
     }
 
     private func climbedListSink(_ climbedList: Set<FIDocument.Climbed>) {
-        self.snapShot.reloadSections([.climbedNumber])
-        self.datasource.apply(self.snapShot)
+        snapShot.reloadSections([.climbedNumber])
+        datasource.apply(snapShot, animatingDifferences: false)
     }
 
     private func recentClimbedCoursesSink(_ courses: Set<FIDocument.Course>) {
@@ -127,7 +134,7 @@ extension MyPageViewController {
                 toSection: .recentClimbedCourses
             )
         }
-        datasource.apply(snapShot)
+        datasource.apply(snapShot, animatingDifferences: false)
     }
 
 }

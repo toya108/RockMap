@@ -30,4 +30,12 @@ enum LoadingState<T>: Equatable {
         }
         return content
     }
+
+    var isFinished: Bool {
+        if case .finish = self {
+            return true
+        } else {
+            return false
+        }
+    }
 }

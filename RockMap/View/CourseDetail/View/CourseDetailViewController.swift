@@ -55,19 +55,19 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
     
     private func bindViewToViewModel() {
         viewModel.output.$fetchCourseHeaderState
-            .drop(while: { $0 == .stanby })
+            .filter(\.isFinished)
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: fetchCourseHeaderStateSink)
             .store(in: &bindings)
 
         viewModel.output.$fetchCourseImageState
-            .drop(while: { $0 == .stanby })
+            .filter(\.isFinished)
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: fetchCourseImageStateSink)
             .store(in: &bindings)
 
         viewModel.output.$fetchRegisteredUserState
-            .drop(while: { $0 == .stanby })
+            .filter(\.isFinished)
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: fetchRegisteredUserStateSink)
             .store(in: &bindings)

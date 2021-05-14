@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -24,30 +24,30 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M6T-dO-Ybd">
-                    <rect key="frame" x="0.0" y="272" width="414" height="624"/>
+                    <rect key="frame" x="0.0" y="279" width="414" height="617"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="pav-RN-MGH">
-                            <rect key="frame" x="16" y="40" width="382" height="520"/>
+                            <rect key="frame" x="16" y="40" width="382" height="513"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="完登日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="203-Dp-ha7">
-                                    <rect key="frame" x="0.0" y="0.0" width="52" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="43" height="17"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="GAl-XS-cgV">
-                                    <rect key="frame" x="0.0" y="36.5" width="382" height="354"/>
+                                    <rect key="frame" x="0.0" y="33" width="382" height="354"/>
                                     <color key="tintColor" name="primaryGreenColor"/>
                                     <locale key="locale" localeIdentifier="ja"/>
                                 </datePicker>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="完登方法" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3Y-zJ-oxz">
-                                    <rect key="frame" x="0.0" y="406.5" width="69.5" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="403" width="57.5" height="17"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fXs-QX-Zu1">
-                                    <rect key="frame" x="0.0" y="443" width="149" height="32"/>
+                                    <rect key="frame" x="0.0" y="436" width="149" height="32"/>
                                     <segments>
                                         <segment title="Flash"/>
                                         <segment title="RedPoint"/>
@@ -55,7 +55,7 @@
                                     <color key="selectedSegmentTintColor" name="primaryGreenColor"/>
                                 </segmentedControl>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dAe-KA-LbA">
-                                    <rect key="frame" x="0.0" y="490" width="138" height="30"/>
+                                    <rect key="frame" x="0.0" y="483" width="138" height="30"/>
                                     <color key="backgroundColor" name="primaryPinkColor"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="　完登を記録する　"/>

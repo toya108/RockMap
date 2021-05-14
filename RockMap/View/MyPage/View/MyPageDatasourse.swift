@@ -18,11 +18,11 @@ extension MyPageViewController {
             guard let self = self else { return UICollectionViewCell() }
 
             switch item {
-                case let .headerImage(reference):
+                case let .headerImage(header):
                     return self.collectionView.dequeueConfiguredReusableCell(
                         using: self.configureHeaderImageCell(),
                         for: indexPath,
-                        item: reference
+                        item: header ?? .init()
                     )
 
                 case .user:
@@ -32,11 +32,11 @@ extension MyPageViewController {
                         item: Dummy()
                     )
 
-                case let .socialLink(socialLinkType):
+                case let .socialLink(socialLink):
                     return self.collectionView.dequeueConfiguredReusableCell(
                         using: self.configureSocialLinkCell(),
                         for: indexPath,
-                        item: socialLinkType
+                        item: socialLink
                     )
 
                 case .introduction:
@@ -104,7 +104,7 @@ extension MyPageViewController {
         StorageManager.Reference
     > {
         .init { cell, _, reference in
-            cell.imageView.image = UIImage.AssetsImages.penguinRock
+            cell.imageView.loadImage(reference: reference)
         }
     }
 
@@ -126,6 +126,22 @@ extension MyPageViewController {
                 return
             }
 
+            cell.editProfileButton.isHidden = !self.viewModel.userKind.isMine
+
+            cell.editProfileButton.addAction(
+                .init { [weak self] _ in
+
+                    guard let self = self else { return }
+
+                    let viewModel = EditProfileViewModel(user: user)
+                    let vc = EditProfileViewController.createInstance(viewModel: viewModel)
+                    let nc = RockMapNavigationController(rootVC: vc, naviBarClass: RockMapNoShadowNavigationBar.self)
+                    nc.isModalInPresentation = true
+                    self.present(nc, animated: true)
+                },
+                for: .touchUpInside
+            )
+
             cell.userView.configure(
                 prefix: "",
                 userName: user.name,
@@ -139,8 +155,21 @@ extension MyPageViewController {
         SocialLinkCollectionViewCell,
         FIDocument.User.SocialLinkType
     > {
-        .init { cell, _, socialLinkType in
-            cell.configure(for: socialLinkType)
+        .init { [weak self] cell, _, socialLinkType in
+
+            guard let self = self else { return }
+
+            var socialLink: FIDocument.User.SocialLink {
+                guard
+                    let user = self.viewModel.output.fetchUserState.content,
+                    let socialLink = user.socialLinks.getLink(type: socialLinkType)
+                else {
+                    return .init(linkType: socialLinkType, link: "")
+                }
+                return socialLink
+            }
+
+            cell.configure(for: socialLink)
         }
     }
 

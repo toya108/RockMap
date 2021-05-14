@@ -199,3 +199,17 @@ extension DocumentSnapshot {
         }
     }
 }
+
+extension Array where Element: DocumentReference {
+
+    func getDocuments<T: FIDocumentProtocol>(
+        _ type: T.Type
+    ) -> AnyPublisher<[T], Error> {
+        publisher
+            .flatMap { $0.getDocument(type) }
+            .compactMap { $0 }
+            .collect()
+            .eraseToAnyPublisher()
+    }
+
+}

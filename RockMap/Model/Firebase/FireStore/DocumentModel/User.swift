@@ -21,10 +21,15 @@ extension FIDocument {
         var name: String
         var email: String?
         var photoURL: URL?
-        var socialLinks: Set<SocialLinkType>? = []
+        var socialLinks: [SocialLink] = []
         var introduction: String?
         
         var isRoot: Bool { true }
+
+        struct SocialLink: Hashable, Codable {
+            let linkType: SocialLinkType
+            var link: String
+        }
 
         enum SocialLinkType: String, CaseIterable, Codable {
             case facebook
@@ -49,6 +54,52 @@ extension FIDocument {
                 }
             }
 
+            var color: UIColor {
+                switch self {
+                    case .facebook:
+                        return UIColor.Pallete.facebook
+
+                    case .twitter:
+                        return UIColor.Pallete.twitter
+
+                    case .instagram:
+                        return UIColor.Pallete.instagram
+
+                    case .other:
+                        return .black
+
+                }
+            }
+
+            var placeHolder: String {
+                switch self {
+                    case .facebook, .twitter, .instagram:
+                        return "@"
+
+                    case .other:
+                        return "ページURL"
+
+                }
+            }
+
         }
+    }
+}
+
+extension Array where Element == FIDocument.User.SocialLink {
+
+    func getLink(type: FIDocument.User.SocialLinkType) -> FIDocument.User.SocialLink? {
+        return self.first(where: { $0.linkType == type })
+    }
+
+    mutating func updateLink(type: FIDocument.User.SocialLinkType, link: String) {
+
+        guard
+            let index = self.firstIndex(where: { $0.linkType == type })
+        else {
+            return
+        }
+
+        self[index].link = link
     }
 }
