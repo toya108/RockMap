@@ -97,17 +97,8 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
             .catch { _ -> Just<[FIDocument.TotalClimbedNumber]> in
                 return .init([])
             }
-            .sink { [weak self] totalClimbedNumberDocuments in
-                guard
-                    let self = self,
-                    let totalClimbedNumber = totalClimbedNumberDocuments.first
-                else {
-                    return
-                }
-
-                self.output.totalClimbedNumber = totalClimbedNumber
-            }
-            .store(in: &bindings)
+            .compactMap { $0.first }
+            .assign(to: &output.$totalClimbedNumber)
     }
 }
 

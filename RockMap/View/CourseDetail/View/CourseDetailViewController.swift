@@ -104,7 +104,7 @@ extension CourseDetailViewController {
 
             case .finish:
                 snapShot.reloadSections([.headerImage])
-                datasource.apply(snapShot)
+                datasource.apply(snapShot, animatingDifferences: false)
         }
     }
 
@@ -121,7 +121,7 @@ extension CourseDetailViewController {
                 } else {
                     snapShot.appendItems(references.map { ItemKind.image($0) }, toSection: .images)
                 }
-                datasource.apply(snapShot)
+                datasource.apply(snapShot, animatingDifferences: false)
         }
     }
 
@@ -132,7 +132,7 @@ extension CourseDetailViewController {
 
             case .finish:
                 snapShot.reloadSections([.registeredUser])
-                datasource.apply(snapShot)
+                datasource.apply(snapShot, animatingDifferences: false)
         }
     }
 
