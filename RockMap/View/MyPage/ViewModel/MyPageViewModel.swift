@@ -57,11 +57,12 @@ class MyPageViewModel: MyPageViewModelProtocol {
             .assign(to: &output.$climbedList)
 
         userIDShare
-            .map {
-                StorageManager.makeReference(parent: FINameSpace.Users.self, child: $0)
-            }
             .flatMap {
-                StorageManager.getHeaderReference($0).catch { _ in Empty() }
+                StorageManager.getHeaderReference(
+                    destinationDocument: FINameSpace.Users.self,
+                    documentId: $0
+                )
+                .catch { _ in Empty() }
             }
             .assign(to: &output.$headerImageReference)
 

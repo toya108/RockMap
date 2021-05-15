@@ -84,13 +84,11 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
     }
 
     private func fetchHeaderStorage() {
-        let userStorageReference = StorageManager.makeReference(
-            parent: FINameSpace.Users.self,
-            child: user.id
-        )
-
         StorageManager
-            .getHeaderReference(userStorageReference)
+            .getHeaderReference(
+                destinationDocument: FINameSpace.Users.self,
+                documentId: user.id
+            )
             .catch { _ -> Just<StorageManager.Reference?> in
                 return .init(nil)
             }

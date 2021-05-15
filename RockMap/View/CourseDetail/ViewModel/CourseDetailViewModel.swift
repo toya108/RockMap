@@ -45,15 +45,16 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
     }
     
     private func setupOutput() {
-
         fetchHeaderImageSubject
             .handleEvents(receiveRequest: { [weak self] _ in
                 self?.output.fetchCourseHeaderState = .loading
             })
-            .map {
-                StorageManager.makeReference(parent: FINameSpace.Course.self, child: $0)
+            .flatMap {
+                StorageManager.getHeaderReference(
+                    destinationDocument: FINameSpace.Course.self,
+                    documentId: $0
+                )
             }
-            .flatMap { StorageManager.getHeaderReference($0) }
             .sinkState { [weak self] state in
                 self?.output.fetchCourseHeaderState = state
             }
@@ -63,12 +64,14 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
             .handleEvents(receiveOutput: { [weak self] _ in
                 self?.output.fetchCourseImageState = .loading
             })
-            .map {
-                StorageManager.makeReference(parent: FINameSpace.Course.self, child: $0)
-            }
-            .flatMap { StorageManager.getNormalImagePrefixes($0) }
-            .catch { _ -> Just<[StorageManager.Reference]> in
-                return .init([])
+            .flatMap {
+                StorageManager.getNormalImagePrefixes(
+                    destinationDocument: FINameSpace.Course.self,
+                    documentId: $0
+                )
+                .catch { _ -> Just<[StorageManager.Reference]> in
+                    return .init([])
+                }
             }
             .flatMap { $0.getReferences() }
             .sinkState { [weak self] state in

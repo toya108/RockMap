@@ -13,15 +13,6 @@ struct StorageManager {
     typealias Reference = StorageReference
     
     static let reference = Storage.storage().reference()
-    
-    static func makeReference(
-        parent: FINameSpaceProtocol.Type,
-        child: String
-    ) -> StorageReference {
-        Self.reference
-            .child(parent.name)
-            .child(child)
-    }
 
     static func makeImageReferenceForUpload(
         destinationDocument: FINameSpaceProtocol.Type,
@@ -45,24 +36,39 @@ struct StorageManager {
     }
     
     static func getHeaderReference(
-        _ reference: StorageReference
+        destinationDocument: FINameSpaceProtocol.Type,
+        documentId: String
     ) -> AnyPublisher<StorageReference?, Error> {
-
-        let headerReference = reference.child(ImageType.header.typeName)
-
-        return headerReference.getReference()
+        return makeReference(
+            parent: destinationDocument,
+            child: documentId
+        )
+        .child(ImageType.header.typeName)
+        .getReference()
     }
 
     static func getNormalReference(
-        _ reference: StorageReference
+        destinationDocument: FINameSpaceProtocol.Type,
+        documentId: String
     ) -> AnyPublisher<[StorageReference], Error> {
-        return reference.child(ImageType.normal.typeName).getReferences()
+        return makeReference(
+            parent: destinationDocument,
+            child: documentId
+        )
+        .child(ImageType.normal.typeName)
+        .getReferences()
     }
 
     static func getNormalImagePrefixes(
-        _ reference: StorageReference
+        destinationDocument: FINameSpaceProtocol.Type,
+        documentId: String
     ) -> AnyPublisher<[StorageReference], Error> {
-        return reference.child(ImageType.normal.typeName).getPrefixes()
+        return makeReference(
+            parent: destinationDocument,
+            child: documentId
+        )
+        .child(ImageType.normal.typeName)
+        .getPrefixes()
     }
 
     static func deleteReference<T: FIDocumentProtocol>(
@@ -73,6 +79,15 @@ struct StorageManager {
             .child(documentType.colletionName)
             .child(id)
             .delete(completion: { _ in })
+    }
+
+    static private func makeReference(
+        parent: FINameSpaceProtocol.Type,
+        child: String
+    ) -> StorageReference {
+        Self.reference
+            .child(parent.name)
+            .child(child)
     }
 }
 

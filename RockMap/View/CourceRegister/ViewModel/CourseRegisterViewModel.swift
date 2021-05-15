@@ -105,27 +105,23 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
     }
 
     private func fetchCourseStorage(courseId: String) {
-        let courseStorageReference = StorageManager.makeReference(
-            parent: FINameSpace.Course.self,
-            child: courseId
-        )
         StorageManager
-            .getHeaderReference(courseStorageReference)
-            .catch { _ -> Just<StorageManager.Reference?> in
-                return .init(nil)
-            }
+            .getHeaderReference(
+                destinationDocument: FINameSpace.Course.self,
+                documentId: courseId
+            )
+            .catch { _ in Empty() }
             .compactMap { $0 }
             .map { ImageDataKind.storage(.init(storageReference: $0)) }
             .assign(to: &output.$header)
 
-        StorageManager.getNormalImagePrefixes(courseStorageReference)
-            .catch { _ -> Just<[StorageManager.Reference]> in
-                return .init([])
-            }
-            .flatMap { $0.getReferences() }
-            .catch { _ -> Just<[StorageManager.Reference]> in
-                return .init([])
-            }
+        StorageManager
+            .getNormalImagePrefixes(
+                destinationDocument: FINameSpace.Course.self,
+                documentId: courseId
+            )
+            .catch { _ in Empty() }
+            .flatMap { $0.getReferences().catch { _ in Empty() } }
             .map {
                 $0.map { ImageDataKind.storage(.init(storageReference: $0)) }
             }

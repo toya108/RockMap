@@ -27,15 +27,13 @@ class CourseListCollectionViewCell: UICollectionViewCell {
         gradeLabel.text = "グレード：" + course.grade.name
         rockNameLabel.text = "岩名：" + course.parentRockName
 
-        let courseReference = StorageManager.makeReference(
-            parent: FINameSpace.Course.self,
-            child: course.id
-        )
+
         StorageManager
-            .getHeaderReference(courseReference)
-            .catch { _ -> Just<StorageManager.Reference?> in
-                return .init(nil)
-            }
+            .getHeaderReference(
+                destinationDocument: FINameSpace.Course.self,
+                documentId: course.id
+            )
+            .catch { _ in Empty() }
             .sink { [weak self] reference in
 
                 guard let self = self else { return }

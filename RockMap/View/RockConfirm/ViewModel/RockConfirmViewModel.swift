@@ -125,14 +125,16 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
     private func fetchImageUrl() {
         let fetchHeaderPublisher = StorageManager
             .getHeaderReference(
-                StorageManager.makeReference(parent: FINameSpace.Rocks.self, child: rockDocument.id)
+                destinationDocument: FINameSpace.Rocks.self,
+                documentId: rockDocument.id
             )
             .compactMap { $0 }
             .flatMap { $0.getDownloadURL() }
 
         let fetchImagesPublisher = StorageManager
             .getNormalImagePrefixes(
-                StorageManager.makeReference(parent: FINameSpace.Rocks.self, child: rockDocument.id)
+                destinationDocument: FINameSpace.Rocks.self,
+                documentId: rockDocument.id
             )
             .flatMap { $0.getReferences() }
             .flatMap { $0.getDownloadUrls() }

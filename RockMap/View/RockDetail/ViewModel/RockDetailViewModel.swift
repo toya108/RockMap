@@ -56,24 +56,28 @@ final class RockDetailViewModel: ViewModelProtocol {
     
     private func setupBindings() {
         $rockId
-            .drop(while: { $0.isEmpty })
-            .map {
-                StorageManager.makeReference(parent: FINameSpace.Rocks.self, child: $0)
+            .drop(while: \.isEmpty)
+            .flatMap {
+                StorageManager.getHeaderReference(
+                    destinationDocument: FINameSpace.Rocks.self,
+                    documentId: $0
+                )
             }
-            .flatMap { StorageManager.getHeaderReference($0) }
             .catch { _ -> Just<StorageManager.Reference?> in
                 return .init(nil)
             }
             .assign(to: &$headerImageReference)
 
         $rockId
-            .drop(while: { $0.isEmpty })
-            .map {
-                StorageManager.makeReference(parent: FINameSpace.Rocks.self, child: $0)
-            }
-            .flatMap { StorageManager.getNormalImagePrefixes($0) }
-            .catch { _ -> Just<[StorageManager.Reference]> in
-                return .init([])
+            .drop(while: \.isEmpty)
+            .flatMap {
+                StorageManager.getNormalImagePrefixes(
+                    destinationDocument: FINameSpace.Rocks.self,
+                    documentId: $0
+                )
+                .catch { _ -> Just<[StorageManager.Reference]> in
+                    return .init([])
+                }
             }
             .sink { prefixes in
                 prefixes

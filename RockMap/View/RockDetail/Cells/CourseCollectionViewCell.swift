@@ -50,12 +50,11 @@ class CourseCollectionViewCell: UICollectionViewCell {
             }
             .store(in: &bindings)
         
-        let reference = StorageManager.makeReference(
-            parent: FINameSpace.Course.self,
-            child: course.id
-        )
         StorageManager
-            .getHeaderReference(reference)
+            .getHeaderReference(
+                destinationDocument: FINameSpace.Course.self,
+                documentId: course.id
+            )
             .catch { _ -> Just<StorageManager.Reference?> in
                 return .init(nil)
             }

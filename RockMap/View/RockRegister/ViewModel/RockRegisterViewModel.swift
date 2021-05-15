@@ -166,26 +166,24 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
     }
 
     private func fetchRockStorage(rockId: String) {
-        let courseStorageReference = StorageManager.makeReference(
-            parent: FINameSpace.Rocks.self,
-            child: rockId
-        )
         StorageManager
-            .getHeaderReference(courseStorageReference)
-            .catch { _ -> Just<StorageManager.Reference?> in
-                return .init(nil)
-            }
+            .getHeaderReference(
+                destinationDocument: FINameSpace.Rocks.self,
+                documentId: rockId
+            )
+            .catch { _ in return Empty() }
             .compactMap { $0 }
             .map { ImageDataKind.storage(.init(storageReference: $0)) }
             .assign(to: &output.$header)
 
-        StorageManager.getNormalImagePrefixes(courseStorageReference)
-            .catch { _ -> Just<[StorageManager.Reference]> in
-                return .init([])
-            }
-            .flatMap { $0.getReferences() }
-            .catch { _ -> Just<[StorageManager.Reference]> in
-                return .init([])
+        StorageManager
+            .getNormalImagePrefixes(
+                destinationDocument: FINameSpace.Rocks.self,
+                documentId: rockId
+            )
+            .catch { _ in return Empty() }
+            .flatMap {
+                $0.getReferences().catch { _ in return Empty() }
             }
             .map {
                 $0.map { ImageDataKind.storage(.init(storageReference: $0)) }
