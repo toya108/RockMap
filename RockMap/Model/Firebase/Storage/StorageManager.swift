@@ -13,12 +13,6 @@ struct StorageManager {
     typealias Reference = StorageReference
     
     static let reference = Storage.storage().reference()
-
-    static func makeReference(
-        path: String
-    ) -> StorageReference {
-        Self.reference.child(path)
-    }
     
     static func makeReference(
         parent: FINameSpaceProtocol.Type,
@@ -50,12 +44,6 @@ struct StorageManager {
             .child(ImageType.normal.typeName)
             .child(AuthManager.shared.uid)
             .child(UUID().uuidString)
-    }
-
-    static func getReference(
-        _ reference: StorageReference
-    ) -> AnyPublisher<[StorageReference], Error> {
-        return reference.getReferences()
     }
     
     static func getHeaderReference(
