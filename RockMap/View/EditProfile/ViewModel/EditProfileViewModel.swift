@@ -141,15 +141,19 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
     }
 
     func uploadImage() {
+        let headerReference = StorageManager.makeImageReferenceForUpload(
+            destinationDocument: FINameSpace.Course.self,
+            documentId: user.id,
+            imageType: .header
+        )
+
         switch output.header {
             case .data(let data):
                 uploader.addData(
                     data: data.data,
-                    reference: StorageManager.makeHeaderImageReference(
-                        parent: FINameSpace.Users.self,
-                        child: user.id
-                    )
+                    reference: headerReference
                 )
+
             case .storage(let storage):
                 guard
                     storage.shouldUpdate
@@ -181,10 +185,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
 
                 uploader.addData(
                     data: updateData,
-                    reference: StorageManager.makeHeaderImageReference(
-                        parent: FINameSpace.Users.self,
-                        child: user.id
-                    )
+                    reference: headerReference
                 )
             case .none:
                 output.imageUploadState = .complete([])

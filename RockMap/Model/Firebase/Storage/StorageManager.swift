@@ -23,27 +23,25 @@ struct StorageManager {
             .child(child)
     }
 
-    static func makeHeaderImageReference(
-        parent: FINameSpaceProtocol.Type,
-        child: String
+    static func makeImageReferenceForUpload(
+        destinationDocument: FINameSpaceProtocol.Type,
+        documentId: String,
+        imageType: ImageType
     ) -> StorageReference {
-        Self.reference
-            .child(parent.name)
-            .child(child)
-            .child(ImageType.header.typeName)
-            .child(UUID().uuidString)
-    }
+        let reference = Self.reference
+            .child(destinationDocument.name)
+            .child(documentId)
+            .child(imageType.typeName)
 
-    static func makeNormalImageReference(
-        parent: FINameSpaceProtocol.Type,
-        child: String
-    ) -> StorageReference {
-        Self.reference
-            .child(parent.name)
-            .child(child)
-            .child(ImageType.normal.typeName)
-            .child(AuthManager.shared.uid)
-            .child(UUID().uuidString)
+        switch imageType {
+            case .header:
+                return reference.child(UUID().uuidString)
+
+            case .normal:
+                return reference
+                    .child(AuthManager.shared.uid)
+                    .child(UUID().uuidString)
+        }
     }
     
     static func getHeaderReference(
