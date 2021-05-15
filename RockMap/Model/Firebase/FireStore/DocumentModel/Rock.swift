@@ -25,6 +25,8 @@ extension FIDocument {
         var lithology: Lithology
         var desc: String
         var registedUserId: String
+        var headerUrl: URL?
+        var imageUrls: [URL] = []
 
         enum Season: String, CaseIterable, Codable {
             case spring, summer, autumn, winter

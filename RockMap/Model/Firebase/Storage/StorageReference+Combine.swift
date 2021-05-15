@@ -132,4 +132,13 @@ extension Array where Element: StorageReference {
             .eraseToAnyPublisher()
     }
 
+    func getDownloadUrls() -> AnyPublisher<[URL], Error> {
+        publisher
+            .flatMap { $0.getDownloadURL() }
+            .compactMap { $0 }
+            .collect()
+            .eraseToAnyPublisher()
+    }
+    
 }
+
