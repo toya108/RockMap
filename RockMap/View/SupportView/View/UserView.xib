@@ -27,6 +27,7 @@
                         <constraint firstAttribute="height" constant="40" id="2z0-IS-ZI0"/>
                         <constraint firstAttribute="width" secondItem="hCE-gj-KCR" secondAttribute="height" multiplier="1:1" id="gGc-c2-yyS"/>
                     </constraints>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="2tp-dw-B4e">
                     <rect key="frame" x="56" y="0.0" width="358" height="40"/>
