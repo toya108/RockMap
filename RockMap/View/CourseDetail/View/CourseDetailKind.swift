@@ -85,7 +85,7 @@ extension CourseDetailViewController {
         case climbedNumber
         case shape(ValueCollectionViewCell.ValueCellStructure)
         case desc
-        case image(StorageManager.Reference)
+        case image(URL)
         case noImage
     }
     
