@@ -68,7 +68,7 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
 
     private func prepareHeaderUploading() {
         let headerReference = StorageManager.makeImageReferenceForUpload(
-            destinationDocument: FINameSpace.Course.self,
+            destinationDocument: FINameSpace.Rocks.self,
             documentId: rockDocument.id,
             imageType: .header
         )
@@ -103,7 +103,7 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
                     uploader.addData(
                         data: data.data,
                         reference: StorageManager.makeImageReferenceForUpload(
-                            destinationDocument: FINameSpace.Course.self,
+                            destinationDocument: FINameSpace.Rocks.self,
                             documentId: rockDocument.id,
                             imageType: .normal
                         )
