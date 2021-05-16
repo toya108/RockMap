@@ -26,20 +26,6 @@ class CourseListCollectionViewCell: UICollectionViewCell {
         titleLabel.text = course.name
         gradeLabel.text = "グレード：" + course.grade.name
         rockNameLabel.text = "岩名：" + course.parentRockName
-
-
-        StorageManager
-            .getHeaderReference(
-                destinationDocument: FINameSpace.Course.self,
-                documentId: course.id
-            )
-            .catch { _ in Empty() }
-            .sink { [weak self] reference in
-
-                guard let self = self else { return }
-
-                self.mainImageView.loadImage(reference: reference)
-            }
-            .store(in: &bindings)
+        mainImageView.loadImage(url: course.headerUrl)
     }
 }
