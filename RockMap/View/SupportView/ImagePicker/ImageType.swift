@@ -5,6 +5,8 @@
 //  Created by TOUYA KAWANO on 2021/03/29.
 //
 
+import Foundation
+
 enum ImageType {
     case header
     case normal
@@ -87,4 +89,9 @@ enum ImageDataKind: Hashable {
                 }
         }
     }
+}
+
+struct ImageURL {
+    let imageType: ImageType
+    let urls: [URL]
 }

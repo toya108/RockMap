@@ -25,6 +25,8 @@ extension FIDocument {
         var parentRockId: String
         var climbedUserReferences: [DocumentRef] = []
         var registedUserId: String
+        var headerUrl: URL?
+        var imageUrls: [URL] = []
         
         enum Grade: String, CaseIterable, Codable {
             case d5, d4, d3, d2, d1, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10

@@ -105,7 +105,7 @@ extension RockConfirmViewController {
         }
     }
 
-    private func imageUrlStateSink(_ state: LoadingState<[RockConfirmViewModel.ImageURL]>) {
+    private func imageUrlStateSink(_ state: LoadingState<[ImageURL]>) {
         switch state {
             case .stanby:
                 hideIndicatorView()

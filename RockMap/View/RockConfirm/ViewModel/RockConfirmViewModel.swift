@@ -56,7 +56,7 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
             .store(in: &bindings)
 
         input.registerRockSubject
-            .sink(receiveValue: registerCourse)
+            .sink(receiveValue: registerRock)
             .store(in: &bindings)
     }
 
@@ -168,7 +168,7 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
             .store(in: &bindings)
     }
 
-    private func registerCourse() {
+    private func registerRock() {
         output.rockUploadState = .loading
 
         if let imageUrls = output.imageUrlDownloadState.content {
@@ -178,14 +178,14 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
 
         switch registerType {
             case .create:
-                createCourse()
+                createRock()
 
             case .edit:
-                editCourse()
+                editRock()
         }
     }
 
-    private func createCourse() {
+    private func createRock() {
         let badge = FirestoreManager.db.batch()
 
         let courseDocumentReference = rockDocument.makeDocumentReference()
@@ -216,7 +216,7 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
             .store(in: &bindings)
     }
 
-    private func editCourse() {
+    private func editRock() {
         rockDocument.makeDocumentReference()
             .updateData(rockDocument.dictionary)
             .sink(
@@ -237,16 +237,6 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
             .store(in: &bindings)
     }
 }
-
-extension RockConfirmViewModel {
-
-    struct ImageURL {
-        let imageType: ImageType
-        let urls: [URL]
-    }
-
-}
-
 
 extension RockConfirmViewModel {
 

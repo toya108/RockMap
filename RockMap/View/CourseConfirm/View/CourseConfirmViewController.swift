@@ -45,6 +45,11 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: imageUploadStateSink)
             .store(in: &bindings)
+
+        viewModel.output.$imageUrlDownloadState
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: imageUrlStateSink)
+            .store(in: &bindings)
         
         viewModel.output.$courseUploadState
             .receive(on: DispatchQueue.main)
@@ -87,13 +92,34 @@ extension CourseConfirmViewController {
 
             case .complete:
                 hideIndicatorView()
-                viewModel.input.registerCourseSubject.send()
+                viewModel.input.downloadImageUrlSubject.send()
 
             case .failure(let error):
                 hideIndicatorView()
                 showOKAlert(
                     title: "画像の登録に失敗しました",
                     message: error.localizedDescription
+                )
+        }
+    }
+
+    private func imageUrlStateSink(_ state: LoadingState<[ImageURL]>) {
+        switch state {
+            case .stanby:
+                hideIndicatorView()
+
+            case .loading:
+                showIndicatorView()
+
+            case .finish:
+                hideIndicatorView()
+                viewModel.input.registerCourseSubject.send()
+
+            case .failure(let error):
+                hideIndicatorView()
+                showOKAlert(
+                    title: "画像の登録に失敗しました",
+                    message: error?.localizedDescription ?? ""
                 )
         }
     }
