@@ -138,9 +138,10 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
         .allSatisfy { $0 }
     }
 
+    // この一連の流れUser、Rock、Courseで共通なので共通化したい。
     func uploadImage() {
         let headerReference = StorageManager.makeImageReferenceForUpload(
-            destinationDocument: FINameSpace.Course.self,
+            destinationDocument: FINameSpace.Users.self,
             documentId: user.id,
             imageType: .header
         )
@@ -193,21 +194,49 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
         uploader.start()
     }
 
+    func fetchImageUrl() {
+        StorageManager
+            .getHeaderReference(
+                destinationDocument: FINameSpace.Users.self,
+                documentId: user.id
+            )
+            .compactMap { $0 }
+            .flatMap { $0.getDownloadURL() }
+            .sink(
+                receiveCompletion: { [weak self] result in
+
+                    guard let self = self else { return }
+
+                    if case let .failure(error) = result {
+                        self.output.imageUrlDownloadState = .failure(error)
+                    }
+                },
+                receiveValue: { [weak self] url in
+
+                    guard let self = self else { return }
+
+                    self.output.imageUrlDownloadState = .finish(content: url)
+                }
+            )
+            .store(in: &bindings)
+    }
+
     func editProfile() {
 
-        output.loadingState = .loading
+        output.userUploadState = .loading
 
         var updateUserDocument: FIDocument.User {
             var updateUser = user
             updateUser.name = output.name
             updateUser.introduction = output.introduction
             updateUser.socialLinks = output.socialLinks
+            updateUser.headerUrl = output.imageUrlDownloadState.content as? URL
             return updateUser
         }
         updateUserDocument.makeDocumentReference()
             .setData(from: updateUserDocument)
             .sinkState { [weak self] state in
-                self?.output.loadingState = state
+                self?.output.userUploadState = state
             }
             .store(in: &bindings)
     }
@@ -231,7 +260,9 @@ extension EditProfileViewModel {
             FIDocument.User.SocialLink(linkType: $0, link: "")
         }
         @Published var nameValidationResult: ValidationResult = .none
+
         @Published var imageUploadState: StorageUploader.UploadState = .stanby
-        @Published var loadingState: LoadingState<Void> = .stanby
+        @Published var imageUrlDownloadState: LoadingState<URL?> = .stanby
+        @Published var userUploadState: LoadingState<Void> = .stanby
     }
 }

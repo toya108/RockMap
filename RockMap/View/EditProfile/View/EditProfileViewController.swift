@@ -108,7 +108,12 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
             .sink(receiveValue: imageUploadStateSink)
             .store(in: &bindings)
 
-        viewModel.output.$loadingState
+        viewModel.output.$imageUrlDownloadState
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: imageUrlStateSink)
+            .store(in: &bindings)
+
+        viewModel.output.$userUploadState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: uploadLoadingStateSink)
             .store(in: &bindings)
@@ -205,6 +210,7 @@ extension EditProfileViewController {
         datasource.apply(snapShot)
     }
 
+
     private func imageUploadStateSink(_ state: StorageUploader.UploadState) {
         switch state {
             case .stanby:
@@ -215,7 +221,7 @@ extension EditProfileViewController {
 
             case .complete:
                 hideIndicatorView()
-                viewModel.editProfile()
+                viewModel.fetchImageUrl()
 
             case .failure(let error):
                 hideIndicatorView()
@@ -223,6 +229,20 @@ extension EditProfileViewController {
                     title: "画像の登録に失敗しました",
                     message: error.localizedDescription
                 )
+        }
+    }
+
+    private func imageUrlStateSink(_ state: LoadingState<URL?>) {
+        switch state {
+            case .stanby:
+                hideIndicatorView()
+
+            case .loading:
+                showIndicatorView()
+
+            case .finish, .failure:
+                hideIndicatorView()
+                viewModel.editProfile()
         }
     }
 

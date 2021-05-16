@@ -18,11 +18,11 @@ extension MyPageViewController {
             guard let self = self else { return UICollectionViewCell() }
 
             switch item {
-                case let .headerImage(header):
+                case .headerImage:
                     return self.collectionView.dequeueConfiguredReusableCell(
                         using: self.configureHeaderImageCell(),
                         for: indexPath,
-                        item: header ?? .init()
+                        item: Dummy()
                     )
 
                 case .user:
@@ -101,10 +101,13 @@ extension MyPageViewController {
 
     private func configureHeaderImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
-        StorageManager.Reference
+        Dummy
     > {
-        .init { cell, _, reference in
-            cell.imageView.loadImage(reference: reference)
+        .init { [weak self] cell, _, _ in
+
+            guard let self = self else { return }
+
+            cell.imageView.loadImage(url: self.viewModel.output.fetchUserState.content?.headerUrl)
         }
     }
 

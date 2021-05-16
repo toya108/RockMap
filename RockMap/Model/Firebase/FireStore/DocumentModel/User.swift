@@ -23,6 +23,7 @@ extension FIDocument {
         var photoURL: URL?
         var socialLinks: [SocialLink] = []
         var introduction: String?
+        var headerUrl: URL?
         
         var isRoot: Bool { true }
 

@@ -75,13 +75,6 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
             .store(in: &bindings)
 
         viewModel.output
-            .$headerImageReference
-            .removeDuplicates()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: headerImageReferenceSink)
-            .store(in: &bindings)
-
-        viewModel.output
             .$climbedList
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: climbedListSink)
@@ -109,12 +102,6 @@ extension MyPageViewController {
 
     private func userSink(_ user: LoadingState<FIDocument.User>) {
         snapShot.reloadSections([.user, .socialLink])
-        datasource.apply(snapShot, animatingDifferences: false)
-    }
-
-    private func headerImageReferenceSink(_ header: StorageManager.Reference?) {
-        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .headerImage))
-        snapShot.appendItems([.headerImage(header)], toSection: .headerImage)
         datasource.apply(snapShot, animatingDifferences: false)
     }
 

@@ -47,18 +47,6 @@ struct StorageManager {
         .getReference()
     }
 
-    static func getNormalReference(
-        destinationDocument: FINameSpaceProtocol.Type,
-        documentId: String
-    ) -> AnyPublisher<[StorageReference], Error> {
-        return makeReference(
-            parent: destinationDocument,
-            child: documentId
-        )
-        .child(ImageType.normal.typeName)
-        .getReferences()
-    }
-
     static func getNormalImagePrefixes(
         destinationDocument: FINameSpaceProtocol.Type,
         documentId: String
