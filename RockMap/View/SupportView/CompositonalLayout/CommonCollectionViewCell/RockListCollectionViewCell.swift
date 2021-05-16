@@ -27,20 +27,7 @@ class RockListCollectionViewCell: UICollectionViewCell {
         titleLabel.text = rock.name
         addressLabel.text = rock.address
         descLabel.text = rock.desc
-
-        StorageManager
-            .getHeaderReference(
-                destinationDocument: FINameSpace.Rocks.self,
-                documentId: rock.id
-            )
-            .catch { _ in Empty() }
-            .sink { [weak self] reference in
-
-                guard let self = self else { return }
-
-                self.mainImageView.loadImage(reference: reference)
-            }
-            .store(in: &bindings)
+        mainImageView.loadImage(url: rock.headerUrl)
     }
 
 }
