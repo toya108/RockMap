@@ -18,11 +18,11 @@ extension RockDetailViewController {
                 guard let self = self else { return UICollectionViewCell() }
                 
                 switch item {
-                case let .header(referece):
+                case let .header(url):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureImageCell(),
                         for: indexPath,
-                        item: referece
+                        item: url
                     )
 
                 case let .title(title):
@@ -100,11 +100,11 @@ extension RockDetailViewController {
                         )
                     )
 
-                case let .image(reference):
+                case let .image(urls):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureImageCell(radius: 8.0),
                         for: indexPath,
-                        item: reference
+                        item: urls
                     )
 
                 case .noImage:
@@ -152,10 +152,10 @@ extension RockDetailViewController {
         radius: CGFloat = 0.0
     ) -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
-        StorageManager.Reference
+        URL
     > {
-        .init { cell, _, reference in
-            cell.imageView.loadImage(reference: reference)
+        .init { cell, _, url in
+            cell.imageView.loadImage(url: url)
             cell.clipsToBounds = true
             cell.layer.cornerRadius = radius
         }

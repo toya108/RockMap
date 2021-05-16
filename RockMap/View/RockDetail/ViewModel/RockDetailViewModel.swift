@@ -17,8 +17,8 @@ final class RockDetailViewModel: ViewModelProtocol {
     @Published var seasons: Set<FIDocument.Rock.Season> = []
     @Published var lithology: FIDocument.Rock.Lithology = .unKnown
     @Published var rockLocation = LocationManager.LocationStructure()
-    @Published var headerImageReference: StorageManager.Reference?
-    @Published var imageReferences: [StorageManager.Reference] = []
+    @Published var headerImageUrl: URL?
+    @Published var imageUrls: [URL] = []
     @Published var courses: [FIDocument.Course] = []
 
     private var bindings = Set<AnyCancellable>()
@@ -26,11 +26,11 @@ final class RockDetailViewModel: ViewModelProtocol {
     init(rock: FIDocument.Rock) {
         self.rockDocument = rock
 
-        setupBindings()
-        
         self.rockName = rock.name
         self.rockId = rock.id
         self.rockDesc = rock.desc
+        self.headerImageUrl = rock.headerUrl
+        self.imageUrls = rock.imageUrls
 
         FirestoreManager.db
             .collection(FIDocument.User.colletionName)
@@ -52,50 +52,6 @@ final class RockDetailViewModel: ViewModelProtocol {
         self.seasons = rock.seasons
         self.lithology = rock.lithology
         self.fetchCourses()
-    }
-    
-    private func setupBindings() {
-        $rockId
-            .drop(while: \.isEmpty)
-            .flatMap {
-                StorageManager.getHeaderReference(
-                    destinationDocument: FINameSpace.Rocks.self,
-                    documentId: $0
-                )
-            }
-            .catch { _ -> Just<StorageManager.Reference?> in
-                return .init(nil)
-            }
-            .assign(to: &$headerImageReference)
-
-        $rockId
-            .drop(while: \.isEmpty)
-            .flatMap {
-                StorageManager.getNormalImagePrefixes(
-                    destinationDocument: FINameSpace.Rocks.self,
-                    documentId: $0
-                )
-                .catch { _ -> Just<[StorageManager.Reference]> in
-                    return .init([])
-                }
-            }
-            .sink { prefixes in
-                prefixes
-                    .map { $0.getReferences() }
-                    .forEach {
-                        $0.catch { _ -> Just<[StorageManager.Reference]> in
-                            return .init([])
-                        }
-                        .sink { [weak self] references in
-
-                            guard let self = self else { return }
-
-                            self.imageReferences.append(contentsOf: references)
-                        }
-                        .store(in: &self.bindings)
-                    }
-            }
-            .store(in: &bindings)
     }
     
     func fetchCourses() {

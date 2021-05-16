@@ -227,15 +227,15 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
     func makeCourseDocument() -> FIDocument.Course {
         switch registerType {
-            case let .create(rockHeader):
+            case let .create(rock):
                 return .init(
                     parentPath: AuthManager.shared.authUserReference?.path ?? "",
                     name: output.courseName,
                     desc: output.courseDesc,
                     grade: output.grade,
                     shape: output.shapes,
-                    parentRockName: rockHeader.rock.name,
-                    parentRockId: rockHeader.rock.id,
+                    parentRockName: rock.name,
+                    parentRockId: rock.id,
                     registedUserId: AuthManager.shared.uid
                 )
                 
@@ -251,13 +251,8 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
 extension CourseRegisterViewModel {
 
-    struct RockHeaderStructure: Hashable {
-        let rock: FIDocument.Rock
-        let rockImageReference: StorageManager.Reference
-    }
-
     enum RegisterType {
-        case create(RockHeaderStructure)
+        case create(FIDocument.Rock)
         case edit(FIDocument.Course)
 
         var name: String {

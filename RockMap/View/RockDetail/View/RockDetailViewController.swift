@@ -90,7 +90,7 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
             }
             .store(in: &bindings)
         
-        viewModel.$headerImageReference
+        viewModel.$headerImageUrl
             .compactMap { $0 }
             .receive(on: RunLoop.main)
             .sink { [weak self] reference in
@@ -102,7 +102,7 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
             }
             .store(in: &bindings)
 
-        viewModel.$imageReferences
+        viewModel.$imageUrls
             .receive(on: RunLoop.main)
             .sink { [weak self] references in
 

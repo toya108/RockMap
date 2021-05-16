@@ -122,17 +122,16 @@ extension CourseRegisterViewController {
                 nibName: RockHeaderCollectionViewCell.className,
                 bundle: nil
             )
-        ) { [weak self] cell, _, rockHeaderStructure in
-
-            guard let self = self else { return }
+        ) { [weak self] cell, _, _ in
 
             guard
-                case let .create(rockHeader) = self.viewModel.registerType
+                let self = self,
+                case let .create(rock) = self.viewModel.registerType
             else {
                 return
             }
 
-            cell.configure(rockHeaderStructure: rockHeader)
+            cell.configure(rockName: rock.name, headerUrl: rock.headerUrl)
         }
     }
     
