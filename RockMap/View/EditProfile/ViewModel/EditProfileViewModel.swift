@@ -30,7 +30,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
 
         input.nameSubject.send(user.name)
         input.introductionSubject.send(user.introduction)
-        fetchHeaderStorage()
+        fetchImageStorage()
         user.socialLinks.forEach {
             input.socialLinkSubject.send($0)
         }
@@ -83,11 +83,12 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             .assign(to: &output.$nameValidationResult)
     }
 
-    private func fetchHeaderStorage() {
+    private func fetchImageStorage() {
         StorageManager
-            .getHeaderReference(
+            .getReference(
                 destinationDocument: FINameSpace.Users.self,
-                documentId: user.id
+                documentId: user.id,
+                imageType: .header
             )
             .catch { _ -> Just<StorageManager.Reference?> in
                 return .init(nil)
@@ -100,6 +101,24 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                 }
             }
             .assign(to: &output.$header)
+
+        StorageManager
+            .getReference(
+                destinationDocument: FINameSpace.Users.self,
+                documentId: user.id,
+                imageType: .icon
+            )
+            .catch { _ -> Just<StorageManager.Reference?> in
+                return .init(nil)
+            }
+            .map {
+                if let icon = $0 {
+                    return ImageDataKind.storage(.init(storageReference: icon))
+                } else {
+                    return nil
+                }
+            }
+            .assign(to: &output.$icon)
     }
 
     private func setHeaderImage(kind: ImageDataKind) {
@@ -196,9 +215,10 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
 
     func fetchImageUrl() {
         StorageManager
-            .getHeaderReference(
+            .getReference(
                 destinationDocument: FINameSpace.Users.self,
-                documentId: user.id
+                documentId: user.id,
+                imageType: .header
             )
             .compactMap { $0 }
             .flatMap { $0.getDownloadURL() }

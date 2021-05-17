@@ -106,9 +106,10 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
     private func fetchCourseStorage(courseId: String) {
         StorageManager
-            .getHeaderReference(
+            .getReference(
                 destinationDocument: FINameSpace.Course.self,
-                documentId: courseId
+                documentId: courseId,
+                imageType: .header
             )
             .catch { _ in Empty() }
             .compactMap { $0 }
@@ -135,6 +136,9 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
             case .normal:
                 setNormalImage(kind: imageStructure.imageDataKind)
+
+            default:
+                break
         }
     }
 
@@ -161,6 +165,9 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
             case .normal:
                 deleteNormalImage(target: imageStructure.imageDataKind)
+
+            default:
+                break
         }
     }
 

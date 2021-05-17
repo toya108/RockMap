@@ -10,10 +10,11 @@ import Foundation
 enum ImageType {
     case header
     case normal
+    case icon
 
     var limit: Int {
         switch self {
-            case .header:
+            case .header, .icon:
                 return 1
                 
             default:
@@ -28,6 +29,9 @@ enum ImageType {
 
             case .normal:
                 return "normal"
+
+            case .icon:
+                return "icon"
 
         }
     }

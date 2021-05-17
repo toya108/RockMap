@@ -123,9 +123,10 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
 
     private func fetchImageUrl() {
         let fetchHeaderPublisher = StorageManager
-            .getHeaderReference(
+            .getReference(
                 destinationDocument: FINameSpace.Course.self,
-                documentId: courseDocument.id
+                documentId: courseDocument.id,
+                imageType: .header
             )
             .compactMap { $0 }
             .flatMap { $0.getDownloadURL() }

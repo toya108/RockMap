@@ -167,9 +167,10 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
 
     private func fetchRockStorage(rockId: String) {
         StorageManager
-            .getHeaderReference(
+            .getReference(
                 destinationDocument: FINameSpace.Rocks.self,
-                documentId: rockId
+                documentId: rockId,
+                imageType: .header
             )
             .catch { _ in return Empty() }
             .compactMap { $0 }
@@ -198,6 +199,9 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
 
             case .normal:
                 setNormalImage(kind: imageStructure.imageDataKind)
+
+            default:
+                break
         }
     }
 
@@ -224,6 +228,9 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
 
             case .normal:
                 deleteNormalImage(target: imageStructure.imageDataKind)
+
+            default:
+                break
         }
     }
 

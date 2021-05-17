@@ -124,9 +124,10 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
 
     private func fetchImageUrl() {
         let fetchHeaderPublisher = StorageManager
-            .getHeaderReference(
+            .getReference(
                 destinationDocument: FINameSpace.Rocks.self,
-                documentId: rockDocument.id
+                documentId: rockDocument.id,
+                imageType: .header
             )
             .compactMap { $0 }
             .flatMap { $0.getDownloadURL() }

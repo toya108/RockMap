@@ -51,9 +51,10 @@ class CourseCollectionViewCell: UICollectionViewCell {
             .store(in: &bindings)
         
         StorageManager
-            .getHeaderReference(
+            .getReference(
                 destinationDocument: FINameSpace.Course.self,
-                documentId: course.id
+                documentId: course.id,
+                imageType: .header
             )
             .catch { _ -> Just<StorageManager.Reference?> in
                 return .init(nil)

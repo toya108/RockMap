@@ -25,7 +25,7 @@ struct StorageManager {
             .child(imageType.typeName)
 
         switch imageType {
-            case .header:
+            case .header, .icon:
                 return reference.child(UUID().uuidString)
 
             case .normal:
@@ -34,16 +34,17 @@ struct StorageManager {
                     .child(UUID().uuidString)
         }
     }
-    
-    static func getHeaderReference(
+
+    static func getReference(
         destinationDocument: FINameSpaceProtocol.Type,
-        documentId: String
+        documentId: String,
+        imageType: ImageType
     ) -> AnyPublisher<StorageReference?, Error> {
         return makeReference(
             parent: destinationDocument,
             child: documentId
         )
-        .child(ImageType.header.typeName)
+        .child(imageType.typeName)
         .getReference()
     }
 
