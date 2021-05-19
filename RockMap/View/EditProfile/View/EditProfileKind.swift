@@ -14,8 +14,8 @@ extension EditProfileViewController {
     enum SectionLayoutKind: CaseIterable {
         case name
         case introduction
-//        case icon
         case socialLink
+        case icon
         case header
 
         var headerTitle: String {
@@ -29,17 +29,18 @@ extension EditProfileViewController {
                 case .socialLink:
                     return "SNSリンク"
 
+                case .icon:
+                    return "アイコン"
+
                 case .header:
                     return "ヘッダー画像"
 
-//                case .icon:
-//                    return "アイコン"
             }
         }
 
         var headerIdentifer: String {
             switch self {
-                case .name, .introduction, .header, .socialLink:
+                case .name, .introduction, .header, .icon, .socialLink:
                     return TitleSupplementaryView.className
             }
         }
@@ -55,8 +56,8 @@ extension EditProfileViewController {
                 case .header:
                     return [.noImage]
 
-//                case .icon:
-//                    return [.icon(.)]
+                case .icon:
+                    return [.icon(.empty)]
 
                 case .socialLink:
                     return FIDocument.User.SocialLinkType.allCases.map { .socialLink($0) }
@@ -69,7 +70,7 @@ extension EditProfileViewController {
         case introduction
         case header(ImageDataKind)
         case noImage
-//        case icon(ImageDataKind)
+        case icon(Emptiable<ImageDataKind>)
         case socialLink(FIDocument.User.SocialLinkType)
         case error(ValidationError)
 

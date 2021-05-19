@@ -9,10 +9,10 @@ import UIKit
 
 class IconEditCollectionViewCell: UICollectionViewCell {
 
+    let stackView = UIStackView()
     let imageView = UIImageView()
-    let blurView = UIView()
-    let editButton = UIButton()
     let deleteButton = UIButton()
+    let editButton = UIButton()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,78 +25,69 @@ class IconEditCollectionViewCell: UICollectionViewCell {
     }
 
     private func setupLayout() {
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 16
+        contentView.addSubview(stackView)
 
-        layer.masksToBounds = false
-        layer.cornerRadius = 16
-        contentView.clipsToBounds = true
-        contentView.layer.cornerRadius = 16
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+        ])
 
         imageView.isUserInteractionEnabled = true
         imageView.layer.cornerRadius = Resources.Const.UI.View.radius
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = imageView.bounds.height / 2
+        imageView.layer.cornerRadius = 44
+        imageView.layer.borderWidth = 0.5
+        imageView.layer.borderColor = UIColor.darkGray.cgColor
 
-        blurView.alpha = 0.45
-        blurView.backgroundColor = .darkGray
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(imageView)
 
-        editButton.setTitle("", for: .normal)
-        editButton.tintColor = .white
+        NSLayoutConstraint.activate([
+            imageView.heightAnchor.constraint(equalToConstant: 88),
+            imageView.widthAnchor.constraint(equalToConstant: 88)
+        ])
+
+        editButton.translatesAutoresizingMaskIntoConstraints = false
+        editButton.backgroundColor = UIColor.Pallete.primaryGreen
         editButton.setImage(UIImage.SystemImages.cameraFill, for: .normal)
-
-        [imageView, blurView, editButton].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview($0)
-
-            NSLayoutConstraint.activate([
-                $0.topAnchor.constraint(equalTo: contentView.topAnchor),
-                $0.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-                $0.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                $0.rightAnchor.constraint(equalTo: contentView.rightAnchor)
-            ])
-        }
+        editButton.setTitle(" アイコン編集 ", for: .normal)
+        editButton.layer.cornerRadius = 8
+        editButton.tintColor = .white
+        stackView.addArrangedSubview(editButton)
+        editButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
 
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.setImage(UIImage.SystemImages.xmarkCircleFill, for: .normal)
+        deleteButton.backgroundColor = .darkGray
+        deleteButton.setTitle(" リセット ", for: .normal)
+        deleteButton.layer.cornerRadius = 8
         deleteButton.tintColor = .white
-        imageView.addSubview(deleteButton)
-        NSLayoutConstraint.activate([
-            deleteButton.heightAnchor.constraint(equalToConstant: 44),
-            deleteButton.widthAnchor.constraint(equalToConstant: 44),
-            deleteButton.topAnchor.constraint(equalTo: imageView.topAnchor),
-            deleteButton.rightAnchor.constraint(equalTo: imageView.rightAnchor)
-        ])
+        stackView.addArrangedSubview(deleteButton)
+        deleteButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
     }
 
     func configure(
-        storage: UpdatableStorage,
-        deleteButtonTapped: @escaping () -> Void
+        imageDataKind: ImageDataKind?
     ) {
-        imageView.image = UIImage.AssetsImages.penguinGudaGuda
-    }
+        switch imageDataKind {
+            case .data(let data):
+                imageView.image = UIImage(data: data.data)
 
-    func configure(
-        imageDataKind: ImageDataKind,
-        deleteButtonTapped: @escaping () -> Void
-    ) {
-        imageView.image = UIImage.AssetsImages.penguinGudaGuda
-//        switch imageDataKind {
-//            case .data(let data):
-//                imageView.image = UIImage(data: data.data)
-//
-//            case .storage(let storage):
-//                if let data = storage.updateData {
-//                    imageView.image = UIImage(data: data)
-//                } else {
-//                    imageView.loadImage(reference: storage.storageReference)
-//                }
-//        }
-//
-//        deleteButton.addAction(
-//            .init { _ in
-//                deleteButtonTapped()
-//            },
-//            for: .touchUpInside
-//        )
+            case .storage(let storage):
+                if let data = storage.updateData {
+                    imageView.image = UIImage(data: data)
+                } else {
+                    imageView.loadImage(reference: storage.storageReference)
+                }
+            case .none:
+                imageView.loadImage(url: AuthManager.shared.currentUser?.photoURL)
+        }
     }
 }

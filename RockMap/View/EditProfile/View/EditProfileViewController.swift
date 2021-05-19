@@ -98,6 +98,11 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
             .sink(receiveValue: headerSink)
             .store(in: &bindings)
 
+        viewModel.output.$icon
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: iconSink)
+            .store(in: &bindings)
+
         viewModel.output.$nameValidationResult
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: nameValidationSink)
@@ -155,7 +160,9 @@ extension EditProfileViewController: PickerManagerDelegate {
         data: Data,
         imageType: ImageType
     ) {
-        viewModel.input.setImageSubject.send(.data(.init(data: data)))
+        viewModel.input.setImageSubject.send(
+            (imageType, .data(.init(data: data)))
+        )
     }
 }
 
@@ -180,6 +187,14 @@ extension EditProfileViewController {
         } else {
             snapShot.appendItems([.noImage], toSection: .header)
         }
+        datasource.apply(snapShot)
+
+        hideIndicatorView()
+    }
+
+    private func iconSink(_ emptiable: Emptiable<ImageDataKind>) {
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .icon))
+        snapShot.appendItems([.icon(emptiable)], toSection: .icon)
         datasource.apply(snapShot)
 
         hideIndicatorView()
@@ -232,7 +247,7 @@ extension EditProfileViewController {
         }
     }
 
-    private func imageUrlStateSink(_ state: LoadingState<URL?>) {
+    private func imageUrlStateSink(_ state: LoadingState<(header: URL?, icon: URL?)>) {
         switch state {
             case .stanby:
                 hideIndicatorView()

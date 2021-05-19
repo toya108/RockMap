@@ -78,6 +78,17 @@ enum ImageDataKind: Hashable {
         return data
     }
 
+    var storage: UpdatableStorage? {
+
+        guard
+            case let .storage(storage) = self
+        else {
+            return nil
+        }
+
+        return storage
+    }
+
     var shouldAppendItem: Bool {
         switch self {
             case .data:

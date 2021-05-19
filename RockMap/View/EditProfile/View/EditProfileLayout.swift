@@ -68,6 +68,19 @@ extension EditProfileViewController {
                     section.interGroupSpacing = 16
                     section.contentInsets.bottom = 12
 
+                case .icon:
+                    let item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .estimated(88)
+                        )
+                    )
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: item.layoutSize,
+                        subitems: [item]
+                    )
+                    section = .init(group: group)
+
                 case .header:
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(

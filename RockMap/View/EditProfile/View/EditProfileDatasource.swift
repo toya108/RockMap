@@ -59,6 +59,13 @@ extension EditProfileViewController {
                         for: indexPath,
                         item: socialLinkType
                     )
+
+                case let .icon(emptiable):
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureIconEditCell(),
+                        for: indexPath,
+                        item: emptiable
+                    )
             }
         }
 
@@ -153,7 +160,7 @@ extension EditProfileViewController {
 
                 guard let self = self else { return }
 
-                self.viewModel.input.deleteImageSubject.send(imageDataKind)
+                self.viewModel.input.deleteImageSubject.send(.header)
             }
         }
     }
@@ -232,6 +239,30 @@ extension EditProfileViewController {
                     )
                 }
                 .store(in: &self.bindings)
+        }
+    }
+
+    private func configureIconEditCell() -> UICollectionView.CellRegistration<
+        IconEditCollectionViewCell,
+        Emptiable<ImageDataKind>
+    > {
+        .init { [weak self] cell, _, emptiable in
+
+            cell.configure(imageDataKind: emptiable.content)
+
+            self?.setupImageUploadButtonActions(
+                button: cell.editButton, imageType: .icon
+            )
+
+            cell.deleteButton.addAction(
+                .init { [weak self] _ in
+
+                    guard let self = self else { return }
+
+                    self.viewModel.input.deleteImageSubject.send(.icon)
+                },
+                for: .touchUpInside
+            )
         }
     }
 
