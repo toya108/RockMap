@@ -166,8 +166,8 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                         output.icon = .content(.storage(
                             .init(
                                 storageReference: storage.storageReference,
-                                shouldUpdate: !storage.shouldUpdate,
-                                updateData: storage.updateData
+                                shouldUpdate: false,
+                                updateData: nil
                             )
                         ))
                 }
