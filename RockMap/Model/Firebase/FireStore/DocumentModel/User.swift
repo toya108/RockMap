@@ -19,7 +19,6 @@ extension FIDocument {
         var updatedAt: Date?
         var parentPath: String = ""
         var name: String
-        var email: String?
         var photoURL: URL?
         var socialLinks: [SocialLink] = []
         var introduction: String?
