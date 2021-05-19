@@ -12,13 +12,14 @@ class LeadingRegisteredUserCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var userView: UserView!
 
     func configure(
-        user: FIDocument.User?,
-        registeredDate: Date? = nil
+        user: FIDocument.User,
+        registeredDate: Date? = nil,
+        parentVc: UIViewController
     ) {
         userView.configure(
-            userName: user?.name ?? "",
-            photoURL: user?.photoURL,
-            registeredDate: registeredDate
+            user: user,
+            registeredDate: registeredDate,
+            parentVc: parentVc
         )
     }
 }

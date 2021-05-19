@@ -19,13 +19,14 @@ class ClimbedTableViewCell: UITableViewCell {
     func configure(
         user: FIDocument.User,
         climbedDate: Date,
-        type: FIDocument.Climbed.ClimbedRecordType
+        type: FIDocument.Climbed.ClimbedRecordType,
+        parentVc: UIViewController
     ) {
         userView.configure(
             prefix: "",
-            userName: user.name,
-            photoURL: user.photoURL,
-            registeredDate: climbedDate
+            user: user,
+            registeredDate: climbedDate,
+            parentVc: parentVc
         )
 
         climbedTypeLabel.text = type.name

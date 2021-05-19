@@ -105,27 +105,24 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
     }
 
     private func fetchCourseStorage(courseId: String) {
-        let courseStorageReference = StorageManager.makeReference(
-            parent: FINameSpace.Course.self,
-            child: courseId
-        )
         StorageManager
-            .getHeaderReference(courseStorageReference)
-            .catch { _ -> Just<StorageManager.Reference?> in
-                return .init(nil)
-            }
+            .getReference(
+                destinationDocument: FINameSpace.Course.self,
+                documentId: courseId,
+                imageType: .header
+            )
+            .catch { _ in Empty() }
             .compactMap { $0 }
             .map { ImageDataKind.storage(.init(storageReference: $0)) }
             .assign(to: &output.$header)
 
-        StorageManager.getNormalImagePrefixes(courseStorageReference)
-            .catch { _ -> Just<[StorageManager.Reference]> in
-                return .init([])
-            }
-            .flatMap { $0.getReferences() }
-            .catch { _ -> Just<[StorageManager.Reference]> in
-                return .init([])
-            }
+        StorageManager
+            .getNormalImagePrefixes(
+                destinationDocument: FINameSpace.Course.self,
+                documentId: courseId
+            )
+            .catch { _ in Empty() }
+            .flatMap { $0.getReferences().catch { _ in Empty() } }
             .map {
                 $0.map { ImageDataKind.storage(.init(storageReference: $0)) }
             }
@@ -139,6 +136,9 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
             case .normal:
                 setNormalImage(kind: imageStructure.imageDataKind)
+
+            default:
+                break
         }
     }
 
@@ -165,6 +165,9 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
             case .normal:
                 deleteNormalImage(target: imageStructure.imageDataKind)
+
+            default:
+                break
         }
     }
 
@@ -231,15 +234,15 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
     func makeCourseDocument() -> FIDocument.Course {
         switch registerType {
-            case let .create(rockHeader):
+            case let .create(rock):
                 return .init(
                     parentPath: AuthManager.shared.authUserReference?.path ?? "",
                     name: output.courseName,
                     desc: output.courseDesc,
                     grade: output.grade,
                     shape: output.shapes,
-                    parentRockName: rockHeader.rock.name,
-                    parentRockId: rockHeader.rock.id,
+                    parentRockName: rock.name,
+                    parentRockId: rock.id,
                     registedUserId: AuthManager.shared.uid
                 )
                 
@@ -255,13 +258,8 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
 extension CourseRegisterViewModel {
 
-    struct RockHeaderStructure: Hashable {
-        let rock: FIDocument.Rock
-        let rockImageReference: StorageManager.Reference
-    }
-
     enum RegisterType {
-        case create(RockHeaderStructure)
+        case create(FIDocument.Rock)
         case edit(FIDocument.Course)
 
         var name: String {

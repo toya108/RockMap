@@ -18,11 +18,11 @@ extension CourseConfirmViewController {
             guard let self = self else { return UICollectionViewCell() }
             
             switch item {
-            case let .rock(rock):
+            case let .rock(rockName, headerUrl):
                 return self.collectionView.dequeueConfiguredReusableCell(
                     using: self.configureRockCell(),
                     for: indexPath,
-                    item: rock
+                    item: (rockName, headerUrl)
                 )
                 
             case let .courseName(courseName):
@@ -101,7 +101,7 @@ extension CourseConfirmViewController {
     
     private func configureRockCell() -> UICollectionView.CellRegistration<
         RockHeaderCollectionViewCell,
-        CourseRegisterViewModel.RockHeaderStructure
+        (rockName: String, headerUrl: URL?)
     > {
         .init(
             cellNib: .init(
@@ -109,7 +109,10 @@ extension CourseConfirmViewController {
                 bundle: nil
             )
         ) { cell, _, rockHeaderStructure in
-            cell.configure(rockHeaderStructure: rockHeaderStructure)
+            cell.configure(
+                rockName: rockHeaderStructure.rockName,
+                headerUrl: rockHeaderStructure.headerUrl
+            )
         }
     }
     

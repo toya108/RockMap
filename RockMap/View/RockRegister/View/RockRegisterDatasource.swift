@@ -112,20 +112,6 @@ extension RockRegisterViewController {
         return datasource
     }
     
-    private func configureRockCell() -> UICollectionView.CellRegistration<
-        RockHeaderCollectionViewCell,
-        CourseRegisterViewModel.RockHeaderStructure
-    > {
-        .init(
-            cellNib: .init(
-                nibName: RockHeaderCollectionViewCell.className,
-                bundle: nil
-            )
-        ) { cell, _, rockHeaderStructure in
-            cell.configure(rockHeaderStructure: rockHeaderStructure)
-        }
-    }
-    
     private func configureNameCell() -> UICollectionView.CellRegistration<
         TextFieldColletionViewCell,
         Dummy

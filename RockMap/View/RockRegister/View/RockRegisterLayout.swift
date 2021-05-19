@@ -102,7 +102,6 @@ extension RockRegisterViewController {
                     )
                     section = .init(group: group)
                     section.interGroupSpacing = 4
-                    
                 }
                 
                 section.orthogonalScrollingBehavior = .continuous

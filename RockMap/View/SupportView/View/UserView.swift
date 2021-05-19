@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import SDWebImage
 
 @IBDesignable
 class UserView: UIView {
 
-    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var iconButton: UIButton!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var registeredDateLabel: UILabel!
 
@@ -40,21 +41,22 @@ class UserView: UIView {
             view.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
 
-        iconImageView.layer.cornerRadius = 20
+        iconButton.clipsToBounds = true
+        iconButton.layer.cornerRadius = 20
     }
 
     func configure(
         prefix: String = "登録者：",
-        userName: String,
-        photoURL: URL?,
-        registeredDate: Date? = nil
+        user: FIDocument.User,
+        registeredDate: Date? = nil,
+        parentVc: UIViewController
     ) {
-        userNameLabel.text = prefix + userName
+        userNameLabel.text = prefix + user.name
 
-        if let photoURL = photoURL {
-            iconImageView.loadImage(url: photoURL)
+        if let photoURL = user.photoURL {
+            iconButton.loadImage(url: photoURL)
         } else {
-            iconImageView.image = UIImage.AssetsImages.noimage
+            iconButton.setImage(UIImage.AssetsImages.noimage, for: .normal)
         }
 
         if let registeredDate = registeredDate {
@@ -67,5 +69,25 @@ class UserView: UIView {
             registeredDateLabel.isHidden = true
         }
 
+        iconButton.addAction(
+            .init { _ in
+                if AuthManager.shared.currentUser?.uid == user.id {
+                    guard
+                        let index = ScreenType.allCases.firstIndex(of: .myPage)
+                    else {
+                        return
+                    }
+                    parentVc.tabBarController?.selectedIndex = index
+
+                } else {
+                    let vc = MyPageViewController.createInstance(
+                        viewModel: .init(userKind: .other(user: user))
+                    )
+                    parentVc.navigationController?.pushViewController(vc, animated: true)
+                }
+            },
+            for: .touchUpInside
+        )
     }
+
 }

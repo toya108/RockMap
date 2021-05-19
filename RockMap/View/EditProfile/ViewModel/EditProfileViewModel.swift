@@ -30,7 +30,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
 
         input.nameSubject.send(user.name)
         input.introductionSubject.send(user.introduction)
-        fetchHeaderStorage()
+        fetchImageStorage()
         user.socialLinks.forEach {
             input.socialLinkSubject.send($0)
         }
@@ -48,7 +48,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             .assign(to: &output.$introduction)
 
         input.setImageSubject
-            .sink(receiveValue: setHeaderImage)
+            .sink(receiveValue: setImage)
             .store(in: &bindings)
 
         input.deleteImageSubject
@@ -83,14 +83,13 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             .assign(to: &output.$nameValidationResult)
     }
 
-    private func fetchHeaderStorage() {
-        let userStorageReference = StorageManager.makeReference(
-            parent: FINameSpace.Users.self,
-            child: user.id
-        )
-
+    private func fetchImageStorage() {
         StorageManager
-            .getHeaderReference(userStorageReference)
+            .getReference(
+                destinationDocument: FINameSpace.Users.self,
+                documentId: user.id,
+                imageType: .header
+            )
             .catch { _ -> Just<StorageManager.Reference?> in
                 return .init(nil)
             }
@@ -102,29 +101,88 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                 }
             }
             .assign(to: &output.$header)
+
+        StorageManager
+            .getReference(
+                destinationDocument: FINameSpace.Users.self,
+                documentId: user.id,
+                imageType: .icon
+            )
+            .catch { _ -> Just<StorageManager.Reference?> in
+                return .init(nil)
+            }
+            .map {
+                if let icon = $0 {
+                    return .content(.storage(.init(storageReference: icon)))
+                } else {
+                    return .empty
+                }
+            }
+            .assign(to: &output.$icon)
     }
 
-    private func setHeaderImage(kind: ImageDataKind) {
-        switch output.header {
-            case .data, .none:
-                output.header = kind
+    private func setImage(imageType: ImageType, kind: ImageDataKind) {
+        switch imageType {
+            case .icon:
+                switch output.icon.content {
+                    case .data, .none:
+                        output.icon = .content(kind)
 
-            case .storage(var storage):
-                storage.updateData = kind.data?.data
-                storage.shouldUpdate = true
-                output.header?.update(.storage(storage))
+                    case .storage(let storage):
+                        output.icon = .content(.storage(
+                            .init(
+                                storageReference: storage.storageReference,
+                                shouldUpdate: true,
+                                updateData: kind.data?.data
+                            )
+                        ))
+                }
+
+            case .header:
+                switch output.header {
+                    case .data, .none:
+                        output.header = kind
+
+                    case .storage(var storage):
+                        storage.updateData = kind.data?.data
+                        storage.shouldUpdate = true
+                        output.header?.update(.storage(storage))
+                }
+
+            case .normal:
+                break
         }
+
     }
 
-    private func deleteImage(_ imageStructure: ImageDataKind) {
-        switch output.header {
-            case .data:
-                output.header = nil
+    private func deleteImage(imageType: ImageType) {
+        switch imageType {
+            case .icon:
+                switch output.icon.content {
+                    case .data, .none:
+                        output.icon = .empty
 
-            case .storage:
-                output.header?.toggleStorageUpdateFlag()
+                    case let .storage(storage):
+                        output.icon = .content(.storage(
+                            .init(
+                                storageReference: storage.storageReference,
+                                shouldUpdate: false,
+                                updateData: nil
+                            )
+                        ))
+                }
+            case .header:
+                switch output.header {
+                    case .data:
+                        output.header = nil
 
-            default:
+                    case .storage:
+                        output.header?.toggleStorageUpdateFlag()
+
+                    default:
+                        break
+                }
+            case .normal:
                 break
         }
     }
@@ -140,16 +198,28 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
         .allSatisfy { $0 }
     }
 
+    // この一連の流れUser、Rock、Courseで共通なので共通化したい。
     func uploadImage() {
-        switch output.header {
+        prepareUploadImage(imageType: .icon, imageDataKind: output.icon.content)
+        prepareUploadImage(imageType: .header, imageDataKind: output.header)
+        uploader.start()
+    }
+
+    private func prepareUploadImage(imageType: ImageType, imageDataKind: ImageDataKind?) {
+
+        let headerReference = StorageManager.makeImageReferenceForUpload(
+            destinationDocument: FINameSpace.Users.self,
+            documentId: user.id,
+            imageType: imageType
+        )
+
+        switch imageDataKind {
             case .data(let data):
                 uploader.addData(
                     data: data.data,
-                    reference: StorageManager.makeHeaderImageReference(
-                        parent: FINameSpace.Users.self,
-                        child: user.id
-                    )
+                    reference: headerReference
                 )
+
             case .storage(let storage):
                 guard
                     storage.shouldUpdate
@@ -181,34 +251,73 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
 
                 uploader.addData(
                     data: updateData,
-                    reference: StorageManager.makeHeaderImageReference(
-                        parent: FINameSpace.Users.self,
-                        child: user.id
-                    )
+                    reference: headerReference
                 )
             case .none:
                 output.imageUploadState = .complete([])
                 return
-
         }
-        uploader.start()
+    }
+
+    func fetchImageUrl() {
+        let header = StorageManager
+            .getReference(
+                destinationDocument: FINameSpace.Users.self,
+                documentId: user.id,
+                imageType: .header
+            )
+            .compactMap { $0 }
+            .flatMap { $0.getDownloadURL() }
+
+        let icon = StorageManager
+            .getReference(
+                destinationDocument: FINameSpace.Users.self,
+                documentId: user.id,
+                imageType: .icon
+            )
+            .compactMap { $0 }
+            .flatMap { $0.getDownloadURL() }
+
+        header.zip(icon)
+            .eraseToAnyPublisher()
+            .sink(
+                receiveCompletion: { [weak self] result in
+
+                    guard let self = self else { return }
+
+                    if case let .failure(error) = result {
+                        self.output.imageUrlDownloadState = .failure(error)
+                    }
+                },
+                receiveValue: { [weak self] headerUrl, iconUrl in
+
+                    guard let self = self else { return }
+
+                    self.output.imageUrlDownloadState = .finish(
+                        content: (header: headerUrl, icon: iconUrl)
+                    )
+                }
+            )
+            .store(in: &bindings)
     }
 
     func editProfile() {
 
-        output.loadingState = .loading
+        output.userUploadState = .loading
 
         var updateUserDocument: FIDocument.User {
             var updateUser = user
             updateUser.name = output.name
             updateUser.introduction = output.introduction
             updateUser.socialLinks = output.socialLinks
+            updateUser.headerUrl = output.imageUrlDownloadState.content?.header
+            updateUser.photoURL = output.imageUrlDownloadState.content?.icon
             return updateUser
         }
         updateUserDocument.makeDocumentReference()
             .setData(from: updateUserDocument)
             .sinkState { [weak self] state in
-                self?.output.loadingState = state
+                self?.output.userUploadState = state
             }
             .store(in: &bindings)
     }
@@ -219,8 +328,8 @@ extension EditProfileViewModel {
     struct Input {
         let nameSubject = PassthroughSubject<String?, Never>()
         let introductionSubject = PassthroughSubject<String?, Never>()
-        let setImageSubject = PassthroughSubject<(ImageDataKind), Never>()
-        let deleteImageSubject = PassthroughSubject<(ImageDataKind), Never>()
+        let setImageSubject = PassthroughSubject<(ImageType, ImageDataKind), Never>()
+        let deleteImageSubject = PassthroughSubject<ImageType, Never>()
         let socialLinkSubject = PassthroughSubject<FIDocument.User.SocialLink, Never>()
     }
 
@@ -228,11 +337,14 @@ extension EditProfileViewModel {
         @Published var name = ""
         @Published var introduction = ""
         @Published var header: ImageDataKind?
+        @Published var icon: Emptiable<ImageDataKind> = .empty
         @Published var socialLinks: [FIDocument.User.SocialLink] = FIDocument.User.SocialLinkType.allCases.map {
             FIDocument.User.SocialLink(linkType: $0, link: "")
         }
         @Published var nameValidationResult: ValidationResult = .none
+
         @Published var imageUploadState: StorageUploader.UploadState = .stanby
-        @Published var loadingState: LoadingState<Void> = .stanby
+        @Published var imageUrlDownloadState: LoadingState<(header: URL?, icon: URL?)> = .stanby
+        @Published var userUploadState: LoadingState<Void> = .stanby
     }
 }

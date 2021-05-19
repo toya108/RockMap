@@ -5,13 +5,16 @@
 //  Created by TOUYA KAWANO on 2021/03/29.
 //
 
+import Foundation
+
 enum ImageType {
     case header
     case normal
+    case icon
 
     var limit: Int {
         switch self {
-            case .header:
+            case .header, .icon:
                 return 1
                 
             default:
@@ -26,6 +29,9 @@ enum ImageType {
 
             case .normal:
                 return "normal"
+
+            case .icon:
+                return "icon"
 
         }
     }
@@ -72,6 +78,17 @@ enum ImageDataKind: Hashable {
         return data
     }
 
+    var storage: UpdatableStorage? {
+
+        guard
+            case let .storage(storage) = self
+        else {
+            return nil
+        }
+
+        return storage
+    }
+
     var shouldAppendItem: Bool {
         switch self {
             case .data:
@@ -87,4 +104,9 @@ enum ImageDataKind: Hashable {
                 }
         }
     }
+}
+
+struct ImageURL {
+    let imageType: ImageType
+    let urls: [URL]
 }

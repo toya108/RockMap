@@ -103,7 +103,6 @@ extension AuthManager: FUIAuthDelegate {
             createdAt: user.metadata.creationDate ?? Date(),
             updatedAt: nil,
             name: user.displayName ?? "-",
-            email: user.email,
             photoURL: user.photoURL
         )
 

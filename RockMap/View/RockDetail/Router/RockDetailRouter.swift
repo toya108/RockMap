@@ -57,20 +57,8 @@ struct RockDetailRouter: RouterProtocol {
             return
         }
 
-        guard
-            let viewModel = self.viewModel,
-            let headerImageReference = viewModel.headerImageReference
-        else {
-            return
-        }
-
         let courseRegisterViewModel = CourseRegisterViewModel(
-            registerType: .create(
-                .init(
-                    rock: viewModel.rockDocument,
-                    rockImageReference: headerImageReference
-                )
-            )
+            registerType: .create(viewModel.rockDocument)
         )
 
         let vc = RockMapNavigationController(

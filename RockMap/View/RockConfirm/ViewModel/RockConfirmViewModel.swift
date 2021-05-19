@@ -20,7 +20,7 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
     var output: Output = .init()
 
     let registerType: RockRegisterViewModel.RegisterType
-    let rockDocument: FIDocument.Rock
+    var rockDocument: FIDocument.Rock
     let header: ImageDataKind
     let images: [ImageDataKind]
 
@@ -51,8 +51,12 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
             .sink(receiveValue: uploadImages)
             .store(in: &bindings)
 
-        input.registerCourseSubject
-            .sink(receiveValue: registerCourse)
+        input.downloadImageUrlSubject
+            .sink(receiveValue: fetchImageUrl)
+            .store(in: &bindings)
+
+        input.registerRockSubject
+            .sink(receiveValue: registerRock)
             .store(in: &bindings)
     }
 
@@ -63,14 +67,16 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
     }
 
     private func prepareHeaderUploading() {
+        let headerReference = StorageManager.makeImageReferenceForUpload(
+            destinationDocument: FINameSpace.Rocks.self,
+            documentId: rockDocument.id,
+            imageType: .header
+        )
         switch header {
             case .data(let data):
                 uploader.addData(
                     data: data.data,
-                    reference: StorageManager.makeHeaderImageReference(
-                        parent: FINameSpace.Rocks.self,
-                        child: rockDocument.id
-                    )
+                    reference: headerReference
                 )
             case .storage(let storage):
 
@@ -85,10 +91,7 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
 
                 uploader.addData(
                     data: updateData,
-                    reference: StorageManager.makeHeaderImageReference(
-                        parent: FINameSpace.Rocks.self,
-                        child: rockDocument.id
-                    )
+                    reference: headerReference
                 )
         }
     }
@@ -99,9 +102,10 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
                 case .data(let data):
                     uploader.addData(
                         data: data.data,
-                        reference: StorageManager.makeNormalImageReference(
-                            parent: FINameSpace.Rocks.self,
-                            child: rockDocument.id
+                        reference: StorageManager.makeImageReferenceForUpload(
+                            destinationDocument: FINameSpace.Rocks.self,
+                            documentId: rockDocument.id,
+                            imageType: .normal
                         )
                     )
                 case .storage(let storage):
@@ -118,19 +122,71 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
         }
     }
 
-    private func registerCourse() {
+    private func fetchImageUrl() {
+        let fetchHeaderPublisher = StorageManager
+            .getReference(
+                destinationDocument: FINameSpace.Rocks.self,
+                documentId: rockDocument.id,
+                imageType: .header
+            )
+            .compactMap { $0 }
+            .flatMap { $0.getDownloadURL() }
+
+        let fetchImagesPublisher = StorageManager
+            .getNormalImagePrefixes(
+                destinationDocument: FINameSpace.Rocks.self,
+                documentId: rockDocument.id
+            )
+            .flatMap { $0.getReferences() }
+            .flatMap { $0.getDownloadUrls() }
+            .eraseToAnyPublisher()
+
+        fetchHeaderPublisher.zip(fetchImagesPublisher)
+            .sink(
+                receiveCompletion: { [weak self] result in
+
+                    guard let self = self else { return }
+
+                    if case let .failure(error) = result {
+                        self.output.imageUploadState = .failure(error)
+                    }
+                },
+                receiveValue: { [weak self] url, urls in
+
+                    guard
+                        let self = self,
+                        let url = url
+                    else {
+                        return
+                    }
+
+                    let header = ImageURL(imageType: .header, urls: [url])
+                    let images = ImageURL(imageType: .normal, urls: urls)
+
+                    self.output.imageUrlDownloadState = .finish(content: [header, images])
+                }
+            )
+            .store(in: &bindings)
+    }
+
+    private func registerRock() {
         output.rockUploadState = .loading
+
+        if let imageUrls = output.imageUrlDownloadState.content {
+            rockDocument.headerUrl = imageUrls.first(where: { $0.imageType == .header })?.urls.first
+            rockDocument.imageUrls = imageUrls.first(where: { $0.imageType == .normal })?.urls ?? []
+        }
 
         switch registerType {
             case .create:
-                createCourse()
+                createRock()
 
             case .edit:
-                editCourse()
+                editRock()
         }
     }
 
-    private func createCourse() {
+    private func createRock() {
         let badge = FirestoreManager.db.batch()
 
         let courseDocumentReference = rockDocument.makeDocumentReference()
@@ -161,7 +217,7 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
             .store(in: &bindings)
     }
 
-    private func editCourse() {
+    private func editRock() {
         rockDocument.makeDocumentReference()
             .updateData(rockDocument.dictionary)
             .sink(
@@ -187,11 +243,13 @@ extension RockConfirmViewModel {
 
     struct Input {
         let uploadImageSubject = PassthroughSubject<Void, Never>()
-        let registerCourseSubject = PassthroughSubject<Void, Never>()
+        let downloadImageUrlSubject = PassthroughSubject<Void, Never>()
+        let registerRockSubject = PassthroughSubject<Void, Never>()
     }
 
     final class Output {
         @Published var imageUploadState: StorageUploader.UploadState = .stanby
+        @Published var imageUrlDownloadState: LoadingState<[ImageURL]> = .stanby
         @Published var rockUploadState: LoadingState<Void> = .stanby
     }
 }

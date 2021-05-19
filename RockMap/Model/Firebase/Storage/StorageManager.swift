@@ -14,69 +14,50 @@ struct StorageManager {
     
     static let reference = Storage.storage().reference()
 
-    static func makeReference(
-        path: String
+    static func makeImageReferenceForUpload(
+        destinationDocument: FINameSpaceProtocol.Type,
+        documentId: String,
+        imageType: ImageType
     ) -> StorageReference {
-        Self.reference.child(path)
-    }
-    
-    static func makeReference(
-        parent: FINameSpaceProtocol.Type,
-        child: String
-    ) -> StorageReference {
-        Self.reference
-            .child(parent.name)
-            .child(child)
-    }
+        let reference = Self.reference
+            .child(destinationDocument.name)
+            .child(documentId)
+            .child(imageType.typeName)
 
-    static func makeHeaderImageReference(
-        parent: FINameSpaceProtocol.Type,
-        child: String
-    ) -> StorageReference {
-        Self.reference
-            .child(parent.name)
-            .child(child)
-            .child(ImageType.header.typeName)
-            .child(UUID().uuidString)
-    }
+        switch imageType {
+            case .header, .icon:
+                return reference.child(UUID().uuidString)
 
-    static func makeNormalImageReference(
-        parent: FINameSpaceProtocol.Type,
-        child: String
-    ) -> StorageReference {
-        Self.reference
-            .child(parent.name)
-            .child(child)
-            .child(ImageType.normal.typeName)
-            .child(AuthManager.shared.uid)
-            .child(UUID().uuidString)
+            case .normal:
+                return reference
+                    .child(AuthManager.shared.uid)
+                    .child(UUID().uuidString)
+        }
     }
 
     static func getReference(
-        _ reference: StorageReference
-    ) -> AnyPublisher<[StorageReference], Error> {
-        return reference.getReferences()
-    }
-    
-    static func getHeaderReference(
-        _ reference: StorageReference
+        destinationDocument: FINameSpaceProtocol.Type,
+        documentId: String,
+        imageType: ImageType
     ) -> AnyPublisher<StorageReference?, Error> {
-
-        let headerReference = reference.child(ImageType.header.typeName)
-
-        return headerReference.getReference()
-    }
-
-    static func getNormalReference(
-        _ reference: StorageReference
-    ) -> AnyPublisher<[StorageReference], Error> {
-        return reference.child(ImageType.normal.typeName).getReferences()
+        return makeReference(
+            parent: destinationDocument,
+            child: documentId
+        )
+        .child(imageType.typeName)
+        .getReference()
     }
 
     static func getNormalImagePrefixes(
-        _ reference: StorageReference
+        destinationDocument: FINameSpaceProtocol.Type,
+        documentId: String
     ) -> AnyPublisher<[StorageReference], Error> {
-        return reference.child(ImageType.normal.typeName).getPrefixes()
+        return makeReference(
+            parent: destinationDocument,
+            child: documentId
+        )
+        .child(ImageType.normal.typeName)
+        .getPrefixes()
     }
 
     static func deleteReference<T: FIDocumentProtocol>(
@@ -87,6 +68,15 @@ struct StorageManager {
             .child(documentType.colletionName)
             .child(id)
             .delete(completion: { _ in })
+    }
+
+    static private func makeReference(
+        parent: FINameSpaceProtocol.Type,
+        child: String
+    ) -> StorageReference {
+        Self.reference
+            .child(parent.name)
+            .child(child)
     }
 }
 

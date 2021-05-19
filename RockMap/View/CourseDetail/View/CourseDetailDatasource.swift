@@ -22,7 +22,7 @@ extension CourseDetailViewController {
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureImageCell(),
                         for: indexPath,
-                        item: self.viewModel.output.fetchCourseHeaderState.content ?? .init()
+                        item: self.viewModel.course.headerUrl
                     )
 
                 case .buttons:
@@ -68,11 +68,11 @@ extension CourseDetailViewController {
                     )
 
 
-                case let .image(reference):
+                case let .image(url):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureImageCell(radius: 8.0),
                         for: indexPath,
-                        item: reference
+                        item: url
                     )
 
                 case .noImage:
@@ -112,10 +112,10 @@ extension CourseDetailViewController {
     
     private func configureImageCell(radius: CGFloat = 0.0) -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
-        StorageManager.Reference
+        URL?
     > {
-        .init { cell, _, reference in
-            cell.imageView.loadImage(reference: reference)
+        .init { cell, _, url in
+            cell.imageView.loadImage(url: url)
             cell.clipsToBounds = true
             cell.layer.cornerRadius = radius
         }
@@ -172,11 +172,17 @@ extension CourseDetailViewController {
             )
         ) { [weak self] cell, _, _ in
 
-            guard let self = self else { return }
+            guard
+                let self = self,
+                let user = self.viewModel.output.fetchRegisteredUserState.content
+            else {
+                return
+            }
 
             cell.configure(
-                user: self.viewModel.output.fetchRegisteredUserState.content,
-                registeredDate: self.viewModel.course.createdAt
+                user: user,
+                registeredDate: self.viewModel.course.createdAt,
+                parentVc: self
             )
         }
     }

@@ -54,7 +54,7 @@ extension RockDetailViewController {
     }
     
     enum ItemKind: Hashable {
-        case header(StorageManager.Reference)
+        case header(URL)
         case title(String)
         case registeredUser(user: FIDocument.User)
         case desc(String)
@@ -64,7 +64,7 @@ extension RockDetailViewController {
         case map(LocationManager.LocationStructure)
         case courses(FIDocument.Course)
         case nocourse
-        case image(StorageManager.Reference)
+        case image(URL)
         case noImage
     }
     

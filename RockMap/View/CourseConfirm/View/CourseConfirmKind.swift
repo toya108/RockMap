@@ -60,7 +60,7 @@ extension CourseConfirmViewController {
     }
     
     enum ItemKind: Hashable {
-        case rock(CourseRegisterViewModel.RockHeaderStructure)
+        case rock(rockName: String, headerUrl: URL?)
         case courseName(String)
         case desc(String)
         case grade(FIDocument.Course.Grade)

@@ -21,29 +21,14 @@ class RockListCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
 
         mainImageView.layer.cornerRadius = 8
+        addressLabel.numberOfLines = 2
     }
 
     func configure(_ rock: FIDocument.Rock) {
         titleLabel.text = rock.name
-        addressLabel.text = rock.address
-        descLabel.text = rock.desc
-
-        let courseReference = StorageManager.makeReference(
-            parent: FINameSpace.Rocks.self,
-            child: rock.id
-        )
-        StorageManager
-            .getHeaderReference(courseReference)
-            .catch { _ -> Just<StorageManager.Reference?> in
-                return .init(nil)
-            }
-            .sink { [weak self] reference in
-
-                guard let self = self else { return }
-
-                self.mainImageView.loadImage(reference: reference)
-            }
-            .store(in: &bindings)
+        addressLabel.text = "住所：" + rock.address
+        descLabel.text = "詳細：" + rock.desc
+        mainImageView.loadImage(url: rock.headerUrl)
     }
 
 }

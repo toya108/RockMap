@@ -18,11 +18,11 @@ extension MyPageViewController {
             guard let self = self else { return UICollectionViewCell() }
 
             switch item {
-                case let .headerImage(header):
+                case .headerImage:
                     return self.collectionView.dequeueConfiguredReusableCell(
                         using: self.configureHeaderImageCell(),
                         for: indexPath,
-                        item: header ?? .init()
+                        item: Dummy()
                     )
 
                 case .user:
@@ -101,10 +101,15 @@ extension MyPageViewController {
 
     private func configureHeaderImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
-        StorageManager.Reference
+        Dummy
     > {
-        .init { cell, _, reference in
-            cell.imageView.loadImage(reference: reference)
+        .init { [weak self] cell, _, _ in
+
+            guard let self = self else { return }
+
+            cell.imageView.loadImage(
+                url: self.viewModel.output.fetchUserState.content?.headerUrl
+            )
         }
     }
 
@@ -119,35 +124,40 @@ extension MyPageViewController {
             )
         ) { [weak self] cell, _, _ in
 
-            guard
-                let self = self,
-                let user = self.viewModel.output.fetchUserState.content
-            else {
-                return
+
+            guard let self = self else { return }
+
+            switch self.viewModel.userKind {
+                case .guest:
+                    cell.editProfileButton.isHidden = true
+                    cell.userView.userNameLabel.text = "ゲスト"
+                    cell.userView.registeredDateLabel.isHidden = true
+
+                case .mine, .other:
+                    guard
+                        let user = self.viewModel.output.fetchUserState.content
+                    else {
+                        return
+                    }
+
+                    cell.editProfileButton.isHidden = false
+                    cell.editProfileButton.addAction(
+                        .init { [weak self] _ in
+
+                            guard let self = self else { return }
+
+                            self.router.route(to: .editProfile(user), from: self)
+                        },
+                        for: .touchUpInside
+                    )
+
+                    cell.userView.configure(
+                        prefix: "",
+                        user: user,
+                        registeredDate: user.createdAt,
+                        parentVc: self
+                    )
             }
-
-            cell.editProfileButton.isHidden = !self.viewModel.userKind.isMine
-
-            cell.editProfileButton.addAction(
-                .init { [weak self] _ in
-
-                    guard let self = self else { return }
-
-                    let viewModel = EditProfileViewModel(user: user)
-                    let vc = EditProfileViewController.createInstance(viewModel: viewModel)
-                    let nc = RockMapNavigationController(rootVC: vc, naviBarClass: RockMapNoShadowNavigationBar.self)
-                    nc.isModalInPresentation = true
-                    self.present(nc, animated: true)
-                },
-                for: .touchUpInside
-            )
-
-            cell.userView.configure(
-                prefix: "",
-                userName: user.name,
-                photoURL: user.photoURL,
-                registeredDate: user.createdAt
-            )
         }
     }
 
@@ -249,8 +259,11 @@ extension MyPageViewController {
                 nibName: CourseCollectionViewCell.className,
                 bundle: nil
             )
-        ) { cell, _, course in
-            cell.configure(course: course)
+        ) { [weak self] cell, _, course in
+
+            guard let self = self else { return }
+            
+            cell.configure(course: course, parentVc: self)
         }
     }
 }

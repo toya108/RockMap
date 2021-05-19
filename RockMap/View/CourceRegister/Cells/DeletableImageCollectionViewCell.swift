@@ -49,20 +49,6 @@ class DeletableImageCollectionViewCell: UICollectionViewCell {
             deleteButton.rightAnchor.constraint(equalTo: imageView.rightAnchor)
         ])
     }
-    
-    func configure(
-        data: Data,
-        deleteButtonTapped: @escaping () -> Void
-    ) {
-        imageView.image = UIImage(data: data)
-
-        deleteButton.addAction(
-            .init { _ in
-                deleteButtonTapped()
-            },
-            for: .touchUpInside
-        )
-    }
 
     func configure(
         imageDataKind: ImageDataKind,

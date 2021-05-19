@@ -54,18 +54,6 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
     }
     
     private func bindViewToViewModel() {
-        viewModel.output.$fetchCourseHeaderState
-            .filter(\.isFinished)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: fetchCourseHeaderStateSink)
-            .store(in: &bindings)
-
-        viewModel.output.$fetchCourseImageState
-            .filter(\.isFinished)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: fetchCourseImageStateSink)
-            .store(in: &bindings)
-
         viewModel.output.$fetchRegisteredUserState
             .filter(\.isFinished)
             .receive(on: DispatchQueue.main)
@@ -89,6 +77,13 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
             subTitle: viewModel.course.shape.map(\.name).joined(separator: "/")
         )
         snapShot.appendItems([.shape(valueCellData)], toSection: .info)
+
+        let images = viewModel.course.imageUrls
+        if images.isEmpty {
+            snapShot.appendItems([.noImage], toSection: .images)
+        } else {
+            snapShot.appendItems(images.map { ItemKind.image($0) }, toSection: .images)
+        }
         datasource.apply(snapShot) { [weak self] in
             self?.viewModel.input.finishedCollectionViewSetup.send()
         }
@@ -96,35 +91,7 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
 }
 
 extension CourseDetailViewController {
-
-    private func fetchCourseHeaderStateSink(_ state: LoadingState<StorageManager.Reference>) {
-        switch state {
-            case .stanby, .failure, .loading:
-                break
-
-            case .finish:
-                snapShot.reloadSections([.headerImage])
-                datasource.apply(snapShot)
-        }
-    }
-
-    private func fetchCourseImageStateSink(_ state: LoadingState<[StorageManager.Reference]>) {
-        switch state {
-            case .stanby, .failure, .loading:
-                break
-
-            case .finish(let references):
-                snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .images))
-
-                if references.isEmpty {
-                    snapShot.appendItems([.noImage], toSection: .images)
-                } else {
-                    snapShot.appendItems(references.map { ItemKind.image($0) }, toSection: .images)
-                }
-                datasource.apply(snapShot)
-        }
-    }
-
+    
     private func fetchRegisteredUserStateSink(_ state: LoadingState<FIDocument.User>) {
         switch state {
             case .stanby, .failure, .loading:
@@ -132,7 +99,7 @@ extension CourseDetailViewController {
 
             case .finish:
                 snapShot.reloadSections([.registeredUser])
-                datasource.apply(snapShot)
+                datasource.apply(snapShot, animatingDifferences: false)
         }
     }
 

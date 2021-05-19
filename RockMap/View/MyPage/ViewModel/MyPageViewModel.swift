@@ -40,12 +40,9 @@ class MyPageViewModel: MyPageViewModelProtocol {
     }
 
     private func setupOutput() {
-        let userIDShare = output.$fetchUserState
+        output.$fetchUserState
             .filter { $0.isFinished }
             .compactMap { $0.content?.id }
-            .share()
-
-        userIDShare
             .flatMap {
                 FirestoreManager.db
                     .collectionGroup(FIDocument.Climbed.colletionName)
@@ -55,15 +52,6 @@ class MyPageViewModel: MyPageViewModelProtocol {
             }
             .map { Set<FIDocument.Climbed>($0) }
             .assign(to: &output.$climbedList)
-
-        userIDShare
-            .map {
-                StorageManager.makeReference(parent: FINameSpace.Users.self, child: $0)
-            }
-            .flatMap {
-                StorageManager.getHeaderReference($0).catch { _ in Empty() }
-            }
-            .assign(to: &output.$headerImageReference)
 
         output.$climbedList
             .map { $0.map(\.parentCourseReference) }
@@ -138,7 +126,6 @@ extension MyPageViewModel {
 
     final class Output {
         @Published var isGuest = false
-        @Published var headerImageReference: StorageManager.Reference?
         @Published var fetchUserState: LoadingState<FIDocument.User> = .stanby
         @Published var climbedList: Set<FIDocument.Climbed> = []
         @Published var recentClimbedCourses: Set<FIDocument.Course> = []

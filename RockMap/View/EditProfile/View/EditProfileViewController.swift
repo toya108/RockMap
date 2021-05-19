@@ -98,6 +98,11 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
             .sink(receiveValue: headerSink)
             .store(in: &bindings)
 
+        viewModel.output.$icon
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: iconSink)
+            .store(in: &bindings)
+
         viewModel.output.$nameValidationResult
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: nameValidationSink)
@@ -108,7 +113,12 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
             .sink(receiveValue: imageUploadStateSink)
             .store(in: &bindings)
 
-        viewModel.output.$loadingState
+        viewModel.output.$imageUrlDownloadState
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: imageUrlStateSink)
+            .store(in: &bindings)
+
+        viewModel.output.$userUploadState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: uploadLoadingStateSink)
             .store(in: &bindings)
@@ -150,7 +160,9 @@ extension EditProfileViewController: PickerManagerDelegate {
         data: Data,
         imageType: ImageType
     ) {
-        viewModel.input.setImageSubject.send(.data(.init(data: data)))
+        viewModel.input.setImageSubject.send(
+            (imageType, .data(.init(data: data)))
+        )
     }
 }
 
@@ -175,6 +187,14 @@ extension EditProfileViewController {
         } else {
             snapShot.appendItems([.noImage], toSection: .header)
         }
+        datasource.apply(snapShot)
+
+        hideIndicatorView()
+    }
+
+    private func iconSink(_ emptiable: Emptiable<ImageDataKind>) {
+        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .icon))
+        snapShot.appendItems([.icon(emptiable)], toSection: .icon)
         datasource.apply(snapShot)
 
         hideIndicatorView()
@@ -205,6 +225,7 @@ extension EditProfileViewController {
         datasource.apply(snapShot)
     }
 
+
     private func imageUploadStateSink(_ state: StorageUploader.UploadState) {
         switch state {
             case .stanby:
@@ -215,7 +236,7 @@ extension EditProfileViewController {
 
             case .complete:
                 hideIndicatorView()
-                viewModel.editProfile()
+                viewModel.fetchImageUrl()
 
             case .failure(let error):
                 hideIndicatorView()
@@ -223,6 +244,20 @@ extension EditProfileViewController {
                     title: "画像の登録に失敗しました",
                     message: error.localizedDescription
                 )
+        }
+    }
+
+    private func imageUrlStateSink(_ state: LoadingState<(header: URL?, icon: URL?)>) {
+        switch state {
+            case .stanby:
+                hideIndicatorView()
+
+            case .loading:
+                showIndicatorView()
+
+            case .finish, .failure:
+                hideIndicatorView()
+                viewModel.editProfile()
         }
     }
 

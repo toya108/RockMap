@@ -18,8 +18,8 @@ class RockHeaderCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 8
     }
 
-    func configure(rockHeaderStructure: CourseRegisterViewModel.RockHeaderStructure) {
-        rockImageView.loadImage(reference: rockHeaderStructure.rockImageReference)
-        rockNameLabel.text = rockHeaderStructure.rock.name
+    func configure(rockName: String, headerUrl: URL?) {
+        rockImageView.loadImage(url: headerUrl)
+        rockNameLabel.text = rockName
     }
 }
