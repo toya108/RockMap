@@ -24,7 +24,8 @@ class AuthManager: NSObject {
         authUI?.providers = [
             FUIGoogleAuth(),
             FUIFacebookAuth(),
-            FUIEmailAuth()
+            FUIEmailAuth(),
+            FUIOAuth.appleAuthProvider()
         ]
         return authUI
     }()
