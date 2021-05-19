@@ -21,12 +21,13 @@ class RockListCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
 
         mainImageView.layer.cornerRadius = 8
+        addressLabel.numberOfLines = 2
     }
 
     func configure(_ rock: FIDocument.Rock) {
         titleLabel.text = rock.name
-        addressLabel.text = rock.address
-        descLabel.text = rock.desc
+        addressLabel.text = "住所：" + rock.address
+        descLabel.text = "詳細：" + rock.desc
         mainImageView.loadImage(url: rock.headerUrl)
     }
 
