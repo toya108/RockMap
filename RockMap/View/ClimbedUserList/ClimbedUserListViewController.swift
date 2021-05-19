@@ -80,7 +80,8 @@ class ClimbedUserListViewController: UIViewController {
             climbedCell.configure(
                 user: cellData.user,
                 climbedDate: cellData.climbed.climbedDate,
-                type: cellData.climbed.type
+                type: cellData.climbed.type,
+                parentVc: self
             )
             return climbedCell
 

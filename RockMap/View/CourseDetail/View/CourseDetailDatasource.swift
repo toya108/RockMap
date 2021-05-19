@@ -172,11 +172,17 @@ extension CourseDetailViewController {
             )
         ) { [weak self] cell, _, _ in
 
-            guard let self = self else { return }
+            guard
+                let self = self,
+                let user = self.viewModel.output.fetchRegisteredUserState.content
+            else {
+                return
+            }
 
             cell.configure(
-                user: self.viewModel.output.fetchRegisteredUserState.content,
-                registeredDate: self.viewModel.course.createdAt
+                user: user,
+                registeredDate: self.viewModel.course.createdAt,
+                parentVc: self
             )
         }
     }

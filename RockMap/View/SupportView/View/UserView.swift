@@ -47,12 +47,13 @@ class UserView: UIView {
 
     func configure(
         prefix: String = "登録者：",
-        user: FIDocument.User?,
-        registeredDate: Date? = nil
+        user: FIDocument.User,
+        registeredDate: Date? = nil,
+        parentVc: UIViewController
     ) {
-        userNameLabel.text = prefix + (user?.name ?? "")
+        userNameLabel.text = prefix + user.name
 
-        if let photoURL = user?.photoURL {
+        if let photoURL = user.photoURL {
             iconButton.loadImage(url: photoURL)
         } else {
             iconButton.setImage(UIImage.AssetsImages.noimage, for: .normal)
@@ -70,7 +71,20 @@ class UserView: UIView {
 
         iconButton.addAction(
             .init { _ in
+                if AuthManager.shared.currentUser?.uid == user.id {
+                    guard
+                        let index = ScreenType.allCases.firstIndex(of: .myPage)
+                    else {
+                        return
+                    }
+                    parentVc.tabBarController?.selectedIndex = index
 
+                } else {
+                    let vc = MyPageViewController.createInstance(
+                        viewModel: .init(userKind: .other(user: user))
+                    )
+                    parentVc.navigationController?.pushViewController(vc, animated: true)
+                }
             },
             for: .touchUpInside
         )

@@ -185,7 +185,8 @@ extension RockDetailViewController {
 
             cell.configure(
                 user: user,
-                registeredDate: self.viewModel.rockDocument.createdAt
+                registeredDate: self.viewModel.rockDocument.createdAt,
+                parentVc: self
             )
         }
     }
@@ -257,8 +258,11 @@ extension RockDetailViewController {
                 nibName: CourseCollectionViewCell.className,
                 bundle: nil
             )
-        ) { cell, _, course in
-            cell.configure(course: course)
+        ) { [weak self] cell, _, course in
+
+            guard let self = self else { return }
+
+            cell.configure(course: course, parentVc: self)
         }
     }
 

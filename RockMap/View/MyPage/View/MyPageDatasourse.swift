@@ -150,7 +150,8 @@ extension MyPageViewController {
             cell.userView.configure(
                 prefix: "",
                 user: user,
-                registeredDate: user.createdAt
+                registeredDate: user.createdAt,
+                parentVc: self
             )
         }
     }
@@ -253,8 +254,11 @@ extension MyPageViewController {
                 nibName: CourseCollectionViewCell.className,
                 bundle: nil
             )
-        ) { cell, _, course in
-            cell.configure(course: course)
+        ) { [weak self] cell, _, course in
+
+            guard let self = self else { return }
+            
+            cell.configure(course: course, parentVc: self)
         }
     }
 }

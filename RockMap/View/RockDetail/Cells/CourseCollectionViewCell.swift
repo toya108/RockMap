@@ -28,7 +28,10 @@ class CourseCollectionViewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 20
     }
     
-    func configure(course: FIDocument.Course) {
+    func configure(
+        course: FIDocument.Course,
+        parentVc: UIViewController
+    ) {
         courseNameLabel.text = course.name
         infoLabel.text = course.grade.name
 
@@ -36,16 +39,16 @@ class CourseCollectionViewCell: UICollectionViewCell {
             .collection(FIDocument.User.colletionName)
             .document(course.registedUserId)
             .getDocument(FIDocument.User.self)
-            .catch { _ -> Just<FIDocument.User?> in
-                return .init(nil)
-            }
+            .catch { _ in Empty() }
+            .compactMap { $0 }
             .sink { [weak self] user in
 
                 guard let self = self else { return }
 
                 self.userView.configure(
                     user: user,
-                    registeredDate: course.createdAt
+                    registeredDate: course.createdAt,
+                    parentVc: parentVc
                 )
             }
             .store(in: &bindings)
