@@ -124,17 +124,22 @@ extension MyPageViewController {
             )
         ) { [weak self] cell, _, _ in
 
-            guard
-                let self = self,
-                let user = self.viewModel.output.fetchUserState.content
-            else {
-                return
-            }
 
-            cell.editProfileButton.isHidden = !self.viewModel.userKind.isMine
+            guard let self = self else { return }
 
-            cell.editProfileButton.addAction(
-                .init { [weak self] _ in
+            switch self.viewModel.userKind {
+                case .guest:
+                    cell.editProfileButton.isHidden = true
+                    cell.userView.userNameLabel.text = "ゲスト"
+                    cell.userView.registeredDateLabel.isHidden = true
+
+                case .mine, .other:
+                    guard
+                        let user = self.viewModel.output.fetchUserState.content
+                    else {
+                        return
+                    }
+
                     cell.editProfileButton.isHidden = false
                     cell.editProfileButton.addAction(
                         .init { [weak self] _ in
@@ -146,14 +151,13 @@ extension MyPageViewController {
                         for: .touchUpInside
                     )
 
-
-
-            cell.userView.configure(
-                prefix: "",
-                user: user,
-                registeredDate: user.createdAt,
-                parentVc: self
-            )
+                    cell.userView.configure(
+                        prefix: "",
+                        user: user,
+                        registeredDate: user.createdAt,
+                        parentVc: self
+                    )
+            }
         }
     }
 
