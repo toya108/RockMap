@@ -16,6 +16,7 @@ struct MyPageRouter: RouterProtocol {
         case courseDetail(FIDocument.Course)
         case rockList(DocumentRef?)
         case courseList(DocumentRef?)
+        case editProfile(FIDocument.User)
     }
 
     weak var viewModel: ViewModel!
@@ -37,6 +38,9 @@ struct MyPageRouter: RouterProtocol {
 
             case .courseList(let userReference):
                 pushCourseList(context, userReference: userReference)
+
+            case .editProfile(let user):
+                presentEditProfile(context, user: user)
 
         }
     }
@@ -66,6 +70,17 @@ struct MyPageRouter: RouterProtocol {
         let viewModel = CourseListViewModel(userReference: userReference)
         let vc = CourseListViewController.createInstance(viewModel: viewModel)
         from.navigationController?.pushViewController(vc, animated: true)
+    }
+
+    private func presentEditProfile(
+        _ from: UIViewController,
+        user: FIDocument.User
+    ) {
+        let viewModel = EditProfileViewModel(user: user)
+        let vc = EditProfileViewController.createInstance(viewModel: viewModel)
+        let nc = RockMapNavigationController(rootVC: vc, naviBarClass: RockMapNoShadowNavigationBar.self)
+        nc.isModalInPresentation = true
+        from.present(nc, animated: true)
     }
 
 }
