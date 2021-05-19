@@ -107,7 +107,9 @@ extension MyPageViewController {
 
             guard let self = self else { return }
 
-            cell.imageView.loadImage(url: self.viewModel.output.fetchUserState.content?.headerUrl)
+            cell.imageView.loadImage(
+                url: self.viewModel.output.fetchUserState.content?.headerUrl
+            )
         }
     }
 

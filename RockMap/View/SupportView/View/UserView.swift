@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 @IBDesignable
 class UserView: UIView {
@@ -40,6 +41,7 @@ class UserView: UIView {
             view.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
 
+        iconButton.clipsToBounds = true
         iconButton.layer.cornerRadius = 20
     }
 
@@ -51,7 +53,7 @@ class UserView: UIView {
         userNameLabel.text = prefix + (user?.name ?? "")
 
         if let photoURL = user?.photoURL {
-            iconButton.imageView?.loadImage(url: photoURL)
+            iconButton.loadImage(url: photoURL)
         } else {
             iconButton.setImage(UIImage.AssetsImages.noimage, for: .normal)
         }
@@ -69,8 +71,7 @@ class UserView: UIView {
         iconButton.addAction(
             .init { _ in
 
-            }
-            ,
+            },
             for: .touchUpInside
         )
     }
