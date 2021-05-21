@@ -54,6 +54,12 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
     }
     
     private func bindViewToViewModel() {
+        viewModel.output.$fetchParentRockState
+            .filter(\.isFinished)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: fetchParentRockStateSink)
+            .store(in: &bindings)
+
         viewModel.output.$fetchRegisteredUserState
             .filter(\.isFinished)
             .receive(on: DispatchQueue.main)
@@ -91,6 +97,17 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
 }
 
 extension CourseDetailViewController {
+
+    private func fetchParentRockStateSink(_ state: LoadingState<FIDocument.Rock>) {
+        switch state {
+            case .stanby, .failure, .loading:
+                break
+
+            case .finish:
+                snapShot.reloadSections([.parentRock])
+                datasource.apply(snapShot, animatingDifferences: false)
+        }
+    }
     
     private func fetchRegisteredUserStateSink(_ state: LoadingState<FIDocument.User>) {
         switch state {

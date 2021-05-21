@@ -15,6 +15,7 @@ extension CourseDetailViewController {
         case title
         case registeredUser
         case climbedNumber
+        case parentRock
         case info
         case desc
         case images
@@ -23,6 +24,9 @@ extension CourseDetailViewController {
             switch self {
                 case .climbedNumber:
                     return "完登者数"
+
+                case .parentRock:
+                    return "課題の登録先の岩"
 
                 case .info:
                     return "基本情報"
@@ -41,7 +45,7 @@ extension CourseDetailViewController {
         
         var headerIdentifer: String {
             switch self {
-                case .climbedNumber, .info, .images, .desc:
+                case .climbedNumber, .parentRock, .info, .images, .desc:
                     return TitleSupplementaryView.className
                 
                 default:
@@ -67,6 +71,9 @@ extension CourseDetailViewController {
                 case .climbedNumber:
                     return [.climbedNumber]
 
+                case .parentRock:
+                    return [.parentRock]
+
                 case .desc:
                     return [.desc]
 
@@ -83,6 +90,7 @@ extension CourseDetailViewController {
         case title
         case registeredUser
         case climbedNumber
+        case parentRock
         case shape(ValueCollectionViewCell.ValueCellStructure)
         case desc
         case image(URL)

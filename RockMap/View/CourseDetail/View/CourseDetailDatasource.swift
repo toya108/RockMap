@@ -53,6 +53,13 @@ extension CourseDetailViewController {
                         item: Dummy()
                     )
 
+                case .parentRock:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureRockCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
+
                 case let .shape(cellData):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureShapeCell(),
@@ -205,6 +212,22 @@ extension CourseDetailViewController {
                 flash: self.viewModel.output.totalClimbedNumber?.flashTotal ?? 0 as Int,
                 redPoint: self.viewModel.output.totalClimbedNumber?.redPointTotal ?? 0 as Int
             )
+        }
+    }
+
+    private func configureRockCell() -> UICollectionView.CellRegistration<
+        UICollectionViewListCell,
+        Dummy
+    > {
+        .init { [weak self] cell, _, _ in
+
+            guard let self = self else { return }
+
+            var content = cell.defaultContentConfiguration()
+            content.text = self.viewModel.output.fetchParentRockState.content?.name ?? "-"
+            cell.contentConfiguration = content
+
+            cell.contentView.backgroundColor = .systemGroupedBackground
         }
     }
 

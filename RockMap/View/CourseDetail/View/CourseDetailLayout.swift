@@ -11,7 +11,7 @@ extension CourseDetailViewController {
     
     func createLayout() -> UICollectionViewCompositionalLayout {
         
-        let layout = UICollectionViewCompositionalLayout { sectionNumber, _ -> NSCollectionLayoutSection in
+        let layout = UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
             let section: NSCollectionLayoutSection
 
             let sectionType = SectionLayoutKind.allCases[sectionNumber]
@@ -98,7 +98,13 @@ extension CourseDetailViewController {
                         subitems: [item]
                     )
                     section = .init(group: group)
-                    
+
+                case .parentRock:
+                    var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+                    configuration.showsSeparators = false
+                    section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: env)
+                    section.boundarySupplementaryItems = [sectionHeader]
+
                 case .info:
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(
