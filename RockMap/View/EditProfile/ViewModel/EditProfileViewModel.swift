@@ -268,6 +268,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             )
             .compactMap { $0 }
             .flatMap { $0.getDownloadURL() }
+            .replaceError(with: nil)
 
         let icon = StorageManager
             .getReference(
@@ -277,27 +278,15 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             )
             .compactMap { $0 }
             .flatMap { $0.getDownloadURL() }
+            .replaceError(with: AuthManager.shared.currentUser?.photoURL)
 
         header.zip(icon)
             .eraseToAnyPublisher()
-            .sink(
-                receiveCompletion: { [weak self] result in
-
-                    guard let self = self else { return }
-
-                    if case let .failure(error) = result {
-                        self.output.imageUrlDownloadState = .failure(error)
-                    }
-                },
-                receiveValue: { [weak self] headerUrl, iconUrl in
-
-                    guard let self = self else { return }
-
-                    self.output.imageUrlDownloadState = .finish(
-                        content: (header: headerUrl, icon: iconUrl)
-                    )
-                }
-            )
+            .sink { [weak self] headerUrl, iconUrl in
+                self?.output.imageUrlDownloadState = .finish(
+                    content: (header: headerUrl, icon: iconUrl)
+                )
+            }
             .store(in: &bindings)
     }
 
