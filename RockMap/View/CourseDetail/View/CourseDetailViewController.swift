@@ -29,15 +29,11 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        setupNavigationBar()
         configureCollectionView()
         bindViewToViewModel()
         configureSections()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupNavigationBar()
     }
     
     private func setupNavigationBar() {
