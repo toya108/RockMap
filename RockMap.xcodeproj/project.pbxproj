@@ -82,6 +82,7 @@
 		9E5CEFD825277B26001C95AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E5CEFD625277B26001C95AA /* LaunchScreen.storyboard */; };
 		9E5CEFE325277B26001C95AA /* RockMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFE225277B26001C95AA /* RockMapTests.swift */; };
 		9E5CEFEE25277B26001C95AA /* RockMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFED25277B26001C95AA /* RockMapUITests.swift */; };
+		9E5D261C26595C1000DE7E57 /* ParentRockButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D261B26595C1000DE7E57 /* ParentRockButtonCollectionViewCell.swift */; };
 		9E5D51B325E0A34700977473 /* ConfirmationButtonColletionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D51B225E0A34700977473 /* ConfirmationButtonColletionViewCell.swift */; };
 		9E5DD1C025C84DA500E38620 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5DD1BF25C84DA500E38620 /* UIImageViewExtension.swift */; };
 		9E5DD1D725C9857A00E38620 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5DD1D625C9857A00E38620 /* UIViewExtension.swift */; };
@@ -313,6 +314,7 @@
 		9E5CEFE925277B26001C95AA /* RockMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RockMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5CEFED25277B26001C95AA /* RockMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockMapUITests.swift; sourceTree = "<group>"; };
 		9E5CEFEF25277B26001C95AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E5D261B26595C1000DE7E57 /* ParentRockButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentRockButtonCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E5D51B225E0A34700977473 /* ConfirmationButtonColletionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationButtonColletionViewCell.swift; sourceTree = "<group>"; };
 		9E5DD1BF25C84DA500E38620 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		9E5DD1D625C9857A00E38620 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -591,6 +593,7 @@
 				9E0BE38326058FFE00576869 /* CompleteButtonCollectionViewCell.xib */,
 				9E0BE3D72607949E00576869 /* ClimbedNumberCollectionViewCell.swift */,
 				9E0BE3D82607949E00576869 /* ClimbedNumberCollectionViewCell.xib */,
+				9E5D261B26595C1000DE7E57 /* ParentRockButtonCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1817,6 +1820,7 @@
 				9EF8E2BB25EF6E2B00185A3D /* CourseConfirmLayout.swift in Sources */,
 				9E9845C125D4F27E00B03C4E /* CourseRegisterViewController.swift in Sources */,
 				9E9974FA264227D400E8562B /* CourseListRouter.swift in Sources */,
+				9E5D261C26595C1000DE7E57 /* ParentRockButtonCollectionViewCell.swift in Sources */,
 				9E08ACA42573E6C400D69927 /* NameSpace.swift in Sources */,
 				9E0A9F29255104A0007B9A90 /* KeyboardExtension.swift in Sources */,
 				9E807CC6254D00310091935F /* ScreenType.swift in Sources */,

@@ -43,12 +43,12 @@ extension CourseDetailViewController {
                     )
                     section = .init(group: group)
                     return section
-                    
-                case .buttons:
+
+                case .parentRock:
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
-                            heightDimension: .absolute(44)
+                            heightDimension: .absolute(28)
                         )
                     )
                     let group = NSCollectionLayoutGroup.horizontal(
@@ -56,7 +56,7 @@ extension CourseDetailViewController {
                         subitems: [item]
                     )
                     section = .init(group: group)
-                    section.contentInsets = .init(top: 8, leading: 0, bottom: 8, trailing: 0)
+                    section.contentInsets.top = 12
 
                 case .title:
                     let item = NSCollectionLayoutItem(
@@ -70,7 +70,7 @@ extension CourseDetailViewController {
                         subitems: [item]
                     )
                     section = .init(group: group)
-                    section.contentInsets = .init(top: 8, leading: 0, bottom: 8, trailing: 0)
+                    section.contentInsets.bottom = 16
 
                 case .registeredUser:
                     let item = NSCollectionLayoutItem(
@@ -85,7 +85,20 @@ extension CourseDetailViewController {
                     )
                     section = .init(group: group)
                     section.contentInsets = .init(top: 8, leading: 0, bottom: 8, trailing: 0)
-                    
+
+                case .buttons:
+                    let item = NSCollectionLayoutItem(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .absolute(44)
+                        )
+                    )
+                    let group = NSCollectionLayoutGroup.horizontal(
+                        layoutSize: item.layoutSize,
+                        subitems: [item]
+                    )
+                    section = .init(group: group)
+
                 case .climbedNumber:
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(
@@ -98,12 +111,6 @@ extension CourseDetailViewController {
                         subitems: [item]
                     )
                     section = .init(group: group)
-
-                case .parentRock:
-                    var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
-                    configuration.showsSeparators = false
-                    section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: env)
-                    section.boundarySupplementaryItems = [sectionHeader]
 
                 case .info:
                     let item = NSCollectionLayoutItem(

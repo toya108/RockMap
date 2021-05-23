@@ -11,11 +11,11 @@ extension CourseDetailViewController {
     
     enum SectionLayoutKind: CaseIterable {
         case headerImage
-        case buttons
+        case parentRock
         case title
         case registeredUser
+        case buttons
         case climbedNumber
-        case parentRock
         case info
         case desc
         case images
@@ -24,9 +24,6 @@ extension CourseDetailViewController {
             switch self {
                 case .climbedNumber:
                     return "完登者数"
-
-                case .parentRock:
-                    return "課題の登録先の岩"
 
                 case .info:
                     return "基本情報"
@@ -45,7 +42,7 @@ extension CourseDetailViewController {
         
         var headerIdentifer: String {
             switch self {
-                case .climbedNumber, .parentRock, .info, .images, .desc:
+                case .climbedNumber, .info, .images, .desc:
                     return TitleSupplementaryView.className
                 
                 default:
@@ -59,8 +56,8 @@ extension CourseDetailViewController {
                 case .headerImage:
                     return [.headerImage]
 
-                case .buttons:
-                    return [.buttons]
+                case .parentRock:
+                    return [.parentRock]
 
                 case .title:
                     return [.title]
@@ -68,11 +65,11 @@ extension CourseDetailViewController {
                 case .registeredUser:
                     return [.registeredUser]
 
+                case .buttons:
+                    return [.buttons]
+
                 case .climbedNumber:
                     return [.climbedNumber]
-
-                case .parentRock:
-                    return [.parentRock]
 
                 case .desc:
                     return [.desc]

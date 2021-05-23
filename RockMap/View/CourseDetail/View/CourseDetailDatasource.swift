@@ -74,7 +74,6 @@ extension CourseDetailViewController {
                         item: Dummy()
                     )
 
-
                 case let .image(url):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureImageCell(radius: 8.0),
@@ -216,18 +215,18 @@ extension CourseDetailViewController {
     }
 
     private func configureRockCell() -> UICollectionView.CellRegistration<
-        UICollectionViewListCell,
+        ParentRockButtonCollectionViewCell,
         Dummy
     > {
         .init { [weak self] cell, _, _ in
 
             guard let self = self else { return }
 
-            var content = cell.defaultContentConfiguration()
-            content.text = self.viewModel.output.fetchParentRockState.content?.name ?? "-"
-            cell.contentConfiguration = content
+            cell.configure(
+                title: self.viewModel.output.fetchParentRockState.content?.name ?? ""
+            ) {
 
-            cell.contentView.backgroundColor = .systemGroupedBackground
+            }
         }
     }
 
