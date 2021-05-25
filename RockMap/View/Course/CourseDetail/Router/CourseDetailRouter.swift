@@ -15,6 +15,7 @@ struct CourseDetailRouter: RouterProtocol {
     enum DestinationType: DestinationProtocol {
         case registerClimbed
         case climbedUserList
+        case parentRock(FIDocument.Rock)
     }
 
     weak var viewModel: ViewModel!
@@ -33,6 +34,9 @@ struct CourseDetailRouter: RouterProtocol {
 
             case .climbedUserList:
                 pushClimbedUserList(from)
+
+            case .parentRock(let rock):
+                transitionToParentRock(from, rock: rock)
 
         }
     }
@@ -57,6 +61,24 @@ struct CourseDetailRouter: RouterProtocol {
             ClimbedUserListViewController.createInstance(course: viewModel.course),
             animated: true
         )
+    }
+
+    private func transitionToParentRock(
+        _ from: UIViewController,
+        rock: FIDocument.Rock
+    ) {
+        if
+            let index = from.navigationController?.viewControllers.firstIndex(of: from),
+            let previousVc = from.navigationController?.viewControllers.any(at: index - 1),
+            let rockDetailVc = previousVc as? RockDetailViewController,
+            rockDetailVc.viewModel.rockId == rock.id
+        {
+            from.navigationController?.popViewController(animated: true)
+        } else {
+            let viewModel = RockDetailViewModel(rock: rock)
+            let vc = RockDetailViewController.createInstance(viewModel: viewModel)
+            from.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 
 }

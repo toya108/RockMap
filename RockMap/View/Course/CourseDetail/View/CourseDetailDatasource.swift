@@ -220,12 +220,18 @@ extension CourseDetailViewController {
     > {
         .init { [weak self] cell, _, _ in
 
-            guard let self = self else { return }
+            guard
+                let self = self,
+                let rock = self.viewModel.output.fetchParentRockState.content
+            else {
+                return
+            }
 
-            cell.configure(
-                title: self.viewModel.output.fetchParentRockState.content?.name ?? ""
-            ) {
+            cell.configure(title: rock.name) { [weak self] in
 
+                guard let self = self else { return }
+
+                self.router.route(to: .parentRock(rock), from: self)
             }
         }
     }

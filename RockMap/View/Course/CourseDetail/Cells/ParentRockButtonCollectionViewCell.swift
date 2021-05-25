@@ -38,9 +38,7 @@ class ParentRockButtonCollectionViewCell: UICollectionViewCell {
     func configure(title: String, didTap: @escaping () -> Void) {
         rockButton.setTitle(title, for: .normal)
         rockButton.addAction(
-            .init { _ in
-
-            },
+            .init { _ in didTap() },
             for: .touchUpInside
         )
     }
