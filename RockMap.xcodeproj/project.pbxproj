@@ -495,8 +495,8 @@
 		9E033F552577F6CD00A669F8 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				9EE8BC5A2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift */,
-				9EE8BC5B2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib */,
+				9E04B192254B28330097DA8E /* Login */,
+				9E80E90B265D3E14000D33F6 /* AuthPicker */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -520,7 +520,7 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		9E04B1A9254BA94C0097DA8E /* RockSearch */ = {
+		9E04B1A9254BA94C0097DA8E /* Search */ = {
 			isa = PBXGroup;
 			children = (
 				9E39B1EE2614689E0005F6E1 /* View */,
@@ -528,7 +528,7 @@
 				9E39B1F0261468B50005F6E1 /* Router */,
 				9E39B1F1261468E60005F6E1 /* RockAnnotationList */,
 			);
-			path = RockSearch;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		9E04B1AA254BA9720097DA8E /* Extension */ = {
@@ -611,21 +611,11 @@
 			isa = PBXGroup;
 			children = (
 				9E98D53D2552F88B00EC5AC1 /* SupportView */,
-				9E04B1A9254BA94C0097DA8E /* RockSearch */,
-				9EF56020255AE74A00D00723 /* RockDetail */,
-				9EC3A6B52604D580001FBCA4 /* CourseDetail */,
-				9E7812812619930700CAC539 /* ClimbedUserList */,
-				9E78124E26198D2100CAC539 /* ClimbedRegister */,
-				9E807CCF254E92FD0091935F /* RockRegister */,
-				9EEADA17255AD1DD00F20228 /* LocationSelect */,
-				9E8723CE256BFEF700735C65 /* RockConfirm */,
-				9E9845BF25D4F22D00B03C4E /* CourceRegister */,
-				9E9C1E6F25E6B1B30050FDDE /* CourseConfirm */,
-				9E807CA3254CFCF50091935F /* MyPage */,
-				9E06F95A2649762500731352 /* EditProfile */,
-				9E9975012642303D00E8562B /* RockList */,
-				9EB87ECF2632C8CC0042EA9C /* CourseList */,
-				9E04B192254B28330097DA8E /* Login */,
+				9E80E90A265D3DF1000D33F6 /* User */,
+				9E80E909265D3964000D33F6 /* Course */,
+				9E80E908265D3945000D33F6 /* Rock */,
+				9E04B1A9254BA94C0097DA8E /* Search */,
+				9E80E90C265D3E28000D33F6 /* Climbed */,
 				9E033F552577F6CD00A669F8 /* Auth */,
 				9E807CC4254D000A0091935F /* MainTabBar */,
 				9E34C90A25B09A4F005EBE07 /* Debug */,
@@ -1016,6 +1006,56 @@
 				9E2DA75625F91B47008F339E /* Cells */,
 			);
 			path = RockRegister;
+			sourceTree = "<group>";
+		};
+		9E80E908265D3945000D33F6 /* Rock */ = {
+			isa = PBXGroup;
+			children = (
+				9E9975012642303D00E8562B /* RockList */,
+				9EEADA17255AD1DD00F20228 /* LocationSelect */,
+				9E8723CE256BFEF700735C65 /* RockConfirm */,
+				9E807CCF254E92FD0091935F /* RockRegister */,
+				9EF56020255AE74A00D00723 /* RockDetail */,
+			);
+			path = Rock;
+			sourceTree = "<group>";
+		};
+		9E80E909265D3964000D33F6 /* Course */ = {
+			isa = PBXGroup;
+			children = (
+				9EB87ECF2632C8CC0042EA9C /* CourseList */,
+				9E9C1E6F25E6B1B30050FDDE /* CourseConfirm */,
+				9E9845BF25D4F22D00B03C4E /* CourceRegister */,
+				9EC3A6B52604D580001FBCA4 /* CourseDetail */,
+			);
+			path = Course;
+			sourceTree = "<group>";
+		};
+		9E80E90A265D3DF1000D33F6 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				9E06F95A2649762500731352 /* EditProfile */,
+				9E807CA3254CFCF50091935F /* MyPage */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		9E80E90B265D3E14000D33F6 /* AuthPicker */ = {
+			isa = PBXGroup;
+			children = (
+				9EE8BC5A2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift */,
+				9EE8BC5B2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib */,
+			);
+			path = AuthPicker;
+			sourceTree = "<group>";
+		};
+		9E80E90C265D3E28000D33F6 /* Climbed */ = {
+			isa = PBXGroup;
+			children = (
+				9E7812812619930700CAC539 /* ClimbedUserList */,
+				9E78124E26198D2100CAC539 /* ClimbedRegister */,
+			);
+			path = Climbed;
 			sourceTree = "<group>";
 		};
 		9E81071E262DA30B0025359C /* View */ = {
