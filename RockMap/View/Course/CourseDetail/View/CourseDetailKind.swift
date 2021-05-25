@@ -11,9 +11,10 @@ extension CourseDetailViewController {
     
     enum SectionLayoutKind: CaseIterable {
         case headerImage
-        case buttons
+        case parentRock
         case title
         case registeredUser
+        case buttons
         case climbedNumber
         case info
         case desc
@@ -55,14 +56,17 @@ extension CourseDetailViewController {
                 case .headerImage:
                     return [.headerImage]
 
-                case .buttons:
-                    return [.buttons]
+                case .parentRock:
+                    return [.parentRock]
 
                 case .title:
                     return [.title]
                     
                 case .registeredUser:
                     return [.registeredUser]
+
+                case .buttons:
+                    return [.buttons]
 
                 case .climbedNumber:
                     return [.climbedNumber]
@@ -83,6 +87,7 @@ extension CourseDetailViewController {
         case title
         case registeredUser
         case climbedNumber
+        case parentRock
         case shape(ValueCollectionViewCell.ValueCellStructure)
         case desc
         case image(URL)

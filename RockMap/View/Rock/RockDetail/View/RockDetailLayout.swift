@@ -32,7 +32,9 @@ extension RockDetailViewController {
                         heightDimension: .fractionalHeight(1)
                     )
                 )
-                let collectionViewWidth = self.collectionView.bounds.width - (self.collectionView.layoutMargins.left + self.collectionView.layoutMargins.right)
+                let collectionViewWidth = self.collectionView.bounds.width - (
+                    self.collectionView.layoutMargins.left + self.collectionView.layoutMargins.right
+                )
                 let height = collectionViewWidth * 3/4
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: .init(

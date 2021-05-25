@@ -53,6 +53,13 @@ extension CourseDetailViewController {
                         item: Dummy()
                     )
 
+                case .parentRock:
+                    return collectionView.dequeueConfiguredReusableCell(
+                        using: self.configureRockCell(),
+                        for: indexPath,
+                        item: Dummy()
+                    )
+
                 case let .shape(cellData):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureShapeCell(),
@@ -66,7 +73,6 @@ extension CourseDetailViewController {
                         for: indexPath,
                         item: Dummy()
                     )
-
 
                 case let .image(url):
                     return collectionView.dequeueConfiguredReusableCell(
@@ -205,6 +211,28 @@ extension CourseDetailViewController {
                 flash: self.viewModel.output.totalClimbedNumber?.flashTotal ?? 0 as Int,
                 redPoint: self.viewModel.output.totalClimbedNumber?.redPointTotal ?? 0 as Int
             )
+        }
+    }
+
+    private func configureRockCell() -> UICollectionView.CellRegistration<
+        ParentRockButtonCollectionViewCell,
+        Dummy
+    > {
+        .init { [weak self] cell, _, _ in
+
+            guard
+                let self = self,
+                let rock = self.viewModel.output.fetchParentRockState.content
+            else {
+                return
+            }
+
+            cell.configure(title: rock.name) { [weak self] in
+
+                guard let self = self else { return }
+
+                self.router.route(to: .parentRock(rock), from: self)
+            }
         }
     }
 

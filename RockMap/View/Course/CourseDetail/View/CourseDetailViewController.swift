@@ -29,15 +29,11 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        setupNavigationBar()
         configureCollectionView()
         bindViewToViewModel()
         configureSections()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setupNavigationBar()
     }
     
     private func setupNavigationBar() {
@@ -49,11 +45,17 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
 
         rockMapNavigationBar.setup()
         navigationItem.title = viewModel.course.name
-        navigationItem.largeTitleDisplayMode = .always
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     private func bindViewToViewModel() {
+        viewModel.output.$fetchParentRockState
+            .filter(\.isFinished)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: fetchParentRockStateSink)
+            .store(in: &bindings)
+
         viewModel.output.$fetchRegisteredUserState
             .filter(\.isFinished)
             .receive(on: DispatchQueue.main)
@@ -91,6 +93,18 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
 }
 
 extension CourseDetailViewController {
+
+    private func fetchParentRockStateSink(_ state: LoadingState<FIDocument.Rock>) {
+        switch state {
+            case .stanby, .failure, .loading:
+                break
+
+            case .finish:
+                snapShot.deleteItems([.parentRock])
+                snapShot.appendItems([.parentRock], toSection: .parentRock)
+                datasource.apply(snapShot, animatingDifferences: false)
+        }
+    }
     
     private func fetchRegisteredUserStateSink(_ state: LoadingState<FIDocument.User>) {
         switch state {
@@ -98,7 +112,8 @@ extension CourseDetailViewController {
                 break
 
             case .finish:
-                snapShot.reloadSections([.registeredUser])
+                snapShot.deleteItems([.registeredUser])
+                snapShot.appendItems([.registeredUser], toSection: .registeredUser)
                 datasource.apply(snapShot, animatingDifferences: false)
         }
     }

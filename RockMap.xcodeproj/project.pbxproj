@@ -82,6 +82,7 @@
 		9E5CEFD825277B26001C95AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E5CEFD625277B26001C95AA /* LaunchScreen.storyboard */; };
 		9E5CEFE325277B26001C95AA /* RockMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFE225277B26001C95AA /* RockMapTests.swift */; };
 		9E5CEFEE25277B26001C95AA /* RockMapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFED25277B26001C95AA /* RockMapUITests.swift */; };
+		9E5D261C26595C1000DE7E57 /* ParentRockButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D261B26595C1000DE7E57 /* ParentRockButtonCollectionViewCell.swift */; };
 		9E5D51B325E0A34700977473 /* ConfirmationButtonColletionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D51B225E0A34700977473 /* ConfirmationButtonColletionViewCell.swift */; };
 		9E5DD1C025C84DA500E38620 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5DD1BF25C84DA500E38620 /* UIImageViewExtension.swift */; };
 		9E5DD1D725C9857A00E38620 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5DD1D625C9857A00E38620 /* UIViewExtension.swift */; };
@@ -313,6 +314,7 @@
 		9E5CEFE925277B26001C95AA /* RockMapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RockMapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5CEFED25277B26001C95AA /* RockMapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockMapUITests.swift; sourceTree = "<group>"; };
 		9E5CEFEF25277B26001C95AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E5D261B26595C1000DE7E57 /* ParentRockButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentRockButtonCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E5D51B225E0A34700977473 /* ConfirmationButtonColletionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationButtonColletionViewCell.swift; sourceTree = "<group>"; };
 		9E5DD1BF25C84DA500E38620 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		9E5DD1D625C9857A00E38620 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -493,8 +495,8 @@
 		9E033F552577F6CD00A669F8 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				9EE8BC5A2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift */,
-				9EE8BC5B2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib */,
+				9E04B192254B28330097DA8E /* Login */,
+				9E80E90B265D3E14000D33F6 /* AuthPicker */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -518,7 +520,7 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		9E04B1A9254BA94C0097DA8E /* RockSearch */ = {
+		9E04B1A9254BA94C0097DA8E /* Search */ = {
 			isa = PBXGroup;
 			children = (
 				9E39B1EE2614689E0005F6E1 /* View */,
@@ -526,7 +528,7 @@
 				9E39B1F0261468B50005F6E1 /* Router */,
 				9E39B1F1261468E60005F6E1 /* RockAnnotationList */,
 			);
-			path = RockSearch;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		9E04B1AA254BA9720097DA8E /* Extension */ = {
@@ -591,6 +593,7 @@
 				9E0BE38326058FFE00576869 /* CompleteButtonCollectionViewCell.xib */,
 				9E0BE3D72607949E00576869 /* ClimbedNumberCollectionViewCell.swift */,
 				9E0BE3D82607949E00576869 /* ClimbedNumberCollectionViewCell.xib */,
+				9E5D261B26595C1000DE7E57 /* ParentRockButtonCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -608,21 +611,11 @@
 			isa = PBXGroup;
 			children = (
 				9E98D53D2552F88B00EC5AC1 /* SupportView */,
-				9E04B1A9254BA94C0097DA8E /* RockSearch */,
-				9EF56020255AE74A00D00723 /* RockDetail */,
-				9EC3A6B52604D580001FBCA4 /* CourseDetail */,
-				9E7812812619930700CAC539 /* ClimbedUserList */,
-				9E78124E26198D2100CAC539 /* ClimbedRegister */,
-				9E807CCF254E92FD0091935F /* RockRegister */,
-				9EEADA17255AD1DD00F20228 /* LocationSelect */,
-				9E8723CE256BFEF700735C65 /* RockConfirm */,
-				9E9845BF25D4F22D00B03C4E /* CourceRegister */,
-				9E9C1E6F25E6B1B30050FDDE /* CourseConfirm */,
-				9E807CA3254CFCF50091935F /* MyPage */,
-				9E06F95A2649762500731352 /* EditProfile */,
-				9E9975012642303D00E8562B /* RockList */,
-				9EB87ECF2632C8CC0042EA9C /* CourseList */,
-				9E04B192254B28330097DA8E /* Login */,
+				9E80E90A265D3DF1000D33F6 /* User */,
+				9E80E909265D3964000D33F6 /* Course */,
+				9E80E908265D3945000D33F6 /* Rock */,
+				9E04B1A9254BA94C0097DA8E /* Search */,
+				9E80E90C265D3E28000D33F6 /* Climbed */,
 				9E033F552577F6CD00A669F8 /* Auth */,
 				9E807CC4254D000A0091935F /* MainTabBar */,
 				9E34C90A25B09A4F005EBE07 /* Debug */,
@@ -1013,6 +1006,56 @@
 				9E2DA75625F91B47008F339E /* Cells */,
 			);
 			path = RockRegister;
+			sourceTree = "<group>";
+		};
+		9E80E908265D3945000D33F6 /* Rock */ = {
+			isa = PBXGroup;
+			children = (
+				9E9975012642303D00E8562B /* RockList */,
+				9EEADA17255AD1DD00F20228 /* LocationSelect */,
+				9E8723CE256BFEF700735C65 /* RockConfirm */,
+				9E807CCF254E92FD0091935F /* RockRegister */,
+				9EF56020255AE74A00D00723 /* RockDetail */,
+			);
+			path = Rock;
+			sourceTree = "<group>";
+		};
+		9E80E909265D3964000D33F6 /* Course */ = {
+			isa = PBXGroup;
+			children = (
+				9EB87ECF2632C8CC0042EA9C /* CourseList */,
+				9E9C1E6F25E6B1B30050FDDE /* CourseConfirm */,
+				9E9845BF25D4F22D00B03C4E /* CourceRegister */,
+				9EC3A6B52604D580001FBCA4 /* CourseDetail */,
+			);
+			path = Course;
+			sourceTree = "<group>";
+		};
+		9E80E90A265D3DF1000D33F6 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				9E06F95A2649762500731352 /* EditProfile */,
+				9E807CA3254CFCF50091935F /* MyPage */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		9E80E90B265D3E14000D33F6 /* AuthPicker */ = {
+			isa = PBXGroup;
+			children = (
+				9EE8BC5A2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift */,
+				9EE8BC5B2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib */,
+			);
+			path = AuthPicker;
+			sourceTree = "<group>";
+		};
+		9E80E90C265D3E28000D33F6 /* Climbed */ = {
+			isa = PBXGroup;
+			children = (
+				9E7812812619930700CAC539 /* ClimbedUserList */,
+				9E78124E26198D2100CAC539 /* ClimbedRegister */,
+			);
+			path = Climbed;
 			sourceTree = "<group>";
 		};
 		9E81071E262DA30B0025359C /* View */ = {
@@ -1817,6 +1860,7 @@
 				9EF8E2BB25EF6E2B00185A3D /* CourseConfirmLayout.swift in Sources */,
 				9E9845C125D4F27E00B03C4E /* CourseRegisterViewController.swift in Sources */,
 				9E9974FA264227D400E8562B /* CourseListRouter.swift in Sources */,
+				9E5D261C26595C1000DE7E57 /* ParentRockButtonCollectionViewCell.swift in Sources */,
 				9E08ACA42573E6C400D69927 /* NameSpace.swift in Sources */,
 				9E0A9F29255104A0007B9A90 /* KeyboardExtension.swift in Sources */,
 				9E807CC6254D00310091935F /* ScreenType.swift in Sources */,
