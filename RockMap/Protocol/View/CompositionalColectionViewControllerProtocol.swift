@@ -39,7 +39,7 @@ extension CompositionalColectionViewControllerProtocol {
         datasource = configureDatasource()
         
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
-        collectionView.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
+        collectionView.contentInset = .init(top: 8, left: 0, bottom: 16, right: 0)
     }
 
     func cell<T: UICollectionViewCell>(
