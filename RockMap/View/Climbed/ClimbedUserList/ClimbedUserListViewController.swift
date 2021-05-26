@@ -219,15 +219,16 @@ extension ClimbedUserListViewController: UITableViewDelegate {
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
 
+        guard
+            let cellData = self.datasource.itemIdentifier(for: indexPath),
+            cellData.isOwned
+        else {
+            return nil
+        }
+
         let actionProvider: ([UIMenuElement]) -> UIMenu? = { [weak self] _ in
 
             guard let self = self else { return nil }
-
-            guard
-                let cellData = self.datasource.itemIdentifier(for: indexPath)
-            else {
-                return nil
-            }
 
             return UIMenu(
                 title: "",
