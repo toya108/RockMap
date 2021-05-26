@@ -8,54 +8,87 @@
 import Combine
 import Foundation
 
-class ClimbedUserListViewModel {
+protocol ClimbedUserListViewModelProtocol: ViewModelProtocol {
+    var input: ClimbedUserListViewModel.Input { get }
+    var output: ClimbedUserListViewModel.Output { get }
+}
 
-    struct ClimbedCellData: Hashable {
-        var climbed: FIDocument.Climbed
-        let user: FIDocument.User
-        let isOwned: Bool
-    }
+class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
+
+    var input: Input = .init()
+    var output: Output = .init()
 
     private let course: FIDocument.Course
-    @Published private var climbedList: [FIDocument.Climbed] = []
-    @Published var climbedCellData: [ClimbedCellData] = []
     private var bindings = Set<AnyCancellable>()
+    private let fetchClimbedSubject = PassthroughSubject<String, Error>()
 
     init(course: FIDocument.Course) {
         self.course = course
+        setupOutput()
         fetchClimbed()
-        setupBindings()
     }
 
-    func fetchClimbed() {
+    private func fetchClimbed() {
         FirestoreManager.db
             .collectionGroup(FIDocument.Climbed.colletionName)
             .whereField("parentCourseId", in: [course.id])
             .order(by: "climbedDate")
             .getDocuments(FIDocument.Climbed.self)
-            .catch { _ -> Just<[FIDocument.Climbed]> in
-                return .init([])
-            }
-            .assign(to: &$climbedList)
+            .catch { _ in Empty() }
+            .assign(to: &output.$climbedList )
     }
 
-    private func setupBindings() {
-        $climbedList
-            .drop(while: { $0.isEmpty })
-            .flatMap {
+    private func setupOutput() {
+
+        let share = output.$climbedList
+            .filter { !$0.isEmpty }
+            .share()
+
+        share
+            .flatMap { _ in
                 FirestoreManager.db
                     .collection(FIDocument.User.colletionName)
-                    .whereField("id", in: $0.map(\.registeredUserId))
-                    .getDocuments(FIDocument.User.self)
+                    .document(AuthManager.shared.uid)
+                    .getDocument(FIDocument.User.self)
             }
-            .catch { _ -> Just<[FIDocument.User]> in
-                return .init([])
+            .catch { _ in Empty() }
+            .compactMap { $0 }
+            .sink { [weak self] user in
+
+                guard let self = self else { return }
+
+                self.output.myClimbedCellData = self.output.climbedList
+                    .filter { $0.registeredUserId == AuthManager.shared.uid }
+                    .map {
+                        ClimbedCellData(
+                            climbed: $0,
+                            user: user,
+                            isOwned: true
+                        )
+                    }
             }
+            .store(in: &bindings)
+
+        share
+            .map { $0.filter { $0.registeredUserId != AuthManager.shared.uid } }
+            .map { Set($0) }
+            .map { array in
+                array.map {
+                    FirestoreManager.db
+                        .collection(FIDocument.User.colletionName)
+                        .document($0.registeredUserId)
+                }
+            }
+            .flatMap {
+                $0.getDocuments(FIDocument.User.self)
+            }
+            .breakpointOnError()
+            .catch { _ in Empty() }
             .sink { [weak self] climbedUserList in
 
                 guard let self = self else { return }
 
-                self.climbedCellData = self.climbedList.compactMap { climbed -> ClimbedCellData? in
+                self.output.climbedCellData = self.output.climbedList.compactMap { climbed -> ClimbedCellData? in
 
                     guard
                         let user = climbedUserList.first(where: { climbed.registeredUserId == $0.id })
@@ -66,7 +99,7 @@ class ClimbedUserListViewModel {
                     return .init(
                         climbed: climbed,
                         user: user,
-                        isOwned: user.id == AuthManager.shared.uid
+                        isOwned: false
                     )
                 }
             }
@@ -109,17 +142,39 @@ class ClimbedUserListViewModel {
         type: FIDocument.Climbed.ClimbedRecordType
     ) {
         guard
-            let index = climbedCellData.firstIndex(where: { $0.climbed.id == id })
+            let index = output.climbedCellData.firstIndex(where: { $0.climbed.id == id })
         else {
             return
         }
 
-        climbedCellData[index].climbed.climbedDate = date
-        climbedCellData[index].climbed.type = type
+        output.climbedCellData[index].climbed.climbedDate = date
+        output.climbedCellData[index].climbed.type = type
 
-        climbedCellData.sort(
+        output.climbedCellData.sort(
             by: { $0.climbed.climbedDate < $1.climbed.climbedDate }
         )
 
+    }
+}
+
+extension ClimbedUserListViewModel {
+
+    struct ClimbedCellData: Hashable {
+        var climbed: FIDocument.Climbed
+        let user: FIDocument.User
+        let isOwned: Bool
+    }
+
+}
+
+extension ClimbedUserListViewModel {
+
+    struct Input {
+    }
+
+    final class Output {
+        @Published var climbedList: [FIDocument.Climbed] = []
+        @Published var myClimbedCellData: [ClimbedCellData] = []
+        @Published var climbedCellData: [ClimbedCellData] = []
     }
 }

@@ -94,15 +94,27 @@ class ClimbedUserListViewController: UIViewController {
     }
 
     private func bindViewToViewModel() {
-        viewModel.$climbedCellData
+        viewModel.output.$myClimbedCellData
             .receive(on: RunLoop.main)
             .sink { [weak self] cellData in
 
                 guard let self = self else { return }
 
-                self.snapShot.deleteItems(self.snapShot.itemIdentifiers)
-                self.snapShot.appendItems(cellData.filter { $0.isOwned }, toSection: .owned)
-                self.snapShot.appendItems(cellData.filter { !$0.isOwned }, toSection: .others)
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .owned))
+                self.snapShot.appendItems(cellData, toSection: .owned)
+
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &bindings)
+
+        viewModel.output.$climbedCellData
+            .receive(on: RunLoop.main)
+            .sink { [weak self] cellData in
+
+                guard let self = self else { return }
+
+                self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .others))
+                self.snapShot.appendItems(cellData, toSection: .others)
 
                 self.datasource.apply(self.snapShot)
             }
