@@ -44,6 +44,7 @@ struct MyPageRouter: RouterProtocol {
                 presentEditProfile(context, user: user)
 
             case .settings:
+                break
 
         }
     }
