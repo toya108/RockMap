@@ -4,6 +4,12 @@
 # What is RockMap?
 RockMap is a map app that allows you to share Boulder and its courses.
 
+<img src="https://user-images.githubusercontent.com/44093643/119842090-5b459b80-bf41-11eb-88a4-a09fc896d1c2.jpg" width="250">　<img src="https://user-images.githubusercontent.com/44093643/119841874-28030c80-bf41-11eb-9cb6-b8e822f605a1.jpg" width="250">　<img src="https://user-images.githubusercontent.com/44093643/119842111-5da7f580-bf41-11eb-8178-b35bf084150a.jpg" width="250">
+
+
+## Development Status
+This app is under development for release...
+
 ## Feature
 * Login(using FirebaseUI)
 * Search Location of Rocks(MapKit)
@@ -11,7 +17,7 @@ RockMap is a map app that allows you to share Boulder and its courses.
 
 ## Architecture
 ### Design
-* MVVM
+* MVVM + Combine
 
 ### UI
 * UIKit
@@ -24,6 +30,10 @@ RockMap is a map app that allows you to share Boulder and its courses.
 
 ### Authentication
 * FirebaseUI 
+
+## Data Model
+
+<img src="https://user-images.githubusercontent.com/44093643/119843554-a0b69880-bf42-11eb-970d-dfba516a2e0a.png" width="300">
 
 ## Instration
 Please run the belows in the root of the project.
