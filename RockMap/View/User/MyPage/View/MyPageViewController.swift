@@ -142,7 +142,7 @@ extension MyPageViewController {
 
         switch item {
             case .climbedNumber:
-                break
+                router.route(to: .climbedCourseList, from: self)
 
             case .climbedCourse(let course):
                 router.route(to: .courseDetail(course), from: self)

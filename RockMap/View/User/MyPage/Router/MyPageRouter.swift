@@ -13,6 +13,7 @@ struct MyPageRouter: RouterProtocol {
     typealias ViewModel = MyPageViewModel
 
     enum DestinationType: DestinationProtocol {
+        case climbedCourseList
         case courseDetail(FIDocument.Course)
         case rockList(DocumentRef?)
         case courseList(DocumentRef?)
@@ -31,6 +32,9 @@ struct MyPageRouter: RouterProtocol {
         from context: UIViewController
     ) {
         switch destination {
+            case .climbedCourseList:
+                pushClimbedCourseList(context)
+
             case .courseDetail(let course):
                 pushCourseDetail(context, course: course)
 
@@ -47,6 +51,13 @@ struct MyPageRouter: RouterProtocol {
                 break
 
         }
+    }
+
+    private func pushClimbedCourseList(
+        _ from: UIViewController
+    ) {
+        let vc = MyClimbedListViewController.createInstance(viewModel: .init())
+        from.navigationController?.pushViewController(vc, animated: true)
     }
 
     private func pushCourseDetail(
