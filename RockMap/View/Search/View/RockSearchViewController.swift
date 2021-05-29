@@ -53,13 +53,13 @@ final class RockSearchViewController: UIViewController {
         setupBindings()
         setupMapView()
         setupFloatingPanel()
+        updateLocation(LocationManager.shared.location)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setupNavigationBar()
-        updateLocation(LocationManager.shared.location)
         viewModel.fetchRockList()
     }
 
@@ -213,10 +213,10 @@ final class RockSearchViewController: UIViewController {
                 )
         }
     }
-    
+
     private func updateLocation(_ location: CLLocation) {
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        
+
         mapView.setRegion(
             .init(center: location.coordinate, span: span),
             animated: true
