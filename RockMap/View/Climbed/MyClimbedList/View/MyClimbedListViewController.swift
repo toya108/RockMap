@@ -98,10 +98,14 @@ extension MyClimbedListViewController {
     ) {
         guard
             let item = datasource.itemIdentifier(for: indexPath),
-            case let .course(course) = item
+            case let .course(climbedCourse) = item
         else {
             return
         }
+
+        let courseViewModel = CourseDetailViewModel(course: climbedCourse.course)
+        let courseDetailViewController = CourseDetailViewController.createInstance(viewModel: courseViewModel)
+        navigationController?.pushViewController(courseDetailViewController, animated: true)
 
     }
 }
