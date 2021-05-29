@@ -225,7 +225,7 @@ extension EditProfileViewController {
                 iconImage: socialLinkType.icon,
                 placeholder: socialLinkType.placeHolder
             )
-            
+
             cell.textField.textDidChangedPublisher
                 .sink { [weak self] text in
 
