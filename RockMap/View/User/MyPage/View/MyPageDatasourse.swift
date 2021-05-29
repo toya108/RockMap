@@ -154,7 +154,6 @@ extension MyPageViewController {
                     )
 
                     cell.userView.configure(
-                        prefix: "",
                         user: user,
                         registeredDate: user.createdAt,
                         parentVc: self

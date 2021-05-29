@@ -46,12 +46,11 @@ class UserView: UIView {
     }
 
     func configure(
-        prefix: String = "登録者：",
         user: FIDocument.User,
         registeredDate: Date? = nil,
         parentVc: UIViewController
     ) {
-        userNameLabel.text = prefix + user.name
+        userNameLabel.text = user.name
 
         if let photoURL = user.photoURL {
             iconButton.loadImage(url: photoURL)

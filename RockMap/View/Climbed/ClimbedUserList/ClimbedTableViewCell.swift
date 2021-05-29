@@ -23,7 +23,6 @@ class ClimbedTableViewCell: UITableViewCell {
         parentVc: UIViewController
     ) {
         userView.configure(
-            prefix: "",
             user: user,
             registeredDate: climbedDate,
             parentVc: parentVc
