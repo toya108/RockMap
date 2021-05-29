@@ -78,8 +78,14 @@ extension FIDocumentProtocol {
         }
     }
 
-    func makedictionary() throws -> [String: Any] {
-        return try FirestoreManager.encoder.encode(self)
+    func makedictionary(shouldExcludeEmpty: Bool = false) throws -> [String: Any] {
+        let dictionaly = try FirestoreManager.encoder.encode(self)
+
+        if shouldExcludeEmpty {
+            return dictionaly.makeEmptyExcludedDictionary()
+        } else {
+            return dictionaly
+        }
     }
 }
 
