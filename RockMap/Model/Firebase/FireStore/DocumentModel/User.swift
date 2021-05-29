@@ -67,7 +67,6 @@ extension FIDocument {
 
                     case .other:
                         return .black
-
                 }
             }
 
@@ -82,17 +81,55 @@ extension FIDocument {
                 }
             }
 
+            var urlBase: String {
+                switch self {
+                    case .twitter:
+                        return "twitter://user?screen_name="
+
+                    case .facebook:
+                        return "fb://profile/"
+
+                    case .instagram:
+                        return "instagram://"
+
+                    case .other:
+                        return ""
+                }
+            }
+
+            var httpsUrlBase: String {
+
+                switch self {
+                    case .twitter:
+                        return "https://twitter.com/"
+
+                    case .facebook:
+                        return "https://www.facebook.com/"
+
+                    case .instagram:
+                        return "https://www.instagram.com/"
+
+                    case .other:
+                        return ""
+                }
+            }
+
         }
     }
 }
 
 extension Array where Element == FIDocument.User.SocialLink {
 
-    func getLink(type: FIDocument.User.SocialLinkType) -> FIDocument.User.SocialLink? {
+    func getLink(
+        type: FIDocument.User.SocialLinkType
+    ) -> FIDocument.User.SocialLink? {
         return self.first(where: { $0.linkType == type })
     }
 
-    mutating func updateLink(type: FIDocument.User.SocialLinkType, link: String) {
+    mutating func updateLink(
+        type: FIDocument.User.SocialLinkType,
+        link: String
+    ) {
 
         guard
             let index = self.firstIndex(where: { $0.linkType == type })
