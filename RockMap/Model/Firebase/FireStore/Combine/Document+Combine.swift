@@ -36,6 +36,33 @@ extension DocumentReference {
         }.eraseToAnyPublisher()
     }
 
+    func exists() -> AnyPublisher<Bool, Error> {
+        Deferred {
+            Future<Bool, Error> { [weak self] promise in
+
+                guard let self = self else { return }
+
+                self.getDocument { snapshot, error in
+
+                    if let error = error {
+                        promise(.failure(error))
+                        return
+                    }
+
+                    guard
+                        let snapshot = snapshot
+                    else {
+                        promise(.failure(FirestoreError.nilResultError))
+                        return
+                    }
+
+                    promise(.success(snapshot.exists))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+
     func getDocument<T: FIDocumentProtocol>(
         _ type: T.Type
     ) -> AnyPublisher<T?, Error> {
