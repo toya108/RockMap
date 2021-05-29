@@ -82,7 +82,7 @@ struct MyPageRouter: RouterProtocol {
         _ from: UIViewController,
         userReference: DocumentRef?
     ) {
-        let viewModel = CourseListViewModel(userReference: userReference)
+        let viewModel = CourseListViewModel(userId: viewModel.userKind.userId)
         let vc = CourseListViewController.createInstance(viewModel: viewModel)
         from.navigationController?.pushViewController(vc, animated: true)
     }
