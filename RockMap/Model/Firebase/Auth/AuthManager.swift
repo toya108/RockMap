@@ -107,26 +107,76 @@ extension AuthManager: FUIAuthDelegate {
             photoURL: user.photoURL
         )
 
+        var setUserDocument: (Bool) -> Void {{ [weak self] exists in
+
+            guard let self = self else { return }
+
+            if exists {
+                do {
+                    var updateDictionary = try userDocument.makedictionary(shouldExcludeEmpty: true)
+                    updateDictionary.removeValue(forKey: "photoURL")
+
+                    userDocument.makeDocumentReference()
+                        .updateData(updateDictionary)
+                        .sink(
+                            receiveCompletion: { [weak self] result in
+
+                                guard let self = self else { return }
+
+                                switch result {
+                                    case .finished:
+                                        self.loginFinishedPublisher.send(completion: .finished)
+
+                                    case .failure(let error):
+                                        self.loginFinishedPublisher.send(completion: .failure(error))
+                                }
+                            },
+                            receiveValue: {}
+                        )
+                        .store(in: &self.bindings)
+                } catch {
+                    self.loginFinishedPublisher.send(completion: .failure(error))
+                }
+
+            } else {
+                userDocument.makeDocumentReference()
+                    .setData(from: userDocument)
+                    .sink(
+                        receiveCompletion: { [weak self] result in
+
+                            guard let self = self else { return }
+
+                            switch result {
+                                case .finished:
+                                    self.loginFinishedPublisher.send(completion: .finished)
+
+                                case .failure(let error):
+                                    self.loginFinishedPublisher.send(completion: .failure(error))
+
+                            }
+                        },
+                        receiveValue: {}
+                    )
+                    .store(in: &self.bindings)
+            }
+        }}
+
         userDocument.makeDocumentReference()
-            .setData(from: userDocument)
+            .exists()
             .sink(
                 receiveCompletion: { [weak self] result in
 
                     guard let self = self else { return }
 
-                    switch result {
-                        case .finished:
-                            self.loginFinishedPublisher.send(completion: .finished)
-
-                        case .failure(let error):
-                            self.loginFinishedPublisher.send(completion: .failure(error))
-
+                    if case let .failure(error) = result {
+                        self.loginFinishedPublisher.send(completion: .failure(error))
                     }
                 },
-                receiveValue: {}
+                receiveValue: { exists in
+                    setUserDocument(exists)
+                }
             )
             .store(in: &bindings)
-
     }
 
     func authPickerViewController(
