@@ -10,8 +10,6 @@ import Combine
 
 final class LoginViewController: UIViewController {
 
-    @IBOutlet weak var loginContainerView: UIView!
-    @IBOutlet weak var penguinImageView: UIImageView!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var guestLoginButton: UIButton!
 
@@ -41,16 +39,8 @@ final class LoginViewController: UIViewController {
     
     private func setupLayout() {
         navigationController?.isNavigationBarHidden = true
-        
-        loginContainerView.layer.cornerRadius = Resources.Const.UI.View.radius
-        loginContainerView.layer.shadowColor = Resources.Const.UI.Shadow.color
-        loginContainerView.layer.shadowRadius = Resources.Const.UI.Shadow.radius
-        loginContainerView.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
-        loginContainerView.layer.shadowOffset = .init(width: 2, height: 2)
-        
-        penguinImageView.layer.cornerRadius = Resources.Const.UI.View.radius
+
         loginButton.layer.cornerRadius = Resources.Const.UI.View.radius
-        guestLoginButton.layer.cornerRadius = Resources.Const.UI.View.radius
     }
 
     private func setupBindings() {
