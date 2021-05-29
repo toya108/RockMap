@@ -73,7 +73,7 @@ struct MyPageRouter: RouterProtocol {
         _ from: UIViewController,
         userReference: DocumentRef?
     ) {
-        let viewModel = RockListViewModel(userReference: userReference)
+        let viewModel = RockListViewModel(userId: viewModel.userKind.userId)
         let vc = RockListViewController.createInstance(viewModel: viewModel)
         from.navigationController?.pushViewController(vc, animated: true)
     }

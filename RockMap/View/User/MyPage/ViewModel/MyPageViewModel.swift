@@ -115,6 +115,19 @@ extension MyPageViewModel {
                 return false
             }
         }
+
+        var userId: String {
+            switch self {
+                case .guest:
+                    return ""
+
+                case .mine:
+                    return AuthManager.shared.uid
+
+                case .other(let user):
+                    return user.id
+            }
+        }
     }
 }
 
