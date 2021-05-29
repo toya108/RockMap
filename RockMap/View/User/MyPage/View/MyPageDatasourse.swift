@@ -107,6 +107,8 @@ extension MyPageViewController {
 
             guard let self = self else { return }
 
+            guard case .finish = self.viewModel.output.fetchUserState else { return }
+
             cell.imageView.loadImage(
                 url: self.viewModel.output.fetchUserState.content?.headerUrl
             )
@@ -152,7 +154,6 @@ extension MyPageViewController {
                     )
 
                     cell.userView.configure(
-                        prefix: "",
                         user: user,
                         registeredDate: user.createdAt,
                         parentVc: self

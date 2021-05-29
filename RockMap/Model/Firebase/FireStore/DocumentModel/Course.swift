@@ -23,7 +23,6 @@ extension FIDocument {
         var shape: Set<Shape>
         var parentRockName: String
         var parentRockId: String
-        var climbedUserReferences: [DocumentRef] = []
         var registedUserId: String
         var headerUrl: URL?
         var imageUrls: [URL] = []

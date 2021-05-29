@@ -13,10 +13,12 @@ struct MyPageRouter: RouterProtocol {
     typealias ViewModel = MyPageViewModel
 
     enum DestinationType: DestinationProtocol {
+        case climbedCourseList
         case courseDetail(FIDocument.Course)
         case rockList(DocumentRef?)
         case courseList(DocumentRef?)
         case editProfile(FIDocument.User)
+        case settings
     }
 
     weak var viewModel: ViewModel!
@@ -30,6 +32,9 @@ struct MyPageRouter: RouterProtocol {
         from context: UIViewController
     ) {
         switch destination {
+            case .climbedCourseList:
+                pushClimbedCourseList(context)
+
             case .courseDetail(let course):
                 pushCourseDetail(context, course: course)
 
@@ -42,7 +47,17 @@ struct MyPageRouter: RouterProtocol {
             case .editProfile(let user):
                 presentEditProfile(context, user: user)
 
+            case .settings:
+                break
+
         }
+    }
+
+    private func pushClimbedCourseList(
+        _ from: UIViewController
+    ) {
+        let vc = MyClimbedListViewController.createInstance(viewModel: .init())
+        from.navigationController?.pushViewController(vc, animated: true)
     }
 
     private func pushCourseDetail(
@@ -81,6 +96,12 @@ struct MyPageRouter: RouterProtocol {
         let nc = RockMapNavigationController(rootVC: vc, naviBarClass: RockMapNoShadowNavigationBar.self)
         nc.isModalInPresentation = true
         from.present(nc, animated: true)
+    }
+
+    private func pushSettings(
+        _ from: UIViewController
+    ) {
+
     }
 
 }

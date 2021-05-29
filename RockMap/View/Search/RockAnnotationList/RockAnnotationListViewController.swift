@@ -57,15 +57,21 @@ extension RockAnnotationListViewController {
             guard let self = self else { return UICollectionViewCell() }
 
             let registration = UICollectionView.CellRegistration<
-                RockListCollectionViewCell,
+                ListCollectionViewCell,
                 FIDocument.Rock
             >(
                 cellNib: .init(
-                    nibName: RockListCollectionViewCell.className,
+                    nibName: ListCollectionViewCell.className,
                     bundle: nil
                 )
             ) { cell, _, _ in
-                cell.configure(rock)
+                cell.configure(
+                    imageUrl: rock.headerUrl,
+                    title: rock.name,
+                    first: "登録日: " + rock.createdAt.string(dateStyle: .medium),
+                    second: "住所: " + rock.address,
+                    third: rock.desc
+                )
             }
 
             return self.collectionView.dequeueConfiguredReusableCell(

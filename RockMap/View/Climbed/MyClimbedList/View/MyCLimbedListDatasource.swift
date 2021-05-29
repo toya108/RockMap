@@ -1,13 +1,13 @@
 //
-//  CourseListDatasource.swift
+//  MyCLimbedListDatasource.swift
 //  RockMap
 //
-//  Created by TOUYA KAWANO on 2021/05/05.
+//  Created by TOUYA KAWANO on 2021/05/27.
 //
 
 import UIKit
 
-extension CourseListViewController {
+extension MyClimbedListViewController {
 
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, ItemKind> {
         let datasource = UICollectionViewDiffableDataSource<SectionKind, ItemKind>(
@@ -17,36 +17,22 @@ extension CourseListViewController {
             guard let self = self else { return UICollectionViewCell() }
 
             switch item {
-                case .annotationHeader:
-                    let registration = UICollectionView.CellRegistration<
-                        AnnotationHeaderCollectionViewCell,
-                        Dummy
-                    > { cell, _, _ in
-                        cell.configure(title: "課題を長押しすると編集/削除ができます。")
-                    }
-
-                    return self.collectionView.dequeueConfiguredReusableCell(
-                        using: registration,
-                        for: indexPath,
-                        item: Dummy()
-                    )
-
                 case let .course(course):
                     let registration = UICollectionView.CellRegistration<
                         ListCollectionViewCell,
-                        FIDocument.Course
+                        MyClimbedListViewModel.ClimbedCourse
                     >(
                         cellNib: .init(
                             nibName: ListCollectionViewCell.className,
                             bundle: nil
                         )
-                    ) { cell, _, _ in
+                    ) { cell, _, climbedCourse in
                         cell.configure(
-                            imageUrl: course.headerUrl,
-                            title: course.name + " " + course.grade.name,
-                            first: "登録日: " + course.createdAt.string(dateStyle: .medium),
-                            second: "岩名: " + course.parentRockName,
-                            third: course.desc
+                            imageUrl: climbedCourse.course.headerUrl,
+                            title: climbedCourse.course.name,
+                            first: "グレード: " + climbedCourse.course.grade.name,
+                            second: "完登日: " + climbedCourse.climbed.climbedDate.string(dateStyle: .medium),
+                            third: "完登方法: " + climbedCourse.climbed.type.name
                         )
                     }
 
