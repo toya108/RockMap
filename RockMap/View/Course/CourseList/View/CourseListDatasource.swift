@@ -33,15 +33,21 @@ extension CourseListViewController {
 
                 case let .course(course):
                     let registration = UICollectionView.CellRegistration<
-                        CourseListCollectionViewCell,
+                        ListCollectionViewCell,
                         FIDocument.Course
                     >(
                         cellNib: .init(
-                            nibName: CourseListCollectionViewCell.className,
+                            nibName: ListCollectionViewCell.className,
                             bundle: nil
                         )
                     ) { cell, _, _ in
-                        cell.configure(course: course)
+                        cell.configure(
+                            imageUrl: course.headerUrl,
+                            title: course.name + " " + course.grade.name,
+                            first: "登録日: " + course.createdAt.string(dateStyle: .medium),
+                            second: "岩名: " + course.parentRockName,
+                            third: course.desc
+                        )
                     }
 
                     return self.collectionView.dequeueConfiguredReusableCell(

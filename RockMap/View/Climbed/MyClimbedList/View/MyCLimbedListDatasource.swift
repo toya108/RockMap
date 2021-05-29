@@ -19,18 +19,21 @@ extension MyClimbedListViewController {
             switch item {
                 case let .course(course):
                     let registration = UICollectionView.CellRegistration<
-                        ClimbedCourseCollectionViewCell,
+                        ListCollectionViewCell,
                         MyClimbedListViewModel.ClimbedCourse
                     >(
                         cellNib: .init(
-                            nibName: ClimbedCourseCollectionViewCell.className,
+                            nibName: ListCollectionViewCell.className,
                             bundle: nil
                         )
                     ) { cell, _, climbedCourse in
-                        cell.courseHeaderImageView.loadImage(url: climbedCourse.course.headerUrl)
-                        cell.courseNameLabel.text = climbedCourse.course.name + " " + climbedCourse.course.grade.name
-                        cell.climbedDateLabel.text = "完登日: " + climbedCourse.climbed.climbedDate.string(dateStyle: .medium)
-                        cell.climbedTypeLabel.text = "完登方法: " + climbedCourse.climbed.type.name
+                        cell.configure(
+                            imageUrl: climbedCourse.course.headerUrl,
+                            title: climbedCourse.course.name,
+                            first: "グレード: " + climbedCourse.course.grade.name,
+                            second: "完登日: " + climbedCourse.climbed.climbedDate.string(dateStyle: .medium),
+                            third: "完登方法: " + climbedCourse.climbed.type.name
+                        )
                     }
 
                     return self.collectionView.dequeueConfiguredReusableCell(

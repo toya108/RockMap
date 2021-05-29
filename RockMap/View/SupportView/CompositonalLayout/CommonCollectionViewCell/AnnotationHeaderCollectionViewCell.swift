@@ -26,7 +26,7 @@ class AnnotationHeaderCollectionViewCell: UICollectionViewCell {
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.adjustsFontForContentSizeCategory = true
         NSLayoutConstraint.activate([
-            headerLabel.topAnchor.constraint(equalTo: topAnchor),
+            headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
             headerLabel.rightAnchor.constraint(equalTo: rightAnchor),
             headerLabel.bottomAnchor.constraint(equalTo: bottomAnchor)

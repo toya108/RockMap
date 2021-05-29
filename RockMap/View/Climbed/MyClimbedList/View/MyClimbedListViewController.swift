@@ -106,6 +106,5 @@ extension MyClimbedListViewController {
         let courseViewModel = CourseDetailViewModel(course: climbedCourse.course)
         let courseDetailViewController = CourseDetailViewController.createInstance(viewModel: courseViewModel)
         navigationController?.pushViewController(courseDetailViewController, animated: true)
-
     }
 }
