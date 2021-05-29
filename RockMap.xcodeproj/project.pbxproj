@@ -72,6 +72,7 @@
 		9E39B1E0261458860005F6E1 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39B1DF261458860005F6E1 /* RouterProtocol.swift */; };
 		9E39B1F3261469420005F6E1 /* RockSearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39B1F2261469420005F6E1 /* RockSearchRouter.swift */; };
 		9E39B201261472E00005F6E1 /* RockRegisterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39B200261472E00005F6E1 /* RockRegisterRouter.swift */; };
+		9E4415742661E44200D48D12 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4415732661E44200D48D12 /* DateExtension.swift */; };
 		9E47B76C26160A0B004BE800 /* TotalClimbedNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E47B76B26160A0B004BE800 /* TotalClimbedNumber.swift */; };
 		9E5C5E372555144000D00087 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5C5E362555144000D00087 /* Images.swift */; };
 		9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCB25277B25001C95AA /* AppDelegate.swift */; };
@@ -305,6 +306,7 @@
 		9E39B1DF261458860005F6E1 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
 		9E39B1F2261469420005F6E1 /* RockSearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockSearchRouter.swift; sourceTree = "<group>"; };
 		9E39B200261472E00005F6E1 /* RockRegisterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockRegisterRouter.swift; sourceTree = "<group>"; };
+		9E4415732661E44200D48D12 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		9E47B76B26160A0B004BE800 /* TotalClimbedNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalClimbedNumber.swift; sourceTree = "<group>"; };
 		9E5C5E362555144000D00087 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		9E5CEFC825277B25001C95AA /* RockMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RockMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -842,6 +844,7 @@
 				9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */,
 				9ED972992596471C0069FB94 /* ArrayExtension.swift */,
 				9EFEF88725E09C8100007AD6 /* IdentifiableData.swift */,
+				9E4415732661E44200D48D12 /* DateExtension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -1940,6 +1943,7 @@
 				9E2DA74A25F915D9008F339E /* RockRegisterLayout.swift in Sources */,
 				9E0C9DE32576AAD500ABFE5B /* DocumentProtocol.swift in Sources */,
 				9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */,
+				9E4415742661E44200D48D12 /* DateExtension.swift in Sources */,
 				9EF71FD62611ADC700D5B375 /* PHPickerManager.swift in Sources */,
 				9E6CF42725CFF16A0098389E /* RockLocationCollectionViewCell.swift in Sources */,
 				9EB7059526515855001FD2F6 /* IconEditCollectionViewCell.swift in Sources */,

@@ -27,11 +27,13 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
     }
 
     private func bindOutput() {
-        $climbedList
+        let share = $climbedList.share()
+
+        share
             .map(\.isEmpty)
             .assign(to: &output.$isEmpty)
 
-        $climbedList
+        share
             .filter { !$0.isEmpty }
             .sink { [weak self] climbedList in
 
@@ -63,7 +65,7 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
     func fetchClimbedList() {
         FirestoreManager.db
             .collectionGroup(FIDocument.Climbed.colletionName)
-            .whereField("registedUserId", in: [AuthManager.shared.uid])
+            .whereField("registeredUserId", in: [AuthManager.shared.uid])
             .getDocuments(FIDocument.Climbed.self)
             .catch { _ in Empty() }
             .map { $0.sorted { $0.createdAt > $1.createdAt } }

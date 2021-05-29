@@ -9,9 +9,15 @@ import UIKit
 
 class ClimbedCourseCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var courseHeaderImageView: UIImageView!
+    @IBOutlet weak var courseNameLabel: UILabel!
+    @IBOutlet weak var climbedDateLabel: UILabel!
+    @IBOutlet weak var climbedTypeLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+        courseHeaderImageView.layer.cornerRadius = 8
     }
 
 }

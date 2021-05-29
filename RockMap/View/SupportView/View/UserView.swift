@@ -60,11 +60,7 @@ class UserView: UIView {
         }
 
         if let registeredDate = registeredDate {
-            let format = DateFormatter()
-            format.timeStyle = .none
-            format.dateStyle = .medium
-            format.locale = .init(identifier: "ja_JP")
-            registeredDateLabel.text = "登録日：" + format.string(from: registeredDate)
+            registeredDateLabel.text = "登録日：" + registeredDate.string(dateStyle: .medium)
         } else {
             registeredDateLabel.isHidden = true
         }

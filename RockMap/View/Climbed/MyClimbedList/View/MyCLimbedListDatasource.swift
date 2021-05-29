@@ -26,9 +26,11 @@ extension MyClimbedListViewController {
                             nibName: ClimbedCourseCollectionViewCell.className,
                             bundle: nil
                         )
-                    ) { cell, _, _ in
-
-
+                    ) { cell, _, climbedCourse in
+                        cell.courseHeaderImageView.loadImage(url: climbedCourse.course.headerUrl)
+                        cell.courseNameLabel.text = climbedCourse.course.name + " " + climbedCourse.course.grade.name
+                        cell.climbedDateLabel.text = "完登日: " + climbedCourse.climbed.climbedDate.string(dateStyle: .medium)
+                        cell.climbedTypeLabel.text = "完登方法: " + climbedCourse.climbed.type.name
                     }
 
                     return self.collectionView.dequeueConfiguredReusableCell(
