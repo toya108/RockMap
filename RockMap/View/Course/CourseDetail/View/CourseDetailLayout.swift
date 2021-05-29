@@ -47,7 +47,7 @@ extension CourseDetailViewController {
                 case .parentRock:
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(
-                            widthDimension: .fractionalWidth(1),
+                            widthDimension: .estimated(98),
                             heightDimension: .absolute(28)
                         )
                     )
@@ -56,7 +56,7 @@ extension CourseDetailViewController {
                         subitems: [item]
                     )
                     section = .init(group: group)
-                    section.contentInsets.top = 12
+                    section.contentInsets = .init(top: 12, leading: 0, bottom: 12, trailing: 0)
 
                 case .title:
                     let item = NSCollectionLayoutItem(

@@ -22,8 +22,9 @@ class ParentRockButtonCollectionViewCell: UICollectionViewCell {
     }
 
     private func setupLayout() {
-        rockButton.setTitleColor(UIColor.Pallete.primaryGreen, for: .normal)
-        rockButton.contentHorizontalAlignment = .leading
+        rockButton.layer.cornerRadius = 8
+        rockButton.backgroundColor = UIColor.Pallete.primaryGreen
+        rockButton.setTitleColor(.white, for: .normal)
         rockButton.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(rockButton)
 
@@ -36,7 +37,7 @@ class ParentRockButtonCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(title: String, didTap: @escaping () -> Void) {
-        rockButton.setTitle(title, for: .normal)
+        rockButton.setTitle(" " + title + " ", for: .normal)
         rockButton.addAction(
             .init { _ in didTap() },
             for: .touchUpInside
