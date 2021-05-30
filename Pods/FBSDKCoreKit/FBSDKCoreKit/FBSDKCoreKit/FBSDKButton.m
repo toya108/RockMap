@@ -20,22 +20,44 @@
 #import "FBSDKButton+Subclass.h"
 
 #import "FBSDKAccessToken.h"
-#import "FBSDKAppEvents+Internal.h"
+#import "FBSDKAccessToken+AccessTokenProtocols.h"
 #import "FBSDKAppEvents.h"
-#import "FBSDKApplicationDelegate+Internal.h"
+#import "FBSDKAppEvents+Internal.h"
+#import "FBSDKApplicationLifecycleNotifications.h"
+#import "FBSDKEventLogger.h"
+#import "FBSDKGraphRequestFactory.h"
 #import "FBSDKLogo.h"
 #import "FBSDKUIUtility.h"
 #import "FBSDKViewImpressionTracker.h"
+#import "NSNotificationCenter+Extensions.h"
 
 #define HEIGHT_TO_FONT_SIZE 0.47
 #define HEIGHT_TO_MARGIN 0.27
 #define HEIGHT_TO_PADDING 0.23
 #define HEIGHT_TO_TEXT_PADDING_CORRECTION 0.08
 
+@interface FBSDKButton ()
+
+@property (class, nonatomic) id applicationActivationNotifier;
+
+@end
+
 @implementation FBSDKButton
 {
   BOOL _skipIntrinsicContentSizing;
   BOOL _isExplicitlyDisabled;
+}
+
+static id _applicationActivationNotifier;
+
++ (id)applicationActivationNotifier
+{
+  return _applicationActivationNotifier;
+}
+
++ (void)setApplicationActivationNotifier:(id)notifier
+{
+  _applicationActivationNotifier = notifier;
 }
 
 #pragma mark - Object Lifecycle
@@ -104,7 +126,12 @@
     NSString *identifier = ((id<FBSDKButtonImpressionTracking>)self).impressionTrackingIdentifier;
     NSDictionary<NSString *, id> *parameters = ((id<FBSDKButtonImpressionTracking>)self).analyticsParameters;
     if (eventName && identifier) {
-      FBSDKViewImpressionTracker *impressionTracker = [FBSDKViewImpressionTracker impressionTrackerWithEventName:eventName];
+      FBSDKViewImpressionTracker *impressionTracker
+        = [FBSDKViewImpressionTracker impressionTrackerWithEventName:eventName
+                                                graphRequestProvider:[FBSDKGraphRequestFactory new]
+                                                         eventLogger:[FBSDKEventLogger new]
+                                                notificationObserver:NSNotificationCenter.defaultCenter
+                                                         tokenWallet:FBSDKAccessToken.class];
       [impressionTracker logImpressionWithIdentifier:identifier parameters:parameters];
     }
   }
@@ -147,10 +174,12 @@
       // to keep the text centered in the button without adding extra blank space to the right when unnecessary
       // 1. the text fits centered within the button without colliding with the image (imagePaddingWidth)
       // 2. the text would run into the image, so adjust the insets to effectively left align it (textPaddingWidth)
-      CGSize titleSize = FBSDKTextSize(titleLabel.text,
-                                       titleLabel.font,
-                                       titleRect.size,
-                                       titleLabel.lineBreakMode);
+      CGSize titleSize = FBSDKTextSize(
+        titleLabel.text,
+        titleLabel.font,
+        titleRect.size,
+        titleLabel.lineBreakMode
+      );
       CGFloat titlePaddingWidth = (CGRectGetWidth(titleRect) - titleSize.width) / 2;
       CGFloat imagePaddingWidth = titleX / 2;
       CGFloat inset = MIN(titlePaddingWidth, imagePaddingWidth);
@@ -196,42 +225,42 @@
          highlightedColor:(UIColor *)highlightedColor
 {
   [self _configureWithIcon:icon
-                     title:title
-           backgroundColor:backgroundColor
-          highlightedColor:highlightedColor
-             selectedTitle:nil
-              selectedIcon:nil
-             selectedColor:nil
-  selectedHighlightedColor:nil];
+                      title:title
+            backgroundColor:backgroundColor
+           highlightedColor:highlightedColor
+              selectedTitle:nil
+               selectedIcon:nil
+              selectedColor:nil
+   selectedHighlightedColor:nil];
 }
 
-- (void)configureWithIcon:(FBSDKIcon *)icon
-                    title:(NSString *)title
-          backgroundColor:(UIColor *)backgroundColor
-         highlightedColor:(UIColor *)highlightedColor
-            selectedTitle:(NSString *)selectedTitle
-             selectedIcon:(FBSDKIcon *)selectedIcon
-            selectedColor:(UIColor *)selectedColor
- selectedHighlightedColor:(UIColor *)selectedHighlightedColor
+- (void) configureWithIcon:(FBSDKIcon *)icon
+                     title:(NSString *)title
+           backgroundColor:(UIColor *)backgroundColor
+          highlightedColor:(UIColor *)highlightedColor
+             selectedTitle:(NSString *)selectedTitle
+              selectedIcon:(FBSDKIcon *)selectedIcon
+             selectedColor:(UIColor *)selectedColor
+  selectedHighlightedColor:(UIColor *)selectedHighlightedColor
 {
   [self _configureWithIcon:icon
-                     title:title
-           backgroundColor:backgroundColor
-          highlightedColor:highlightedColor
-             selectedTitle:selectedTitle
-              selectedIcon:selectedIcon
-             selectedColor:selectedColor
-  selectedHighlightedColor:selectedHighlightedColor];
+                      title:title
+            backgroundColor:backgroundColor
+           highlightedColor:highlightedColor
+              selectedTitle:selectedTitle
+               selectedIcon:selectedIcon
+              selectedColor:selectedColor
+   selectedHighlightedColor:selectedHighlightedColor];
 }
 
 - (UIColor *)defaultBackgroundColor
 {
-  return [UIColor colorWithRed:24.0/255.0 green:119.0/255.0 blue:242.0/255.0 alpha:1.0];
+  return [UIColor colorWithRed:24.0 / 255.0 green:119.0 / 255.0 blue:242.0 / 255.0 alpha:1.0];
 }
 
 - (UIColor *)defaultDisabledColor
 {
-  return [UIColor colorWithRed:189.0/255.0 green:193.0/255.0 blue:201.0/255.0 alpha:1.0];
+  return [UIColor colorWithRed:189.0 / 255.0 green:193.0 / 255.0 blue:201.0 / 255.0 alpha:1.0];
 }
 
 - (UIFont *)defaultFont
@@ -241,12 +270,12 @@
 
 - (UIColor *)defaultHighlightedColor
 {
-  return [UIColor colorWithRed:21.0/255.0 green:105.0/255.0 blue:214.0/255.0 alpha:1.0];
+  return [UIColor colorWithRed:21.0 / 255.0 green:105.0 / 255.0 blue:214.0 / 255.0 alpha:1.0];
 }
 
 - (FBSDKIcon *)defaultIcon
 {
-  return [[FBSDKLogo alloc] init];
+  return [FBSDKLogo new];
 }
 
 - (UIColor *)defaultSelectedColor
@@ -256,7 +285,7 @@
 
 - (UIColor *)highlightedContentColor
 {
-  return [UIColor colorWithRed:218.0/255.0 green:221.0/255.0 blue:226.0/255.0 alpha:1.0];
+  return [UIColor colorWithRed:218.0 / 255.0 green:221.0 / 255.0 blue:226.0 / 255.0 alpha:1.0];
 }
 
 - (BOOL)isImplicitlyDisabled
@@ -378,13 +407,13 @@
   if (selectedHighlightedColor) {
     backgroundImage = [self _backgroundImageWithColor:selectedHighlightedColor cornerRadius:3.0 scale:scale];
     [self setBackgroundImage:backgroundImage forState:UIControlStateSelected | UIControlStateHighlighted];
-#if TARGET_OS_TV
+  #if TARGET_OS_TV
     [self setBackgroundImage:backgroundImage forState:UIControlStateSelected | UIControlStateFocused];
-#endif
+  #endif
   }
 
   [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-  [self setTitleColor:[self highlightedContentColor] forState: UIControlStateHighlighted | UIControlStateSelected];
+  [self setTitleColor:[self highlightedContentColor] forState:UIControlStateHighlighted | UIControlStateSelected];
 
   [self setTitle:title forState:UIControlStateNormal];
 #if TARGET_OS_TV
@@ -393,9 +422,9 @@
   if (selectedTitle) {
     [self setTitle:selectedTitle forState:UIControlStateSelected];
     [self setTitle:selectedTitle forState:UIControlStateSelected | UIControlStateHighlighted];
-#if TARGET_OS_TV
+  #if TARGET_OS_TV
     [self setTitle:selectedTitle forState:UIControlStateSelected | UIControlStateFocused];
-#endif
+  #endif
   }
 
   UILabel *titleLabel = self.titleLabel;
@@ -417,9 +446,9 @@
                                                   resizingMode:UIImageResizingModeStretch];
     [self setImage:selectedImage forState:UIControlStateSelected];
     [self setImage:selectedImage forState:UIControlStateSelected | UIControlStateHighlighted];
-#if TARGET_OS_TV
+  #if TARGET_OS_TV
     [self setImage:selectedImage forState:UIControlStateSelected | UIControlStateFocused];
-#endif
+  #endif
   }
 
   if (forceSizeToFit) {
@@ -428,7 +457,7 @@
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(_applicationDidBecomeActiveNotification:)
                                                name:FBSDKApplicationDidBecomeActiveNotification
-                                             object:[FBSDKApplicationDelegate sharedInstance]];
+                                             object:self.class.applicationActivationNotifier];
 }
 
 - (CGFloat)_fontSizeForHeight:(CGFloat)height

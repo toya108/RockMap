@@ -17,6 +17,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#import "Crashlytics/Shared/FIRCLSConstants.h"
+
 #import "Crashlytics/Crashlytics/Models/FIRCLSFileManager.h"
 #import "Crashlytics/Crashlytics/Models/FIRCLSInstallIdentifierModel.h"
 #import "Crashlytics/Crashlytics/Models/FIRCLSInternalReport.h"
@@ -195,6 +197,9 @@ bool FIRCLSContextInitialize(FIRCLSInternalReport* report,
         FIRCLSContextAppendToRoot(rootPath, fileName);
   });
 
+  // To initialize Crashlytics handlers even if the Xcode debugger is attached, replace this check
+  // with YES. Note that this is only possible to do on an actual device as it will cause the
+  // simulator to crash.
   if (!_firclsContext.readonly->debuggerAttached) {
 #if CLS_SIGNAL_SUPPORTED
     dispatch_group_async(group, queue, ^{
@@ -400,9 +405,9 @@ static bool FIRCLSContextRecordIdentity(FIRCLSFile* file, const FIRCLSContextIni
 
   FIRCLSFileWriteHashStart(file);
 
-  FIRCLSFileWriteHashEntryString(file, "generator", CLS_SDK_GENERATOR_NAME);
-  FIRCLSFileWriteHashEntryString(file, "display_version", CLS_SDK_DISPLAY_VERSION);
-  FIRCLSFileWriteHashEntryString(file, "build_version", CLS_SDK_DISPLAY_VERSION);
+  FIRCLSFileWriteHashEntryString(file, "generator", FIRCLSSDKGeneratorName().UTF8String);
+  FIRCLSFileWriteHashEntryString(file, "display_version", FIRCLSSDKVersion().UTF8String);
+  FIRCLSFileWriteHashEntryString(file, "build_version", FIRCLSSDKVersion().UTF8String);
   FIRCLSFileWriteHashEntryUint64(file, "started_at", time(NULL));
 
   FIRCLSFileWriteHashEntryString(file, "session_id", initData->sessionId);

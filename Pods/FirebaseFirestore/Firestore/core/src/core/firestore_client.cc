@@ -16,8 +16,10 @@
 
 #include "Firestore/core/src/core/firestore_client.h"
 
+#include <functional>
 #include <future>  // NOLINT(build/c++11)
 #include <memory>
+#include <string>
 #include <utility>
 
 #include "Firestore/core/src/api/document_reference.h"
@@ -26,18 +28,19 @@
 #include "Firestore/core/src/api/query_snapshot.h"
 #include "Firestore/core/src/api/settings.h"
 #include "Firestore/core/src/auth/credentials_provider.h"
+#include "Firestore/core/src/bundle/bundle_reader.h"
 #include "Firestore/core/src/core/database_info.h"
 #include "Firestore/core/src/core/event_manager.h"
 #include "Firestore/core/src/core/query_listener.h"
 #include "Firestore/core/src/core/sync_engine.h"
 #include "Firestore/core/src/core/view.h"
-#include "Firestore/core/src/local/index_free_query_engine.h"
 #include "Firestore/core/src/local/leveldb_opener.h"
 #include "Firestore/core/src/local/leveldb_persistence.h"
 #include "Firestore/core/src/local/local_documents_view.h"
 #include "Firestore/core/src/local/local_serializer.h"
 #include "Firestore/core/src/local/local_store.h"
 #include "Firestore/core/src/local/memory_persistence.h"
+#include "Firestore/core/src/local/query_engine.h"
 #include "Firestore/core/src/local/query_result.h"
 #include "Firestore/core/src/model/database_id.h"
 #include "Firestore/core/src/model/document_set.h"
@@ -72,12 +75,12 @@ using api::SnapshotMetadata;
 using auth::CredentialsProvider;
 using auth::User;
 using firestore::Error;
-using local::IndexFreeQueryEngine;
 using local::LevelDbOpener;
 using local::LocalSerializer;
 using local::LocalStore;
 using local::LruParams;
 using local::MemoryPersistence;
+using local::QueryEngine;
 using local::QueryResult;
 using model::DatabaseId;
 using model::Document;
@@ -197,7 +200,7 @@ void FirestoreClient::Initialize(const User& user, const Settings& settings) {
     persistence_ = MemoryPersistence::WithEagerGarbageCollector();
   }
 
-  query_engine_ = absl::make_unique<IndexFreeQueryEngine>();
+  query_engine_ = absl::make_unique<QueryEngine>();
   local_store_ = absl::make_unique<LocalStore>(persistence_.get(),
                                                query_engine_.get(), user);
   connectivity_monitor_ = ConnectivityMonitor::Create(worker_queue_);
@@ -509,6 +512,47 @@ void FirestoreClient::RemoveSnapshotsInSyncListener(
     const std::shared_ptr<EventListener<Empty>>& user_listener) {
   worker_queue_->Enqueue([this, user_listener] {
     event_manager_->RemoveSnapshotsInSyncListener(user_listener);
+  });
+}
+
+void FirestoreClient::LoadBundle(
+    std::unique_ptr<util::ByteStream> bundle_data,
+    std::shared_ptr<api::LoadBundleTask> result_task) {
+  VerifyNotTerminated();
+
+  bundle::BundleSerializer bundle_serializer(
+      remote::Serializer(database_info_.database_id()));
+  auto reader = std::make_shared<bundle::BundleReader>(
+      std::move(bundle_serializer), std::move(bundle_data));
+  worker_queue_->Enqueue([this, reader, result_task] {
+    sync_engine_->LoadBundle(std::move(reader), std::move(result_task));
+  });
+}
+
+void FirestoreClient::GetNamedQuery(const std::string& name,
+                                    api::QueryCallback callback) {
+  VerifyNotTerminated();
+
+  // Dispatch the result back onto the user dispatch queue.
+  auto async_callback =
+      [this, callback](const absl::optional<bundle::NamedQuery>& named_query) {
+        if (callback) {
+          if (named_query.has_value()) {
+            const Target& target = named_query.value().bundled_query().target();
+            Query query(target.path(), target.collection_group(),
+                        target.filters(), target.order_bys(), target.limit(),
+                        named_query.value().bundled_query().limit_type(),
+                        target.start_at(), target.end_at());
+            user_executor_->Execute(
+                [query, callback] { callback(std::move(query)); });
+          } else {
+            user_executor_->Execute([callback] { callback(absl::nullopt); });
+          }
+        }
+      };
+
+  worker_queue_->Enqueue([this, name, async_callback] {
+    async_callback(local_store_->GetNamedQuery(name));
   });
 }
 

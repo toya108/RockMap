@@ -16,9 +16,10 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <AudioToolbox/AudioToolbox.h>
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
+
+#import "FBSDKDynamicFrameworkResolving.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -59,13 +60,6 @@ FOUNDATION_EXPORT CATransform3D fbsdkdfl_CATransform3DMakeTranslation (CGFloat t
 FOUNDATION_EXPORT CATransform3D fbsdkdfl_CATransform3DConcat (CATransform3D a, CATransform3D b);
 
 FOUNDATION_EXPORT const CATransform3D fbsdkdfl_CATransform3DIdentity;
-
-#pragma mark - AudioToolbox APIs
-
-// These are local wrappers around the corresponding methods in AudioToolbox/AudioToolbox.h
-FOUNDATION_EXPORT OSStatus fbsdkdfl_AudioServicesCreateSystemSoundID(CFURLRef inFileURL, SystemSoundID *outSystemSoundID);
-FOUNDATION_EXPORT OSStatus fbsdkdfl_AudioServicesDisposeSystemSoundID(SystemSoundID inSystemSoundID);
-FOUNDATION_EXPORT void fbsdkdfl_AudioServicesPlaySystemSound(SystemSoundID inSystemSoundID);
 
 #pragma mark - AdSupport Classes
 
@@ -141,10 +135,13 @@ FOUNDATION_EXPORT Class fbsdkdfl_WKUserScriptClass(void);
  As new types are needed, they should be added and strongly typed.
  */
 NS_SWIFT_NAME(DynamicFrameworkLoader)
-@interface FBSDKDynamicFrameworkLoader : NSObject
+@interface FBSDKDynamicFrameworkLoader : NSObject<FBSDKDynamicFrameworkResolving>
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
+
+// A shared instance to access dynamically loaded types from
++ (instancetype)shared;
 
 #pragma mark - Security Constants
 

@@ -20,12 +20,16 @@
 
 #import "FBSDKCoreKit+Internal.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 static NSString *const kFBGraphAPITestUsersPathFormat = @"%@/accounts/test-users";
 static NSString *const kAccountsDictionaryTokenKey = @"access_token";
 static NSString *const kAccountsDictionaryPermissionsKey = @"permissions";
 static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDictionary;
 
-@interface FBSDKTestUsersManager()
+@interface FBSDKTestUsersManager ()
 - (instancetype)initWithAppID:(NSString *)appID appSecret:(NSString *)appSecret NS_DESIGNATED_INITIALIZER;
 @end
 
@@ -35,11 +39,12 @@ static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDicti
   NSString *_appSecret;
   // dictionary with format like:
   // { user_id :  { kAccountsDictionaryTokenKey : "token",
-  //                kAccountsDictionaryPermissionsKey : [ permissions ] }
+  // kAccountsDictionaryPermissionsKey : [ permissions ] }
   NSMutableDictionary *_accounts;
 }
 
-- (instancetype)initWithAppID:(NSString *)appID appSecret:(NSString *)appSecret {
+- (instancetype)initWithAppID:(NSString *)appID appSecret:(NSString *)appSecret
+{
   if ((self = [super init])) {
     _appID = [appID copy];
     _appSecret = [appSecret copy];
@@ -48,7 +53,8 @@ static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDicti
   return self;
 }
 
-+ (instancetype)sharedInstanceForAppID:(NSString *)appID appSecret:(NSString *)appSecret {
++ (instancetype)sharedInstanceForAppID:(NSString *)appID appSecret:(NSString *)appSecret
+{
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     gInstancesDictionary = [NSMutableDictionary dictionary];
@@ -63,11 +69,12 @@ static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDicti
 
 - (void)requestTestAccountTokensWithArraysOfPermissions:(NSArray<NSSet<NSString *> *> *)arraysOfPermissions
                                        createIfNotFound:(BOOL)createIfNotFound
-                                      completionHandler:(FBSDKAccessTokensBlock)handler {
+                                      completionHandler:(FBSDKAccessTokensBlock)handler
+{
   arraysOfPermissions = arraysOfPermissions ?: @[[NSSet set]];
 
   // wrap work in a block so that we can chain it to after a fetch of existing accounts if we need to.
-  void (^helper)(NSError *) = ^(NSError *error){
+  void (^helper)(NSError *) = ^(NSError *error) {
     if (error) {
       if (handler) {
         handler(@[], error);
@@ -79,7 +86,7 @@ static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDicti
     __block BOOL canInvokeHandler = YES;
     __weak id weakSelf = self;
     [arraysOfPermissions enumerateObjectsUsingBlock:^(NSSet *desiredPermissions, NSUInteger idx, BOOL *stop) {
-      NSArray* userIdAndTokenPair = [self userIdAndTokenOfExistingAccountWithPermissions:desiredPermissions skip:collectedUserIds];
+      NSArray *userIdAndTokenPair = [self userIdAndTokenOfExistingAccountWithPermissions:desiredPermissions skip:collectedUserIds];
       if (!userIdAndTokenPair) {
         if (createIfNotFound) {
           [self addTestAccountWithPermissions:desiredPermissions
@@ -106,8 +113,8 @@ static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDicti
         NSString *tokenString = [FBSDKTypeUtility array:userIdAndTokenPair objectAtIndex:1];
         [collectedUserIds addObject:userId];
         [FBSDKTypeUtility array:tokenDatum addObject:[self tokenDataForTokenString:tokenString
-                                                permissions:desiredPermissions
-                                                     userId:userId]];
+                                                                       permissions:desiredPermissions
+                                                                            userId:userId]];
       }
     }];
 
@@ -123,12 +130,13 @@ static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDicti
 }
 
 - (void)addTestAccountWithPermissions:(NSSet *)permissions
-                    completionHandler:(FBSDKAccessTokensBlock)handler {
+                    completionHandler:(FBSDKAccessTokensBlock)handler
+{
   NSDictionary *params = @{
-                           @"installed" : @"true",
-                           @"permissions" : [permissions.allObjects componentsJoinedByString:@","],
-                           @"access_token" : self.appAccessToken
-                           };
+    @"installed" : @"true",
+    @"permissions" : [permissions.allObjects componentsJoinedByString:@","],
+    @"access_token" : self.appAccessToken
+  };
   FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:[NSString stringWithFormat:kFBGraphAPITestUsersPathFormat, _appID]
                                                                  parameters:params
                                                                 tokenString:[self appAccessToken]
@@ -160,8 +168,8 @@ static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDicti
   __block int expectedCount = 2;
   void (^complete)(NSError *) = ^(NSError *error) {
     // ignore if they're already friends or pending request
-    if ([error.userInfo[FBSDKGraphRequestErrorGraphErrorCodeKey] integerValue] == 522 ||
-        [error.userInfo[FBSDKGraphRequestErrorGraphErrorCodeKey] integerValue] == 520) {
+    if ([error.userInfo[FBSDKGraphRequestErrorGraphErrorCodeKey] integerValue] == 522
+        || [error.userInfo[FBSDKGraphRequestErrorGraphErrorCodeKey] integerValue] == 520) {
       error = nil;
     }
     if (--expectedCount == 0 || error) {
@@ -178,23 +186,24 @@ static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDicti
                                                             tokenString:second.tokenString
                                                                 version:nil
                                                              HTTPMethod:FBSDKHTTPMethodPOST];
-  FBSDKGraphRequestConnection *conn = [[FBSDKGraphRequestConnection alloc] init];
+  FBSDKGraphRequestConnection *conn = [FBSDKGraphRequestConnection new];
   [conn addRequest:one
-    batchEntryName:@"first"
- completionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-    complete(error);
-  }];
+      batchEntryName:@"first"
+   completionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+     complete(error);
+   }];
   [conn addRequest:two
-   batchParameters:@{ @"depends_on" : @"first"}
- completionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-    complete(error);
-  }];
+     batchParameters:@{ @"depends_on" : @"first"}
+   completionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+     complete(error);
+   }];
   [conn start];
 }
 
-- (void)removeTestAccount:(NSString *)userId completionHandler:(FBSDKErrorBlock)handler {
+- (void)removeTestAccount:(NSString *)userId completionHandler:(FBSDKErrorBlock)handler
+{
   FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:userId
-                                                                 parameters:@{}
+                                                                 parameters:@{@"fields" : @""}
                                                                 tokenString:self.appAccessToken
                                                                     version:nil
                                                                  HTTPMethod:@"DELETE"];
@@ -207,7 +216,8 @@ static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDicti
 }
 
 #pragma mark - private methods
-- (FBSDKAccessToken *)tokenDataForTokenString:(NSString *)tokenString permissions:(NSSet *)permissions userId:(NSString *)userId{
+- (FBSDKAccessToken *)tokenDataForTokenString:(NSString *)tokenString permissions:(NSSet *)permissions userId:(NSString *)userId
+{
   return [[FBSDKAccessToken alloc] initWithTokenString:tokenString
                                            permissions:permissions.allObjects
                                    declinedPermissions:@[]
@@ -216,11 +226,11 @@ static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDicti
                                                 userID:userId
                                         expirationDate:nil
                                            refreshDate:nil
-                                           dataAccessExpirationDate:nil
-                                           graphDomain:nil];
+                              dataAccessExpirationDate:nil];
 }
 
-- (NSArray *)userIdAndTokenOfExistingAccountWithPermissions:(NSSet *)permissions skip:(NSSet *)setToSkip {
+- (NSArray *)userIdAndTokenOfExistingAccountWithPermissions:(NSSet *)permissions skip:(NSSet *)setToSkip
+{
   __block NSString *userId = nil;
   __block NSString *token = nil;
 
@@ -242,23 +252,24 @@ static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDicti
   }
 }
 
-- (NSString *)appAccessToken {
+- (NSString *)appAccessToken
+{
   return [NSString stringWithFormat:@"%@|%@", _appID, _appSecret];
 }
 
-- (void)fetchExistingTestAccountsWithAfterCursor:(NSString *)after handler:(FBSDKErrorBlock)handler {
-  FBSDKGraphRequestConnection *connection = [[FBSDKGraphRequestConnection alloc] init];
+- (void)fetchExistingTestAccountsWithAfterCursor:(NSString *)after handler:(FBSDKErrorBlock)handler
+{
+  FBSDKGraphRequestConnection *connection = [FBSDKGraphRequestConnection new];
   FBSDKGraphRequest *requestForAccountIds = [[FBSDKGraphRequest alloc] initWithGraphPath:[NSString stringWithFormat:kFBGraphAPITestUsersPathFormat, _appID]
                                                                               parameters:@{@"limit" : @"50",
                                                                                            @"after" : after ?: @"",
-                                                                                           @"fields": @""
-                                                                                           }
+                                                                                           @"fields" : @""}
                                                                              tokenString:self.appAccessToken
                                                                                  version:nil
                                                                               HTTPMethod:FBSDKHTTPMethodGET];
   __block NSString *afterCursor = nil;
   __block NSInteger expectedTestAccounts = 0;
-  FBSDKGraphRequestConnection *permissionConnection = [[FBSDKGraphRequestConnection alloc] init];
+  FBSDKGraphRequestConnection *permissionConnection = [FBSDKGraphRequestConnection new];
   [connection addRequest:requestForAccountIds completionHandler:^(FBSDKGraphRequestConnection *innerConnection, id result, NSError *error) {
     if (error) {
       if (handler) {
@@ -276,7 +287,7 @@ static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDicti
           self->_accounts[userId][kAccountsDictionaryTokenKey] = token;
           expectedTestAccounts++;
           [permissionConnection addRequest:[[FBSDKGraphRequest alloc] initWithGraphPath:[NSString stringWithFormat:@"%@?fields=permissions", userId]
-                                                                             parameters:@{}
+                                                                             parameters:@{@"fields" : @""}
                                                                             tokenString:self.appAccessToken
                                                                                 version:nil
                                                                              HTTPMethod:FBSDKHTTPMethodGET]
@@ -310,7 +321,7 @@ static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDicti
                              }
                            }
                          }
-           ];
+          ];
         }
       }
       afterCursor = result[@"paging"][@"cursors"][@"after"];
@@ -327,4 +338,7 @@ static NSMutableDictionary<NSString *, FBSDKTestUsersManager *> *gInstancesDicti
   }];
   [connection start];
 }
+
 @end
+
+#pragma clang diagnostic pop

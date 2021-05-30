@@ -59,7 +59,7 @@ extension StorageReference {
 
                 guard let self = self else { return }
 
-                self.list(withMaxResults: 1) { result, error in
+                self.list(maxResults: 1) { result, error in
 
                     if let error = error {
                         promise(.failure(error))
