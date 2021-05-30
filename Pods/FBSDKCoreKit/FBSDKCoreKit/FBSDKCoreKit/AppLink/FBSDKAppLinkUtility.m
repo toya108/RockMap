@@ -20,65 +20,86 @@
 
 #if !TARGET_OS_TV
 
-#import "FBSDKAppLinkUtility.h"
+ #import "FBSDKAppLinkUtility.h"
 
-#import "FBSDKAppEventsUtility.h"
-#import "FBSDKGraphRequest.h"
-#import "FBSDKInternalUtility.h"
-#import "FBSDKSettings.h"
-#import "FBSDKURL.h"
-#import "FBSDKUtility.h"
+ #import "FBSDKAppEventsUtility.h"
+ #import "FBSDKCoreKit+Internal.h"
+ #import "FBSDKCoreKitBasicsImport.h"
+ #import "FBSDKGraphRequestProviding.h"
+ #import "FBSDKSettings.h"
+ #import "FBSDKURL.h"
+ #import "FBSDKUtility.h"
 
 static NSString *const FBSDKLastDeferredAppLink = @"com.facebook.sdk:lastDeferredAppLink%@";
 static NSString *const FBSDKDeferredAppLinkEvent = @"DEFERRED_APP_LINK";
+static id<FBSDKGraphRequestProviding> _requestProvider;
+static id<FBSDKInfoDictionaryProviding> _infoDictionaryProvider;
 
-@implementation FBSDKAppLinkUtility {}
+@implementation FBSDKAppLinkUtility
+{}
+
++ (void)configureWithRequestProvider:(id<FBSDKGraphRequestProviding>)requestProvider
+              infoDictionaryProvider:(id<FBSDKInfoDictionaryProviding>)infoDictionaryProvider
+{
+  if (self == [FBSDKAppLinkUtility class]) {
+    _requestProvider = requestProvider;
+    _infoDictionaryProvider = infoDictionaryProvider;
+  }
+}
 
 + (void)fetchDeferredAppLink:(FBSDKURLBlock)handler
 {
   NSAssert([NSThread isMainThread], @"FBSDKAppLink fetchDeferredAppLink: must be invoked from main thread.");
 
-  NSString *appID = [FBSDKSettings appID];
-
-  // Deferred app links are only currently used for engagement ads, thus we consider the app to be an advertising one.
-  // If this is considered for organic, non-ads scenarios, we'll need to retrieve the FBAppEventsUtility.shouldAccessAdvertisingID
-  // before we make this call.
-  NSMutableDictionary *deferredAppLinkParameters =
-  [FBSDKAppEventsUtility activityParametersDictionaryForEvent:FBSDKDeferredAppLinkEvent
-                                    shouldAccessAdvertisingID:YES];
-
-  FBSDKGraphRequest *deferredAppLinkRequest = [[FBSDKGraphRequest alloc] initWithGraphPath:[NSString stringWithFormat:@"%@/activities", appID, nil]
-                                                                                parameters:deferredAppLinkParameters
-                                                                               tokenString:nil
-                                                                                   version:nil
-                                                                                HTTPMethod:FBSDKHTTPMethodPOST];
-
-  [deferredAppLinkRequest startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
-                                                       id result,
-                                                       NSError *error) {
-    NSURL *applinkURL = nil;
-    if (!error) {
-      NSString *appLinkString = result[@"applink_url"];
-      if (appLinkString) {
-        applinkURL = [NSURL URLWithString:appLinkString];
-
-        NSString *createTimeUtc = result[@"click_time"];
-        if (createTimeUtc) {
-          // append/translate the create_time_utc so it can be used by clients
-          NSString *modifiedURLString = [applinkURL.absoluteString
-                                         stringByAppendingFormat:@"%@fb_click_time_utc=%@",
-                                         (applinkURL.query) ? @"&" : @"?" ,
-                                         createTimeUtc];
-          applinkURL = [NSURL URLWithString:modifiedURLString];
-        }
+  [FBSDKAppEventsConfigurationManager loadAppEventsConfigurationWithBlock:^{
+    if ([FBSDKAppEventsUtility shouldDropAppEvent]) {
+      if (handler) {
+        NSError *error = [[NSError alloc] initWithDomain:@"AdvertiserTrackingEnabled must be enabled" code:-1 userInfo:nil];
+        handler(nil, error);
       }
+      return;
     }
 
-    if (handler) {
-      dispatch_async(dispatch_get_main_queue(), ^{
-        handler(applinkURL, error);
-      });
-    }
+    NSString *appID = [FBSDKSettings appID];
+
+    // Deferred app links are only currently used for engagement ads, thus we consider the app to be an advertising one.
+    // If this is considered for organic, non-ads scenarios, we'll need to retrieve the FBAppEventsUtility.shouldAccessAdvertisingID
+    // before we make this call.
+    NSMutableDictionary *deferredAppLinkParameters =
+    [FBSDKAppEventsUtility activityParametersDictionaryForEvent:FBSDKDeferredAppLinkEvent
+                                      shouldAccessAdvertisingID:YES];
+    id<FBSDKGraphRequest> deferredAppLinkRequest = [_requestProvider createGraphRequestWithGraphPath:[NSString stringWithFormat:@"%@/activities", appID, nil]
+                                                                                          parameters:deferredAppLinkParameters
+                                                                                         tokenString:nil
+                                                                                             version:nil
+                                                                                          HTTPMethod:FBSDKHTTPMethodPOST];
+    [deferredAppLinkRequest startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
+                                                         id result,
+                                                         NSError *error) {
+                                                           NSURL *applinkURL = nil;
+                                                           if (!error) {
+                                                             NSString *appLinkString = result[@"applink_url"];
+                                                             if (appLinkString) {
+                                                               applinkURL = [NSURL URLWithString:appLinkString];
+
+                                                               NSString *createTimeUtc = result[@"click_time"];
+                                                               if (createTimeUtc) {
+                                                                 // append/translate the create_time_utc so it can be used by clients
+                                                                 NSString *modifiedURLString = [applinkURL.absoluteString
+                                                                                                stringByAppendingFormat:@"%@fb_click_time_utc=%@",
+                                                                                                (applinkURL.query) ? @"&" : @"?",
+                                                                                                createTimeUtc];
+                                                                 applinkURL = [NSURL URLWithString:modifiedURLString];
+                                                               }
+                                                             }
+                                                           }
+
+                                                           if (handler) {
+                                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                               handler(applinkURL, error);
+                                                             });
+                                                           }
+                                                         }];
   }];
 }
 
@@ -100,7 +121,6 @@ static NSString *const FBSDKDeferredAppLinkEvent = @"DEFERRED_APP_LINK";
   }
 
   return nil;
-
 }
 
 + (BOOL)isMatchURLScheme:(NSString *)scheme
@@ -108,16 +128,31 @@ static NSString *const FBSDKDeferredAppLinkEvent = @"DEFERRED_APP_LINK";
   if (!scheme) {
     return NO;
   }
-  for(NSDictionary *urlType in [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleURLTypes"])
-  {
-    for(NSString *urlScheme in urlType[@"CFBundleURLSchemes"]) {
-      if([urlScheme caseInsensitiveCompare:scheme] == NSOrderedSame) {
+  for (NSDictionary *urlType in [_infoDictionaryProvider objectForInfoDictionaryKey:@"CFBundleURLTypes"]) {
+    for (NSString *urlScheme in urlType[@"CFBundleURLSchemes"]) {
+      if ([urlScheme caseInsensitiveCompare:scheme] == NSOrderedSame) {
         return YES;
       }
     }
   }
   return NO;
 }
+
+ #if DEBUG
+  #if FBSDKTEST
+
++ (id<FBSDKGraphRequestProviding>)requestProvider
+{
+  return _requestProvider;
+}
+
++ (id<FBSDKInfoDictionaryProviding>)infoDictionaryProvider
+{
+  return _infoDictionaryProvider;
+}
+
+  #endif
+ #endif
 
 @end
 

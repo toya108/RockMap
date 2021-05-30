@@ -20,25 +20,28 @@
 
 #if !TARGET_OS_TV
 
-#import "FBSDKWebDialog.h"
+ #import "FBSDKWebDialog.h"
 
-#import "FBSDKAccessToken.h"
-#import "FBSDKDynamicFrameworkLoader.h"
-#import "FBSDKInternalUtility.h"
-#import "FBSDKLogger.h"
-#import "FBSDKSettings.h"
-#import "FBSDKTypeUtility.h"
-#import "FBSDKWebDialogView.h"
-#import "FBSDKInternalUtility.h"
+ #import "FBSDKAccessToken.h"
+ #import "FBSDKCoreKitBasicsImport.h"
+ #import "FBSDKDynamicFrameworkLoader.h"
+ #import "FBSDKInternalUtility.h"
+ #import "FBSDKLogger.h"
+ #import "FBSDKSettings.h"
+ #import "FBSDKWebDialogView.h"
+ #import "FBSDKWindowFinding.h"
 
-#define FBSDK_WEB_DIALOG_SHOW_ANIMATION_DURATION 0.2
-#define FBSDK_WEB_DIALOG_DISMISS_ANIMATION_DURATION 0.3
+ #define FBSDK_WEB_DIALOG_SHOW_ANIMATION_DURATION 0.2
+ #define FBSDK_WEB_DIALOG_DISMISS_ANIMATION_DURATION 0.3
 
 typedef void (^FBSDKBoolBlock)(BOOL finished);
 
 static FBSDKWebDialog *g_currentDialog = nil;
 
 @interface FBSDKWebDialog () <FBSDKWebDialogViewDelegate>
+
+@property (nonatomic, strong) id<FBSDKWindowFinding> windowFinder;
+
 @end
 
 @implementation FBSDKWebDialog
@@ -47,13 +50,15 @@ static FBSDKWebDialog *g_currentDialog = nil;
   FBSDKWebDialogView *_dialogView;
 }
 
-#pragma mark - Class Methods
+ #pragma mark - Class Methods
 
 + (instancetype)showWithName:(NSString *)name
                   parameters:(NSDictionary *)parameters
+                windowFinder:(id<FBSDKWindowFinding>)windowFinder
                     delegate:(id<FBSDKWebDialogDelegate>)delegate
 {
-  FBSDKWebDialog *dialog = [[self alloc] init];
+  FBSDKWebDialog *dialog = [self new];
+  dialog.windowFinder = windowFinder;
   dialog.name = name;
   dialog.parameters = parameters;
   dialog.delegate = delegate;
@@ -61,7 +66,7 @@ static FBSDKWebDialog *g_currentDialog = nil;
   return dialog;
 }
 
-#pragma mark - Object Lifecycle
+ #pragma mark - Object Lifecycle
 
 - (void)dealloc
 {
@@ -71,7 +76,7 @@ static FBSDKWebDialog *g_currentDialog = nil;
   [_backgroundView removeFromSuperview];
 }
 
-#pragma mark - Public Methods
+ #pragma mark - Public Methods
 
 - (BOOL)show
 {
@@ -89,7 +94,7 @@ static FBSDKWebDialog *g_currentDialog = nil;
 
   g_currentDialog = self;
 
-  UIWindow *window = [FBSDKInternalUtility findWindow];
+  UIWindow *window = [self.windowFinder findWindow];
   if (!window) {
     [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
                        formatString:@"There are no valid ViewController to present FBSDKWebDialog", nil];
@@ -110,7 +115,7 @@ static FBSDKWebDialog *g_currentDialog = nil;
   return YES;
 }
 
-#pragma mark - FBSDKWebDialogViewDelegate
+ #pragma mark - FBSDKWebDialogViewDelegate
 
 - (void)webDialogView:(FBSDKWebDialogView *)webDialogView didCompleteWithResults:(NSDictionary *)results
 {
@@ -130,15 +135,16 @@ static FBSDKWebDialog *g_currentDialog = nil;
 - (void)webDialogViewDidFinishLoad:(FBSDKWebDialogView *)webDialogView
 {
   if (_deferVisibility) {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-      if (self->_dialogView) {
-        [self _showWebView];
-      }
-    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)),
+      dispatch_get_main_queue(), ^{
+        if (self->_dialogView) {
+          [self _showWebView];
+        }
+      });
   }
 }
 
-#pragma mark - Notifications
+ #pragma mark - Notifications
 
 - (void)_addObservers
 {
@@ -167,7 +173,7 @@ static FBSDKWebDialog *g_currentDialog = nil;
   [nc removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
-#pragma mark - Helper Methods
+ #pragma mark - Helper Methods
 
 - (void)_cancel
 {
@@ -191,15 +197,15 @@ static FBSDKWebDialog *g_currentDialog = nil;
   FBSDKWebDialogView *dialogView = _dialogView;
   _dialogView.delegate = nil;
   _dialogView = nil;
-  void(^didDismiss)(BOOL) = ^(BOOL finished){
+  void (^didDismiss)(BOOL) = ^(BOOL finished) {
     [backgroundView removeFromSuperview];
     [dialogView removeFromSuperview];
   };
   if (animated) {
     [UIView animateWithDuration:FBSDK_WEB_DIALOG_DISMISS_ANIMATION_DURATION animations:^{
-      dialogView.alpha = 0.0;
-      backgroundView.alpha = 0.0;
-    } completion:didDismiss];
+                                                                              dialogView.alpha = 0.0;
+                                                                              backgroundView.alpha = 0.0;
+                                                                            } completion:didDismiss];
   } else {
     didDismiss(YES);
   }
@@ -211,22 +217,26 @@ static FBSDKWebDialog *g_currentDialog = nil;
 - (void)_failWithError:(NSError *)error
 {
   // defer so that the consumer is guaranteed to have an opportunity to set the delegate before we fail
+#ifndef FBSDKTEST
   dispatch_async(dispatch_get_main_queue(), ^{
-    [self _dismissAnimated:YES];
-    [self->_delegate webDialog:self didFailWithError:error];
-  });
+#endif
+  [self _dismissAnimated:YES];
+  [self->_delegate webDialog:self didFailWithError:error];
+#ifndef FBSDKTEST
+});
+#endif
 }
 
 - (NSURL *)_generateURL:(NSError **)errorRef
 {
-  NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+  NSMutableDictionary *parameters = [NSMutableDictionary new];
   [FBSDKTypeUtility dictionary:parameters setObject:@"touch" forKey:@"display"];
   [FBSDKTypeUtility dictionary:parameters setObject:[NSString stringWithFormat:@"ios-%@", [FBSDKSettings sdkVersion]] forKey:@"sdk"];
   [FBSDKTypeUtility dictionary:parameters setObject:@"fbconnect://success" forKey:@"redirect_uri"];
   [FBSDKTypeUtility dictionary:parameters setObject:[FBSDKSettings appID] forKey:@"app_id"];
   [FBSDKTypeUtility dictionary:parameters
-                      setObject:[FBSDKAccessToken currentAccessToken].tokenString
-                         forKey:@"access_token"];
+                     setObject:[FBSDKAccessToken currentAccessToken].tokenString
+                        forKey:@"access_token"];
   [parameters addEntriesFromDictionary:self.parameters];
   return [FBSDKInternalUtility facebookURLWithHostPrefix:@"m"
                                                     path:[@"/dialog/" stringByAppendingString:self.name]
@@ -236,7 +246,7 @@ static FBSDKWebDialog *g_currentDialog = nil;
 
 - (BOOL)_showWebView
 {
-  UIWindow *window = [FBSDKInternalUtility findWindow];
+  UIWindow *window = [self.windowFinder findWindow];
   if (!window) {
     [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
                        formatString:@"There are no valid ViewController to present FBSDKWebDialog", nil];
@@ -249,39 +259,18 @@ static FBSDKWebDialog *g_currentDialog = nil;
   _backgroundView = [[UIView alloc] initWithFrame:window.bounds];
   _backgroundView.alpha = 0.0;
   _backgroundView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-  _backgroundView.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.8];
-  [window addSubview:_backgroundView];
-  [window addSubview:_dialogView];
+    _backgroundView.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.8];
+    [window addSubview:_backgroundView];
+    [window addSubview:_dialogView];
 
-  [_dialogView becomeFirstResponder]; // dismisses the keyboard if it there was another first responder with it
-  [self _updateViewsWithScale:0.001 alpha:0.0 animationDuration:0.0 completion:NULL];
-  [self _updateViewsWithScale:1.1 alpha:1.0 animationDuration:FBSDK_WEB_DIALOG_SHOW_ANIMATION_DURATION completion:^(BOOL finished1) {
-    [self _updateViewsWithScale:0.9 alpha:1.0 animationDuration:FBSDK_WEB_DIALOG_SHOW_ANIMATION_DURATION completion:^(BOOL finished2) {
-      [self _updateViewsWithScale:1.0 alpha:1.0 animationDuration:FBSDK_WEB_DIALOG_SHOW_ANIMATION_DURATION completion:NULL];
+    [_dialogView becomeFirstResponder]; // dismisses the keyboard if it there was another first responder with it
+    [self _updateViewsWithScale:0.001 alpha:0.0 animationDuration:0.0 completion:NULL];
+    [self _updateViewsWithScale:1.1 alpha:1.0 animationDuration:FBSDK_WEB_DIALOG_SHOW_ANIMATION_DURATION completion:^(BOOL finished1) {
+      [self _updateViewsWithScale:0.9 alpha:1.0 animationDuration:FBSDK_WEB_DIALOG_SHOW_ANIMATION_DURATION completion:^(BOOL finished2) {
+        [self _updateViewsWithScale:1.0 alpha:1.0 animationDuration:FBSDK_WEB_DIALOG_SHOW_ANIMATION_DURATION completion:NULL];
+      }];
     }];
-  }];
-  return YES;
-}
-
-- (CGAffineTransform)_transformForOrientation
-{
-  // iOS 8 simply adjusts the application frame to adapt to the current orientation and deprecated the concept of
-  // interface orientations
-  if ([FBSDKInternalUtility shouldManuallyAdjustOrientation]) {
-    switch (FBSDKInternalUtility.statusBarOrientation) {
-      case UIInterfaceOrientationLandscapeLeft:
-        return CGAffineTransformMakeRotation(M_PI * 1.5);
-      case UIInterfaceOrientationLandscapeRight:
-        return CGAffineTransformMakeRotation(M_PI/2);
-      case UIInterfaceOrientationPortraitUpsideDown:
-        return CGAffineTransformMakeRotation(-M_PI);
-      case UIInterfaceOrientationPortrait:
-      case UIInterfaceOrientationUnknown:
-        // don't adjust the orientation
-        break;
-    }
-  }
-  return CGAffineTransformIdentity;
+    return YES;
 }
 
 - (CGRect)_applicationFrameForOrientation
@@ -296,29 +285,17 @@ static FBSDKWebDialog *g_currentDialog = nil;
 #endif
 
   if (insets.top == 0.0) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     insets.top = [[UIApplication sharedApplication] statusBarFrame].size.height;
-#pragma clang diagnostic pop
+    #pragma clang diagnostic pop
   }
   applicationFrame.origin.x += insets.left;
   applicationFrame.origin.y += insets.top;
   applicationFrame.size.width -= insets.left + insets.right;
   applicationFrame.size.height -= insets.top + insets.bottom;
 
-  if ([FBSDKInternalUtility shouldManuallyAdjustOrientation]) {
-    switch (FBSDKInternalUtility.statusBarOrientation) {
-      case UIInterfaceOrientationLandscapeLeft:
-      case UIInterfaceOrientationLandscapeRight:
-        return CGRectMake(0, 0, CGRectGetHeight(applicationFrame), CGRectGetWidth(applicationFrame));
-      case UIInterfaceOrientationPortraitUpsideDown:
-      case UIInterfaceOrientationPortrait:
-      case UIInterfaceOrientationUnknown:
-        return applicationFrame;
-    }
-  } else {
-    return applicationFrame;
-  }
+  return applicationFrame;
 }
 
 - (void)_updateViewsWithScale:(CGFloat)scale
@@ -326,19 +303,19 @@ static FBSDKWebDialog *g_currentDialog = nil;
             animationDuration:(CFTimeInterval)animationDuration
                    completion:(FBSDKBoolBlock)completion
 {
-  CGAffineTransform transform;
+  CGAffineTransform transform = _dialogView.transform;
   CGRect applicationFrame = [self _applicationFrameForOrientation];
   if (scale == 1.0) {
-    transform = _dialogView.transform;
     _dialogView.transform = CGAffineTransformIdentity;
     _dialogView.frame = applicationFrame;
     _dialogView.transform = transform;
   }
-  transform = CGAffineTransformScale([self _transformForOrientation], scale, scale);
-  void(^updateBlock)(void) = ^{
+  void (^updateBlock)(void) = ^{
     self->_dialogView.transform = transform;
-    self->_dialogView.center = CGPointMake(CGRectGetMidX(applicationFrame),
-                                     CGRectGetMidY(applicationFrame));
+    self->_dialogView.center = CGPointMake(
+      CGRectGetMidX(applicationFrame),
+      CGRectGetMidY(applicationFrame)
+    );
     self->_dialogView.alpha = alpha;
     self->_backgroundView.alpha = alpha;
   };

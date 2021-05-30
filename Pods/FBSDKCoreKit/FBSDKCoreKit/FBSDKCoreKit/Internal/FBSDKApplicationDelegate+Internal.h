@@ -19,24 +19,14 @@
 #import <Foundation/Foundation.h>
 
 #if SWIFT_PACKAGE
-#import "FBSDKApplicationDelegate.h"
+ #import "FBSDKApplicationDelegate.h"
 #else
-#import <FBSDKCoreKit/FBSDKApplicationDelegate.h>
+ #import <FBSDKCoreKit/FBSDKApplicationDelegate.h>
 #endif
 
-#import "FBSDKCoreKit+Internal.h"
+#import "FBSDKApplicationObserving.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
-
-FOUNDATION_EXPORT NSNotificationName const FBSDKApplicationDidBecomeActiveNotification;
-
-#else
-
-FOUNDATION_EXPORT NSString *const FBSDKApplicationDidBecomeActiveNotification;
-
-#endif
 
 @interface FBSDKApplicationDelegate ()
 

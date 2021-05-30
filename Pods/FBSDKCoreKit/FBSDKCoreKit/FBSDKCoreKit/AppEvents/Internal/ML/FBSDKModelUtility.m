@@ -20,17 +20,17 @@
 
 #if !TARGET_OS_TV
 
-#import <Foundation/Foundation.h>
+ #import "FBSDKModelUtility.h"
 
-#import "FBSDKModelUtility.h"
+ #import <Foundation/Foundation.h>
 
 @implementation FBSDKModelUtility : NSObject
 
-+ (NSString *)normalizeText:(NSString *)text
++ (NSString *)normalizedText:(NSString *)text
 {
-  NSMutableArray *tokens = [[text componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] mutableCopy];
+  NSMutableArray *tokens = [[text componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] mutableCopy];
   [tokens removeObject:@""];
-  return [tokens componentsJoinedByString: @" "];
+  return [tokens componentsJoinedByString:@" "];
 }
 
 @end

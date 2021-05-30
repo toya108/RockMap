@@ -17,19 +17,30 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+
 #import "FBSDKError.h"
+
+@protocol FBSDKGraphRequestProviding;
+@protocol FBSDKFileManaging;
+@protocol FBSDKSettings;
+@protocol FBSDKFileDataExtracting;
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(ErrorReport)
 @interface FBSDKErrorReport : NSObject
 
-- (instancetype)init NS_UNAVAILABLE;
-+ (instancetype)new NS_UNAVAILABLE;
+@property (class, nonatomic, readonly) FBSDKErrorReport *shared;
 
-+ (void)enable;
 + (void)saveError:(NSInteger)errorCode
       errorDomain:(NSErrorDomain)errorDomain
           message:(nullable NSString *)message;
+
+- (instancetype)initWithGraphRequestProvider:(id<FBSDKGraphRequestProviding>)requestProvider
+                                 fileManager:(id<FBSDKFileManaging>)fileManager
+                                    settings:(id<FBSDKSettings>)settings
+                           fileDataExtractor:(Class<FBSDKFileDataExtracting>)dataExtractor;
+- (void)enable;
 
 @end
 

@@ -223,7 +223,7 @@ class LayoutAdapter {
                     }
                 }
             } else {
-                pos = displayTrunc(edgePosition(surfaceView.frame), by: surfaceView.fp_displayScale)
+                pos = edgePosition(surfaceView.frame).rounded(by: surfaceView.fp_displayScale)
             }
             switch position {
             case .top, .bottom:
@@ -293,7 +293,7 @@ class LayoutAdapter {
     }
 
     func surfaceLocation(for state: FloatingPanelState) -> CGPoint {
-        let pos = displayTrunc(position(for: state), by: surfaceView.fp_displayScale)
+        let pos = position(for: state).rounded(by: surfaceView.fp_displayScale)
         switch layout.position {
         case .top, .bottom:
             return CGPoint(x: 0.0, y: pos)
@@ -744,8 +744,6 @@ class LayoutAdapter {
 
         var state = state
 
-        setBackdropAlpha(of: state)
-
         if validStates.contains(state) == false {
             state = layout.initialState
         }
@@ -773,14 +771,6 @@ class LayoutAdapter {
         guard surfaceView.window != nil else { return }
         #endif
         surfaceView.superview?.layoutIfNeeded()
-    }
-
-    private func setBackdropAlpha(of target: FloatingPanelState) {
-        if target == .hidden {
-            self.backdropView.alpha = 0.0
-        } else {
-            self.backdropView.alpha = backdropAlpha(for: target)
-        }
     }
 
     func backdropAlpha(for state: FloatingPanelState) -> CGFloat {

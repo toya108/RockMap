@@ -18,10 +18,9 @@
 
 #import "FBSDKAppEventsState.h"
 
-#import "FBSDKBasicUtility.h"
+#import "FBSDKCoreKitBasicsImport.h"
 #import "FBSDKEventDeactivationManager.h"
 #import "FBSDKRestrictiveDataFilterManager.h"
-#import "FBSDKTypeUtility.h"
 
 #define FBSDK_APPEVENTSTATE_ISIMPLICIT_KEY @"isImplicit"
 
@@ -70,7 +69,9 @@
 {
   NSString *appID = [decoder decodeObjectOfClass:[NSString class] forKey:FBSDK_APPEVENTSSTATE_APPID_KEY];
   NSString *tokenString = [decoder decodeObjectOfClass:[NSString class] forKey:FBSDK_APPEVENTSSTATE_TOKENSTRING_KEY];
-  NSArray *events = [decoder decodeObjectOfClass:[NSArray class] forKey:FBSDK_APPEVENTSSTATE_EVENTS_KEY];
+  NSArray *events = [FBSDKTypeUtility arrayValue:[decoder decodeObjectOfClasses:
+                                                  [NSSet setWithArray:@[NSArray.class, NSDictionary.class]]
+                                                                         forKey:FBSDK_APPEVENTSSTATE_EVENTS_KEY]];
   NSUInteger numSkipped = [[decoder decodeObjectOfClass:[NSNumber class] forKey:FBSDK_APPEVENTSSTATE_NUMSKIPPED_KEY] unsignedIntegerValue];
 
   if ((self = [self initWithToken:tokenString appID:appID])) {
@@ -109,30 +110,32 @@
 }
 
 - (void)addEvent:(NSDictionary *)eventDictionary
-      isImplicit:(BOOL)isImplicit {
+      isImplicit:(BOOL)isImplicit
+{
   if (_mutableEvents.count >= FBSDK_APPEVENTSSTATE_MAX_EVENTS) {
     _numSkipped++;
   } else {
     [FBSDKTypeUtility array:_mutableEvents addObject:@{
-                                @"event" : [eventDictionary mutableCopy],
-                                FBSDK_APPEVENTSTATE_ISIMPLICIT_KEY : @(isImplicit)
-                                }];
+       @"event" : [eventDictionary mutableCopy],
+       FBSDK_APPEVENTSTATE_ISIMPLICIT_KEY : @(isImplicit)
+     }];
   }
 }
 
-- (NSString *)extractReceiptData {
+- (NSString *)extractReceiptData
+{
   NSMutableString *receipts_string = [NSMutableString string];
   NSInteger transactionId = 1;
-  for (NSMutableDictionary* events in _mutableEvents) {
+  for (NSMutableDictionary *events in _mutableEvents) {
     NSMutableDictionary *event = events[@"event"];
 
-    NSString* receipt = event[@"receipt_data"];
+    NSString *receipt = event[@"receipt_data"];
     // Add receipt id as the identifier for receipt data in event parameter.
     // Receipt data will be sent as post parameter rather than the event parameter
     if (receipt) {
-      NSString* idKey = [NSString stringWithFormat:@"receipt_%ld", (long)transactionId];
+      NSString *idKey = [NSString stringWithFormat:@"receipt_%ld", (long)transactionId];
       [FBSDKTypeUtility dictionary:event setObject:idKey forKey:FBSDK_APPEVENTSTATE_RECEIPTID_KEY];
-      NSString* receiptWithId = [NSString stringWithFormat:@"%@::%@;;;", idKey, receipt];
+      NSString *receiptWithId = [NSString stringWithFormat:@"%@::%@;;;", idKey, receipt];
       [receipts_string appendString:receiptWithId];
       transactionId++;
     }
@@ -158,10 +161,10 @@
 - (BOOL)isCompatibleWithTokenString:(NSString *)tokenString appID:(NSString *)appID
 {
   // token strings can be nil (e.g., no user token) but appIDs should not.
-  BOOL tokenCompatible = ([self.tokenString isEqualToString:tokenString] ||
-                          (self.tokenString == nil && tokenString == nil));
-  return (tokenCompatible &&
-          [self.appID isEqualToString:appID]);
+  BOOL tokenCompatible = ([self.tokenString isEqualToString:tokenString]
+    || (self.tokenString == nil && tokenString == nil));
+  return (tokenCompatible
+    && [self.appID isEqualToString:appID]);
 }
 
 - (NSString *)JSONStringForEvents:(BOOL)includeImplicitEvents

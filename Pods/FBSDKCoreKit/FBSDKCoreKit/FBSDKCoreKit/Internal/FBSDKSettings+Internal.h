@@ -17,30 +17,65 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #if SWIFT_PACKAGE
-#import "FBSDKSettings.h"
+ #import "FBSDKSettings.h"
 #else
-#import <FBSDKCoreKit/FBSDKSettings.h>
+ #import <FBSDKCoreKit/FBSDKSettings.h>
 #endif
+
+#import "FBSDKCoreKit+Internal.h"
 
 #define DATA_PROCESSING_OPTIONS         @"data_processing_options"
 #define DATA_PROCESSING_OPTIONS_COUNTRY @"data_processing_options_country"
 #define DATA_PROCESSING_OPTIONS_STATE   @"data_processing_options_state"
 
-@protocol FBSDKAccessTokenCaching;
+@protocol FBSDKTokenCaching;
+@protocol FBSDKDataPersisting;
+@protocol FBSDKAppEventsConfigurationProviding;
+@protocol FBSDKInfoDictionaryProviding;
+@protocol FBSDKEventLogging;
 
-@interface FBSDKSettings(Internal)
+@interface FBSDKSettings (Internal)
 
-+ (nullable NSObject<FBSDKAccessTokenCaching> *)accessTokenCache;
+@property (class, nullable, nonatomic, readonly, copy) NSString *graphAPIDebugParamValue;
 
-+ (void)setAccessTokenCache:(nullable NSObject<FBSDKAccessTokenCaching> *)accessTokenCache;
+// used by Unity.
+@property (class, nullable, nonatomic, copy) NSString *userAgentSuffix;
+
+@property (class, nonnull, readonly) FBSDKSettings *sharedSettings;
+@property (nonatomic) BOOL shouldUseTokenOptimizations;
+
++ (void)configureWithStore:(nonnull id<FBSDKDataPersisting>)store
+appEventsConfigurationProvider:(nonnull Class<FBSDKAppEventsConfigurationProviding>)provider
+    infoDictionaryProvider:(nonnull id<FBSDKInfoDictionaryProviding>)infoDictionaryProvider
+               eventLogger:(nonnull id<FBSDKEventLogging>)eventLogger
+NS_SWIFT_NAME(configure(store:appEventsConfigurationProvider:infoDictionaryProvider:eventLogger:));
+
++ (nullable NSObject<FBSDKTokenCaching> *)tokenCache;
+
++ (void)setTokenCache:(nullable NSObject<FBSDKTokenCaching> *)tokenCache;
+
++ (FBSDKAdvertisingTrackingStatus)advertisingTrackingStatus;
+
++ (void)setAdvertiserTrackingStatus:(FBSDKAdvertisingTrackingStatus)status;
 
 + (nullable NSDictionary<NSString *, id> *)dataProcessingOptions;
 
 + (BOOL)isDataProcessingRestricted;
 
-@property (class, nonatomic, copy, readonly, nullable) NSString *graphAPIDebugParamValue;
++ (void)recordInstall;
 
-// used by Unity.
-@property (class, nonatomic, copy, nullable) NSString *userAgentSuffix;
++ (void)recordSetAdvertiserTrackingEnabled;
+
++ (BOOL)isEventDelayTimerExpired;
+
++ (BOOL)isSetATETimeExceedsInstallTime;
+
++ (NSDate *_Nullable)getInstallTimestamp;
+
++ (NSDate *_Nullable)getSetAdvertiserTrackingEnabledTimestamp;
+
++ (void)logWarnings;
+
++ (void)logIfSDKSettingsChanged;
 
 @end
