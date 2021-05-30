@@ -10,7 +10,6 @@ target 'RockMap' do
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift', '~> 7.3-beta'
   pod 'Firebase/Crashlytics'
-  pod 'FloatingPanel'
 	
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!

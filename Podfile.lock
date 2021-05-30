@@ -362,7 +362,6 @@ PODS:
   - FirebaseUI/Storage (10.0.2):
     - Firebase/Storage
     - SDWebImage (~> 5.6)
-  - FloatingPanel (2.3.1)
   - GoogleAppMeasurement/AdIdSupport (7.11.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/MethodSwizzler (~> 7.0)
@@ -443,7 +442,6 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseFirestoreSwift (~> 7.3-beta)
   - FirebaseUI (>= 10.0.2)
-  - FloatingPanel
 
 SPEC REPOS:
   trunk:
@@ -464,7 +462,6 @@ SPEC REPOS:
     - FirebaseInstallations
     - FirebaseStorage
     - FirebaseUI
-    - FloatingPanel
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleSignIn
@@ -496,7 +493,6 @@ SPEC CHECKSUMS:
   FirebaseInstallations: a58d4f72ec5861840b84df489f2668d970df558a
   FirebaseStorage: 8542711850ca181a3931c0ed483006a7b46039e7
   FirebaseUI: 59db3d833773f985550897d54ceb811ba37fb9a5
-  FloatingPanel: fb9fd997f369e1f5f350d8bab41527c8d6fe2e0d
   GoogleAppMeasurement: fd19169c3034975cb934e865e5667bfdce59df7f
   GoogleDataTransport: cd9db2180fcecd8da1b561aea31e3e56cf834aa7
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
@@ -510,6 +506,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
 
-PODFILE CHECKSUM: 47352d3c3a08863c2320db6b10d9ffedf73b6df1
+PODFILE CHECKSUM: 1c84bf5a49730c70b384c63127b9d948ebb714dc
 
 COCOAPODS: 1.10.1
