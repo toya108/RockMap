@@ -141,7 +141,7 @@ extension RockDetailViewController {
     }
 
     private func makeGradeNumberStrings(dic: [FIDocument.Course.Grade: Int]) -> String {
-        dic.map { $0.key.name + "/" + $0.value.description + "本" }.joined(separator: ",")
+        dic.map { $0.key.name + "/" + $0.value.description + "本" }.joined(separator: ", ")
     }
     
 }

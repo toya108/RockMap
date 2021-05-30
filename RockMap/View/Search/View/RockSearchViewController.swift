@@ -53,13 +53,14 @@ final class RockSearchViewController: UIViewController {
         setupBindings()
         setupMapView()
         setupFloatingPanel()
+        updateLocation(LocationManager.shared.location)
+        setupLongPressGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setupNavigationBar()
-        updateLocation(LocationManager.shared.location)
         viewModel.fetchRockList()
     }
 
@@ -163,7 +164,9 @@ final class RockSearchViewController: UIViewController {
                 self.updateMapView(state: state)
                 let baseViewHeight = self.addressBaseView.bounds.height
 
-                self.addressBaseViewTopConstraint.constant = state == .selecting ? -baseViewHeight : 0
+                self.addressBaseViewTopConstraint.constant = state == .selecting
+                    ? -baseViewHeight
+                    : 0
                 UIView.animate(withDuration: 0.2) {
                     self.view.layoutIfNeeded()
                 }
@@ -201,31 +204,38 @@ final class RockSearchViewController: UIViewController {
                 if let pointAnnotation = mapView.annotations.first(where: { $0 is MKPointAnnotation }) {
                     mapView.removeAnnotation(pointAnnotation)
                 }
-                mapView.gestureRecognizers?.forEach { mapView.removeGestureRecognizer($0) }
                 addressLabel.text = nil
 
             case .selecting:
-                mapView.addGestureRecognizer(
-                    UILongPressGestureRecognizer(
-                        target: self,
-                        action: #selector(didMapViewLongPressed(_:))
-                    )
-                )
+                break
         }
     }
-    
+
     private func updateLocation(_ location: CLLocation) {
         let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        
+
         mapView.setRegion(
             .init(center: location.coordinate, span: span),
             animated: true
         )
     }
 
+    private func setupLongPressGesture() {
+        mapView.addGestureRecognizer(
+            UILongPressGestureRecognizer(
+                target: self,
+                action: #selector(didMapViewLongPressed(_:))
+            )
+        )
+    }
+
     @objc private func didMapViewLongPressed(_ sender: UILongPressGestureRecognizer) {
 
         if sender.state == .began { return }
+
+        if viewModel.locationSelectState == .standby {
+            viewModel.locationSelectState = .selecting
+        }
 
         if let pointAnnotation = mapView.annotations.first(where: { $0 is MKPointAnnotation }) {
             mapView.removeAnnotations([pointAnnotation])

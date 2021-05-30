@@ -18,13 +18,15 @@ class CourseListViewModel: CourseListViewModelProtocol {
 
     var input: Input = .init()
     var output: Output = .init()
+    let isMine: Bool
 
-    private let userReference: DocumentRef?
+    private let userId: String
 
     private var bindings = Set<AnyCancellable>()
 
-    init(userReference: DocumentRef?) {
-        self.userReference = userReference
+    init(userId: String) {
+        self.userId = userId
+        self.isMine = userId == AuthManager.shared.uid
 
         bindInput()
         bindOutput()
@@ -60,7 +62,7 @@ class CourseListViewModel: CourseListViewModelProtocol {
     func fetchCourseList() {
         FirestoreManager.db
             .collectionGroup(FIDocument.Course.colletionName)
-            .whereField("registedUserId", in: [AuthManager.shared.uid])
+            .whereField("registedUserId", in: [userId])
             .getDocuments(FIDocument.Course.self)
             .catch { _ -> Just<[FIDocument.Course]> in
                 return .init([])

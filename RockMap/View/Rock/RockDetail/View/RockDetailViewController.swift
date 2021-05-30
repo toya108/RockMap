@@ -203,6 +203,16 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
                 dic[grade]! += 1
             }
         }
+
+        let gradeItem = snapShot.itemIdentifiers(inSection: .info).filter {
+            if case .containGrade = $0 {
+                return true
+            } else {
+                return false
+            }
+        }
+
+        snapShot.deleteItems(gradeItem)
         snapShot.appendItems([.containGrade(gadesCounts)], toSection: .info)
         datasource.apply(snapShot)
     }

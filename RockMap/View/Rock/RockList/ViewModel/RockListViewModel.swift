@@ -19,12 +19,14 @@ class RockListViewModel: RockListViewModelProtocol {
     var input: Input = .init()
     var output: Output = .init()
 
-    private let userReference: DocumentRef?
+    let isMine: Bool
+    private let userId: String
 
     private var bindings = Set<AnyCancellable>()
 
-    init(userReference: DocumentRef?) {
-        self.userReference = userReference
+    init(userId: String) {
+        self.userId = userId
+        isMine = userId == AuthManager.shared.uid
 
         bindInput()
         bindOutput()
@@ -60,7 +62,7 @@ class RockListViewModel: RockListViewModelProtocol {
     func fetchRockList() {
         FirestoreManager.db
             .collectionGroup(FIDocument.Rock.colletionName)
-            .whereField("registedUserId", in: [AuthManager.shared.uid])
+            .whereField("registedUserId", in: [userId])
             .getDocuments(FIDocument.Rock.self)
             .catch { _ -> Just<[FIDocument.Rock]> in
                 return .init([])

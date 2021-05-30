@@ -59,7 +59,9 @@ class RockListViewController: UIViewController, CompositionalColectionViewContro
 
     private func setupSections() {
         snapShot.appendSections(SectionKind.allCases)
-        snapShot.appendItems([.annotationHeader], toSection: .annotationHeader)
+        if viewModel.isMine {
+            snapShot.appendItems([.annotationHeader], toSection: .annotationHeader)
+        }
         datasource.apply(snapShot)
     }
 
@@ -136,6 +138,8 @@ extension RockListViewController {
         contextMenuConfigurationForItemAt indexPath: IndexPath,
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
+
+        guard viewModel.isMine else { return nil }
 
         let actionProvider: ([UIMenuElement]) -> UIMenu? = { [weak self] _ in
 

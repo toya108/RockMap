@@ -136,13 +136,14 @@ extension MyPageViewController {
                     cell.userView.registeredDateLabel.isHidden = true
 
                 case .mine, .other:
+                    cell.editProfileButton.isHidden = !self.viewModel.userKind.isMine
+
                     guard
                         let user = self.viewModel.output.fetchUserState.content
                     else {
                         return
                     }
 
-                    cell.editProfileButton.isHidden = false
                     cell.editProfileButton.addAction(
                         .init { [weak self] _ in
 
