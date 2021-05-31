@@ -48,8 +48,7 @@ struct MyPageRouter: RouterProtocol {
                 presentEditProfile(context, user: user)
 
             case .settings:
-                break
-
+                presentSettings(context)
         }
     }
 
@@ -98,10 +97,11 @@ struct MyPageRouter: RouterProtocol {
         from.present(nc, animated: true)
     }
 
-    private func pushSettings(
+    private func presentSettings(
         _ from: UIViewController
     ) {
-
+        let nc = RockMapNavigationController(rootVC: SettingsViewController(), naviBarClass: RockMapNoShadowNavigationBar.self)
+        from.present(nc, animated: true)
     }
 
 }
