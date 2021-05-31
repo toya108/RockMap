@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StoreKit
 
 class SettingsViewController: UIViewController, CompositionalColectionViewControllerProtocol {
 
@@ -52,6 +53,33 @@ extension SettingsViewController {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+
+        guard
+            let item = datasource.itemIdentifier(for: indexPath)
+        else {
+            return
+        }
+
+        switch item {
+            case .account:
+                break
+
+            case .privacyPolicy:
+                break
+
+            case .terms:
+                break
+
+            case .review:
+                guard
+                    let scene = UIApplication.shared.connectedScenes.first(
+                        where: { $0.activationState == .foregroundActive }
+                    ) as? UIWindowScene
+                else {
+                    return
+                }
+                SKStoreReviewController.requestReview(in: scene)
+        }
     }
 
 }
