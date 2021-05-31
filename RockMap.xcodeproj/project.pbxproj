@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -154,6 +154,7 @@
 		9EA32A4925FA77EE00FB0C75 /* RockConfirmLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA32A4825FA77EE00FB0C75 /* RockConfirmLayout.swift */; };
 		9EA32A4E25FA77F700FB0C75 /* RockConfirmKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA32A4D25FA77F700FB0C75 /* RockConfirmKind.swift */; };
 		9EA58D16263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA58D15263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift */; };
+		9EA6B04D26651A2300DAA888 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9EA6B04C26651A2300DAA888 /* Settings.bundle */; };
 		9EA9451F2618AFA60050ACE2 /* CourseDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA9451E2618AFA60050ACE2 /* CourseDetailRouter.swift */; };
 		9EA94F6E25D044E700D1272E /* RockDetailLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA94F6D25D044E700D1272E /* RockDetailLayout.swift */; };
 		9EA94F7325D044F500D1272E /* RockDetailDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA94F7225D044F500D1272E /* RockDetailDatasource.swift */; };
@@ -181,6 +182,8 @@
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
 		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
 		9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */; };
+		9ED40FC426631AF500A8D0AC /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 9ED40FC326631AF500A8D0AC /* Reachability */; };
+		9ED40FC726631B5C00A8D0AC /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 9ED40FC626631B5C00A8D0AC /* FloatingPanel */; };
 		9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED972992596471C0069FB94 /* ArrayExtension.swift */; };
 		9EE1FD482577EED60080787F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE1FD472577EED60080787F /* AuthManager.swift */; };
 		9EE25B8F25C99C8E0050326D /* RockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */; };
@@ -392,6 +395,7 @@
 		9EA32A4825FA77EE00FB0C75 /* RockConfirmLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmLayout.swift; sourceTree = "<group>"; };
 		9EA32A4D25FA77F700FB0C75 /* RockConfirmKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmKind.swift; sourceTree = "<group>"; };
 		9EA58D15263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
+		9EA6B04C26651A2300DAA888 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		9EA9451E2618AFA60050ACE2 /* CourseDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailRouter.swift; sourceTree = "<group>"; };
 		9EA94F6D25D044E700D1272E /* RockDetailLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailLayout.swift; sourceTree = "<group>"; };
 		9EA94F7225D044F500D1272E /* RockDetailDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailDatasource.swift; sourceTree = "<group>"; };
@@ -460,7 +464,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ED40FC726631B5C00A8D0AC /* FloatingPanel in Frameworks */,
 				90862925AE716E43169D5A87 /* Pods_RockMap.framework in Frameworks */,
+				9ED40FC426631AF500A8D0AC /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,6 +790,7 @@
 		9E5CEFCA25277B25001C95AA /* RockMap */ = {
 			isa = PBXGroup;
 			children = (
+				9EA6B04C26651A2300DAA888 /* Settings.bundle */,
 				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
 				9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */,
 				9E98D5472553009100EC5AC1 /* Resources */,
@@ -1547,12 +1554,17 @@
 				BC5A6EA522147B78E11DE918 /* [CP] Embed Pods Frameworks */,
 				9E5C5E272554EFA600D00087 /* Crashlytics */,
 				71A821B98C3AD9AAC2EEEF1B /* [CP] Copy Pods Resources */,
+				9EA6B047266517D700DAA888 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = RockMap;
+			packageProductDependencies = (
+				9ED40FC326631AF500A8D0AC /* Reachability */,
+				9ED40FC626631B5C00A8D0AC /* FloatingPanel */,
+			);
 			productName = RockMap;
 			productReference = 9E5CEFC825277B25001C95AA /* RockMap.app */;
 			productType = "com.apple.product-type.application";
@@ -1628,6 +1640,10 @@
 				Base,
 			);
 			mainGroup = 9E5CEFBF25277B25001C95AA;
+			packageReferences = (
+				9ED40FC226631AF500A8D0AC /* XCRemoteSwiftPackageReference "Reachability" */,
+				9ED40FC526631B5C00A8D0AC /* XCRemoteSwiftPackageReference "FloatingPanel" */,
+			);
 			productRefGroup = 9E5CEFC925277B25001C95AA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1646,6 +1662,7 @@
 			files = (
 				9E60DCBA255714A1000CF2E8 /* RockLocationSelectViewController.storyboard in Resources */,
 				9E5CEFD825277B26001C95AA /* LaunchScreen.storyboard in Resources */,
+				9EA6B04D26651A2300DAA888 /* Settings.bundle in Resources */,
 				9E0BE38526058FFE00576869 /* CompleteButtonCollectionViewCell.xib in Resources */,
 				9E845B0025ADF0F700EC3BE6 /* RegisterSucceededViewController.storyboard in Resources */,
 				9EE8BC5D2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib in Resources */,
@@ -1775,6 +1792,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
+		9EA6B047266517D700DAA888 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $CONFIGURATION = \"Debug\" ]; then\n/usr/local/bin/license-plist --output-path $PRODUCT_NAME/Settings.bundle\nfi\n";
 		};
 		BC5A6EA522147B78E11DE918 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2382,6 +2416,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9ED40FC226631AF500A8D0AC /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
+		9ED40FC526631B5C00A8D0AC /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scenee/FloatingPanel.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.3.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9ED40FC326631AF500A8D0AC /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9ED40FC226631AF500A8D0AC /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
+		9ED40FC626631B5C00A8D0AC /* FloatingPanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9ED40FC526631B5C00A8D0AC /* XCRemoteSwiftPackageReference "FloatingPanel" */;
+			productName = FloatingPanel;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 9E5CEFC025277B25001C95AA /* Project object */;
 }
