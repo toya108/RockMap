@@ -34,7 +34,7 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
         setupSubViews()
         setupNavigationBar()
         setupEmptyView()
-        configureCollectionView()
+        configureCollectionView(topInset: 16)
         setupSections()
         setupViewModelOutput()
     }

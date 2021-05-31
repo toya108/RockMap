@@ -34,7 +34,7 @@ class RockListViewController: UIViewController, CompositionalColectionViewContro
         setupSubViews()
         setupNavigationBar()
         setupEmptyView()
-        configureCollectionView()
+        configureCollectionView(topInset: 16)
         setupSections()
         setupViewModelOutput()
     }

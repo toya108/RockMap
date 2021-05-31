@@ -17,7 +17,7 @@ class SettingsViewController: UIViewController, CompositionalColectionViewContro
         super.viewDidLoad()
 
         setupNavigationBar()
-        configureCollectionView()
+        configureCollectionView(topInset: 16)
         configureSections()
     }
 

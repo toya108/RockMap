@@ -30,7 +30,7 @@ class RockAnnotationListViewController: UIViewController, CompositionalColection
         super.viewDidLoad()
 
         view.backgroundColor = .systemGroupedBackground
-        configureCollectionView()
+        configureCollectionView(topInset: 16)
         setupSections()
     }
 
