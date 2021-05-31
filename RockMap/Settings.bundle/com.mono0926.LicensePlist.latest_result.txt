@@ -1,0 +1,279 @@
+name: abseil, nameSpecified: 
+body: 
+                   …
+version: 0.20200225.0
+
+name: abseil, nameSpecified: 
+body: 
+                   …
+version: 0.20200225.0
+
+name: AppAuth, nameSpecified: 
+body: 
+                   …
+version: 1.4.0
+
+name: AppAuth, nameSpecified: 
+body: 
+                   …
+version: 1.4.0
+
+name: BoringSSL-GRPC, nameSpecified: 
+body: BoringSSL is a fork …
+version: 0.0.7
+
+name: BoringSSL-GRPC, nameSpecified: 
+body: BoringSSL is a fork …
+version: 0.0.7
+
+name: FBSDKCoreKit, nameSpecified: 
+body: Copyright (c) 2014-p…
+version: 9.3.0
+
+name: FBSDKCoreKit, nameSpecified: 
+body: Copyright (c) 2014-p…
+version: 9.3.0
+
+name: FBSDKLoginKit, nameSpecified: 
+body: Copyright (c) 2014-p…
+version: 9.3.0
+
+name: FBSDKLoginKit, nameSpecified: 
+body: Copyright (c) 2014-p…
+version: 9.3.0
+
+name: Firebase, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: Firebase, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseAnalytics, nameSpecified: 
+body: Copyright 2021 Googl…
+version: 7.11.0
+
+name: FirebaseAnalytics, nameSpecified: 
+body: Copyright 2021 Googl…
+version: 7.11.0
+
+name: FirebaseAuth, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseAuth, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseCore, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseCore, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseCoreDiagnostics, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseCoreDiagnostics, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseCrashlytics, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseCrashlytics, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseDatabase, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseDatabase, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseFirestore, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseFirestore, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseFirestoreSwift, nameSpecified: 
+body: 
+                   …
+version: 
+
+name: FirebaseFirestoreSwift, nameSpecified: 
+body: 
+                   …
+version: 
+
+name: FirebaseInstallations, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseInstallations, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseStorage, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseStorage, nameSpecified: 
+body: 
+                   …
+version: 7.11.0
+
+name: FirebaseUI, nameSpecified: 
+body: 
+                   …
+version: 10.0.2
+
+name: FirebaseUI, nameSpecified: 
+body: 
+                   …
+version: 10.0.2
+
+name: GoogleAppMeasurement, nameSpecified: 
+body: Copyright 2021 Googl…
+version: 7.11.0
+
+name: GoogleAppMeasurement, nameSpecified: 
+body: Copyright 2021 Googl…
+version: 7.11.0
+
+name: GoogleDataTransport, nameSpecified: 
+body: 
+                   …
+version: 8.4.0
+
+name: GoogleDataTransport, nameSpecified: 
+body: 
+                   …
+version: 8.4.0
+
+name: GoogleSignIn, nameSpecified: 
+body: Copyright 2019 Googl…
+version: 5.0.2
+
+name: GoogleSignIn, nameSpecified: 
+body: Copyright 2019 Googl…
+version: 5.0.2
+
+name: GoogleUtilities, nameSpecified: 
+body: 
+                   …
+version: 7.4.1
+
+name: GoogleUtilities, nameSpecified: 
+body: 
+                   …
+version: 7.4.1
+
+name: gRPC-C++, nameSpecified: 
+body: 
+                   …
+version: 
+
+name: gRPC-C++, nameSpecified: 
+body: 
+                   …
+version: 
+
+name: gRPC-Core, nameSpecified: 
+body: 
+                   …
+version: 1.28.2
+
+name: gRPC-Core, nameSpecified: 
+body: 
+                   …
+version: 1.28.2
+
+name: GTMAppAuth, nameSpecified: 
+body: 
+                   …
+version: 1.2.2
+
+name: GTMAppAuth, nameSpecified: 
+body: 
+                   …
+version: 1.2.2
+
+name: GTMSessionFetcher, nameSpecified: 
+body: 
+                   …
+version: 1.5.0
+
+name: GTMSessionFetcher, nameSpecified: 
+body: 
+                   …
+version: 1.5.0
+
+name: leveldb-library, nameSpecified: 
+body: Copyright (c) 2011 T…
+version: 1.22.1
+
+name: leveldb-library, nameSpecified: 
+body: Copyright (c) 2011 T…
+version: 1.22.1
+
+name: nanopb, nameSpecified: 
+body: Copyright (c) 2011 P…
+version: 2.30908.0
+
+name: nanopb, nameSpecified: 
+body: Copyright (c) 2011 P…
+version: 2.30908.0
+
+name: PromisesObjC, nameSpecified: 
+body: 
+                   …
+version: 1.2.12
+
+name: PromisesObjC, nameSpecified: 
+body: 
+                   …
+version: 1.2.12
+
+name: SDWebImage, nameSpecified: 
+body: Copyright (c) 2009-2…
+version: 5.11.1
+
+name: SDWebImage, nameSpecified: 
+body: Copyright (c) 2009-2…
+version: 5.11.1
+
+name: FloatingPanel, nameSpecified: FloatingPanel, owner: scenee, version: 2.3.1
+
+name: Reachability.swift, nameSpecified: Reachability, owner: ashleymills, version: 5.1.0
+
+add-version-numbers: false
+
+LicensePlist Version: 3.13.0
