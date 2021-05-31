@@ -51,7 +51,10 @@ class SettingsViewController: UIViewController, CompositionalColectionViewContro
 
 extension SettingsViewController {
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         collectionView.deselectItem(at: indexPath, animated: true)
 
         guard
@@ -62,7 +65,10 @@ extension SettingsViewController {
 
         switch item {
             case .account:
-                break
+                navigationController?.pushViewController(
+                    AccountViewController(),
+                    animated: true
+                )
 
             case .privacyPolicy:
                 break
