@@ -80,6 +80,16 @@ extension AccountViewController {
                     return nil
             }
         }
+
+        var tapEnabled: Bool {
+            switch self {
+                case .id, .authProvider:
+                    return false
+
+                case .loginOrLogout, .deleteUser:
+                    return true
+            }
+        }
     }
 
 }

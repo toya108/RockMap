@@ -82,6 +82,7 @@ extension AccountViewController {
                 if let secondaryText = item.secondaryText {
                     content.secondaryText = secondaryText
                 }
+                cell.isUserInteractionEnabled = item.tapEnabled
                 cell.contentConfiguration = content
             }
 
