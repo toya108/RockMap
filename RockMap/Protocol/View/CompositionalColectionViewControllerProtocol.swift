@@ -16,14 +16,14 @@ protocol CompositionalColectionViewControllerProtocol: UIViewController, UIColle
     var snapShot: NSDiffableDataSourceSnapshot<SectionKind, ItemKind> { get set }
     var datasource: UICollectionViewDiffableDataSource<SectionKind, ItemKind>! { get set }
 
-    func configureCollectionView()
+    func configureCollectionView(topInset: CGFloat)
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, ItemKind>
     func createLayout() -> UICollectionViewCompositionalLayout
 }
 
 extension CompositionalColectionViewControllerProtocol {
 
-    func configureCollectionView() {
+    func configureCollectionView(topInset: CGFloat = 8) {
         collectionView = .init(frame: .zero, collectionViewLayout: createLayout())
         collectionView.backgroundColor = .systemBackground
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +39,7 @@ extension CompositionalColectionViewControllerProtocol {
         datasource = configureDatasource()
         
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
-        collectionView.contentInset = .init(top: 8, left: 0, bottom: 16, right: 0)
+        collectionView.contentInset = .init(top: topInset, left: 0, bottom: 16, right: 0)
     }
 
     func cell<T: UICollectionViewCell>(

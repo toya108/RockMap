@@ -32,10 +32,13 @@ extension UIImage {
         static let bookMark = UIImage(systemName: "bookmark")!
         static let handPointUpLeftFill = UIImage(systemName: "hand.point.up.left.fill")!
         static let docPlaintextFill = UIImage(systemName: "doc.plaintext.fill")!
+        static let docPlaintext = UIImage(systemName: "doc.plaintext")!
         static let triangleLefthalfFill = UIImage(systemName: "triangle.lefthalf.fill")!
         static let trash = UIImage(systemName: "trash")!
         static let squareAndPencil = UIImage(systemName: "square.and.pencil")!
-        static let gearshapeFill = UIImage(systemName: "gearshape.fill")!
+        static let gear = UIImage(systemName: "gear")!
+        static let checkmarkShield = UIImage(systemName: "checkmark.shield")!
+        static let starCircle = UIImage(systemName: "star.circle")!
     }
     
     struct AssetsImages {

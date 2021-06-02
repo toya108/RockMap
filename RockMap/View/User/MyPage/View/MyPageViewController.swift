@@ -51,20 +51,27 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
     }
 
     private func setupNavigationBar() {
-        navigationItem.title = "マイページ"
-        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationItem.setRightBarButton(
-            .init(
-                title: nil,
-                image: UIImage.SystemImages.gearshapeFill,
-                primaryAction: .init { _ in
+        switch viewModel.userKind {
+            case .mine, .guest:
+                navigationItem.title = "マイページ"
+                navigationItem.setRightBarButton(
+                    .init(
+                        title: nil,
+                        image: UIImage.SystemImages.gear,
+                        primaryAction: .init { [weak self] _ in
 
-                },
-                menu: nil
-            ),
-            animated: true
-        )
+                            guard let self = self else { return }
+
+                            self.router.route(to: .settings, from: self)
+                        },
+                        menu: nil
+                    ),
+                    animated: true
+                )
+
+            case .other:
+                navigationItem.title = viewModel.output.fetchUserState.content?.name ?? ""
+        }
     }
 
     private func bindViewModelOutput() {

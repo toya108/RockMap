@@ -20,10 +20,14 @@ class AuthManager: NSObject {
     }
     
     let authUI: FUIAuth? = {
-        let authUI = FUIAuth.defaultAuthUI()
-        authUI?.providers = [
-            FUIGoogleAuth(),
-            FUIFacebookAuth(),
+        guard
+            let authUI = FUIAuth.defaultAuthUI()
+        else {
+            return nil
+        }
+        authUI.providers = [
+            FUIGoogleAuth(authUI: authUI),
+            FUIFacebookAuth(authUI: authUI),
             FUIEmailAuth(),
             FUIOAuth.appleAuthProvider()
         ]
