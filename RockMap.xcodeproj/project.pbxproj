@@ -186,7 +186,6 @@
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
 		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
 		9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */; };
-		9ED40FC426631AF500A8D0AC /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 9ED40FC326631AF500A8D0AC /* Reachability */; };
 		9ED40FC726631B5C00A8D0AC /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 9ED40FC626631B5C00A8D0AC /* FloatingPanel */; };
 		9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED972992596471C0069FB94 /* ArrayExtension.swift */; };
 		9EE1FD482577EED60080787F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE1FD472577EED60080787F /* AuthManager.swift */; };
@@ -474,7 +473,6 @@
 			files = (
 				9ED40FC726631B5C00A8D0AC /* FloatingPanel in Frameworks */,
 				90862925AE716E43169D5A87 /* Pods_RockMap.framework in Frameworks */,
-				9ED40FC426631AF500A8D0AC /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1590,7 +1588,6 @@
 			);
 			name = RockMap;
 			packageProductDependencies = (
-				9ED40FC326631AF500A8D0AC /* Reachability */,
 				9ED40FC626631B5C00A8D0AC /* FloatingPanel */,
 			);
 			productName = RockMap;
@@ -1669,7 +1666,6 @@
 			);
 			mainGroup = 9E5CEFBF25277B25001C95AA;
 			packageReferences = (
-				9ED40FC226631AF500A8D0AC /* XCRemoteSwiftPackageReference "Reachability" */,
 				9ED40FC526631B5C00A8D0AC /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 			);
 			productRefGroup = 9E5CEFC925277B25001C95AA /* Products */;
@@ -2450,14 +2446,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9ED40FC226631AF500A8D0AC /* XCRemoteSwiftPackageReference "Reachability" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.1.0;
-			};
-		};
 		9ED40FC526631B5C00A8D0AC /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scenee/FloatingPanel.git";
@@ -2469,11 +2457,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9ED40FC326631AF500A8D0AC /* Reachability */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9ED40FC226631AF500A8D0AC /* XCRemoteSwiftPackageReference "Reachability" */;
-			productName = Reachability;
-		};
 		9ED40FC626631B5C00A8D0AC /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9ED40FC526631B5C00A8D0AC /* XCRemoteSwiftPackageReference "FloatingPanel" */;

@@ -272,8 +272,6 @@ version: 5.11.1
 
 name: FloatingPanel, nameSpecified: FloatingPanel, owner: scenee, version: 2.3.1
 
-name: Reachability.swift, nameSpecified: Reachability, owner: ashleymills, version: 5.1.0
-
 add-version-numbers: false
 
 LicensePlist Version: 3.13.0
