@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import SafariServices
 
 final class LoginViewController: UIViewController {
 
@@ -36,7 +37,17 @@ final class LoginViewController: UIViewController {
             AuthManager.shared.presentAuthViewController(from: self)
         }
     }
-    
+
+    @IBAction func didTermsButtonTapped(_ sender: UIButton) {
+        let vc = SFSafariViewController(url: Resources.Const.Url.terms)
+        navigationController?.present(vc, animated: true)
+    }
+
+    @IBAction func didPrivacyPolicyButtonTapped(_ sender: UIButton) {
+        let vc = SFSafariViewController(url: Resources.Const.Url.privacyPolicy)
+        navigationController?.present(vc, animated: true)
+    }
+
     private func setupLayout() {
         navigationController?.isNavigationBarHidden = true
 

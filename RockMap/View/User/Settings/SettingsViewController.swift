@@ -7,6 +7,7 @@
 
 import UIKit
 import StoreKit
+import SafariServices
 
 class SettingsViewController: UIViewController, CompositionalColectionViewControllerProtocol {
 
@@ -71,10 +72,12 @@ extension SettingsViewController {
                 )
 
             case .privacyPolicy:
-                break
+                let vc = SFSafariViewController(url: Resources.Const.Url.privacyPolicy)
+                navigationController?.present(vc, animated: true)
 
             case .terms:
-                break
+                let vc = SFSafariViewController(url: Resources.Const.Url.terms)
+                navigationController?.present(vc, animated: true)
 
             case .review:
                 guard
