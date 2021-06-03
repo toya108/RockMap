@@ -530,6 +530,7 @@
 		9E04B191254B28230097DA8E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9EED75E02669267E00E46676 /* Validation */,
 				9E0BE3892605AC9600576869 /* UserDefaults */,
 				9E623685258A65EC00152AF9 /* Firebase */,
 				9E04B1CE254BE7A70097DA8E /* Location */,
@@ -564,14 +565,6 @@
 				9E60DCAC2556E3DF000CF2E8 /* UIKit */,
 			);
 			path = Extension;
-			sourceTree = "<group>";
-		};
-		9E04B1AB254BA9850097DA8E /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		9E04B1CE254BE7A70097DA8E /* Location */ = {
@@ -804,7 +797,6 @@
 				9E98D5472553009100EC5AC1 /* Resources */,
 				9E9E6375262EFDEE0096340C /* Emumeration */,
 				9EB00BD2262976AF00379182 /* Protocol */,
-				9E04B1AB254BA9850097DA8E /* Utils */,
 				9E04B1AA254BA9720097DA8E /* Extension */,
 				9E2B112D25471F1800D7E56C /* View */,
 				9E04B191254B28230097DA8E /* Model */,
@@ -1535,6 +1527,14 @@
 				9EECEBBA265FBAE00057EE11 /* MyClimbedListViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9EED75E02669267E00E46676 /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+				9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */,
+			);
+			path = Validation;
 			sourceTree = "<group>";
 		};
 		9EF56020255AE74A00D00723 /* RockDetail */ = {
