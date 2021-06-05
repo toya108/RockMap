@@ -31,6 +31,13 @@ This app is now developing for release...
 ### Authentication
 * FirebaseUI 
 
+### Manage Library
+- Firebase
+  - CocoaPods
+
+- others  
+  - SPM     
+
 ## Data Model
 
 <img src="https://user-images.githubusercontent.com/44093643/119843554-a0b69880-bf42-11eb-970d-dfba516a2e0a.png" width="300">
