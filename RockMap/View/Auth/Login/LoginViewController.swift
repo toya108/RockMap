@@ -56,21 +56,21 @@ final class LoginViewController: UIViewController {
 
     private func setupBindings() {
         AuthManager.shared.loginFinishedPublisher
-            .sink(
-                receiveCompletion: { [weak self] result in
+            .sink { [weak self] result in
 
-                    guard let self = self else { return }
+                guard let self = self else { return }
 
-                    switch result {
-                        case .finished:
-                            UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = MainTabBarController()
+                switch result {
+                    case .success:
+                        UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController = MainTabBarController()
 
-                        case .failure(let error):
-                            self.showOKAlert(title: "認証に失敗しました。", message: error.localizedDescription)
-
-                    }
-                }, receiveValue: {}
-            )
+                    case .failure(let error):
+                        self.showOKAlert(
+                            title: "認証に失敗しました。",
+                            message: error.localizedDescription
+                        )
+                }
+            }
             .store(in: &bindings)
     }
 

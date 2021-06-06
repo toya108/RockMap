@@ -19,6 +19,7 @@ class AccountViewController: UIViewController, CompositionalColectionViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupBindings()
         setupNavigationBar()
         configureCollectionView(topInset: 16)
         configureSections()
@@ -34,6 +35,26 @@ class AccountViewController: UIViewController, CompositionalColectionViewControl
 
     private func setupNavigationBar() {
         navigationItem.title = "アカウント設定"
+    }
+
+    private func setupBindings() {
+        AuthManager.shared.loginFinishedPublisher
+            .sink { [weak self] result in
+
+                guard let self = self else { return }
+
+                switch result {
+                    case .success:
+                        UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController = MainTabBarController()
+
+                    case .failure(let error):
+                        self.showOKAlert(
+                            title: "ログインに失敗しました",
+                            message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)"
+                        )
+                }
+            }
+            .store(in: &bindings)
     }
 }
 
@@ -53,11 +74,7 @@ extension AccountViewController {
 
         switch item {
             case .loginOrLogout:
-                if AuthManager.shared.isLoggedIn {
-                    logout()
-                } else {
-
-                }
+                AuthManager.shared.isLoggedIn ? logout() : login()
 
             case .deleteUser:
                 break
@@ -114,6 +131,28 @@ extension AccountViewController {
         )
     }
 
+    private func login() {
+        let okAction = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: { [weak self] _ in
+
+                guard let self = self else { return }
+
+                AuthManager.shared.presentAuthViewController(from: self)
+            }
+        )
+
+        showAlert(
+            title: "ログインしますか？",
+            message: "ログインするとアプリの最初の画面に戻ります。",
+            actions: [
+                okAction,
+                .init(title: "Cancel", style: .cancel)
+            ],
+            style: .alert
+        )
+    }
 }
 
 extension AccountViewController {
