@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import Combine
 
 class AccountViewController: UIViewController, CompositionalColectionViewControllerProtocol {
 
     var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionKind, ItemKind>!
+
+    private var bindings = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +53,11 @@ extension AccountViewController {
 
         switch item {
             case .loginOrLogout:
-                break
+                if AuthManager.shared.isLoggedIn {
+                    logout()
+                } else {
+
+                }
 
             case .deleteUser:
                 break
@@ -58,6 +65,53 @@ extension AccountViewController {
             default:
                 break
         }
+    }
+
+    private func logout() {
+        let okAction = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: { [weak self] _ in
+
+                guard let self = self else { return }
+
+                AuthManager.shared.logout()
+                    .catch { [weak self] error -> Empty in
+
+                        guard let self = self else { return Empty() }
+
+                        self.showOKAlert(
+                            title: "ログアウトに失敗しました",
+                            message: error.localizedDescription
+                        )
+                        return Empty()
+                    }
+                    .sink { _ in
+                        guard
+                            let vc = UIStoryboard(
+                                name: LoginViewController.className,
+                                bundle: nil
+                            ).instantiateInitialViewController() as? LoginViewController
+                        else {
+                            assertionFailure()
+                            return
+                        }
+
+                        UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController = vc
+                    }
+                    .store(in: &self.bindings)
+            }
+        )
+
+        showAlert(
+            title: "ログアウトしますか？",
+            message: "ログアウトするとアプリの最初の画面に戻ります。",
+            actions: [
+                okAction,
+                .init(title: "Cancel", style: .cancel)
+            ],
+            style: .alert
+        )
     }
 
 }
