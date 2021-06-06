@@ -111,76 +111,21 @@ extension AuthManager: FUIAuthDelegate {
             photoURL: user.photoURL
         )
 
-        var setUserDocument: (Bool) -> Void {{ [weak self] exists in
-
-            guard let self = self else { return }
-
-            if exists {
-                do {
-                    var updateDictionary = try userDocument.makedictionary(shouldExcludeEmpty: true)
-                    updateDictionary.removeValue(forKey: "photoURL")
-                    updateDictionary.removeValue(forKey: "socialLinks")
-
-                    userDocument.makeDocumentReference()
-                        .updateData(updateDictionary)
-                        .sink(
-                            receiveCompletion: { [weak self] result in
-
-                                guard let self = self else { return }
-
-                                switch result {
-                                    case .finished:
-                                        self.loginFinishedPublisher.send(completion: .finished)
-
-                                    case .failure(let error):
-                                        self.loginFinishedPublisher.send(completion: .failure(error))
-                                }
-                            },
-                            receiveValue: {}
-                        )
-                        .store(in: &self.bindings)
-                } catch {
-                    self.loginFinishedPublisher.send(completion: .failure(error))
-                }
-
-            } else {
-                userDocument.makeDocumentReference()
-                    .setData(from: userDocument)
-                    .sink(
-                        receiveCompletion: { [weak self] result in
-
-                            guard let self = self else { return }
-
-                            switch result {
-                                case .finished:
-                                    self.loginFinishedPublisher.send(completion: .finished)
-
-                                case .failure(let error):
-                                    self.loginFinishedPublisher.send(completion: .failure(error))
-
-                            }
-                        },
-                        receiveValue: {}
-                    )
-                    .store(in: &self.bindings)
-            }
-        }}
-
         userDocument.makeDocumentReference()
             .exists()
-            .sink(
-                receiveCompletion: { [weak self] result in
+            .catch { [weak self] error -> Empty in
 
-                    guard let self = self else { return }
+                guard let self = self else { return Empty() }
 
-                    if case let .failure(error) = result {
-                        self.loginFinishedPublisher.send(completion: .failure(error))
-                    }
-                },
-                receiveValue: { exists in
-                    setUserDocument(exists)
-                }
-            )
+                self.loginFinishedPublisher.send(completion: .failure(error))
+                return Empty()
+            }
+            .sink { [weak self] exists in
+
+                guard let self = self else { return }
+
+                self.setUserDocument(exists: exists, document: userDocument)
+            }
             .store(in: &bindings)
     }
 
@@ -194,8 +139,46 @@ extension AuthManager: FUIAuthDelegate {
         )
     }
 
+    private func setUserDocument(exists: Bool, document: FIDocument.User) {
+        if exists {
+            do {
+                var updateDictionary = try document.makedictionary(shouldExcludeEmpty: true)
+                updateDictionary.removeValue(forKey: "photoURL")
+                updateDictionary.removeValue(forKey: "socialLinks")
+
+                document.makeDocumentReference()
+                    .updateData(updateDictionary)
+                    .handleLoginResult(self.loginFinishedPublisher)
+                    .store(in: &self.bindings)
+            } catch {
+                self.loginFinishedPublisher.send(completion: .failure(error))
+            }
+
+        } else {
+            document.makeDocumentReference()
+                .setData(from: document)
+                .handleLoginResult(self.loginFinishedPublisher)
+                .store(in: &self.bindings)
+        }
+    }
 }
 
 enum AuthError: LocalizedError {
     case noUser
+}
+
+private extension Publisher where Output == Void, Failure == Error {
+
+    func handleLoginResult(
+        _ loginFinishedPublisher: PassthroughSubject<Void, Error>
+    ) -> AnyCancellable {
+        self.catch { error -> Empty in
+            loginFinishedPublisher.send(completion: .failure(error))
+            return Empty()
+        }
+        .sink { _ in
+            loginFinishedPublisher.send(completion: .finished)
+        }
+    }
+
 }
