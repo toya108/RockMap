@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class AccountViewController: UIViewController, CompositionalColectionViewControllerProtocol {
 
@@ -13,9 +14,12 @@ class AccountViewController: UIViewController, CompositionalColectionViewControl
     var snapShot = NSDiffableDataSourceSnapshot<SectionKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionKind, ItemKind>!
 
+    private var bindings = Set<AnyCancellable>()
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setupBindings()
         setupNavigationBar()
         configureCollectionView(topInset: 16)
         configureSections()
@@ -31,6 +35,26 @@ class AccountViewController: UIViewController, CompositionalColectionViewControl
 
     private func setupNavigationBar() {
         navigationItem.title = "アカウント設定"
+    }
+
+    private func setupBindings() {
+        AuthManager.shared.loginFinishedPublisher
+            .sink { [weak self] result in
+
+                guard let self = self else { return }
+
+                switch result {
+                    case .success:
+                        UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController = MainTabBarController()
+
+                    case .failure(let error):
+                        self.showOKAlert(
+                            title: "ログインに失敗しました",
+                            message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)"
+                        )
+                }
+            }
+            .store(in: &bindings)
     }
 }
 
@@ -50,7 +74,7 @@ extension AccountViewController {
 
         switch item {
             case .loginOrLogout:
-                break
+                AuthManager.shared.isLoggedIn ? logout() : login()
 
             case .deleteUser:
                 break
@@ -60,6 +84,75 @@ extension AccountViewController {
         }
     }
 
+    private func logout() {
+        let okAction = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: { [weak self] _ in
+
+                guard let self = self else { return }
+
+                AuthManager.shared.logout()
+                    .catch { [weak self] error -> Empty in
+
+                        guard let self = self else { return Empty() }
+
+                        self.showOKAlert(
+                            title: "ログアウトに失敗しました",
+                            message: error.localizedDescription
+                        )
+                        return Empty()
+                    }
+                    .sink { _ in
+                        guard
+                            let vc = UIStoryboard(
+                                name: LoginViewController.className,
+                                bundle: nil
+                            ).instantiateInitialViewController() as? LoginViewController
+                        else {
+                            assertionFailure()
+                            return
+                        }
+
+                        UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController = vc
+                    }
+                    .store(in: &self.bindings)
+            }
+        )
+
+        showAlert(
+            title: "ログアウトしますか？",
+            message: "ログアウトするとアプリの最初の画面に戻ります。",
+            actions: [
+                okAction,
+                .init(title: "Cancel", style: .cancel)
+            ],
+            style: .alert
+        )
+    }
+
+    private func login() {
+        let okAction = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: { [weak self] _ in
+
+                guard let self = self else { return }
+
+                AuthManager.shared.presentAuthViewController(from: self)
+            }
+        )
+
+        showAlert(
+            title: "ログインしますか？",
+            message: "ログインするとアプリの最初の画面に戻ります。",
+            actions: [
+                okAction,
+                .init(title: "Cancel", style: .cancel)
+            ],
+            style: .alert
+        )
+    }
 }
 
 extension AccountViewController {
