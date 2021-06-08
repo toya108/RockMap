@@ -196,7 +196,10 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
             parentCourseReference: rockDocument.makeDocumentReference(),
             parentPath: courseDocumentReference.path
         )
-        badge.setData(totalClimbedNumber.dictionary, forDocument: totalClimbedNumber.makeDocumentReference())
+        badge.setData(
+            totalClimbedNumber.dictionary,
+            forDocument: totalClimbedNumber.makeDocumentReference()
+        )
 
         badge.commit()
             .sink(

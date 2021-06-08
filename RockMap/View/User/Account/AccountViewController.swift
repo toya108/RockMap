@@ -77,7 +77,57 @@ extension AccountViewController {
                 AuthManager.shared.isLoggedIn ? logout() : login()
 
             case .deleteUser:
-                break
+                let deleteAction = UIAlertAction(
+                    title: "削除",
+                    style: .destructive
+                ) { [weak self] _ in
+
+                    guard let self = self else { return }
+
+                    self.showIndicatorView()
+
+                    AuthManager.shared.deleteUser()
+                        .catch { [weak self] error -> Empty in
+
+                            guard let self = self else { return Empty() }
+
+                            self.hideIndicatorView()
+                            self.showOKAlert(
+                                title: "アカウントの削除に失敗しました。",
+                                message: error.localizedDescription
+                            )
+                            return Empty()
+                        }
+                        .sink { [weak self] _ in
+
+                            guard let self = self else { return }
+
+                            self.hideIndicatorView()
+
+                            guard
+                                let vc = UIStoryboard(
+                                    name: LoginViewController.className,
+                                    bundle: nil
+                                ).instantiateInitialViewController() as? LoginViewController
+                            else {
+                                assertionFailure()
+                                return
+                            }
+
+                            UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController = vc
+                        }
+                        .store(in: &self.bindings)
+                }
+
+                showAlert(
+                    title: "アカウントを削除しますか？",
+                    message: "アカウントを削除しても登録した岩と課題は無くなりません。",
+                    actions: [
+                        deleteAction,
+                        .init(title: "Cancel", style: .cancel)
+                    ],
+                    style: .alert
+                )
 
             default:
                 break
@@ -87,38 +137,37 @@ extension AccountViewController {
     private func logout() {
         let okAction = UIAlertAction(
             title: "OK",
-            style: .default,
-            handler: { [weak self] _ in
+            style: .default
+        ) { [weak self] _ in
 
-                guard let self = self else { return }
+            guard let self = self else { return }
 
-                AuthManager.shared.logout()
-                    .catch { [weak self] error -> Empty in
+            AuthManager.shared.logout()
+                .catch { [weak self] error -> Empty in
 
-                        guard let self = self else { return Empty() }
+                    guard let self = self else { return Empty() }
 
-                        self.showOKAlert(
-                            title: "ログアウトに失敗しました",
-                            message: error.localizedDescription
-                        )
-                        return Empty()
+                    self.showOKAlert(
+                        title: "ログアウトに失敗しました",
+                        message: error.localizedDescription
+                    )
+                    return Empty()
+                }
+                .sink { _ in
+                    guard
+                        let vc = UIStoryboard(
+                            name: LoginViewController.className,
+                            bundle: nil
+                        ).instantiateInitialViewController() as? LoginViewController
+                    else {
+                        assertionFailure()
+                        return
                     }
-                    .sink { _ in
-                        guard
-                            let vc = UIStoryboard(
-                                name: LoginViewController.className,
-                                bundle: nil
-                            ).instantiateInitialViewController() as? LoginViewController
-                        else {
-                            assertionFailure()
-                            return
-                        }
 
-                        UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController = vc
-                    }
-                    .store(in: &self.bindings)
-            }
-        )
+                    UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController = vc
+                }
+                .store(in: &self.bindings)
+        }
 
         showAlert(
             title: "ログアウトしますか？",
