@@ -632,14 +632,10 @@
 			isa = PBXGroup;
 			children = (
 				9E98D53D2552F88B00EC5AC1 /* SupportView */,
-				9E80E90A265D3DF1000D33F6 /* User */,
-				9E80E909265D3964000D33F6 /* Course */,
-				9E80E908265D3945000D33F6 /* Rock */,
-				9E04B1A9254BA94C0097DA8E /* Search */,
-				9E80E90C265D3E28000D33F6 /* Climbed */,
-				9E033F552577F6CD00A669F8 /* Auth */,
-				9E807CC4254D000A0091935F /* MainTabBar */,
+				9EB7DB9C266FD43B003B0041 /* Screen */,
+				9EB7DB9B266FD42A003B0041 /* Container */,
 				9E34C90A25B09A4F005EBE07 /* Debug */,
+				9E9E6375262EFDEE0096340C /* Emumeration */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -793,15 +789,14 @@
 		9E5CEFCA25277B25001C95AA /* RockMap */ = {
 			isa = PBXGroup;
 			children = (
-				9EA6B04C26651A2300DAA888 /* Settings.bundle */,
-				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
-				9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */,
 				9E98D5472553009100EC5AC1 /* Resources */,
-				9E9E6375262EFDEE0096340C /* Emumeration */,
 				9EB00BD2262976AF00379182 /* Protocol */,
 				9E04B1AA254BA9720097DA8E /* Extension */,
 				9E2B112D25471F1800D7E56C /* View */,
 				9E04B191254B28230097DA8E /* Model */,
+				9EA6B04C26651A2300DAA888 /* Settings.bundle */,
+				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
+				9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */,
 				9E5CEFD625277B26001C95AA /* LaunchScreen.storyboard */,
 				9E5CEFD925277B26001C95AA /* Info.plist */,
 				9EB7DB98266FC4F9003B0041 /* GoogleService-Info-release.plist */,
@@ -1389,6 +1384,27 @@
 				9EB7B1682614D747004C1E7D /* CourseRegisterRouter.swift */,
 			);
 			path = Router;
+			sourceTree = "<group>";
+		};
+		9EB7DB9B266FD42A003B0041 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				9E807CC4254D000A0091935F /* MainTabBar */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
+		9EB7DB9C266FD43B003B0041 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				9E80E90A265D3DF1000D33F6 /* User */,
+				9E80E909265D3964000D33F6 /* Course */,
+				9E80E908265D3945000D33F6 /* Rock */,
+				9E04B1A9254BA94C0097DA8E /* Search */,
+				9E80E90C265D3E28000D33F6 /* Climbed */,
+				9E033F552577F6CD00A669F8 /* Auth */,
+			);
+			path = Screen;
 			sourceTree = "<group>";
 		};
 		9EB87ECF2632C8CC0042EA9C /* CourseList */ = {
