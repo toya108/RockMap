@@ -23,6 +23,7 @@ extension FIDocument {
         var socialLinks: [SocialLink] = []
         var introduction: String?
         var headerUrl: URL?
+        var deleted: Bool = false
         
         var isRoot: Bool { true }
 

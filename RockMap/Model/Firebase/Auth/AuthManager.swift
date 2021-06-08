@@ -88,6 +88,42 @@ class AuthManager: NSObject {
         }
         .eraseToAnyPublisher()
     }
+
+    func deleteUser() -> AnyPublisher<Void, Error> {
+        return FirestoreManager.db
+            .collection(FIDocument.User.colletionName)
+            .document(uid)
+            .updateData(["deleted": true])
+            .flatMap { [weak self] _ -> AnyPublisher<Void, Error> in
+
+                guard let self = self else {
+                    return Empty<Void, Error>().eraseToAnyPublisher()
+                }
+
+                return self.deleteUserPublisher()
+            }
+            .eraseToAnyPublisher()
+    }
+
+    private func deleteUserPublisher() -> AnyPublisher<Void, Error> {
+        Deferred {
+            Future<Void, Error> { [weak self] promise in
+
+                guard let self = self else { return }
+
+                self.currentUser?.delete { error in
+
+                    if let error = error {
+                        promise(.failure(error))
+                        return
+                    }
+
+                    promise(.success(()))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
 }
 
 extension AuthManager: FUIAuthDelegate {

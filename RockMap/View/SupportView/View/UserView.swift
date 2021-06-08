@@ -50,6 +50,13 @@ class UserView: UIView {
         registeredDate: Date? = nil,
         parentVc: UIViewController
     ) {
+        if user.deleted {
+            registeredDateLabel.isHidden = true
+            userNameLabel.text = "退会済みユーザー"
+            iconButton.setImage(UIImage.AssetsImages.noimage, for: .normal)
+            return
+        }
+
         userNameLabel.text = user.name
 
         if let photoURL = user.photoURL {
