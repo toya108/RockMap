@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		90862925AE716E43169D5A87 /* Pods_RockMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DACC89F758D48EDA36FCE2 /* Pods_RockMap.framework */; };
 		9E010E0025D0539F00A4C336 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E010DFF25D0539F00A4C336 /* Course.swift */; };
-		9E016FBC252CD0C600C2B85C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E016FBB252CD0C600C2B85C /* GoogleService-Info.plist */; };
+		9E016FBC252CD0C600C2B85C /* GoogleService-Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E016FBB252CD0C600C2B85C /* GoogleService-Info-dev.plist */; };
 		9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */; };
 		9E04B1B5254BC3FC0097DA8E /* StringExtesnion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1B4254BC3FC0097DA8E /* StringExtesnion.swift */; };
 		9E04B1D0254BE7B30097DA8E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1CF254BE7B30097DA8E /* LocationManager.swift */; };
@@ -174,6 +174,7 @@
 		9EB6C3CD260FA7A000CDD607 /* RockAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6C3CC260FA7A000CDD607 /* RockAnnotation.swift */; };
 		9EB7059526515855001FD2F6 /* IconEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB7059426515855001FD2F6 /* IconEditCollectionViewCell.swift */; };
 		9EB7B1692614D747004C1E7D /* CourseRegisterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB7B1682614D747004C1E7D /* CourseRegisterRouter.swift */; };
+		9EB7DB99266FC4F9003B0041 /* GoogleService-Info-release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EB7DB98266FC4F9003B0041 /* GoogleService-Info-release.plist */; };
 		9EB87ED12632C8FA0042EA9C /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB87ED02632C8FA0042EA9C /* CourseListViewController.swift */; };
 		9EB87ED92632CC050042EA9C /* CourseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB87ED82632CC050042EA9C /* CourseListViewModel.swift */; };
 		9EBD5A1525F7C998009383F6 /* UICollectionViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD5A1425F7C998009383F6 /* UICollectionViewCellExtension.swift */; };
@@ -248,7 +249,7 @@
 		6A8D4469AB6661D2935D7507 /* Pods-RockMap-RockMapUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMap-RockMapUITests.debug.xcconfig"; path = "Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6AE5AF1B695E4C4FAA592CE0 /* Pods-RockMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMap.debug.xcconfig"; path = "Target Support Files/Pods-RockMap/Pods-RockMap.debug.xcconfig"; sourceTree = "<group>"; };
 		9E010DFF25D0539F00A4C336 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
-		9E016FBB252CD0C600C2B85C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9E016FBB252CD0C600C2B85C /* GoogleService-Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-dev.plist"; sourceTree = "<group>"; };
 		9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidator.swift; sourceTree = "<group>"; };
 		9E04B1B4254BC3FC0097DA8E /* StringExtesnion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtesnion.swift; sourceTree = "<group>"; };
 		9E04B1CF254BE7B30097DA8E /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -419,6 +420,7 @@
 		9EB6C3CC260FA7A000CDD607 /* RockAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockAnnotation.swift; sourceTree = "<group>"; };
 		9EB7059426515855001FD2F6 /* IconEditCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconEditCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EB7B1682614D747004C1E7D /* CourseRegisterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRegisterRouter.swift; sourceTree = "<group>"; };
+		9EB7DB98266FC4F9003B0041 /* GoogleService-Info-release.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-release.plist"; sourceTree = "<group>"; };
 		9EB87ED02632C8FA0042EA9C /* CourseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewController.swift; sourceTree = "<group>"; };
 		9EB87ED82632CC050042EA9C /* CourseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewModel.swift; sourceTree = "<group>"; };
 		9EBD5A1425F7C998009383F6 /* UICollectionViewCellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellExtension.swift; sourceTree = "<group>"; };
@@ -630,14 +632,10 @@
 			isa = PBXGroup;
 			children = (
 				9E98D53D2552F88B00EC5AC1 /* SupportView */,
-				9E80E90A265D3DF1000D33F6 /* User */,
-				9E80E909265D3964000D33F6 /* Course */,
-				9E80E908265D3945000D33F6 /* Rock */,
-				9E04B1A9254BA94C0097DA8E /* Search */,
-				9E80E90C265D3E28000D33F6 /* Climbed */,
-				9E033F552577F6CD00A669F8 /* Auth */,
-				9E807CC4254D000A0091935F /* MainTabBar */,
+				9EB7DB9C266FD43B003B0041 /* Screen */,
+				9EB7DB9B266FD42A003B0041 /* Container */,
 				9E34C90A25B09A4F005EBE07 /* Debug */,
+				9E9E6375262EFDEE0096340C /* Emumeration */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -791,18 +789,18 @@
 		9E5CEFCA25277B25001C95AA /* RockMap */ = {
 			isa = PBXGroup;
 			children = (
-				9EA6B04C26651A2300DAA888 /* Settings.bundle */,
-				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
-				9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */,
 				9E98D5472553009100EC5AC1 /* Resources */,
-				9E9E6375262EFDEE0096340C /* Emumeration */,
 				9EB00BD2262976AF00379182 /* Protocol */,
 				9E04B1AA254BA9720097DA8E /* Extension */,
 				9E2B112D25471F1800D7E56C /* View */,
 				9E04B191254B28230097DA8E /* Model */,
+				9EA6B04C26651A2300DAA888 /* Settings.bundle */,
+				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
+				9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */,
 				9E5CEFD625277B26001C95AA /* LaunchScreen.storyboard */,
 				9E5CEFD925277B26001C95AA /* Info.plist */,
-				9E016FBB252CD0C600C2B85C /* GoogleService-Info.plist */,
+				9EB7DB98266FC4F9003B0041 /* GoogleService-Info-release.plist */,
+				9E016FBB252CD0C600C2B85C /* GoogleService-Info-dev.plist */,
 			);
 			path = RockMap;
 			sourceTree = "<group>";
@@ -1388,6 +1386,27 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		9EB7DB9B266FD42A003B0041 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				9E807CC4254D000A0091935F /* MainTabBar */,
+			);
+			path = Container;
+			sourceTree = "<group>";
+		};
+		9EB7DB9C266FD43B003B0041 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				9E80E90A265D3DF1000D33F6 /* User */,
+				9E80E909265D3964000D33F6 /* Course */,
+				9E80E908265D3945000D33F6 /* Rock */,
+				9E04B1A9254BA94C0097DA8E /* Search */,
+				9E80E90C265D3E28000D33F6 /* Climbed */,
+				9E033F552577F6CD00A669F8 /* Auth */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
 		9EB87ECF2632C8CC0042EA9C /* CourseList */ = {
 			isa = PBXGroup;
 			children = (
@@ -1581,9 +1600,9 @@
 				9E5CEFC625277B25001C95AA /* Resources */,
 				9E0C9F3A2534A8F600F66F01 /* SwiftLint */,
 				BC5A6EA522147B78E11DE918 /* [CP] Embed Pods Frameworks */,
-				9E5C5E272554EFA600D00087 /* Crashlytics */,
+				9EB7DB9A266FCAF3003B0041 /* ShellScript */,
 				71A821B98C3AD9AAC2EEEF1B /* [CP] Copy Pods Resources */,
-				9EA6B047266517D700DAA888 /* ShellScript */,
+				9E5C5E272554EFA600D00087 /* Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -1700,7 +1719,7 @@
 				9E0BE37B2605006F00576869 /* LeadingRegisteredUserCollectionViewCell.xib in Resources */,
 				9E2B113425471F7400D7E56C /* LoginViewController.storyboard in Resources */,
 				9E2BD65125DD55B00011B020 /* TextViewCollectionViewCell.xib in Resources */,
-				9E016FBC252CD0C600C2B85C /* GoogleService-Info.plist in Resources */,
+				9E016FBC252CD0C600C2B85C /* GoogleService-Info-dev.plist in Resources */,
 				9E171175263305B900D35BFE /* ListCollectionViewCell.xib in Resources */,
 				9E6D9171261AEB82006E2297 /* ZoomImageViewController.storyboard in Resources */,
 				9E78129E26199DA700CAC539 /* UserView.xib in Resources */,
@@ -1710,6 +1729,7 @@
 				9E9845F625D5418C00B03C4E /* RockHeaderCollectionViewCell.xib in Resources */,
 				9E2BD68725DD6DA90011B020 /* ImageSelactCollectionViewCell.xib in Resources */,
 				9E9E6371262EF1730096340C /* UserCollectionViewCell.xib in Resources */,
+				9EB7DB99266FC4F9003B0041 /* GoogleService-Info-release.plist in Resources */,
 				9E7812FE261A069700CAC539 /* ClimbedTableViewCell.xib in Resources */,
 				9E2DA76025F91BA7008F339E /* LocationSelectCollectionViewCell.xib in Resources */,
 				9E5CEFD325277B25001C95AA /* RockSearchViewController.storyboard in Resources */,
@@ -1820,7 +1840,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
-		9EA6B047266517D700DAA888 /* ShellScript */ = {
+		9EB7DB9A266FCAF3003B0041 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1835,7 +1855,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION = \"Debug\" ]; then\n/usr/local/bin/license-plist --output-path $PRODUCT_NAME/Settings.bundle\nfi\n";
+			shellScript = "PATH_TO_GOOGLE_PLISTS=\"${PROJECT_DIR}/RockMap\"\n\ncase \"${CONFIGURATION}\" in\n\n   \"Debug\" )\n        cp -r \"$PATH_TO_GOOGLE_PLISTS/GoogleService-Info-dev.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\" ;;\n   \"Release\" )\n        cp -r \"$PATH_TO_GOOGLE_PLISTS/GoogleService-Info-release.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\" ;;\n    *)\n        ;;\nesac\n";
 		};
 		BC5A6EA522147B78E11DE918 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
