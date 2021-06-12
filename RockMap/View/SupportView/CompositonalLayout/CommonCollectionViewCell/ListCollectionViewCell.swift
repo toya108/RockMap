@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 
 class ListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var mainImageView: UIImageView!
@@ -14,8 +13,6 @@ class ListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var firstLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
     @IBOutlet weak var thirdLabel: UILabel!
-
-    private var bindings = Set<AnyCancellable>()
 
     override func awakeFromNib() {
         super.awakeFromNib()

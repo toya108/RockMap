@@ -142,15 +142,15 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
         type: FIDocument.Climbed.ClimbedRecordType
     ) {
         guard
-            let index = output.climbedCellData.firstIndex(where: { $0.climbed.id == id })
+            let index = output.myClimbedCellData.firstIndex(where: { $0.climbed.id == id })
         else {
             return
         }
 
-        output.climbedCellData[index].climbed.climbedDate = date
-        output.climbedCellData[index].climbed.type = type
+        output.myClimbedCellData[index].climbed.climbedDate = date
+        output.myClimbedCellData[index].climbed.type = type
 
-        output.climbedCellData.sort(
+        output.myClimbedCellData.sort(
             by: { $0.climbed.climbedDate < $1.climbed.climbedDate }
         )
 
