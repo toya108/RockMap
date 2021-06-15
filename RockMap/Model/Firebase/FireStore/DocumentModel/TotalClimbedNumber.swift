@@ -15,7 +15,7 @@ extension FIDocument {
         var id: String = UUID().uuidString
         var parentCourseReference: DocumentRef
         var createdAt: Date = Date()
-        var updatedAt: Date? = nil
+        var updatedAt: Date?
         var parentPath: String
         var total: Int = 0
         var flashTotal: Int = 0
