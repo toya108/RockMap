@@ -17,7 +17,7 @@ protocol FINameSpaceProtocol {
 
 protocol FIDocumentProtocol: Codable, Hashable {
     associatedtype Collection: FINameSpaceProtocol
-    
+
     var id: String { get set }
     var createdAt: Date { get set }
     var updatedAt: Date? { get set }
@@ -40,17 +40,6 @@ extension FIDocumentProtocol {
                 .document(parentPath)
                 .collection(Self.colletionName)
                 .document(id)
-        }
-    }
-
-    func makeCollectionReference() -> CollectionReference {
-        if isRoot {
-            return FirestoreManager.db
-                .collection(Self.colletionName)
-        } else {
-            return FirestoreManager.db
-                .document(parentPath)
-                .collection(Self.colletionName)
         }
     }
 
