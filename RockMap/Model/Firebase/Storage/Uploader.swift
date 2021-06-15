@@ -68,13 +68,17 @@ class StorageUploader {
     }
 
     func start() {
-        prepareUpload()
-        uploadState = .progress(
-            .init(
-                total: totalUnitCount,
-                completed: completedUnitCount
+        if components.isEmpty {
+            uploadState = .complete([])
+        } else {
+            prepareUpload()
+            uploadState = .progress(
+                .init(
+                    total: totalUnitCount,
+                    completed: completedUnitCount
+                )
             )
-        )
+        }
     }
 
     private func prepareUpload() {
