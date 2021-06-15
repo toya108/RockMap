@@ -80,7 +80,11 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
                 )
             case .storage(let storage):
 
-                guard let updateData = storage.updateData else { return }
+                guard
+                    let updateData = storage.updateData
+                else {
+                    return
+                }
 
                 storage.storageReference.delete()
                     .sink(
@@ -110,7 +114,11 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
                     )
                 case .storage(let storage):
 
-                    guard storage.shouldUpdate else { return }
+                    guard
+                        storage.shouldUpdate
+                    else {
+                        return
+                    }
 
                     storage.storageReference.delete()
                         .sink(
@@ -187,57 +195,42 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
     }
 
     private func createRock() {
-        let badge = FirestoreManager.db.batch()
+        rockDocument
+            .makeDocumentReference()
+            .setData(from: rockDocument)
+            .catch { [weak self] error -> Empty in
 
-        let courseDocumentReference = rockDocument.makeDocumentReference()
-        badge.setData(rockDocument.dictionary, forDocument: courseDocumentReference)
+                guard let self = self else { return Empty() }
 
-        let totalClimbedNumber = FIDocument.TotalClimbedNumber(
-            parentCourseReference: rockDocument.makeDocumentReference(),
-            parentPath: courseDocumentReference.path
-        )
-        badge.setData(
-            totalClimbedNumber.dictionary,
-            forDocument: totalClimbedNumber.makeDocumentReference()
-        )
+                self.output.rockUploadState = .failure(error)
+                return Empty()
+            }
+            .sink { [weak self] _ in
 
-        badge.commit()
-            .sink(
-                receiveCompletion: { [weak self] result in
+                guard let self = self else { return }
 
-                    guard let self = self else { return }
-
-                    switch result {
-                        case .finished:
-                            self.output.rockUploadState = .finish(content: ())
-
-                        case let .failure(error):
-                            self.output.rockUploadState = .failure(error)
-
-                    }
-                }, receiveValue: {}
-            )
+                self.output.rockUploadState = .finish(content: ())
+            }
             .store(in: &bindings)
     }
 
     private func editRock() {
-        rockDocument.makeDocumentReference()
+        rockDocument
+            .makeDocumentReference()
             .updateData(rockDocument.dictionary)
-            .sink(
-                receiveCompletion: { [weak self] result in
+            .catch { [weak self] error -> Empty in
 
-                    guard let self = self else { return }
+                guard let self = self else { return Empty() }
 
-                    switch result {
-                        case .finished:
-                            self.output.rockUploadState = .finish(content: ())
+                self.output.rockUploadState = .failure(error)
+                return Empty()
+            }
+            .sink { [weak self] _ in
 
-                        case let .failure(error):
-                            self.output.rockUploadState = .failure(error)
+                guard let self = self else { return }
 
-                    }
-                }, receiveValue: {}
-            )
+                self.output.rockUploadState = .finish(content: ())
+            }
             .store(in: &bindings)
     }
 }
