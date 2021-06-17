@@ -8,7 +8,7 @@
 import UIKit
 
 extension FIDocument {
-    struct Climbed: FIDocumentProtocol {
+    struct Climbed: FIDocumentProtocol, UserRegisterableDocumentProtocol {
         
         typealias Collection = FINameSpace.Climbed
         

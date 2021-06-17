@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension FIDocument {
-    struct Course: FIDocumentProtocol {
+    struct Course: FIDocumentProtocol, UserRegisterableDocumentProtocol {
         
         typealias Collection = FINameSpace.Course
         
@@ -23,7 +23,7 @@ extension FIDocument {
         var shape: Set<Shape>
         var parentRockName: String
         var parentRockId: String
-        var registedUserId: String
+        var registeredUserId: String
         var headerUrl: URL?
         var imageUrls: [URL] = []
         

@@ -36,7 +36,7 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
 
                 guard let self = self else { return }
 
-                self.fetchRegisteredUserSubject.send(self.course.registedUserId)
+                self.fetchRegisteredUserSubject.send(self.course.registeredUserId)
                 self.fetchParentRockSubject.send(self.course.parentRockId)
             }
             .store(in: &bindings)
@@ -80,7 +80,7 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
         course.makeDocumentReference()
             .collection(FIDocument.TotalClimbedNumber.colletionName)
             .publisher(as: FIDocument.TotalClimbedNumber.self)
-            .catch { _ -> Just<[FIDocument.TotalClimbedNumber]> in
+            .catch { error -> Just<[FIDocument.TotalClimbedNumber]> in
                 return .init([])
             }
             .compactMap { $0.first }

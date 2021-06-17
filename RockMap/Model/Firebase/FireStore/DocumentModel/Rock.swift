@@ -9,10 +9,11 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 extension FIDocument {
-    struct Rock: FIDocumentProtocol {
+
+    struct Rock: FIDocumentProtocol, UserRegisterableDocumentProtocol {
+
         typealias Collection = FINameSpace.Rocks
-        typealias Parent = FIDocument.User
-        
+
         var id: String = UUID().uuidString
         var createdAt: Date = Date()
         var updatedAt: Date?
@@ -24,7 +25,7 @@ extension FIDocument {
         var seasons: Set<Season>
         var lithology: Lithology
         var desc: String
-        var registedUserId: String
+        var registeredUserId: String
         var headerUrl: URL?
         var imageUrls: [URL] = []
 

@@ -316,7 +316,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
                     seasons: output.seasons,
                     lithology: output.lithology,
                     desc: output.rockDesc,
-                    registedUserId: AuthManager.shared.uid
+                    registeredUserId: AuthManager.shared.uid
                 )
 
             case var .edit(rock):

@@ -26,6 +26,10 @@ protocol FIDocumentProtocol: Codable, Hashable {
     var isRoot: Bool { get }
 }
 
+protocol UserRegisterableDocumentProtocol: Codable, Hashable {
+    var registeredUserId: String { get set }
+}
+
 extension FIDocumentProtocol {
 
     var isRoot: Bool { false }
