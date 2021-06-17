@@ -169,7 +169,7 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
                     case .failure(let error):
                         self.hideIndicatorView()
                         self.showOKAlert(
-                            title: "課題登録に失敗しました",
+                            title: "登録に失敗しました",
                             message: error?.localizedDescription ?? ""
                         )
 

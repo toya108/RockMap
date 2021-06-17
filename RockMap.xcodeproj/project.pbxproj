@@ -11,7 +11,6 @@
 		9E010E0025D0539F00A4C336 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E010DFF25D0539F00A4C336 /* Course.swift */; };
 		9E016FBC252CD0C600C2B85C /* GoogleService-Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E016FBB252CD0C600C2B85C /* GoogleService-Info-dev.plist */; };
 		9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */; };
-		9E04B1B5254BC3FC0097DA8E /* StringExtesnion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1B4254BC3FC0097DA8E /* StringExtesnion.swift */; };
 		9E04B1D0254BE7B30097DA8E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1CF254BE7B30097DA8E /* LocationManager.swift */; };
 		9E06F95F2649767C00731352 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E06F95E2649767C00731352 /* EditProfileViewController.swift */; };
 		9E06F9612649769200731352 /* EditProfileLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E06F9602649769200731352 /* EditProfileLayout.swift */; };
@@ -252,7 +251,6 @@
 		9E010DFF25D0539F00A4C336 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		9E016FBB252CD0C600C2B85C /* GoogleService-Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-dev.plist"; sourceTree = "<group>"; };
 		9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidator.swift; sourceTree = "<group>"; };
-		9E04B1B4254BC3FC0097DA8E /* StringExtesnion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtesnion.swift; sourceTree = "<group>"; };
 		9E04B1CF254BE7B30097DA8E /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9E06F95E2649767C00731352 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		9E06F9602649769200731352 /* EditProfileLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileLayout.swift; sourceTree = "<group>"; };
@@ -843,7 +841,6 @@
 		9E60DCAD2556E3EA000CF2E8 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				9E04B1B4254BC3FC0097DA8E /* StringExtesnion.swift */,
 				9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */,
 				9ED972992596471C0069FB94 /* ArrayExtension.swift */,
 				9EFEF88725E09C8100007AD6 /* IdentifiableData.swift */,
@@ -1966,7 +1963,6 @@
 				9EC3A6CE2604D76A001FBCA4 /* CourseDetailDatasource.swift in Sources */,
 				9E39B1D426144B930005F6E1 /* RockDetailRouter.swift in Sources */,
 				9E9C1E7125E6B1EE0050FDDE /* CourseConfirmViewController.swift in Sources */,
-				9E04B1B5254BC3FC0097DA8E /* StringExtesnion.swift in Sources */,
 				9E9974FC26422A8500E8562B /* CourseListKind.swift in Sources */,
 				9EF8E2BB25EF6E2B00185A3D /* CourseConfirmLayout.swift in Sources */,
 				9E9845C125D4F27E00B03C4E /* CourseRegisterViewController.swift in Sources */,

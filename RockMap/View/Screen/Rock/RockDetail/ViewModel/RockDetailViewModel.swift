@@ -34,7 +34,7 @@ final class RockDetailViewModel: ViewModelProtocol {
 
         FirestoreManager.db
             .collection(FIDocument.User.colletionName)
-            .document(rock.registedUserId)
+            .document(rock.registeredUserId)
             .getDocument(FIDocument.User.self)
             .catch { _ -> Just<FIDocument.User?> in
                 return .init(nil)

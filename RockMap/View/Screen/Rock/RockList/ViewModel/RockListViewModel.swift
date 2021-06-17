@@ -62,7 +62,7 @@ class RockListViewModel: RockListViewModelProtocol {
     func fetchRockList() {
         FirestoreManager.db
             .collectionGroup(FIDocument.Rock.colletionName)
-            .whereField("registedUserId", in: [userId])
+            .whereField("registeredUserId", in: [userId])
             .getDocuments(FIDocument.Rock.self)
             .catch { _ -> Just<[FIDocument.Rock]> in
                 return .init([])

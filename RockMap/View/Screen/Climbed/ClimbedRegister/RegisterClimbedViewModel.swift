@@ -135,10 +135,7 @@ class RegisterClimbedViewModel {
                 badge.setData(climbed.dictionary, forDocument: climbed.makeDocumentReference())
 
                 badge.updateData(
-                    [
-                        "total": FirestoreManager.Value.increment(1.0),
-                        self.climbedType.fieldName: FirestoreManager.Value.increment(1.0)
-                    ],
+                    [self.climbedType.fieldName: FirestoreManager.Value.increment(1.0)],
                     forDocument: totalNumber.makeDocumentReference()
                 )
 

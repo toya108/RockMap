@@ -31,7 +31,7 @@ class DocumentProtocolTests: XCTestCase {
             seasons: [],
             lithology: .andesite,
             desc: "aaa",
-            registedUserId: userDocument.id
+            registeredUserId: userDocument.id
         )
 
         let expectPath = [
@@ -56,7 +56,7 @@ class DocumentProtocolTests: XCTestCase {
             shape: [],
             parentRockName: "rock",
             parentRockId: UUID().uuidString,
-            registedUserId: userDocument.id
+            registeredUserId: userDocument.id
         )
         let expectPath = [
             FIDocument.User.colletionName,

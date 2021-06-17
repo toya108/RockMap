@@ -36,7 +36,7 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
 
                 guard let self = self else { return }
 
-                self.fetchRegisteredUserSubject.send(self.course.registedUserId)
+                self.fetchRegisteredUserSubject.send(self.course.registeredUserId)
                 self.fetchParentRockSubject.send(self.course.parentRockId)
             }
             .store(in: &bindings)

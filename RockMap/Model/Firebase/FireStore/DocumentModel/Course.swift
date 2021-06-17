@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 extension FIDocument {
-    struct Course: FIDocumentProtocol {
+
+    struct Course: FIDocumentProtocol, UserRegisterableDocumentProtocol {
         
         typealias Collection = FINameSpace.Course
         
@@ -23,15 +24,20 @@ extension FIDocument {
         var shape: Set<Shape>
         var parentRockName: String
         var parentRockId: String
-        var registedUserId: String
+        var registeredUserId: String
         var headerUrl: URL?
         var imageUrls: [URL] = []
-        
-        enum Grade: String, CaseIterable, Codable {
-            case d5, d4, d3, d2, d1, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10
-            
-            var name: String {
-                switch self {
+    }
+
+}
+
+extension FIDocument.Course {
+
+    enum Grade: String, CaseIterable, Codable {
+        case d5, d4, d3, d2, d1, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10
+
+        var name: String {
+            switch self {
                 case .d5:
                     return "5段"
                     
@@ -77,15 +83,15 @@ extension FIDocument {
                 case .q10:
                     return "10級"
                     
-                }
             }
         }
-        
-        enum Shape: String, CaseIterable, Codable {
-            case roof, slab, face, overhang, kante, lip
-            
-            var name: String {
-                switch self {
+    }
+
+    enum Shape: String, CaseIterable, Codable {
+        case roof, slab, face, overhang, kante, lip
+
+        var name: String {
+            switch self {
                 case .roof:
                     return "ルーフ"
                     
@@ -104,9 +110,8 @@ extension FIDocument {
                 case .lip:
                     return "リップ"
                     
-                }
             }
-
         }
+
     }
 }

@@ -62,7 +62,7 @@ class CourseListViewModel: CourseListViewModelProtocol {
     func fetchCourseList() {
         FirestoreManager.db
             .collectionGroup(FIDocument.Course.colletionName)
-            .whereField("registedUserId", in: [userId])
+            .whereField("registeredUserId", in: [userId])
             .getDocuments(FIDocument.Course.self)
             .catch { _ -> Just<[FIDocument.Course]> in
                 return .init([])

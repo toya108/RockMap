@@ -243,7 +243,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
                     shape: output.shapes,
                     parentRockName: rock.name,
                     parentRockId: rock.id,
-                    registedUserId: AuthManager.shared.uid
+                    registeredUserId: AuthManager.shared.uid
                 )
                 
             case var .edit(course):

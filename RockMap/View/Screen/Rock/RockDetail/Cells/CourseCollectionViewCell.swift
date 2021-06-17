@@ -37,7 +37,7 @@ class CourseCollectionViewCell: UICollectionViewCell {
 
         FirestoreManager.db
             .collection(FIDocument.User.colletionName)
-            .document(course.registedUserId)
+            .document(course.registeredUserId)
             .getDocument(FIDocument.User.self)
             .catch { _ in Empty() }
             .compactMap { $0 }

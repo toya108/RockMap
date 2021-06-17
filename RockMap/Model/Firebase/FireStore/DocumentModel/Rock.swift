@@ -9,10 +9,11 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 extension FIDocument {
-    struct Rock: FIDocumentProtocol {
+
+    struct Rock: FIDocumentProtocol, UserRegisterableDocumentProtocol {
+
         typealias Collection = FINameSpace.Rocks
-        typealias Parent = FIDocument.User
-        
+
         var id: String = UUID().uuidString
         var createdAt: Date = Date()
         var updatedAt: Date?
@@ -24,15 +25,20 @@ extension FIDocument {
         var seasons: Set<Season>
         var lithology: Lithology
         var desc: String
-        var registedUserId: String
+        var registeredUserId: String
         var headerUrl: URL?
         var imageUrls: [URL] = []
+    }
 
-        enum Season: String, CaseIterable, Codable {
-            case spring, summer, autumn, winter
-            
-            var iconImage: UIImage {
-                switch self {
+}
+
+extension FIDocument.Rock {
+
+    enum Season: String, CaseIterable, Codable {
+        case spring, summer, autumn, winter
+
+        var iconImage: UIImage {
+            switch self {
                 case .spring:
                     return UIImage.AssetsImages.spring
                     
@@ -44,11 +50,11 @@ extension FIDocument {
                     
                 case .winter:
                     return UIImage.AssetsImages.winter
-                }
             }
-            
-            var name: String {
-                switch self {
+        }
+
+        var name: String {
+            switch self {
                 case .spring:
                     return "春"
                     
@@ -61,15 +67,15 @@ extension FIDocument {
                 case .winter:
                     return "冬"
                     
-                }
             }
         }
-        
-        enum Lithology: String, CaseIterable, Codable {
-            case unKnown, granite, andesite, chert, limestone, tuff, sandstone
-            
-            var name: String {
-                switch self {
+    }
+
+    enum Lithology: String, CaseIterable, Codable {
+        case unKnown, granite, andesite, chert, limestone, tuff, sandstone
+
+        var name: String {
+            switch self {
                 case .unKnown:
                     return "不明"
                     
@@ -91,7 +97,6 @@ extension FIDocument {
                 case .sandstone:
                     return "砂岩"
                     
-                }
             }
         }
     }
