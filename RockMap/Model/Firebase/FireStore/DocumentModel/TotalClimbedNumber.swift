@@ -8,6 +8,7 @@
 import Foundation
 
 extension FIDocument {
+
     struct TotalClimbedNumber: FIDocumentProtocol {
 
         typealias Collection = FINameSpace.TotalClimbedNumber
@@ -21,4 +22,5 @@ extension FIDocument {
         var flashTotal: Int = 0
         var redPointTotal: Int = 0
     }
+    
 }

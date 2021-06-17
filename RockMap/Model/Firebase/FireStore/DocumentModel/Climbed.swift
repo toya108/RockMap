@@ -8,6 +8,7 @@
 import UIKit
 
 extension FIDocument {
+
     struct Climbed: FIDocumentProtocol, UserRegisterableDocumentProtocol {
         
         typealias Collection = FINameSpace.Climbed
@@ -22,50 +23,54 @@ extension FIDocument {
         var parentPath: String
         var climbedDate: Date
         var type: ClimbedRecordType
+    }
 
-        enum ClimbedRecordType: String, CaseIterable, Codable {
-            case flash, redpoint
-            
-            var name: String {
-                switch self {
+}
+
+extension FIDocument.Climbed {
+
+    enum ClimbedRecordType: String, CaseIterable, Codable {
+        case flash, redpoint
+
+        var name: String {
+            switch self {
                 case .flash:
                     return "Flash"
                     
                 case .redpoint:
                     return "RedPoint"
                     
-                }
             }
+        }
 
-            var fieldName: String {
-                switch self {
-                    case .flash:
-                        return "flashTotal"
+        var fieldName: String {
+            switch self {
+                case .flash:
+                    return "flashTotal"
 
-                    case .redpoint:
-                        return "redPointTotal"
+                case .redpoint:
+                    return "redPointTotal"
 
-                }
             }
+        }
 
-            var color: UIColor {
-                switch self {
-                    case .flash:
-                        return UIColor.Pallete.primaryGreen
+        var color: UIColor {
+            switch self {
+                case .flash:
+                    return UIColor.Pallete.primaryGreen
 
-                    case .redpoint:
-                        return UIColor.Pallete.primaryPink
+                case .redpoint:
+                    return UIColor.Pallete.primaryPink
 
-                }
             }
+        }
 
-            var isFlash: Bool {
-                self == .flash
-            }
+        var isFlash: Bool {
+            self == .flash
+        }
 
-            var isRedpoint: Bool {
-                self == .redpoint
-            }
+        var isRedpoint: Bool {
+            self == .redpoint
         }
     }
 }
