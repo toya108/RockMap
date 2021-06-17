@@ -28,7 +28,6 @@ extension FIDocument {
         var registeredUserId: String
         var headerUrl: URL?
         var imageUrls: [URL] = []
-
     }
 
 }

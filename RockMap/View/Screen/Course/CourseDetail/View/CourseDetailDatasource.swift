@@ -206,10 +206,12 @@ extension CourseDetailViewController {
 
             guard let self = self else { return }
 
+            let flash = self.viewModel.output.totalClimbedNumber?.flashTotal ?? 0
+            let redPoint =  self.viewModel.output.totalClimbedNumber?.redPointTotal ?? 0
             cell.configure(
-                total: self.viewModel.output.totalClimbedNumber?.total ?? 0 as Int,
-                flash: self.viewModel.output.totalClimbedNumber?.flashTotal ?? 0 as Int,
-                redPoint: self.viewModel.output.totalClimbedNumber?.redPointTotal ?? 0 as Int
+                total: flash + redPoint,
+                flash: flash,
+                redPoint: redPoint
             )
         }
     }

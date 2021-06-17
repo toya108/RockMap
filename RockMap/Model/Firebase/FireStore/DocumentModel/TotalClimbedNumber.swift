@@ -18,7 +18,6 @@ extension FIDocument {
         var createdAt: Date = Date()
         var updatedAt: Date?
         var parentPath: String
-        var total: Int = 0
         var flashTotal: Int = 0
         var redPointTotal: Int = 0
     }

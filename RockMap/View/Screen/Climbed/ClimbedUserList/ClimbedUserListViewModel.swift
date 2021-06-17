@@ -113,10 +113,7 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
         let badge = FirestoreManager.db.batch()
         badge.deleteDocument(climbed.makeDocumentReference())
         badge.updateData(
-            [
-                "total": FirestoreManager.Value.increment(-1.0),
-                climbed.type.fieldName: FirestoreManager.Value.increment(-1.0)
-            ],
+            [climbed.type.fieldName: FirestoreManager.Value.increment(-1.0)],
             forDocument: climbed.totalNumberReference
         )
         badge.commit()

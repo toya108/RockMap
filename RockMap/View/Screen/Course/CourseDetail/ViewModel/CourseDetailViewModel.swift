@@ -80,7 +80,7 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
         course.makeDocumentReference()
             .collection(FIDocument.TotalClimbedNumber.colletionName)
             .publisher(as: FIDocument.TotalClimbedNumber.self)
-            .catch { error -> Just<[FIDocument.TotalClimbedNumber]> in
+            .catch { _ -> Just<[FIDocument.TotalClimbedNumber]> in
                 return .init([])
             }
             .compactMap { $0.first }
