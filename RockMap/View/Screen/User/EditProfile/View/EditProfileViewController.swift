@@ -282,6 +282,7 @@ extension EditProfileViewController {
                 }
 
             case .failure(let error):
+                hideIndicatorView()
                 showOKAlert(
                     title: "編集に失敗しました",
                     message: error?.localizedDescription ?? ""

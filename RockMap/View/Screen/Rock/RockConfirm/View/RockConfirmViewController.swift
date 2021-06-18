@@ -139,6 +139,7 @@ extension RockConfirmViewController {
                 router.route(to: .dismiss, from: self)
 
             case .failure(let error):
+                hideIndicatorView()
                 showOKAlert(
                     title: "岩の登録に失敗しました",
                     message: error?.localizedDescription ?? ""
