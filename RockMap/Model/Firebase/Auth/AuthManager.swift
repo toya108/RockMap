@@ -74,7 +74,7 @@ class AuthManager: NSObject {
         vc.modalTransitionStyle = .crossDissolve
         from.present(vc, animated: true)
     }
-    
+
     func logout() -> AnyPublisher<Void, Error> {
         Deferred {
             Future<Void, Error> { [weak self] promise in
@@ -87,6 +87,15 @@ class AuthManager: NSObject {
             }
         }
         .eraseToAnyPublisher()
+    }
+
+    func logout(_ completion: ((Result<Void, Error>) -> Void)?) {
+        do {
+            try self.authUI?.signOut()
+            completion?(.success(()))
+        } catch {
+            completion?(.failure(error))
+        }
     }
 
     func deleteUser() -> AnyPublisher<Void, Error> {
@@ -181,7 +190,10 @@ extension AuthManager: FUIAuthDelegate {
         )
     }
 
-    private func setUserDocument(exists: Bool, document: FIDocument.User) {
+    private func setUserDocument(
+        exists: Bool,
+        document: FIDocument.User
+    ) {
         if exists {
             do {
                 var updateDictionary = try document.makedictionary(shouldExcludeEmpty: true)
@@ -215,6 +227,10 @@ private extension Publisher where Output == Void, Failure == Error {
         _ loginFinishedSubject: PassthroughSubject<Result<Void, Error>, Never>
     ) -> AnyCancellable {
         self.catch { error -> Empty in
+            if AuthManager.shared.isLoggedIn {
+                AuthManager.shared.logout(nil)
+            }
+
             loginFinishedSubject.send(.failure(error))
             return Empty()
         }
