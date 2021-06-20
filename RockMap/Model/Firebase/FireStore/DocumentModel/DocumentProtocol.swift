@@ -13,6 +13,11 @@ typealias DocumentRef = DocumentReference
 
 protocol FINameSpaceProtocol {
     static var name: String { get }
+    static var isRoot: Bool { get }
+}
+
+extension FINameSpaceProtocol {
+    static var isRoot: Bool { false }
 }
 
 protocol FIDocumentProtocol: Codable, Hashable {
@@ -22,8 +27,6 @@ protocol FIDocumentProtocol: Codable, Hashable {
     var createdAt: Date { get set }
     var updatedAt: Date? { get set }
     var parentPath: String { get set }
-    
-    var isRoot: Bool { get }
 }
 
 protocol UserRegisterableDocumentProtocol: Codable, Hashable {
@@ -32,10 +35,8 @@ protocol UserRegisterableDocumentProtocol: Codable, Hashable {
 
 extension FIDocumentProtocol {
 
-    var isRoot: Bool { false }
-
     func makeDocumentReference() -> DocumentReference {
-        if isRoot {
+        if Collection.isRoot {
             return FirestoreManager.db
                 .collection(Self.colletionName)
                 .document(id)

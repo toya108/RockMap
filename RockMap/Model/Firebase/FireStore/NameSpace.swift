@@ -10,6 +10,7 @@ import FirebaseFirestore
 struct FINameSpace {
     struct Users: FINameSpaceProtocol {
         static var name: String { "users" }
+        static var isRoot: Bool { true }
     }
     struct Rocks: FINameSpaceProtocol {
         static var name: String { "rocks" }

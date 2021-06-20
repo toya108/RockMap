@@ -25,8 +25,6 @@ extension FIDocument {
         var headerUrl: URL?
         var deleted: Bool = false
         
-        var isRoot: Bool { true }
-
         struct SocialLink: Hashable, Codable {
             let linkType: SocialLinkType
             var link: String
