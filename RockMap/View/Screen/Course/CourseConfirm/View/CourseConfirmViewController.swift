@@ -139,7 +139,7 @@ extension CourseConfirmViewController {
             case .failure(let error):
                 hideIndicatorView()
                 showOKAlert(
-                    title: "岩の登録に失敗しました",
+                    title: "課題の登録に失敗しました",
                     message: error?.localizedDescription ?? ""
                 )
         }
