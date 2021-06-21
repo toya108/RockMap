@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ClimbedTableViewCell: UITableViewCell {
+class ClimbRecordTableViewCell: UITableViewCell {
 
     @IBOutlet weak var userView: UserView!
     @IBOutlet weak var climbedTypeLabel: UILabel!
@@ -19,7 +19,7 @@ class ClimbedTableViewCell: UITableViewCell {
     func configure(
         user: FIDocument.User,
         climbedDate: Date,
-        type: FIDocument.Climbed.ClimbedRecordType,
+        type: FIDocument.ClimbRecord.ClimbedRecordType,
         parentVc: UIViewController
     ) {
         userView.configure(

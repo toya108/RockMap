@@ -45,12 +45,12 @@ class MyPageViewModel: MyPageViewModelProtocol {
             .compactMap { $0.content?.id }
             .flatMap {
                 FirestoreManager.db
-                    .collectionGroup(FIDocument.Climbed.colletionName)
+                    .collectionGroup(FIDocument.ClimbRecord.colletionName)
                     .whereField("registeredUserId", in: [$0])
-                    .getDocuments(FIDocument.Climbed.self)
+                    .getDocuments(FIDocument.ClimbRecord.self)
                     .catch { _ in Empty() }
             }
-            .map { Set<FIDocument.Climbed>($0) }
+            .map { Set<FIDocument.ClimbRecord>($0) }
             .assign(to: &output.$climbedList)
 
         output.$climbedList
@@ -140,7 +140,7 @@ extension MyPageViewModel {
     final class Output {
         @Published var isGuest = false
         @Published var fetchUserState: LoadingState<FIDocument.User> = .stanby
-        @Published var climbedList: Set<FIDocument.Climbed> = []
+        @Published var climbedList: Set<FIDocument.ClimbRecord> = []
         @Published var recentClimbedCourses: Set<FIDocument.Course> = []
     }
 

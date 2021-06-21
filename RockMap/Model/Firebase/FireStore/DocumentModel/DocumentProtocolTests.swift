@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 class DocumentProtocolTests: XCTestCase {
 
-    private let userDocument = FIDocument.User(name: "foo")
+    private let userDocument = FIDocument.User(id: UUID().uuidString, name: "foo")
     private let dummyDocumentReference = Firestore.firestore().collection("aaa").document()
 
     func testMakeUserDocument() throws {
@@ -72,7 +72,7 @@ class DocumentProtocolTests: XCTestCase {
     }
 
     func testMakeClimbedDocument() throws {
-        let climbedDocument = FIDocument.Climbed(
+        let climbedDocument = FIDocument.ClimbRecord(
             registeredUserId: userDocument.id,
             parentCourseId: dummyDocumentReference.documentID,
             parentCourseReference: dummyDocumentReference,
@@ -84,7 +84,7 @@ class DocumentProtocolTests: XCTestCase {
         let expectPath = [
             FIDocument.User.colletionName,
             userDocument.id,
-            FIDocument.Climbed.colletionName,
+            FIDocument.ClimbRecord.colletionName,
             climbedDocument.id
         ].joined(separator: "/")
 

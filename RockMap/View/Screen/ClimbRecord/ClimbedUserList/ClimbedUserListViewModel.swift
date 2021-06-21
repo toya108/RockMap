@@ -30,17 +30,17 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
 
     private func fetchClimbed() {
         FirestoreManager.db
-            .collectionGroup(FIDocument.Climbed.colletionName)
+            .collectionGroup(FIDocument.ClimbRecord.colletionName)
             .whereField("parentCourseId", in: [course.id])
             .order(by: "climbedDate")
-            .getDocuments(FIDocument.Climbed.self)
+            .getDocuments(FIDocument.ClimbRecord.self)
             .catch { _ in Empty() }
-            .assign(to: &output.$climbedList )
+            .assign(to: &output.$climbRecordList )
     }
 
     private func setupOutput() {
 
-        let share = output.$climbedList
+        let share = output.$climbRecordList 
             .filter { !$0.isEmpty }
             .share()
 
@@ -57,7 +57,7 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
 
                 guard let self = self else { return }
 
-                self.output.myClimbedCellData = self.output.climbedList
+                self.output.myClimbedCellData = self.output.climbRecordList
                     .filter { $0.registeredUserId == AuthManager.shared.uid }
                     .map {
                         ClimbedCellData(
@@ -88,7 +88,7 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
 
                 guard let self = self else { return }
 
-                self.output.climbedCellData = self.output.climbedList.compactMap { climbed -> ClimbedCellData? in
+                let cellData = self.output.climbRecordList.compactMap { climbed -> ClimbedCellData? in
 
                     guard
                         let user = climbedUserList.first(where: { climbed.registeredUserId == $0.id })
@@ -102,12 +102,14 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
                         isOwned: false
                     )
                 }
+
+                self.output.climbedCellData = cellData
             }
             .store(in: &bindings)
     }
 
     func deleteClimbed(
-        climbed: FIDocument.Climbed,
+        climbed: FIDocument.ClimbRecord,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
         let badge = FirestoreManager.db.batch()
@@ -136,7 +138,7 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
     func updateClimbedData(
         id: String,
         date: Date,
-        type: FIDocument.Climbed.ClimbedRecordType
+        type: FIDocument.ClimbRecord.ClimbedRecordType
     ) {
         guard
             let index = output.myClimbedCellData.firstIndex(where: { $0.climbed.id == id })
@@ -157,7 +159,7 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
 extension ClimbedUserListViewModel {
 
     struct ClimbedCellData: Hashable {
-        var climbed: FIDocument.Climbed
+        var climbed: FIDocument.ClimbRecord
         let user: FIDocument.User
         let isOwned: Bool
     }
@@ -170,7 +172,7 @@ extension ClimbedUserListViewModel {
     }
 
     final class Output {
-        @Published var climbedList: [FIDocument.Climbed] = []
+        @Published var climbRecordList: [FIDocument.ClimbRecord] = []
         @Published var myClimbedCellData: [ClimbedCellData] = []
         @Published var climbedCellData: [ClimbedCellData] = []
     }

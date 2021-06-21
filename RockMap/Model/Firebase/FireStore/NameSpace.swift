@@ -10,6 +10,7 @@ import FirebaseFirestore
 struct FINameSpace {
     struct Users: FINameSpaceProtocol {
         static var name: String { "users" }
+        static var isRoot: Bool { true }
     }
     struct Rocks: FINameSpaceProtocol {
         static var name: String { "rocks" }
@@ -17,8 +18,8 @@ struct FINameSpace {
     struct Course: FINameSpaceProtocol {
         static var name: String { "courses" }
     }
-    struct Climbed: FINameSpaceProtocol {
-        static var name: String { "climbed" }
+    struct ClimbRecord: FINameSpaceProtocol {
+        static var name: String { "climbRecord" }
     }
     struct TotalClimbedNumber: FINameSpaceProtocol {
         static var name: String { "totalClimbedNumber" }
