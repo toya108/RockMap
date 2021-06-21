@@ -16,7 +16,7 @@ extension FIDocument {
 
         var id: String = UUID().uuidString
         var createdAt: Date = Date()
-        var updatedAt: Date?
+        @ExplicitNull var updatedAt: Date?
         var parentPath: String
         var name: String
         var address: String
@@ -26,7 +26,7 @@ extension FIDocument {
         var lithology: Lithology
         var desc: String
         var registeredUserId: String
-        var headerUrl: URL?
+        @ExplicitNull var headerUrl: URL?
         var imageUrls: [URL] = []
     }
 
