@@ -5,24 +5,23 @@
 //  Created by TOUYA KAWANO on 2020/12/02.
 //
 
-import Foundation
-import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 extension FIDocument {
+    
     struct User: FIDocumentProtocol {
         
         typealias Collection = FINameSpace.Users
         
-        var id: String = UUID().uuidString
+        var id: String
         var createdAt: Date = Date()
-        var updatedAt: Date?
+        @ExplicitNull var updatedAt: Date?
         var parentPath: String = ""
         var name: String
-        var photoURL: URL?
+        @ExplicitNull var photoURL: URL?
         var socialLinks: [SocialLink] = []
-        var introduction: String?
-        var headerUrl: URL?
+        @ExplicitNull var introduction: String?
+        @ExplicitNull var headerUrl: URL?
         var deleted: Bool = false
         
         struct SocialLink: Hashable, Codable {
