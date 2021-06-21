@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import FirebaseFirestoreSwift
 
 extension FIDocument {
 
-    struct Climbed: FIDocumentProtocol, UserRegisterableDocumentProtocol {
+    struct ClimbRecord: FIDocumentProtocol, UserRegisterableDocumentProtocol {
         
-        typealias Collection = FINameSpace.Climbed
+        typealias Collection = FINameSpace.ClimbRecord
         
         var id: String = UUID().uuidString
         var registeredUserId: String
@@ -19,7 +20,7 @@ extension FIDocument {
         var parentCourseReference: DocumentRef
         var totalNumberReference: DocumentRef
         var createdAt: Date = Date()
-        var updatedAt: Date?
+        @ExplicitNull var updatedAt: Date?
         var parentPath: String
         var climbedDate: Date
         var type: ClimbedRecordType
@@ -27,7 +28,7 @@ extension FIDocument {
 
 }
 
-extension FIDocument.Climbed {
+extension FIDocument.ClimbRecord {
 
     enum ClimbedRecordType: String, CaseIterable, Codable {
         case flash, redpoint

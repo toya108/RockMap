@@ -47,10 +47,10 @@ class ClimbedUserListViewController: UIViewController {
 
         tableView.register(
             .init(
-                nibName: ClimbedTableViewCell.className,
+                nibName: ClimbRecordTableViewCell.className,
                 bundle: nil
             ),
-            forCellReuseIdentifier: ClimbedTableViewCell.className
+            forCellReuseIdentifier: ClimbRecordTableViewCell.className
         )
     }
 
@@ -70,9 +70,9 @@ class ClimbedUserListViewController: UIViewController {
 
             guard
                 let climbedCell = self.tableView.dequeueReusableCell(
-                    withIdentifier: ClimbedTableViewCell.className,
+                    withIdentifier: ClimbRecordTableViewCell.className,
                     for: index
-                ) as? ClimbedTableViewCell
+                ) as? ClimbRecordTableViewCell
             else {
                 return UITableViewCell()
             }
@@ -132,8 +132,8 @@ class ClimbedUserListViewController: UIViewController {
 
             guard let self = self else { return }
 
-            let vm = RegisterClimbedViewModel(registerType: .edit(cellData.climbed))
-            let vc = RegisterClimbedBottomSheetViewController.createInstance(viewModel: vm)
+            let vm = RegisterClimbRecordViewModel(registerType: .edit(cellData.climbed))
+            let vc = RegisterClimbRecordBottomSheetViewController.createInstance(viewModel: vm)
             vc.delegate = self
             self.present(vc, animated: true)
         }
@@ -254,12 +254,12 @@ extension ClimbedUserListViewController: UITableViewDelegate {
 
 }
 
-extension ClimbedUserListViewController: RegisterClimbedDetectableDelegate {
+extension ClimbedUserListViewController: RegisterClimbRecordDetectableDelegate {
 
     func finishedRegisterClimbed(
         id: String,
         date: Date,
-        type: FIDocument.Climbed.ClimbedRecordType
+        type: FIDocument.ClimbRecord.ClimbedRecordType
     ) {
         viewModel.updateClimbedData(
             id: id,

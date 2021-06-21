@@ -50,8 +50,8 @@ struct CourseDetailRouter: RouterProtocol {
             return
         }
 
-        let vm = RegisterClimbedViewModel(registerType: .create(viewModel.course))
-        let vc = RegisterClimbedBottomSheetViewController.createInstance(viewModel: vm)
+        let vm = RegisterClimbRecordViewModel(registerType: .create(viewModel.course))
+        let vc = RegisterClimbRecordBottomSheetViewController.createInstance(viewModel: vm)
 
         from.present(vc, animated: true)
     }

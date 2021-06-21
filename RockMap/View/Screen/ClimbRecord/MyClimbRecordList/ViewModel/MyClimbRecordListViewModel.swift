@@ -18,7 +18,7 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
     var input: Input = .init()
     var output: Output = .init()
 
-    @Published private var climbedList: [FIDocument.Climbed] = []
+    @Published private var climbRecordList: [FIDocument.ClimbRecord] = []
     private var bindings = Set<AnyCancellable>()
 
     init() {
@@ -27,7 +27,7 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
     }
 
     private func bindOutput() {
-        let share = $climbedList.share()
+        let share = $climbRecordList.share()
 
         share
             .map(\.isEmpty)
@@ -35,11 +35,11 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
 
         share
             .filter { !$0.isEmpty }
-            .sink { [weak self] climbedList in
+            .sink { [weak self] climbRecordList in
 
                 guard let self = self else { return }
 
-                climbedList
+                climbRecordList
                     .forEach { climbed in
                         climbed
                             .parentCourseReference
@@ -64,12 +64,12 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
 
     func fetchClimbedList() {
         FirestoreManager.db
-            .collectionGroup(FIDocument.Climbed.colletionName)
+            .collectionGroup(FIDocument.ClimbRecord.colletionName)
             .whereField("registeredUserId", in: [AuthManager.shared.uid])
-            .getDocuments(FIDocument.Climbed.self)
+            .getDocuments(FIDocument.ClimbRecord.self)
             .catch { _ in Empty() }
             .map { $0.sorted { $0.createdAt > $1.createdAt } }
-            .assign(to: &$climbedList)
+            .assign(to: &$climbRecordList)
     }
 
 }
@@ -78,7 +78,7 @@ extension MyClimbedListViewModel {
 
     struct ClimbedCourse: Hashable {
         let course: FIDocument.Course
-        let climbed: FIDocument.Climbed
+        let climbed: FIDocument.ClimbRecord
     }
 
     struct Input {}

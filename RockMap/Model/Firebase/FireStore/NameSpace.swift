@@ -18,8 +18,8 @@ struct FINameSpace {
     struct Course: FINameSpaceProtocol {
         static var name: String { "courses" }
     }
-    struct Climbed: FINameSpaceProtocol {
-        static var name: String { "climbed" }
+    struct ClimbRecord: FINameSpaceProtocol {
+        static var name: String { "climbRecord" }
     }
     struct TotalClimbedNumber: FINameSpaceProtocol {
         static var name: String { "totalClimbedNumber" }

@@ -8,17 +8,17 @@
 import Combine
 import Foundation
 
-class RegisterClimbedViewModel {
+class RegisterClimbRecordViewModel {
 
     enum RegisterType {
-        case edit(FIDocument.Climbed)
+        case edit(FIDocument.ClimbRecord)
         case create(FIDocument.Course)
     }
 
     let registerType: RegisterType
 
     @Published var climbedDate: Date?
-    @Published var climbedType: FIDocument.Climbed.ClimbedRecordType = .flash
+    @Published var climbRecordType: FIDocument.ClimbRecord.ClimbedRecordType = .flash
     @Published private(set) var loadingState: LoadingState<Void> = .stanby
 
     private var bindings = Set<AnyCancellable>()
@@ -47,16 +47,16 @@ class RegisterClimbedViewModel {
             )
         }
 
-        if climbed.type != climbedType {
+        if climbed.type != climbRecordType {
 
             badge.updateData(
-                ["type": climbedType.rawValue],
+                ["type": climbRecordType.rawValue],
                 forDocument: climbed.makeDocumentReference()
             )
 
-            let recordType = FIDocument.Climbed.ClimbedRecordType.self
+            let recordType = FIDocument.ClimbRecord.ClimbedRecordType.self
 
-            switch climbedType {
+            switch climbRecordType {
                 case .flash:
                     badge.updateData(
                         [
@@ -123,19 +123,19 @@ class RegisterClimbedViewModel {
 
                 let badge = FirestoreManager.db.batch()
 
-                let climbed = FIDocument.Climbed(
+                let climbed = FIDocument.ClimbRecord(
                     registeredUserId: AuthManager.shared.uid,
                     parentCourseId: course.id,
                     parentCourseReference: course.makeDocumentReference(),
                     totalNumberReference: totalNumber.makeDocumentReference(),
                     parentPath: AuthManager.shared.authUserReference?.path ?? "",
                     climbedDate: climbedDate,
-                    type: self.climbedType
+                    type: self.climbRecordType
                 )
                 badge.setData(climbed.dictionary, forDocument: climbed.makeDocumentReference())
 
                 badge.updateData(
-                    [self.climbedType.fieldName: FirestoreManager.Value.increment(1.0)],
+                    [self.climbRecordType.fieldName: FirestoreManager.Value.increment(1.0)],
                     forDocument: totalNumber.makeDocumentReference()
                 )
 

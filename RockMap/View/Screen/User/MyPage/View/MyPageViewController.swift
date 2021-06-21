@@ -112,7 +112,7 @@ extension MyPageViewController {
         datasource.apply(snapShot, animatingDifferences: false)
     }
 
-    private func climbedListSink(_ climbedList: Set<FIDocument.Climbed>) {
+    private func climbedListSink(_ climbedList: Set<FIDocument.ClimbRecord>) {
         snapShot.reloadSections([.climbedNumber])
         datasource.apply(snapShot, animatingDifferences: false)
     }

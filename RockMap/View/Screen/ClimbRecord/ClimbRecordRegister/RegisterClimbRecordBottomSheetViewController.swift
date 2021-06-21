@@ -8,24 +8,24 @@
 import UIKit
 import Combine
 
-protocol RegisterClimbedDetectableDelegate: AnyObject {
+protocol RegisterClimbRecordDetectableDelegate: AnyObject {
     func finishedRegisterClimbed(
         id: String,
         date: Date,
-        type: FIDocument.Climbed.ClimbedRecordType
+        type: FIDocument.ClimbRecord.ClimbedRecordType
     )
 }
 
-class RegisterClimbedBottomSheetViewController: UIViewController {
+class RegisterClimbRecordBottomSheetViewController: UIViewController {
 
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var climbedDatePicker: UIDatePicker!
     @IBOutlet weak var climbedTypeSegmentedControl: UISegmentedControl!
 
-    weak var delegate: RegisterClimbedDetectableDelegate?
+    weak var delegate: RegisterClimbRecordDetectableDelegate?
 
-    private var viewModel: RegisterClimbedViewModel!
+    private var viewModel: RegisterClimbRecordViewModel!
     private var bindings = Set<AnyCancellable>()
     
     override func loadView() {
@@ -49,9 +49,9 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
     }
 
     static func createInstance(
-        viewModel: RegisterClimbedViewModel
-    ) -> RegisterClimbedBottomSheetViewController {
-        let instance = RegisterClimbedBottomSheetViewController()
+        viewModel: RegisterClimbRecordViewModel
+    ) -> RegisterClimbRecordBottomSheetViewController {
+        let instance = RegisterClimbRecordBottomSheetViewController()
         instance.viewModel = viewModel
         return instance
     }
@@ -67,7 +67,7 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
 
         if case let .edit(climbed) = viewModel.registerType {
             viewModel.climbedDate = climbed.climbedDate
-            viewModel.climbedType = climbed.type
+            viewModel.climbRecordType = climbed.type
         }
     }
     
@@ -92,7 +92,7 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
         
         climbedTypeSegmentedControl.removeAllSegments()
         
-        FIDocument.Climbed.ClimbedRecordType.allCases.enumerated()
+        FIDocument.ClimbRecord.ClimbedRecordType.allCases.enumerated()
             .forEach { index, type in
                 climbedTypeSegmentedControl.insertSegment(
                     withTitle: type.name,
@@ -111,8 +111,8 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
 
         climbedTypeSegmentedControl
             .selectedSegmentIndexPublisher
-            .compactMap { FIDocument.Climbed.ClimbedRecordType.allCases.any(at: $0) }
-            .assign(to: &viewModel.$climbedType)
+            .compactMap { FIDocument.ClimbRecord.ClimbedRecordType.allCases.any(at: $0) }
+            .assign(to: &viewModel.$climbRecordType)
     }
 
     private func bindViewModelToView() {
@@ -128,9 +128,9 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
             }
             .store(in: &bindings)
 
-        viewModel.$climbedType
+        viewModel.$climbRecordType
             .removeDuplicates()
-            .map { FIDocument.Climbed.ClimbedRecordType.allCases.firstIndex(of: $0) }
+            .map { FIDocument.ClimbRecord.ClimbedRecordType.allCases.firstIndex(of: $0) }
             .compactMap { $0 }
             .receive(on: RunLoop.main)
             .sink { [weak self] index in
@@ -162,7 +162,7 @@ class RegisterClimbedBottomSheetViewController: UIViewController {
                             self.delegate?.finishedRegisterClimbed(
                                 id: climbed.id,
                                 date: self.viewModel.climbedDate ?? Date(),
-                                type: self.viewModel.climbedType
+                                type: self.viewModel.climbRecordType
                             )
                         }
 
