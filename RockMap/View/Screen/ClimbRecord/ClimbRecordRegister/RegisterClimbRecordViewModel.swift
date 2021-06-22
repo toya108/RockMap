@@ -61,15 +61,15 @@ class RegisterClimbRecordViewModel {
                     badge.updateData(
                         [
                             recordType.flash.fieldName: FirestoreManager.Value.increment(1.0),
-                            recordType.redpoint.fieldName: FirestoreManager.Value.increment(-1.0)
+                            recordType.redPoint.fieldName: FirestoreManager.Value.increment(-1.0)
                         ],
                         forDocument: climbed.totalNumberReference
                     )
 
-                case .redpoint:
+                case .redPoint:
                     badge.updateData(
                         [
-                            recordType.redpoint.fieldName: FirestoreManager.Value.increment(1.0),
+                            recordType.redPoint.fieldName: FirestoreManager.Value.increment(1.0),
                             recordType.flash.fieldName: FirestoreManager.Value.increment(-1.0)
                         ],
                         forDocument: climbed.totalNumberReference
