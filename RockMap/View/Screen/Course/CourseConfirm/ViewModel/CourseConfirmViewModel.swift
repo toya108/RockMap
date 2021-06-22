@@ -193,7 +193,6 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
         badge.setData(courseDocument.dictionary, forDocument: courseDocumentReference)
 
         let totalClimbedNumber = FIDocument.TotalClimbedNumber(
-            parentCourseReference: courseDocument.makeDocumentReference(),
             parentPath: courseDocumentReference.path
         )
         badge.setData(
