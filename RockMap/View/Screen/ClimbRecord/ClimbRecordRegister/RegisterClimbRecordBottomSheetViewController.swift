@@ -40,10 +40,10 @@ class RegisterClimbRecordBottomSheetViewController: UIViewController {
     @IBAction func didRecordButtonTapped(_ sender: UIButton) {
         switch viewModel.registerType {
             case .create:
-                viewModel.registerClimbed()
+                viewModel.registerClimbRecord()
 
             case .edit:
-                viewModel.editClimbed()
+                viewModel.editClimbRecord()
 
         }
     }

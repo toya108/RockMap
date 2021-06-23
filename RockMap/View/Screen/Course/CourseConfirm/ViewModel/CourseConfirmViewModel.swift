@@ -187,35 +187,21 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     }
 
     private func createCourse() {
-        let badge = FirestoreManager.db.batch()
+        courseDocument.makeDocumentReference()
+            .setData(from: courseDocument)
+            .catch { [weak self] error -> Empty in
 
-        let courseDocumentReference = courseDocument.makeDocumentReference()
-        badge.setData(courseDocument.dictionary, forDocument: courseDocumentReference)
+                guard let self = self else { return Empty() }
 
-        let totalClimbedNumber = FIDocument.TotalClimbedNumber(
-            parentPath: courseDocumentReference.path
-        )
-        badge.setData(
-            totalClimbedNumber.dictionary,
-            forDocument: totalClimbedNumber.makeDocumentReference()
-        )
+                self.output.courseUploadState = .failure(error)
+                return Empty()
+            }
+            .sink { [weak self] _ in
 
-        badge.commit()
-            .sink(
-                receiveCompletion: { [weak self] result in
+                guard let self = self else { return }
 
-                    guard let self = self else { return }
-
-                    switch result {
-                        case .finished:
-                            self.output.courseUploadState = .finish(content: ())
-
-                        case let .failure(error):
-                            self.output.courseUploadState = .failure(error)
-
-                    }
-                }, receiveValue: {}
-            )
+                self.output.courseUploadState = .finish(content: ())
+            }
             .store(in: &bindings)
     }
 
