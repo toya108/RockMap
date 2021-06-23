@@ -5,8 +5,8 @@
 //  Created by TOUYA KAWANO on 2021/02/08.
 //
 
-import Foundation
 import UIKit
+import FirebaseFirestoreSwift
 
 extension FIDocument {
 
@@ -17,7 +17,7 @@ extension FIDocument {
         var id: String = UUID().uuidString
         var parentPath: String
         var createdAt: Date = Date()
-        var updatedAt: Date?
+        @ExplicitNull var updatedAt: Date?
         var name: String
         var desc: String
         var grade: Grade
@@ -25,7 +25,7 @@ extension FIDocument {
         var parentRockName: String
         var parentRockId: String
         var registeredUserId: String
-        var headerUrl: URL?
+        @ExplicitNull var headerUrl: URL?
         var imageUrls: [URL] = []
     }
 
