@@ -12,14 +12,14 @@ struct StorageManager {
     
     typealias Reference = StorageReference
     
-    static let reference = Storage.storage().reference()
+    static let storage = Storage.storage()
 
     static func makeImageReferenceForUpload(
         destinationDocument: FINameSpaceProtocol.Type,
         documentId: String,
         imageType: ImageType
     ) -> StorageReference {
-        let reference = Self.reference
+        let reference = Self.storage.reference()
             .child(destinationDocument.name)
             .child(documentId)
             .child(imageType.typeName)
@@ -64,7 +64,7 @@ struct StorageManager {
         _ documentType: T.Type,
         id: String
     ) {
-        Self.reference
+        Self.storage.reference()
             .child(documentType.colletionName)
             .child(id)
             .delete(completion: { _ in })
@@ -74,7 +74,7 @@ struct StorageManager {
         parent: FINameSpaceProtocol.Type,
         child: String
     ) -> StorageReference {
-        Self.reference
+        Self.storage.reference()
             .child(parent.name)
             .child(child)
     }
