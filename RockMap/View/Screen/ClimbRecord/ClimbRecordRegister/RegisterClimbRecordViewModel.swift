@@ -87,7 +87,8 @@ class RegisterClimbRecordViewModel {
         course.makeDocumentReference()
             .collection(FIDocument.TotalClimbedNumber.colletionName)
             .getDocuments(FIDocument.TotalClimbedNumber.self)
-            .catch { _ -> Just<[FIDocument.TotalClimbedNumber]> in
+            .catch { error -> Just<[FIDocument.TotalClimbedNumber]> in
+                print(error)
                 return .init([])
             }
             .compactMap { $0.first }
