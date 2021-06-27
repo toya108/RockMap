@@ -38,18 +38,19 @@ class RockListViewModel: RockListViewModelProtocol {
             .flatMap {
                 $0.makeDocumentReference().delete(document: $0)
             }
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { [weak self] course in
-                    guard
-                        let self = self,
-                        let index = self.output.rocks.firstIndex(of: course)
-                    else {
-                        return
-                    }
-                    self.output.rocks.remove(at: index)
+            .catch { error -> Empty in
+                print(error)
+                return Empty()
+            }
+            .sink { [weak self] course in
+                guard
+                    let self = self,
+                    let index = self.output.rocks.firstIndex(of: course)
+                else {
+                    return
                 }
-            )
+                self.output.rocks.remove(at: index)
+            }
             .store(in: &bindings)
     }
 
