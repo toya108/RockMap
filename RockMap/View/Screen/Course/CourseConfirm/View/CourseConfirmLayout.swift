@@ -15,14 +15,7 @@ extension CourseConfirmViewController {
         let layout = UICollectionViewCompositionalLayout { [weak self] sectionNumber, _ -> NSCollectionLayoutSection in
 
             guard let self = self else {
-                return .init(
-                    group: .init(
-                        layoutSize: .init(
-                            widthDimension: .absolute(0),
-                            heightDimension: .absolute(0)
-                        )
-                    )
-                )
+                return UICollectionViewCompositionalLayout.zeroSizesLayout
             }
             
             let section: NSCollectionLayoutSection
@@ -96,6 +89,11 @@ extension CourseConfirmViewController {
                 section = .init(group: group)
 
             case .images:
+
+                if self.viewModel.images.isEmpty {
+                    return UICollectionViewCompositionalLayout.zeroSizesLayout
+                }
+
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),

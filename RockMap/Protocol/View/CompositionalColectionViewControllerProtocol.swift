@@ -57,3 +57,21 @@ extension CompositionalColectionViewControllerProtocol {
     }
 
 }
+
+extension UICollectionViewCompositionalLayout {
+
+    static var zeroSizesLayout: NSCollectionLayoutSection {
+        let item = NSCollectionLayoutItem(
+            layoutSize: .init(
+                widthDimension: .fractionalWidth(0),
+                heightDimension: .fractionalHeight(0)
+            )
+        )
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: item.layoutSize,
+            subitems: [item]
+        )
+        return .init(group: group)
+    }
+
+}
