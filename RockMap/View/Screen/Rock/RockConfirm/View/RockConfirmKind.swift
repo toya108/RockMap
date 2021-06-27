@@ -51,12 +51,13 @@ extension RockConfirmViewController {
         var headerIdentifer: String {
             switch self {
                 case .name, .desc, .season, .lithology, .location, .header, .images:
-                return TitleSupplementaryView.className
-                
-            default:
-                return ""
+                    return TitleSupplementaryView.className
+
+                default:
+                    return ""
             }
         }
+
     }
     
     enum ItemKind: Hashable {
