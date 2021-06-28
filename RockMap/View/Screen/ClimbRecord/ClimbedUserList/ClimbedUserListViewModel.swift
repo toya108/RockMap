@@ -108,31 +108,19 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
             .store(in: &bindings)
     }
 
-    func deleteClimbed(
-        climbed: FIDocument.ClimbRecord,
+    func deleteClimbRecord(
+        climbRecord: FIDocument.ClimbRecord,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        let badge = FirestoreManager.db.batch()
-        badge.deleteDocument(climbed.makeDocumentReference())
-        badge.updateData(
-            [climbed.type.fieldName: FirestoreManager.Value.increment(-1.0)],
-            forDocument: climbed.totalNumberReference
-        )
-        badge.commit()
-            .sink(
-                receiveCompletion: { result in
-                    switch result {
-                        case .finished:
-                            completion(.success(()))
-
-                        case .failure(let error):
-                            completion(.failure(error))
-
-                    }
-                },
-                receiveValue: {}
-            )
-            .store(in: &bindings)
+        climbRecord
+            .makeDocumentReference()
+            .delete { error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                completion(.success(()))
+            }
     }
 
     func updateClimbedData(

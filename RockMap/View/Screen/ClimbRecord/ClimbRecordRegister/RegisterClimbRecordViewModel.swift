@@ -27,7 +27,7 @@ class RegisterClimbRecordViewModel {
         self.registerType = registerType
     }
 
-    func editClimbed() {
+    func editClimbRecord() {
 
         guard
             let climbedDate = climbedDate,
@@ -48,34 +48,10 @@ class RegisterClimbRecordViewModel {
         }
 
         if climbed.type != climbRecordType {
-
             badge.updateData(
                 ["type": climbRecordType.rawValue],
                 forDocument: climbed.makeDocumentReference()
             )
-
-            let recordType = FIDocument.ClimbRecord.ClimbedRecordType.self
-
-            switch climbRecordType {
-                case .flash:
-                    badge.updateData(
-                        [
-                            recordType.flash.fieldName: FirestoreManager.Value.increment(1.0),
-                            recordType.redpoint.fieldName: FirestoreManager.Value.increment(-1.0)
-                        ],
-                        forDocument: climbed.totalNumberReference
-                    )
-
-                case .redpoint:
-                    badge.updateData(
-                        [
-                            recordType.redpoint.fieldName: FirestoreManager.Value.increment(1.0),
-                            recordType.flash.fieldName: FirestoreManager.Value.increment(-1.0)
-                        ],
-                        forDocument: climbed.totalNumberReference
-                    )
-
-            }
         }
         badge.commit()
             .sink(
@@ -97,7 +73,7 @@ class RegisterClimbRecordViewModel {
             .store(in: &bindings)
     }
 
-    func registerClimbed() {
+    func registerClimbRecord() {
 
         guard
             let climbedDate = climbedDate,
@@ -111,19 +87,20 @@ class RegisterClimbRecordViewModel {
         course.makeDocumentReference()
             .collection(FIDocument.TotalClimbedNumber.colletionName)
             .getDocuments(FIDocument.TotalClimbedNumber.self)
-            .catch { _ -> Just<[FIDocument.TotalClimbedNumber]> in
+            .catch { error -> Just<[FIDocument.TotalClimbedNumber]> in
+                print(error)
                 return .init([])
             }
             .compactMap { $0.first }
             .flatMap { [weak self] totalNumber -> AnyPublisher<Void, Error> in
 
-                guard let self = self else {
+                guard
+                    let self = self
+                else {
                     return .init(Result<Void, Error>.Publisher(.failure(FirestoreError.nilResultError)))
                 }
 
-                let badge = FirestoreManager.db.batch()
-
-                let climbed = FIDocument.ClimbRecord(
+                let climbRecord = FIDocument.ClimbRecord(
                     registeredUserId: AuthManager.shared.uid,
                     parentCourseId: course.id,
                     parentCourseReference: course.makeDocumentReference(),
@@ -132,14 +109,8 @@ class RegisterClimbRecordViewModel {
                     climbedDate: climbedDate,
                     type: self.climbRecordType
                 )
-                badge.setData(climbed.dictionary, forDocument: climbed.makeDocumentReference())
 
-                badge.updateData(
-                    [self.climbRecordType.fieldName: FirestoreManager.Value.increment(1.0)],
-                    forDocument: totalNumber.makeDocumentReference()
-                )
-
-                return badge.commit()
+                return climbRecord.makeDocumentReference().setData(from: climbRecord)
             }
             .sink(
                 receiveCompletion: { [weak self] result in

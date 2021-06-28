@@ -31,14 +31,14 @@ extension FIDocument {
 extension FIDocument.ClimbRecord {
 
     enum ClimbedRecordType: String, CaseIterable, Codable {
-        case flash, redpoint
+        case flash, redPoint
 
         var name: String {
             switch self {
                 case .flash:
                     return "Flash"
                     
-                case .redpoint:
+                case .redPoint:
                     return "RedPoint"
                     
             }
@@ -49,7 +49,7 @@ extension FIDocument.ClimbRecord {
                 case .flash:
                     return "flashTotal"
 
-                case .redpoint:
+                case .redPoint:
                     return "redPointTotal"
 
             }
@@ -60,7 +60,7 @@ extension FIDocument.ClimbRecord {
                 case .flash:
                     return UIColor.Pallete.primaryGreen
 
-                case .redpoint:
+                case .redPoint:
                     return UIColor.Pallete.primaryPink
 
             }
@@ -71,7 +71,7 @@ extension FIDocument.ClimbRecord {
         }
 
         var isRedpoint: Bool {
-            self == .redpoint
+            self == .redPoint
         }
     }
 }

@@ -14,7 +14,7 @@ extension RockConfirmViewController {
         let layout = UICollectionViewCompositionalLayout { sectionNumber, _ -> NSCollectionLayoutSection in
             
             let section: NSCollectionLayoutSection
-            
+
             let sectionType = SectionLayoutKind.allCases[sectionNumber]
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: .init(
@@ -78,6 +78,11 @@ extension RockConfirmViewController {
                 section = .init(group: group)
                 
             case .images:
+
+                if self.viewModel.images.isEmpty {
+                    return UICollectionViewCompositionalLayout.zeroSizesLayout
+                }
+
                 let item = NSCollectionLayoutItem(
                     layoutSize: .init(
                         widthDimension: .fractionalWidth(1),

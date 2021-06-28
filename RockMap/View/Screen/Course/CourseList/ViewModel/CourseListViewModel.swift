@@ -64,7 +64,8 @@ class CourseListViewModel: CourseListViewModelProtocol {
             .collectionGroup(FIDocument.Course.colletionName)
             .whereField("registeredUserId", in: [userId])
             .getDocuments(FIDocument.Course.self)
-            .catch { _ -> Just<[FIDocument.Course]> in
+            .catch { error -> Just<[FIDocument.Course]> in
+                print(error)
                 return .init([])
             }
             .map { $0.sorted { $0.createdAt > $1.createdAt } }
