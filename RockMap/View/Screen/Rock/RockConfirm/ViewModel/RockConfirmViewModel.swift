@@ -51,10 +51,6 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
             .sink(receiveValue: uploadImages)
             .store(in: &bindings)
 
-        input.downloadImageUrlSubject
-            .sink(receiveValue: fetchImageUrl)
-            .store(in: &bindings)
-
         input.registerRockSubject
             .sink(receiveValue: registerRock)
             .store(in: &bindings)
@@ -130,60 +126,8 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
         }
     }
 
-    private func fetchImageUrl() {
-        let fetchHeaderPublisher = StorageManager
-            .getReference(
-                destinationDocument: FINameSpace.Rocks.self,
-                documentId: rockDocument.id,
-                imageType: .header
-            )
-            .compactMap { $0 }
-            .flatMap { $0.getDownloadURL() }
-
-        let fetchImagesPublisher = StorageManager
-            .getNormalImagePrefixes(
-                destinationDocument: FINameSpace.Rocks.self,
-                documentId: rockDocument.id
-            )
-            .flatMap { $0.getReferences() }
-            .flatMap { $0.getDownloadUrls() }
-            .eraseToAnyPublisher()
-
-        fetchHeaderPublisher.zip(fetchImagesPublisher)
-            .sink(
-                receiveCompletion: { [weak self] result in
-
-                    guard let self = self else { return }
-
-                    if case let .failure(error) = result {
-                        self.output.imageUploadState = .failure(error)
-                    }
-                },
-                receiveValue: { [weak self] url, urls in
-
-                    guard
-                        let self = self,
-                        let url = url
-                    else {
-                        return
-                    }
-
-                    let header = ImageURL(imageType: .header, urls: [url])
-                    let images = ImageURL(imageType: .normal, urls: urls)
-
-                    self.output.imageUrlDownloadState = .finish(content: [header, images])
-                }
-            )
-            .store(in: &bindings)
-    }
-
     private func registerRock() {
         output.rockUploadState = .loading
-
-        if let imageUrls = output.imageUrlDownloadState.content {
-            rockDocument.headerUrl = imageUrls.first(where: { $0.imageType == .header })?.urls.first
-            rockDocument.imageUrls = imageUrls.first(where: { $0.imageType == .normal })?.urls ?? []
-        }
 
         switch registerType {
             case .create:
@@ -239,13 +183,11 @@ extension RockConfirmViewModel {
 
     struct Input {
         let uploadImageSubject = PassthroughSubject<Void, Never>()
-        let downloadImageUrlSubject = PassthroughSubject<Void, Never>()
         let registerRockSubject = PassthroughSubject<Void, Never>()
     }
 
     final class Output {
         @Published var imageUploadState: StorageUploader.UploadState = .stanby
-        @Published var imageUrlDownloadState: LoadingState<[ImageURL]> = .stanby
         @Published var rockUploadState: LoadingState<Void> = .stanby
     }
 }

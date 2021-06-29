@@ -138,7 +138,7 @@ extension RockConfirmViewController {
 
             cell.configure(title: "　登録する　")
             cell.configure(
-                confirmationButtonTapped: self.viewModel.input.uploadImageSubject.send
+                confirmationButtonTapped: self.viewModel.input.registerRockSubject.send
             )
         }
     }
