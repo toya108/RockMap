@@ -18,11 +18,11 @@ extension CourseDetailViewController {
             guard let self = self else { return UICollectionViewCell() }
             
             switch item {
-                case .headerImage:
+                case .headerImage(let url):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureImageCell(),
                         for: indexPath,
-                        item: self.viewModel.course.headerUrl
+                        item: url
                     )
 
                 case .buttons:
@@ -118,7 +118,7 @@ extension CourseDetailViewController {
     
     private func configureImageCell(radius: CGFloat = 0.0) -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
-        URL?
+        URL
     > {
         .init { cell, _, url in
             cell.imageView.loadImage(url: url)

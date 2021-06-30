@@ -50,10 +50,6 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
             .sink(receiveValue: uploadImages)
             .store(in: &bindings)
 
-        input.downloadImageUrlSubject
-            .sink(receiveValue: fetchImageUrl)
-            .store(in: &bindings)
-
         input.registerCourseSubject
             .sink(receiveValue: registerCourse)
             .store(in: &bindings)
@@ -120,62 +116,9 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
             }
         }
     }
-
-    private func fetchImageUrl() {
-        let fetchHeaderPublisher = StorageManager
-            .getReference(
-                destinationDocument: FINameSpace.Course.self,
-                documentId: courseDocument.id,
-                imageType: .header
-            )
-            .compactMap { $0 }
-            .flatMap { $0.getDownloadURL() }
-
-        let fetchImagesPublisher = StorageManager
-            .getNormalImagePrefixes(
-                destinationDocument: FINameSpace.Course.self,
-                documentId: courseDocument.id
-            )
-            .flatMap { $0.getReferences() }
-            .flatMap { $0.getDownloadUrls() }
-            .eraseToAnyPublisher()
-
-        fetchHeaderPublisher.zip(fetchImagesPublisher)
-            .sink(
-                receiveCompletion: { [weak self] result in
-
-                    guard let self = self else { return }
-
-                    if case let .failure(error) = result {
-                        self.output.imageUploadState = .failure(error)
-                    }
-                },
-                receiveValue: { [weak self] url, urls in
-
-                    guard
-                        let self = self,
-                        let url = url
-                    else {
-                        return
-                    }
-
-                    let header = ImageURL(imageType: .header, urls: [url])
-                    let images = ImageURL(imageType: .normal, urls: urls)
-
-                    self.output.imageUrlDownloadState = .finish(content: [header, images])
-                }
-            )
-            .store(in: &bindings)
-    }
-
     
     private func registerCourse() {
         output.courseUploadState = .loading
-
-        if let imageUrls = output.imageUrlDownloadState.content {
-            courseDocument.headerUrl = imageUrls.first(where: { $0.imageType == .header })?.urls.first
-            courseDocument.imageUrls = imageUrls.first(where: { $0.imageType == .normal })?.urls ?? []
-        }
 
         switch registerType {
             case .create:
@@ -231,13 +174,11 @@ extension CourseConfirmViewModel {
 
     struct Input {
         let uploadImageSubject = PassthroughSubject<Void, Never>()
-        let downloadImageUrlSubject = PassthroughSubject<Void, Never>()
         let registerCourseSubject = PassthroughSubject<Void, Never>()
     }
 
     final class Output {
         @Published var imageUploadState: StorageUploader.UploadState = .stanby
-        @Published var imageUrlDownloadState: LoadingState<[ImageURL]> = .stanby
         @Published var courseUploadState: LoadingState<Void> = .stanby
     }
 }

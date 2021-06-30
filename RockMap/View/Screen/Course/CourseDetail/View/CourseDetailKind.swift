@@ -53,9 +53,6 @@ extension CourseDetailViewController {
         
         var initialItems: [ItemKind] {
             switch self {
-                case .headerImage:
-                    return [.headerImage]
-
                 case .parentRock:
                     return [.parentRock]
 
@@ -82,7 +79,7 @@ extension CourseDetailViewController {
     }
     
     enum ItemKind: Hashable {
-        case headerImage
+        case headerImage(URL)
         case buttons
         case title
         case registeredUser
