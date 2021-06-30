@@ -15,14 +15,7 @@ extension EditProfileViewController {
         let layout = UICollectionViewCompositionalLayout { [weak self] sectionNumber, env -> NSCollectionLayoutSection in
 
             guard let self = self else {
-                return .init(
-                    group: .init(
-                        layoutSize: .init(
-                            widthDimension: .absolute(0),
-                            heightDimension: .absolute(0)
-                        )
-                    )
-                )
+                return UICollectionViewCompositionalLayout.zeroSizesLayout
             }
 
             let section: NSCollectionLayoutSection
