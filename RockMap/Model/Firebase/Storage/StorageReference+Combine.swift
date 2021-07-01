@@ -101,24 +101,18 @@ extension StorageReference {
         }.eraseToAnyPublisher()
     }
 
-    func getDownloadURL() -> AnyPublisher<URL?, Error> {
-        Deferred {
-            Future<URL?, Error> { [weak self] promise in
+    func getDownloadURL(
+        completion: @escaping ((Result<URL?, Error>) -> Void)
+    )  {
+        self.downloadURL { url, error in
 
-                guard let self = self else { return }
-
-                self.downloadURL { url, error in
-                    
-                    if let error = error {
-                        promise(.failure(error))
-                        return
-                    }
-
-                    promise(.success(url))
-                }
+            if let error = error {
+                completion(.failure(error))
+                return
             }
 
-        }.eraseToAnyPublisher()
+            completion(.success(url))
+        }
     }
 }
 
@@ -129,14 +123,6 @@ extension Array where Element: StorageReference {
             .flatMap { $0.getReferences() }
             .collect()
             .map { $0.flatMap { $0 } }
-            .eraseToAnyPublisher()
-    }
-
-    func getDownloadUrls() -> AnyPublisher<[URL], Error> {
-        publisher
-            .flatMap { $0.getDownloadURL() }
-            .compactMap { $0 }
-            .collect()
             .eraseToAnyPublisher()
     }
     

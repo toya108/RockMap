@@ -15,7 +15,11 @@ extension UIImageView {
         url: URL?
     ) {
         sd_imageIndicator = SDWebImageActivityIndicator.gray
-        sd_setImage(with: url) { [weak self] _, error, _, _ in
+        sd_setImage(
+            with: url,
+            placeholderImage: nil,
+            options: [.refreshCached]
+        ) { [weak self] _, error, _, _ in
             guard
                 let self = self,
                 let error = error
@@ -38,17 +42,18 @@ extension UIImageView {
             return
         }
 
-        sd_imageIndicator = SDWebImageActivityIndicator.gray
-        sd_setImage(with: reference, placeholderImage: nil) { [weak self] _, error, _, _ in
-            guard
-                let self = self,
-                let error = error
-            else {
-                return
-            }
+        reference.getDownloadURL { [weak self] result in
 
-            print(error.localizedDescription)
-            self.image = UIImage.AssetsImages.noimage
+            guard let self = self else { return }
+
+            switch result {
+                case .success(let url):
+                    self.loadImage(url: url)
+
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self.image = UIImage.AssetsImages.noimage
+            }
         }
     }
 
