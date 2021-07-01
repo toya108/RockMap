@@ -75,18 +75,15 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
                 )
             case .storage(let storage):
 
-                guard let updateData = storage.updateData else { return }
-
-                storage.storageReference.delete()
-                    .sink(
-                        receiveCompletion: { _ in },
-                        receiveValue: {}
-                    )
-                    .store(in: &bindings)
+                guard
+                    let updateData = storage.updateData
+                else {
+                    return
+                }
 
                 uploader.addData(
                     data: updateData,
-                    reference: headerReference
+                    reference: storage.storageReference
                 )
         }
     }
