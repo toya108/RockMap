@@ -73,6 +73,9 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
         SectionLayoutKind.allCases.forEach {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
+        if let url = viewModel.course.headerUrl {
+            snapShot.appendItems([.headerImage(url)], toSection: .headerImage)
+        }
         let valueCellData = ValueCollectionViewCell.ValueCellStructure(
             image: UIImage.SystemImages.triangleLefthalfFill,
             title: "岩質",

@@ -46,11 +46,6 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
             .sink(receiveValue: imageUploadStateSink)
             .store(in: &bindings)
 
-        viewModel.output.$imageUrlDownloadState
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: imageUrlStateSink)
-            .store(in: &bindings)
-        
         viewModel.output.$courseUploadState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: courseUploadStateSink)
@@ -82,59 +77,16 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
 
 extension CourseConfirmViewController {
 
-    private func imageUploadStateSink(_ state: StorageUploader.UploadState) {
-        switch state {
-            case .stanby:
-                hideIndicatorView()
-
-            case .progress:
-                showIndicatorView()
-
-            case .complete:
-                hideIndicatorView()
-                viewModel.input.downloadImageUrlSubject.send()
-
-            case .failure(let error):
-                hideIndicatorView()
-                showOKAlert(
-                    title: "画像の登録に失敗しました",
-                    message: error.localizedDescription
-                )
-        }
-    }
-
-    private func imageUrlStateSink(_ state: LoadingState<[ImageURL]>) {
-        switch state {
-            case .stanby:
-                hideIndicatorView()
-
-            case .loading:
-                showIndicatorView()
-
-            case .finish:
-                hideIndicatorView()
-                viewModel.input.registerCourseSubject.send()
-
-            case .failure(let error):
-                hideIndicatorView()
-                showOKAlert(
-                    title: "画像の登録に失敗しました",
-                    message: error?.localizedDescription ?? ""
-                )
-        }
-    }
-
     private func courseUploadStateSink(_ state: LoadingState<Void>) {
         switch state {
-            case .stanby:
-                break
+            case .stanby: break
 
             case .loading:
                 showIndicatorView()
 
             case .finish:
                 hideIndicatorView()
-                router.route(to: .dismiss, from: self)
+                viewModel.input.uploadImageSubject.send(())
 
             case .failure(let error):
                 hideIndicatorView()
@@ -145,6 +97,30 @@ extension CourseConfirmViewController {
         }
     }
 
+    private func imageUploadStateSink(_ state: StorageUploader.UploadState) {
+        switch state {
+            case .stanby: break
+
+            case .progress:
+                showIndicatorView()
+
+            case .complete:
+                hideIndicatorView()
+                router.route(to: .dismiss, from: self)
+
+            case .failure(let error):
+                hideIndicatorView()
+                showOKAlert(
+                    title: "画像の登録に失敗しました",
+                    message: error.localizedDescription
+                ) { [weak self] _ in
+
+                    guard let self = self else { return }
+
+                    self.router.route(to: .dismiss, from: self)
+                }
+        }
+    }
 }
 
 extension CourseConfirmViewController: UIPopoverPresentationControllerDelegate {

@@ -113,11 +113,6 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
             .sink(receiveValue: imageUploadStateSink)
             .store(in: &bindings)
 
-        viewModel.output.$imageUrlDownloadState
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: imageUrlStateSink)
-            .store(in: &bindings)
-
         viewModel.output.$userUploadState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: uploadLoadingStateSink)
@@ -142,7 +137,7 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
             )
             return
         }
-        viewModel.uploadImage()
+        viewModel.editProfile()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -236,28 +231,27 @@ extension EditProfileViewController {
 
             case .complete:
                 hideIndicatorView()
-                viewModel.fetchImageUrl()
+                dismiss(animated: true) { [weak self] in
+                    guard
+                        let self = self,
+                        case let myPageVc as MyPageViewController = self.getVisibleViewController()
+                    else {
+                        return
+                    }
+                    myPageVc.viewModel.fetchUser()
+                }
 
             case .failure(let error):
                 hideIndicatorView()
                 showOKAlert(
                     title: "画像の登録に失敗しました",
                     message: error.localizedDescription
-                )
-        }
-    }
+                ) { [weak self] _ in
 
-    private func imageUrlStateSink(_ state: LoadingState<(header: URL?, icon: URL?)>) {
-        switch state {
-            case .stanby:
-                hideIndicatorView()
+                    guard let self = self else { return }
 
-            case .loading:
-                showIndicatorView()
-
-            case .finish, .failure:
-                hideIndicatorView()
-                viewModel.editProfile()
+                    self.dismiss(animated: true)
+                }
         }
     }
 
@@ -271,15 +265,7 @@ extension EditProfileViewController {
 
             case .finish:
                 hideIndicatorView()
-                dismiss(animated: true) { [weak self] in
-                    guard
-                        let self = self,
-                        case let myPageVc as MyPageViewController = self.getVisibleViewController()
-                    else {
-                        return
-                    }
-                    myPageVc.viewModel.fetchUser()
-                }
+                viewModel.uploadImage()
 
             case .failure(let error):
                 hideIndicatorView()

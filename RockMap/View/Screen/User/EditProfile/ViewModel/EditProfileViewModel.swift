@@ -259,37 +259,6 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
         }
     }
 
-    func fetchImageUrl() {
-        let header = StorageManager
-            .getReference(
-                destinationDocument: FINameSpace.Users.self,
-                documentId: user.id,
-                imageType: .header
-            )
-            .compactMap { $0 }
-            .flatMap { $0.getDownloadURL() }
-            .replaceError(with: nil)
-
-        let icon = StorageManager
-            .getReference(
-                destinationDocument: FINameSpace.Users.self,
-                documentId: user.id,
-                imageType: .icon
-            )
-            .compactMap { $0 }
-            .flatMap { $0.getDownloadURL() }
-            .replaceError(with: AuthManager.shared.currentUser?.photoURL)
-
-        header.zip(icon)
-            .eraseToAnyPublisher()
-            .sink { [weak self] headerUrl, iconUrl in
-                self?.output.imageUrlDownloadState = .finish(
-                    content: (header: headerUrl, icon: iconUrl)
-                )
-            }
-            .store(in: &bindings)
-    }
-
     func editProfile() {
 
         output.userUploadState = .loading
@@ -299,8 +268,6 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             updateUser.name = output.name
             updateUser.introduction = output.introduction
             updateUser.socialLinks = output.socialLinks
-            updateUser.headerUrl = output.imageUrlDownloadState.content?.header
-            updateUser.photoURL = output.imageUrlDownloadState.content?.icon
             return updateUser
         }
         updateUserDocument.makeDocumentReference()
@@ -333,7 +300,6 @@ extension EditProfileViewModel {
         @Published var nameValidationResult: ValidationResult = .none
 
         @Published var imageUploadState: StorageUploader.UploadState = .stanby
-        @Published var imageUrlDownloadState: LoadingState<(header: URL?, icon: URL?)> = .stanby
         @Published var userUploadState: LoadingState<Void> = .stanby
     }
 }

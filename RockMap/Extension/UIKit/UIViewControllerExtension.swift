@@ -76,10 +76,11 @@ extension UIViewController {
     
     func showOKAlert(
         title: String,
-        message: String = ""
+        message: String = "",
+        handler: ((UIAlertAction) -> Void)? = nil
     ) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: handler)
         alert.addAction(okAction)
         present(alert, animated: true)
     }
