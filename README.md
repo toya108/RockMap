@@ -27,6 +27,10 @@ This app is now developing for release...
 ### Database
 * Firestore
 * FirebaseStorage
+* Cloud Function
+
+* BackEnd of RockMap is here
+  * https://github.com/toya108/RockMapFirebase
 
 ### Authentication
 * FirebaseUI 
