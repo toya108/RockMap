@@ -82,9 +82,10 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
         viewModel.$rockName
             .receive(on: RunLoop.main)
             .sink { [weak self] title in
+
                 guard let self = self else { return }
 
-                self.snapShot.appendItems([.title(title)], toSection: .title)
+                self.snapShot.appendItems([.title("🪨 " + title)], toSection: .title)
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)

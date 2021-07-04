@@ -11,7 +11,6 @@ import Combine
 class CourseCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var courseNameLabel: UILabel!
-    @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var courseImageView: UIImageView!
     @IBOutlet weak var userView: UserView!
 
@@ -32,8 +31,7 @@ class CourseCollectionViewCell: UICollectionViewCell {
         course: FIDocument.Course,
         parentVc: UIViewController
     ) {
-        courseNameLabel.text = course.name
-        infoLabel.text = course.grade.name
+        courseNameLabel.text = "📜 " + course.name + course.grade.name
         courseImageView.loadImage(url: course.headerUrl)
 
         FirestoreManager.db

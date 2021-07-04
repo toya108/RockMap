@@ -43,7 +43,7 @@ extension RockListViewController {
                     ) { cell, _, _ in
                         cell.configure(
                             imageUrl: rock.headerUrl,
-                            title: rock.name,
+                            title: "🪨 " + rock.name,
                             first: "登録日: " + rock.createdAt.string(dateStyle: .medium),
                             second: "住所: " + rock.address,
                             third: rock.desc
