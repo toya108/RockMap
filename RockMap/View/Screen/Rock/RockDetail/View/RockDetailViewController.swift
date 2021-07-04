@@ -74,17 +74,12 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
     
     private func bindViewToViewModel() {
         viewModel.$rockName
-            .map { Optional($0) }
-            .receive(on: RunLoop.main)
-            .assign(to: \UINavigationItem.title, on: navigationItem)
-            .store(in: &bindings)
-
-        viewModel.$rockName
             .receive(on: RunLoop.main)
             .sink { [weak self] title in
+
                 guard let self = self else { return }
 
-                self.snapShot.appendItems([.title(title)], toSection: .title)
+                self.snapShot.appendItems([.title("🪨 " + title)], toSection: .title)
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)

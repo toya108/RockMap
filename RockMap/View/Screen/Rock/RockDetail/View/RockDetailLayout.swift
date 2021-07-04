@@ -158,14 +158,14 @@ extension RockDetailViewController {
                     )
                     group = NSCollectionLayoutGroup.horizontal(
                         layoutSize: .init(
-                            widthDimension: .fractionalWidth(1),
+                            widthDimension: .fractionalWidth(0.9),
                             heightDimension: item.layoutSize.heightDimension
                         ),
                         subitems: [item]
                     )
                     section = .init(group: group)
                     section.interGroupSpacing = 8
-                    section.orthogonalScrollingBehavior = .groupPaging
+                    section.orthogonalScrollingBehavior = .continuous
                 }
 
             case .images:

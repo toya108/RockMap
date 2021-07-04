@@ -161,7 +161,7 @@ extension CourseDetailViewController {
             guard let self = self else { return }
 
             cell.configure(
-                title: self.viewModel.course.name,
+                title: "📜 " + self.viewModel.course.name,
                 supplementalyTitle: self.viewModel.course.grade.name
             )
         }
