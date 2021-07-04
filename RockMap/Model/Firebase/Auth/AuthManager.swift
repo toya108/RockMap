@@ -198,6 +198,7 @@ extension AuthManager: FUIAuthDelegate {
             do {
                 var updateDictionary = try document.makedictionary(shouldExcludeEmpty: true)
                 updateDictionary.removeValue(forKey: "photoURL")
+                updateDictionary.removeValue(forKey: "headerUrl")
                 updateDictionary.removeValue(forKey: "socialLinks")
 
                 document.makeDocumentReference()

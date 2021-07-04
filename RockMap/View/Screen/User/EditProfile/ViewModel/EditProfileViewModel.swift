@@ -132,7 +132,6 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                         output.icon = .content(.storage(
                             .init(
                                 storageReference: storage.storageReference,
-                                shouldUpdate: true,
                                 updateData: kind.data?.data
                             )
                         ))
@@ -145,7 +144,6 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
 
                     case .storage(var storage):
                         storage.updateData = kind.data?.data
-                        storage.shouldUpdate = true
                         output.header?.update(.storage(storage))
                 }
 
@@ -221,12 +219,6 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                 )
 
             case .storage(let storage):
-                guard
-                    storage.shouldUpdate
-                else {
-                    output.imageUploadState = .complete([])
-                    return
-                }
 
                 guard
                     let updateData = storage.updateData
@@ -242,16 +234,9 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                     return
                 }
 
-                storage.storageReference.delete()
-                    .sink(
-                        receiveCompletion: { _ in },
-                        receiveValue: {}
-                    )
-                    .store(in: &bindings)
-
                 uploader.addData(
                     data: updateData,
-                    reference: headerReference
+                    reference: storage.storageReference
                 )
             case .none:
                 output.imageUploadState = .complete([])
