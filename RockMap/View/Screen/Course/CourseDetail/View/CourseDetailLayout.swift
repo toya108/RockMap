@@ -48,7 +48,7 @@ extension CourseDetailViewController {
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(
                             widthDimension: .estimated(98),
-                            heightDimension: .absolute(28)
+                            heightDimension: .absolute(24)
                         )
                     )
                     let group = NSCollectionLayoutGroup.horizontal(
@@ -56,7 +56,7 @@ extension CourseDetailViewController {
                         subitems: [item]
                     )
                     section = .init(group: group)
-                    section.contentInsets = .init(top: 12, leading: 0, bottom: 12, trailing: 0)
+                    section.contentInsets = .init(top: 12, leading: 0, bottom: 8, trailing: 0)
 
                 case .title:
                     let item = NSCollectionLayoutItem(
