@@ -640,7 +640,6 @@
 				9E98D53D2552F88B00EC5AC1 /* SupportView */,
 				9EB7DB9C266FD43B003B0041 /* Screen */,
 				9EB7DB9B266FD42A003B0041 /* Container */,
-				9E34C90A25B09A4F005EBE07 /* Debug */,
 				9E9E6375262EFDEE0096340C /* Emumeration */,
 			);
 			path = View;
@@ -764,8 +763,8 @@
 		9E427D3125F12E1B00ED7DBE /* Dialog */ = {
 			isa = PBXGroup;
 			children = (
-				9E845AFA25ADF0E800EC3BE6 /* RegisterSucceededViewController.swift */,
-				9E845AFF25ADF0F700EC3BE6 /* RegisterSucceededViewController.storyboard */,
+				9EA88DBD2691E4260036D6C1 /* RegisterSucceeded */,
+				9EA88DBC2691E3DD0036D6C1 /* ForceUpdate */,
 			);
 			path = Dialog;
 			sourceTree = "<group>";
@@ -802,9 +801,6 @@
 				9E04B191254B28230097DA8E /* Model */,
 				9EA6B04C26651A2300DAA888 /* Settings.bundle */,
 				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
-				9EA88DB72691D5900036D6C1 /* ForceUpdateAlertManager.swift */,
-				9EA88DB92691D7B00036D6C1 /* ForceUpdateAlertManagerTests.swift */,
-				9EA88DB5269189110036D6C1 /* RemoteConfigListener.swift */,
 				9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */,
 				9E5CEFD625277B26001C95AA /* LaunchScreen.storyboard */,
 				9E5CEFD925277B26001C95AA /* Info.plist */,
@@ -863,6 +859,7 @@
 		9E623685258A65EC00152AF9 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
+				9EA88DBB2691E3960036D6C1 /* RemoteConfig */,
 				9E623686258A660700152AF9 /* Storage */,
 				9EE1FD4C2577EF480080787F /* FireStore */,
 				9E033F4E2577F6A000A669F8 /* Auth */,
@@ -1358,6 +1355,32 @@
 			path = Account;
 			sourceTree = "<group>";
 		};
+		9EA88DBB2691E3960036D6C1 /* RemoteConfig */ = {
+			isa = PBXGroup;
+			children = (
+				9EA88DB5269189110036D6C1 /* RemoteConfigListener.swift */,
+			);
+			path = RemoteConfig;
+			sourceTree = "<group>";
+		};
+		9EA88DBC2691E3DD0036D6C1 /* ForceUpdate */ = {
+			isa = PBXGroup;
+			children = (
+				9EA88DB72691D5900036D6C1 /* ForceUpdateAlertManager.swift */,
+				9EA88DB92691D7B00036D6C1 /* ForceUpdateAlertManagerTests.swift */,
+			);
+			path = ForceUpdate;
+			sourceTree = "<group>";
+		};
+		9EA88DBD2691E4260036D6C1 /* RegisterSucceeded */ = {
+			isa = PBXGroup;
+			children = (
+				9E845AFA25ADF0E800EC3BE6 /* RegisterSucceededViewController.swift */,
+				9E845AFF25ADF0F700EC3BE6 /* RegisterSucceededViewController.storyboard */,
+			);
+			path = RegisterSucceeded;
+			sourceTree = "<group>";
+		};
 		9EB00BD2262976AF00379182 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
@@ -1406,6 +1429,7 @@
 		9EB7DB9C266FD43B003B0041 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				9E34C90A25B09A4F005EBE07 /* Debug */,
 				9E80E90A265D3DF1000D33F6 /* User */,
 				9E80E909265D3964000D33F6 /* Course */,
 				9E80E908265D3945000D33F6 /* Rock */,
