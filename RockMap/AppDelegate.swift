@@ -17,11 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         setupFirebase()
-        LocationManager.shared.requestWhenInUseAuthorization()
+        setupRemoteConfig()
+        setupPermissionOfLocation()
         return true
     }
-
-    // MARK: UISceneSession Lifecycle
 
     func application(
         _ app: UIApplication,
@@ -61,5 +60,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure(options: options)
     }
 
+    private func setupRemoteConfig() {
+        let remoteConfigListener = RemoteConfigListener()
+        remoteConfigListener.fetchAndActivateRemoteConfig { result in
+
+            guard case .success = result else {
+                return
+            }
+
+            ForceUpdateAlertManager().showGoToStoreAlertIfNeeded(
+                minimumAppVersion: remoteConfigListener.minimumAppVersion
+            )
+        }
+    }
+
+    private func setupPermissionOfLocation() {
+        LocationManager.shared.requestWhenInUseAuthorization()
+    }
 }
 
