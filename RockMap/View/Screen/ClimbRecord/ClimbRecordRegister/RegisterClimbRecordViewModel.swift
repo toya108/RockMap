@@ -27,6 +27,24 @@ class RegisterClimbRecordViewModel {
         self.registerType = registerType
     }
 
+    func isSelectedFutureDate(climbedDate: Date?) -> Bool {
+
+        guard
+            let climbedDate = climbedDate
+        else {
+            return true
+        }
+
+        let result = climbedDate.compare(Date())
+        switch result {
+            case .orderedAscending, .orderedSame:
+                return false
+
+            case .orderedDescending:
+                return true
+        }
+    }
+
     func editClimbRecord() {
 
         guard
