@@ -44,7 +44,6 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
         }
 
         rockMapNavigationBar.setup()
-        navigationItem.title = viewModel.course.name
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.prefersLargeTitles = false
     }
