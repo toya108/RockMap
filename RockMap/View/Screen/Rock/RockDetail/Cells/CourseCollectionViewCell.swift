@@ -34,12 +34,16 @@ class CourseCollectionViewCell: UICollectionViewCell {
     ) {
         courseNameLabel.text = course.name
         infoLabel.text = course.grade.name
+        courseImageView.loadImage(url: course.headerUrl)
 
         FirestoreManager.db
             .collection(FIDocument.User.colletionName)
             .document(course.registeredUserId)
             .getDocument(FIDocument.User.self)
-            .catch { _ in Empty() }
+            .catch { error -> Empty in
+                print(error)
+                return Empty()
+            }
             .compactMap { $0 }
             .sink { [weak self] user in
 
@@ -50,23 +54,6 @@ class CourseCollectionViewCell: UICollectionViewCell {
                     registeredDate: course.createdAt,
                     parentVc: parentVc
                 )
-            }
-            .store(in: &bindings)
-        
-        StorageManager
-            .getReference(
-                destinationDocument: FINameSpace.Course.self,
-                documentId: course.id,
-                imageType: .header
-            )
-            .catch { _ -> Just<StorageManager.Reference?> in
-                return .init(nil)
-            }
-            .sink { [weak self] reference in
-
-                guard let self = self else { return }
-
-                self.courseImageView.loadImage(reference: reference)
             }
             .store(in: &bindings)
     }

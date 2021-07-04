@@ -59,7 +59,8 @@ final class RockDetailViewModel: ViewModelProtocol {
             .collectionGroup(FIDocument.Course.colletionName)
             .whereField("parentRockId", in: [rockDocument.id])
             .getDocuments(FIDocument.Course.self)
-            .catch { _ -> Just<[FIDocument.Course]> in
+            .catch { error -> Just<[FIDocument.Course]> in
+                print(error)
                 return .init([])
             }
             .map { $0.sorted { $0.createdAt > $1.createdAt } }

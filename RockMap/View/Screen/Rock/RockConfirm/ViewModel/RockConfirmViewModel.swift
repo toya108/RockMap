@@ -82,16 +82,9 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
                     return
                 }
 
-                storage.storageReference.delete()
-                    .sink(
-                        receiveCompletion: { _ in },
-                        receiveValue: {}
-                    )
-                    .store(in: &bindings)
-
                 uploader.addData(
                     data: updateData,
-                    reference: headerReference
+                    reference: storage.storageReference
                 )
         }
     }

@@ -42,6 +42,7 @@ class StorageUploader {
         reference: StorageReference,
         metadata: StorageMetadata
     ) {
+        metadata.cacheControl = "no-cache"
         let component = Component(
             file: file,
             data: nil,
@@ -55,8 +56,9 @@ class StorageUploader {
     func addData(
         data: Data,
         reference: StorageReference,
-        metadata: StorageMetadata? = nil
+        metadata: StorageMetadata = .init()
     ) {
+        metadata.cacheControl = "no-cache"
         let component = Component(
             file: nil,
             data: data,
