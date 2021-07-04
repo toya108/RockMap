@@ -77,7 +77,7 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
         }
         let valueCellData = ValueCollectionViewCell.ValueCellStructure(
             image: UIImage.SystemImages.triangleLefthalfFill,
-            title: "岩質",
+            title: "形状",
             subTitle: viewModel.course.shape.map(\.name).joined(separator: "/")
         )
         snapShot.appendItems([.shape(valueCellData)], toSection: .info)

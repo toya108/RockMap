@@ -38,6 +38,17 @@ class RegisterClimbRecordBottomSheetViewController: UIViewController {
     }
 
     @IBAction func didRecordButtonTapped(_ sender: UIButton) {
+
+        if viewModel.isSelectedFutureDate(
+            climbedDate: viewModel.climbedDate
+        ) {
+            showOKAlert(
+                title: "未来の日付が入力されています。",
+                message: "入力内容をご確認の上、日付を再度選択して下さい。"
+            )
+            return
+        }
+
         switch viewModel.registerType {
             case .create:
                 viewModel.registerClimbRecord()
