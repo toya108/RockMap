@@ -141,12 +141,7 @@ extension CourseRegisterViewController: PickerManagerDelegate {
         data: Data,
         imageType: ImageType
     ) {
-        viewModel.input.setImageSubject.send(
-            .init(
-                imageDataKind: .data(.init(data: data)),
-                imageType: imageType
-            )
-        )
+        viewModel.input.setImageSubject.send((data, imageType))
     }
 }
 
@@ -195,29 +190,28 @@ extension CourseRegisterViewController {
         datasource.apply(snapShot)
     }
 
-    private func headerSink(_ imageDataKind: ImageDataKind?) {
+    private func headerSink(_ image: CrudableImage<FIDocument.Course>) {
+
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .header))
 
-        if
-            let kind = imageDataKind,
-            kind.shouldAppendItem
-        {
-            snapShot.appendItems([.header(kind)], toSection: .header)
-        } else {
-            snapShot.appendItems([.noImage(.header)], toSection: .header)
-        }
+        let shouldAppend = image.updateData != nil
+            || image.storageReference != nil
+            && !image.shouldDelete
+
+        snapShot.appendItems(
+            [shouldAppend ? .header(image) : .noImage(.header)],
+            toSection: .header
+        )
         datasource.apply(snapShot)
 
         hideIndicatorView()
     }
 
-    private func imagesSink(_ imageDataKindList: [ImageDataKind]) {
+    private func imagesSink(_ images: [CrudableImage<FIDocument.Course>]) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .images))
         snapShot.appendItems([.noImage(.normal)], toSection: .images)
 
-        let items = imageDataKindList
-            .filter { $0.shouldAppendItem }
-            .map { ItemKind.images($0) }
+        let items = images.filter { !$0.shouldDelete } .map { ItemKind.images($0) }
         snapShot.appendItems(items, toSection: .images)
         datasource.apply(snapShot)
 
