@@ -21,8 +21,8 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
 
     let registerType: RockRegisterViewModel.RegisterType
     var rockDocument: FIDocument.Rock
-    let header: ImageDataKind
-    let images: [ImageDataKind]
+    let header: CrudableImage<FIDocument.Rock>
+    let images: [CrudableImage<FIDocument.Rock>]
 
     private var bindings = Set<AnyCancellable>()
     private let uploader = StorageUploader()
@@ -30,8 +30,8 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
     init(
         registerType: RockRegisterViewModel.RegisterType,
         rockDocument: FIDocument.Rock,
-        header: ImageDataKind,
-        images: [ImageDataKind]
+        header: CrudableImage<FIDocument.Rock>,
+        images: [CrudableImage<FIDocument.Rock>]
     ) {
         self.registerType = registerType
         self.rockDocument = rockDocument
@@ -57,66 +57,9 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
     }
 
     private func uploadImages() {
-        prepareHeaderUploading()
-        prepareImagesUploading()
+        uploader.addData(image: header, id: rockDocument.id)
+        images.forEach { uploader.addData(image: $0, id: rockDocument.id) }
         uploader.start()
-    }
-
-    private func prepareHeaderUploading() {
-        let headerReference = StorageManager.makeImageReferenceForUpload(
-            destinationDocument: FINameSpace.Rocks.self,
-            documentId: rockDocument.id,
-            imageType: .header
-        )
-        switch header {
-            case .data(let data):
-                uploader.addData(
-                    data: data.data,
-                    reference: headerReference
-                )
-            case .storage(let storage):
-
-                guard
-                    let updateData = storage.updateData
-                else {
-                    return
-                }
-
-                uploader.addData(
-                    data: updateData,
-                    reference: storage.storageReference
-                )
-        }
-    }
-
-    private func prepareImagesUploading() {
-        images.forEach { imageDataKind in
-            switch imageDataKind {
-                case .data(let data):
-                    uploader.addData(
-                        data: data.data,
-                        reference: StorageManager.makeImageReferenceForUpload(
-                            destinationDocument: FINameSpace.Rocks.self,
-                            documentId: rockDocument.id,
-                            imageType: .normal
-                        )
-                    )
-                case .storage(let storage):
-
-                    guard
-                        storage.shouldUpdate
-                    else {
-                        return
-                    }
-
-                    storage.storageReference.delete()
-                        .sink(
-                            receiveCompletion: { _ in },
-                            receiveValue: {}
-                        )
-                        .store(in: &bindings)
-            }
-        }
     }
 
     private func registerRock() {

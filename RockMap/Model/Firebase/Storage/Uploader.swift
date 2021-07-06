@@ -13,7 +13,7 @@ class StorageUploader {
     private struct Component {
         var file: URL?
         var data: Data?
-        var reference: StorageReference?
+        var reference: StorageReference
         var metadata: StorageMetadata?
         var isComplete = false
     }
@@ -36,6 +36,25 @@ class StorageUploader {
     private var completedUnitCount: Int64 = 0
     
     @Published var uploadState: UploadState = .stanby
+
+    func addData<D: FIDocumentProtocol>(image: CrudableImage<D>, id: String) {
+
+        if image.shouldDelete, let storage = image.storageReference {
+            storage.delete(completion: { _ in })
+            return
+        }
+
+        if let storage = image.storageReference, let data = image.updateData {
+            addData(data: data, reference: storage)
+            return
+        }
+
+        if let data = image.updateData {
+            let reference = image.makeImageReference(documentId: id)
+            addData(data: data, reference: reference)
+            return
+        }
+    }
 
     func addComponet(
         file: URL,
@@ -89,19 +108,21 @@ class StorageUploader {
             let reference = component.reference
             let metadata = component.metadata
             
-            if
-                let file = component.file,
-                let uploadTask = reference?.putFile(from: file, metadata: metadata)
-            {
-                observeStatus(uploadTask, total: components.count, index: index)
+            if let file = component.file {
+                observeStatus(
+                    reference.putFile(from: file, metadata: metadata),
+                    total: components.count,
+                    index: index
+                )
                 return
             }
             
-            if
-                let data = component.data,
-                let uploadTask = reference?.putData(data, metadata: metadata)
-            {
-                observeStatus(uploadTask, total: components.count, index: index)
+            if let data = component.data {
+                observeStatus(
+                    reference.putData(data, metadata: metadata),
+                    total: components.count,
+                    index: index
+                )
                 return
             }
         }

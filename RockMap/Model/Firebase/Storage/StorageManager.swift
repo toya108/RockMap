@@ -79,9 +79,3 @@ struct StorageManager {
             .child(child)
     }
 }
-
-struct UpdatableStorage: Hashable {
-    let storageReference: StorageReference
-    var shouldUpdate: Bool = false
-    var updateData: Data?
-}

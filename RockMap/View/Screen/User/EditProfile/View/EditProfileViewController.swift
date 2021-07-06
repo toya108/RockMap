@@ -155,9 +155,7 @@ extension EditProfileViewController: PickerManagerDelegate {
         data: Data,
         imageType: ImageType
     ) {
-        viewModel.input.setImageSubject.send(
-            (imageType, .data(.init(data: data)))
-        )
+        viewModel.input.setImageSubject.send((imageType, data))
     }
 }
 
@@ -171,25 +169,22 @@ extension EditProfileViewController: UICollectionViewDelegate {
 
 extension EditProfileViewController {
 
-    private func headerSink(_ imageDataKind: ImageDataKind?) {
+    private func headerSink(_ image: CrudableImage<FIDocument.User>) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .header))
 
-        if
-            let kind = imageDataKind,
-            kind.shouldAppendItem
-        {
-            snapShot.appendItems([.header(kind)], toSection: .header)
-        } else {
-            snapShot.appendItems([.noImage], toSection: .header)
-        }
+        let shouldAppend = image.updateData != nil
+            || image.storageReference != nil
+            && !image.shouldDelete
+
+        snapShot.appendItems([shouldAppend ? .header(image) : .noImage], toSection: .header)
         datasource.apply(snapShot)
 
         hideIndicatorView()
     }
 
-    private func iconSink(_ emptiable: Emptiable<ImageDataKind>) {
+    private func iconSink(_ image: CrudableImage<FIDocument.User>) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .icon))
-        snapShot.appendItems([.icon(emptiable)], toSection: .icon)
+        snapShot.appendItems([.icon(image)], toSection: .icon)
         datasource.apply(snapShot)
 
         hideIndicatorView()

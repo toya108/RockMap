@@ -45,18 +45,11 @@ struct CourseRegisterRouter: RouterProtocol {
             from.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
             return
         }
-        
-        guard
-            let header = viewModel.output.header
-        else {
-            from.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
-            return
-        }
 
         let viewModel = CourseConfirmViewModel(
             registerType: viewModel.registerType,
             courseDocument: viewModel.makeCourseDocument(),
-            header: header,
+            header: viewModel.output.header,
             images: viewModel.output.images
         )
 

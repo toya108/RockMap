@@ -16,6 +16,8 @@ protocol RockRegisterViewModelProtocol: ViewModelProtocol {
 
 final class RockRegisterViewModel: RockRegisterViewModelProtocol {
 
+    private typealias HeaderValidator = HeaderImageValidator<FIDocument.Rock>
+
     var input = Input()
     var output = Output()
 
@@ -149,18 +151,12 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
 
         output.$images
             .dropFirst()
-            .map { RockImageValidator().validate($0.filter(\.shouldAppendItem)) }
+            .map { RockImageValidator().validate($0.filter(\.shouldDelete)) }
             .assign(to: &output.$rockImageValidationResult)
 
         output.$header
             .dropFirst()
-            .map {
-                guard let imageDataKind = $0 else {
-                    return nil
-                }
-                return imageDataKind.shouldAppendItem ? $0 : nil
-            }
-            .map { RockHeaderImageValidator().validate($0) }
+            .map { HeaderValidator().validate($0) }
             .assign(to: &output.$headerImageValidationResult)
 
     }
@@ -172,9 +168,11 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
                 documentId: rockId,
                 imageType: .header
             )
-            .catch { _ in return Empty() }
-            .compactMap { $0 }
-            .map { ImageDataKind.storage(.init(storageReference: $0)) }
+            .catch { error -> Empty in
+                print(error)
+                return Empty()
+            }
+            .map { .init(storageReference: $0, imageType: .header) }
             .assign(to: &output.$header)
 
         StorageManager
@@ -182,87 +180,56 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
                 destinationDocument: FINameSpace.Rocks.self,
                 documentId: rockId
             )
-            .catch { _ in return Empty() }
+            .catch { error -> Empty in
+                print(error)
+                return Empty()
+            }
             .flatMap {
                 $0.getReferences().catch { _ in return Empty() }
             }
             .map {
-                $0.map { ImageDataKind.storage(.init(storageReference: $0)) }
+                $0.map { .init(storageReference: $0, imageType: .normal) }
             }
             .assign(to: &self.output.$images)
     }
 
-    private func setImage(_ imageStructure: ImageStructure) {
-        switch imageStructure.imageType {
+    private func setImage(imageType: ImageType, data: Data) {
+
+        switch imageType {
+            case .normal:
+                output.images.append(.init(updateData: data, imageType: imageType))
+
             case .header:
-                setHeaderImage(kind: imageStructure.imageDataKind)
+                output.header.updateData = data
+                output.header.shouldDelete = false
+
+            case .icon:
+                break
+        }
+    }
+
+    private func deleteImage(_ image: CrudableImage<FIDocument.Rock>) {
+        switch image.imageType {
+            case .header:
+                output.header.updateData = nil
+
+                if output.header.storageReference != nil {
+                    output.header.shouldDelete = true
+                }
 
             case .normal:
-                setNormalImage(kind: imageStructure.imageDataKind)
+                if let index = output.images.firstIndex(of: image) {
+                    if output.images[index].storageReference != nil {
+                        output.images[index].updateData = nil
+                        output.images[index].shouldDelete = true
+                    } else {
+                        output.images.remove(at: index)
+                    }
+                }
 
             default:
                 break
         }
-    }
-
-    private func setHeaderImage(kind: ImageDataKind) {
-        switch output.header {
-            case .data, .none:
-                output.header = kind
-
-            case .storage(var storage):
-                storage.updateData = kind.data?.data
-                storage.shouldUpdate = true
-                output.header?.update(.storage(storage))
-        }
-    }
-
-    private func setNormalImage(kind: ImageDataKind) {
-        self.output.images.append(kind)
-    }
-
-    private func deleteImage(_ imageStructure: ImageStructure) {
-        switch imageStructure.imageType {
-            case .header:
-                deleteHeaderImage()
-
-            case .normal:
-                deleteNormalImage(target: imageStructure.imageDataKind)
-
-            default:
-                break
-        }
-    }
-
-    private func deleteHeaderImage() {
-        switch output.header {
-            case .data:
-                output.header = nil
-
-            case .storage:
-                output.header?.toggleStorageUpdateFlag()
-
-            default:
-                break
-        }
-    }
-
-    private func deleteNormalImage(target: ImageDataKind) {
-
-        guard
-            let index = self.output.images.firstIndex(of: target)
-        else {
-            return
-        }
-
-        switch target {
-            case .data:
-                self.output.images.remove(at: index)
-
-            case .storage:
-                self.output.images[index].toggleStorageUpdateFlag()
-        }
-
     }
     
     func callValidations() -> Bool {
@@ -273,19 +240,10 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             output.rockNameValidationResult = RockNameValidator().validate(output.rockName)
         }
         if !output.headerImageValidationResult.isValid {
-            let header: ImageDataKind? = {
-                guard
-                    let imageDataKind = output.header
-                else {
-                    return nil
-                }
-                return imageDataKind.shouldAppendItem ? output.header : nil
-            }()
-
-            output.headerImageValidationResult = RockHeaderImageValidator().validate(header)
+            output.headerImageValidationResult = HeaderValidator().validate(output.header)
         }
         if !output.rockImageValidationResult.isValid {
-            let images = output.images.filter(\.shouldAppendItem)
+            let images = output.images.filter(\.shouldDelete)
             output.rockImageValidationResult = RockImageValidator().validate(images)
         }
 
@@ -361,8 +319,8 @@ extension RockRegisterViewModel {
         let locationSubject = PassthroughSubject<LocationManager.LocationStructure, Never>()
         let selectSeasonSubject = PassthroughSubject<FIDocument.Rock.Season, Never>()
         let lithologySubject = PassthroughSubject<FIDocument.Rock.Lithology, Never>()
-        let setImageSubject = PassthroughSubject<(ImageStructure), Never>()
-        let deleteImageSubject = PassthroughSubject<(ImageStructure), Never>()
+        let setImageSubject = PassthroughSubject<(ImageType, Data), Never>()
+        let deleteImageSubject = PassthroughSubject<(CrudableImage<FIDocument.Rock>), Never>()
     }
 
     final class Output {
@@ -371,8 +329,8 @@ extension RockRegisterViewModel {
         @Published var rockDesc = ""
         @Published var seasons: Set<FIDocument.Rock.Season> = []
         @Published var lithology: FIDocument.Rock.Lithology = .unKnown
-        @Published var header: ImageDataKind?
-        @Published var images: [ImageDataKind] = []
+        @Published var header: CrudableImage<FIDocument.Rock> = .init(imageType: .header)
+        @Published var images: [CrudableImage<FIDocument.Rock>] = []
 
         @Published var rockNameValidationResult: ValidationResult = .none
         @Published var rockAddressValidationResult: ValidationResult = .none

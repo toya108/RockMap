@@ -32,11 +32,11 @@ extension EditProfileViewController {
                         item: Dummy()
                     )
 
-                case let .header(imageDataKind):
+                case let .header(image):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureDeletabelImageCell(),
                         for: indexPath,
-                        item: imageDataKind
+                        item: image
                     )
 
                 case let .error(error):
@@ -60,11 +60,11 @@ extension EditProfileViewController {
                         item: socialLinkType
                     )
 
-                case let .icon(emptiable):
+                case let .icon(image):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureIconEditCell(),
                         for: indexPath,
-                        item: emptiable
+                        item: image
                     )
             }
         }
@@ -152,11 +152,10 @@ extension EditProfileViewController {
 
     private func configureDeletabelImageCell() -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
-        ImageDataKind
+        CrudableImage<FIDocument.User>
     > {
-        .init { cell, _, imageDataKind in
-
-            cell.configure(imageDataKind: imageDataKind) { [weak self] in
+        .init { cell, _, image in
+            cell.configure(image: image) { [weak self] in
 
                 guard let self = self else { return }
 
@@ -244,11 +243,11 @@ extension EditProfileViewController {
 
     private func configureIconEditCell() -> UICollectionView.CellRegistration<
         IconEditCollectionViewCell,
-        Emptiable<ImageDataKind>
+        CrudableImage<FIDocument.User>
     > {
-        .init { [weak self] cell, _, emptiable in
+        .init { [weak self] cell, _, image in
 
-            cell.configure(imageDataKind: emptiable.content)
+            cell.configure(image: image)
 
             self?.setupImageUploadButtonActions(
                 button: cell.editButton, imageType: .icon

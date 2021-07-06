@@ -120,9 +120,9 @@ struct RockImageValidator: CompositeValidator {
     ]
 }
 
-struct RockHeaderImageValidator: CompositeValidator {
+struct HeaderImageValidator<D: FIDocumentProtocol>: CompositeValidator {
     var validators: [ValidatorProtocol] = [
-        NoneValidator(formName: "ヘッダー画像")
+        HeaderValidator<D>(formName: "ヘッダー画像")
     ]
 }
 
@@ -153,6 +153,30 @@ private struct EmptyValidator: ValidatorProtocol {
         }
 
         return strings.isEmpty ? .invalid(.empty(formName: formName)) : .valid
+    }
+}
+
+private struct HeaderValidator<D: FIDocumentProtocol>: ValidatorProtocol {
+
+    let formName: String
+
+    func validate(_ value: Any?) -> ValidationResult {
+
+        guard
+            let image = value as? CrudableImage<D>
+        else {
+            return .invalid(.none(formName: formName))
+        }
+
+        if image.storageReference == nil {
+            return image.updateData == nil
+                ? .invalid(.none(formName: formName))
+                : .valid
+        } else {
+            return image.shouldDelete
+                ? .invalid(.none(formName: formName))
+                : .valid
+        }
     }
 }
 

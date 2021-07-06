@@ -19,8 +19,8 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     var output: Output = .init()
     
     let registerType: CourseRegisterViewModel.RegisterType
-    let header: ImageDataKind
-    let images: [ImageDataKind]
+    let header: CrudableImage<FIDocument.Course>
+    let images: [CrudableImage<FIDocument.Course>]
     private(set) var courseDocument: FIDocument.Course
 
     private var bindings = Set<AnyCancellable>()
@@ -29,8 +29,8 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     init(
         registerType: CourseRegisterViewModel.RegisterType,
         courseDocument: FIDocument.Course,
-        header: ImageDataKind,
-        images: [ImageDataKind]
+        header: CrudableImage<FIDocument.Course>,
+        images: [CrudableImage<FIDocument.Course>]
     ) {
         self.registerType = registerType
         self.courseDocument = courseDocument
@@ -56,64 +56,11 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     }
     
     private func uploadImages() {
-        prepareHeaderUploading()
-        prepareImagesUploading()
+        uploader.addData(image: header, id: courseDocument.id)
+        images.forEach { uploader.addData(image: $0, id: courseDocument.id) }
         uploader.start()
     }
 
-    private func prepareHeaderUploading() {
-        let headerReference = StorageManager.makeImageReferenceForUpload(
-            destinationDocument: FINameSpace.Course.self,
-            documentId: courseDocument.id,
-            imageType: .header
-        )
-        switch header {
-            case .data(let data):
-                uploader.addData(
-                    data: data.data,
-                    reference: headerReference
-                )
-            case .storage(let storage):
-
-                guard
-                    let updateData = storage.updateData
-                else {
-                    return
-                }
-
-                uploader.addData(
-                    data: updateData,
-                    reference: storage.storageReference
-                )
-        }
-    }
-
-    private func prepareImagesUploading() {
-        images.forEach { imageDataKind in
-            switch imageDataKind {
-                case .data(let data):
-                    uploader.addData(
-                        data: data.data,
-                        reference: StorageManager.makeImageReferenceForUpload(
-                            destinationDocument: FINameSpace.Course.self,
-                            documentId: courseDocument.id,
-                            imageType: .normal
-                        )
-                    )
-                case .storage(let storage):
-
-                    guard storage.shouldUpdate else { return }
-
-                    storage.storageReference.delete()
-                        .sink(
-                            receiveCompletion: { _ in },
-                            receiveValue: {}
-                        )
-                        .store(in: &bindings)
-            }
-        }
-    }
-    
     private func registerCourse() {
         output.courseUploadState = .loading
 

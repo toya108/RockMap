@@ -65,7 +65,12 @@ extension UIButton {
         url: URL?
     ) {
         sd_imageIndicator = SDWebImageActivityIndicator.gray
-        sd_setBackgroundImage(with: url, for: .normal) { [weak self] _, error, _, _ in
+        sd_setBackgroundImage(
+            with: url,
+            for: .normal,
+            placeholderImage: nil,
+            options: [.refreshCached]
+        ) { [weak self] _, error, _, _ in
             guard
                 let self = self,
                 let error = error

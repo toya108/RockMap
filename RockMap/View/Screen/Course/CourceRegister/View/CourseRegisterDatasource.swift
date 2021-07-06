@@ -60,18 +60,18 @@ extension CourseRegisterViewController {
                     item: imageType
                 )
 
-            case let .header(imageDataKind):
+            case let .header(image):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDeletabelImageCell(imageType: .header),
+                    using: self.configureDeletabelImageCell(),
                     for: indexPath,
-                    item: imageDataKind
+                    item: image
                 )
                 
-            case let .images(imageDataKind):
+            case let .images(image):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDeletabelImageCell(imageType: .normal),
+                    using: self.configureDeletabelImageCell(),
                     for: indexPath,
-                    item: imageDataKind
+                    item: image
                 )
                 
             case .confirmation:
@@ -231,24 +231,17 @@ extension CourseRegisterViewController {
         }
     }
     
-    private func configureDeletabelImageCell(
-        imageType: ImageType
-    ) -> UICollectionView.CellRegistration<
+    private func configureDeletabelImageCell() -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
-        ImageDataKind
+        CrudableImage<FIDocument.Course>
     > {
-        .init { cell, _, imageDataKind in
+        .init { cell, _, image in
             
-            cell.configure(imageDataKind: imageDataKind) { [weak self] in
+            cell.configure(image: image) { [weak self] in
                 
                 guard let self = self else { return }
                 
-                self.viewModel.input.deleteImageSubject.send(
-                    .init(
-                        imageDataKind: imageDataKind,
-                        imageType: imageType
-                    )
-                )
+                self.viewModel.input.deleteImageSubject.send(image)
             }
         }
     }

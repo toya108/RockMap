@@ -57,7 +57,7 @@ extension EditProfileViewController {
                     return [.noImage]
 
                 case .icon:
-                    return [.icon(.empty)]
+                    return [.icon(.init(imageType: .icon))]
 
                 case .socialLink:
                     return FIDocument.User.SocialLinkType.allCases.map { .socialLink($0) }
@@ -68,9 +68,9 @@ extension EditProfileViewController {
     enum ItemKind: Hashable {
         case name
         case introduction
-        case header(ImageDataKind)
+        case header(CrudableImage<FIDocument.User>)
         case noImage
-        case icon(Emptiable<ImageDataKind>)
+        case icon(CrudableImage<FIDocument.User>)
         case socialLink(FIDocument.User.SocialLinkType)
         case error(ValidationError)
 

@@ -39,18 +39,18 @@ extension RockConfirmViewController {
                     item: locationStructure
                 )
 
-            case let .header(imageDataKind):
+            case let .header(image):
                 return self.collectionView.dequeueConfiguredReusableCell(
                     using: self.configureImageCell(),
                     for: indexPath,
-                    item: imageDataKind
+                    item: image
                 )
                 
-            case let .images(imageDataKind):
+            case let .images(image):
                 return self.collectionView.dequeueConfiguredReusableCell(
                     using: self.configureImageCell(),
                     for: indexPath,
-                    item: imageDataKind
+                    item: image
                 )
                 
             case .register:
@@ -119,12 +119,12 @@ extension RockConfirmViewController {
     
     private func configureImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
-        ImageDataKind
+        CrudableImage<FIDocument.Rock>
     > {
-        .init { cell, _, imageDataKind in
+        .init { cell, _, image in
             cell.layer.cornerRadius = 8
             cell.clipsToBounds = true
-            cell.configure(imageDataKind: imageDataKind)
+            cell.configure(image: image)
         }
     }
     

@@ -67,7 +67,7 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
         snapShot.appendItems([.shape(viewModel.courseDocument.shape)], toSection: .shape)
         snapShot.appendItems([.header(viewModel.header)], toSection: .header)
         snapShot.appendItems(
-            viewModel.images.filter(\.shouldAppendItem).map { ItemKind.images($0) },
+            viewModel.images.filter { !$0.shouldDelete } .map { ItemKind.images($0) },
             toSection: .images
         )
         snapShot.appendItems([.register], toSection: .register)
