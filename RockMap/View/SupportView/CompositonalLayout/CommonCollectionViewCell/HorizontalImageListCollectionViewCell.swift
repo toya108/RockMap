@@ -36,22 +36,6 @@ class HorizontalImageListCollectionViewCell: UICollectionViewCell {
         ])
     }
 
-    func configure(
-        imageDataKind: ImageDataKind
-    ) {
-        switch imageDataKind {
-            case .data(let data):
-                imageView.image = UIImage(data: data.data)
-
-            case .storage(let storage):
-                if let data = storage.updateData {
-                    imageView.image = UIImage(data: data)
-                } else {
-                    imageView.loadImage(reference: storage.storageReference)
-                }
-        }
-    }
-
     func configure<D: FIDocumentProtocol>(image: CrudableImage<D>) {
         if let data = image.updateData {
             imageView.image = UIImage(data: data)

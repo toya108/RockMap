@@ -126,12 +126,6 @@ struct HeaderImageValidator<D: FIDocumentProtocol>: CompositeValidator {
     ]
 }
 
-struct RockHeaderImageValidator: CompositeValidator {
-    var validators: [ValidatorProtocol] = [
-        NoneValidator(formName: "ヘッダー画像")
-    ]
-}
-
 struct CourseNameValidator: CompositeValidator {
     var validators: [ValidatorProtocol] = [
         EmptyValidator(formName: "課題名")

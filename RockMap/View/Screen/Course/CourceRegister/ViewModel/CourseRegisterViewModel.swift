@@ -125,7 +125,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
             }
             .flatMap { $0.getReferences().catch { _ in Empty() } }
             .map {
-                $0.map { .init(storageReference: $0,imageType: .normal) }
+                $0.map { .init(storageReference: $0, imageType: .normal) }
             }
             .assign(to: &self.output.$images)
     }
