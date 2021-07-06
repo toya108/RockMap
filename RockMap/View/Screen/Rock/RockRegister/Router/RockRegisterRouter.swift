@@ -52,17 +52,10 @@ struct RockRegisterRouter: RouterProtocol {
             return
         }
 
-        guard
-            let header = viewModel.output.header
-        else {
-            from.showOKAlert(title: "入力内容に不備があります。", message: "入力内容を見直してください。")
-            return
-        }
-
         let viewModel = RockConfirmViewModel(
             registerType: viewModel.registerType,
             rockDocument: viewModel.makeRockDocument(),
-            header: header,
+            header: viewModel.output.header,
             images: viewModel.output.images
         )
 

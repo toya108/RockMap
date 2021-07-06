@@ -69,7 +69,7 @@ class RockConfirmViewController: UIViewController, CompositionalColectionViewCon
         snapShot.appendItems([.location(location)], toSection: .location)
         snapShot.appendItems([.header(viewModel.header)], toSection: .header)
         snapShot.appendItems(
-            viewModel.images.filter(\.shouldAppendItem).map { ItemKind.images($0) },
+            viewModel.images.filter { !$0.shouldDelete } .map { ItemKind.images($0) },
             toSection: .images
         )
         snapShot.appendItems([.register], toSection: .register)

@@ -89,8 +89,8 @@ extension RockRegisterViewController {
         case season(season: FIDocument.Rock.Season, isSelecting: Bool)
         case lithology(FIDocument.Rock.Lithology)
         case noImage(ImageType)
-        case header(ImageDataKind)
-        case images(ImageDataKind)
+        case header(CrudableImage<FIDocument.Rock>)
+        case images(CrudableImage<FIDocument.Rock>)
         case confirmation
         case error(ValidationError)
         

@@ -45,11 +45,11 @@ extension RockRegisterViewController {
                     item: imageType
                 )
                 
-            case let .images(imageDataKind):
+            case let .images(image):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDeletabelImageCell(imageType: .normal),
+                    using: self.configureDeletabelImageCell(),
                     for: indexPath,
-                    item: imageDataKind
+                    item: image
                 )
                 
             case .season(let season, let isSelecting):
@@ -80,11 +80,11 @@ extension RockRegisterViewController {
                     item: error
                 )
 
-            case let .header(imageDataKind):
+            case let .header(image):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDeletabelImageCell(imageType: .header),
+                    using: self.configureDeletabelImageCell(),
                     for: indexPath,
-                    item: imageDataKind
+                    item: image
                 )
             }
         }
@@ -215,24 +215,17 @@ extension RockRegisterViewController {
         }
     }
     
-    private func configureDeletabelImageCell(
-        imageType: ImageType
-    ) -> UICollectionView.CellRegistration<
+    private func configureDeletabelImageCell() -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
-        ImageDataKind
+        CrudableImage<FIDocument.Rock>
     > {
-        .init { cell, _, imageDataKind in
-            
-            cell.configure(imageDataKind: imageDataKind) { [weak self] in
+        .init { cell, _, image in
+
+            cell.configure(image: image) { [weak self] in
 
                 guard let self = self else { return }
 
-                self.viewModel.input.deleteImageSubject.send(
-                    .init(
-                        imageDataKind: imageDataKind,
-                        imageType: imageType
-                    )
-                )
+                self.viewModel.input.deleteImageSubject.send(image)
             }
         }
     }

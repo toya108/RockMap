@@ -51,5 +51,14 @@ class HorizontalImageListCollectionViewCell: UICollectionViewCell {
                 }
         }
     }
+
+    func configure<D: FIDocumentProtocol>(image: CrudableImage<D>) {
+        if let data = image.updateData {
+            imageView.image = UIImage(data: data)
+
+        } else if let storage = image.storageReference {
+            imageView.loadImage(reference: storage)
+        }
+    }
     
 }
