@@ -80,8 +80,24 @@ struct StorageManager {
     }
 }
 
+
 struct UpdatableStorage: Hashable {
     let storageReference: StorageReference
-    var shouldUpdate: Bool = false
+    var shouldDelete: Bool = false
     var updateData: Data?
+}
+
+struct CrudableImage<D: FIDocumentProtocol>: Hashable {
+    var storageReference: StorageReference?
+    var updateData: Data?
+    var shouldDelete: Bool = false
+    let imageType: ImageType
+
+    func makeImageReference(documentId: String) -> StorageReference {
+        return StorageManager.makeImageReferenceForUpload(
+            destinationDocument: D.Collection.self,
+            documentId: documentId,
+            imageType: imageType
+        )
+    }
 }

@@ -102,7 +102,7 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
                     )
                 case .storage(let storage):
 
-                    guard storage.shouldUpdate else { return }
+                    guard storage.shouldDelete else { return }
 
                     storage.storageReference.delete()
                         .sink(

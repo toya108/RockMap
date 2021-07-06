@@ -104,7 +104,7 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
                 case .storage(let storage):
 
                     guard
-                        storage.shouldUpdate
+                        storage.shouldDelete
                     else {
                         return
                     }

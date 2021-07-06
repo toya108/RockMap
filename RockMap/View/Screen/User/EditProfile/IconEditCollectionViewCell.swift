@@ -90,4 +90,14 @@ class IconEditCollectionViewCell: UICollectionViewCell {
                 imageView.loadImage(url: AuthManager.shared.currentUser?.photoURL)
         }
     }
+
+    func configure<D: FIDocumentProtocol>(image: CrudableImage<D>) {
+        if let data = image.updateData {
+            imageView.image = UIImage(data: data)
+        } else if let storage = image.storageReference {
+            imageView.loadImage(reference: storage)
+        } else {
+            imageView.loadImage(url: AuthManager.shared.currentUser?.photoURL)
+        }
+    }
 }

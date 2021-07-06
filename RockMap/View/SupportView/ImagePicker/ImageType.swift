@@ -32,7 +32,6 @@ enum ImageType {
 
             case .icon:
                 return "icon"
-
         }
     }
 }
@@ -49,7 +48,7 @@ enum ImageDataKind: Hashable {
             return
         }
 
-        updatableStorage.shouldUpdate.toggle()
+        updatableStorage.shouldDelete.toggle()
         self = .storage(updatableStorage)
     }
 
@@ -95,7 +94,7 @@ enum ImageDataKind: Hashable {
                 return true
 
             case .storage(let storage):
-                switch (storage.shouldUpdate, storage.updateData == nil) {
+                switch (storage.shouldDelete, storage.updateData == nil) {
                     case (false, true), (true, false):
                         return true
 

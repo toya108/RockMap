@@ -90,15 +90,12 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                 documentId: user.id,
                 imageType: .header
             )
-            .catch { _ -> Just<StorageManager.Reference?> in
-                return .init(nil)
+            .catch { error -> Empty in
+                print(error)
+                return Empty()
             }
             .map {
-                if let header = $0 {
-                    return ImageDataKind.storage(.init(storageReference: header))
-                } else {
-                    return nil
-                }
+                CrudableImage<FIDocument.User>(storageReference: $0, imageType: .icon)
             }
             .assign(to: &output.$header)
 
@@ -108,78 +105,42 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                 documentId: user.id,
                 imageType: .icon
             )
-            .catch { _ -> Just<StorageManager.Reference?> in
-                return .init(nil)
+            .catch { error -> Empty in
+                print(error)
+                return Empty()
             }
             .map {
-                if let icon = $0 {
-                    return .content(.storage(.init(storageReference: icon)))
-                } else {
-                    return .empty
-                }
+                CrudableImage<FIDocument.User>(storageReference: $0, imageType: .icon)
             }
             .assign(to: &output.$icon)
     }
 
-    private func setImage(imageType: ImageType, kind: ImageDataKind) {
+    private func setImage(imageType: ImageType, data: Data) {
         switch imageType {
             case .icon:
-                switch output.icon.content {
-                    case .data, .none:
-                        output.icon = .content(kind)
-
-                    case .storage(let storage):
-                        output.icon = .content(.storage(
-                            .init(
-                                storageReference: storage.storageReference,
-                                updateData: kind.data?.data
-                            )
-                        ))
-                }
+                output.icon.updateData = data
 
             case .header:
-                switch output.header {
-                    case .data, .none:
-                        output.header = kind
-
-                    case .storage(var storage):
-                        storage.updateData = kind.data?.data
-                        output.header?.update(.storage(storage))
-                }
+                output.header.updateData = data
+                output.header.shouldDelete = false
 
             case .normal:
                 break
         }
-
     }
 
     private func deleteImage(imageType: ImageType) {
         switch imageType {
             case .icon:
-                switch output.icon.content {
-                    case .data, .none:
-                        output.icon = .empty
+                output.icon.updateData = nil
 
-                    case let .storage(storage):
-                        output.icon = .content(.storage(
-                            .init(
-                                storageReference: storage.storageReference,
-                                shouldUpdate: false,
-                                updateData: nil
-                            )
-                        ))
-                }
             case .header:
-                switch output.header {
-                    case .data:
-                        output.header = nil
+                output.header.updateData = nil
 
-                    case .storage:
-                        output.header?.toggleStorageUpdateFlag()
-
-                    default:
-                        break
+                if output.header.storageReference != nil {
+                    output.header.shouldDelete = true
                 }
+
             case .normal:
                 break
         }
@@ -196,52 +157,10 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
         .allSatisfy { $0 }
     }
 
-    // この一連の流れUser、Rock、Courseで共通なので共通化したい。
     func uploadImage() {
-        prepareUploadImage(imageType: .icon, imageDataKind: output.icon.content)
-        prepareUploadImage(imageType: .header, imageDataKind: output.header)
+        uploader.addData(image: output.icon, id: user.id)
+        uploader.addData(image: output.header, id: user.id)
         uploader.start()
-    }
-
-    private func prepareUploadImage(imageType: ImageType, imageDataKind: ImageDataKind?) {
-
-        let headerReference = StorageManager.makeImageReferenceForUpload(
-            destinationDocument: FINameSpace.Users.self,
-            documentId: user.id,
-            imageType: imageType
-        )
-
-        switch imageDataKind {
-            case .data(let data):
-                uploader.addData(
-                    data: data.data,
-                    reference: headerReference
-                )
-
-            case .storage(let storage):
-
-                guard
-                    let updateData = storage.updateData
-                else {
-                    storage.storageReference.delete()
-                        .sink(
-                            receiveCompletion: { _ in },
-                            receiveValue: {}
-                        )
-                        .store(in: &bindings)
-
-                    output.imageUploadState = .complete([])
-                    return
-                }
-
-                uploader.addData(
-                    data: updateData,
-                    reference: storage.storageReference
-                )
-            case .none:
-                output.imageUploadState = .complete([])
-                return
-        }
     }
 
     func editProfile() {
@@ -269,7 +188,7 @@ extension EditProfileViewModel {
     struct Input {
         let nameSubject = PassthroughSubject<String?, Never>()
         let introductionSubject = PassthroughSubject<String?, Never>()
-        let setImageSubject = PassthroughSubject<(ImageType, ImageDataKind), Never>()
+        let setImageSubject = PassthroughSubject<(ImageType, Data), Never>()
         let deleteImageSubject = PassthroughSubject<ImageType, Never>()
         let socialLinkSubject = PassthroughSubject<FIDocument.User.SocialLink, Never>()
     }
@@ -277,8 +196,8 @@ extension EditProfileViewModel {
     final class Output {
         @Published var name = ""
         @Published var introduction = ""
-        @Published var header: ImageDataKind?
-        @Published var icon: Emptiable<ImageDataKind> = .empty
+        @Published var header: CrudableImage<FIDocument.User> = .init(imageType: .header)
+        @Published var icon: CrudableImage<FIDocument.User> = .init(imageType: .icon)
         @Published var socialLinks: [FIDocument.User.SocialLink] = FIDocument.User.SocialLinkType.allCases.map {
             FIDocument.User.SocialLink(linkType: $0, link: "")
         }

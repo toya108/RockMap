@@ -149,7 +149,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
             case .storage(var storage):
                 storage.updateData = kind.data?.data
-                storage.shouldUpdate = true
+                storage.shouldDelete = true
                 output.header?.update(.storage(storage))
         }
     }
