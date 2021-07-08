@@ -177,6 +177,7 @@
 		9EB7DB99266FC4F9003B0041 /* GoogleService-Info-release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EB7DB98266FC4F9003B0041 /* GoogleService-Info-release.plist */; };
 		9EB87ED12632C8FA0042EA9C /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB87ED02632C8FA0042EA9C /* CourseListViewController.swift */; };
 		9EB87ED92632CC050042EA9C /* CourseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB87ED82632CC050042EA9C /* CourseListViewModel.swift */; };
+		9EBA355A2697366E008A6B17 /* DocumentProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */; };
 		9EBD5A1525F7C998009383F6 /* UICollectionViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD5A1425F7C998009383F6 /* UICollectionViewCellExtension.swift */; };
 		9EC3A6B72604D5A8001FBCA4 /* CourseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6B62604D5A8001FBCA4 /* CourseDetailViewController.swift */; };
 		9EC3A6BF2604D5F8001FBCA4 /* CourseDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6BE2604D5F8001FBCA4 /* CourseDetailViewModel.swift */; };
@@ -187,7 +188,6 @@
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
 		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
 		9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */; };
-		9ECA52D6267902220025FC10 /* DocumentProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */; };
 		9ED40FC726631B5C00A8D0AC /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 9ED40FC626631B5C00A8D0AC /* FloatingPanel */; };
 		9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED972992596471C0069FB94 /* ArrayExtension.swift */; };
 		9EE1FD482577EED60080787F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE1FD472577EED60080787F /* AuthManager.swift */; };
@@ -1274,8 +1274,6 @@
 				9E010DFF25D0539F00A4C336 /* Course.swift */,
 				9E0BE44F2608C1DE00576869 /* ClimbRecord.swift */,
 				9E47B76B26160A0B004BE800 /* TotalClimbedNumber.swift */,
-				9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */,
-				9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */,
 			);
 			path = DocumentModel;
 			sourceTree = "<group>";
@@ -1466,6 +1464,8 @@
 				9E9B38F526213B9D001A39A9 /* DocumentModel */,
 				9E08ACA32573E6C400D69927 /* NameSpace.swift */,
 				9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */,
+				9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */,
+				9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */,
 			);
 			path = FireStore;
 			sourceTree = "<group>";
@@ -2125,6 +2125,7 @@
 				9E06F967264976BC00731352 /* EditProfileViewModel.swift in Sources */,
 				9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */,
 				9E06F965264976AE00731352 /* EditProfileKind.swift in Sources */,
+				9EBA355A2697366E008A6B17 /* DocumentProtocolTests.swift in Sources */,
 				9EECEBB9265FBAD30057EE11 /* MyClimbRecordListLayout.swift in Sources */,
 				9E2DA74225F915CC008F339E /* RockRegisterDatasource.swift in Sources */,
 				9EEADA1C255AD39100F20228 /* PlaceHolderTextView.swift in Sources */,
@@ -2167,7 +2168,6 @@
 				9E1C031C2554574F00F923A3 /* ValidatorTests.swift in Sources */,
 				9E5CEFE325277B26001C95AA /* RockMapTests.swift in Sources */,
 				9EA88DBA2691D7B00036D6C1 /* ForceUpdateAlertManagerTests.swift in Sources */,
-				9ECA52D6267902220025FC10 /* DocumentProtocolTests.swift in Sources */,
 				9E441578266214D000D48D12 /* DictionaryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
