@@ -177,13 +177,13 @@
 		9EB7DB99266FC4F9003B0041 /* GoogleService-Info-release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EB7DB98266FC4F9003B0041 /* GoogleService-Info-release.plist */; };
 		9EB87ED12632C8FA0042EA9C /* CourseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB87ED02632C8FA0042EA9C /* CourseListViewController.swift */; };
 		9EB87ED92632CC050042EA9C /* CourseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB87ED82632CC050042EA9C /* CourseListViewModel.swift */; };
-		9EBA355A2697366E008A6B17 /* DocumentProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */; };
 		9EBD5A1525F7C998009383F6 /* UICollectionViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD5A1425F7C998009383F6 /* UICollectionViewCellExtension.swift */; };
 		9EC3A6B72604D5A8001FBCA4 /* CourseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6B62604D5A8001FBCA4 /* CourseDetailViewController.swift */; };
 		9EC3A6BF2604D5F8001FBCA4 /* CourseDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6BE2604D5F8001FBCA4 /* CourseDetailViewModel.swift */; };
 		9EC3A6C42604D74F001FBCA4 /* CourseDetailKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6C32604D74F001FBCA4 /* CourseDetailKind.swift */; };
 		9EC3A6C92604D75C001FBCA4 /* CourseDetailLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6C82604D75C001FBCA4 /* CourseDetailLayout.swift */; };
 		9EC3A6CE2604D76A001FBCA4 /* CourseDetailDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6CD2604D76A001FBCA4 /* CourseDetailDatasource.swift */; };
+		9EC7FFC42698861100715F86 /* DocumentProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */; };
 		9EC88E0A260CCB5C0057EBEE /* LocationSelectButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC88E09260CCB5C0057EBEE /* LocationSelectButtonState.swift */; };
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
 		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
@@ -2125,7 +2125,6 @@
 				9E06F967264976BC00731352 /* EditProfileViewModel.swift in Sources */,
 				9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */,
 				9E06F965264976AE00731352 /* EditProfileKind.swift in Sources */,
-				9EBA355A2697366E008A6B17 /* DocumentProtocolTests.swift in Sources */,
 				9EECEBB9265FBAD30057EE11 /* MyClimbRecordListLayout.swift in Sources */,
 				9E2DA74225F915CC008F339E /* RockRegisterDatasource.swift in Sources */,
 				9EEADA1C255AD39100F20228 /* PlaceHolderTextView.swift in Sources */,
@@ -2169,6 +2168,7 @@
 				9E5CEFE325277B26001C95AA /* RockMapTests.swift in Sources */,
 				9EA88DBA2691D7B00036D6C1 /* ForceUpdateAlertManagerTests.swift in Sources */,
 				9E441578266214D000D48D12 /* DictionaryTests.swift in Sources */,
+				9EC7FFC42698861100715F86 /* DocumentProtocolTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
