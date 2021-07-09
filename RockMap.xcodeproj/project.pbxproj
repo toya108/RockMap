@@ -40,7 +40,6 @@
 		9E0C9DE82576AAE300ABFE5B /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */; };
 		9E0C9DF02576ABCE00ABFE5B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9DEF2576ABCE00ABFE5B /* User.swift */; };
 		9E0D09352566B31200D3075F /* RockDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D09342566B31200D3075F /* RockDetailViewModel.swift */; };
-		9E0F2C7B265532350084368A /* Emptiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0F2C7A265532350084368A /* Emptiable.swift */; };
 		9E11A7DA26272ABA006C925A /* NoImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E11A7D926272ABA006C925A /* NoImageCollectionViewCell.swift */; };
 		9E171174263305B900D35BFE /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E171172263305B900D35BFE /* ListCollectionViewCell.swift */; };
 		9E171175263305B900D35BFE /* ListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E171173263305B900D35BFE /* ListCollectionViewCell.xib */; };
@@ -184,11 +183,11 @@
 		9EC3A6C42604D74F001FBCA4 /* CourseDetailKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6C32604D74F001FBCA4 /* CourseDetailKind.swift */; };
 		9EC3A6C92604D75C001FBCA4 /* CourseDetailLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6C82604D75C001FBCA4 /* CourseDetailLayout.swift */; };
 		9EC3A6CE2604D76A001FBCA4 /* CourseDetailDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6CD2604D76A001FBCA4 /* CourseDetailDatasource.swift */; };
+		9EC7FFC42698861100715F86 /* DocumentProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */; };
 		9EC88E0A260CCB5C0057EBEE /* LocationSelectButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC88E09260CCB5C0057EBEE /* LocationSelectButtonState.swift */; };
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
 		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
 		9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */; };
-		9ECA52D6267902220025FC10 /* DocumentProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */; };
 		9ED40FC726631B5C00A8D0AC /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 9ED40FC626631B5C00A8D0AC /* FloatingPanel */; };
 		9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED972992596471C0069FB94 /* ArrayExtension.swift */; };
 		9EE1FD482577EED60080787F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE1FD472577EED60080787F /* AuthManager.swift */; };
@@ -283,7 +282,6 @@
 		9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
 		9E0C9DEF2576ABCE00ABFE5B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9E0D09342566B31200D3075F /* RockDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewModel.swift; sourceTree = "<group>"; };
-		9E0F2C7A265532350084368A /* Emptiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emptiable.swift; sourceTree = "<group>"; };
 		9E11A7D926272ABA006C925A /* NoImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E171172263305B900D35BFE /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E171173263305B900D35BFE /* ListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -1276,8 +1274,6 @@
 				9E010DFF25D0539F00A4C336 /* Course.swift */,
 				9E0BE44F2608C1DE00576869 /* ClimbRecord.swift */,
 				9E47B76B26160A0B004BE800 /* TotalClimbedNumber.swift */,
-				9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */,
-				9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */,
 			);
 			path = DocumentModel;
 			sourceTree = "<group>";
@@ -1333,7 +1329,6 @@
 			isa = PBXGroup;
 			children = (
 				9E9E6376262EFE150096340C /* LoadingState.swift */,
-				9E0F2C7A265532350084368A /* Emptiable.swift */,
 			);
 			path = Emumeration;
 			sourceTree = "<group>";
@@ -1469,6 +1464,8 @@
 				9E9B38F526213B9D001A39A9 /* DocumentModel */,
 				9E08ACA32573E6C400D69927 /* NameSpace.swift */,
 				9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */,
+				9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */,
+				9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */,
 			);
 			path = FireStore;
 			sourceTree = "<group>";
@@ -1985,7 +1982,6 @@
 				9E0BE4502608C1DE00576869 /* ClimbRecord.swift in Sources */,
 				9EE1FD482577EED60080787F /* AuthManager.swift in Sources */,
 				9E0C0A152588C7DA00E34FCE /* Rock.swift in Sources */,
-				9E0F2C7B265532350084368A /* Emptiable.swift in Sources */,
 				9E010E0025D0539F00A4C336 /* Course.swift in Sources */,
 				9E08AC812572A8AA00D69927 /* RockMapNavigationBar.swift in Sources */,
 				9E0BE3982605AD2800576869 /* UserDefaultsDataHolder.swift in Sources */,
@@ -2171,8 +2167,8 @@
 				9E1C031C2554574F00F923A3 /* ValidatorTests.swift in Sources */,
 				9E5CEFE325277B26001C95AA /* RockMapTests.swift in Sources */,
 				9EA88DBA2691D7B00036D6C1 /* ForceUpdateAlertManagerTests.swift in Sources */,
-				9ECA52D6267902220025FC10 /* DocumentProtocolTests.swift in Sources */,
 				9E441578266214D000D48D12 /* DictionaryTests.swift in Sources */,
+				9EC7FFC42698861100715F86 /* DocumentProtocolTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
