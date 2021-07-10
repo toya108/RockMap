@@ -10,6 +10,7 @@ import UIKit
 class TitleCollectionViewCell: UICollectionViewCell {
 
     let stackView = UIStackView()
+    let iconImageView = UIImageView()
     let titleLabel = UILabel()
     let supplementalyLabel = UILabel()
 
@@ -28,16 +29,23 @@ class TitleCollectionViewCell: UICollectionViewCell {
         stackView.spacing = 8
         stackView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(stackView)
-
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+        NSLayoutConstraint.build {
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor)
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
             stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
-        ])
+        }
+
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.addArrangedSubview(iconImageView)
+        stackView.addArrangedSubview(titleLabel)
+
+        NSLayoutConstraint.build {
+            iconImageView.heightAnchor.constraint(equalToConstant: 40)
+            iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor)
+        }
 
         titleLabel.font = .systemFont(ofSize: 24, weight: .bold)
-        stackView.addArrangedSubview(titleLabel)
         titleLabel.setContentHuggingPriority(.required, for: .horizontal)
 
         supplementalyLabel.font = .systemFont(ofSize: 24, weight: .bold)
@@ -45,9 +53,16 @@ class TitleCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(
+        icon: UIImage? = nil,
         title: String,
         supplementalyTitle: String = ""
     ) {
+        if let icon = icon {
+            iconImageView.image = icon
+            iconImageView.isHidden = false
+        } else {
+            iconImageView.isHidden = true
+        }
         titleLabel.text = title
         supplementalyLabel.text = supplementalyTitle
     }
