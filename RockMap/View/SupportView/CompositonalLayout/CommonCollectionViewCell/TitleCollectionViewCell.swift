@@ -37,11 +37,12 @@ class TitleCollectionViewCell: UICollectionViewCell {
         }
 
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        iconImageView.tintColor = .black
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(titleLabel)
 
         NSLayoutConstraint.build {
-            iconImageView.heightAnchor.constraint(equalToConstant: 40)
+            iconImageView.heightAnchor.constraint(equalToConstant: 36)
             iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor)
         }
 
@@ -58,7 +59,7 @@ class TitleCollectionViewCell: UICollectionViewCell {
         supplementalyTitle: String = ""
     ) {
         if let icon = icon {
-            iconImageView.image = icon
+            iconImageView.image = icon.withRenderingMode(.alwaysTemplate)
             iconImageView.isHidden = false
         } else {
             iconImageView.isHidden = true
