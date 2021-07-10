@@ -184,6 +184,7 @@
 		9EC3A6C92604D75C001FBCA4 /* CourseDetailLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6C82604D75C001FBCA4 /* CourseDetailLayout.swift */; };
 		9EC3A6CE2604D76A001FBCA4 /* CourseDetailDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6CD2604D76A001FBCA4 /* CourseDetailDatasource.swift */; };
 		9EC7FFC42698861100715F86 /* DocumentProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */; };
+		9EC7FFC6269915B300715F86 /* ColorAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EC7FFC5269915B300715F86 /* ColorAssets.xcassets */; };
 		9EC7FFCC26991CB800715F86 /* ListBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC7FFCB26991CB800715F86 /* ListBuilder.swift */; };
 		9EC88E0A260CCB5C0057EBEE /* LocationSelectButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC88E09260CCB5C0057EBEE /* LocationSelectButtonState.swift */; };
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
@@ -432,6 +433,7 @@
 		9EC3A6C32604D74F001FBCA4 /* CourseDetailKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailKind.swift; sourceTree = "<group>"; };
 		9EC3A6C82604D75C001FBCA4 /* CourseDetailLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailLayout.swift; sourceTree = "<group>"; };
 		9EC3A6CD2604D76A001FBCA4 /* CourseDetailDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailDatasource.swift; sourceTree = "<group>"; };
+		9EC7FFC5269915B300715F86 /* ColorAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorAssets.xcassets; sourceTree = "<group>"; };
 		9EC7FFCB26991CB800715F86 /* ListBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBuilder.swift; sourceTree = "<group>"; };
 		9EC88E09260CCB5C0057EBEE /* LocationSelectButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectButtonState.swift; sourceTree = "<group>"; };
 		9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1198,6 +1200,7 @@
 			children = (
 				9E845AD925ADEA6A00EC3BE6 /* Resouces.swift */,
 				9E5CEFD425277B26001C95AA /* Assets.xcassets */,
+				9EC7FFC5269915B300715F86 /* ColorAssets.xcassets */,
 				9E98D548255300B900EC5AC1 /* ColorPallet.swift */,
 				9E5C5E362555144000D00087 /* Images.swift */,
 				9E845AD425ADEA3300EC3BE6 /* Const */,
@@ -1757,6 +1760,7 @@
 				9E6D9171261AEB82006E2297 /* ZoomImageViewController.storyboard in Resources */,
 				9E78129E26199DA700CAC539 /* UserView.xib in Resources */,
 				9E5CEFD525277B26001C95AA /* Assets.xcassets in Resources */,
+				9EC7FFC6269915B300715F86 /* ColorAssets.xcassets in Resources */,
 				9E0BE3DA2607949E00576869 /* ClimbedNumberCollectionViewCell.xib in Resources */,
 				9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */,
 				9E9845F625D5418C00B03C4E /* RockHeaderCollectionViewCell.xib in Resources */,
