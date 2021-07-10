@@ -79,7 +79,7 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
 
                 guard let self = self else { return }
 
-                self.snapShot.appendItems([.title("🪨 " + title)], toSection: .title)
+                self.snapShot.appendItems([.title(title)], toSection: .title)
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
