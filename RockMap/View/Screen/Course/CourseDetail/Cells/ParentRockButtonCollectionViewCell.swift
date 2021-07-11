@@ -9,6 +9,8 @@ import UIKit
 
 class ParentRockButtonCollectionViewCell: UICollectionViewCell {
 
+    let stackView = UIStackView()
+    let iconImageView = UIImageView()
     let rockButton = UIButton()
 
     override init(frame: CGRect) {
@@ -22,24 +24,38 @@ class ParentRockButtonCollectionViewCell: UICollectionViewCell {
     }
 
     private func setupLayout() {
+
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        contentView.addSubview(stackView)
+        NSLayoutConstraint.build {
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor)
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+        }
+
+        iconImageView.tintColor = .black
+        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        iconImageView.contentMode = .scaleAspectFit
+        iconImageView.image = UIImage.AssetsImages.rockFill
+        stackView.addArrangedSubview(iconImageView)
+        NSLayoutConstraint.build {
+            iconImageView.heightAnchor.constraint(equalToConstant: 24)
+            iconImageView.widthAnchor.constraint(equalToConstant: 36)
+        }
+
         rockButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
         rockButton.setTitleColor(.black, for: .normal)
-        rockButton.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(rockButton)
-
-        NSLayoutConstraint.activate([
-            rockButton.topAnchor.constraint(equalTo: contentView.topAnchor),
-            rockButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            rockButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            rockButton.rightAnchor.constraint(equalTo: contentView.rightAnchor)
-        ])
+        stackView.addArrangedSubview(rockButton)
     }
 
     func configure(
         title: String,
         didTap: @escaping () -> Void
     ) {
-        rockButton.setTitle("🪨 " + title, for: .normal)
+        rockButton.setTitle(title, for: .normal)
         rockButton.addAction(
             .init { _ in didTap() },
             for: .touchUpInside

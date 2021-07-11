@@ -47,7 +47,7 @@ extension CourseDetailViewController {
                 case .parentRock:
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(
-                            widthDimension: .estimated(98),
+                            widthDimension: .estimated(120),
                             heightDimension: .absolute(24)
                         )
                     )

@@ -166,7 +166,7 @@ extension RockDetailViewController {
         String
     > {
         .init { cell, _, title in
-            cell.configure(title: title)
+            cell.configure(icon: UIImage.AssetsImages.rockFill, title: title)
         }
     }
     

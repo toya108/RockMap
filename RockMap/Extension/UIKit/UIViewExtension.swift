@@ -41,5 +41,15 @@ extension UIView {
         layer.shadowRadius = Resources.Const.UI.Shadow.radius
         layer.shadowOpacity = 0.3
     }
+
 }
 
+extension NSLayoutConstraint {
+
+    static func build(
+        @ListBuilder<NSLayoutConstraint> builder: () -> [NSLayoutConstraint]
+    ) {
+        Self.activate(builder())
+    }
+
+}

@@ -9,6 +9,7 @@ import UIKit
 
 class ListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var mainImageView: UIImageView!
+    @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var firstLabel: UILabel!
     @IBOutlet weak var secondLabel: UILabel!
@@ -18,10 +19,12 @@ class ListCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
 
         mainImageView.layer.cornerRadius = 8
+        iconImageView.tintColor = .black
     }
 
     func configure(
         imageUrl: URL?,
+        iconImage: UIImage? = nil,
         title: String,
         first: String?,
         second: String?,
@@ -29,6 +32,13 @@ class ListCollectionViewCell: UICollectionViewCell {
     ) {
         mainImageView.loadImage(url: imageUrl)
         titleLabel.text = title
+
+        if let iconImage = iconImage {
+            iconImageView.image = iconImage
+            iconImageView.isHidden = false
+        } else {
+            iconImageView.isHidden = true
+        }
 
         if let first = first {
             firstLabel.text = first

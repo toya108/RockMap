@@ -43,7 +43,8 @@ extension CourseListViewController {
                     ) { cell, _, _ in
                         cell.configure(
                             imageUrl: course.headerUrl,
-                            title: "📜 " + course.name + " " + course.grade.name,
+                            iconImage: UIImage.SystemImages.docPlaintextFill,
+                            title: course.name + " " + course.grade.name,
                             first: "登録日: " + course.createdAt.string(dateStyle: .medium),
                             second: "岩名: " + course.parentRockName,
                             third: course.desc
