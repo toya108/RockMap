@@ -31,7 +31,7 @@ class CourseCollectionViewCell: UICollectionViewCell {
         course: FIDocument.Course,
         parentVc: UIViewController
     ) {
-        courseNameLabel.text = "📜 " + course.name + course.grade.name
+        courseNameLabel.text = course.name + course.grade.name
         courseImageView.loadImage(url: course.headerUrl)
 
         FirestoreManager.db
