@@ -72,7 +72,8 @@ extension PickerManager: PHPickerViewControllerDelegate {
                     case .none = error,
                     let self = self,
                     let image = providerReading as? UIImage,
-                    let data = image.jpegData(compressionQuality: 1)
+                    let resizedImage = self.resizeImage(image: image),
+                    let data = resizedImage.jpegData(compressionQuality: 1)
                 else {
                     return
                 }
@@ -83,6 +84,32 @@ extension PickerManager: PHPickerViewControllerDelegate {
                 )
             }
         }
+    }
+
+    private func resizeImage(
+        image: UIImage,
+        targetSize: CGSize = CGSize(width: 600, height: 600)
+    ) -> UIImage? {
+        let size = image.size
+
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+
+        let newSize: CGSize = {
+            let size = widthRatio > heightRatio
+                ? CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+                : CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
+            return size
+        }()
+
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage
     }
 }
 
