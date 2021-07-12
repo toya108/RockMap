@@ -435,6 +435,8 @@
 		9EC3A6CD2604D76A001FBCA4 /* CourseDetailDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailDatasource.swift; sourceTree = "<group>"; };
 		9EC7FFC5269915B300715F86 /* ColorAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorAssets.xcassets; sourceTree = "<group>"; };
 		9EC7FFCB26991CB800715F86 /* ListBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBuilder.swift; sourceTree = "<group>"; };
+		9EC7FFCD269BCC7900715F86 /* RockMapDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RockMapDebug.entitlements; sourceTree = "<group>"; };
+		9EC7FFCE269BCDB500715F86 /* RockMap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RockMap.entitlements; sourceTree = "<group>"; };
 		9EC88E09260CCB5C0057EBEE /* LocationSelectButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectButtonState.swift; sourceTree = "<group>"; };
 		9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradeSelectingCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -796,6 +798,8 @@
 		9E5CEFCA25277B25001C95AA /* RockMap */ = {
 			isa = PBXGroup;
 			children = (
+				9EC7FFCE269BCDB500715F86 /* RockMap.entitlements */,
+				9EC7FFCD269BCC7900715F86 /* RockMapDebug.entitlements */,
 				9E98D5472553009100EC5AC1 /* Resources */,
 				9EB00BD2262976AF00379182 /* Protocol */,
 				9E04B1AA254BA9720097DA8E /* Extension */,
@@ -2345,6 +2349,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RockMap/RockMapDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2368,6 +2373,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = RockMap/RockMap.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = JXYB4XKM6U;
