@@ -78,7 +78,6 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             .assign(to: &output.$rockLocation)
 
         input.selectSeasonSubject
-            .removeDuplicates()
             .sink { [weak self] in
 
                 guard let self = self else { return }
