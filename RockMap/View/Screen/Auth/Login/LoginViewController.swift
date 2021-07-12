@@ -40,12 +40,12 @@ final class LoginViewController: UIViewController {
 
     @IBAction func didTermsButtonTapped(_ sender: UIButton) {
         let vc = SFSafariViewController(url: Resources.Const.Url.terms)
-        navigationController?.present(vc, animated: true)
+        self.present(vc, animated: true)
     }
 
     @IBAction func didPrivacyPolicyButtonTapped(_ sender: UIButton) {
         let vc = SFSafariViewController(url: Resources.Const.Url.privacyPolicy)
-        navigationController?.present(vc, animated: true)
+        self.present(vc, animated: true)
     }
 
     private func setupLayout() {
