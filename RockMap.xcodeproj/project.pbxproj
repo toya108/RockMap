@@ -1435,13 +1435,13 @@
 		9EB7DB9C266FD43B003B0041 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
-				9E34C90A25B09A4F005EBE07 /* Debug */,
 				9E80E90A265D3DF1000D33F6 /* User */,
 				9E80E909265D3964000D33F6 /* Course */,
 				9E80E908265D3945000D33F6 /* Rock */,
 				9E04B1A9254BA94C0097DA8E /* Search */,
 				9E80E90C265D3E28000D33F6 /* ClimbRecord */,
 				9E033F552577F6CD00A669F8 /* Auth */,
+				9E34C90A25B09A4F005EBE07 /* Debug */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
