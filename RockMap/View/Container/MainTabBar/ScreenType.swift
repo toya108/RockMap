@@ -12,7 +12,7 @@ import UIKit
 enum ScreenType: CaseIterable {
     case rockSearch
     case myPage
-    #if !RELEASE
+    #if DEBUG
     case debug
     #endif
     
@@ -32,7 +32,7 @@ enum ScreenType: CaseIterable {
                 naviBarClass: RockMapNavigationBar.self
             )
             
-        #if !RELEASE
+        #if DEBUG
         case .debug:
             return DebugViewController()
         #endif
@@ -48,7 +48,7 @@ enum ScreenType: CaseIterable {
         case .myPage:
             return "マイページ"
             
-        #if !RELEASE
+        #if DEBUG
         case .debug:
             return "debug"
         #endif
@@ -65,7 +65,7 @@ enum ScreenType: CaseIterable {
             let image = UIImage.SystemImages.personCircle.withTintColor(.white, renderingMode: .alwaysOriginal)
             return image
 
-        #if !RELEASE
+        #if DEBUG
         case .debug:
             return nil
         #endif
@@ -82,7 +82,7 @@ enum ScreenType: CaseIterable {
             let image = UIImage.SystemImages.personCircleFill.withTintColor(.white, renderingMode: .alwaysOriginal)
             return image
         
-        #if !RELEASE
+        #if DEBUG
         case .debug:
             return nil
         #endif
