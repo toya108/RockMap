@@ -1,3 +1,5 @@
+#if DEBUG
+
 //
 //  DebugViewController.swift
 //  RockMap
@@ -88,3 +90,5 @@ extension DebugViewController: UITableViewDelegate, UITableViewDataSource {
     
     
 }
+
+#endif
