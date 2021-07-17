@@ -1,37 +1,37 @@
 {
   "images" : [
     {
-      "filename" : "40*40.png",
+      "filename" : "appicon-Small-40.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "名称未設定のアートワーク 2.jpg",
+      "filename" : "appicon-Small-60.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "20x20"
     },
     {
-      "filename" : "名称未設定のアートワーク 2-1.jpg",
+      "filename" : "appicon-Small-58.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "名称未設定のアートワーク 2のコピー2-4.jpg",
+      "filename" : "appicon-Small-87.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "29x29"
     },
     {
-      "filename" : "名称未設定のアートワーク 2のコピー2-6.jpg",
+      "filename" : "appicon-Small-40@2x.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "名称未設定のアートワーク 2のコピー2-3.jpg",
+      "filename" : "appicon-Small-40@3x.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
@@ -43,31 +43,31 @@
       "size" : "60x60"
     },
     {
-      "filename" : "名称未設定のアートワーク 2のコピー4.jpg",
+      "filename" : "appicon-Small-180.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
     },
     {
-      "filename" : "名称未設定のアートワーク 2のコピー2-9.jpg",
+      "filename" : "appicon-Small-20.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
     },
     {
-      "filename" : "名称未設定のアートワーク 2-3.jpg",
+      "filename" : "appicon-Small-41.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "名称未設定のアートワーク 2のコピー2-8.jpg",
+      "filename" : "appicon-Small.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "29x29"
     },
     {
-      "filename" : "名称未設定のアートワーク 2-2.jpg",
+      "filename" : "appicon-Small@2x.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "29x29"
@@ -79,31 +79,31 @@
       "size" : "40x40"
     },
     {
-      "filename" : "名称未設定のアートワーク 2のコピー2-5.jpg",
+      "filename" : "appicon-Small-40@2x-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "名称未設定のアートワーク 2のコピー2-7.jpg",
+      "filename" : "appicon-Small-76.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
     },
     {
-      "filename" : "名称未設定のアートワーク 2のコピー2-2.jpg",
+      "filename" : "appicon-Small-76@2x.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
-      "filename" : "名称未設定のアートワーク 2のコピー2-1.jpg",
+      "filename" : "appicon-Small-167.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "名称未設定のアートワーク 2のコピー2.jpg",
+      "filename" : "1024*1024.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
