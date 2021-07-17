@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="GJl-uh-3Jm" customClass="LocationSelectCollectionViewCell" customModule="RockMap" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="190"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="BjB-KN-h13">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="190"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hia-DW-UdW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="190"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1EI-Ee-lIb">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="東京都青梅市" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6V-ds-eEL" userLabel="RockAddressLabel">
+                                        <rect key="frame" x="0.0" y="0.0" width="336" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3qs-tC-IMx">
+                                        <rect key="frame" x="344" y="0.0" width="70" height="44"/>
+                                        <color key="backgroundColor" name="primaryGreenColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="contentEdgeInsets" minX="4" minY="8" maxX="4" maxY="8"/>
+                                        <state key="normal" title="現在地" image="mappin.and.ellipse" catalog="system"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VdN-Nl-mtE">
+                                <rect key="frame" x="0.0" y="52" width="414" height="138"/>
+                                <subviews>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="DnB-L8-Ibm">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="138"/>
+                                    </mapView>
+                                    <view alpha="0.44999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kgP-7O-K8M" userLabel="blurView">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="138"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="txy-kL-wXg">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="138"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="地図から位置を選択"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="DnB-L8-Ibm" secondAttribute="bottom" id="13h-WY-tBr"/>
+                                    <constraint firstItem="kgP-7O-K8M" firstAttribute="top" secondItem="VdN-Nl-mtE" secondAttribute="top" id="1na-JJ-vPI"/>
+                                    <constraint firstItem="DnB-L8-Ibm" firstAttribute="top" secondItem="VdN-Nl-mtE" secondAttribute="top" id="7bw-5O-wa9"/>
+                                    <constraint firstItem="txy-kL-wXg" firstAttribute="top" secondItem="VdN-Nl-mtE" secondAttribute="top" id="A70-uW-S6G"/>
+                                    <constraint firstItem="kgP-7O-K8M" firstAttribute="leading" secondItem="VdN-Nl-mtE" secondAttribute="leading" id="KHg-U1-Zhp"/>
+                                    <constraint firstAttribute="trailing" secondItem="txy-kL-wXg" secondAttribute="trailing" id="SFL-OT-QpE"/>
+                                    <constraint firstItem="DnB-L8-Ibm" firstAttribute="leading" secondItem="VdN-Nl-mtE" secondAttribute="leading" id="XDU-z2-aCX"/>
+                                    <constraint firstAttribute="width" secondItem="VdN-Nl-mtE" secondAttribute="height" multiplier="3:1" id="fFy-jf-AxP"/>
+                                    <constraint firstItem="txy-kL-wXg" firstAttribute="leading" secondItem="VdN-Nl-mtE" secondAttribute="leading" id="jux-i7-mYe"/>
+                                    <constraint firstAttribute="bottom" secondItem="kgP-7O-K8M" secondAttribute="bottom" id="qV8-0m-Xsz"/>
+                                    <constraint firstAttribute="trailing" secondItem="DnB-L8-Ibm" secondAttribute="trailing" id="tL0-fY-3JB"/>
+                                    <constraint firstAttribute="bottom" secondItem="txy-kL-wXg" secondAttribute="bottom" id="xIq-t8-B4k"/>
+                                    <constraint firstAttribute="trailing" secondItem="kgP-7O-K8M" secondAttribute="trailing" id="zxt-Ma-OXG"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hia-DW-UdW" firstAttribute="top" secondItem="BjB-KN-h13" secondAttribute="top" id="6EN-Rm-Tbv"/>
+                    <constraint firstAttribute="trailing" secondItem="hia-DW-UdW" secondAttribute="trailing" id="BhM-cO-hyv"/>
+                    <constraint firstAttribute="bottom" secondItem="hia-DW-UdW" secondAttribute="bottom" id="oOc-vk-HjW"/>
+                    <constraint firstItem="hia-DW-UdW" firstAttribute="leading" secondItem="BjB-KN-h13" secondAttribute="leading" id="uKx-lF-ej3"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="273" height="151"/>
+            <connections>
+                <outlet property="addressLabel" destination="c6V-ds-eEL" id="0RB-4f-Fp8"/>
+                <outlet property="currentAddressButton" destination="3qs-tC-IMx" id="OgN-Uq-t21"/>
+                <outlet property="mapBaseView" destination="VdN-Nl-mtE" id="NE3-ub-W60"/>
+                <outlet property="mapView" destination="DnB-L8-Ibm" id="WQ9-v7-9OM"/>
+                <outlet property="selectLocationButton" destination="txy-kL-wXg" id="lMG-7V-AmV"/>
+            </connections>
+            <point key="canvasLocation" x="-239.13043478260872" y="184.15178571428569"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
+        <namedColor name="primaryGreenColor">
+            <color red="0.016000000759959221" green="0.74900001287460327" blue="0.75700002908706665" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
