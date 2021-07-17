@@ -10,9 +10,8 @@ RockMap is a map app that allows you to share Boulder and its courses.
 <img src="https://user-images.githubusercontent.com/44093643/125480678-a3cc1762-1beb-4e9f-b98e-a603a3aabc39.PNG" width="250">
 <img src="https://user-images.githubusercontent.com/44093643/125480918-ae6ce164-6b50-4fa8-baa3-0464440d63fd.PNG" width="250">
 
-
-## Development Status
-This app is now developing for release...
+## App Store link
+https://apps.apple.com/jp/app/rockmap/id1576276950
 
 ## Feature
 * Login(using FirebaseUI)
