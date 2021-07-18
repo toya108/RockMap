@@ -27,8 +27,9 @@ class RockSearchViewModel: ViewModelProtocol {
         $location
             .compactMap { $0 }
             .flatMap { LocationManager.shared.reverseGeocoding(location: $0) }
-            .catch { _ -> Just<CLPlacemark> in
-                return .init(.init())
+            .catch { error -> Empty in
+                print(error)
+                return Empty()
             }
             .map(\.address)
             .map { Optional($0) }
