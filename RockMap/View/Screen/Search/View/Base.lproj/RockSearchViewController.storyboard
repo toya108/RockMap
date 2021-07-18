@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="i5d-oh-wSZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="i5d-oh-wSZ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -71,6 +71,10 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <searchBar contentMode="redraw" text="" translatesAutoresizingMaskIntoConstraints="NO" id="R4y-fK-nDT">
+                                <rect key="frame" x="0.0" y="44" width="414" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="FBk-H5-d3c"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -78,7 +82,10 @@
                             <constraint firstItem="FBk-H5-d3c" firstAttribute="trailing" secondItem="VFy-rZ-63K" secondAttribute="trailing" id="52C-gg-tD5"/>
                             <constraint firstItem="Yo7-GV-UOO" firstAttribute="leading" secondItem="FBk-H5-d3c" secondAttribute="leading" id="8v4-LO-3R3"/>
                             <constraint firstItem="FBk-H5-d3c" firstAttribute="trailing" secondItem="Ndg-HL-HfF" secondAttribute="trailing" constant="16" id="9jr-Rs-xhJ"/>
+                            <constraint firstItem="R4y-fK-nDT" firstAttribute="leading" secondItem="FBk-H5-d3c" secondAttribute="leading" id="9pi-HN-cID"/>
+                            <constraint firstItem="FBk-H5-d3c" firstAttribute="trailing" secondItem="R4y-fK-nDT" secondAttribute="trailing" id="BQP-1Q-bcM"/>
                             <constraint firstItem="VFy-rZ-63K" firstAttribute="leading" secondItem="FBk-H5-d3c" secondAttribute="leading" id="G0v-xs-jyf"/>
+                            <constraint firstItem="R4y-fK-nDT" firstAttribute="top" secondItem="FBk-H5-d3c" secondAttribute="top" id="Ntc-yK-Ula"/>
                             <constraint firstItem="VFy-rZ-63K" firstAttribute="top" secondItem="Yo7-GV-UOO" secondAttribute="bottom" id="ere-sM-rYv"/>
                             <constraint firstItem="VFy-rZ-63K" firstAttribute="top" secondItem="Ndg-HL-HfF" secondAttribute="bottom" constant="16" id="sBP-aL-pkV"/>
                             <constraint firstItem="Yo7-GV-UOO" firstAttribute="top" secondItem="Zpy-Qi-fxf" secondAttribute="top" id="v03-Bi-uSk"/>
@@ -93,6 +100,7 @@
                         <outlet property="addressLabel" destination="JTC-Rm-SA6" id="bot-v6-kdr"/>
                         <outlet property="buttonStackView" destination="Ndg-HL-HfF" id="Jdz-Wt-hb2"/>
                         <outlet property="mapView" destination="Yo7-GV-UOO" id="UXg-Uk-f2w"/>
+                        <outlet property="searchBar" destination="R4y-fK-nDT" id="myw-xX-o3U"/>
                         <outlet property="selectLocationButton" destination="6YK-ce-4Le" id="eKj-7a-ddD"/>
                     </connections>
                 </viewController>
