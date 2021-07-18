@@ -21,6 +21,7 @@ final class RockSearchViewController: UIViewController {
     @IBOutlet weak var addressBaseView: UIView!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var addressBaseViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchBar: UISearchBar!
     private let floatingPanelVc = FloatingPanelController()
 
     private lazy var trackingButton: MKUserTrackingButton = {
@@ -52,6 +53,7 @@ final class RockSearchViewController: UIViewController {
         setupLayout()
         setupBindings()
         setupMapView()
+        setupSearchBar()
         setupFloatingPanel()
         updateLocation(LocationManager.shared.location)
         setupLongPressGesture()
@@ -66,16 +68,20 @@ final class RockSearchViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: false)
         viewModel.locationSelectState = .standby
     }
-    
+
     private func setupNavigationBar() {
-        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.prefersLargeTitles = false
-        
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
-        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
+    private func setupSearchBar() {
+        searchBar.delegate = self
+        searchBar.backgroundImage = UIImage()
+        searchBar.searchTextField.backgroundColor = .white
+        searchBar.placeholder = "地名を入力"
+        searchBar.addShadow()
     }
     
     private func setupLayout() {
@@ -446,4 +452,27 @@ extension RockSearchViewController: RockRegisterDetectableViewControllerProtocol
         viewModel.fetchRockList()
     }
 
+}
+
+extension RockSearchViewController: UISearchBarDelegate {
+
+    func searchBar(
+        _ searchBar: UISearchBar,
+        textDidChange searchText: String
+    ) {
+        LocationManager.shared
+            .geocoding(address: searchText)
+            .removeDuplicates()
+            .catch { error -> Empty in
+                print(error)
+                return Empty()
+            }
+            .sink { [weak self] location in
+
+                guard let self = self else { return }
+
+                self.updateLocation(location)
+            }
+            .store(in: &bindings)
+    }
 }
