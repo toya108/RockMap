@@ -36,8 +36,9 @@ final class RockDetailViewModel: ViewModelProtocol {
             .collection(FIDocument.User.colletionName)
             .document(rock.registeredUserId)
             .getDocument(FIDocument.User.self)
-            .catch { _ -> Just<FIDocument.User?> in
-                return .init(nil)
+            .catch { error -> Empty in
+                print(error)
+                return Empty()
             }
             .assign(to: &$registeredUser)
 
