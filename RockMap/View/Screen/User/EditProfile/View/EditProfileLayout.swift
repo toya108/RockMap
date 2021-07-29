@@ -57,7 +57,10 @@ extension EditProfileViewController {
                 case .socialLink:
                     var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
                     configuration.showsSeparators = false
-                    section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: env)
+                    section = NSCollectionLayoutSection.list(
+                        using: configuration,
+                        layoutEnvironment: env
+                    )
                     section.interGroupSpacing = 16
                     section.contentInsets.bottom = 12
 
@@ -105,7 +108,9 @@ extension EditProfileViewController {
                 section.boundarySupplementaryItems = [sectionHeader]
             }
 
-            let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundDecorationView.className)
+            let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(
+                elementKind: SectionBackgroundDecorationView.className
+            )
             section.decorationItems = [sectionBackgroundDecoration]
             section.contentInsetsReference = .layoutMargins
 
