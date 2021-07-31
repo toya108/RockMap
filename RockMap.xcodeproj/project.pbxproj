@@ -93,6 +93,7 @@
 		9E612BEF2588AFC000B2998A /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E612BEE2588AFC000B2998A /* Map.swift */; };
 		9E613ABC25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E613ABB25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift */; };
 		9E623688258A662B00152AF9 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E623687258A662B00152AF9 /* StorageManager.swift */; };
+		9E64FCFA26B59437005984F6 /* Data in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FCF926B59437005984F6 /* Data */; };
 		9E6C40BF2614779100F010BE /* RockConfirmRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C40BE2614779100F010BE /* RockConfirmRouter.swift */; };
 		9E6C40D02614D0DA00F010BE /* ActivityIndicatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C40CF2614D0DA00F010BE /* ActivityIndicatorOverlay.swift */; };
 		9E6CF41C25CF10570098389E /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CF41B25CF10570098389E /* TitleSupplementaryView.swift */; };
@@ -490,6 +491,7 @@
 			files = (
 				9ED40FC726631B5C00A8D0AC /* FloatingPanel in Frameworks */,
 				90862925AE716E43169D5A87 /* Pods_RockMap.framework in Frameworks */,
+				9E64FCFA26B59437005984F6 /* Data in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1656,6 +1658,7 @@
 			name = RockMap;
 			packageProductDependencies = (
 				9ED40FC626631B5C00A8D0AC /* FloatingPanel */,
+				9E64FCF926B59437005984F6 /* Data */,
 			);
 			productName = RockMap;
 			productReference = 9E5CEFC825277B25001C95AA /* RockMap.app */;
@@ -2533,6 +2536,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9E64FCF926B59437005984F6 /* Data */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Data;
+		};
 		9ED40FC626631B5C00A8D0AC /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9ED40FC526631B5C00A8D0AC /* XCRemoteSwiftPackageReference "FloatingPanel" */;
