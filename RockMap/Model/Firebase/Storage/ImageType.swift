@@ -2,7 +2,7 @@
 //  ImageType.swift
 //  RockMap
 //
-//  Created by TOUYA KAWANO on 2021/03/29.
+//  Created by TOUYA KAWANO on 2021/07/27.
 //
 
 import Foundation
@@ -16,7 +16,7 @@ enum ImageType {
         switch self {
             case .header, .icon:
                 return 1
-                
+
             default:
                 return 10
         }
@@ -34,9 +34,4 @@ enum ImageType {
                 return "icon"
         }
     }
-}
-
-struct ImageURL {
-    let imageType: ImageType
-    let urls: [URL]
 }

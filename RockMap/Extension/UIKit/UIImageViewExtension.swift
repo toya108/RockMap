@@ -57,6 +57,19 @@ extension UIImageView {
         }
     }
 
+    func loadImage(
+        imageLoadable: ImageLoadable
+    ) {
+        switch imageLoadable {
+            case .url(let url):
+                loadImage(url: url)
+
+            case .storage(let storage):
+                loadImage(reference: storage)
+        }
+
+    }
+
 }
 
 extension UIButton {
