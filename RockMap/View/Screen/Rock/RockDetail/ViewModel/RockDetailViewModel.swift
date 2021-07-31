@@ -17,8 +17,8 @@ final class RockDetailViewModel: ViewModelProtocol {
     @Published var seasons: Set<FIDocument.Rock.Season> = []
     @Published var lithology: FIDocument.Rock.Lithology = .unKnown
     @Published var rockLocation = LocationManager.LocationStructure()
-    @Published var headerImageUrl: URL?
-    @Published var imageUrls: [URL] = []
+    @Published var headerImage: ImageLoadable?
+    @Published var images: [ImageLoadable] = []
     @Published var courses: [FIDocument.Course] = []
 
     private var bindings = Set<AnyCancellable>()
@@ -29,8 +29,7 @@ final class RockDetailViewModel: ViewModelProtocol {
         self.rockName = rock.name
         self.rockId = rock.id
         self.rockDesc = rock.desc
-        self.headerImageUrl = rock.headerUrl
-        self.imageUrls = rock.imageUrls
+        setImage(rock: rock)
 
         FirestoreManager.db
             .collection(FIDocument.User.colletionName)
@@ -66,6 +65,60 @@ final class RockDetailViewModel: ViewModelProtocol {
             }
             .map { $0.sorted { $0.createdAt > $1.createdAt } }
             .assign(to: &$courses)
+    }
+
+    private func setImage(rock: FIDocument.Rock) {
+        setHeaderStorage(rock: rock)
+        setStorages(rock: rock)
+    }
+
+    private func setHeaderStorage(rock: FIDocument.Rock) {
+
+        if let headerUrl = rock.headerUrl {
+            self.headerImage = .url(headerUrl)
+            return
+        }
+
+        StorageManager.getReference(
+            destinationDocument: FINameSpace.Rocks.self,
+            documentId: rock.id,
+            imageType: .header
+        )
+        .catch { error -> Empty in
+            print(error.localizedDescription)
+            return Empty()
+        }
+        .compactMap { $0 }
+        .map { ImageLoadable.storage($0) }
+        .assign(to: &$headerImage)
+    }
+
+    private func setStorages(rock: FIDocument.Rock) {
+
+        guard rock.imageUrls.isEmpty else {
+            self.images = rock.imageUrls.map { .url($0) }
+            return
+        }
+
+        StorageManager
+            .getNormalImagePrefixes(
+                destinationDocument: FINameSpace.Rocks.self,
+                documentId: rock.id
+            )
+            .catch { error -> Empty in
+                print(error)
+                return Empty()
+            }
+            .flatMap {
+                $0.getReferences().catch { error -> Empty in
+                    print(error)
+                    return Empty()
+                }
+            }
+            .map {
+                $0.map { ImageLoadable.storage($0) }
+            }
+            .assign(to: &$images)
     }
 
 }

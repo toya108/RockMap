@@ -84,30 +84,30 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
             }
             .store(in: &bindings)
         
-        viewModel.$headerImageUrl
+        viewModel.$headerImage
             .compactMap { $0 }
             .receive(on: RunLoop.main)
-            .sink { [weak self] reference in
+            .sink { [weak self] loadable in
                 
                 guard let self = self else { return }
 
-                self.snapShot.appendItems([.header(reference)], toSection: .header)
+                self.snapShot.appendItems([.header(loadable)], toSection: .header)
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &bindings)
 
-        viewModel.$imageUrls
+        viewModel.$images
             .receive(on: RunLoop.main)
-            .sink { [weak self] references in
+            .sink { [weak self] loadables in
 
                 guard let self = self else { return }
 
                 self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .images))
 
-                if references.isEmpty {
+                if loadables.isEmpty {
                     self.snapShot.appendItems([.noImage], toSection: .images)
                 } else {
-                    self.snapShot.appendItems(references.map { ItemKind.image($0) }, toSection: .images)
+                    self.snapShot.appendItems(loadables.map { ItemKind.image($0) }, toSection: .images)
                 }
 
                 self.datasource.apply(self.snapShot)
