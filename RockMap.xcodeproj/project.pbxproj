@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		90862925AE716E43169D5A87 /* Pods_RockMap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DACC89F758D48EDA36FCE2 /* Pods_RockMap.framework */; };
 		9E010E0025D0539F00A4C336 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E010DFF25D0539F00A4C336 /* Course.swift */; };
 		9E016FBC252CD0C600C2B85C /* GoogleService-Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E016FBB252CD0C600C2B85C /* GoogleService-Info-dev.plist */; };
 		9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */; };
@@ -93,6 +92,17 @@
 		9E612BEF2588AFC000B2998A /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E612BEE2588AFC000B2998A /* Map.swift */; };
 		9E613ABC25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E613ABB25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift */; };
 		9E623688258A662B00152AF9 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E623687258A662B00152AF9 /* StorageManager.swift */; };
+		9E64FCFD26B59A82005984F6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FCFC26B59A82005984F6 /* FirebaseAnalytics */; };
+		9E64FCFF26B59A82005984F6 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FCFE26B59A82005984F6 /* FirebaseRemoteConfig */; };
+		9E64FD0126B59A82005984F6 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0026B59A82005984F6 /* FirebaseStorage */; };
+		9E64FD0326B59A82005984F6 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0226B59A82005984F6 /* FirebaseCrashlytics */; };
+		9E64FD0526B59A82005984F6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0426B59A82005984F6 /* FirebaseFirestore */; };
+		9E64FD0726B59A82005984F6 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0626B59A82005984F6 /* FirebaseFirestoreSwift-Beta */; };
+		9E64FD0A26B59B3A005984F6 /* FirebaseAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0926B59B3A005984F6 /* FirebaseAuthUI */; };
+		9E64FD0C26B59B3A005984F6 /* FirebaseOAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0B26B59B3A005984F6 /* FirebaseOAuthUI */; };
+		9E64FD0E26B59B3A005984F6 /* FirebaseGoogleAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0D26B59B3A005984F6 /* FirebaseGoogleAuthUI */; };
+		9E64FD1026B59B3A005984F6 /* FirebaseEmailAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0F26B59B3A005984F6 /* FirebaseEmailAuthUI */; };
+		9E64FD1326B59F38005984F6 /* FirebaseStorageUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD1226B59F38005984F6 /* FirebaseStorageUI */; };
 		9E6C40BF2614779100F010BE /* RockConfirmRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C40BE2614779100F010BE /* RockConfirmRouter.swift */; };
 		9E6C40D02614D0DA00F010BE /* ActivityIndicatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C40CF2614D0DA00F010BE /* ActivityIndicatorOverlay.swift */; };
 		9E6CF41C25CF10570098389E /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CF41B25CF10570098389E /* TitleSupplementaryView.swift */; };
@@ -225,8 +235,6 @@
 		9EFEE45E25F79EE6004BFE34 /* NoCoursesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFEE45C25F79EE6004BFE34 /* NoCoursesCollectionViewCell.xib */; };
 		9EFEF88325E004A300007AD6 /* DeletableImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFEF88225E004A300007AD6 /* DeletableImageCollectionViewCell.swift */; };
 		9EFEF88825E09C8100007AD6 /* IdentifiableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFEF88725E09C8100007AD6 /* IdentifiableData.swift */; };
-		CBAA747075FB127921468843 /* Pods_RockMap_RockMapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A93FA2E5F3CDDBEBF4F2E874 /* Pods_RockMap_RockMapUITests.framework */; };
-		D051CF7A0BF4DCADA4166E23 /* Pods_RockMapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B162A0516FABFE35E4E0955 /* Pods_RockMapTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -247,12 +255,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0B162A0516FABFE35E4E0955 /* Pods_RockMapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RockMapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		226B19A86CFEA83B2FE2AE84 /* Pods-RockMapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMapTests.debug.xcconfig"; path = "Target Support Files/Pods-RockMapTests/Pods-RockMapTests.debug.xcconfig"; sourceTree = "<group>"; };
-		45DACC89F758D48EDA36FCE2 /* Pods_RockMap.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RockMap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		615CD656AF40477A302876F6 /* Pods-RockMapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMapTests.release.xcconfig"; path = "Target Support Files/Pods-RockMapTests/Pods-RockMapTests.release.xcconfig"; sourceTree = "<group>"; };
-		6A8D4469AB6661D2935D7507 /* Pods-RockMap-RockMapUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMap-RockMapUITests.debug.xcconfig"; path = "Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		6AE5AF1B695E4C4FAA592CE0 /* Pods-RockMap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMap.debug.xcconfig"; path = "Target Support Files/Pods-RockMap/Pods-RockMap.debug.xcconfig"; sourceTree = "<group>"; };
 		9E010DFF25D0539F00A4C336 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		9E016FBB252CD0C600C2B85C /* GoogleService-Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-dev.plist"; sourceTree = "<group>"; };
 		9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidator.swift; sourceTree = "<group>"; };
@@ -477,9 +479,6 @@
 		9EFEE45C25F79EE6004BFE34 /* NoCoursesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoCoursesCollectionViewCell.xib; sourceTree = "<group>"; };
 		9EFEF88225E004A300007AD6 /* DeletableImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletableImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EFEF88725E09C8100007AD6 /* IdentifiableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableData.swift; sourceTree = "<group>"; };
-		A93FA2E5F3CDDBEBF4F2E874 /* Pods_RockMap_RockMapUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RockMap_RockMapUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BFEBD1C114864D80199A2EE9 /* Pods-RockMap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMap.release.xcconfig"; path = "Target Support Files/Pods-RockMap/Pods-RockMap.release.xcconfig"; sourceTree = "<group>"; };
-		FD02BC156288B927B18F0B8C /* Pods-RockMap-RockMapUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RockMap-RockMapUITests.release.xcconfig"; path = "Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -487,8 +486,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E64FD0E26B59B3A005984F6 /* FirebaseGoogleAuthUI in Frameworks */,
+				9E64FCFF26B59A82005984F6 /* FirebaseRemoteConfig in Frameworks */,
+				9E64FD0126B59A82005984F6 /* FirebaseStorage in Frameworks */,
+				9E64FD0726B59A82005984F6 /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				9E64FD0326B59A82005984F6 /* FirebaseCrashlytics in Frameworks */,
+				9E64FD1326B59F38005984F6 /* FirebaseStorageUI in Frameworks */,
+				9E64FD1026B59B3A005984F6 /* FirebaseEmailAuthUI in Frameworks */,
+				9E64FCFD26B59A82005984F6 /* FirebaseAnalytics in Frameworks */,
 				9ED40FC726631B5C00A8D0AC /* FloatingPanel in Frameworks */,
-				90862925AE716E43169D5A87 /* Pods_RockMap.framework in Frameworks */,
+				9E64FD0526B59A82005984F6 /* FirebaseFirestore in Frameworks */,
+				9E64FD0C26B59B3A005984F6 /* FirebaseOAuthUI in Frameworks */,
+				9E64FD0A26B59B3A005984F6 /* FirebaseAuthUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,7 +505,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D051CF7A0BF4DCADA4166E23 /* Pods_RockMapTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,26 +512,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBAA747075FB127921468843 /* Pods_RockMap_RockMapUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2241C9A5B89420BB4FEBC0BA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				6AE5AF1B695E4C4FAA592CE0 /* Pods-RockMap.debug.xcconfig */,
-				BFEBD1C114864D80199A2EE9 /* Pods-RockMap.release.xcconfig */,
-				6A8D4469AB6661D2935D7507 /* Pods-RockMap-RockMapUITests.debug.xcconfig */,
-				FD02BC156288B927B18F0B8C /* Pods-RockMap-RockMapUITests.release.xcconfig */,
-				226B19A86CFEA83B2FE2AE84 /* Pods-RockMapTests.debug.xcconfig */,
-				615CD656AF40477A302876F6 /* Pods-RockMapTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 		9E033F4E2577F6A000A669F8 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -782,8 +776,7 @@
 				9E5CEFE125277B26001C95AA /* RockMapTests */,
 				9E5CEFEC25277B26001C95AA /* RockMapUITests */,
 				9E5CEFC925277B25001C95AA /* Products */,
-				2241C9A5B89420BB4FEBC0BA /* Pods */,
-				B73B4B14EAEF596F70BCEA58 /* Frameworks */,
+				9E64FD1126B59F38005984F6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -887,6 +880,13 @@
 				9EFE88C926B0360400D8976F /* ImageLoadable.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		9E64FD1126B59F38005984F6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		9E6C40BB2614775900F010BE /* View */ = {
@@ -1620,16 +1620,6 @@
 			path = ImagePicker;
 			sourceTree = "<group>";
 		};
-		B73B4B14EAEF596F70BCEA58 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				45DACC89F758D48EDA36FCE2 /* Pods_RockMap.framework */,
-				A93FA2E5F3CDDBEBF4F2E874 /* Pods_RockMap_RockMapUITests.framework */,
-				0B162A0516FABFE35E4E0955 /* Pods_RockMapTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1637,14 +1627,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E5CEFF225277B26001C95AA /* Build configuration list for PBXNativeTarget "RockMap" */;
 			buildPhases = (
-				E66BCD4E212D3B62EB48A612 /* [CP] Check Pods Manifest.lock */,
 				9E5CEFC425277B25001C95AA /* Sources */,
 				9E5CEFC525277B25001C95AA /* Frameworks */,
 				9E5CEFC625277B25001C95AA /* Resources */,
 				9E0C9F3A2534A8F600F66F01 /* SwiftLint */,
-				BC5A6EA522147B78E11DE918 /* [CP] Embed Pods Frameworks */,
 				9EB7DB9A266FCAF3003B0041 /* ShellScript */,
-				71A821B98C3AD9AAC2EEEF1B /* [CP] Copy Pods Resources */,
 				9E5C5E272554EFA600D00087 /* Crashlytics */,
 			);
 			buildRules = (
@@ -1654,6 +1641,17 @@
 			name = RockMap;
 			packageProductDependencies = (
 				9ED40FC626631B5C00A8D0AC /* FloatingPanel */,
+				9E64FCFC26B59A82005984F6 /* FirebaseAnalytics */,
+				9E64FCFE26B59A82005984F6 /* FirebaseRemoteConfig */,
+				9E64FD0026B59A82005984F6 /* FirebaseStorage */,
+				9E64FD0226B59A82005984F6 /* FirebaseCrashlytics */,
+				9E64FD0426B59A82005984F6 /* FirebaseFirestore */,
+				9E64FD0626B59A82005984F6 /* FirebaseFirestoreSwift-Beta */,
+				9E64FD0926B59B3A005984F6 /* FirebaseAuthUI */,
+				9E64FD0B26B59B3A005984F6 /* FirebaseOAuthUI */,
+				9E64FD0D26B59B3A005984F6 /* FirebaseGoogleAuthUI */,
+				9E64FD0F26B59B3A005984F6 /* FirebaseEmailAuthUI */,
+				9E64FD1226B59F38005984F6 /* FirebaseStorageUI */,
 			);
 			productName = RockMap;
 			productReference = 9E5CEFC825277B25001C95AA /* RockMap.app */;
@@ -1663,7 +1661,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E5CEFF525277B26001C95AA /* Build configuration list for PBXNativeTarget "RockMapTests" */;
 			buildPhases = (
-				EDB8C4D9E03FFA8EB8A40A68 /* [CP] Check Pods Manifest.lock */,
 				9E5CEFDA25277B26001C95AA /* Sources */,
 				9E5CEFDB25277B26001C95AA /* Frameworks */,
 				9E5CEFDC25277B26001C95AA /* Resources */,
@@ -1682,12 +1679,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E5CEFF825277B26001C95AA /* Build configuration list for PBXNativeTarget "RockMapUITests" */;
 			buildPhases = (
-				C421FB97EAA75D0369E5C159 /* [CP] Check Pods Manifest.lock */,
 				9E5CEFE525277B26001C95AA /* Sources */,
 				9E5CEFE625277B26001C95AA /* Frameworks */,
 				9E5CEFE725277B26001C95AA /* Resources */,
-				641DF250AFE7D6190E0B42CE /* [CP] Embed Pods Frameworks */,
-				7F46C6CA4739EE15E57BD472 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1732,6 +1726,8 @@
 			mainGroup = 9E5CEFBF25277B25001C95AA;
 			packageReferences = (
 				9ED40FC526631B5C00A8D0AC /* XCRemoteSwiftPackageReference "FloatingPanel" */,
+				9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */,
 			);
 			productRefGroup = 9E5CEFC925277B25001C95AA /* Products */;
 			projectDirPath = "";
@@ -1797,57 +1793,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		641DF250AFE7D6190E0B42CE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		71A821B98C3AD9AAC2EEEF1B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RockMap/Pods-RockMap-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RockMap/Pods-RockMap-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RockMap/Pods-RockMap-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7F46C6CA4739EE15E57BD472 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RockMap-RockMapUITests/Pods-RockMap-RockMapUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9E0C9F3A2534A8F600F66F01 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1882,7 +1827,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+			shellScript = "${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n";
 		};
 		9EB7DB9A266FCAF3003B0041 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1900,89 +1845,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "PATH_TO_GOOGLE_PLISTS=\"${PROJECT_DIR}/RockMap\"\n\ncase \"${CONFIGURATION}\" in\n\n   \"Debug\" )\n        cp -r \"$PATH_TO_GOOGLE_PLISTS/GoogleService-Info-dev.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\" ;;\n   \"Release\" )\n        cp -r \"$PATH_TO_GOOGLE_PLISTS/GoogleService-Info-release.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\" ;;\n    *)\n        ;;\nesac\n";
-		};
-		BC5A6EA522147B78E11DE918 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RockMap/Pods-RockMap-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RockMap/Pods-RockMap-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RockMap/Pods-RockMap-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C421FB97EAA75D0369E5C159 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RockMap-RockMapUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E66BCD4E212D3B62EB48A612 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RockMap-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EDB8C4D9E03FFA8EB8A40A68 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RockMapTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2349,7 +2211,6 @@
 		};
 		9E5CEFF325277B26001C95AA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6AE5AF1B695E4C4FAA592CE0 /* Pods-RockMap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -2373,7 +2234,6 @@
 		};
 		9E5CEFF425277B26001C95AA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BFEBD1C114864D80199A2EE9 /* Pods-RockMap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -2396,7 +2256,6 @@
 		};
 		9E5CEFF625277B26001C95AA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 226B19A86CFEA83B2FE2AE84 /* Pods-RockMapTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2418,7 +2277,6 @@
 		};
 		9E5CEFF725277B26001C95AA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 615CD656AF40477A302876F6 /* Pods-RockMapTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -2440,7 +2298,6 @@
 		};
 		9E5CEFF925277B26001C95AA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6A8D4469AB6661D2935D7507 /* Pods-RockMap-RockMapUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -2460,7 +2317,6 @@
 		};
 		9E5CEFFA25277B26001C95AA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD02BC156288B927B18F0B8C /* Pods-RockMap-RockMapUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -2520,6 +2376,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.4.0;
+			};
+		};
+		9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/FirebaseUI-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.0.0;
+			};
+		};
 		9ED40FC526631B5C00A8D0AC /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scenee/FloatingPanel.git";
@@ -2531,6 +2403,61 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9E64FCFC26B59A82005984F6 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		9E64FCFE26B59A82005984F6 /* FirebaseRemoteConfig */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseRemoteConfig;
+		};
+		9E64FD0026B59A82005984F6 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		9E64FD0226B59A82005984F6 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
+		9E64FD0426B59A82005984F6 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		9E64FD0626B59A82005984F6 /* FirebaseFirestoreSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreSwift-Beta";
+		};
+		9E64FD0926B59B3A005984F6 /* FirebaseAuthUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
+			productName = FirebaseAuthUI;
+		};
+		9E64FD0B26B59B3A005984F6 /* FirebaseOAuthUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
+			productName = FirebaseOAuthUI;
+		};
+		9E64FD0D26B59B3A005984F6 /* FirebaseGoogleAuthUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
+			productName = FirebaseGoogleAuthUI;
+		};
+		9E64FD0F26B59B3A005984F6 /* FirebaseEmailAuthUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
+			productName = FirebaseEmailAuthUI;
+		};
+		9E64FD1226B59F38005984F6 /* FirebaseStorageUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
+			productName = FirebaseStorageUI;
+		};
 		9ED40FC626631B5C00A8D0AC /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9ED40FC526631B5C00A8D0AC /* XCRemoteSwiftPackageReference "FloatingPanel" */;

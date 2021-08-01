@@ -5,8 +5,12 @@
 //  Created by TOUYA KAWANO on 2020/12/03.
 //
 
-import FirebaseUI
 import Firebase
+import FirebaseAuthUI
+import FirebaseGoogleAuthUI
+import FirebaseEmailAuthUI
+import FirebaseOAuthUI
+import FirebaseFirestore
 import Combine
 
 class AuthManager: NSObject {
@@ -44,7 +48,7 @@ class AuthManager: NSObject {
     }
     
     var currentUser: User? {
-        Firebase.Auth.auth().currentUser
+        authUI?.auth?.currentUser
     }
     
     var uid: String {

@@ -5,6 +5,8 @@
 //  Created by TOUYA KAWANO on 2020/12/02.
 //
 
+import Foundation
+import UIKit
 import FirebaseFirestoreSwift
 
 extension FIDocument {
