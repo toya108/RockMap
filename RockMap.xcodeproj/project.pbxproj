@@ -73,6 +73,7 @@
 		9E44157626620FA800D48D12 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E44157526620FA800D48D12 /* DictionaryExtension.swift */; };
 		9E441578266214D000D48D12 /* DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E441577266214D000D48D12 /* DictionaryTests.swift */; };
 		9E47B76C26160A0B004BE800 /* TotalClimbedNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E47B76B26160A0B004BE800 /* TotalClimbedNumber.swift */; };
+		9E493DDB26B98EA300DCA210 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 9E493DDA26B98EA300DCA210 /* Domain */; };
 		9E5C5E372555144000D00087 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5C5E362555144000D00087 /* Images.swift */; };
 		9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCB25277B25001C95AA /* AppDelegate.swift */; };
 		9E5CEFCE25277B25001C95AA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */; };
@@ -321,6 +322,7 @@
 		9E44157526620FA800D48D12 /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		9E441577266214D000D48D12 /* DictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryTests.swift; sourceTree = "<group>"; };
 		9E47B76B26160A0B004BE800 /* TotalClimbedNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalClimbedNumber.swift; sourceTree = "<group>"; };
+		9E493DD726B98DE800DCA210 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Domain; sourceTree = "<group>"; };
 		9E5C5E362555144000D00087 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		9E5CEFC825277B25001C95AA /* RockMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RockMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5CEFCB25277B25001C95AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E493DDB26B98EA300DCA210 /* Domain in Frameworks */,
 				9E64FD0E26B59B3A005984F6 /* FirebaseGoogleAuthUI in Frameworks */,
 				9E64FCFF26B59A82005984F6 /* FirebaseRemoteConfig in Frameworks */,
 				9E64FD0126B59A82005984F6 /* FirebaseStorage in Frameworks */,
@@ -772,6 +775,7 @@
 		9E5CEFBF25277B25001C95AA = {
 			isa = PBXGroup;
 			children = (
+				9E493DD726B98DE800DCA210 /* Domain */,
 				9E5CEFCA25277B25001C95AA /* RockMap */,
 				9E5CEFE125277B26001C95AA /* RockMapTests */,
 				9E5CEFEC25277B26001C95AA /* RockMapUITests */,
@@ -1652,6 +1656,7 @@
 				9E64FD0D26B59B3A005984F6 /* FirebaseGoogleAuthUI */,
 				9E64FD0F26B59B3A005984F6 /* FirebaseEmailAuthUI */,
 				9E64FD1226B59F38005984F6 /* FirebaseStorageUI */,
+				9E493DDA26B98EA300DCA210 /* Domain */,
 			);
 			productName = RockMap;
 			productReference = 9E5CEFC825277B25001C95AA /* RockMap.app */;
@@ -2403,6 +2408,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9E493DDA26B98EA300DCA210 /* Domain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Domain;
+		};
 		9E64FCFC26B59A82005984F6 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
