@@ -2,101 +2,26 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-extension FS.Document {
+public extension FS.Document {
     
     struct User: DocumentProtocol {
         
-        var collection: CollectionProtocol.Type { FS.Collection.Users.self }
-
-        var id: String
-        var createdAt: Date = Date()
-        @ExplicitNull var updatedAt: Date?
-        var parentPath: String = ""
-        var name: String
-        @ExplicitNull var photoURL: URL?
-        var socialLinks: [SocialLink] = []
-        @ExplicitNull var introduction: String?
-        @ExplicitNull var headerUrl: URL?
-        var deleted: Bool = false
+        public var collection: CollectionProtocol.Type { FS.Collection.Users.self }
+        public var id: String
+        public var createdAt: Date = Date()
+        @ExplicitNull public var updatedAt: Date?
+        public var parentPath: String = ""
+        public var name: String
+        @ExplicitNull public var photoURL: URL?
+        public var socialLinks: [SocialLink] = []
+        @ExplicitNull public var introduction: String?
+        @ExplicitNull public var headerUrl: URL?
+        public var deleted: Bool = false
         
-        struct SocialLink: Hashable, Codable {
-            let linkType: SocialLinkType
-            var link: String
-        }
-
-        enum SocialLinkType: String, CaseIterable, Codable {
-            case facebook
-            case twitter
-            case instagram
-            case other
-
-            var placeHolder: String {
-                switch self {
-                    case .facebook, .twitter, .instagram:
-                        return "@"
-
-                    case .other:
-                        return "ページURL"
-
-                }
-            }
-
-            var urlBase: String {
-                switch self {
-                    case .twitter:
-                        return "twitter://user?screen_name="
-
-                    case .facebook:
-                        return "fb://profile/"
-
-                    case .instagram:
-                        return "instagram://"
-
-                    case .other:
-                        return ""
-                }
-            }
-
-            var httpsUrlBase: String {
-
-                switch self {
-                    case .twitter:
-                        return "https://twitter.com/"
-
-                    case .facebook:
-                        return "https://www.facebook.com/"
-
-                    case .instagram:
-                        return "https://www.instagram.com/"
-
-                    case .other:
-                        return ""
-                }
-            }
-
+        public struct SocialLink: Hashable, Codable {
+            public let linkType: String
+            public var link: String
         }
     }
 }
 
-extension Array where Element == FS.Document.User.SocialLink {
-
-    func getLink(
-        type: FS.Document.User.SocialLinkType
-    ) -> FS.Document.User.SocialLink? {
-        return self.first(where: { $0.linkType == type })
-    }
-
-    mutating func updateLink(
-        type: FS.Document.User.SocialLinkType,
-        link: String
-    ) {
-
-        guard
-            let index = self.firstIndex(where: { $0.linkType == type })
-        else {
-            return
-        }
-
-        self[index].link = link
-    }
-}

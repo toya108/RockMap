@@ -1,9 +1,9 @@
 
 import FirebaseFirestore
 
-struct FS {}
+public struct FS {}
 
-extension FS {
+public extension FS {
     struct Collection {}
     struct Document {}
     struct Request {}

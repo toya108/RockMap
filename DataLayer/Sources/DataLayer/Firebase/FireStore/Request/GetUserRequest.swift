@@ -1,10 +1,10 @@
 
 import Foundation
 
-extension FS.Request {
+public extension FS.Request {
     struct GetUser: FirestoreRequestProtocol {
-        typealias Collection = FS.Collection.Users
-        typealias Response = FS.Document.User
+        public typealias Collection = FS.Collection.Users
+        public typealias Response = FS.Document.User
         public struct Parameters: Codable {
             let id: String
 
@@ -13,15 +13,15 @@ extension FS.Request {
             }
         }
 
-        var method: FirestoreMethod { .get }
-        var parameters: Parameters
-        var testDataPath: URL?
-        var path: String {
+        public var method: FirestoreMethod { .get }
+        public var parameters: Parameters
+        public var testDataPath: URL?
+        public var path: String {
             Collection.name
             parameters.id
         }
 
-        init(parameters: Parameters) {
+        public init(parameters: Parameters) {
             self.parameters = parameters
         }
 

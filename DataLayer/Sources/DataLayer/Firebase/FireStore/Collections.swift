@@ -10,25 +10,25 @@ public extension CollectionProtocol {
     static var isRoot: Bool { false }
 }
 
-extension FS.Collection {
+public extension FS.Collection {
     struct Users: CollectionProtocol {
-        static var name: String { "users" }
-        static var isRoot: Bool { true }
+        public static var name: String { "users" }
+        public static var isRoot: Bool { true }
     }
 
     struct Rocks: CollectionProtocol {
-        static var name: String { "users" }
+        public static var name: String { "users" }
     }
 
     struct Cources: CollectionProtocol {
-        static var name: String { "cources" }
+        public static var name: String { "cources" }
     }
 
     struct ClimbRecord: CollectionProtocol {
-        static var name: String { "climbRecord" }
+        public static var name: String { "climbRecord" }
     }
 
     struct TotalClimbedNumber: CollectionProtocol {
-        static var name: String { "totalClimbedNumber" }
+        public static var name: String { "totalClimbedNumber" }
     }
 }

@@ -2,26 +2,26 @@
 import Foundation
 
 public protocol RepositoryProtocol {
-    associatedtype T: RequestProtocol
+    associatedtype Request: RequestProtocol
 
     func request(
         useTestData: Bool,
-        parameters: T.Parameters,
-        completion: @escaping (Result<T.Response, Error>) -> Void
+        parameters: Request.Parameters,
+        completion: @escaping (Result<Request.Response, Error>) -> Void
     )
 
-    func request(parameters: T.Parameters) -> T.Response?
+    func request(parameters: Request.Parameters) -> Request.Response?
 }
 
-public struct Repository<T: RequestProtocol>: RepositoryProtocol {
+public struct Repository<Request: RequestProtocol>: RepositoryProtocol {
     public init() {}
 
     public func request(
         useTestData: Bool = false,
-        parameters: T.Parameters,
-        completion: @escaping (Result<T.Response, Error>) -> Void
+        parameters: Request.Parameters,
+        completion: @escaping (Result<Request.Response, Error>) -> Void
     ) {
-        let item = T(parameters: parameters)
+        let item = Request(parameters: parameters)
 
 //        APIClient().request(item: item, useTestData: useTestData) { result in
 //
@@ -37,20 +37,20 @@ public struct Repository<T: RequestProtocol>: RepositoryProtocol {
     }
 
     @discardableResult
-    public func request(parameters: T.Parameters) -> T.Response? {
-        let item = T(parameters: parameters)
+    public func request(parameters: Request.Parameters) -> Request.Response? {
+        let item = Request(parameters: parameters)
         return item.localDataInterceptor(parameters)
     }
 }
 
-public extension Repository where T: FirestoreRequestProtocol {
+public extension Repository where Request: FirestoreRequestProtocol {
     func request(
         useTestData: Bool = false,
-        parameters: T.Parameters,
-        completion: @escaping (Result<T.Response, Error>) -> Void
+        parameters: Request.Parameters,
+        completion: @escaping (Result<Request.Response, Error>) -> Void
     ) {
 
-        let item = T(parameters: parameters)
+        let item = Request(parameters: parameters)
         FirestoreManager.db.document(item.path).getDocument { snapshot, error in
 
             if let error = error {
@@ -72,9 +72,9 @@ public extension Repository where T: FirestoreRequestProtocol {
 
     }
 
-    func initializeDocument(json: [String: Any]) -> T.Response? {
+    func initializeDocument(json: [String: Any]) -> Request.Response? {
         do {
-            return try FirestoreManager.decoder.decode(T.Response.self, from: json)
+            return try FirestoreManager.decoder.decode(Request.Response.self, from: json)
         } catch {
             print("type:\(Self.self) のdecodeに失敗しました。reason: \(error.localizedDescription)")
             assertionFailure()
@@ -83,10 +83,10 @@ public extension Repository where T: FirestoreRequestProtocol {
     }
 }
 
-public extension Repository where T.Parameters == EmptyParameters {
+public extension Repository where Request.Parameters == EmptyParameters {
     func request(
         useTestData: Bool = false,
-        completion: @escaping (Result<T.Response, Error>) -> Void
+        completion: @escaping (Result<Request.Response, Error>) -> Void
     ) {
         self.request(
             useTestData: useTestData,
@@ -96,8 +96,8 @@ public extension Repository where T.Parameters == EmptyParameters {
     }
 
     @discardableResult
-    func request() -> T.Response? {
-        let item = T(parameters: .init())
+    func request() -> Request.Response? {
+        let item = Request(parameters: .init())
         return item.localDataInterceptor(.init())
     }
 }
