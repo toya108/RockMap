@@ -1,19 +1,13 @@
-//
-//  Course.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/02/08.
-//
 
-import UIKit
+import Foundation
 import FirebaseFirestoreSwift
 
-extension FIDocument {
+extension FS.Document {
 
-    struct Course: FIDocumentProtocol, UserRegisterableDocumentProtocol {
+    struct Course: DocumentProtocol, UserRegisterableDocumentProtocol {
         
-        typealias Collection = FINameSpace.Course
-        
+        var collection: CollectionProtocol.Type { FS.Collection.Cources.self }
+
         var id: String = UUID().uuidString
         var parentPath: String
         var createdAt: Date = Date()
@@ -31,7 +25,7 @@ extension FIDocument {
 
 }
 
-extension FIDocument.Course {
+extension FS.Document.Course {
 
     enum Grade: String, CaseIterable, Codable {
         case d5, d4, d3, d2, d1, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10

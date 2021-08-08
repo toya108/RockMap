@@ -1,19 +1,13 @@
-//
-//  Climbed.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/22.
-//
 
-import UIKit
+import Foundation
 import FirebaseFirestoreSwift
 
-extension FIDocument {
+extension FS.Document {
 
-    struct ClimbRecord: FIDocumentProtocol, UserRegisterableDocumentProtocol {
+    struct ClimbRecord: DocumentProtocol, UserRegisterableDocumentProtocol {
         
-        typealias Collection = FINameSpace.ClimbRecord
-        
+        var collection: CollectionProtocol.Type { FS.Collection.ClimbRecord.self }
+
         var id: String = UUID().uuidString
         var registeredUserId: String
         var parentCourseId: String
@@ -28,7 +22,7 @@ extension FIDocument {
 
 }
 
-extension FIDocument.ClimbRecord {
+extension FS.Document.ClimbRecord {
 
     enum ClimbedRecordType: String, CaseIterable, Codable {
         case flash, redPoint

@@ -1,20 +1,13 @@
-//
-//  User.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/12/02.
-//
 
 import Foundation
-import UIKit
 import FirebaseFirestoreSwift
 
-extension FIDocument {
+extension FS.Document {
     
-    struct User: FIDocumentProtocol {
+    struct User: DocumentProtocol {
         
-        typealias Collection = FINameSpace.Users
-        
+        var collection: CollectionProtocol.Type { FS.Collection.Users.self }
+
         var id: String
         var createdAt: Date = Date()
         @ExplicitNull var updatedAt: Date?
@@ -85,16 +78,16 @@ extension FIDocument {
     }
 }
 
-extension Array where Element == FIDocument.User.SocialLink {
+extension Array where Element == FS.Document.User.SocialLink {
 
     func getLink(
-        type: FIDocument.User.SocialLinkType
-    ) -> FIDocument.User.SocialLink? {
+        type: FS.Document.User.SocialLinkType
+    ) -> FS.Document.User.SocialLink? {
         return self.first(where: { $0.linkType == type })
     }
 
     mutating func updateLink(
-        type: FIDocument.User.SocialLinkType,
+        type: FS.Document.User.SocialLinkType,
         link: String
     ) {
 

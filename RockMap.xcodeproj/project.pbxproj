@@ -134,6 +134,7 @@
 		9E8723AE256BF89400735C65 /* HeaderIgnorableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8723AD256BF89400735C65 /* HeaderIgnorableScrollView.swift */; };
 		9E8723D3256C037000735C65 /* RockConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8723D2256C037000735C65 /* RockConfirmViewModel.swift */; };
 		9E902B2525F0DC5300006624 /* LabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E902B2425F0DC5300006624 /* LabelCollectionViewCell.swift */; };
+		9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9E9162EF26BF7DF10012D2B0 /* Utilities */; };
 		9E94C7C425E2BAAE00276333 /* SectionBackgroundDecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E94C7C325E2BAAE00276333 /* SectionBackgroundDecorationView.swift */; };
 		9E9845C125D4F27E00B03C4E /* CourseRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9845C025D4F27E00B03C4E /* CourseRegisterViewController.swift */; };
 		9E9845D125D4F2FE00B03C4E /* CourseRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9845D025D4F2FE00B03C4E /* CourseRegisterViewModel.swift */; };
@@ -504,6 +505,7 @@
 				9ED40FC726631B5C00A8D0AC /* FloatingPanel in Frameworks */,
 				9E64FD0526B59A82005984F6 /* FirebaseFirestore in Frameworks */,
 				9E64FD0C26B59B3A005984F6 /* FirebaseOAuthUI in Frameworks */,
+				9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */,
 				9E64FD0A26B59B3A005984F6 /* FirebaseAuthUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1664,6 +1666,7 @@
 				9E64FD1226B59F38005984F6 /* FirebaseStorageUI */,
 				9E493DDA26B98EA300DCA210 /* Domain */,
 				9E493DE026B994BB00DCA210 /* DataLayer */,
+				9E9162EF26BF7DF10012D2B0 /* Utilities */,
 			);
 			productName = RockMap;
 			productReference = 9E5CEFC825277B25001C95AA /* RockMap.app */;
@@ -2477,6 +2480,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
 			productName = FirebaseStorageUI;
+		};
+		9E9162EF26BF7DF10012D2B0 /* Utilities */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Utilities;
 		};
 		9ED40FC626631B5C00A8D0AC /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;

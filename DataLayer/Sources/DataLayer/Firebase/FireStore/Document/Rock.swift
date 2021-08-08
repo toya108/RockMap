@@ -9,11 +9,11 @@ import UIKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-extension FIDocument {
+extension FS.Document {
 
-    struct Rock: FIDocumentProtocol, UserRegisterableDocumentProtocol {
+    struct Rock: DocumentProtocol, UserRegisterableDocumentProtocol {
 
-        typealias Collection = FINameSpace.Rocks
+        var collection: CollectionProtocol.Type { FS.Collection.Rocks.self }
 
         var id: String = UUID().uuidString
         var createdAt: Date = Date()
@@ -33,7 +33,7 @@ extension FIDocument {
 
 }
 
-extension FIDocument.Rock {
+extension FS.Document.Rock {
 
     enum Season: String, CaseIterable, Codable {
         case spring, summer, autumn, winter

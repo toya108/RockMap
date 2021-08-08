@@ -8,11 +8,11 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-extension FIDocument {
+extension FS.Document {
 
-    struct TotalClimbedNumber: FIDocumentProtocol {
+    struct TotalClimbedNumber: DocumentProtocol {
 
-        typealias Collection = FINameSpace.TotalClimbedNumber
+        var collection: CollectionProtocol.Type { FS.Collection.TotalClimbedNumber.self }
 
         var id: String
         var createdAt: Date = Date()

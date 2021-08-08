@@ -1,9 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by TOUYA KAWANO on 2021/08/05.
-//
 
 import Foundation
 

@@ -28,9 +28,7 @@ public protocol RequestProtocol {
     var testDataPath: URL? { get }
     #endif
 
-    init(
-        parameters: Parameters
-    )
+    init(parameters: Parameters)
 }
 
 public extension RequestProtocol {

@@ -19,7 +19,8 @@ let package = Package(
             name: "Firebase",
             url: "https://github.com/firebase/firebase-ios-sdk.git",
             from: .init("8.4.0")
-        )
+        ),
+        .package(url: "../Utilities", from: "1.0.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -28,6 +29,7 @@ let package = Package(
             name: "DataLayer",
             dependencies: [
                 .product(name: "FirebaseFirestore", package: "Firebase"),
+                .product(name: "Utilities", package: "Utilities"),
             ]),
         .testTarget(
             name: "DataLayerTests",
