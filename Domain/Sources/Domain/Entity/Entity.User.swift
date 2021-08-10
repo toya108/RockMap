@@ -4,28 +4,33 @@ import Foundation
 extension Domain.Entity {
 
     public struct User: EntityProtocol {
-        var id: String
-        var createdAt: Date
-        var updatedAt: Date?
-        var name: String
-        var photoURL: URL?
-        var socialLinks: [SocialLink] = []
-        var introduction: String?
-        var headerUrl: URL?
-        var deleted: Bool = false
+        public var id: String
+        public var createdAt: Date
+        public var updatedAt: Date?
+        public var name: String
+        public var photoURL: URL?
+        public var socialLinks: [SocialLink] = []
+        public var introduction: String?
+        public var headerUrl: URL?
+        public var deleted: Bool = false
 
-        struct SocialLink: Hashable {
-            let linkType: SocialLinkType
-            var link: String
+        public struct SocialLink: Hashable {
+            public let linkType: SocialLinkType
+            public var link: String
+
+            public init(linkType: SocialLinkType, link: String) {
+                self.linkType = linkType
+                self.link = link
+            }
         }
 
-        enum SocialLinkType: String, CaseIterable {
+        public enum SocialLinkType: String, CaseIterable {
             case facebook
             case twitter
             case instagram
             case other
 
-            var placeHolder: String {
+            public var placeHolder: String {
                 switch self {
                     case .facebook, .twitter, .instagram:
                         return "@"
@@ -36,7 +41,7 @@ extension Domain.Entity {
                 }
             }
 
-            var urlBase: String {
+            public var urlBase: String {
                 switch self {
                     case .twitter:
                         return "twitter://user?screen_name="
@@ -52,7 +57,7 @@ extension Domain.Entity {
                 }
             }
 
-            var httpsUrlBase: String {
+            public var httpsUrlBase: String {
 
                 switch self {
                     case .twitter:
@@ -72,4 +77,27 @@ extension Domain.Entity {
         }
     }
 
+}
+
+public extension Array where Element == Domain.Entity.User.SocialLink {
+
+    func getLink(
+        type: Domain.Entity.User.SocialLinkType
+    ) -> Domain.Entity.User.SocialLink? {
+        return self.first(where: { $0.linkType == type })
+    }
+
+    mutating func updateLink(
+        type: Domain.Entity.User.SocialLinkType,
+        link: String
+    ) {
+
+        guard
+            let index = self.firstIndex(where: { $0.linkType == type })
+        else {
+            return
+        }
+
+        self[index].link = link
+    }
 }

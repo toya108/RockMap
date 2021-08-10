@@ -2,8 +2,8 @@
 import Combine
 import DataLayer
 
-public extension Domain.Usecase {
-    struct User: UsecaseProtocol {
+public extension Domain.Usecase.User {
+    struct FetchById: UsecaseProtocol {
         public typealias Repository = Repositories.User.Get
         public typealias Mapper = Domain.Mapper.User
 

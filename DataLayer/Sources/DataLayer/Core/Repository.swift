@@ -21,19 +21,7 @@ public struct Repository<Request: RequestProtocol>: RepositoryProtocol {
         parameters: Request.Parameters,
         completion: @escaping (Result<Request.Response, Error>) -> Void
     ) {
-        let item = Request(parameters: parameters)
-
-//        APIClient().request(item: item, useTestData: useTestData) { result in
-//
-//            switch result {
-//                case let .success(value):
-//                    item.successHandler(value)
-//                case let .failure(error):
-//                    item.failureHandler(error)
-//            }
-//
-//            completion(result)
-//        }
+        
     }
 
     @discardableResult
