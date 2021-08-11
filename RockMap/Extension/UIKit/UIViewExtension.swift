@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Utilities
 
 extension UIView {
     func fadeIn(duration: TimeInterval) {

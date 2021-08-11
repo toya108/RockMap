@@ -1,9 +1,3 @@
-//
-//  ListBuilder.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/07/10.
-//
 
 import Foundation
 

@@ -72,7 +72,10 @@
 		9E4415742661E44200D48D12 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4415732661E44200D48D12 /* DateExtension.swift */; };
 		9E44157626620FA800D48D12 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E44157526620FA800D48D12 /* DictionaryExtension.swift */; };
 		9E441578266214D000D48D12 /* DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E441577266214D000D48D12 /* DictionaryTests.swift */; };
+		9E479D2626C29DC3003EFCB5 /* DomainAccesser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */; };
 		9E47B76C26160A0B004BE800 /* TotalClimbedNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E47B76B26160A0B004BE800 /* TotalClimbedNumber.swift */; };
+		9E493DDB26B98EA300DCA210 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 9E493DDA26B98EA300DCA210 /* Domain */; };
+		9E493DE126B994BB00DCA210 /* DataLayer in Frameworks */ = {isa = PBXBuildFile; productRef = 9E493DE026B994BB00DCA210 /* DataLayer */; };
 		9E5C5E372555144000D00087 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5C5E362555144000D00087 /* Images.swift */; };
 		9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCB25277B25001C95AA /* AppDelegate.swift */; };
 		9E5CEFCE25277B25001C95AA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */; };
@@ -132,6 +135,7 @@
 		9E8723AE256BF89400735C65 /* HeaderIgnorableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8723AD256BF89400735C65 /* HeaderIgnorableScrollView.swift */; };
 		9E8723D3256C037000735C65 /* RockConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8723D2256C037000735C65 /* RockConfirmViewModel.swift */; };
 		9E902B2525F0DC5300006624 /* LabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E902B2425F0DC5300006624 /* LabelCollectionViewCell.swift */; };
+		9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9E9162EF26BF7DF10012D2B0 /* Utilities */; };
 		9E94C7C425E2BAAE00276333 /* SectionBackgroundDecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E94C7C325E2BAAE00276333 /* SectionBackgroundDecorationView.swift */; };
 		9E9845C125D4F27E00B03C4E /* CourseRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9845C025D4F27E00B03C4E /* CourseRegisterViewController.swift */; };
 		9E9845D125D4F2FE00B03C4E /* CourseRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9845D025D4F2FE00B03C4E /* CourseRegisterViewModel.swift */; };
@@ -195,7 +199,6 @@
 		9EC3A6CE2604D76A001FBCA4 /* CourseDetailDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6CD2604D76A001FBCA4 /* CourseDetailDatasource.swift */; };
 		9EC7FFC42698861100715F86 /* DocumentProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */; };
 		9EC7FFC6269915B300715F86 /* ColorAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EC7FFC5269915B300715F86 /* ColorAssets.xcassets */; };
-		9EC7FFCC26991CB800715F86 /* ListBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC7FFCB26991CB800715F86 /* ListBuilder.swift */; };
 		9EC88E0A260CCB5C0057EBEE /* LocationSelectButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC88E09260CCB5C0057EBEE /* LocationSelectButtonState.swift */; };
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
 		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
@@ -234,7 +237,6 @@
 		9EFEE45D25F79EE6004BFE34 /* NoCoursesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFEE45B25F79EE6004BFE34 /* NoCoursesCollectionViewCell.swift */; };
 		9EFEE45E25F79EE6004BFE34 /* NoCoursesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFEE45C25F79EE6004BFE34 /* NoCoursesCollectionViewCell.xib */; };
 		9EFEF88325E004A300007AD6 /* DeletableImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFEF88225E004A300007AD6 /* DeletableImageCollectionViewCell.swift */; };
-		9EFEF88825E09C8100007AD6 /* IdentifiableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFEF88725E09C8100007AD6 /* IdentifiableData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -320,7 +322,10 @@
 		9E4415732661E44200D48D12 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		9E44157526620FA800D48D12 /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		9E441577266214D000D48D12 /* DictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryTests.swift; sourceTree = "<group>"; };
+		9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainAccesser.swift; sourceTree = "<group>"; };
 		9E47B76B26160A0B004BE800 /* TotalClimbedNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalClimbedNumber.swift; sourceTree = "<group>"; };
+		9E493DD726B98DE800DCA210 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Domain; sourceTree = "<group>"; };
+		9E493DDF26B9949E00DCA210 /* DataLayer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataLayer; sourceTree = "<group>"; };
 		9E5C5E362555144000D00087 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		9E5CEFC825277B25001C95AA /* RockMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RockMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5CEFCB25277B25001C95AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -375,6 +380,7 @@
 		9E8723AD256BF89400735C65 /* HeaderIgnorableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderIgnorableScrollView.swift; sourceTree = "<group>"; };
 		9E8723D2256C037000735C65 /* RockConfirmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmViewModel.swift; sourceTree = "<group>"; };
 		9E902B2425F0DC5300006624 /* LabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionViewCell.swift; sourceTree = "<group>"; };
+		9E9162ED26BEB9D20012D2B0 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Utilities; sourceTree = "<group>"; };
 		9E94C7C325E2BAAE00276333 /* SectionBackgroundDecorationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionBackgroundDecorationView.swift; sourceTree = "<group>"; };
 		9E9845C025D4F27E00B03C4E /* CourseRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRegisterViewController.swift; sourceTree = "<group>"; };
 		9E9845D025D4F2FE00B03C4E /* CourseRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRegisterViewModel.swift; sourceTree = "<group>"; };
@@ -437,7 +443,6 @@
 		9EC3A6C82604D75C001FBCA4 /* CourseDetailLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailLayout.swift; sourceTree = "<group>"; };
 		9EC3A6CD2604D76A001FBCA4 /* CourseDetailDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailDatasource.swift; sourceTree = "<group>"; };
 		9EC7FFC5269915B300715F86 /* ColorAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorAssets.xcassets; sourceTree = "<group>"; };
-		9EC7FFCB26991CB800715F86 /* ListBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListBuilder.swift; sourceTree = "<group>"; };
 		9EC7FFCD269BCC7900715F86 /* RockMapDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RockMapDebug.entitlements; sourceTree = "<group>"; };
 		9EC7FFCE269BCDB500715F86 /* RockMap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RockMap.entitlements; sourceTree = "<group>"; };
 		9EC88E09260CCB5C0057EBEE /* LocationSelectButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSelectButtonState.swift; sourceTree = "<group>"; };
@@ -478,7 +483,6 @@
 		9EFEE45B25F79EE6004BFE34 /* NoCoursesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCoursesCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EFEE45C25F79EE6004BFE34 /* NoCoursesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoCoursesCollectionViewCell.xib; sourceTree = "<group>"; };
 		9EFEF88225E004A300007AD6 /* DeletableImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletableImageCollectionViewCell.swift; sourceTree = "<group>"; };
-		9EFEF88725E09C8100007AD6 /* IdentifiableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -486,6 +490,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E493DE126B994BB00DCA210 /* DataLayer in Frameworks */,
+				9E493DDB26B98EA300DCA210 /* Domain in Frameworks */,
 				9E64FD0E26B59B3A005984F6 /* FirebaseGoogleAuthUI in Frameworks */,
 				9E64FCFF26B59A82005984F6 /* FirebaseRemoteConfig in Frameworks */,
 				9E64FD0126B59A82005984F6 /* FirebaseStorage in Frameworks */,
@@ -497,6 +503,7 @@
 				9ED40FC726631B5C00A8D0AC /* FloatingPanel in Frameworks */,
 				9E64FD0526B59A82005984F6 /* FirebaseFirestore in Frameworks */,
 				9E64FD0C26B59B3A005984F6 /* FirebaseOAuthUI in Frameworks */,
+				9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */,
 				9E64FD0A26B59B3A005984F6 /* FirebaseAuthUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -542,6 +549,7 @@
 				9E0BE3892605AC9600576869 /* UserDefaults */,
 				9E623685258A65EC00152AF9 /* Firebase */,
 				9E04B1CE254BE7A70097DA8E /* Location */,
+				9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -772,6 +780,9 @@
 		9E5CEFBF25277B25001C95AA = {
 			isa = PBXGroup;
 			children = (
+				9E9162ED26BEB9D20012D2B0 /* Utilities */,
+				9E493DDF26B9949E00DCA210 /* DataLayer */,
+				9E493DD726B98DE800DCA210 /* Domain */,
 				9E5CEFCA25277B25001C95AA /* RockMap */,
 				9E5CEFE125277B26001C95AA /* RockMapTests */,
 				9E5CEFEC25277B26001C95AA /* RockMapUITests */,
@@ -849,11 +860,9 @@
 			children = (
 				9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */,
 				9ED972992596471C0069FB94 /* ArrayExtension.swift */,
-				9EFEF88725E09C8100007AD6 /* IdentifiableData.swift */,
 				9E4415732661E44200D48D12 /* DateExtension.swift */,
 				9E44157526620FA800D48D12 /* DictionaryExtension.swift */,
 				9E441577266214D000D48D12 /* DictionaryTests.swift */,
-				9EC7FFCB26991CB800715F86 /* ListBuilder.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -1652,6 +1661,9 @@
 				9E64FD0D26B59B3A005984F6 /* FirebaseGoogleAuthUI */,
 				9E64FD0F26B59B3A005984F6 /* FirebaseEmailAuthUI */,
 				9E64FD1226B59F38005984F6 /* FirebaseStorageUI */,
+				9E493DDA26B98EA300DCA210 /* Domain */,
+				9E493DE026B994BB00DCA210 /* DataLayer */,
+				9E9162EF26BF7DF10012D2B0 /* Utilities */,
 			);
 			productName = RockMap;
 			productReference = 9E5CEFC825277B25001C95AA /* RockMap.app */;
@@ -1880,7 +1892,6 @@
 				9E60D4C2262F0D8200B116C2 /* SocialLinkCollectionViewCell.swift in Sources */,
 				9E2BD68625DD6DA90011B020 /* ImageSelactCollectionViewCell.swift in Sources */,
 				9E6C40BF2614779100F010BE /* RockConfirmRouter.swift in Sources */,
-				9EC7FFCC26991CB800715F86 /* ListBuilder.swift in Sources */,
 				9E845ADA25ADEA6A00EC3BE6 /* Resouces.swift in Sources */,
 				9E9845E225D4FA5300B03C4E /* CourseRegisterKind.swift in Sources */,
 				9EB00BD42629770200379182 /* CompositionalColectionViewControllerProtocol.swift in Sources */,
@@ -1988,7 +1999,6 @@
 				9EE9DAE925CEDDE600B2BC4E /* DescCollectionViewCell.swift in Sources */,
 				9E9845E725D5202500B03C4E /* CourseRegisterLayout.swift in Sources */,
 				9E39B1E0261458860005F6E1 /* RouterProtocol.swift in Sources */,
-				9EFEF88825E09C8100007AD6 /* IdentifiableData.swift in Sources */,
 				9E9845F525D5418C00B03C4E /* RockHeaderCollectionViewCell.swift in Sources */,
 				9EFE88CA26B0360400D8976F /* ImageLoadable.swift in Sources */,
 				9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */,
@@ -2030,6 +2040,7 @@
 				9E81072F262DA37F0025359C /* MyPageDatasourse.swift in Sources */,
 				9E60DCB52557148A000CF2E8 /* RockLocationSelectViewController.swift in Sources */,
 				9E9845EF25D5278C00B03C4E /* CourseRegisterDatasource.swift in Sources */,
+				9E479D2626C29DC3003EFCB5 /* DomainAccesser.swift in Sources */,
 				9E81072A262DA3700025359C /* MyPageKind.swift in Sources */,
 				9E9B3894262125D6001A39A9 /* Query+Combine.swift in Sources */,
 				9E9974FE26422B1F00E8562B /* CourseListDatasource.swift in Sources */,
@@ -2403,6 +2414,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9E493DDA26B98EA300DCA210 /* Domain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Domain;
+		};
+		9E493DE026B994BB00DCA210 /* DataLayer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DataLayer;
+		};
 		9E64FCFC26B59A82005984F6 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -2457,6 +2476,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
 			productName = FirebaseStorageUI;
+		};
+		9E9162EF26BF7DF10012D2B0 /* Utilities */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Utilities;
 		};
 		9ED40FC626631B5C00A8D0AC /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;
