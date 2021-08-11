@@ -9,14 +9,26 @@ import Foundation
 import FirebaseFirestore
 import Combine
 
-typealias DocumentRef = DocumentReference
+public typealias FSDocument = DocumentReference
 
-protocol DocumentProtocol: Codable {
+public protocol DocumentProtocol: Codable {
     var collection: CollectionProtocol.Type { get }
     var id: String { get set }
     var createdAt: Date { get set }
     var updatedAt: Date? { get set }
     var parentPath: String { get set }
+}
+
+extension DocumentProtocol {
+    static func initializeDocument(json: [String: Any]) -> Self? {
+        do {
+            return try FirestoreManager.decoder.decode(self, from: json)
+        } catch {
+            print("type:\(Self.self) のdecodeに失敗しました。reason: \(error.localizedDescription)")
+            assertionFailure()
+            return nil
+        }
+    }
 }
 
 protocol UserRegisterableDocumentProtocol: Codable, Hashable {

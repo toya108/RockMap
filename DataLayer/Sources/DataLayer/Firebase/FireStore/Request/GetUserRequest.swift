@@ -3,6 +3,9 @@ import Foundation
 
 public extension FS.Request {
     struct GetUser: FirestoreRequestProtocol {
+
+        public typealias Entry = FSDocument
+
         public typealias Collection = FS.Collection.Users
         public typealias Response = FS.Document.User
         public struct Parameters: Codable {
@@ -19,6 +22,9 @@ public extension FS.Request {
         public var path: String {
             Collection.name
             parameters.id
+        }
+        public var entry: Entry {
+            FirestoreManager.db.document(path)
         }
 
         public init(parameters: Parameters) {

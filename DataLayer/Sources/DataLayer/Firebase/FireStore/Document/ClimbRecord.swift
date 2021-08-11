@@ -11,8 +11,8 @@ extension FS.Document {
         var id: String = UUID().uuidString
         var registeredUserId: String
         var parentCourseId: String
-        var parentCourseReference: DocumentRef
-        var totalNumberReference: DocumentRef
+        var parentCourseReference: FSDocument
+        var totalNumberReference: FSDocument
         var createdAt: Date = Date()
         @ExplicitNull var updatedAt: Date?
         var parentPath: String
