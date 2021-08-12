@@ -18,7 +18,6 @@ public extension FS.Request {
         public var method: FirestoreMethod { .get }
         public var parameters: Parameters
         public var testDataPath: URL?
-        public var path: String { "" }
         public var entry: Entry {
             Collection.group.whereField("registeredUserId", in: [parameters.userId])
         }

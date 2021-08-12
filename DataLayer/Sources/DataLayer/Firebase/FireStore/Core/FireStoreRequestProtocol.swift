@@ -10,3 +10,11 @@ public protocol FirestoreRequestProtocol: RequestProtocol {
 
     var entry: Entry { get }
 }
+
+extension FirestoreRequestProtocol {
+    static var Document: DocumentProtocol.Type { Collection.Document }
+}
+
+extension FirestoreRequestProtocol where Entry == FSQuery {
+    public var path: String { "" }
+}

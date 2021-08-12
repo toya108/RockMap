@@ -20,7 +20,8 @@ public protocol DocumentProtocol: Codable {
 }
 
 extension DocumentProtocol {
-    static func initializeDocument(json: [String: Any]) -> Self? {
+
+    static func initialize(json: [String: Any]) -> Self? {
         do {
             return try FirestoreManager.decoder.decode(self, from: json)
         } catch {
@@ -29,6 +30,7 @@ extension DocumentProtocol {
             return nil
         }
     }
+    
 }
 
 protocol UserRegisterableDocumentProtocol: Codable, Hashable {
