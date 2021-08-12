@@ -2,7 +2,7 @@
 import Foundation
 
 public extension FS.Request {
-    struct GetUser: FirestoreRequestProtocol {
+    struct FetchById: FirestoreRequestProtocol {
 
         public typealias Entry = FSDocument
 

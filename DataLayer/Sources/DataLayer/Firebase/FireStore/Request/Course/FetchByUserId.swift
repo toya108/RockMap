@@ -1,12 +1,12 @@
 import Foundation
 
 public extension FS.Request {
-    struct GetCourses: FirestoreRequestProtocol {
+    struct FetchByUserId: FirestoreRequestProtocol {
 
         public typealias Entry = FSQuery
 
-        public typealias Collection = FS.Collection.Users
-        public typealias Response = [FS.Document.User]
+        public typealias Collection = FS.Collection.Courses
+        public typealias Response = [FS.Document.Course]
         public struct Parameters: Codable {
             let userId: String
 
