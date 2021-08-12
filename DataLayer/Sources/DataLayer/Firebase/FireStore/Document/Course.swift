@@ -6,7 +6,7 @@ public extension FS.Document {
 
     struct Course: DocumentProtocol, UserRegisterableDocumentProtocol {
         
-        public var collection: CollectionProtocol.Type { FS.Collection.Cources.self }
+        public var collection: CollectionProtocol.Type { FS.Collection.Courses.self }
 
         public var id: String = UUID().uuidString
         public var parentPath: String

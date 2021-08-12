@@ -26,10 +26,10 @@ public extension FS.Collection {
         public static var name: String { "users" }
     }
 
-    struct Cources: CollectionProtocol {
+    struct Courses: CollectionProtocol {
         public static var Document: DocumentProtocol.Type { FS.Document.User.self }
 
-        public static var name: String { "cources" }
+        public static var name: String { "courses" }
     }
 
     struct ClimbRecord: CollectionProtocol {
