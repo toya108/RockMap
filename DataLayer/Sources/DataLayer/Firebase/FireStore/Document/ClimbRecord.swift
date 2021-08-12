@@ -17,44 +17,7 @@ extension FS.Document {
         @ExplicitNull var updatedAt: Date?
         var parentPath: String
         var climbedDate: Date
-        var type: ClimbedRecordType
+        var type: String
     }
 
-}
-
-extension FS.Document.ClimbRecord {
-
-    enum ClimbedRecordType: String, CaseIterable, Codable {
-        case flash, redPoint
-
-        var name: String {
-            switch self {
-                case .flash:
-                    return "Flash"
-                    
-                case .redPoint:
-                    return "RedPoint"
-                    
-            }
-        }
-
-        var fieldName: String {
-            switch self {
-                case .flash:
-                    return "flashTotal"
-
-                case .redPoint:
-                    return "redPointTotal"
-
-            }
-        }
-
-        var isFlash: Bool {
-            self == .flash
-        }
-
-        var isRedpoint: Bool {
-            self == .redPoint
-        }
-    }
 }
