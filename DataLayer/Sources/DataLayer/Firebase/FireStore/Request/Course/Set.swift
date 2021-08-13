@@ -18,12 +18,8 @@ public extension FS.Request {
         public var method: FirestoreMethod { .set }
         public var parameters: Parameters
         public var testDataPath: URL?
-        public var path: String {
-            parameters.course.parentPath
-        }
-        public var entry: Entry {
-            FirestoreManager.db.document(path)
-        }
+        public var path: String { parameters.course }
+        public var entry: Entry { FirestoreManager.db.document(path) }
 
         public init(parameters: Parameters) {
             self.parameters = parameters
