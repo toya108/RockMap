@@ -10,7 +10,7 @@ public extension Domain.Entity {
         public var name: String
         public var desc: String
         public var grade: Grade
-        public var shape: [Shape]
+        public var shape: Set<Shape>
         public var parentRockName: String
         public var parentRockId: String
         public var registeredUserId: String

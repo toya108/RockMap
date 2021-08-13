@@ -14,7 +14,7 @@ protocol UsecaseProtocol {
 
 extension UsecaseProtocol {
 
-    func toPublisher<T: Equatable, E: Error>(
+    func toPublisher<T, E: Error>(
         closure: @escaping (@escaping Future<T, E>.Promise) -> Void
     ) -> AnyPublisher<T, E> {
         Deferred {

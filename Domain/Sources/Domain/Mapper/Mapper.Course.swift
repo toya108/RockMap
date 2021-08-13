@@ -19,7 +19,7 @@ public extension Domain.Mapper {
                 name: other.name,
                 desc: other.desc,
                 grade: .init(rawValue: other.grade) ?? .q10,
-                shape: other.shape.compactMap { Course.Shape(rawValue: $0) } ,
+                shape: Set(other.shape.compactMap { Course.Shape(rawValue: $0) }),
                 parentRockName: other.parentRockName,
                 parentRockId: other.parentRockId,
                 registeredUserId: other.registeredUserId,
@@ -28,6 +28,23 @@ public extension Domain.Mapper {
             )
         }
 
+        public func reverse(to other: Domain.Entity.Course) -> FS.Document.Course {
+            .init(
+                id: other.id,
+                parentPath: other.parentPath,
+                createdAt: other.createdAt,
+                updatedAt: other.updatedAt,
+                name: other.name,
+                desc: other.desc,
+                grade: other.grade.rawValue,
+                shape: Set(other.shape.map(\.rawValue)),
+                parentRockName: other.parentRockName,
+                parentRockId: other.parentRockId,
+                registeredUserId: other.registeredUserId,
+                headerUrl: other.headerUrl,
+                imageUrls: other.imageUrls
+            )
+        }
     }
 
 }
