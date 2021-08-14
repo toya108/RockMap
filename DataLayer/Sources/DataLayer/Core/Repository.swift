@@ -63,22 +63,3 @@ public extension Repository where Request: FirestoreRequestProtocol, Request.Ent
         )
     }
 }
-
-public extension Repository where Request.Parameters == EmptyParameters {
-    func request(
-        useTestData: Bool = false,
-        completion: @escaping (Result<Request.Response, Error>) -> Void
-    ) {
-        self.request(
-            useTestData: useTestData,
-            parameters: .init(),
-            completion: completion
-        )
-    }
-
-    @discardableResult
-    func request() -> Request.Response? {
-        let item = Request(parameters: .init())
-        return item.localDataInterceptor(.init())
-    }
-}
