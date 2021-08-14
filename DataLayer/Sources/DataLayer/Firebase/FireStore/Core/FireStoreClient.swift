@@ -100,7 +100,18 @@ extension FireStoreClient where R.Entry == FSDocument, R.Response == EmptyRespon
             case .delete:
                 break
             case .update:
-                break
+                do {
+                    try item.entry.updateData(item.parameters.makedictionary()) { error in
+                        if let error = error {
+                            completion(.failure(error))
+                            return
+                        }
+
+                        completion(.success(R.Response()))
+                    }
+                } catch {
+                    completion(.failure(error))
+                }
         }
     }
 }
