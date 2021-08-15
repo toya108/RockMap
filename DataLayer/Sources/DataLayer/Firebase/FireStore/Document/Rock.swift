@@ -1,9 +1,3 @@
-//
-//  Rock.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/12/15.
-//
 
 import UIKit
 import FirebaseFirestore
