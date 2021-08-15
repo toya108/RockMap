@@ -36,6 +36,9 @@ extension FireStoreClient where R.Entry == FSQuery  {
 
                     completion(.success(response))
                 }
+            case .listen:
+                break
+
             case .set, .delete, .update:
                 assertionFailure("query don't support other than read")
         }
@@ -69,7 +72,7 @@ extension FireStoreClient where R.Entry == FSDocument, R.Response: Decodable {
 
                     completion(.success(response))
                 }
-            case .set, .delete, .update:
+            case .set, .delete, .update, .listen:
                 break
         }
     }
@@ -82,7 +85,7 @@ extension FireStoreClient where R.Entry == FSDocument, R.Response == EmptyRespon
         completion: @escaping (Result<R.Response, Error>) -> Void
     ) {
         switch item.method {
-            case .get:
+            case .get, .listen:
                 break
             case .set:
                 do {

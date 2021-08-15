@@ -16,4 +16,5 @@ public enum FirestoreMethod {
     case get
     case delete
     case update
+    case listen
 }
