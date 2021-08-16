@@ -1,6 +1,6 @@
 import Foundation
 
-public extension FS.Request {
+public extension FS.Request.Course {
     struct FetchByRockId: FirestoreRequestProtocol {
 
         public typealias Entry = FSQuery

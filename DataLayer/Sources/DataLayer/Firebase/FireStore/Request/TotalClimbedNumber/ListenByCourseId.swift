@@ -1,13 +1,13 @@
 
 import Foundation
 
-public extension FS.Request {
+public extension FS.Request.TotalClimbedNumber {
     struct ListenByCourseId: FirestoreRequestProtocol {
 
         public typealias Entry = FSQuery
 
         public typealias Collection = FS.Collection.TotalClimbedNumber
-        public typealias Response = FS.Document.TotalClimbedNumber
+        public typealias Response = [FS.Document.TotalClimbedNumber]
         public struct Parameters: Codable {
             let parentPath: String
             let courseId: String

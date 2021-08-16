@@ -46,7 +46,7 @@ public extension Repository where Request: FirestoreRequestProtocol, Request.Ent
         )
     }
 
-    func request(
+    func listen(
         useTestData: Bool = false,
         parameters: Request.Parameters,
         completion: @escaping (Result<Request.Response, Error>) -> Void

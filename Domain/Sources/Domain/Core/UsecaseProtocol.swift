@@ -24,3 +24,15 @@ extension UsecaseProtocol {
         }.eraseToAnyPublisher()
     }
 }
+
+protocol Listenable: AnyObject {
+    var registration: FSListenerRegistration? { get set }
+    func detach()
+}
+
+extension Listenable {
+    public func detach() {
+        registration?.remove()
+        self.registration = nil
+    }
+}

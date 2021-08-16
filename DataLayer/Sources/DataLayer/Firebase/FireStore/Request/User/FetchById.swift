@@ -1,7 +1,7 @@
 
 import Foundation
 
-public extension FS.Request {
+public extension FS.Request.User {
     struct FetchById: FirestoreRequestProtocol {
 
         public typealias Entry = FSDocument
