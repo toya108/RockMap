@@ -36,11 +36,45 @@ extension FireStoreClient where R.Entry == FSQuery  {
 
                     completion(.success(response))
                 }
-            case .listen:
-                break
-
-            case .set, .delete, .update:
+            case .set, .delete, .update, .listen:
                 assertionFailure("query don't support other than read")
+        }
+    }
+
+    func listen(
+        item: R,
+        useTestData: Bool = false,
+        completion: @escaping ((Result<R.Response, Error>) -> Void)
+    ) -> FSListenerRegistration? {
+        switch item.method {
+            case .listen:
+                return item.entry.addSnapshotListener { snap, error in
+
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+
+                    guard let snap = snap else {
+                        completion(.failure(FirestoreError.nilResultError))
+                        return
+                    }
+
+                    let jsons = snap.documents.compactMap { $0.data() }
+                    let documents = jsons.compactMap {
+                        R.Document.initialize(json: $0)
+                    }
+
+                    guard let response = documents as? R.Response else {
+                        completion(.failure(FirestoreError.nilResultError))
+                        return
+                    }
+
+                    completion(.success(response))
+                }
+            case .get, .set, .delete, .update:
+                assertionFailure("query don't support other than read")
+                return nil
         }
     }
 

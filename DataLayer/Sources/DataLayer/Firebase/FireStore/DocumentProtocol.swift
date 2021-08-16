@@ -10,6 +10,7 @@ import FirebaseFirestore
 import Combine
 
 public typealias FSDocument = DocumentReference
+public typealias FSListenerRegistration = ListenerRegistration
 
 public protocol DocumentProtocol: Codable {
     var collection: CollectionProtocol.Type { get }

@@ -46,6 +46,19 @@ public extension Repository where Request: FirestoreRequestProtocol, Request.Ent
         )
     }
 
+    func request(
+        useTestData: Bool = false,
+        parameters: Request.Parameters,
+        completion: @escaping (Result<Request.Response, Error>) -> Void
+    ) -> FSListenerRegistration? {
+        let item = Request(parameters: parameters)
+        return FireStoreClient().listen(
+            item: item,
+            useTestData: useTestData,
+            completion: completion
+        )
+    }
+
 }
 
 public extension Repository where Request: FirestoreRequestProtocol, Request.Entry == FSDocument {
