@@ -1,13 +1,18 @@
 
 import Foundation
 
-extension Domain.Entity {
-    public struct TotalClimbedNumber: EntityProtocol {
-        var id: String
-        var createdAt: Date
-        var updatedAt: Date?
-        var parentPath: String
-        var flash: Int
-        var redPoint: Int
+public extension Domain.Entity {
+    struct TotalClimbedNumber: EntityProtocol {
+        public var flash: Int
+        public var redPoint: Int
+        public var total: Int { flash + redPoint }
+
+        public init(
+            flash: Int,
+            redPoint: Int
+        ) {
+            self.flash = flash
+            self.redPoint = redPoint
+        }
     }
 }
