@@ -120,7 +120,7 @@ extension CourseDetailViewController {
         }
     }
 
-    private func totalClimbedNumberSink(_ state: FIDocument.TotalClimbedNumber?) {
+    private func totalClimbedNumberSink(_ state: Entity.TotalClimbedNumber?) {
         snapShot.reloadSections([.climbedNumber])
         datasource.apply(snapShot, animatingDifferences: false)
     }
