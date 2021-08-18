@@ -21,7 +21,7 @@ public struct Repository<Request: RequestProtocol>: RepositoryProtocol {
         parameters: Request.Parameters,
         completion: @escaping (Result<Request.Response, Error>) -> Void
     ) {
-
+        assertionFailure("don't use default request")
     }
 
     @discardableResult
@@ -45,6 +45,10 @@ public extension Repository where Request: FirestoreRequestProtocol, Request.Ent
             completion: completion
         )
     }
+
+}
+
+public extension Repository where Request: FSListenable {
 
     func listen(
         useTestData: Bool = false,

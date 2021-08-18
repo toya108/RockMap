@@ -2,7 +2,7 @@
 import Foundation
 
 public extension FS.Request.TotalClimbedNumber {
-    struct ListenByCourseId: FirestoreRequestProtocol {
+    struct ListenByCourseId: FSListenable {
 
         public typealias Entry = FSQuery
 

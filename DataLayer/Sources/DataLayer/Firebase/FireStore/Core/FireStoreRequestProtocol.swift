@@ -18,3 +18,5 @@ extension FirestoreRequestProtocol {
 extension FirestoreRequestProtocol where Entry == FSQuery {
     public var path: String { "" }
 }
+
+public protocol FSListenable: FirestoreRequestProtocol where Entry == FSQuery {}
