@@ -2,22 +2,23 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-extension FS.Document {
+public extension FS.Document {
 
     struct ClimbRecord: DocumentProtocol, UserRegisterableDocumentProtocol {
         
-        var collection: CollectionProtocol.Type { FS.Collection.ClimbRecord.self }
+        public var collection: CollectionProtocol.Type { FS.Collection.ClimbRecord.self }
 
-        var id: String = UUID().uuidString
-        var registeredUserId: String
-        var parentCourseId: String
-        var parentCourseReference: FSDocument
-        var totalNumberReference: FSDocument
-        var createdAt: Date = Date()
-        @ExplicitNull var updatedAt: Date?
-        var parentPath: String
-        var climbedDate: Date
-        var type: String
+        public var id: String = UUID().uuidString
+        public var registeredUserId: String
+        public var parentCourseId: String
+        public var parentCourseReference: FSDocument
+        public var totalNumberReference: FSDocument
+        public var createdAt: Date = Date()
+        @ExplicitNull
+        public var updatedAt: Date?
+        public var parentPath: String
+        public var climbedDate: Date
+        public var type: String
     }
 
 }
