@@ -80,10 +80,6 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
 
         listenTotalClimbedNumberUsecase
             .listen(useTestData: false, courseId: course.id, parantPath: course.parentPath)
-            .handleEvents(receiveCompletion: {
-                print($0)
-                print("aaa")
-            })
             .catch { error -> Empty in
                 print(error)
                 return Empty()
