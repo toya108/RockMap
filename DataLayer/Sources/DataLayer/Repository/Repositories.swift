@@ -9,6 +9,9 @@ public struct Repositories {
         public typealias Set = Repository<FS.Request.Course.Set>
         public typealias Update = Repository<FS.Request.Course.Update>
     }
+    public struct ClimbRecord {
+        public typealias Set = Repository<FS.Request.ClimbRecord.Set>
+    }
     public struct TotalClimbedNumber {
         public typealias ListenByCourseId = Repository<FS.Request.TotalClimbedNumber.ListenByCourseId>
     }
