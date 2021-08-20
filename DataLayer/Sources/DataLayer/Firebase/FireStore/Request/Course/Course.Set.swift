@@ -1,3 +1,4 @@
+import Combine
 import Foundation
 
 public extension FS.Request.Course {
@@ -15,7 +16,6 @@ public extension FS.Request.Course {
             }
         }
 
-        public var method: FirestoreMethod { .set }
         public var parameters: Parameters
         public var testDataPath: URL?
         public var path: String { parameters.course }
@@ -23,6 +23,13 @@ public extension FS.Request.Course {
 
         public init(parameters: Parameters) {
             self.parameters = parameters
+        }
+
+        public func reguest(
+            useTestData: Bool,
+            parameters: Parameters
+        ) -> AnyPublisher<EmptyResponse, Error> {
+            FirestoreManager.db.document(path).setData(from: parameters.course)
         }
 
     }

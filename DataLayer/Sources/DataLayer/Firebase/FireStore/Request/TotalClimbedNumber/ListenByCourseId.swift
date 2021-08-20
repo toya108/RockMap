@@ -1,4 +1,5 @@
 
+import Combine
 import Foundation
 
 public extension FS.Request.TotalClimbedNumber {
@@ -7,7 +8,7 @@ public extension FS.Request.TotalClimbedNumber {
         public typealias Entry = FSQuery
 
         public typealias Collection = FS.Collection.TotalClimbedNumber
-        public typealias Response = [FS.Document.TotalClimbedNumber]
+        public typealias Response = FS.Document.TotalClimbedNumber
         public struct Parameters: Codable {
             let parentPath: String
             let courseId: String
@@ -18,7 +19,6 @@ public extension FS.Request.TotalClimbedNumber {
             }
         }
 
-        public var method: FirestoreMethod { .listen }
         public var parameters: Parameters
         public var testDataPath: URL?
         public var path: String {
@@ -32,6 +32,15 @@ public extension FS.Request.TotalClimbedNumber {
 
         public init(parameters: Parameters) {
             self.parameters = parameters
+        }
+
+        public func reguest(
+            useTestData: Bool,
+            parameters: Parameters
+        ) -> AnyPublisher<FS.Document.TotalClimbedNumber, Error> {
+            entry.listen(to: Response.self)
+                .compactMap { $0.first }
+                .eraseToAnyPublisher()
         }
 
     }

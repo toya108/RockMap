@@ -16,6 +16,7 @@ class RegisterClimbRecordViewModel {
     }
 
     let registerType: RegisterType
+    private let setClimbRecordUsecase = Usecase.ClimbRecord.Set()
 
     @Published var climbedDate: Date?
     @Published var climbRecordType: FIDocument.ClimbRecord.ClimbedRecordType = .flash
@@ -101,6 +102,18 @@ class RegisterClimbRecordViewModel {
         }
 
         loadingState = .loading
+//
+//        let climbRecord = Entity.ClimbRecord(
+//            id: UUID().uuidString,
+//            registeredUserId: AuthManager.shared.uid,
+//            parentCourseId: course.id,
+//            parentCourseReference: course.makeDocumentReference().path,
+//            createdAt: Date(),
+//            updatedAt: nil,
+//            parentPath: AuthManager.shared.authUserReference?.path ?? "",
+//            climbedDate: climbedDate,
+//            type: .flash
+//        )
 
         course.makeDocumentReference()
             .collection(FIDocument.TotalClimbedNumber.colletionName)

@@ -21,18 +21,9 @@ public extension Domain.Usecase.TotalClimbedNumber {
             courseId: String,
             parantPath: String
         ) -> AnyPublisher<Domain.Entity.TotalClimbedNumber, Error> {
-            Domain.Usecase.ListenPublisher(
-                repository: repository,
-                useTestData: useTestData,
-                paremeters: .init(parentPath: parantPath, courseId: courseId)
-            )
-            .compactMap { response -> Domain.Entity.TotalClimbedNumber? in
-
-                guard let document = response.first else { return nil }
-
-                return self.mapper.map(from: document)
-            }
-            .eraseToAnyPublisher()
+            repository.request(parameters: .init(parentPath: parantPath, courseId: courseId))
+                .map { mapper.map(from: $0) }
+                .eraseToAnyPublisher()
         }
     }
 }

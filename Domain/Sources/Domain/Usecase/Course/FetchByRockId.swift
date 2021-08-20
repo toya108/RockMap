@@ -16,18 +16,13 @@ public extension Domain.Usecase.Course {
         }
 
         public func fetchCourses(by rockId: String) -> AnyPublisher<[Domain.Entity.Course], Error> {
-            self.toPublisher { promise in
-                repository.request(parameters: .init(rockId: rockId)) { result in
-                    switch result {
-                        case let .success(response):
-                            let entities = response.map { mapper.map(from: $0) }
-                            promise(.success(entities))
-
-                        case let .failure(error):
-                            promise(.failure(error))
-                    }
-                }
+            repository.request(
+                parameters: .init(rockId: rockId)
+            )
+            .map { responses -> [Domain.Entity.Course] in
+                responses.map { mapper.map(from: $0) }
             }
+            .eraseToAnyPublisher()
         }
 
     }

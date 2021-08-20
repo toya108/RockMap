@@ -1,3 +1,5 @@
+
+import Combine
 import Foundation
 
 public extension FS.Request.Course {
@@ -15,7 +17,6 @@ public extension FS.Request.Course {
             }
         }
 
-        public var method: FirestoreMethod { .get }
         public var parameters: Parameters
         public var testDataPath: URL?
         public var entry: Entry {
@@ -24,6 +25,13 @@ public extension FS.Request.Course {
 
         public init(parameters: Parameters) {
             self.parameters = parameters
+        }
+
+        public func reguest(
+            useTestData: Bool,
+            parameters: Parameters
+        ) -> AnyPublisher<[FS.Document.Course], Error> {
+            entry.getDocuments(Response.Element.self)
         }
 
     }

@@ -5,16 +5,38 @@ import FirebaseFirestoreSwift
 public extension Domain.Entity {
 
     struct ClimbRecord: EntityProtocol {
+
         var id: String
         var registeredUserId: String
         var parentCourseId: String
         var parentCourseReference: String
-        var totalNumberReference: String
         var createdAt: Date
         var updatedAt: Date?
         var parentPath: String
         var climbedDate: Date
         var type: ClimbedRecordType
+
+        public init(
+            id: String,
+            registeredUserId: String,
+            parentCourseId: String,
+            parentCourseReference: String,
+            createdAt: Date,
+            updatedAt: Date?,
+            parentPath: String,
+            climbedDate: Date,
+            type: Domain.Entity.ClimbRecord.ClimbedRecordType
+        ) {
+            self.id = id
+            self.registeredUserId = registeredUserId
+            self.parentCourseId = parentCourseId
+            self.parentCourseReference = parentCourseReference
+            self.createdAt = createdAt
+            self.updatedAt = updatedAt
+            self.parentPath = parentPath
+            self.climbedDate = climbedDate
+            self.type = type
+        }
     }
 
 }

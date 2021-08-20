@@ -16,18 +16,9 @@ public extension Domain.Usecase.User {
         }
 
         public func fetchUser(by id: String) -> AnyPublisher<Domain.Entity.User, Error> {
-            self.toPublisher { promise in
-                repository.request(parameters: .init(id: id)) { result in
-                    switch result {
-                        case let .success(response):
-                            let entity = mapper.map(from: response)
-                            promise(.success(entity))
-
-                        case let .failure(error):
-                            promise(.failure(error))
-                    }
-                }
-            }
+            repository.request(parameters: .init(id: id))
+                .map { mapper.map(from: $0) }
+                .eraseToAnyPublisher()
         }
 
     }

@@ -15,20 +15,22 @@ public extension Domain.Usecase.ClimbRecord {
         }
 
         public func set(climbRecord: Domain.Entity.ClimbRecord) -> AnyPublisher<Void, Error> {
-            self.toPublisher { promise in
 
-                let document = mapper.reverse(to: climbRecord)
-
-                repository.request(parameters: .init(climbRecord: document)) { result in
-                    switch result {
-                        case .success:
-                            promise(.success(()))
-
-                        case let .failure(error):
-                            promise(.failure(error))
-                    }
-                }
-            }
+            repository.request(
+                parameters: .init(
+                    id: climbRecord.id,
+                    registeredUserId: climbRecord.registeredUserId,
+                    parentCourseId: climbRecord.parentCourseId,
+                    parentCourseReference: climbRecord.parentCourseReference,
+                    createdAt: climbRecord.createdAt,
+                    updatedAt: climbRecord.updatedAt,
+                    parentPath: climbRecord.parentPath,
+                    climbedDate: climbRecord.climbedDate,
+                    type: climbRecord.type.rawValue
+                )
+            )
+            .map { _ in () }
+            .eraseToAnyPublisher()
         }
 
     }

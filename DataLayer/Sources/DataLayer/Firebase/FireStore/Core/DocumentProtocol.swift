@@ -22,6 +22,19 @@ public protocol DocumentProtocol: Codable {
 
 extension DocumentProtocol {
 
+    var reference: DocumentReference {
+        if collection.isRoot {
+            return FirestoreManager.db
+                .collection(collection.name)
+                .document(id)
+        } else {
+            return FirestoreManager.db
+                .document(parentPath)
+                .collection(collection.name)
+                .document(id)
+        }
+    }
+
     static func initialize(json: [String: Any]) -> Self? {
         do {
             return try FirestoreManager.decoder.decode(self, from: json)
@@ -29,6 +42,26 @@ extension DocumentProtocol {
             print("type:\(Self.self) のdecodeに失敗しました。reason: \(error.localizedDescription)")
             assertionFailure()
             return nil
+        }
+    }
+
+    var dictionary: [String: Any] {
+        do {
+            let dictionary = try FirestoreManager.encoder.encode(self)
+            return dictionary
+        } catch {
+            assertionFailure("encodeに失敗しました。\(error.localizedDescription)")
+            return [:]
+        }
+    }
+
+    func makedictionary(shouldExcludeEmpty: Bool = false) throws -> [String: Any] {
+        let dictionaly = try FirestoreManager.encoder.encode(self)
+
+        if shouldExcludeEmpty {
+            return dictionaly.makeEmptyExcludedDictionary()
+        } else {
+            return dictionaly
         }
     }
     

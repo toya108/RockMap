@@ -19,28 +19,27 @@ public extension FS.Document {
         public var parentPath: String
         public var climbedDate: Date
         public var type: String
-
-        public init(
-            id: String,
-            registeredUserId: String,
-            parentCourseId: String,
-            parentCourseReference: String,
-            totalNumberReference: String,
-            createdAt: Date,
-            parentPath: String,
-            climbedDate: Date,
-            type: String
-        ) {
-            self.id = id
-            self.registeredUserId = registeredUserId
-            self.parentCourseId = parentCourseId
-            self.parentCourseReference = FirestoreManager.db.document(parentCourseReference)
-            self.totalNumberReference = FirestoreManager.db.document(totalNumberReference)
-            self.createdAt = createdAt
-            self.parentPath = parentPath
-            self.climbedDate = climbedDate
-            self.type = type
-        }
+//
+//        public init(
+//            id: String,
+//            registeredUserId: String,
+//            parentCourseId: String,
+//            parentCourseReference: String,
+//            createdAt: Date,
+//            parentPath: String,
+//            climbedDate: Date,
+//            type: String
+//        ) {
+//            self.id = id
+//            self.registeredUserId = registeredUserId
+//            self.parentCourseId = parentCourseId
+//            self.parentCourseReference = FirestoreManager.db.document(parentCourseReference)
+//            self.totalNumberReference = FirestoreManager.db.document(totalNumberReference)
+//            self.createdAt = createdAt
+//            self.parentPath = parentPath
+//            self.climbedDate = climbedDate
+//            self.type = type
+//        }
     }
 
 }

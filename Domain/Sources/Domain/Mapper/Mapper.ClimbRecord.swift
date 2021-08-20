@@ -16,7 +16,6 @@ public extension Domain.Mapper {
                 registeredUserId: other.registeredUserId,
                 parentCourseId: other.parentCourseId,
                 parentCourseReference: other.parentCourseReference.path,
-                totalNumberReference: other.totalNumberReference.path,
                 createdAt: other.createdAt,
                 updatedAt: other.updatedAt,
                 parentPath: other.parentPath,
@@ -24,20 +23,20 @@ public extension Domain.Mapper {
                 type: .init(rawValue: other.type) ?? .flash
             )
         }
-
-        public func reverse(to other: Domain.Entity.ClimbRecord) -> FS.Document.ClimbRecord {
-            .init(
-                id: other.id,
-                registeredUserId: other.registeredUserId,
-                parentCourseId: other.parentCourseId,
-                parentCourseReference: other.parentCourseReference,
-                totalNumberReference: other.totalNumberReference,
-                createdAt: other.createdAt,
-                parentPath: other.parentPath,
-                climbedDate: other.climbedDate,
-                type: other.type.rawValue
-            )
-        }
+//
+//        public func reverse(to other: Domain.Entity.ClimbRecord) -> FS.Document.ClimbRecord {
+//            .init(
+//                id: other.id,
+//                registeredUserId: other.registeredUserId,
+//                parentCourseId: other.parentCourseId,
+//                parentCourseReference: other.parentCourseReference,
+//                totalNumberReference: <#String#>,
+//                createdAt: other.createdAt,
+//                parentPath: other.parentPath,
+//                climbedDate: other.climbedDate,
+//                type: other.type.rawValue
+//            )
+//        }
 
     }
 
