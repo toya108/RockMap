@@ -58,9 +58,9 @@ class RegisterClimbRecordViewModel {
 
         loadingState = .loading
 
-        let targetClimbedDate: Date? = climbed.climbedDate != climbedDate ? nil : climbedDate
+        let targetClimbedDate: Date? = climbed.climbedDate == climbedDate ? nil : climbedDate
         let targetClimbedRecordType: Entity.ClimbRecord.ClimbedRecordType?
-            = climbed.type != climbRecordType ? nil : climbRecordType
+            = climbed.type == climbRecordType ? nil : climbRecordType
 
         updateClimbRecordUsecase.update(
             parentPath: climbed.parentPath,
