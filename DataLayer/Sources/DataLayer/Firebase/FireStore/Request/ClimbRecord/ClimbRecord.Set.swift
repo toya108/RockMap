@@ -86,7 +86,7 @@ public extension FS.Request.ClimbRecord {
                         type: parameters.type
                     )
 
-                    return climbRecord.reference.setData(from: climbRecord)
+                    return entry.setData(from: climbRecord)
                 }
                 .eraseToAnyPublisher()
         }

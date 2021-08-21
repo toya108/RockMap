@@ -3,7 +3,7 @@ import Foundation
 
 extension Domain.Entity {
 
-    public struct User: EntityProtocol {
+    public struct User: AnyEntity {
         public var id: String
         public var createdAt: Date
         public var updatedAt: Date?

@@ -2,7 +2,7 @@ import Foundation
 
 public extension Domain.Entity {
 
-    struct Course: EntityProtocol {
+    struct Course: AnyEntity {
         public var id: String
         public var parentPath: String
         public var createdAt: Date = Date()

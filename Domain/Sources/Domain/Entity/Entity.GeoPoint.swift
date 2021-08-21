@@ -1,7 +1,7 @@
 
 public extension Domain.Entity {
 
-    struct GeoPoint: Equatable {
+    struct GeoPoint: Hashable {
         var latitude: Double
         var longtude: Double
     }

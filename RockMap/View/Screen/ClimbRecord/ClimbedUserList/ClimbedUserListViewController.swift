@@ -271,7 +271,7 @@ extension ClimbedUserListViewController: RegisterClimbRecordDetectableDelegate {
     func finishedRegisterClimbed(
         id: String,
         date: Date,
-        type: FIDocument.ClimbRecord.ClimbedRecordType
+        type: Entity.ClimbRecord.ClimbedRecordType
     ) {
         viewModel.updateClimbedData(
             id: id,

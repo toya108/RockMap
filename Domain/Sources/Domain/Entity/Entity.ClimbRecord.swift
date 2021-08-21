@@ -4,17 +4,17 @@ import FirebaseFirestoreSwift
 
 public extension Domain.Entity {
 
-    struct ClimbRecord: EntityProtocol {
+    struct ClimbRecord: AnyEntity {
 
-        var id: String
-        var registeredUserId: String
-        var parentCourseId: String
-        var parentCourseReference: String
-        var createdAt: Date
-        var updatedAt: Date?
-        var parentPath: String
-        var climbedDate: Date
-        var type: ClimbedRecordType
+        public var id: String
+        public var registeredUserId: String
+        public var parentCourseId: String
+        public var parentCourseReference: String
+        public var createdAt: Date
+        public var updatedAt: Date?
+        public var parentPath: String
+        public var climbedDate: Date
+        public var type: ClimbedRecordType
 
         public init(
             id: String,
@@ -46,7 +46,7 @@ public extension Domain.Entity.ClimbRecord {
     enum ClimbedRecordType: String, CaseIterable, Codable {
         case flash, redPoint
 
-        var name: String {
+        public var name: String {
             switch self {
                 case .flash:
                     return "Flash"
@@ -57,7 +57,7 @@ public extension Domain.Entity.ClimbRecord {
             }
         }
 
-        var fieldName: String {
+        public var fieldName: String {
             switch self {
                 case .flash:
                     return "flashTotal"
