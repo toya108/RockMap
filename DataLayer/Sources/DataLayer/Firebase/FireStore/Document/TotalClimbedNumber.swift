@@ -1,25 +1,36 @@
-//
-//  TotalClimbedNumber.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/01.
-//
 
 import Foundation
 import FirebaseFirestoreSwift
 
-extension FS.Document {
+public extension FS.Document {
 
     struct TotalClimbedNumber: DocumentProtocol {
 
-        var collection: CollectionProtocol.Type { FS.Collection.TotalClimbedNumber.self }
+        public var collection: CollectionProtocol.Type { FS.Collection.TotalClimbedNumber.self }
 
-        var id: String
-        var createdAt: Date = Date()
-        @ExplicitNull var updatedAt: Date?
-        var parentPath: String
-        var flash: Int
-        var redPoint: Int
+        public var id: String
+        public var createdAt: Date
+        @ExplicitNull
+        public var updatedAt: Date?
+        public var parentPath: String
+        public var flash: Int
+        public var redPoint: Int
+
+        public init(
+            id: String,
+            createdAt: Date,
+            updatedAt: Date?,
+            parentPath: String,
+            flash: Int,
+            redPoint: Int
+        ) {
+            self.id = id
+            self.createdAt = createdAt
+            self.updatedAt = updatedAt
+            self.parentPath = parentPath
+            self.flash = flash
+            self.redPoint = redPoint
+        }
     }
     
 }

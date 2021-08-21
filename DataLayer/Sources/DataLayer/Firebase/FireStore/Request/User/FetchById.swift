@@ -1,8 +1,9 @@
 
+import Combine
 import Foundation
 
-public extension FS.Request {
-    struct GetUser: FirestoreRequestProtocol {
+public extension FS.Request.User {
+    struct FetchById: FirestoreRequestProtocol {
 
         public typealias Entry = FSDocument
 
@@ -16,7 +17,6 @@ public extension FS.Request {
             }
         }
 
-        public var method: FirestoreMethod { .get }
         public var parameters: Parameters
         public var testDataPath: URL?
         public var path: String {
@@ -31,6 +31,12 @@ public extension FS.Request {
             self.parameters = parameters
         }
 
+        public func reguest(
+            useTestData: Bool,
+            parameters: Parameters
+        ) -> AnyPublisher<FS.Document.User, Error> {
+            entry.getDocument(Response.self)
+        }
     }
 }
 

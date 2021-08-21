@@ -18,6 +18,7 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
     var output: Output = .init()
     
     let course: FIDocument.Course
+    private let listenTotalClimbedNumberUsecase = Usecase.TotalClimbedNumber.ListenByCourseId()
     private let fetchRegisteredUserSubject = PassthroughSubject<String, Error>()
     private let fetchParentRockSubject = PassthroughSubject<String, Error>()
 
@@ -77,13 +78,12 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
             }
             .store(in: &bindings)
 
-        course.makeDocumentReference()
-            .collection(FIDocument.TotalClimbedNumber.colletionName)
-            .publisher(as: FIDocument.TotalClimbedNumber.self)
-            .catch { _ -> Just<[FIDocument.TotalClimbedNumber]> in
-                return .init([])
+        listenTotalClimbedNumberUsecase
+            .listen(useTestData: false, courseId: course.id, parantPath: course.parentPath)
+            .catch { error -> Empty in
+                print(error)
+                return Empty()
             }
-            .compactMap { $0.first }
             .assign(to: &output.$totalClimbedNumber)
     }
 }
@@ -96,6 +96,6 @@ extension CourseDetailViewModel {
     final class Output {
         @Published var fetchParentRockState: LoadingState<FIDocument.Rock> = .stanby
         @Published var fetchRegisteredUserState: LoadingState<FIDocument.User> = .stanby
-        @Published var totalClimbedNumber: FIDocument.TotalClimbedNumber?
+        @Published var totalClimbedNumber: Entity.TotalClimbedNumber = .init(flash: 0, redPoint: 0)
     }
 }

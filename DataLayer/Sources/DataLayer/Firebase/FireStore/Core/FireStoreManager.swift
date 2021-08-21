@@ -10,10 +10,3 @@ struct FirestoreManager {
     static let encoder = Firestore.Encoder()
     static let decoder = Firestore.Decoder()
 }
-
-public enum FirestoreMethod {
-    case set
-    case get
-    case delete
-    case update
-}

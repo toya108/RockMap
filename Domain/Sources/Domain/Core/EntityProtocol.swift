@@ -1,2 +1,2 @@
 
-protocol EntityProtocol: Equatable {}
+typealias AnyEntity = Hashable

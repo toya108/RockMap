@@ -31,6 +31,22 @@ public extension Domain.Mapper {
             )
         }
 
+        public func reverse(to other: Domain.Entity.User) -> FS.Document.User {
+            .init(
+                id: other.id,
+                createdAt: other.createdAt,
+                updatedAt: other.updatedAt,
+                name: other.name,
+                photoURL: other.photoURL,
+                socialLinks: other.socialLinks.map {
+                    .init(linkType: $0.linkType.rawValue, link: $0.link)
+                },
+                introduction: other.introduction,
+                headerUrl: other.headerUrl,
+                deleted: other.deleted
+            )
+        }
+
     }
 
 }

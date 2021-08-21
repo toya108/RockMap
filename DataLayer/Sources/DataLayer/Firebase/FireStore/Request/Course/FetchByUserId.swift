@@ -1,12 +1,14 @@
+
+import Combine
 import Foundation
 
-public extension FS.Request {
-    struct GetCourses: FirestoreRequestProtocol {
+public extension FS.Request.Course {
+    struct FetchByUserId: FirestoreRequestProtocol {
 
         public typealias Entry = FSQuery
 
-        public typealias Collection = FS.Collection.Users
-        public typealias Response = [FS.Document.User]
+        public typealias Collection = FS.Collection.Courses
+        public typealias Response = [FS.Document.Course]
         public struct Parameters: Codable {
             let userId: String
 
@@ -15,16 +17,21 @@ public extension FS.Request {
             }
         }
 
-        public var method: FirestoreMethod { .get }
         public var parameters: Parameters
         public var testDataPath: URL?
-        public var path: String { "" }
         public var entry: Entry {
             Collection.group.whereField("registeredUserId", in: [parameters.userId])
         }
 
         public init(parameters: Parameters) {
             self.parameters = parameters
+        }
+
+        public func reguest(
+            useTestData: Bool,
+            parameters: Parameters
+        ) -> AnyPublisher<[FS.Document.Course], Error> {
+            entry.getDocuments(Response.Element.self)
         }
 
     }

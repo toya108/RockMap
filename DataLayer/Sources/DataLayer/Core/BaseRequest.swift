@@ -1,12 +1,6 @@
-//
-//  File.swift
-//  
-//
-//  Created by TOUYA KAWANO on 2021/08/06.
-//
 
+import Combine
 import Foundation
-
 
 public struct EmptyParameters: Encodable, Equatable {
     public init() {}
@@ -22,17 +16,21 @@ public protocol RequestProtocol {
     associatedtype Parameters: Encodable
 
     var parameters: Parameters { get }
-    var localDataInterceptor: (Parameters) -> Response? { get }
+    func localDataInterceptor(parameters: Parameters) -> AnyPublisher<Response, Error>
 
     #if DEBUG
     var testDataPath: URL? { get }
     #endif
 
     init(parameters: Parameters)
+
+    func reguest(useTestData: Bool, parameters: Parameters) -> AnyPublisher<Response, Error>
 }
 
 public extension RequestProtocol {
 
-    var localDataInterceptor: (Parameters) -> Response? { { _ in nil } }
+    func localDataInterceptor(parameters: Parameters) -> AnyPublisher<Response, Error> {
+        Empty<Response, Error>().eraseToAnyPublisher()
+    }
 
 }

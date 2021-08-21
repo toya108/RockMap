@@ -2,59 +2,44 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-extension FS.Document {
+public extension FS.Document {
 
     struct ClimbRecord: DocumentProtocol, UserRegisterableDocumentProtocol {
         
-        var collection: CollectionProtocol.Type { FS.Collection.ClimbRecord.self }
+        public var collection: CollectionProtocol.Type { FS.Collection.ClimbRecord.self }
 
-        var id: String = UUID().uuidString
-        var registeredUserId: String
-        var parentCourseId: String
-        var parentCourseReference: FSDocument
-        var totalNumberReference: FSDocument
-        var createdAt: Date = Date()
-        @ExplicitNull var updatedAt: Date?
-        var parentPath: String
-        var climbedDate: Date
-        var type: ClimbedRecordType
+        public var id: String
+        public var registeredUserId: String
+        public var parentCourseId: String
+        public var parentCourseReference: FSDocument
+        public var totalNumberReference: FSDocument
+        public var createdAt: Date
+        @ExplicitNull
+        public var updatedAt: Date?
+        public var parentPath: String
+        public var climbedDate: Date
+        public var type: String
+//
+//        public init(
+//            id: String,
+//            registeredUserId: String,
+//            parentCourseId: String,
+//            parentCourseReference: String,
+//            createdAt: Date,
+//            parentPath: String,
+//            climbedDate: Date,
+//            type: String
+//        ) {
+//            self.id = id
+//            self.registeredUserId = registeredUserId
+//            self.parentCourseId = parentCourseId
+//            self.parentCourseReference = FirestoreManager.db.document(parentCourseReference)
+//            self.totalNumberReference = FirestoreManager.db.document(totalNumberReference)
+//            self.createdAt = createdAt
+//            self.parentPath = parentPath
+//            self.climbedDate = climbedDate
+//            self.type = type
+//        }
     }
 
-}
-
-extension FS.Document.ClimbRecord {
-
-    enum ClimbedRecordType: String, CaseIterable, Codable {
-        case flash, redPoint
-
-        var name: String {
-            switch self {
-                case .flash:
-                    return "Flash"
-                    
-                case .redPoint:
-                    return "RedPoint"
-                    
-            }
-        }
-
-        var fieldName: String {
-            switch self {
-                case .flash:
-                    return "flashTotal"
-
-                case .redPoint:
-                    return "redPointTotal"
-
-            }
-        }
-
-        var isFlash: Bool {
-            self == .flash
-        }
-
-        var isRedpoint: Bool {
-            self == .redPoint
-        }
-    }
 }

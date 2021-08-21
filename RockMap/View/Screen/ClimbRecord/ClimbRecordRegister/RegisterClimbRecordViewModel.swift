@@ -11,14 +11,16 @@ import Foundation
 class RegisterClimbRecordViewModel {
 
     enum RegisterType {
-        case edit(FIDocument.ClimbRecord)
+        case edit(Entity.ClimbRecord)
         case create(FIDocument.Course)
     }
 
     let registerType: RegisterType
+    private let setClimbRecordUsecase = Usecase.ClimbRecord.Set()
+    private let updateClimbRecordUsecase = Usecase.ClimbRecord.Update()
 
     @Published var climbedDate: Date?
-    @Published var climbRecordType: FIDocument.ClimbRecord.ClimbedRecordType = .flash
+    @Published var climbRecordType: Entity.ClimbRecord.ClimbedRecordType = .flash
     @Published private(set) var loadingState: LoadingState<Void> = .stanby
 
     private var bindings = Set<AnyCancellable>()
@@ -56,39 +58,31 @@ class RegisterClimbRecordViewModel {
 
         loadingState = .loading
 
-        let badge = FirestoreManager.db.batch()
+        let targetClimbedDate: Date? = climbed.climbedDate == climbedDate ? nil : climbedDate
+        let targetClimbedRecordType: Entity.ClimbRecord.ClimbedRecordType?
+            = climbed.type == climbRecordType ? nil : climbRecordType
 
-        if climbed.climbedDate != climbedDate {
-            badge.updateData(
-                ["climbedDate": climbedDate],
-                forDocument: climbed.makeDocumentReference()
-            )
+        updateClimbRecordUsecase.update(
+            parentPath: climbed.parentPath,
+            id: climbed.id,
+            climbedDate: targetClimbedDate,
+            type: targetClimbedRecordType
+        )
+        .catch { [weak self] error -> Empty in
+
+            guard let self = self else { return Empty() }
+
+            self.loadingState = .failure(error)
+            print(error)
+            return Empty()
         }
+        .sink { [weak self] in
 
-        if climbed.type != climbRecordType {
-            badge.updateData(
-                ["type": climbRecordType.rawValue],
-                forDocument: climbed.makeDocumentReference()
-            )
+            guard let self = self else { return }
+
+            self.loadingState = .finish(content: ())
         }
-        badge.commit()
-            .sink(
-                receiveCompletion: { [weak self] result in
-
-                    guard let self = self else { return }
-
-                    switch result {
-                        case .finished:
-                            self.loadingState = .finish(content: ())
-
-                        case .failure(let error):
-                            self.loadingState = .failure(error)
-
-                    }
-                },
-                receiveValue: {}
-            )
-            .store(in: &bindings)
+        .store(in: &bindings)
     }
 
     func registerClimbRecord() {
@@ -102,50 +96,32 @@ class RegisterClimbRecordViewModel {
 
         loadingState = .loading
 
-        course.makeDocumentReference()
-            .collection(FIDocument.TotalClimbedNumber.colletionName)
-            .getDocuments(FIDocument.TotalClimbedNumber.self)
-            .catch { error -> Just<[FIDocument.TotalClimbedNumber]> in
-                print(error)
-                return .init([])
+        let climbRecord = Entity.ClimbRecord(
+            id: UUID().uuidString,
+            registeredUserId: AuthManager.shared.uid,
+            parentCourseId: course.id,
+            parentCourseReference: course.makeDocumentReference().path,
+            createdAt: Date(),
+            updatedAt: nil,
+            parentPath: AuthManager.shared.authUserReference?.path ?? "",
+            climbedDate: climbedDate,
+            type: .flash
+        )
+
+        setClimbRecordUsecase.set(climbRecord: climbRecord)
+            .catch { [weak self] error -> Empty in
+
+                guard let self = self else { return Empty() }
+
+                self.loadingState = .failure(error)
+                return Empty()
             }
-            .compactMap { $0.first }
-            .flatMap { [weak self] totalNumber -> AnyPublisher<Void, Error> in
+            .sink { [weak self] _ in
 
-                guard
-                    let self = self
-                else {
-                    return .init(Result<Void, Error>.Publisher(.failure(FirestoreError.nilResultError)))
-                }
+                guard let self = self else { return }
 
-                let climbRecord = FIDocument.ClimbRecord(
-                    registeredUserId: AuthManager.shared.uid,
-                    parentCourseId: course.id,
-                    parentCourseReference: course.makeDocumentReference(),
-                    totalNumberReference: totalNumber.makeDocumentReference(),
-                    parentPath: AuthManager.shared.authUserReference?.path ?? "",
-                    climbedDate: climbedDate,
-                    type: self.climbRecordType
-                )
-
-                return climbRecord.makeDocumentReference().setData(from: climbRecord)
+                self.loadingState = .finish(content: ())
             }
-            .sink(
-                receiveCompletion: { [weak self] result in
-
-                    guard let self = self else { return }
-
-                    switch result {
-                        case .finished:
-                            self.loadingState = .finish(content: ())
-
-                        case .failure(let error):
-                            self.loadingState = .failure(error)
-
-                    }
-                },
-                receiveValue: {}
-            )
             .store(in: &bindings)
     }
 

@@ -19,7 +19,7 @@ class ClimbRecordTableViewCell: UITableViewCell {
     func configure(
         user: FIDocument.User,
         climbedDate: Date,
-        type: FIDocument.ClimbRecord.ClimbedRecordType,
+        type: Entity.ClimbRecord.ClimbedRecordType,
         parentVc: UIViewController
     ) {
         userView.configure(
@@ -32,4 +32,19 @@ class ClimbRecordTableViewCell: UITableViewCell {
         climbedTypeLabel.textColor = type.color
     }
 
+}
+
+private extension Entity.ClimbRecord.ClimbedRecordType {
+
+    var color: UIColor {
+        switch self {
+            case .flash:
+                return UIColor.Pallete.primaryGreen
+
+            case .redPoint:
+                return UIColor.Pallete.primaryPink
+
+        }
+    }
+    
 }

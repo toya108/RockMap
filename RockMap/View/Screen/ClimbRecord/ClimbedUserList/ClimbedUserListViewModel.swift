@@ -21,6 +21,9 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
     private let course: FIDocument.Course
     private var bindings = Set<AnyCancellable>()
     private let fetchClimbedSubject = PassthroughSubject<String, Error>()
+    private let fetchClimbRecordUsecase = Usecase.ClimbRecord.FetchByCourseId()
+
+    private let deleteClimbRecordUsecase = Usecase.ClimbRecord.Delete()
 
     init(course: FIDocument.Course) {
         self.course = course
@@ -29,11 +32,7 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
     }
 
     private func fetchClimbed() {
-        FirestoreManager.db
-            .collectionGroup(FIDocument.ClimbRecord.colletionName)
-            .whereField("parentCourseId", in: [course.id])
-            .order(by: "climbedDate")
-            .getDocuments(FIDocument.ClimbRecord.self)
+        fetchClimbRecordUsecase.fetch(by: course.id)
             .catch { _ in Empty() }
             .assign(to: &output.$climbRecordList )
     }
@@ -109,24 +108,25 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
     }
 
     func deleteClimbRecord(
-        climbRecord: FIDocument.ClimbRecord,
+        climbRecord: Entity.ClimbRecord,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        climbRecord
-            .makeDocumentReference()
-            .delete { error in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
+        deleteClimbRecordUsecase
+            .delete(parentPath: climbRecord.parentPath, id: climbRecord.id)
+            .catch { error -> Empty in
+                completion(.failure(error))
+                return Empty()
+            }
+            .sink {
                 completion(.success(()))
             }
+            .store(in: &bindings)
     }
 
     func updateClimbedData(
         id: String,
         date: Date,
-        type: FIDocument.ClimbRecord.ClimbedRecordType
+        type: Entity.ClimbRecord.ClimbedRecordType
     ) {
         guard
             let index = output.myClimbedCellData.firstIndex(where: { $0.climbed.id == id })
@@ -147,7 +147,7 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
 extension ClimbedUserListViewModel {
 
     struct ClimbedCellData: Hashable {
-        var climbed: FIDocument.ClimbRecord
+        var climbed: Entity.ClimbRecord
         let user: FIDocument.User
         let isOwned: Bool
     }
@@ -160,7 +160,7 @@ extension ClimbedUserListViewModel {
     }
 
     final class Output {
-        @Published var climbRecordList: [FIDocument.ClimbRecord] = []
+        @Published var climbRecordList: [Entity.ClimbRecord] = []
         @Published var myClimbedCellData: [ClimbedCellData] = []
         @Published var climbedCellData: [ClimbedCellData] = []
     }

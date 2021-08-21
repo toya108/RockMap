@@ -12,7 +12,7 @@ protocol RegisterClimbRecordDetectableDelegate: AnyObject {
     func finishedRegisterClimbed(
         id: String,
         date: Date,
-        type: FIDocument.ClimbRecord.ClimbedRecordType
+        type: Entity.ClimbRecord.ClimbedRecordType
     )
 }
 
@@ -122,7 +122,7 @@ class RegisterClimbRecordBottomSheetViewController: UIViewController {
 
         climbedTypeSegmentedControl
             .selectedSegmentIndexPublisher
-            .compactMap { FIDocument.ClimbRecord.ClimbedRecordType.allCases.any(at: $0) }
+            .compactMap { Entity.ClimbRecord.ClimbedRecordType.allCases.any(at: $0) }
             .assign(to: &viewModel.$climbRecordType)
     }
 
@@ -141,7 +141,7 @@ class RegisterClimbRecordBottomSheetViewController: UIViewController {
 
         viewModel.$climbRecordType
             .removeDuplicates()
-            .map { FIDocument.ClimbRecord.ClimbedRecordType.allCases.firstIndex(of: $0) }
+            .map { Entity.ClimbRecord.ClimbedRecordType.allCases.firstIndex(of: $0) }
             .compactMap { $0 }
             .receive(on: RunLoop.main)
             .sink { [weak self] index in

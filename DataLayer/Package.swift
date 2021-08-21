@@ -9,7 +9,6 @@ let package = Package(
         .iOS(.v14),
     ],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "DataLayer",
             targets: ["DataLayer"]),
@@ -23,13 +22,11 @@ let package = Package(
         .package(url: "../Utilities", from: "1.0.0"),
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "DataLayer",
             dependencies: [
                 .product(name: "FirebaseFirestore", package: "Firebase"),
-                .product(name: "Utilities", package: "Utilities"),
+                .product(name: "FirebaseStorage", package: "Firebase"),
             ]),
         .testTarget(
             name: "DataLayerTests",
