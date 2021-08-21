@@ -132,6 +132,27 @@ extension FSDocument {
         }
         .eraseToAnyPublisher()
     }
+
+    func delete() -> AnyPublisher<EmptyResponse, Error> {
+
+        Deferred {
+            Future<EmptyResponse, Error> { [weak self] promise in
+
+                guard let self = self else { return }
+
+                self.delete { error in
+
+                    if let error = error {
+                        promise(.failure(error))
+                        return
+                    }
+
+                    promise(.success(.init()))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
 }
 
 extension Array where Element: FSDocument {

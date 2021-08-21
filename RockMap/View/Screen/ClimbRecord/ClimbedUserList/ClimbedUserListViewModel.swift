@@ -23,6 +23,8 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
     private let fetchClimbedSubject = PassthroughSubject<String, Error>()
     private let fetchClimbRecordUsecase = Usecase.ClimbRecord.FetchByCourseId()
 
+    private let deleteClimbRecordUsecase = Usecase.ClimbRecord.Delete()
+
     init(course: FIDocument.Course) {
         self.course = course
         setupOutput()
@@ -109,15 +111,16 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
         climbRecord: Entity.ClimbRecord,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        climbRecord
-            .makeDocumentReference()
-            .delete { error in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
+        deleteClimbRecordUsecase
+            .delete(parentPath: climbRecord.parentPath, id: climbRecord.id)
+            .catch { error -> Empty in
+                completion(.failure(error))
+                return Empty()
+            }
+            .sink {
                 completion(.success(()))
             }
+            .store(in: &bindings)
     }
 
     func updateClimbedData(
