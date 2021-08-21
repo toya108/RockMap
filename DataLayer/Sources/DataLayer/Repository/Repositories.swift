@@ -14,6 +14,7 @@ public struct Repositories {
     }
     public struct ClimbRecord {
         public typealias Set = Repository<FS.Request.ClimbRecord.Set>
+        public typealias FetchByCourseId = Repository<FS.Request.ClimbRecord.FetchByCourseId>
     }
     public struct TotalClimbedNumber {
         public typealias ListenByCourseId = Repository<FS.Request.TotalClimbedNumber.ListenByCourseId>
