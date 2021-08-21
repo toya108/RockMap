@@ -102,63 +102,33 @@ class RegisterClimbRecordViewModel {
         }
 
         loadingState = .loading
-//
-//        let climbRecord = Entity.ClimbRecord(
-//            id: UUID().uuidString,
-//            registeredUserId: AuthManager.shared.uid,
-//            parentCourseId: course.id,
-//            parentCourseReference: course.makeDocumentReference().path,
-//            createdAt: Date(),
-//            updatedAt: nil,
-//            parentPath: AuthManager.shared.authUserReference?.path ?? "",
-//            climbedDate: climbedDate,
-//            type: .flash
-//        )
 
-        course.makeDocumentReference()
-            .collection(FIDocument.TotalClimbedNumber.colletionName)
-            .getDocuments(FIDocument.TotalClimbedNumber.self)
-            .catch { error -> Just<[FIDocument.TotalClimbedNumber]> in
-                print(error)
-                return .init([])
+        let climbRecord = Entity.ClimbRecord(
+            id: UUID().uuidString,
+            registeredUserId: AuthManager.shared.uid,
+            parentCourseId: course.id,
+            parentCourseReference: course.makeDocumentReference().path,
+            createdAt: Date(),
+            updatedAt: nil,
+            parentPath: AuthManager.shared.authUserReference?.path ?? "",
+            climbedDate: climbedDate,
+            type: .flash
+        )
+
+        setClimbRecordUsecase.set(climbRecord: climbRecord)
+            .catch { [weak self] error -> Empty in
+
+                guard let self = self else { return Empty() }
+
+                self.loadingState = .failure(error)
+                return Empty()
             }
-            .compactMap { $0.first }
-            .flatMap { [weak self] totalNumber -> AnyPublisher<Void, Error> in
+            .sink { [weak self] _ in
 
-                guard
-                    let self = self
-                else {
-                    return .init(Result<Void, Error>.Publisher(.failure(FirestoreError.nilResultError)))
-                }
+                guard let self = self else { return }
 
-                let climbRecord = FIDocument.ClimbRecord(
-                    registeredUserId: AuthManager.shared.uid,
-                    parentCourseId: course.id,
-                    parentCourseReference: course.makeDocumentReference(),
-                    totalNumberReference: totalNumber.makeDocumentReference(),
-                    parentPath: AuthManager.shared.authUserReference?.path ?? "",
-                    climbedDate: climbedDate,
-                    type: self.climbRecordType
-                )
-
-                return climbRecord.makeDocumentReference().setData(from: climbRecord)
+                self.loadingState = .finish(content: ())
             }
-            .sink(
-                receiveCompletion: { [weak self] result in
-
-                    guard let self = self else { return }
-
-                    switch result {
-                        case .finished:
-                            self.loadingState = .finish(content: ())
-
-                        case .failure(let error):
-                            self.loadingState = .failure(error)
-
-                    }
-                },
-                receiveValue: {}
-            )
             .store(in: &bindings)
     }
 
