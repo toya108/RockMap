@@ -11,19 +11,3 @@ protocol UsecaseProtocol {
 
     init(repository: Repository, mapper: Mapper)
 }
-
-extension UsecaseProtocol {
-
-    func toPublisher<T, E: Error>(
-        closure: @escaping (@escaping Future<T, E>.Promise) -> Void
-    ) -> AnyPublisher<T, E> {
-        Deferred {
-            Future { promise in
-                closure(promise)
-            }
-        }.eraseToAnyPublisher()
-    }
-
-}
-
-protocol Listenable: UsecaseProtocol where Repository.Request: FSListenable {}

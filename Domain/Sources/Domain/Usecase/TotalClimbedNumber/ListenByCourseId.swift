@@ -3,7 +3,7 @@ import Combine
 import DataLayer
 
 public extension Domain.Usecase.TotalClimbedNumber {
-    struct ListenByCourseId: UsecaseProtocol, Listenable {
+    struct ListenByCourseId: UsecaseProtocol {
 
         public typealias Repository = Repositories.TotalClimbedNumber.ListenByCourseId
         public typealias Mapper = Domain.Mapper.TotalClimbedNumber
