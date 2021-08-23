@@ -197,6 +197,7 @@
 		9EC3A6C42604D74F001FBCA4 /* CourseDetailKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6C32604D74F001FBCA4 /* CourseDetailKind.swift */; };
 		9EC3A6C92604D75C001FBCA4 /* CourseDetailLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6C82604D75C001FBCA4 /* CourseDetailLayout.swift */; };
 		9EC3A6CE2604D76A001FBCA4 /* CourseDetailDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6CD2604D76A001FBCA4 /* CourseDetailDatasource.swift */; };
+		9EC7982A26D3E39500F9DC8D /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 9EC7982926D3E39500F9DC8D /* Auth */; };
 		9EC7FFC42698861100715F86 /* DocumentProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */; };
 		9EC7FFC6269915B300715F86 /* ColorAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EC7FFC5269915B300715F86 /* ColorAssets.xcassets */; };
 		9EC88E0A260CCB5C0057EBEE /* LocationSelectButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC88E09260CCB5C0057EBEE /* LocationSelectButtonState.swift */; };
@@ -442,6 +443,7 @@
 		9EC3A6C32604D74F001FBCA4 /* CourseDetailKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailKind.swift; sourceTree = "<group>"; };
 		9EC3A6C82604D75C001FBCA4 /* CourseDetailLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailLayout.swift; sourceTree = "<group>"; };
 		9EC3A6CD2604D76A001FBCA4 /* CourseDetailDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailDatasource.swift; sourceTree = "<group>"; };
+		9EC7982826D3E37400F9DC8D /* Auth */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Auth; sourceTree = "<group>"; };
 		9EC7FFC5269915B300715F86 /* ColorAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorAssets.xcassets; sourceTree = "<group>"; };
 		9EC7FFCD269BCC7900715F86 /* RockMapDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RockMapDebug.entitlements; sourceTree = "<group>"; };
 		9EC7FFCE269BCDB500715F86 /* RockMap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RockMap.entitlements; sourceTree = "<group>"; };
@@ -496,6 +498,7 @@
 				9E64FCFF26B59A82005984F6 /* FirebaseRemoteConfig in Frameworks */,
 				9E64FD0126B59A82005984F6 /* FirebaseStorage in Frameworks */,
 				9E64FD0726B59A82005984F6 /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				9EC7982A26D3E39500F9DC8D /* Auth in Frameworks */,
 				9E64FD0326B59A82005984F6 /* FirebaseCrashlytics in Frameworks */,
 				9E64FD1326B59F38005984F6 /* FirebaseStorageUI in Frameworks */,
 				9E64FD1026B59B3A005984F6 /* FirebaseEmailAuthUI in Frameworks */,
@@ -781,6 +784,7 @@
 		9E5CEFBF25277B25001C95AA = {
 			isa = PBXGroup;
 			children = (
+				9EC7982826D3E37400F9DC8D /* Auth */,
 				9E9162ED26BEB9D20012D2B0 /* Utilities */,
 				9E493DDF26B9949E00DCA210 /* DataLayer */,
 				9E493DD726B98DE800DCA210 /* Domain */,
@@ -1664,6 +1668,7 @@
 				9E493DDA26B98EA300DCA210 /* Domain */,
 				9E493DE026B994BB00DCA210 /* DataLayer */,
 				9E9162EF26BF7DF10012D2B0 /* Utilities */,
+				9EC7982926D3E39500F9DC8D /* Auth */,
 			);
 			productName = RockMap;
 			productReference = 9E5CEFC825277B25001C95AA /* RockMap.app */;
@@ -2480,6 +2485,10 @@
 		9E9162EF26BF7DF10012D2B0 /* Utilities */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Utilities;
+		};
+		9EC7982926D3E39500F9DC8D /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Auth;
 		};
 		9ED40FC626631B5C00A8D0AC /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;
