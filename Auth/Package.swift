@@ -6,12 +6,12 @@ import PackageDescription
 let package = Package(
     name: "Auth",
     platforms: [
-        .iOS(.v14),
+        .iOS(.v14)
     ],
     products: [
         .library(
             name: "Auth",
-            targets: ["Auth"]),
+            targets: ["Auth"])
     ],
     dependencies: [
         .package(
@@ -32,6 +32,6 @@ let package = Package(
             ]),
         .testTarget(
             name: "AuthTests",
-            dependencies: ["Auth"]),
+            dependencies: ["Auth"])
     ]
 )
