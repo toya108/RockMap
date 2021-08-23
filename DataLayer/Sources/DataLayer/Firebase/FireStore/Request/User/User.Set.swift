@@ -11,14 +11,14 @@ public extension FS.Request.User {
         public struct Parameters: Codable {
             let id: String
             let createdAt: Date
-            let displayName: String
-            let photoURL: URL
+            let displayName: String?
+            let photoURL: URL?
 
             public init(
                 id: String,
                 createdAt: Date,
-                displayName: String,
-                photoURL: URL
+                displayName: String?,
+                photoURL: URL?
             ) {
                 self.id = id
                 self.createdAt = createdAt
@@ -48,7 +48,7 @@ public extension FS.Request.User {
                 id: parameters.id,
                 createdAt: parameters.createdAt,
                 updatedAt: nil,
-                name: parameters.displayName,
+                name: parameters.displayName ?? "-",
                 photoURL: parameters.photoURL,
                 socialLinks: [],
                 introduction: nil,

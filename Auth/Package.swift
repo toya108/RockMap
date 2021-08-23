@@ -19,6 +19,7 @@ let package = Package(
             url: "https://github.com/firebase/FirebaseUI-iOS.git",
             from: .init("12.0.0")
         ),
+        .package(url: "../Domain", from: "1.0.0"),
         .package(url: "../Utilities", from: "1.0.0")
     ],
     targets: [
@@ -28,7 +29,8 @@ let package = Package(
                 .product(name: "FirebaseAuthUI", package: "FirebaseUI"),
                 .product(name: "FirebaseGoogleAuthUI", package: "FirebaseUI"),
                 .product(name: "FirebaseEmailAuthUI", package: "FirebaseUI"),
-                .product(name: "FirebaseOAuthUI", package: "FirebaseUI")
+                .product(name: "FirebaseOAuthUI", package: "FirebaseUI"),
+                .product(name: "Domain", package: "Domain")
             ]),
         .testTarget(
             name: "AuthTests",
