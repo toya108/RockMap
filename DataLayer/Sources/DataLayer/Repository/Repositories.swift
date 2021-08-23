@@ -3,6 +3,7 @@ public struct Repositories {
     public struct User {
         public typealias FetchById = Repository<FS.Request.User.FetchById>
         public typealias Update = Repository<FS.Request.User.Update>
+        public typealias Delete = Repository<FS.Request.User.Delete>
     }
     public struct Rock {
         public typealias FetchAll = Repository<FS.Request.Rock.FetchAll>

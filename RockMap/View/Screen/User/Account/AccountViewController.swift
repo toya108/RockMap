@@ -15,6 +15,7 @@ class AccountViewController: UIViewController, CompositionalColectionViewControl
     var datasource: UICollectionViewDiffableDataSource<SectionKind, ItemKind>!
 
     private var bindings = Set<AnyCancellable>()
+    private let deleteUserUsecase = Usecase.User.Delete()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +87,7 @@ extension AccountViewController {
 
                     self.showIndicatorView()
 
-                    AuthManager.shared.deleteUser()
+                    self.deleteUserUsecase.delete(id: AuthManager.shared.uid)
                         .catch { [weak self] error -> Empty in
 
                             guard let self = self else { return Empty() }
