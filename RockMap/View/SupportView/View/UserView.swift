@@ -46,7 +46,7 @@ class UserView: UIView {
     }
 
     func configure(
-        user: FIDocument.User,
+        user: Entity.User,
         registeredDate: Date? = nil,
         parentVc: UIViewController
     ) {
@@ -91,5 +91,6 @@ class UserView: UIView {
             for: .touchUpInside
         )
     }
+
 
 }

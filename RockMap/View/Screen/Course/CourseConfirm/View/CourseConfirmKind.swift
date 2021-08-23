@@ -65,8 +65,8 @@ extension CourseConfirmViewController {
         case desc(String)
         case grade(FIDocument.Course.Grade)
         case shape(Set<FIDocument.Course.Shape>)
-        case header(CrudableImage<FIDocument.Course>)
-        case images(CrudableImage<FIDocument.Course>)
+        case header(CrudableImage)
+        case images(CrudableImage)
         case register
     }
     

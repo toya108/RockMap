@@ -190,7 +190,7 @@ extension CourseRegisterViewController {
         datasource.apply(snapShot)
     }
 
-    private func headerSink(_ image: CrudableImage<FIDocument.Course>) {
+    private func headerSink(_ image: CrudableImage) {
 
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .header))
 
@@ -207,7 +207,7 @@ extension CourseRegisterViewController {
         hideIndicatorView()
     }
 
-    private func imagesSink(_ images: [CrudableImage<FIDocument.Course>]) {
+    private func imagesSink(_ images: [CrudableImage]) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .images))
         snapShot.appendItems([.noImage(.normal)], toSection: .images)
 

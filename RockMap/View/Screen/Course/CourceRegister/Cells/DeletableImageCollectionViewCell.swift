@@ -50,8 +50,8 @@ class DeletableImageCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configure<D: FIDocumentProtocol>(
-        image: CrudableImage<D>,
+    func configure(
+        image: CrudableImage,
         deleteButtonTapped: @escaping () -> Void
     ) {
 

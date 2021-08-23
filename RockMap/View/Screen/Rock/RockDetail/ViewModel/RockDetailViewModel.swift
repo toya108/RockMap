@@ -12,7 +12,7 @@ final class RockDetailViewModel: ViewModelProtocol {
     @Published var rockDocument: FIDocument.Rock
     @Published var rockName = ""
     @Published var rockId = ""
-    @Published var registeredUser: FIDocument.User?
+    @Published var registeredUser: Entity.User?
     @Published var rockDesc = ""
     @Published var seasons: Set<FIDocument.Rock.Season> = []
     @Published var lithology: FIDocument.Rock.Lithology = .unKnown
@@ -20,6 +20,8 @@ final class RockDetailViewModel: ViewModelProtocol {
     @Published var headerImage: ImageLoadable?
     @Published var images: [ImageLoadable] = []
     @Published var courses: [FIDocument.Course] = []
+
+    private let fetchUserUsecase = Usecase.User.FetchById()
 
     private var bindings = Set<AnyCancellable>()
     
@@ -31,14 +33,12 @@ final class RockDetailViewModel: ViewModelProtocol {
         self.rockDesc = rock.desc
         setImage(rock: rock)
 
-        FirestoreManager.db
-            .collection(FIDocument.User.colletionName)
-            .document(rock.registeredUserId)
-            .getDocument(FIDocument.User.self)
+        fetchUserUsecase.fetchUser(by: rock.registeredUserId)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
             }
+            .map { Optional($0) }
             .assign(to: &$registeredUser)
 
         self.rockLocation = .init(

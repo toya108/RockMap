@@ -19,6 +19,7 @@ class MyPageViewModel: MyPageViewModelProtocol {
     let userKind: UserKind
 
     private var bindings = Set<AnyCancellable>()
+    private let fetchUserUsecase = Usecase.User.FetchById()
 
     init(userKind: UserKind) {
 
@@ -67,9 +68,8 @@ class MyPageViewModel: MyPageViewModelProtocol {
     func fetchUser() {
         switch userKind {
             case .mine:
-                if let reference = AuthManager.shared.authUserReference {
-                    fetchUser(reference: reference)
-                }
+                fetchUser(from: AuthManager.shared.uid)
+
             case .guest:
                 break
 
@@ -78,11 +78,10 @@ class MyPageViewModel: MyPageViewModelProtocol {
         }
     }
 
-    private func fetchUser(reference: DocumentRef) {
+    private func fetchUser(from id: String) {
         output.fetchUserState = .loading
 
-        reference
-            .getDocument(FIDocument.User.self)
+        fetchUserUsecase.fetchUser(by: id)
             .sinkState { [weak self] state in
                 self?.output.fetchUserState = state
             }
@@ -96,7 +95,7 @@ extension MyPageViewModel {
     enum UserKind {
         case guest
         case mine
-        case other(user: FIDocument.User)
+        case other(user: Entity.User)
 
         var title: String {
             switch self {
@@ -139,7 +138,7 @@ extension MyPageViewModel {
 
     final class Output {
         @Published var isGuest = false
-        @Published var fetchUserState: LoadingState<FIDocument.User> = .stanby
+        @Published var fetchUserState: LoadingState<Entity.User> = .stanby
         @Published var climbedList: Set<FIDocument.ClimbRecord> = []
         @Published var recentClimbedCourses: Set<FIDocument.Course> = []
     }

@@ -17,7 +17,7 @@ struct MyPageRouter: RouterProtocol {
         case courseDetail(FIDocument.Course)
         case rockList(DocumentRef?)
         case courseList(DocumentRef?)
-        case editProfile(FIDocument.User)
+        case editProfile(Entity.User)
         case settings
     }
 
@@ -88,7 +88,7 @@ struct MyPageRouter: RouterProtocol {
 
     private func presentEditProfile(
         _ from: UIViewController,
-        user: FIDocument.User
+        user: Entity.User
     ) {
         let viewModel = EditProfileViewModel(user: user)
         let vc = EditProfileViewController.createInstance(viewModel: viewModel)

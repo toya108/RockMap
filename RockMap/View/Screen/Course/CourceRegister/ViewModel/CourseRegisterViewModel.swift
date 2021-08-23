@@ -15,7 +15,7 @@ protocol CourseRegisterViewModelProtocol: ViewModelProtocol {
 
 class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
-    typealias HeaderValidator = HeaderImageValidator<FIDocument.Course>
+    typealias HeaderValidator = HeaderImageValidator
 
     var input: Input = .init()
     var output: Output = .init()
@@ -145,7 +145,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         }
     }
 
-    private func deleteImage(_ image: CrudableImage<FIDocument.Course>) {
+    private func deleteImage(_ image: CrudableImage) {
         switch image.imageType {
             case .header:
                 output.header.updateData = nil
@@ -240,7 +240,7 @@ extension CourseRegisterViewModel {
         let gradeSubject = PassthroughSubject<FIDocument.Course.Grade, Never>()
         let shapeSubject = PassthroughSubject<Set<FIDocument.Course.Shape>, Never>()
         let setImageSubject = PassthroughSubject<(Data, ImageType), Never>()
-        let deleteImageSubject = PassthroughSubject<(CrudableImage<FIDocument.Course>), Never>()
+        let deleteImageSubject = PassthroughSubject<(CrudableImage), Never>()
     }
 
     final class Output {
@@ -248,8 +248,8 @@ extension CourseRegisterViewModel {
         @Published var courseDesc = ""
         @Published var grade = FIDocument.Course.Grade.q10
         @Published var shapes = Set<FIDocument.Course.Shape>()
-        @Published var header: CrudableImage<FIDocument.Course> = .init(imageType: .header)
-        @Published var images: [CrudableImage<FIDocument.Course>] = []
+        @Published var header: CrudableImage = .init(imageType: .header)
+        @Published var images: [CrudableImage] = []
         @Published var courseNameValidationResult: ValidationResult = .none
         @Published var courseImageValidationResult: ValidationResult = .none
         @Published var headerImageValidationResult: ValidationResult = .none

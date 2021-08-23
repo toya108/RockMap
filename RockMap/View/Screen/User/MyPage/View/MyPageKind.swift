@@ -56,7 +56,7 @@ extension MyPageViewController {
                     return [.user]
 
                 case .socialLink:
-                    return FIDocument.User.SocialLinkType.allCases.map { .socialLink($0) }
+                    return Entity.User.SocialLinkType.allCases.map { .socialLink($0) }
 
                 case .introduction:
                     return [.introduction]
@@ -76,7 +76,7 @@ extension MyPageViewController {
     enum ItemKind: Hashable {
         case headerImage
         case user
-        case socialLink(FIDocument.User.SocialLinkType)
+        case socialLink(Entity.User.SocialLinkType)
         case introduction
         case climbedNumber
         case noCourse

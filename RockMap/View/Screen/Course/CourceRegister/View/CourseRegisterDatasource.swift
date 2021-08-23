@@ -233,7 +233,7 @@ extension CourseRegisterViewController {
     
     private func configureDeletabelImageCell() -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
-        CrudableImage<FIDocument.Course>
+        CrudableImage
     > {
         .init { cell, _, image in
             

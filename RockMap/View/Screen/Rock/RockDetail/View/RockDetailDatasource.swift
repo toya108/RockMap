@@ -173,7 +173,7 @@ extension RockDetailViewController {
     
     private func configureRegisteredUserCell() -> UICollectionView.CellRegistration<
         LeadingRegisteredUserCollectionViewCell,
-        FIDocument.User
+        Entity.User
     > {
         .init(
             cellNib: .init(

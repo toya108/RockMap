@@ -40,7 +40,7 @@ class SocialLinkCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(
-        for socialLink: FIDocument.User.SocialLink
+        for socialLink: Entity.User.SocialLink
     ) {
         socialLinkButton.setImage(socialLink.linkType.icon, for: .normal)
         socialLinkButton.isEnabled = !socialLink.link.isEmpty
@@ -56,7 +56,7 @@ class SocialLinkCollectionViewCell: UICollectionViewCell {
         )
     }
 
-    private func openLink(from socialLink: FIDocument.User.SocialLink) {
+    private func openLink(from socialLink: Entity.User.SocialLink) {
 
         if case .other = socialLink.linkType {
 

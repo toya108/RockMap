@@ -138,7 +138,7 @@ extension RockRegisterViewController {
         datasource.apply(snapShot)
     }
 
-    private func headerSink(_ image: CrudableImage<FIDocument.Rock>) {
+    private func headerSink(_ image: CrudableImage) {
 
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .header))
 
@@ -155,7 +155,7 @@ extension RockRegisterViewController {
         hideIndicatorView()
     }
 
-    private func imagesSink(_ images: [CrudableImage<FIDocument.Rock>]) {
+    private func imagesSink(_ images: [CrudableImage]) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .images))
         snapShot.appendItems([.noImage(.normal)], toSection: .images)
 

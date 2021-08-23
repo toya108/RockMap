@@ -217,7 +217,7 @@ extension RockRegisterViewController {
     
     private func configureDeletabelImageCell() -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
-        CrudableImage<FIDocument.Rock>
+        CrudableImage
     > {
         .init { cell, _, image in
 

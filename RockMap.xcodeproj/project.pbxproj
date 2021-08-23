@@ -35,6 +35,7 @@
 		9E0BE4552608C42D00576869 /* RegisterClimbRecordBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BE4542608C42D00576869 /* RegisterClimbRecordBottomSheetViewController.swift */; };
 		9E0BE4622608C51900576869 /* RegisterClimbRecordBottomSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E0BE4612608C51900576869 /* RegisterClimbRecordBottomSheetViewController.xib */; };
 		9E0C0A152588C7DA00E34FCE /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C0A142588C7DA00E34FCE /* Rock.swift */; };
+		9E0C9C2826D2AD2F00002A0D /* Enitty.User+Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9C2726D2AD2F00002A0D /* Enitty.User+Icon.swift */; };
 		9E0C9DE32576AAD500ABFE5B /* DocumentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */; };
 		9E0C9DE82576AAE300ABFE5B /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */; };
 		9E0C9DF02576ABCE00ABFE5B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9DEF2576ABCE00ABFE5B /* User.swift */; };
@@ -285,6 +286,7 @@
 		9E0BE4542608C42D00576869 /* RegisterClimbRecordBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterClimbRecordBottomSheetViewController.swift; sourceTree = "<group>"; };
 		9E0BE4612608C51900576869 /* RegisterClimbRecordBottomSheetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterClimbRecordBottomSheetViewController.xib; sourceTree = "<group>"; };
 		9E0C0A142588C7DA00E34FCE /* Rock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
+		9E0C9C2726D2AD2F00002A0D /* Enitty.User+Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enitty.User+Icon.swift"; sourceTree = "<group>"; };
 		9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentProtocol.swift; sourceTree = "<group>"; };
 		9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
 		9E0C9DEF2576ABCE00ABFE5B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 				9E623685258A65EC00152AF9 /* Firebase */,
 				9E04B1CE254BE7A70097DA8E /* Location */,
 				9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */,
+				9E0C9C2726D2AD2F00002A0D /* Enitty.User+Icon.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2042,6 +2045,7 @@
 				9E9845EF25D5278C00B03C4E /* CourseRegisterDatasource.swift in Sources */,
 				9E479D2626C29DC3003EFCB5 /* DomainAccesser.swift in Sources */,
 				9E81072A262DA3700025359C /* MyPageKind.swift in Sources */,
+				9E0C9C2826D2AD2F00002A0D /* Enitty.User+Icon.swift in Sources */,
 				9E9B3894262125D6001A39A9 /* Query+Combine.swift in Sources */,
 				9E9974FE26422B1F00E8562B /* CourseListDatasource.swift in Sources */,
 				9E2D0F1725D6E4B100652171 /* TextFieldColletionViewCell.swift in Sources */,

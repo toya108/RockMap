@@ -12,7 +12,7 @@ class LeadingRegisteredUserCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var userView: UserView!
 
     func configure(
-        user: FIDocument.User,
+        user: Entity.User,
         registeredDate: Date? = nil,
         parentVc: UIViewController
     ) {

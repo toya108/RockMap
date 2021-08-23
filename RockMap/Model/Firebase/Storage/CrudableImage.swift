@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct CrudableImage<D: FIDocumentProtocol>: Hashable {
+struct CrudableImage: Hashable {
     var storageReference: StorageManager.Reference?
     var updateData: Data?
     var shouldDelete: Bool = false
     let imageType: ImageType
 
-    func makeImageReference(documentId: String) -> StorageManager.Reference {
+    func makeImageReference(documentId: String, documentType: FINameSpaceProtocol.Type) -> StorageManager.Reference {
         return StorageManager.makeImageReferenceForUpload(
-            destinationDocument: D.Collection.self,
+            destinationDocument: documentType,
             documentId: documentId,
             imageType: imageType
         )

@@ -119,7 +119,7 @@ extension RockConfirmViewController {
     
     private func configureImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
-        CrudableImage<FIDocument.Rock>
+        CrudableImage
     > {
         .init { cell, _, image in
             cell.layer.cornerRadius = 8

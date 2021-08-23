@@ -21,8 +21,8 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
 
     let registerType: RockRegisterViewModel.RegisterType
     var rockDocument: FIDocument.Rock
-    let header: CrudableImage<FIDocument.Rock>
-    let images: [CrudableImage<FIDocument.Rock>]
+    let header: CrudableImage
+    let images: [CrudableImage]
 
     private var bindings = Set<AnyCancellable>()
     private let uploader = StorageUploader()
@@ -30,8 +30,8 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
     init(
         registerType: RockRegisterViewModel.RegisterType,
         rockDocument: FIDocument.Rock,
-        header: CrudableImage<FIDocument.Rock>,
-        images: [CrudableImage<FIDocument.Rock>]
+        header: CrudableImage,
+        images: [CrudableImage]
     ) {
         self.registerType = registerType
         self.rockDocument = rockDocument
@@ -57,8 +57,8 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
     }
 
     private func uploadImages() {
-        uploader.addData(image: header, id: rockDocument.id)
-        images.forEach { uploader.addData(image: $0, id: rockDocument.id) }
+        uploader.addData(image: header, id: rockDocument.id, documentType: FINameSpace.Rocks.self)
+        images.forEach { uploader.addData(image: $0, id: rockDocument.id, documentType: FINameSpace.Rocks.self) }
         uploader.start()
     }
 

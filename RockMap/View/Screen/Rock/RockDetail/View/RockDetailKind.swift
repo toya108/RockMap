@@ -56,7 +56,7 @@ extension RockDetailViewController {
     enum ItemKind: Hashable {
         case header(ImageLoadable)
         case title(String)
-        case registeredUser(user: FIDocument.User)
+        case registeredUser(user: Entity.User)
         case desc(String)
         case season(Set<FIDocument.Rock.Season>)
         case lithology(FIDocument.Rock.Lithology)

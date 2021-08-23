@@ -165,13 +165,13 @@ extension MyPageViewController {
 
     private func configureSocialLinkCell() -> UICollectionView.CellRegistration<
         SocialLinkCollectionViewCell,
-        FIDocument.User.SocialLinkType
+        Entity.User.SocialLinkType
     > {
         .init { [weak self] cell, _, socialLinkType in
 
             guard let self = self else { return }
 
-            var socialLink: FIDocument.User.SocialLink {
+            var socialLink: Entity.User.SocialLink {
                 guard
                     let user = self.viewModel.output.fetchUserState.content,
                     let socialLink = user.socialLinks.getLink(type: socialLinkType)

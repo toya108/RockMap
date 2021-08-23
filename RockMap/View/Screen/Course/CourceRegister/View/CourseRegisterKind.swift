@@ -90,8 +90,8 @@ extension CourseRegisterViewController {
         case grade(FIDocument.Course.Grade)
         case shape(shape: FIDocument.Course.Shape, isSelecting: Bool)
         case noImage(ImageType)
-        case header(CrudableImage<FIDocument.Course>)
-        case images(CrudableImage<FIDocument.Course>)
+        case header(CrudableImage)
+        case images(CrudableImage)
         case desc
         case confirmation
         case error(ValidationError)

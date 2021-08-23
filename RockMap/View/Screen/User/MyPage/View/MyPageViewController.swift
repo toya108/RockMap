@@ -107,7 +107,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
 extension MyPageViewController {
 
-    private func userSink(_ user: LoadingState<FIDocument.User>) {
+    private func userSink(_ user: LoadingState<Entity.User>) {
         snapShot.reloadSections([.user, .socialLink])
         datasource.apply(snapShot, animatingDifferences: false)
     }

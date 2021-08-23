@@ -19,8 +19,8 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     var output: Output = .init()
     
     let registerType: CourseRegisterViewModel.RegisterType
-    let header: CrudableImage<FIDocument.Course>
-    let images: [CrudableImage<FIDocument.Course>]
+    let header: CrudableImage
+    let images: [CrudableImage]
     private(set) var courseDocument: FIDocument.Course
 
     private var bindings = Set<AnyCancellable>()
@@ -29,8 +29,8 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     init(
         registerType: CourseRegisterViewModel.RegisterType,
         courseDocument: FIDocument.Course,
-        header: CrudableImage<FIDocument.Course>,
-        images: [CrudableImage<FIDocument.Course>]
+        header: CrudableImage,
+        images: [CrudableImage]
     ) {
         self.registerType = registerType
         self.courseDocument = courseDocument
@@ -56,8 +56,8 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     }
     
     private func uploadImages() {
-        uploader.addData(image: header, id: courseDocument.id)
-        images.forEach { uploader.addData(image: $0, id: courseDocument.id) }
+        uploader.addData(image: header, id: courseDocument.id, documentType: FINameSpace.Course.self)
+        images.forEach { uploader.addData(image: $0, id: courseDocument.id, documentType: FINameSpace.Course.self) }
         uploader.start()
     }
 
