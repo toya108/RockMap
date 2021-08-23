@@ -123,7 +123,6 @@
 		9E7ABF09262590450028DB19 /* CombineControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7ABF08262590450028DB19 /* CombineControl.swift */; };
 		9E7ABF0E262593570028DB19 /* UISegmentedControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7ABF0D262593570028DB19 /* UISegmentedControl+Combine.swift */; };
 		9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CA7254CFD150091935F /* MyPageViewController.swift */; };
-		9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */; };
 		9E807CC6254D00310091935F /* ScreenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CC5254D00310091935F /* ScreenType.swift */; };
 		9E810722262DA3640025359C /* MyPageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E810721262DA3640025359C /* MyPageLayout.swift */; };
 		9E81072A262DA3700025359C /* MyPageKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E810729262DA3700025359C /* MyPageKind.swift */; };
@@ -369,7 +368,6 @@
 		9E7ABF08262590450028DB19 /* CombineControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineControl.swift; sourceTree = "<group>"; };
 		9E7ABF0D262593570028DB19 /* UISegmentedControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Combine.swift"; sourceTree = "<group>"; };
 		9E807CA7254CFD150091935F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
-		9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectProtocolExtension.swift; sourceTree = "<group>"; };
 		9E807CC5254D00310091935F /* ScreenType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenType.swift; sourceTree = "<group>"; };
 		9E810721262DA3640025359C /* MyPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageLayout.swift; sourceTree = "<group>"; };
 		9E810729262DA3700025359C /* MyPageKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageKind.swift; sourceTree = "<group>"; };
@@ -861,7 +859,6 @@
 		9E60DCAD2556E3EA000CF2E8 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
-				9E807CB1254CFE570091935F /* NSObjectProtocolExtension.swift */,
 				9ED972992596471C0069FB94 /* ArrayExtension.swift */,
 				9E4415732661E44200D48D12 /* DateExtension.swift */,
 				9E44157526620FA800D48D12 /* DictionaryExtension.swift */,
@@ -1921,7 +1918,6 @@
 				9E7812E52619FB1600CAC539 /* ClimbedUserListViewModel.swift in Sources */,
 				9E2DA75F25F91BA7008F339E /* LocationSelectCollectionViewCell.swift in Sources */,
 				9E7ABF09262590450028DB19 /* CombineControl.swift in Sources */,
-				9E807CB2254CFE570091935F /* NSObjectProtocolExtension.swift in Sources */,
 				9E06F9612649769200731352 /* EditProfileLayout.swift in Sources */,
 				9EC3A6C42604D74F001FBCA4 /* CourseDetailKind.swift in Sources */,
 				9EF74F7426215E2200974EBA /* WriteBadge+Combine.swift in Sources */,
