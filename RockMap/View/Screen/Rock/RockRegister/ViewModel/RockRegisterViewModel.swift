@@ -1,10 +1,5 @@
-//
-//  RockRegisterViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/11/02.
-//
 
+import Auth
 import Combine
 import Foundation
 import CoreLocation
@@ -262,7 +257,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
         switch registerType {
             case .create:
                 return .init(
-                    parentPath: AuthManager.shared.authUserReference?.path ?? "",
+                    parentPath: AuthManager.shared.userPath,
                     name: output.rockName,
                     address: output.rockLocation.address,
                     prefecture: output.rockLocation.prefecture,

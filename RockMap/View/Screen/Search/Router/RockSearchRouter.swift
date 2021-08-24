@@ -1,10 +1,5 @@
-//
-//  RockSearchRouter.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/31.
-//
 
+import Auth
 import UIKit
 import CoreLocation
 

@@ -1,10 +1,5 @@
-//
-//  CourseListViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/23.
-//
 
+import Auth
 import Combine
 
 protocol CourseListViewModelProtocol: ViewModelProtocol {

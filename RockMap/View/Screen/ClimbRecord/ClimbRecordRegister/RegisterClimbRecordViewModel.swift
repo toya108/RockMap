@@ -1,10 +1,5 @@
-//
-//  RegisterClimbedViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/11.
-//
 
+import Auth
 import Combine
 import Foundation
 
@@ -103,7 +98,7 @@ class RegisterClimbRecordViewModel {
             parentCourseReference: course.makeDocumentReference().path,
             createdAt: Date(),
             updatedAt: nil,
-            parentPath: AuthManager.shared.authUserReference?.path ?? "",
+            parentPath: AuthManager.shared.userPath,
             climbedDate: climbedDate,
             type: .flash
         )

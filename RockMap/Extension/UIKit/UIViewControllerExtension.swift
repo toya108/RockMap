@@ -1,10 +1,5 @@
-//
-//  UIViewControllerExtension.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/11/04.
-//
 
+import Auth
 import UIKit
 
 extension UIViewController {
@@ -113,8 +108,19 @@ extension UIViewController {
 
                     guard let self = self else { return }
 
-                    AuthManager.shared.presentAuthViewController(from: self)
+                    guard
+                        let authViewController = AuthManager.shared.authViewController
+                    else {
+                        return
+                    }
 
+                    let vc = RockMapNavigationController(
+                        rootVC: authViewController,
+                        naviBarClass: RockMapNavigationBar.self
+                    )
+                    vc.modalPresentationStyle = .fullScreen
+                    vc.modalTransitionStyle = .crossDissolve
+                    self.present(vc, animated: true)
                 },
                 .init(title: "Cancel", style: .cancel)
             ],

@@ -1,12 +1,6 @@
 #if DEBUG
 
-//
-//  DebugViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/01/15.
-//
-
+import Auth
 import UIKit
 import Combine
 

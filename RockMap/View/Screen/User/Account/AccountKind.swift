@@ -1,10 +1,5 @@
-//
-//  AccountKind.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/06/01.
-//
 
+import Auth
 import Foundation
 import UIKit
 

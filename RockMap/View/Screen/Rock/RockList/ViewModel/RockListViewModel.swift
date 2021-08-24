@@ -1,10 +1,5 @@
-//
-//  RockListViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/06.
-//
 
+import Auth
 import Combine
 
 protocol RockListViewModelProtocol: ViewModelProtocol {

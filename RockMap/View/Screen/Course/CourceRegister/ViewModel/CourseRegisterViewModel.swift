@@ -1,10 +1,5 @@
-//
-//  CourseRegisterViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/02/11.
-//
 
+import Auth
 import Combine
 import Foundation
 
@@ -194,7 +189,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         switch registerType {
             case let .create(rock):
                 return .init(
-                    parentPath: AuthManager.shared.authUserReference?.path ?? "",
+                    parentPath: AuthManager.shared.userPath,
                     name: output.courseName,
                     desc: output.courseDesc,
                     grade: output.grade,

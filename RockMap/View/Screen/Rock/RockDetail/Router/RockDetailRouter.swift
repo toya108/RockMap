@@ -1,10 +1,5 @@
-//
-//  RockDetailRouter.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/31.
-//
 
+import Auth
 import UIKit
 
 struct RockDetailRouter: RouterProtocol {
@@ -49,7 +44,7 @@ struct RockDetailRouter: RouterProtocol {
     }
 
     private func presentCourseRegister(_ from: UIViewController) {
-
+        
         guard
             AuthManager.shared.isLoggedIn
         else {

@@ -1,10 +1,5 @@
-//
-//  SceneDelegate.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/10/03.
-//
 
+import Auth
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

@@ -1,10 +1,5 @@
-//
-//  UserView.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/04.
-//
 
+import Auth
 import UIKit
 import SDWebImage
 

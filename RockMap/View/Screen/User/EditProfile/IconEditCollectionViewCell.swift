@@ -1,10 +1,5 @@
-//
-//  IconEditCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/16.
-//
 
+import Auth
 import UIKit
 
 class IconEditCollectionViewCell: UICollectionViewCell {

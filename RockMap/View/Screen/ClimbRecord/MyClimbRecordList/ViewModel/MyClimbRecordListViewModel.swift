@@ -1,10 +1,5 @@
-//
-//  MyClimbedListViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/27.
-//
 
+import Auth
 import Foundation
 import Combine
 

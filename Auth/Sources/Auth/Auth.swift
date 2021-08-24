@@ -49,6 +49,10 @@ public class AuthManager: NSObject {
         currentUser?.uid ?? ""
     }
 
+    public var userPath: String {
+        "users" + "/" + uid
+    }
+
     public var authViewController: UIViewController? {
         authUI?.authViewController().viewControllers.first
     }

@@ -1,10 +1,5 @@
-//
-//  MyPageViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/10/31.
-//
 
+import Auth
 import Combine
 import UIKit
 
@@ -156,13 +151,13 @@ extension MyPageViewController {
 
             case .registeredRock:
                 router.route(
-                    to: .rockList(AuthManager.shared.authUserReference),
+                    to: .rockList,
                     from: self
                 )
 
             case .registeredCourse:
                 router.route(
-                    to: .courseList(AuthManager.shared.authUserReference),
+                    to: .courseList,
                     from: self
                 )
 
