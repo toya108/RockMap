@@ -22,9 +22,13 @@ https://apps.apple.com/jp/app/rockmap/id1576276950
 ### Design
 * MVVM + Routor
 
-※ Currently I'm replacing an archtecture from MVVM to CleanArchtecture
-Before: MVVM + Routor
-After: CleanArchtecture(Presentation + Domain + Data)
+---
+Note: Currently I'm replacing an archtecture from MVVM to CleanArchtecture.
+
+- Before: MVVM + Routor
+- After: CleanArchtecture(Presentation + Domain + Data)
+
+---
 
 ### UI
 * UIKit
@@ -36,7 +40,7 @@ After: CleanArchtecture(Presentation + Domain + Data)
 * FirebaseStorage
 * Cloud Function
 
-* BackEnd of RockMap is here
+* BackEnd is here
   * https://github.com/toya108/RockMapFirebase
 
 ### Authentication
