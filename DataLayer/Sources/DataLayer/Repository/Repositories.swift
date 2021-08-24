@@ -19,6 +19,7 @@ public struct Repositories {
         public typealias Set = Repository<FS.Request.ClimbRecord.Set>
         public typealias Update = Repository<FS.Request.ClimbRecord.Update>
         public typealias FetchByCourseId = Repository<FS.Request.ClimbRecord.FetchByCourseId>
+        public typealias FetchByUserId = Repository<FS.Request.ClimbRecord.FetchByUserId>
         public typealias Delete = Repository<FS.Request.ClimbRecord.Delete>
     }
     public struct TotalClimbedNumber {
