@@ -20,7 +20,11 @@ https://apps.apple.com/jp/app/rockmap/id1576276950
 
 ## Architecture
 ### Design
-* MVVM + Combine
+* MVVM + Routor
+
+※ Currently I'm replacing an archtecture from MVVM to CleanArchtecture
+Before: MVVM + Routor
+After: CleanArchtecture(Presentation + Domain + Data)
 
 ### UI
 * UIKit
@@ -39,20 +43,11 @@ https://apps.apple.com/jp/app/rockmap/id1576276950
 * FirebaseUI 
 
 ### Manage Library
-- Firebase
-  - CocoaPods
-
-- others  
-  - SPM     
+- SPM     
 
 ## Data Model
 
 <img src="https://user-images.githubusercontent.com/44093643/119843554-a0b69880-bf42-11eb-970d-dfba516a2e0a.png" width="300">
-
-## Instration
-Please run the belows in the root of the project.
-1. `bundle install`
-2. `bundle exec pod install`
 
 ## Comunication
 * If you found a bug, open an issue.
