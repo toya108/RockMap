@@ -6,9 +6,9 @@ import FirebaseOAuthUI
 import Combine
 import Utilities
 
-class AuthManager: NSObject {
+public class AuthManager: NSObject {
 
-    static let shared = AuthManager()
+    public static let shared = AuthManager()
 
     private var setUserCancellable: AnyCancellable?
     private let loginFinishedSubject: PassthroughSubject<Result<Void, Error>, Never> = .init()
@@ -33,27 +33,27 @@ class AuthManager: NSObject {
         authUI?.delegate = self
     }
 
-    var loginFinishedPublisher: AnyPublisher<Result<Void, Error>, Never> {
+    public var loginFinishedPublisher: AnyPublisher<Result<Void, Error>, Never> {
         loginFinishedSubject.eraseToAnyPublisher()
     }
 
-    var isLoggedIn: Bool {
+    public var isLoggedIn: Bool {
         currentUser != nil
     }
 
-    var currentUser: User? {
+    public var currentUser: User? {
         authUI?.auth?.currentUser
     }
 
-    var uid: String {
+    public var uid: String {
         currentUser?.uid ?? ""
     }
 
-    var authViewController: UIViewController? {
+    public var authViewController: UIViewController? {
         authUI?.authViewController().viewControllers.first
     }
 
-    func logout() -> AnyPublisher<Void, Error> {
+    public func logout() -> AnyPublisher<Void, Error> {
         Deferred {
             Future<Void, Error> { [weak self] promise in
                 do {
@@ -67,7 +67,7 @@ class AuthManager: NSObject {
         .eraseToAnyPublisher()
     }
 
-    func logout(_ completion: ((Result<Void, Error>) -> Void)?) {
+    public func logout(_ completion: ((Result<Void, Error>) -> Void)?) {
         do {
             try self.authUI?.signOut()
             completion?(.success(()))
@@ -79,7 +79,7 @@ class AuthManager: NSObject {
 
 extension AuthManager: FUIAuthDelegate {
 
-    func authUI(
+    public func authUI(
         _ authUI: FUIAuth,
         didSignInWith authDataResult: AuthDataResult?,
         error: Error?
@@ -117,7 +117,7 @@ extension AuthManager: FUIAuthDelegate {
 
     }
 
-    func authPickerViewController(
+    public func authPickerViewController(
         forAuthUI authUI: FUIAuth
     ) -> FUIAuthPickerViewController {
         return FUICustomAuthPickerViewController(
@@ -129,7 +129,7 @@ extension AuthManager: FUIAuthDelegate {
 
 }
 
-enum AuthError: LocalizedError {
+public enum AuthError: LocalizedError {
     case noUser
 }
 
