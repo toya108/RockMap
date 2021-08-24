@@ -595,7 +595,6 @@
 		9E06F95B2649762F00731352 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9E06F95E2649767C00731352 /* EditProfileViewController.swift */,
 				9E06F9602649769200731352 /* EditProfileLayout.swift */,
 				9E06F962264976A100731352 /* EditProfileDatasource.swift */,
 				9E06F964264976AE00731352 /* EditProfileKind.swift */,
@@ -607,6 +606,7 @@
 			isa = PBXGroup;
 			children = (
 				9E06F966264976BC00731352 /* EditProfileViewModel.swift */,
+				9E06F95E2649767C00731352 /* EditProfileViewController.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

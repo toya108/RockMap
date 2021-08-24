@@ -12,6 +12,7 @@ public struct Repositories {
     public struct Course {
         public typealias FetchByUserId = Repository<FS.Request.Course.FetchByUserId>
         public typealias FetchByRockId = Repository<FS.Request.Course.FetchByRockId>
+        public typealias FetchByReference = Repository<FS.Request.Course.FetchByReference>
         public typealias Set = Repository<FS.Request.Course.Set>
         public typealias Update = Repository<FS.Request.Course.Update>
     }
