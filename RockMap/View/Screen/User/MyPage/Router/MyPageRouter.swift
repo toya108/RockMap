@@ -14,7 +14,7 @@ struct MyPageRouter: RouterProtocol {
 
     enum DestinationType: DestinationProtocol {
         case climbedCourseList
-        case courseDetail(FIDocument.Course)
+        case courseDetail(Entity.Course)
         case rockList
         case courseList
         case editProfile(Entity.User)
@@ -61,9 +61,24 @@ struct MyPageRouter: RouterProtocol {
 
     private func pushCourseDetail(
         _ from: UIViewController,
-        course: FIDocument.Course
+        course: Entity.Course
     ) {
-        let viewModel = CourseDetailViewModel(course: course)
+        let courseDocument = FIDocument.Course(
+            id: course.id,
+            parentPath: course.parentPath,
+            createdAt: course.createdAt,
+            updatedAt: course.updatedAt,
+            name: course.name,
+            desc: course.desc,
+            grade: .init(rawValue: course.grade.rawValue) ?? .q10,
+            shape: Set(course.shape.compactMap { .init(rawValue: $0.rawValue) }),
+            parentRockName: course.parentRockName,
+            parentRockId: course.parentRockId,
+            registeredUserId: course.registeredUserId,
+            headerUrl: course.headerUrl,
+            imageUrls: course.imageUrls
+        )
+        let viewModel = CourseDetailViewModel(course: courseDocument)
         let vc = CourseDetailViewController.createInstance(viewModel: viewModel)
         from.navigationController?.pushViewController(vc, animated: true)
     }

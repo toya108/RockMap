@@ -15,6 +15,8 @@ class MyPageViewModel: MyPageViewModelProtocol {
 
     private var bindings = Set<AnyCancellable>()
     private let fetchUserUsecase = Usecase.User.FetchById()
+    private let fetchClimbRecordsUsecase = Usecase.ClimbRecord.FetchByUserId()
+    private let fetchCourseUsecase = Usecase.Course.FetchByReference()
 
     init(userKind: UserKind) {
 
@@ -40,23 +42,24 @@ class MyPageViewModel: MyPageViewModelProtocol {
             .filter { $0.isFinished }
             .compactMap { $0.content?.id }
             .flatMap {
-                FirestoreManager.db
-                    .collectionGroup(FIDocument.ClimbRecord.colletionName)
-                    .whereField("registeredUserId", in: [$0])
-                    .getDocuments(FIDocument.ClimbRecord.self)
-                    .catch { _ in Empty() }
+                self.fetchClimbRecordsUsecase.fetch(by: $0).catch { error -> Empty in
+                    print(error)
+                    return Empty()
+                }
             }
-            .map { Set<FIDocument.ClimbRecord>($0) }
             .assign(to: &output.$climbedList)
 
         output.$climbedList
-            .map { $0.map(\.parentCourseReference) }
-            .map { Set<DocumentRef>($0) }
-            .map { $0.prefix(5).map { $0 } }
+            .map { $0.map(\.parentCourseReference).unique.prefix(5) }
             .flatMap {
-                $0.getDocuments(FIDocument.Course.self).catch { _ in Empty() }
+                $0.publisher.flatMap { id in
+                    self.fetchCourseUsecase.fetch(by: id).catch { error -> Empty in
+                        print(error)
+                        return Empty()
+                    }
+                }
+                .collect()
             }
-            .map { Set<FIDocument.Course>($0) }
             .assign(to: &output.$recentClimbedCourses)
     }
 
@@ -134,8 +137,8 @@ extension MyPageViewModel {
     final class Output {
         @Published var isGuest = false
         @Published var fetchUserState: LoadingState<Entity.User> = .stanby
-        @Published var climbedList: Set<FIDocument.ClimbRecord> = []
-        @Published var recentClimbedCourses: Set<FIDocument.Course> = []
+        @Published var climbedList: [Entity.ClimbRecord] = []
+        @Published var recentClimbedCourses: [Entity.Course] = []
     }
 
 }

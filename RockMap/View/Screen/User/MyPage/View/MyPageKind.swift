@@ -80,7 +80,7 @@ extension MyPageViewController {
         case introduction
         case climbedNumber
         case noCourse
-        case climbedCourse(FIDocument.Course)
+        case climbedCourse(Entity.Course)
         case registeredRock(RegisteredKind)
         case registeredCourse(RegisteredKind)
 

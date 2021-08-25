@@ -54,4 +54,30 @@ class CourseCollectionViewCell: UICollectionViewCell {
             .store(in: &bindings)
     }
 
+    func configure(
+        course: Entity.Course,
+        parentVc: UIViewController
+    ) {
+        courseNameLabel.text = course.name + course.grade.name
+        courseImageView.loadImage(url: course.headerUrl)
+
+        fetchUserUsecase.fetchUser(by: course.registeredUserId)
+            .catch { error -> Empty in
+                print(error)
+                return Empty()
+            }
+            .compactMap { $0 }
+            .sink { [weak self] user in
+
+                guard let self = self else { return }
+
+                self.userView.configure(
+                    user: user,
+                    registeredDate: course.createdAt,
+                    parentVc: parentVc
+                )
+            }
+            .store(in: &bindings)
+    }
+
 }

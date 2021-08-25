@@ -254,7 +254,7 @@ extension MyPageViewController {
 
     private func configureCoursesCell() -> UICollectionView.CellRegistration<
         CourseCollectionViewCell,
-        FIDocument.Course
+        Entity.Course
     > {
         .init(
             cellNib: .init(

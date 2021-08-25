@@ -107,12 +107,12 @@ extension MyPageViewController {
         datasource.apply(snapShot, animatingDifferences: false)
     }
 
-    private func climbedListSink(_ climbedList: Set<FIDocument.ClimbRecord>) {
+    private func climbedListSink(_ climbedList: [Entity.ClimbRecord]) {
         snapShot.reloadSections([.climbedNumber])
         datasource.apply(snapShot, animatingDifferences: false)
     }
 
-    private func recentClimbedCoursesSink(_ courses: Set<FIDocument.Course>) {
+    private func recentClimbedCoursesSink(_ courses: [Entity.Course]) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .recentClimbedCourses))
 
         if courses.isEmpty {
