@@ -19,9 +19,10 @@ final class RockDetailViewModel: ViewModelProtocol {
     @Published var rockLocation = LocationManager.LocationStructure()
     @Published var headerImage: ImageLoadable?
     @Published var images: [ImageLoadable] = []
-    @Published var courses: [FIDocument.Course] = []
+    @Published var courses: [Entity.Course] = []
 
     private let fetchUserUsecase = Usecase.User.FetchById()
+    private let fetchCoursesUsecase = Usecase.Course.FetchByRockId()
 
     private var bindings = Set<AnyCancellable>()
     
@@ -55,16 +56,20 @@ final class RockDetailViewModel: ViewModelProtocol {
     }
     
     func fetchCourses() {
-        FirestoreManager.db
-            .collectionGroup(FIDocument.Course.colletionName)
-            .whereField("parentRockId", in: [rockDocument.id])
-            .getDocuments(FIDocument.Course.self)
-            .catch { error -> Just<[FIDocument.Course]> in
+        fetchCoursesUsecase.fetch(by: rockDocument.id)
+            .catch { error -> Just<[Entity.Course]> in
                 print(error)
                 return .init([])
             }
             .map { $0.sorted { $0.createdAt > $1.createdAt } }
             .assign(to: &$courses)
+    }
+
+    func makeGradeNumberStrings(dic: [Entity.Course.Grade: Int]) -> String {
+        dic.map {
+            $0.key.name + "/" + $0.value.description + "本"
+        }
+        .joined(separator: ", ")
     }
 
     private func setImage(rock: FIDocument.Rock) {

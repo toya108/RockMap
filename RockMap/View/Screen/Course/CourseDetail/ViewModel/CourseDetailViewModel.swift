@@ -17,7 +17,7 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
     var input: Input = .init()
     var output: Output = .init()
     
-    let course: FIDocument.Course
+    let course: Entity.Course
     private let listenTotalClimbedNumberUsecase = Usecase.TotalClimbedNumber.ListenByCourseId()
     private let fetchRegisteredUserSubject = PassthroughSubject<String, Error>()
     private let fetchParentRockSubject = PassthroughSubject<String, Error>()
@@ -25,7 +25,7 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
 
     private var bindings = Set<AnyCancellable>()
     
-    init(course: FIDocument.Course) {
+    init(course: Entity.Course) {
         self.course = course
 
         setupInput()

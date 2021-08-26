@@ -7,7 +7,7 @@ class RegisterClimbRecordViewModel {
 
     enum RegisterType {
         case edit(Entity.ClimbRecord)
-        case create(FIDocument.Course)
+        case create(Entity.Course)
     }
 
     let registerType: RegisterType
@@ -95,7 +95,7 @@ class RegisterClimbRecordViewModel {
             id: UUID().uuidString,
             registeredUserId: AuthManager.shared.uid,
             parentCourseId: course.id,
-            parentCourseReference: course.makeDocumentReference().path,
+            parentCourseReference: course.parentPath + "courses" + course.id,
             createdAt: Date(),
             updatedAt: nil,
             parentPath: AuthManager.shared.userPath,

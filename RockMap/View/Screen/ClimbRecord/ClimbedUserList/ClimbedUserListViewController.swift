@@ -16,7 +16,7 @@ class ClimbedUserListViewController: UIViewController {
     private var datasource: UITableViewDiffableDataSource<SectionKind, ClimbedUserListViewModel.ClimbedCellData>!
     private var bindings = Set<AnyCancellable>()
 
-    static func createInstance(course: FIDocument.Course) -> Self {
+    static func createInstance(course: Entity.Course) -> Self {
         let instance = Self()
         instance.viewModel = .init(course: course)
         return instance

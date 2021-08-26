@@ -63,22 +63,7 @@ struct MyPageRouter: RouterProtocol {
         _ from: UIViewController,
         course: Entity.Course
     ) {
-        let courseDocument = FIDocument.Course(
-            id: course.id,
-            parentPath: course.parentPath,
-            createdAt: course.createdAt,
-            updatedAt: course.updatedAt,
-            name: course.name,
-            desc: course.desc,
-            grade: .init(rawValue: course.grade.rawValue) ?? .q10,
-            shape: Set(course.shape.compactMap { .init(rawValue: $0.rawValue) }),
-            parentRockName: course.parentRockName,
-            parentRockId: course.parentRockId,
-            registeredUserId: course.registeredUserId,
-            headerUrl: course.headerUrl,
-            imageUrls: course.imageUrls
-        )
-        let viewModel = CourseDetailViewModel(course: courseDocument)
+        let viewModel = CourseDetailViewModel(course: course)
         let vc = CourseDetailViewController.createInstance(viewModel: viewModel)
         from.navigationController?.pushViewController(vc, animated: true)
     }

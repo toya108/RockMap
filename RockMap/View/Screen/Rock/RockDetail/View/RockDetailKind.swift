@@ -60,9 +60,9 @@ extension RockDetailViewController {
         case desc(String)
         case season(Set<FIDocument.Rock.Season>)
         case lithology(FIDocument.Rock.Lithology)
-        case containGrade([FIDocument.Course.Grade: Int])
+        case containGrade([Entity.Course.Grade: Int])
         case map(LocationManager.LocationStructure)
-        case courses(FIDocument.Course)
+        case courses(Entity.Course)
         case nocourse
         case image(ImageLoadable)
         case noImage

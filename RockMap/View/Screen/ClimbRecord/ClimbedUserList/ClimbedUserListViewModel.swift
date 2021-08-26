@@ -13,14 +13,14 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
     var input: Input = .init()
     var output: Output = .init()
 
-    private let course: FIDocument.Course
+    private let course: Entity.Course
     private var bindings = Set<AnyCancellable>()
     private let fetchClimbedSubject = PassthroughSubject<String, Error>()
     private let fetchClimbRecordUsecase = Usecase.ClimbRecord.FetchByCourseId()
 
     private let deleteClimbRecordUsecase = Usecase.ClimbRecord.Delete()
 
-    init(course: FIDocument.Course) {
+    init(course: Entity.Course) {
         self.course = course
         setupOutput()
         fetchClimbed()

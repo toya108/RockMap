@@ -8,7 +8,7 @@ struct RockDetailRouter: RouterProtocol {
     typealias ViewModel = RockDetailViewModel
 
     enum DestinationType: DestinationProtocol {
-        case courseDetail(FIDocument.Course)
+        case courseDetail(Entity.Course)
         case courseRegister
     }
 
@@ -34,7 +34,7 @@ struct RockDetailRouter: RouterProtocol {
 
     private func pushCourseDetail(
         _ from: UIViewController,
-        course: FIDocument.Course
+        course: Entity.Course
     ) {
         let courseDetailViewModel = CourseDetailViewModel(course: course)
         from.navigationController?.pushViewController(
