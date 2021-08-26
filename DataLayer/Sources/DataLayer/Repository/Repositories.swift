@@ -15,6 +15,7 @@ public struct Repositories {
         public typealias FetchByReference = Repository<FS.Request.Course.FetchByReference>
         public typealias Set = Repository<FS.Request.Course.Set>
         public typealias Update = Repository<FS.Request.Course.Update>
+        public typealias Delete = Repository<FS.Request.Course.Delete>
     }
     public struct ClimbRecord {
         public typealias Set = Repository<FS.Request.ClimbRecord.Set>
