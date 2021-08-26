@@ -110,29 +110,6 @@ extension FSDocument {
         }.eraseToAnyPublisher()
     }
 
-    func delete<T: DocumentProtocol>(
-        document: T
-    ) -> AnyPublisher<T, Error> {
-
-        Deferred {
-            Future<T, Error> { [weak self] promise in
-
-                guard let self = self else { return }
-
-                self.delete { error in
-
-                    if let error = error {
-                        promise(.failure(error))
-                        return
-                    }
-
-                    promise(.success(document))
-                }
-            }
-        }
-        .eraseToAnyPublisher()
-    }
-
     func delete() -> AnyPublisher<EmptyResponse, Error> {
 
         Deferred {
