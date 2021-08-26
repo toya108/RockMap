@@ -16,8 +16,37 @@ public extension Domain.Entity {
         public var registeredUserId: String
         public var headerUrl: URL?
         public var imageUrls: [URL] = []
-    }
 
+        public init(
+            id: String,
+            parentPath: String,
+            createdAt: Date,
+            updatedAt: Date?,
+            name: String,
+            desc: String,
+            grade: Domain.Entity.Course.Grade,
+            shape: Set<Domain.Entity.Course.Shape>,
+            parentRockName: String,
+            parentRockId: String,
+            registeredUserId: String,
+            headerUrl: URL?,
+            imageUrls: [URL]
+        ) {
+            self.id = id
+            self.parentPath = parentPath
+            self.createdAt = createdAt
+            self.updatedAt = updatedAt
+            self.name = name
+            self.desc = desc
+            self.grade = grade
+            self.shape = shape
+            self.parentRockName = parentRockName
+            self.parentRockId = parentRockId
+            self.registeredUserId = registeredUserId
+            self.headerUrl = headerUrl
+            self.imageUrls = imageUrls
+        }
+    }
 }
 
 public extension Domain.Entity.Course {
