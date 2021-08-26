@@ -34,7 +34,7 @@ extension CourseListViewController {
                 case let .course(course):
                     let registration = UICollectionView.CellRegistration<
                         ListCollectionViewCell,
-                        FIDocument.Course
+                        Entity.Course
                     >(
                         cellNib: .init(
                             nibName: ListCollectionViewCell.className,

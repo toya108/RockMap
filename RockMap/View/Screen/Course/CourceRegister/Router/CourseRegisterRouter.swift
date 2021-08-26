@@ -48,7 +48,7 @@ struct CourseRegisterRouter: RouterProtocol {
 
         let viewModel = CourseConfirmViewModel(
             registerType: viewModel.registerType,
-            courseDocument: viewModel.makeCourseDocument(),
+            course: viewModel.makeCourseDocument(),
             header: viewModel.output.header,
             images: viewModel.output.images
         )

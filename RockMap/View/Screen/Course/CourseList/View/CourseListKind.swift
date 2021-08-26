@@ -16,7 +16,7 @@ extension CourseListViewController {
 
     enum ItemKind: Hashable {
         case annotationHeader
-        case course(FIDocument.Course)
+        case course(Entity.Course)
     }
 
 }

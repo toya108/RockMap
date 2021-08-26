@@ -11,9 +11,7 @@ class GradeSelectingCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var gradeLabel: UILabel!
     @IBOutlet weak var gradeSelectButton: UIButton!
-    
-    var grade: FIDocument.Course.Grade = .q10
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         gradeSelectButton.layer.cornerRadius = 4
@@ -24,9 +22,8 @@ class GradeSelectingCollectionViewCell: UICollectionViewCell {
         gradeSelectButton.imageEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
     }
     
-    func configure(grade: FIDocument.Course.Grade) {
+    func configure(grade: Entity.Course.Grade) {
         gradeLabel.text = "・" + grade.name
-        self.grade = grade
     }
     
 }

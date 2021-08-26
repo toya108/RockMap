@@ -185,18 +185,23 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         .allSatisfy { $0 }
     }
 
-    func makeCourseDocument() -> FIDocument.Course {
+    func makeCourseDocument() -> Entity.Course {
         switch registerType {
-            case let .create(rock):
+            case let .create(rockHeader):
                 return .init(
+                    id: UUID().uuidString,
                     parentPath: AuthManager.shared.userPath,
+                    createdAt: Date(),
+                    updatedAt: nil,
                     name: output.courseName,
                     desc: output.courseDesc,
                     grade: output.grade,
                     shape: output.shapes,
-                    parentRockName: rock.name,
-                    parentRockId: rock.id,
-                    registeredUserId: AuthManager.shared.uid
+                    parentRockName: rockHeader.name,
+                    parentRockId: rockHeader.id,
+                    registeredUserId: AuthManager.shared.uid,
+                    headerUrl: nil,
+                    imageUrls: []
                 )
                 
             case var .edit(course):
@@ -211,9 +216,15 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
 extension CourseRegisterViewModel {
 
+    struct RockHeader {
+        let name: String
+        let id: String
+        let headerUrl: URL?
+    }
+
     enum RegisterType {
-        case create(FIDocument.Rock)
-        case edit(FIDocument.Course)
+        case create(RockHeader)
+        case edit(Entity.Course)
 
         var name: String {
             switch self {
@@ -232,8 +243,8 @@ extension CourseRegisterViewModel {
     struct Input {
         let courseNameSubject = PassthroughSubject<String?, Never>()
         let courseDescSubject = PassthroughSubject<String?, Never>()
-        let gradeSubject = PassthroughSubject<FIDocument.Course.Grade, Never>()
-        let shapeSubject = PassthroughSubject<Set<FIDocument.Course.Shape>, Never>()
+        let gradeSubject = PassthroughSubject<Entity.Course.Grade, Never>()
+        let shapeSubject = PassthroughSubject<Set<Entity.Course.Shape>, Never>()
         let setImageSubject = PassthroughSubject<(Data, ImageType), Never>()
         let deleteImageSubject = PassthroughSubject<(CrudableImage), Never>()
     }
@@ -241,8 +252,8 @@ extension CourseRegisterViewModel {
     final class Output {
         @Published var courseName = ""
         @Published var courseDesc = ""
-        @Published var grade = FIDocument.Course.Grade.q10
-        @Published var shapes = Set<FIDocument.Course.Shape>()
+        @Published var grade = Entity.Course.Grade.q10
+        @Published var shapes = Set<Entity.Course.Shape>()
         @Published var header: CrudableImage = .init(imageType: .header)
         @Published var images: [CrudableImage] = []
         @Published var courseNameValidationResult: ValidationResult = .none

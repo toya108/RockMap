@@ -126,12 +126,12 @@ extension CourseRegisterViewController {
 
             guard
                 let self = self,
-                case let .create(rock) = self.viewModel.registerType
+                case let .create(rockHeader) = self.viewModel.registerType
             else {
                 return
             }
 
-            cell.configure(rockName: rock.name, headerUrl: rock.headerUrl)
+            cell.configure(rockName: rockHeader.name, headerUrl: rockHeader.headerUrl)
         }
     }
     
@@ -159,7 +159,7 @@ extension CourseRegisterViewController {
     
     private func configureGradeSelectingCell() -> UICollectionView.CellRegistration<
         GradeSelectingCollectionViewCell,
-        FIDocument.Course.Grade
+        Entity.Course.Grade
     > {
         .init(
             cellNib: .init(
@@ -177,7 +177,7 @@ extension CourseRegisterViewController {
     
     private func configureShapeCell() -> UICollectionView.CellRegistration<
         IconCollectionViewCell,
-        (shape: FIDocument.Course.Shape, isSelecting: Bool)
+        (shape: Entity.Course.Shape, isSelecting: Bool)
     > {
         .init { cell, _, shape in
             cell.configure(title: shape.shape.name)
@@ -304,7 +304,7 @@ extension CourseRegisterViewController {
     
     private func setupGradeSelectingButtonActions(button: UIButton) {
         
-        let gradeSelectActions = FIDocument.Course.Grade.allCases.map { grade -> UIAction in
+        let gradeSelectActions = Entity.Course.Grade.allCases.map { grade -> UIAction in
             .init(
                 title: grade.name,
                 state: viewModel.output.grade == grade ? .on : .off

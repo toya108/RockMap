@@ -89,7 +89,7 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
 
 extension CourseListViewController {
 
-    private func coursesSink(_ courses: [FIDocument.Course]) {
+    private func coursesSink(_ courses: [Entity.Course]) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .main))
         snapShot.appendItems(courses.map { ItemKind.course($0) }, toSection: .main)
         datasource.apply(snapShot)
@@ -169,7 +169,7 @@ extension CourseListViewController {
 
     }
 
-    private func makeEditAction(course: FIDocument.Course) -> UIAction {
+    private func makeEditAction(course: Entity.Course) -> UIAction {
 
         return .init(
             title: "編集",
@@ -183,7 +183,7 @@ extension CourseListViewController {
     }
 
     private func makeDeleteAction(
-        course: FIDocument.Course
+        course: Entity.Course
     ) -> UIAction {
 
         return .init(

@@ -53,7 +53,13 @@ struct RockDetailRouter: RouterProtocol {
         }
 
         let courseRegisterViewModel = CourseRegisterViewModel(
-            registerType: .create(viewModel.rockDocument)
+            registerType: .create(
+                .init(
+                    name: viewModel.rockDocument.name,
+                    id: viewModel.rockDocument.id,
+                    headerUrl: viewModel.rockDocument.headerUrl
+                )
+            )
         )
 
         let vc = RockMapNavigationController(

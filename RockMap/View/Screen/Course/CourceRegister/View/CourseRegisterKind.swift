@@ -87,8 +87,8 @@ extension CourseRegisterViewController {
     enum ItemKind: Hashable {
         case rock
         case courseName
-        case grade(FIDocument.Course.Grade)
-        case shape(shape: FIDocument.Course.Shape, isSelecting: Bool)
+        case grade(Entity.Course.Grade)
+        case shape(shape: Entity.Course.Shape, isSelecting: Bool)
         case noImage(ImageType)
         case header(CrudableImage)
         case images(CrudableImage)

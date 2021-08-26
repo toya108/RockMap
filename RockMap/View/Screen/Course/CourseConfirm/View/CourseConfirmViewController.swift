@@ -61,10 +61,10 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
             )
         }
         snapShot.appendSections(SectionLayoutKind.allCases.filter { $0 != .rock })
-        snapShot.appendItems([.courseName(viewModel.courseDocument.name)], toSection: .courseName)
-        snapShot.appendItems([.desc(viewModel.courseDocument.desc)], toSection: .desc)
-        snapShot.appendItems([.grade(viewModel.courseDocument.grade)], toSection: .grade)
-        snapShot.appendItems([.shape(viewModel.courseDocument.shape)], toSection: .shape)
+        snapShot.appendItems([.courseName(viewModel.course.name)], toSection: .courseName)
+        snapShot.appendItems([.desc(viewModel.course.desc)], toSection: .desc)
+        snapShot.appendItems([.grade(viewModel.course.grade)], toSection: .grade)
+        snapShot.appendItems([.shape(viewModel.course.shape)], toSection: .shape)
         snapShot.appendItems([.header(viewModel.header)], toSection: .header)
         snapShot.appendItems(
             viewModel.images.filter { !$0.shouldDelete } .map { ItemKind.images($0) },
