@@ -34,7 +34,7 @@ extension RockListViewController {
                 case let .rock(rock):
                     let registration = UICollectionView.CellRegistration<
                         ListCollectionViewCell,
-                        FIDocument.Rock
+                        Entity.Rock
                     >(
                         cellNib: .init(
                             nibName: ListCollectionViewCell.className,

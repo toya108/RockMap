@@ -16,7 +16,7 @@ extension RockListViewController {
 
     enum ItemKind: Hashable {
         case annotationHeader
-        case rock(FIDocument.Rock)
+        case rock(Entity.Rock)
     }
 
 }

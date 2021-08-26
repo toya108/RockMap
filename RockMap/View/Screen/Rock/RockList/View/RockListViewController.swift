@@ -89,7 +89,7 @@ class RockListViewController: UIViewController, CompositionalColectionViewContro
 
 extension RockListViewController {
 
-    private func rocksSink(_ courses: [FIDocument.Rock]) {
+    private func rocksSink(_ courses: [Entity.Rock]) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .main))
         snapShot.appendItems(courses.map { ItemKind.rock($0) }, toSection: .main)
         datasource.apply(snapShot)
@@ -169,7 +169,7 @@ extension RockListViewController {
 
     }
 
-    private func makeEditAction(rock: FIDocument.Rock) -> UIAction {
+    private func makeEditAction(rock: Entity.Rock) -> UIAction {
 
         return .init(
             title: "編集",
@@ -183,7 +183,7 @@ extension RockListViewController {
     }
 
     private func makeDeleteAction(
-        rock: FIDocument.Rock
+        rock: Entity.Rock
     ) -> UIAction {
 
         return .init(
@@ -201,7 +201,7 @@ extension RockListViewController {
 
                 guard let self = self else { return }
 
-                self.viewModel.input.deleteCourseSubject.send(rock)
+                self.viewModel.input.deleteRockSubject.send(rock)
             }
 
             let cancelAction = UIAlertAction(title: "キャンセル", style: .cancel)

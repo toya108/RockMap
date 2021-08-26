@@ -19,7 +19,10 @@ public extension Domain.Mapper {
                 name: other.name,
                 address: other.address,
                 prefecture: other.prefecture,
-                location: .init(latitude: other.location.latitude, longtude: other.location.longitude),
+                location: .init(
+                    latitude: other.location.latitude,
+                    longitude: other.location.longitude
+                ),
                 seasons: Set(other.seasons.compactMap { .init(rawValue: $0) }),
                 lithology: .init(rawValue: other.lithology) ?? .unKnown,
                 desc: other.desc,

@@ -16,6 +16,9 @@ class RockListViewModel: RockListViewModelProtocol {
 
     let isMine: Bool
     private let userId: String
+    private var deleteRock: Entity.Rock?
+    private let fetchRocksUsecase = Usecase.Rock.FetchByUserId()
+    private let delteRockUsecase = Usecase.Rock.Delete()
 
     private var bindings = Set<AnyCancellable>()
 
@@ -29,22 +32,34 @@ class RockListViewModel: RockListViewModelProtocol {
     }
 
     private func bindInput() {
-        input.deleteCourseSubject
+        input.deleteRockSubject
+            .handleEvents(receiveOutput: { [weak self] rock in
+
+                guard let self = self else { return }
+
+                self.output.deleteState = .loading
+                self.deleteRock = rock
+            })
             .flatMap {
-                $0.makeDocumentReference().delete(document: $0)
+                self.delteRockUsecase.delete(id: $0.id, parentPath: $0.parentPath)
+                    .catch { [weak self] error -> Empty in
+
+                        guard let self = self else { return Empty() }
+
+                        self.output.deleteState = .failure(error)
+                        return Empty()
+                    }
             }
-            .catch { error -> Empty in
-                print(error)
-                return Empty()
-            }
-            .sink { [weak self] course in
+            .sink { [weak self] _ in
                 guard
                     let self = self,
-                    let index = self.output.rocks.firstIndex(of: course)
+                    let deleteRock = self.deleteRock,
+                    let index = self.output.rocks.firstIndex(of: deleteRock)
                 else {
                     return
                 }
                 self.output.rocks.remove(at: index)
+                self.output.deleteState = .finish(content: ())
             }
             .store(in: &bindings)
     }
@@ -56,11 +71,9 @@ class RockListViewModel: RockListViewModelProtocol {
     }
 
     func fetchRockList() {
-        FirestoreManager.db
-            .collectionGroup(FIDocument.Rock.colletionName)
-            .whereField("registeredUserId", in: [userId])
-            .getDocuments(FIDocument.Rock.self)
-            .catch { _ -> Just<[FIDocument.Rock]> in
+        fetchRocksUsecase.fetch(by: self.userId)
+            .catch { error -> Just<[Entity.Rock]> in
+                print(error)
                 return .init([])
             }
             .map { $0.sorted { $0.createdAt > $1.createdAt } }
@@ -72,11 +85,11 @@ class RockListViewModel: RockListViewModelProtocol {
 extension RockListViewModel {
 
     struct Input {
-        let deleteCourseSubject = PassthroughSubject<FIDocument.Rock, Never>()
+        let deleteRockSubject = PassthroughSubject<Entity.Rock, Never>()
     }
 
     final class Output {
-        @Published var rocks: [FIDocument.Rock] = []
+        @Published var rocks: [Entity.Rock] = []
         @Published var isEmpty: Bool = false
         @Published var deleteState: LoadingState<Void> = .stanby
     }
