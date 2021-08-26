@@ -4,20 +4,20 @@ import Foundation
 public extension Domain.Entity {
 
     struct Rock: AnyEntity {
-        var id: String
-        var createdAt: Date
-        var updatedAt: Date?
-        var parentPath: String
-        var name: String
-        var address: String
-        var prefecture: String
-        var location: GeoPoint
-        var seasons: Set<Season>
-        var lithology: Lithology
-        var desc: String
-        var registeredUserId: String
-        var headerUrl: URL?
-        var imageUrls: [URL]
+        public var id: String
+        public var createdAt: Date
+        public var updatedAt: Date?
+        public var parentPath: String
+        public var name: String
+        public var address: String
+        public var prefecture: String
+        public var location: GeoPoint
+        public var seasons: Set<Season>
+        public var lithology: Lithology
+        public var desc: String
+        public var registeredUserId: String
+        public var headerUrl: URL?
+        public var imageUrls: [URL]
     }
 
 }
