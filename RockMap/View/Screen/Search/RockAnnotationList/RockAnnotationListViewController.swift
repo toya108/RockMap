@@ -8,19 +8,19 @@
 import UIKit
 
 protocol RockAnnotationTableViewDelegate: AnyObject {
-    func didSelectRockAnnotaitonCell(rock: FIDocument.Rock)
+    func didSelectRockAnnotaitonCell(rock: Entity.Rock)
 }
 
 class RockAnnotationListViewController: UIViewController, CompositionalColectionViewControllerProtocol {
     var collectionView: UICollectionView!
-    var snapShot = NSDiffableDataSourceSnapshot<SectionKind, FIDocument.Rock>()
-    var datasource: UICollectionViewDiffableDataSource<SectionKind, FIDocument.Rock>!
+    var snapShot = NSDiffableDataSourceSnapshot<SectionKind, Entity.Rock>()
+    var datasource: UICollectionViewDiffableDataSource<SectionKind, Entity.Rock>!
 
-    private var rocks: [FIDocument.Rock]!
+    private var rocks: [Entity.Rock]!
 
     weak var delegate: RockAnnotationTableViewDelegate?
 
-    static func createInstance(rocks: [FIDocument.Rock]) -> Self {
+    static func createInstance(rocks: [Entity.Rock]) -> Self {
         let vc = Self()
         vc.rocks = rocks
         return vc
@@ -48,9 +48,9 @@ extension RockAnnotationListViewController {
 }
 
 extension RockAnnotationListViewController {
-    func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, FIDocument.Rock> {
+    func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, Entity.Rock> {
 
-        let datasource = UICollectionViewDiffableDataSource<SectionKind, FIDocument.Rock>(
+        let datasource = UICollectionViewDiffableDataSource<SectionKind, Entity.Rock>(
             collectionView: collectionView
         ) { [weak self] collectionView, indexPath, rock in
 
@@ -58,7 +58,7 @@ extension RockAnnotationListViewController {
 
             let registration = UICollectionView.CellRegistration<
                 ListCollectionViewCell,
-                FIDocument.Rock
+                Entity.Rock
             >(
                 cellNib: .init(
                     nibName: ListCollectionViewCell.className,

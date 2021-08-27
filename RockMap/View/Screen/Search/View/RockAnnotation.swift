@@ -9,13 +9,13 @@ import MapKit
 
 class RockAnnotation: NSObject, MKAnnotation {
 
-    let rock: FIDocument.Rock
+    let rock: Entity.Rock
     let coordinate: CLLocationCoordinate2D
     var title: String?
 
     init(
         coordinate: CLLocationCoordinate2D,
-        rock: FIDocument.Rock,
+        rock: Entity.Rock,
         title: String
     ) {
         self.rock = rock
