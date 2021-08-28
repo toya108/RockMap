@@ -29,6 +29,7 @@ public extension FS.Document {
         public init(
             id: String,
             createdAt: Date,
+            updatedAt: Date?,
             parentPath: String,
             name: String,
             address: String,
@@ -38,10 +39,12 @@ public extension FS.Document {
             lithology: String,
             desc: String,
             registeredUserId: String,
+            headerUrl: URL?,
             imageUrls: [URL] = []
         ) {
             self.id = id
             self.createdAt = createdAt
+            self.updatedAt = updatedAt
             self.parentPath = parentPath
             self.name = name
             self.address = address
@@ -51,6 +54,7 @@ public extension FS.Document {
             self.lithology = lithology
             self.desc = desc
             self.registeredUserId = registeredUserId
+            self.headerUrl = headerUrl
             self.imageUrls = imageUrls
         }
 
