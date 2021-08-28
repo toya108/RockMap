@@ -22,6 +22,7 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
     private let fetchRegisteredUserSubject = PassthroughSubject<String, Error>()
     private let fetchParentRockSubject = PassthroughSubject<String, Error>()
     private let fetchUserUsecase = Usecase.User.FetchById()
+    private let fetchRockUsecase = Usecase.Rock.FetchById()
 
     private var bindings = Set<AnyCancellable>()
     
@@ -61,16 +62,9 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
             .handleEvents(receiveOutput: { [weak self] _ in
                 self?.output.fetchParentRockState = .loading
             })
-            .map {
-                FirestoreManager.db
-                    .collectionGroup(FIDocument.Rock.colletionName)
-                    .whereField("id", in: [$0])
-            }
             .flatMap {
-                $0.getDocuments(FIDocument.Rock.self)
+                self.fetchRockUsecase.fetch(by: $0)
             }
-            .compactMap { $0.first }
-            .breakpointOnError()
             .sinkState { [weak self] state in
                 self?.output.fetchParentRockState = state
             }
@@ -92,7 +86,7 @@ extension CourseDetailViewModel {
     }
 
     final class Output {
-        @Published var fetchParentRockState: LoadingState<FIDocument.Rock> = .stanby
+        @Published var fetchParentRockState: LoadingState<Entity.Rock> = .stanby
         @Published var fetchRegisteredUserState: LoadingState<Entity.User> = .stanby
         @Published var totalClimbedNumber: Entity.TotalClimbedNumber = .init(flash: 0, redPoint: 0)
     }

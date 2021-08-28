@@ -10,7 +10,7 @@ struct CourseDetailRouter: RouterProtocol {
     enum DestinationType: DestinationProtocol {
         case registerClimbed
         case climbedUserList
-        case parentRock(FIDocument.Rock)
+        case parentRock(Entity.Rock)
     }
 
     weak var viewModel: ViewModel!
@@ -60,7 +60,7 @@ struct CourseDetailRouter: RouterProtocol {
 
     private func transitionToParentRock(
         _ from: UIViewController,
-        rock: FIDocument.Rock
+        rock: Entity.Rock
     ) {
         if
             let index = from.navigationController?.viewControllers.firstIndex(of: from),

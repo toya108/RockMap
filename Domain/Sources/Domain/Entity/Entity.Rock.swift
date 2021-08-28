@@ -27,7 +27,7 @@ public extension Domain.Entity.Rock {
     enum Season: String, CaseIterable, Codable {
         case spring, summer, autumn, winter
 
-        var name: String {
+        public var name: String {
             switch self {
                 case .spring:
                     return "春"
@@ -48,7 +48,7 @@ public extension Domain.Entity.Rock {
     enum Lithology: String, CaseIterable, Codable {
         case unKnown, granite, andesite, chert, limestone, tuff, sandstone
 
-        var name: String {
+        public var name: String {
             switch self {
                 case .unKnown:
                     return "不明"
