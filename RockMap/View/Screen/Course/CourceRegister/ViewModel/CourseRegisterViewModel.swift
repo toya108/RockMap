@@ -185,7 +185,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         .allSatisfy { $0 }
     }
 
-    func makeCourseDocument() -> Entity.Course {
+    var courseEntity: Entity.Course {
         switch registerType {
             case let .create(rockHeader):
                 return .init(

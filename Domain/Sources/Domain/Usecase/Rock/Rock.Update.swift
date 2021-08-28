@@ -16,7 +16,7 @@ public extension Domain.Usecase.Rock {
             self.mapper = mapper
         }
 
-        public func set(rock: Domain.Entity.Rock) -> AnyPublisher<Void, Error> {
+        public func update(rock: Domain.Entity.Rock) -> AnyPublisher<Void, Error> {
             let document = mapper.reverse(to: rock)
             return repository.request(
                 parameters: .init(rock: document)

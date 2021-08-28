@@ -232,7 +232,7 @@ extension RockRegisterViewController {
     
     private func configureSeasonCell() -> UICollectionView.CellRegistration<
         IconCollectionViewCell,
-        (season: FIDocument.Rock.Season, isSelecting: Bool)
+        (season: Entity.Rock.Season, isSelecting: Bool)
     > {
         .init { cell, _, season in
             cell.configure(icon: season.season.iconImage, title: season.season.name)
@@ -242,12 +242,12 @@ extension RockRegisterViewController {
     
     private func configureLithologyCell() -> UICollectionView.CellRegistration<
         SegmentedControllCollectionViewCell,
-        FIDocument.Rock.Lithology
+        Entity.Rock.Lithology
     > {
         .init { cell, _, lithology in
             cell.configure(
-                items: FIDocument.Rock.Lithology.allCases.map(\.name),
-                selectedIndex: FIDocument.Rock.Lithology.allCases.firstIndex(of: lithology)
+                items: Entity.Rock.Lithology.allCases.map(\.name),
+                selectedIndex: Entity.Rock.Lithology.allCases.firstIndex(of: lithology)
             )
             
             cell.segmentedControl.addAction(
@@ -257,7 +257,7 @@ extension RockRegisterViewController {
                     
                     guard
                         let segmentedControl = action.sender as? UISegmentedControl,
-                        let selected = FIDocument.Rock.Lithology.allCases.any(at: segmentedControl.selectedSegmentIndex)
+                        let selected = Entity.Rock.Lithology.allCases.any(at: segmentedControl.selectedSegmentIndex)
                     else {
                         return
                     }

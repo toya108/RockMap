@@ -35,7 +35,7 @@
 		9E0BE4552608C42D00576869 /* RegisterClimbRecordBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0BE4542608C42D00576869 /* RegisterClimbRecordBottomSheetViewController.swift */; };
 		9E0BE4622608C51900576869 /* RegisterClimbRecordBottomSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E0BE4612608C51900576869 /* RegisterClimbRecordBottomSheetViewController.xib */; };
 		9E0C0A152588C7DA00E34FCE /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C0A142588C7DA00E34FCE /* Rock.swift */; };
-		9E0C9C2826D2AD2F00002A0D /* Enitty.User+Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9C2726D2AD2F00002A0D /* Enitty.User+Icon.swift */; };
+		9E0C9C2826D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9C2726D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift */; };
 		9E0C9DE32576AAD500ABFE5B /* DocumentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */; };
 		9E0C9DE82576AAE300ABFE5B /* FireStoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */; };
 		9E0D09352566B31200D3075F /* RockDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D09342566B31200D3075F /* RockDetailViewModel.swift */; };
@@ -88,6 +88,7 @@
 		9E5D51B325E0A34700977473 /* ConfirmationButtonColletionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D51B225E0A34700977473 /* ConfirmationButtonColletionViewCell.swift */; };
 		9E5DD1C025C84DA500E38620 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5DD1BF25C84DA500E38620 /* UIImageViewExtension.swift */; };
 		9E5DD1D725C9857A00E38620 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5DD1D625C9857A00E38620 /* UIViewExtension.swift */; };
+		9E5E690726D9D0BE00414C60 /* Entity.Rock.Season.Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5E690626D9D0BE00414C60 /* Entity.Rock.Season.Icon.swift */; };
 		9E60D4C2262F0D8200B116C2 /* SocialLinkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E60D4C1262F0D8200B116C2 /* SocialLinkCollectionViewCell.swift */; };
 		9E60DCB52557148A000CF2E8 /* RockLocationSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E60DCB42557148A000CF2E8 /* RockLocationSelectViewController.swift */; };
 		9E60DCBA255714A1000CF2E8 /* RockLocationSelectViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E60DCB9255714A1000CF2E8 /* RockLocationSelectViewController.storyboard */; };
@@ -283,7 +284,7 @@
 		9E0BE4542608C42D00576869 /* RegisterClimbRecordBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterClimbRecordBottomSheetViewController.swift; sourceTree = "<group>"; };
 		9E0BE4612608C51900576869 /* RegisterClimbRecordBottomSheetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterClimbRecordBottomSheetViewController.xib; sourceTree = "<group>"; };
 		9E0C0A142588C7DA00E34FCE /* Rock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
-		9E0C9C2726D2AD2F00002A0D /* Enitty.User+Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enitty.User+Icon.swift"; sourceTree = "<group>"; };
+		9E0C9C2726D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enitty.User.SocialLinkType.Icon.swift; sourceTree = "<group>"; };
 		9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentProtocol.swift; sourceTree = "<group>"; };
 		9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreManager.swift; sourceTree = "<group>"; };
 		9E0D09342566B31200D3075F /* RockDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewModel.swift; sourceTree = "<group>"; };
@@ -342,6 +343,7 @@
 		9E5D51B225E0A34700977473 /* ConfirmationButtonColletionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationButtonColletionViewCell.swift; sourceTree = "<group>"; };
 		9E5DD1BF25C84DA500E38620 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		9E5DD1D625C9857A00E38620 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		9E5E690626D9D0BE00414C60 /* Entity.Rock.Season.Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Rock.Season.Icon.swift; sourceTree = "<group>"; };
 		9E60D4C1262F0D8200B116C2 /* SocialLinkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLinkCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E60DCB42557148A000CF2E8 /* RockLocationSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockLocationSelectViewController.swift; sourceTree = "<group>"; };
 		9E60DCB9255714A1000CF2E8 /* RockLocationSelectViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RockLocationSelectViewController.storyboard; sourceTree = "<group>"; };
@@ -539,7 +541,8 @@
 				9E623685258A65EC00152AF9 /* Firebase */,
 				9E04B1CE254BE7A70097DA8E /* Location */,
 				9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */,
-				9E0C9C2726D2AD2F00002A0D /* Enitty.User+Icon.swift */,
+				9E0C9C2726D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift */,
+				9E5E690626D9D0BE00414C60 /* Entity.Rock.Season.Icon.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1979,6 +1982,7 @@
 				9E98D51B2552907500EC5AC1 /* UIViewControllerExtension.swift in Sources */,
 				9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */,
 				9EA94F6E25D044E700D1272E /* RockDetailLayout.swift in Sources */,
+				9E5E690726D9D0BE00414C60 /* Entity.Rock.Season.Icon.swift in Sources */,
 				9EF8E2C025EF6E4300185A3D /* CourseConfirmDatasource.swift in Sources */,
 				9EE9DAE925CEDDE600B2BC4E /* DescCollectionViewCell.swift in Sources */,
 				9E9845E725D5202500B03C4E /* CourseRegisterLayout.swift in Sources */,
@@ -2026,7 +2030,7 @@
 				9E9845EF25D5278C00B03C4E /* CourseRegisterDatasource.swift in Sources */,
 				9E479D2626C29DC3003EFCB5 /* DomainAccesser.swift in Sources */,
 				9E81072A262DA3700025359C /* MyPageKind.swift in Sources */,
-				9E0C9C2826D2AD2F00002A0D /* Enitty.User+Icon.swift in Sources */,
+				9E0C9C2826D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift in Sources */,
 				9E9B3894262125D6001A39A9 /* Query+Combine.swift in Sources */,
 				9E9974FE26422B1F00E8562B /* CourseListDatasource.swift in Sources */,
 				9E2D0F1725D6E4B100652171 /* TextFieldColletionViewCell.swift in Sources */,

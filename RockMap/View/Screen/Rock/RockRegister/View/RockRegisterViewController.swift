@@ -112,7 +112,7 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
         SectionLayoutKind.allCases.forEach {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
-        let seasonItems = FIDocument.Rock.Season.allCases.map {
+        let seasonItems = Entity.Rock.Season.allCases.map {
             ItemKind.season(season: $0, isSelecting: viewModel.output.seasons.contains($0))
         }
         snapShot.appendItems(seasonItems, toSection: .season)
@@ -129,9 +129,9 @@ extension RockRegisterViewController {
         datasource.apply(snapShot)
     }
 
-    private func seasonsSink(_ seasons: Set<FIDocument.Rock.Season>) {
+    private func seasonsSink(_ seasons: Set<Entity.Rock.Season>) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .season))
-        let items = FIDocument.Rock.Season.allCases.map {
+        let items = Entity.Rock.Season.allCases.map {
             ItemKind.season(season: $0, isSelecting: seasons.contains($0))
         }
         snapShot.appendItems(items, toSection: .season)

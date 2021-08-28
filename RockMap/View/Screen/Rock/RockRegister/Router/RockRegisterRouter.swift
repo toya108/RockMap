@@ -54,7 +54,7 @@ struct RockRegisterRouter: RouterProtocol {
 
         let viewModel = RockConfirmViewModel(
             registerType: viewModel.registerType,
-            rockDocument: viewModel.makeRockDocument(),
+            rockEntity: viewModel.rockEntity,
             header: viewModel.output.header,
             images: viewModel.output.images
         )

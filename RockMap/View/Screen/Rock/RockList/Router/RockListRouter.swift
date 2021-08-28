@@ -50,27 +50,7 @@ struct RocklistRouter: RouterProtocol {
         _ from: UIViewController,
         rock: Entity.Rock
     ) {
-
-        let rockDocument = FIDocument.Rock(
-            id: rock.id,
-            createdAt: rock.createdAt,
-            updatedAt: rock.updatedAt,
-            parentPath: rock.parentPath,
-            name: rock.name,
-            address: rock.address,
-            prefecture: rock.prefecture,
-            location: .init(latitude: rock.location.latitude, longitude: rock.location.longitude),
-            seasons: Set(rock.seasons.compactMap { .init(rawValue: $0.rawValue) }),
-            lithology: .init(rawValue: rock.lithology.rawValue) ?? .unKnown,
-            desc: rock.desc,
-            registeredUserId: rock.registeredUserId,
-            headerUrl: rock.headerUrl,
-            imageUrls: rock.imageUrls
-        )
-
-        let viewModel = RockRegisterViewModel(
-            registerType: .edit(rockDocument)
-        )
+        let viewModel = RockRegisterViewModel(registerType: .edit(rock))
         let vc = RockMapNavigationController(
             rootVC: RockRegisterViewController.createInstance(viewModel: viewModel),
             naviBarClass: RockMapNoShadowNavigationBar.self

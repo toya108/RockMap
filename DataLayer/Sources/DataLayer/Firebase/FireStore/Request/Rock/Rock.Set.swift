@@ -29,7 +29,7 @@ public extension FS.Request.Rock {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<EmptyResponse, Error> {
-            FirestoreManager.db.document(path).setData(from: parameters.rock)
+            entry.setData(from: parameters.rock)
         }
 
     }
