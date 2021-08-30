@@ -197,7 +197,6 @@
 		9EC3A6C92604D75C001FBCA4 /* CourseDetailLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6C82604D75C001FBCA4 /* CourseDetailLayout.swift */; };
 		9EC3A6CE2604D76A001FBCA4 /* CourseDetailDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6CD2604D76A001FBCA4 /* CourseDetailDatasource.swift */; };
 		9EC7982A26D3E39500F9DC8D /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 9EC7982926D3E39500F9DC8D /* Auth */; };
-		9EC7FFC42698861100715F86 /* DocumentProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */; };
 		9EC7FFC6269915B300715F86 /* ColorAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EC7FFC5269915B300715F86 /* ColorAssets.xcassets */; };
 		9EC88E0A260CCB5C0057EBEE /* LocationSelectButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC88E09260CCB5C0057EBEE /* LocationSelectButtonState.swift */; };
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
@@ -448,7 +447,6 @@
 		9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradeSelectingCollectionViewCell.xib; sourceTree = "<group>"; };
 		9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomImagePresentableImageView.swift; sourceTree = "<group>"; };
-		9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentProtocolTests.swift; sourceTree = "<group>"; };
 		9ED972992596471C0069FB94 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewController.swift; sourceTree = "<group>"; };
 		9EE8BC5A2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FUICustomAuthPickerViewController.swift; sourceTree = "<group>"; };
@@ -1478,7 +1476,6 @@
 				9E08ACA32573E6C400D69927 /* NameSpace.swift */,
 				9E0C9DE72576AAE300ABFE5B /* FireStoreManager.swift */,
 				9E0C9DE22576AAD500ABFE5B /* DocumentProtocol.swift */,
-				9ECA52D5267902220025FC10 /* DocumentProtocolTests.swift */,
 			);
 			path = FireStore;
 			sourceTree = "<group>";
@@ -2046,7 +2043,6 @@
 				9E5CEFE325277B26001C95AA /* RockMapTests.swift in Sources */,
 				9EA88DBA2691D7B00036D6C1 /* ForceUpdateAlertManagerTests.swift in Sources */,
 				9E441578266214D000D48D12 /* DictionaryTests.swift in Sources */,
-				9EC7FFC42698861100715F86 /* DocumentProtocolTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
