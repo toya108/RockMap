@@ -103,13 +103,12 @@ class RegisterClimbRecordBottomSheetViewController: UIViewController {
         
         climbedTypeSegmentedControl.removeAllSegments()
         
-        FIDocument.ClimbRecord.ClimbedRecordType.allCases.enumerated()
-            .forEach { index, type in
-                climbedTypeSegmentedControl.insertSegment(
-                    withTitle: type.name,
-                    at: index, animated: true
-                )
-            }
+        Entity.ClimbRecord.ClimbedRecordType.allCases.enumerated().forEach { index, type in
+            climbedTypeSegmentedControl.insertSegment(
+                withTitle: type.name,
+                at: index, animated: true
+            )
+        }
         
         climbedTypeSegmentedControl.selectedSegmentIndex = 0
     }

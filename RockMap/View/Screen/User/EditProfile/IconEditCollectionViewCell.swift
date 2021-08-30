@@ -1,10 +1,5 @@
-//
-//  IconEditCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/16.
-//
 
+import Auth
 import UIKit
 
 class IconEditCollectionViewCell: UICollectionViewCell {
@@ -73,7 +68,7 @@ class IconEditCollectionViewCell: UICollectionViewCell {
         deleteButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
     }
 
-    func configure<D: FIDocumentProtocol>(image: CrudableImage<D>) {
+    func configure(image: CrudableImage) {
         if let data = image.updateData {
             imageView.image = UIImage(data: data)
         } else if let storage = image.storageReference {

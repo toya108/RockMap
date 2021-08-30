@@ -1,10 +1,5 @@
-//
-//  RockDetailRouter.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/31.
-//
 
+import Auth
 import UIKit
 
 struct RockDetailRouter: RouterProtocol {
@@ -13,7 +8,7 @@ struct RockDetailRouter: RouterProtocol {
     typealias ViewModel = RockDetailViewModel
 
     enum DestinationType: DestinationProtocol {
-        case courseDetail(FIDocument.Course)
+        case courseDetail(Entity.Course)
         case courseRegister
     }
 
@@ -39,7 +34,7 @@ struct RockDetailRouter: RouterProtocol {
 
     private func pushCourseDetail(
         _ from: UIViewController,
-        course: FIDocument.Course
+        course: Entity.Course
     ) {
         let courseDetailViewModel = CourseDetailViewModel(course: course)
         from.navigationController?.pushViewController(
@@ -49,7 +44,7 @@ struct RockDetailRouter: RouterProtocol {
     }
 
     private func presentCourseRegister(_ from: UIViewController) {
-
+        
         guard
             AuthManager.shared.isLoggedIn
         else {
@@ -58,7 +53,13 @@ struct RockDetailRouter: RouterProtocol {
         }
 
         let courseRegisterViewModel = CourseRegisterViewModel(
-            registerType: .create(viewModel.rockDocument)
+            registerType: .create(
+                .init(
+                    name: viewModel.rockDocument.name,
+                    id: viewModel.rockDocument.id,
+                    headerUrl: viewModel.rockDocument.headerUrl
+                )
+            )
         )
 
         let vc = RockMapNavigationController(

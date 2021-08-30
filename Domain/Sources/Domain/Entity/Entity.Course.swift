@@ -16,8 +16,37 @@ public extension Domain.Entity {
         public var registeredUserId: String
         public var headerUrl: URL?
         public var imageUrls: [URL] = []
-    }
 
+        public init(
+            id: String,
+            parentPath: String,
+            createdAt: Date,
+            updatedAt: Date?,
+            name: String,
+            desc: String,
+            grade: Domain.Entity.Course.Grade,
+            shape: Set<Domain.Entity.Course.Shape>,
+            parentRockName: String,
+            parentRockId: String,
+            registeredUserId: String,
+            headerUrl: URL?,
+            imageUrls: [URL]
+        ) {
+            self.id = id
+            self.parentPath = parentPath
+            self.createdAt = createdAt
+            self.updatedAt = updatedAt
+            self.name = name
+            self.desc = desc
+            self.grade = grade
+            self.shape = shape
+            self.parentRockName = parentRockName
+            self.parentRockId = parentRockId
+            self.registeredUserId = registeredUserId
+            self.headerUrl = headerUrl
+            self.imageUrls = imageUrls
+        }
+    }
 }
 
 public extension Domain.Entity.Course {
@@ -25,7 +54,7 @@ public extension Domain.Entity.Course {
     enum Grade: String, CaseIterable {
         case d5, d4, d3, d2, d1, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10
 
-        var name: String {
+        public var name: String {
             switch self {
                 case .d5:
                     return "5段"
@@ -79,7 +108,7 @@ public extension Domain.Entity.Course {
     enum Shape: String, CaseIterable {
         case roof, slab, face, overhang, kante, lip
 
-        var name: String {
+        public var name: String {
             switch self {
                 case .roof:
                     return "ルーフ"

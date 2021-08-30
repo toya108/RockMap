@@ -1,10 +1,5 @@
-//
-//  RockSearchRouter.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/31.
-//
 
+import Auth
 import UIKit
 import CoreLocation
 
@@ -14,7 +9,7 @@ struct RockSeachRouter: RouterProtocol {
     typealias ViewModel = RockSearchViewModel
 
     enum DestinationType: DestinationProtocol {
-        case rockDetail(FIDocument.Rock)
+        case rockDetail(Entity.Rock)
         case rockRegister(CLLocation)
     }
 
@@ -43,7 +38,7 @@ struct RockSeachRouter: RouterProtocol {
 
     private func pushRockDetail(
         _ from: UIViewController,
-        rock: FIDocument.Rock
+        rock: Entity.Rock
     ) {
         let rockDetailViewModel = RockDetailViewModel(rock: rock)
         from.navigationController?.pushViewController(

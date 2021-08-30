@@ -10,11 +10,13 @@ import Combine
 
 class RockSearchViewModel: ViewModelProtocol {
     
-    @Published private(set) var rockDocuments: [FIDocument.Rock] = []
+    @Published private(set) var rockDocuments: [Entity.Rock] = []
     @Published private(set) var error: Error?
     @Published var location: CLLocation?
     @Published var address: String?
     @Published var locationSelectState: LocationSelectButtonState = .standby
+
+    private let fetchRocksUsecase = Usecase.Rock.FetchAll()
 
     private var bindings = Set<AnyCancellable>()
 
@@ -37,10 +39,8 @@ class RockSearchViewModel: ViewModelProtocol {
     }
 
     func fetchRockList() {
-        FirestoreManager.db
-            .collectionGroup(FIDocument.Rock.colletionName)
-            .getDocuments(FIDocument.Rock.self)
-            .catch { error -> Just<[FIDocument.Rock]> in
+        fetchRocksUsecase.fetchAll()
+            .catch { error -> Just<[Entity.Rock]> in
                 self.error = error
                 return .init([])
             }

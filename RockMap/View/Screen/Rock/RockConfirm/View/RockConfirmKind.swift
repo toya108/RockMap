@@ -63,11 +63,11 @@ extension RockConfirmViewController {
     enum ItemKind: Hashable {
         case name(String)
         case desc(String)
-        case season(Set<FIDocument.Rock.Season>)
-        case lithology(FIDocument.Rock.Lithology)
+        case season(Set<Entity.Rock.Season>)
+        case lithology(Entity.Rock.Lithology)
         case location(LocationManager.LocationStructure)
-        case header(CrudableImage<FIDocument.Rock>)
-        case images(CrudableImage<FIDocument.Rock>)
+        case header(CrudableImage)
+        case images(CrudableImage)
         case register
     }
     

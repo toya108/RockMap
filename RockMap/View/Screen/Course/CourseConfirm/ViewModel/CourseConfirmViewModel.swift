@@ -19,21 +19,23 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     var output: Output = .init()
     
     let registerType: CourseRegisterViewModel.RegisterType
-    let header: CrudableImage<FIDocument.Course>
-    let images: [CrudableImage<FIDocument.Course>]
-    private(set) var courseDocument: FIDocument.Course
+    let header: CrudableImage
+    let images: [CrudableImage]
+    private(set) var course: Entity.Course
+    private let setCourseUsecase = Usecase.Course.Set()
+    private let updateCourseUsecase = Usecase.Course.Update()
 
     private var bindings = Set<AnyCancellable>()
     private let uploader = StorageUploader()
     
     init(
         registerType: CourseRegisterViewModel.RegisterType,
-        courseDocument: FIDocument.Course,
-        header: CrudableImage<FIDocument.Course>,
-        images: [CrudableImage<FIDocument.Course>]
+        course: Entity.Course,
+        header: CrudableImage,
+        images: [CrudableImage]
     ) {
         self.registerType = registerType
-        self.courseDocument = courseDocument
+        self.course = course
         self.header = header
         self.images = images
         bindImageUploader()
@@ -56,8 +58,18 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     }
     
     private func uploadImages() {
-        uploader.addData(image: header, id: courseDocument.id)
-        images.forEach { uploader.addData(image: $0, id: courseDocument.id) }
+        uploader.addData(
+            image: header,
+            id: course.id,
+            documentType: FINameSpace.Course.self
+        )
+        images.forEach {
+            uploader.addData(
+                image: $0,
+                id: course.id,
+                documentType: FINameSpace.Course.self
+            )
+        }
         uploader.start()
     }
 
@@ -74,8 +86,7 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     }
 
     private func createCourse() {
-        courseDocument.makeDocumentReference()
-            .setData(from: courseDocument)
+        setCourseUsecase.set(course: course)
             .catch { [weak self] error -> Empty in
 
                 guard let self = self else { return Empty() }
@@ -93,23 +104,20 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     }
 
     private func editCourse() {
-        courseDocument.makeDocumentReference()
-            .updateData(courseDocument.dictionary)
-            .sink(
-                receiveCompletion: { [weak self] result in
+        updateCourseUsecase.update(from: self.course)
+            .catch { [weak self] error -> Empty in
 
-                    guard let self = self else { return }
+                guard let self = self else { return Empty() }
 
-                    switch result {
-                        case .finished:
-                            self.output.courseUploadState = .finish(content: ())
+                self.output.courseUploadState = .failure(error)
+                return Empty()
+            }
+            .sink { [weak self] _ in
 
-                        case let .failure(error):
-                            self.output.courseUploadState = .failure(error)
+                guard let self = self else { return }
 
-                    }
-                }, receiveValue: {}
-            )
+                self.output.courseUploadState = .finish(content: ())
+            }
             .store(in: &bindings)
     }
 }

@@ -1,10 +1,5 @@
-//
-//  CourseListViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/23.
-//
 
+import Auth
 import Combine
 
 protocol CourseListViewModelProtocol: ViewModelProtocol {
@@ -21,6 +16,9 @@ class CourseListViewModel: CourseListViewModelProtocol {
     let isMine: Bool
 
     private let userId: String
+    private let fetchCoursesUsecase = Usecase.Course.FetchByUserId()
+    private let deleteCourseUsecase = Usecase.Course.Delete()
+    private var deleteCourse: Entity.Course?
 
     private var bindings = Set<AnyCancellable>()
 
@@ -35,21 +33,34 @@ class CourseListViewModel: CourseListViewModelProtocol {
 
     private func bindInput() {
         input.deleteCourseSubject
+            .handleEvents(receiveOutput: { [weak self] course in
+
+                guard let self = self else { return }
+
+                self.output.deleteState = .loading
+                self.deleteCourse = course
+            })
             .flatMap {
-                $0.makeDocumentReference().delete(document: $0)
-            }
-            .sink(
-                receiveCompletion: { _ in },
-                receiveValue: { [weak self] course in
-                    guard
-                        let self = self,
-                        let index = self.output.courses.firstIndex(of: course)
-                    else {
-                        return
+                self.deleteCourseUsecase.delete(id: $0.id, parentPath: $0.parentPath)
+                    .catch { [weak self] error -> Empty in
+
+                        guard let self = self else { return Empty() }
+
+                        self.output.deleteState = .failure(error)
+                        return Empty()
                     }
-                    self.output.courses.remove(at: index)
+            }
+            .sink { [weak self] _ in
+                guard
+                    let self = self,
+                    let deleteCourse = self.deleteCourse,
+                    let index = self.output.courses.firstIndex(of: deleteCourse)
+                else {
+                    return
                 }
-            )
+                self.output.courses.remove(at: index)
+                self.output.deleteState = .finish(content: ())
+            }
             .store(in: &bindings)
     }
 
@@ -60,11 +71,8 @@ class CourseListViewModel: CourseListViewModelProtocol {
     }
 
     func fetchCourseList() {
-        FirestoreManager.db
-            .collectionGroup(FIDocument.Course.colletionName)
-            .whereField("registeredUserId", in: [userId])
-            .getDocuments(FIDocument.Course.self)
-            .catch { error -> Just<[FIDocument.Course]> in
+        fetchCoursesUsecase.fetch(by: self.userId)
+            .catch { error -> Just<[Entity.Course]> in
                 print(error)
                 return .init([])
             }
@@ -77,11 +85,11 @@ class CourseListViewModel: CourseListViewModelProtocol {
 extension CourseListViewModel {
 
     struct Input {
-        let deleteCourseSubject = PassthroughSubject<FIDocument.Course, Never>()
+        let deleteCourseSubject = PassthroughSubject<Entity.Course, Never>()
     }
 
     final class Output {
-        @Published var courses: [FIDocument.Course] = []
+        @Published var courses: [Entity.Course] = []
         @Published var isEmpty: Bool = false
         @Published var deleteState: LoadingState<Void> = .stanby
     }

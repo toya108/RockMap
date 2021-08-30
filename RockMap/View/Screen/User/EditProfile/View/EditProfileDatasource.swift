@@ -152,7 +152,7 @@ extension EditProfileViewController {
 
     private func configureDeletabelImageCell() -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
-        CrudableImage<FIDocument.User>
+        CrudableImage
     > {
         .init { cell, _, image in
             cell.configure(image: image) { [weak self] in
@@ -207,7 +207,7 @@ extension EditProfileViewController {
 
     private func configureSocialLinkCell() -> UICollectionView.CellRegistration<
         IconTextFieldCollectionViewCell,
-        FIDocument.User.SocialLinkType
+        Entity.User.SocialLinkType
     > {
         .init { [weak self] cell, _, socialLinkType in
 
@@ -243,7 +243,7 @@ extension EditProfileViewController {
 
     private func configureIconEditCell() -> UICollectionView.CellRegistration<
         IconEditCollectionViewCell,
-        CrudableImage<FIDocument.User>
+        CrudableImage
     > {
         .init { [weak self] cell, _, image in
 

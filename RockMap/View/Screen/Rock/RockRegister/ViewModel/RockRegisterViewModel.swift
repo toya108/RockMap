@@ -1,10 +1,5 @@
-//
-//  RockRegisterViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/11/02.
-//
 
+import Auth
 import Combine
 import Foundation
 import CoreLocation
@@ -16,7 +11,7 @@ protocol RockRegisterViewModelProtocol: ViewModelProtocol {
 
 final class RockRegisterViewModel: RockRegisterViewModelProtocol {
 
-    private typealias HeaderValidator = HeaderImageValidator<FIDocument.Rock>
+    private typealias HeaderValidator = HeaderImageValidator
 
     var input = Input()
     var output = Output()
@@ -207,7 +202,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
         }
     }
 
-    private func deleteImage(_ image: CrudableImage<FIDocument.Rock>) {
+    private func deleteImage(_ image: CrudableImage) {
         switch image.imageType {
             case .header:
                 output.header.updateData = nil
@@ -258,11 +253,13 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
         return isPassedAllValidation
     }
 
-    func makeRockDocument() -> FIDocument.Rock {
+    var rockEntity: Entity.Rock {
         switch registerType {
             case .create:
                 return .init(
-                    parentPath: AuthManager.shared.authUserReference?.path ?? "",
+                    id: UUID().uuidString,
+                    createdAt: Date(),
+                    parentPath: AuthManager.shared.userPath,
                     name: output.rockName,
                     address: output.rockLocation.address,
                     prefecture: output.rockLocation.prefecture,
@@ -273,7 +270,8 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
                     seasons: output.seasons,
                     lithology: output.lithology,
                     desc: output.rockDesc,
-                    registeredUserId: AuthManager.shared.uid
+                    registeredUserId: AuthManager.shared.uid,
+                    imageUrls: []
                 )
 
             case var .edit(rock):
@@ -296,7 +294,7 @@ extension RockRegisterViewModel {
 
     enum RegisterType {
         case create(CLLocation?)
-        case edit(FIDocument.Rock)
+        case edit(Entity.Rock)
 
         var name: String {
             switch self {
@@ -316,20 +314,20 @@ extension RockRegisterViewModel {
         let rockNameSubject = PassthroughSubject<String?, Never>()
         let rockDescSubject = PassthroughSubject<String?, Never>()
         let locationSubject = PassthroughSubject<LocationManager.LocationStructure, Never>()
-        let selectSeasonSubject = PassthroughSubject<FIDocument.Rock.Season, Never>()
-        let lithologySubject = PassthroughSubject<FIDocument.Rock.Lithology, Never>()
+        let selectSeasonSubject = PassthroughSubject<Entity.Rock.Season, Never>()
+        let lithologySubject = PassthroughSubject<Entity.Rock.Lithology, Never>()
         let setImageSubject = PassthroughSubject<(ImageType, Data), Never>()
-        let deleteImageSubject = PassthroughSubject<(CrudableImage<FIDocument.Rock>), Never>()
+        let deleteImageSubject = PassthroughSubject<(CrudableImage), Never>()
     }
 
     final class Output {
         @Published var rockName = ""
         @Published var rockLocation = LocationManager.LocationStructure()
         @Published var rockDesc = ""
-        @Published var seasons: Set<FIDocument.Rock.Season> = []
-        @Published var lithology: FIDocument.Rock.Lithology = .unKnown
-        @Published var header: CrudableImage<FIDocument.Rock> = .init(imageType: .header)
-        @Published var images: [CrudableImage<FIDocument.Rock>] = []
+        @Published var seasons: Set<Entity.Rock.Season> = []
+        @Published var lithology: Entity.Rock.Lithology = .unKnown
+        @Published var header: CrudableImage = .init(imageType: .header)
+        @Published var images: [CrudableImage] = []
 
         @Published var rockNameValidationResult: ValidationResult = .none
         @Published var rockAddressValidationResult: ValidationResult = .none

@@ -127,7 +127,7 @@ extension CourseConfirmViewController {
     
     private func configureImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
-        CrudableImage<FIDocument.Course>
+        CrudableImage
     > {
         .init { cell, _, image in
             cell.layer.cornerRadius = 8

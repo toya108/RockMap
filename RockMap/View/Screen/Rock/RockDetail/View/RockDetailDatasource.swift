@@ -60,7 +60,7 @@ extension RockDetailViewController {
                         item: .init(
                             image: UIImage.SystemImages.docPlaintextFill,
                             title: "課題数",
-                            subTitle: self.makeGradeNumberStrings(dic: grades)
+                            subTitle: self.viewModel.makeGradeNumberStrings(dic: grades)
                         )
                     )
 
@@ -138,12 +138,7 @@ extension RockDetailViewController {
             )
         }
         return datasource
-    }
-
-    private func makeGradeNumberStrings(dic: [FIDocument.Course.Grade: Int]) -> String {
-        dic.map { $0.key.name + "/" + $0.value.description + "本" }.joined(separator: ", ")
-    }
-    
+    }    
 }
 
 extension RockDetailViewController {
@@ -173,7 +168,7 @@ extension RockDetailViewController {
     
     private func configureRegisteredUserCell() -> UICollectionView.CellRegistration<
         LeadingRegisteredUserCollectionViewCell,
-        FIDocument.User
+        Entity.User
     > {
         .init(
             cellNib: .init(
@@ -252,7 +247,7 @@ extension RockDetailViewController {
 
     private func configureCoursesCell() -> UICollectionView.CellRegistration<
         CourseCollectionViewCell,
-        FIDocument.Course
+        Entity.Course
     > {
         .init(
             cellNib: .init(

@@ -14,10 +14,10 @@ struct MyPageRouter: RouterProtocol {
 
     enum DestinationType: DestinationProtocol {
         case climbedCourseList
-        case courseDetail(FIDocument.Course)
-        case rockList(DocumentRef?)
-        case courseList(DocumentRef?)
-        case editProfile(FIDocument.User)
+        case courseDetail(Entity.Course)
+        case rockList
+        case courseList
+        case editProfile(Entity.User)
         case settings
     }
 
@@ -38,11 +38,11 @@ struct MyPageRouter: RouterProtocol {
             case .courseDetail(let course):
                 pushCourseDetail(context, course: course)
 
-            case .rockList(let userReference):
-                pushRockList(context, userReference: userReference)
+            case .rockList:
+                pushRockList(context)
 
-            case .courseList(let userReference):
-                pushCourseList(context, userReference: userReference)
+            case .courseList:
+                pushCourseList(context)
 
             case .editProfile(let user):
                 presentEditProfile(context, user: user)
@@ -61,26 +61,20 @@ struct MyPageRouter: RouterProtocol {
 
     private func pushCourseDetail(
         _ from: UIViewController,
-        course: FIDocument.Course
+        course: Entity.Course
     ) {
         let viewModel = CourseDetailViewModel(course: course)
         let vc = CourseDetailViewController.createInstance(viewModel: viewModel)
         from.navigationController?.pushViewController(vc, animated: true)
     }
 
-    private func pushRockList(
-        _ from: UIViewController,
-        userReference: DocumentRef?
-    ) {
+    private func pushRockList(_ from: UIViewController) {
         let viewModel = RockListViewModel(userId: viewModel.userKind.userId)
         let vc = RockListViewController.createInstance(viewModel: viewModel)
         from.navigationController?.pushViewController(vc, animated: true)
     }
 
-    private func pushCourseList(
-        _ from: UIViewController,
-        userReference: DocumentRef?
-    ) {
+    private func pushCourseList(_ from: UIViewController) {
         let viewModel = CourseListViewModel(userId: viewModel.userKind.userId)
         let vc = CourseListViewController.createInstance(viewModel: viewModel)
         from.navigationController?.pushViewController(vc, animated: true)
@@ -88,7 +82,7 @@ struct MyPageRouter: RouterProtocol {
 
     private func presentEditProfile(
         _ from: UIViewController,
-        user: FIDocument.User
+        user: Entity.User
     ) {
         let viewModel = EditProfileViewModel(user: user)
         let vc = EditProfileViewController.createInstance(viewModel: viewModel)

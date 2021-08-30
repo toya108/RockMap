@@ -1,10 +1,5 @@
-//
-//  MyClimbedListViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/27.
-//
 
+import Auth
 import Foundation
 import Combine
 
@@ -18,8 +13,10 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
     var input: Input = .init()
     var output: Output = .init()
 
-    @Published private var climbRecordList: [FIDocument.ClimbRecord] = []
+    @Published private var climbRecordList: [Entity.ClimbRecord] = []
     private var bindings = Set<AnyCancellable>()
+    private let fetchClimbRecordUsecase = Usecase.ClimbRecord.FetchByUserId()
+    private let fetchCourseUsecase = Usecase.Course.FetchByReference()
 
     init() {
         bindOutput()
@@ -39,35 +36,33 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
 
                 guard let self = self else { return }
 
-                climbRecordList
-                    .forEach { climbed in
-                        climbed
-                            .parentCourseReference
-                            .getDocument(FIDocument.Course.self)
-                            .catch { _ -> Just<FIDocument.Course?> in
-                                return .init(nil)
-                            }
-                            .sink { [weak self] course in
+                climbRecordList.forEach { climbRecord in
+                    self.fetchCourseUsecase.fetch(by: climbRecord.parentCourseReference)
+                        .catch { error -> Empty in
+                            print(error)
+                            return Empty()
+                        }
+                        .sink { [weak self] course in
 
-                                guard let course = course else { return }
+                            let climbedCourse = ClimbedCourse(
+                                course: course,
+                                climbed: climbRecord
+                            )
 
-                                let climbedCourse = ClimbedCourse(course: course, climbed: climbed)
-
-                                self?.output.climbedCourses.append(climbedCourse)
-                            }
-                            .store(in: &self.bindings)
-                    }
+                            self?.output.climbedCourses.append(climbedCourse)
+                        }
+                        .store(in: &self.bindings)
+                }
             }
             .store(in: &bindings)
-
     }
 
     func fetchClimbedList() {
-        FirestoreManager.db
-            .collectionGroup(FIDocument.ClimbRecord.colletionName)
-            .whereField("registeredUserId", in: [AuthManager.shared.uid])
-            .getDocuments(FIDocument.ClimbRecord.self)
-            .catch { _ in Empty() }
+        fetchClimbRecordUsecase.fetch(by: AuthManager.shared.uid)
+            .catch { error -> Empty in
+                print(error)
+                return Empty()
+            }
             .map { $0.sorted { $0.createdAt > $1.createdAt } }
             .assign(to: &$climbRecordList)
     }
@@ -77,8 +72,8 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
 extension MyClimbedListViewModel {
 
     struct ClimbedCourse: Hashable {
-        let course: FIDocument.Course
-        let climbed: FIDocument.ClimbRecord
+        let course: Entity.Course
+        let climbed: Entity.ClimbRecord
     }
 
     struct Input {}

@@ -1,10 +1,5 @@
-//
-//  AccountViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/06/01.
-//
 
+import Auth
 import UIKit
 import Combine
 
@@ -15,6 +10,7 @@ class AccountViewController: UIViewController, CompositionalColectionViewControl
     var datasource: UICollectionViewDiffableDataSource<SectionKind, ItemKind>!
 
     private var bindings = Set<AnyCancellable>()
+    private let deleteUserUsecase = Usecase.User.Delete()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +82,7 @@ extension AccountViewController {
 
                     self.showIndicatorView()
 
-                    AuthManager.shared.deleteUser()
+                    self.deleteUserUsecase.delete(id: AuthManager.shared.uid)
                         .catch { [weak self] error -> Empty in
 
                             guard let self = self else { return Empty() }
@@ -188,7 +184,19 @@ extension AccountViewController {
 
                 guard let self = self else { return }
 
-                AuthManager.shared.presentAuthViewController(from: self)
+                guard
+                    let authViewController = AuthManager.shared.authViewController
+                else {
+                    return
+                }
+
+                let vc = RockMapNavigationController(
+                    rootVC: authViewController,
+                    naviBarClass: RockMapNavigationBar.self
+                )
+                vc.modalPresentationStyle = .fullScreen
+                vc.modalTransitionStyle = .crossDissolve
+                self.present(vc, animated: true)
             }
         )
 

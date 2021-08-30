@@ -15,6 +15,7 @@ class CourseCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var userView: UserView!
 
     private var bindings = Set<AnyCancellable>()
+    private let fetchUserUsecase = Usecase.User.FetchById()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,18 +27,15 @@ class CourseCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 20
         contentView.layer.cornerRadius = 20
     }
-    
+
     func configure(
-        course: FIDocument.Course,
+        course: Entity.Course,
         parentVc: UIViewController
     ) {
         courseNameLabel.text = course.name + course.grade.name
         courseImageView.loadImage(url: course.headerUrl)
 
-        FirestoreManager.db
-            .collection(FIDocument.User.colletionName)
-            .document(course.registeredUserId)
-            .getDocument(FIDocument.User.self)
+        fetchUserUsecase.fetchUser(by: course.registeredUserId)
             .catch { error -> Empty in
                 print(error)
                 return Empty()

@@ -1,10 +1,5 @@
-//
-//  CourseRegisterViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/02/11.
-//
 
+import Auth
 import Combine
 import Foundation
 
@@ -15,7 +10,7 @@ protocol CourseRegisterViewModelProtocol: ViewModelProtocol {
 
 class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
-    typealias HeaderValidator = HeaderImageValidator<FIDocument.Course>
+    typealias HeaderValidator = HeaderImageValidator
 
     var input: Input = .init()
     var output: Output = .init()
@@ -145,7 +140,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         }
     }
 
-    private func deleteImage(_ image: CrudableImage<FIDocument.Course>) {
+    private func deleteImage(_ image: CrudableImage) {
         switch image.imageType {
             case .header:
                 output.header.updateData = nil
@@ -190,18 +185,23 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         .allSatisfy { $0 }
     }
 
-    func makeCourseDocument() -> FIDocument.Course {
+    var courseEntity: Entity.Course {
         switch registerType {
-            case let .create(rock):
+            case let .create(rockHeader):
                 return .init(
-                    parentPath: AuthManager.shared.authUserReference?.path ?? "",
+                    id: UUID().uuidString,
+                    parentPath: AuthManager.shared.userPath,
+                    createdAt: Date(),
+                    updatedAt: nil,
                     name: output.courseName,
                     desc: output.courseDesc,
                     grade: output.grade,
                     shape: output.shapes,
-                    parentRockName: rock.name,
-                    parentRockId: rock.id,
-                    registeredUserId: AuthManager.shared.uid
+                    parentRockName: rockHeader.name,
+                    parentRockId: rockHeader.id,
+                    registeredUserId: AuthManager.shared.uid,
+                    headerUrl: nil,
+                    imageUrls: []
                 )
                 
             case var .edit(course):
@@ -216,9 +216,15 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
 extension CourseRegisterViewModel {
 
+    struct RockHeader {
+        let name: String
+        let id: String
+        let headerUrl: URL?
+    }
+
     enum RegisterType {
-        case create(FIDocument.Rock)
-        case edit(FIDocument.Course)
+        case create(RockHeader)
+        case edit(Entity.Course)
 
         var name: String {
             switch self {
@@ -237,19 +243,19 @@ extension CourseRegisterViewModel {
     struct Input {
         let courseNameSubject = PassthroughSubject<String?, Never>()
         let courseDescSubject = PassthroughSubject<String?, Never>()
-        let gradeSubject = PassthroughSubject<FIDocument.Course.Grade, Never>()
-        let shapeSubject = PassthroughSubject<Set<FIDocument.Course.Shape>, Never>()
+        let gradeSubject = PassthroughSubject<Entity.Course.Grade, Never>()
+        let shapeSubject = PassthroughSubject<Set<Entity.Course.Shape>, Never>()
         let setImageSubject = PassthroughSubject<(Data, ImageType), Never>()
-        let deleteImageSubject = PassthroughSubject<(CrudableImage<FIDocument.Course>), Never>()
+        let deleteImageSubject = PassthroughSubject<(CrudableImage), Never>()
     }
 
     final class Output {
         @Published var courseName = ""
         @Published var courseDesc = ""
-        @Published var grade = FIDocument.Course.Grade.q10
-        @Published var shapes = Set<FIDocument.Course.Shape>()
-        @Published var header: CrudableImage<FIDocument.Course> = .init(imageType: .header)
-        @Published var images: [CrudableImage<FIDocument.Course>] = []
+        @Published var grade = Entity.Course.Grade.q10
+        @Published var shapes = Set<Entity.Course.Shape>()
+        @Published var header: CrudableImage = .init(imageType: .header)
+        @Published var images: [CrudableImage] = []
         @Published var courseNameValidationResult: ValidationResult = .none
         @Published var courseImageValidationResult: ValidationResult = .none
         @Published var headerImageValidationResult: ValidationResult = .none

@@ -17,14 +17,16 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
     var input: Input = .init()
     var output: Output = .init()
     
-    let course: FIDocument.Course
+    let course: Entity.Course
     private let listenTotalClimbedNumberUsecase = Usecase.TotalClimbedNumber.ListenByCourseId()
     private let fetchRegisteredUserSubject = PassthroughSubject<String, Error>()
     private let fetchParentRockSubject = PassthroughSubject<String, Error>()
+    private let fetchUserUsecase = Usecase.User.FetchById()
+    private let fetchRockUsecase = Usecase.Rock.FetchById()
 
     private var bindings = Set<AnyCancellable>()
     
-    init(course: FIDocument.Course) {
+    init(course: Entity.Course) {
         self.course = course
 
         setupInput()
@@ -48,12 +50,9 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
             .handleEvents(receiveOutput: { [weak self] _ in
                 self?.output.fetchRegisteredUserState = .loading
             })
-            .map {
-                FirestoreManager.db
-                    .collection(FIDocument.User.colletionName)
-                    .document($0)
+            .flatMap { userId -> AnyPublisher<Entity.User, Error> in
+                Usecase.User.FetchById().fetchUser(by: userId)
             }
-            .flatMap { $0.getDocument(FIDocument.User.self) }
             .sinkState { [weak self] state in
                 self?.output.fetchRegisteredUserState = state
             }
@@ -63,16 +62,9 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
             .handleEvents(receiveOutput: { [weak self] _ in
                 self?.output.fetchParentRockState = .loading
             })
-            .map {
-                FirestoreManager.db
-                    .collectionGroup(FIDocument.Rock.colletionName)
-                    .whereField("id", in: [$0])
-            }
             .flatMap {
-                $0.getDocuments(FIDocument.Rock.self)
+                self.fetchRockUsecase.fetch(by: $0)
             }
-            .compactMap { $0.first }
-            .breakpointOnError()
             .sinkState { [weak self] state in
                 self?.output.fetchParentRockState = state
             }
@@ -94,8 +86,8 @@ extension CourseDetailViewModel {
     }
 
     final class Output {
-        @Published var fetchParentRockState: LoadingState<FIDocument.Rock> = .stanby
-        @Published var fetchRegisteredUserState: LoadingState<FIDocument.User> = .stanby
+        @Published var fetchParentRockState: LoadingState<Entity.Rock> = .stanby
+        @Published var fetchRegisteredUserState: LoadingState<Entity.User> = .stanby
         @Published var totalClimbedNumber: Entity.TotalClimbedNumber = .init(flash: 0, redPoint: 0)
     }
 }

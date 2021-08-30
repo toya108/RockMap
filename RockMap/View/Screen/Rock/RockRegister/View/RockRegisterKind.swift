@@ -86,11 +86,11 @@ extension RockRegisterViewController {
         case name
         case desc
         case location(LocationManager.LocationStructure)
-        case season(season: FIDocument.Rock.Season, isSelecting: Bool)
-        case lithology(FIDocument.Rock.Lithology)
+        case season(season: Entity.Rock.Season, isSelecting: Bool)
+        case lithology(Entity.Rock.Lithology)
         case noImage(ImageType)
-        case header(CrudableImage<FIDocument.Rock>)
-        case images(CrudableImage<FIDocument.Rock>)
+        case header(CrudableImage)
+        case images(CrudableImage)
         case confirmation
         case error(ValidationError)
         

@@ -14,7 +14,7 @@ public extension Domain.Usecase.Course {
             self.mapper = mapper
         }
 
-        public func set(course: Domain.Entity.Course) -> AnyPublisher<Void, Error> {
+        public func update(from course: Domain.Entity.Course) -> AnyPublisher<Void, Error> {
             let document = mapper.reverse(to: course)
             return repository.request(parameters: .init(course: document))
                 .map { _ in () }

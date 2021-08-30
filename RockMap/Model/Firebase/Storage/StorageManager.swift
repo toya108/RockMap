@@ -1,10 +1,5 @@
-//
-//  StorageManager.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/12/17.
-//
 
+import Auth
 import FirebaseStorage
 import Combine
 

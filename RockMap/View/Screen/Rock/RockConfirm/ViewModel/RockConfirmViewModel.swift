@@ -20,21 +20,23 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
     var output: Output = .init()
 
     let registerType: RockRegisterViewModel.RegisterType
-    var rockDocument: FIDocument.Rock
-    let header: CrudableImage<FIDocument.Rock>
-    let images: [CrudableImage<FIDocument.Rock>]
+    var rockEntity: Entity.Rock
+    let header: CrudableImage
+    let images: [CrudableImage]
 
     private var bindings = Set<AnyCancellable>()
     private let uploader = StorageUploader()
+    private let setRockUsecase = Usecase.Rock.Set()
+    private let updateRockUsecase = Usecase.Rock.Update()
 
     init(
         registerType: RockRegisterViewModel.RegisterType,
-        rockDocument: FIDocument.Rock,
-        header: CrudableImage<FIDocument.Rock>,
-        images: [CrudableImage<FIDocument.Rock>]
+        rockEntity: Entity.Rock,
+        header: CrudableImage,
+        images: [CrudableImage]
     ) {
         self.registerType = registerType
-        self.rockDocument = rockDocument
+        self.rockEntity = rockEntity
         self.header = header
         self.images = images
         bindImageUploader()
@@ -57,8 +59,18 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
     }
 
     private func uploadImages() {
-        uploader.addData(image: header, id: rockDocument.id)
-        images.forEach { uploader.addData(image: $0, id: rockDocument.id) }
+        uploader.addData(
+            image: header,
+            id: rockEntity.id,
+            documentType: FINameSpace.Rocks.self
+        )
+        images.forEach {
+            uploader.addData(
+                image: $0,
+                id: rockEntity.id,
+                documentType: FINameSpace.Rocks.self
+            )
+        }
         uploader.start()
     }
 
@@ -75,9 +87,7 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
     }
 
     private func createRock() {
-        rockDocument
-            .makeDocumentReference()
-            .setData(from: rockDocument)
+        setRockUsecase.set(rock: rockEntity)
             .catch { [weak self] error -> Empty in
 
                 guard let self = self else { return Empty() }
@@ -95,9 +105,7 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
     }
 
     private func editRock() {
-        rockDocument
-            .makeDocumentReference()
-            .updateData(rockDocument.dictionary)
+        updateRockUsecase.update(rock: rockEntity)
             .catch { [weak self] error -> Empty in
 
                 guard let self = self else { return Empty() }

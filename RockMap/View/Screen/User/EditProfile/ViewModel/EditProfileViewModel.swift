@@ -18,12 +18,13 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
 
     var input: Input = .init()
     var output: Output = .init()
-    let user: FIDocument.User
+    let user: Entity.User
 
     private var bindings = Set<AnyCancellable>()
     private let uploader = StorageUploader()
+    private let updateUserUsecase = Usecase.User.Update()
 
-    init(user: FIDocument.User) {
+    init(user: Entity.User) {
         self.user = user
         bindInput()
         bindOutput()
@@ -61,7 +62,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                 guard
                     let self = self,
                     let index = self.output.socialLinks.firstIndex(
-                        where: { $0.linkType == socialLink.linkType }
+                        where: { $0.linkType.rawValue == socialLink.linkType.rawValue }
                     )
                 else {
                     return
@@ -95,7 +96,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                 return Empty()
             }
             .map {
-                CrudableImage<FIDocument.User>(storageReference: $0, imageType: .icon)
+                CrudableImage(storageReference: $0, imageType: .icon)
             }
             .assign(to: &output.$header)
 
@@ -110,7 +111,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                 return Empty()
             }
             .map {
-                CrudableImage<FIDocument.User>(storageReference: $0, imageType: .icon)
+                CrudableImage(storageReference: $0, imageType: .icon)
             }
             .assign(to: &output.$icon)
     }
@@ -158,8 +159,8 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
     }
 
     func uploadImage() {
-        uploader.addData(image: output.icon, id: user.id)
-        uploader.addData(image: output.header, id: user.id)
+        uploader.addData(image: output.icon, id: user.id, documentType: FINameSpace.Users.self)
+        uploader.addData(image: output.header, id: user.id, documentType: FINameSpace.Users.self)
         uploader.start()
     }
 
@@ -167,19 +168,16 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
 
         output.userUploadState = .loading
 
-        var updateUserDocument: FIDocument.User {
-            var updateUser = user
-            updateUser.name = output.name
-            updateUser.introduction = output.introduction
-            updateUser.socialLinks = output.socialLinks
-            return updateUser
+        updateUserUsecase.update(
+            id: user.id,
+            name: output.name,
+            introduction: output.introduction,
+            socialLinks: output.socialLinks
+        )
+        .sinkState { [weak self] state in
+            self?.output.userUploadState = state
         }
-        updateUserDocument.makeDocumentReference()
-            .setData(from: updateUserDocument)
-            .sinkState { [weak self] state in
-                self?.output.userUploadState = state
-            }
-            .store(in: &bindings)
+        .store(in: &bindings)
     }
 }
 
@@ -190,16 +188,16 @@ extension EditProfileViewModel {
         let introductionSubject = PassthroughSubject<String?, Never>()
         let setImageSubject = PassthroughSubject<(ImageType, Data), Never>()
         let deleteImageSubject = PassthroughSubject<ImageType, Never>()
-        let socialLinkSubject = PassthroughSubject<FIDocument.User.SocialLink, Never>()
+        let socialLinkSubject = PassthroughSubject<Entity.User.SocialLink, Never>()
     }
 
     final class Output {
         @Published var name = ""
         @Published var introduction = ""
-        @Published var header: CrudableImage<FIDocument.User> = .init(imageType: .header)
-        @Published var icon: CrudableImage<FIDocument.User> = .init(imageType: .icon)
-        @Published var socialLinks: [FIDocument.User.SocialLink] = FIDocument.User.SocialLinkType.allCases.map {
-            FIDocument.User.SocialLink(linkType: $0, link: "")
+        @Published var header: CrudableImage = .init(imageType: .header)
+        @Published var icon: CrudableImage = .init(imageType: .icon)
+        @Published var socialLinks: [Entity.User.SocialLink] = Entity.User.SocialLinkType.allCases.map {
+            Entity.User.SocialLink(linkType: $0, link: "")
         }
         @Published var nameValidationResult: ValidationResult = .none
 

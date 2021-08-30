@@ -1,10 +1,5 @@
-//
-//  CourseDetailRouter.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/03.
-//
 
+import Auth
 import UIKit
 
 struct CourseDetailRouter: RouterProtocol {
@@ -15,7 +10,7 @@ struct CourseDetailRouter: RouterProtocol {
     enum DestinationType: DestinationProtocol {
         case registerClimbed
         case climbedUserList
-        case parentRock(FIDocument.Rock)
+        case parentRock(Entity.Rock)
     }
 
     weak var viewModel: ViewModel!
@@ -65,7 +60,7 @@ struct CourseDetailRouter: RouterProtocol {
 
     private func transitionToParentRock(
         _ from: UIViewController,
-        rock: FIDocument.Rock
+        rock: Entity.Rock
     ) {
         if
             let index = from.navigationController?.viewControllers.firstIndex(of: from),

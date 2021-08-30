@@ -1,10 +1,5 @@
-//
-//  ClimbedUserListViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/04.
-//
 
+import Auth
 import Combine
 import Foundation
 
@@ -18,14 +13,14 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
     var input: Input = .init()
     var output: Output = .init()
 
-    private let course: FIDocument.Course
+    private let course: Entity.Course
     private var bindings = Set<AnyCancellable>()
     private let fetchClimbedSubject = PassthroughSubject<String, Error>()
     private let fetchClimbRecordUsecase = Usecase.ClimbRecord.FetchByCourseId()
 
     private let deleteClimbRecordUsecase = Usecase.ClimbRecord.Delete()
 
-    init(course: FIDocument.Course) {
+    init(course: Entity.Course) {
         self.course = course
         setupOutput()
         fetchClimbed()
@@ -45,10 +40,7 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
 
         share
             .flatMap { _ in
-                FirestoreManager.db
-                    .collection(FIDocument.User.colletionName)
-                    .document(AuthManager.shared.uid)
-                    .getDocument(FIDocument.User.self)
+                Usecase.User.FetchById().fetchUser(by: AuthManager.shared.uid)
             }
             .catch { _ in Empty() }
             .compactMap { $0 }
@@ -71,17 +63,13 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
         share
             .map { $0.filter { $0.registeredUserId != AuthManager.shared.uid } }
             .map { Set($0) }
-            .map { array in
-                array.map {
-                    FirestoreManager.db
-                        .collection(FIDocument.User.colletionName)
-                        .document($0.registeredUserId)
-                }
-            }
+            .map { $0.map { $0.registeredUserId } }
             .flatMap {
-                $0.getDocuments(FIDocument.User.self)
+                $0.publisher.flatMap { id in
+                    Usecase.User.FetchById().fetchUser(by: id)
+                }
+                .collect()
             }
-            .breakpointOnError()
             .catch { _ in Empty() }
             .sink { [weak self] climbedUserList in
 
@@ -148,7 +136,7 @@ extension ClimbedUserListViewModel {
 
     struct ClimbedCellData: Hashable {
         var climbed: Entity.ClimbRecord
-        let user: FIDocument.User
+        let user: Entity.User
         let isOwned: Bool
     }
 

@@ -4,20 +4,52 @@ import Foundation
 public extension Domain.Entity {
 
     struct Rock: AnyEntity {
-        var id: String
-        var createdAt: Date
-        var updatedAt: Date?
-        var parentPath: String
-        var name: String
-        var address: String
-        var prefecture: String
-        var location: GeoPoint
-        var seasons: Set<Season>
-        var lithology: Lithology
-        var desc: String
-        var registeredUserId: String
-        var headerUrl: URL?
-        var imageUrls: [URL]
+        public var id: String
+        public var createdAt: Date
+        public var updatedAt: Date?
+        public var parentPath: String
+        public var name: String
+        public var address: String
+        public var prefecture: String
+        public var location: GeoPoint
+        public var seasons: Set<Season>
+        public var lithology: Lithology
+        public var desc: String
+        public var registeredUserId: String
+        public var headerUrl: URL?
+        public var imageUrls: [URL]
+
+        public init(
+            id: String,
+            createdAt: Date,
+            updatedAt: Date? = nil,
+            parentPath: String,
+            name: String,
+            address: String,
+            prefecture: String,
+            location: Domain.Entity.GeoPoint,
+            seasons: Set<Domain.Entity.Rock.Season>,
+            lithology: Domain.Entity.Rock.Lithology,
+            desc: String,
+            registeredUserId: String,
+            headerUrl: URL? = nil,
+            imageUrls: [URL]
+        ) {
+            self.id = id
+            self.createdAt = createdAt
+            self.updatedAt = updatedAt
+            self.parentPath = parentPath
+            self.name = name
+            self.address = address
+            self.prefecture = prefecture
+            self.location = location
+            self.seasons = seasons
+            self.lithology = lithology
+            self.desc = desc
+            self.registeredUserId = registeredUserId
+            self.headerUrl = headerUrl
+            self.imageUrls = imageUrls
+        }
     }
 
 }
@@ -27,7 +59,7 @@ public extension Domain.Entity.Rock {
     enum Season: String, CaseIterable, Codable {
         case spring, summer, autumn, winter
 
-        var name: String {
+        public var name: String {
             switch self {
                 case .spring:
                     return "春"
@@ -48,7 +80,7 @@ public extension Domain.Entity.Rock {
     enum Lithology: String, CaseIterable, Codable {
         case unKnown, granite, andesite, chert, limestone, tuff, sandstone
 
-        var name: String {
+        public var name: String {
             switch self {
                 case .unKnown:
                     return "不明"

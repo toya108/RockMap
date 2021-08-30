@@ -13,8 +13,8 @@ struct CourselistRouter: RouterProtocol {
     typealias ViewModel = CourseListViewModel
 
     enum DestinationType: DestinationProtocol {
-        case courseDetail(FIDocument.Course)
-        case courseRegister(FIDocument.Course)
+        case courseDetail(Entity.Course)
+        case courseRegister(Entity.Course)
     }
 
     weak var viewModel: ViewModel!
@@ -39,7 +39,7 @@ struct CourselistRouter: RouterProtocol {
 
     private func pushCourseDetail(
         _ from: UIViewController,
-        course: FIDocument.Course
+        course: Entity.Course
     ) {
         let viewModel = CourseDetailViewModel(course: course)
         let vc = CourseDetailViewController.createInstance(viewModel: viewModel)
@@ -48,7 +48,7 @@ struct CourselistRouter: RouterProtocol {
 
     private func presentCourseRegister(
         _ from: UIViewController,
-        course: FIDocument.Course
+        course: Entity.Course
     ) {
         let viewModel = CourseRegisterViewModel(
             registerType: .edit(course)

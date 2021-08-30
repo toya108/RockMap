@@ -15,7 +15,7 @@ public extension Domain.Usecase.Course {
             self.mapper = mapper
         }
 
-        public func fetchCourses(by rockId: String) -> AnyPublisher<[Domain.Entity.Course], Error> {
+        public func fetch(by rockId: String) -> AnyPublisher<[Domain.Entity.Course], Error> {
             repository.request(
                 parameters: .init(rockId: rockId)
             )

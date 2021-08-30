@@ -1,10 +1,5 @@
-//
-//  ScreenType.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/10/31.
-//
 
+import Auth
 import UIKit
 
 // swiftlint:disable force_unwrapping

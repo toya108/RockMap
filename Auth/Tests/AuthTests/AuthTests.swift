@@ -1,11 +1,11 @@
     import XCTest
-    @testable import DataLayer
+    @testable import Auth
 
-    final class DataLayerTests: XCTestCase {
+    final class AuthTests: XCTestCase {
         func testExample() {
             // This is an example of a functional test case.
             // Use XCTAssert and related functions to verify your tests produce the correct
             // results.
-            XCTAssertEqual(DataLayer().text, "Hello, World!")
+            XCTAssertEqual(Auth().text, "Hello, World!")
         }
     }

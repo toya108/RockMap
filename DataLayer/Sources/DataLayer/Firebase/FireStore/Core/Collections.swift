@@ -29,7 +29,7 @@ public extension FS.Collection {
             FS.Document.Rock.self
         }
 
-        public static var name: String { "users" }
+        public static var name: String { "rocks" }
     }
 
     struct Courses: CollectionProtocol {

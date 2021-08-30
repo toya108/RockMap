@@ -187,11 +187,11 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
             .store(in: &bindings)
     }
 
-    private func handleGrades(_ grades: [FIDocument.Course.Grade]) {
+    private func handleGrades(_ grades: [Entity.Course.Grade]) {
 
         if grades.isEmpty { return }
 
-        let gadesCounts = grades.reduce(into: [FIDocument.Course.Grade: Int]()) { dic, grade in
+        let gadesCounts = grades.reduce(into: [Entity.Course.Grade: Int]()) { dic, grade in
             if dic[grade] == nil {
                 dic[grade] = 1
             } else {
@@ -212,7 +212,7 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
         datasource.apply(snapShot)
     }
 
-    private func handleCourses(_ courses: [FIDocument.Course]) {
+    private func handleCourses(_ courses: [Entity.Course]) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .courses))
 
         if courses.isEmpty {

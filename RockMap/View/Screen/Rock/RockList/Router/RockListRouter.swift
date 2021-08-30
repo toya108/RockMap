@@ -13,8 +13,8 @@ struct RocklistRouter: RouterProtocol {
     typealias ViewModel = RockListViewModel
 
     enum DestinationType: DestinationProtocol {
-        case rockDetail(FIDocument.Rock)
-        case rockRegister(FIDocument.Rock)
+        case rockDetail(Entity.Rock)
+        case rockRegister(Entity.Rock)
     }
 
     weak var viewModel: ViewModel!
@@ -39,7 +39,7 @@ struct RocklistRouter: RouterProtocol {
 
     private func pushRockDetail(
         _ from: UIViewController,
-        rock: FIDocument.Rock
+        rock: Entity.Rock
     ) {
         let viewModel = RockDetailViewModel(rock: rock)
         let vc = RockDetailViewController.createInstance(viewModel: viewModel)
@@ -48,11 +48,9 @@ struct RocklistRouter: RouterProtocol {
 
     private func presentCourseRegister(
         _ from: UIViewController,
-        rock: FIDocument.Rock
+        rock: Entity.Rock
     ) {
-        let viewModel = RockRegisterViewModel(
-            registerType: .edit(rock)
-        )
+        let viewModel = RockRegisterViewModel(registerType: .edit(rock))
         let vc = RockMapNavigationController(
             rootVC: RockRegisterViewController.createInstance(viewModel: viewModel),
             naviBarClass: RockMapNoShadowNavigationBar.self

@@ -1,10 +1,5 @@
-//
-//  RegisterClimbedViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/11.
-//
 
+import Auth
 import Combine
 import Foundation
 
@@ -12,7 +7,7 @@ class RegisterClimbRecordViewModel {
 
     enum RegisterType {
         case edit(Entity.ClimbRecord)
-        case create(FIDocument.Course)
+        case create(Entity.Course)
     }
 
     let registerType: RegisterType
@@ -100,10 +95,10 @@ class RegisterClimbRecordViewModel {
             id: UUID().uuidString,
             registeredUserId: AuthManager.shared.uid,
             parentCourseId: course.id,
-            parentCourseReference: course.makeDocumentReference().path,
+            parentCourseReference: course.parentPath + "courses" + course.id,
             createdAt: Date(),
             updatedAt: nil,
-            parentPath: AuthManager.shared.authUserReference?.path ?? "",
+            parentPath: AuthManager.shared.userPath,
             climbedDate: climbedDate,
             type: .flash
         )

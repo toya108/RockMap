@@ -63,10 +63,10 @@ extension CourseConfirmViewController {
         case rock(rockName: String, headerUrl: URL?)
         case courseName(String)
         case desc(String)
-        case grade(FIDocument.Course.Grade)
-        case shape(Set<FIDocument.Course.Shape>)
-        case header(CrudableImage<FIDocument.Course>)
-        case images(CrudableImage<FIDocument.Course>)
+        case grade(Entity.Course.Grade)
+        case shape(Set<Entity.Course.Shape>)
+        case header(CrudableImage)
+        case images(CrudableImage)
         case register
     }
     

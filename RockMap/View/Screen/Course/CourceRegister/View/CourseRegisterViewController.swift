@@ -119,7 +119,7 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
         SectionLayoutKind.allCases.filter { $0 != .rock }.forEach {
             snapShot.appendItems($0.initalItems, toSection: $0)
         }
-        let shapeItems = FIDocument.Course.Shape.allCases.map {
+        let shapeItems = Entity.Course.Shape.allCases.map {
             ItemKind.shape(shape: $0, isSelecting: viewModel.output.shapes.contains($0))
         }
         snapShot.appendItems(shapeItems, toSection: .shape)
@@ -175,22 +175,22 @@ extension CourseRegisterViewController: UICollectionViewDelegate {
 
 extension CourseRegisterViewController {
 
-    private func gradeSink(_ grade: FIDocument.Course.Grade) {
+    private func gradeSink(_ grade: Entity.Course.Grade) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .grade))
         snapShot.appendItems([.grade(grade)], toSection: .grade)
         datasource.apply(snapShot)
     }
 
-    private func shapeSink(_ shapes: Set<FIDocument.Course.Shape>) {
+    private func shapeSink(_ shapes: Set<Entity.Course.Shape>) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .shape))
-        let items = FIDocument.Course.Shape.allCases.map {
+        let items = Entity.Course.Shape.allCases.map {
             ItemKind.shape(shape: $0, isSelecting: shapes.contains($0))
         }
         snapShot.appendItems(items, toSection: .shape)
         datasource.apply(snapShot)
     }
 
-    private func headerSink(_ image: CrudableImage<FIDocument.Course>) {
+    private func headerSink(_ image: CrudableImage) {
 
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .header))
 
@@ -207,7 +207,7 @@ extension CourseRegisterViewController {
         hideIndicatorView()
     }
 
-    private func imagesSink(_ images: [CrudableImage<FIDocument.Course>]) {
+    private func imagesSink(_ images: [CrudableImage]) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .images))
         snapShot.appendItems([.noImage(.normal)], toSection: .images)
 

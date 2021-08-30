@@ -120,9 +120,9 @@ struct RockImageValidator: CompositeValidator {
     ]
 }
 
-struct HeaderImageValidator<D: FIDocumentProtocol>: CompositeValidator {
+struct HeaderImageValidator: CompositeValidator {
     var validators: [ValidatorProtocol] = [
-        HeaderValidator<D>(formName: "ヘッダー画像")
+        HeaderValidator(formName: "ヘッダー画像")
     ]
 }
 
@@ -156,14 +156,14 @@ private struct EmptyValidator: ValidatorProtocol {
     }
 }
 
-private struct HeaderValidator<D: FIDocumentProtocol>: ValidatorProtocol {
+private struct HeaderValidator: ValidatorProtocol {
 
     let formName: String
 
     func validate(_ value: Any?) -> ValidationResult {
 
         guard
-            let image = value as? CrudableImage<D>
+            let image = value as? CrudableImage
         else {
             return .invalid(.none(formName: formName))
         }

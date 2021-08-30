@@ -37,7 +37,7 @@ class StorageUploader {
     
     @Published var uploadState: UploadState = .stanby
 
-    func addData<D: FIDocumentProtocol>(image: CrudableImage<D>, id: String) {
+    func addData(image: CrudableImage, id: String, documentType: FINameSpaceProtocol.Type) {
 
         if image.shouldDelete, let storage = image.storageReference {
             storage.delete(completion: { _ in })
@@ -50,7 +50,7 @@ class StorageUploader {
         }
 
         if let data = image.updateData {
-            let reference = image.makeImageReference(documentId: id)
+            let reference = image.makeImageReference(documentId: id, documentType: documentType)
             addData(data: data, reference: reference)
             return
         }

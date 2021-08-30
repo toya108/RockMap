@@ -96,7 +96,7 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
 
 extension CourseDetailViewController {
 
-    private func fetchParentRockStateSink(_ state: LoadingState<FIDocument.Rock>) {
+    private func fetchParentRockStateSink(_ state: LoadingState<Entity.Rock>) {
         switch state {
             case .stanby, .failure, .loading:
                 break
@@ -108,7 +108,7 @@ extension CourseDetailViewController {
         }
     }
     
-    private func fetchRegisteredUserStateSink(_ state: LoadingState<FIDocument.User>) {
+    private func fetchRegisteredUserStateSink(_ state: LoadingState<Entity.User>) {
         switch state {
             case .stanby, .failure, .loading:
                 break

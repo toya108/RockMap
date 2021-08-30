@@ -1,10 +1,5 @@
-//
-//  UserView.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/04.
-//
 
+import Auth
 import UIKit
 import SDWebImage
 
@@ -46,7 +41,7 @@ class UserView: UIView {
     }
 
     func configure(
-        user: FIDocument.User,
+        user: Entity.User,
         registeredDate: Date? = nil,
         parentVc: UIViewController
     ) {
@@ -91,5 +86,6 @@ class UserView: UIView {
             for: .touchUpInside
         )
     }
+
 
 }

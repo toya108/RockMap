@@ -17,7 +17,7 @@ class ClimbRecordTableViewCell: UITableViewCell {
     }
 
     func configure(
-        user: FIDocument.User,
+        user: Entity.User,
         climbedDate: Date,
         type: Entity.ClimbRecord.ClimbedRecordType,
         parentVc: UIViewController

@@ -69,11 +69,11 @@ public extension Domain.Entity.ClimbRecord {
         }
 
 
-        var isFlash: Bool {
+        public var isFlash: Bool {
             self == .flash
         }
 
-        var isRedpoint: Bool {
+        public var isRedpoint: Bool {
             self == .redPoint
         }
     }

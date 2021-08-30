@@ -301,7 +301,7 @@ extension RockSearchViewController: MKMapViewDelegate {
 
             case let clusterAnnotation as MKClusterAnnotation:
                 showFloatingPanel(
-                    rocks: clusterAnnotation.memberAnnotations.compactMap { $0 as? RockAnnotation  }.map(\.rock)
+                    rocks: clusterAnnotation.memberAnnotations.compactMap { $0 as? RockAnnotation }.map(\.rock)
                 )
 
             default:
@@ -310,7 +310,7 @@ extension RockSearchViewController: MKMapViewDelegate {
         }
     }
 
-    private func showFloatingPanel(rocks: [FIDocument.Rock]) {
+    private func showFloatingPanel(rocks: [Entity.Rock]) {
 
         if floatingPanelVc.contentViewController == nil {
             addFloatingPanel(rocks: rocks)
@@ -325,7 +325,7 @@ extension RockSearchViewController: MKMapViewDelegate {
         }
     }
 
-    private func addFloatingPanel(rocks: [FIDocument.Rock]) {
+    private func addFloatingPanel(rocks: [Entity.Rock]) {
         let contentVC = RockAnnotationListViewController.createInstance(rocks: rocks)
         contentVC.delegate = self
         floatingPanelVc.set(contentViewController: contentVC)
@@ -439,7 +439,7 @@ class RockSearchFloatingPanelLayout: FloatingPanelLayout {
 
 extension RockSearchViewController: RockAnnotationTableViewDelegate {
 
-    func didSelectRockAnnotaitonCell(rock: FIDocument.Rock) {
+    func didSelectRockAnnotaitonCell(rock: Entity.Rock) {
         router.route(to: .rockDetail(rock), from: self)
     }
 

@@ -54,17 +54,17 @@ class RockConfirmViewController: UIViewController, CompositionalColectionViewCon
     
     private func configureSections() {
         snapShot.appendSections(SectionLayoutKind.allCases)
-        snapShot.appendItems([.name(viewModel.rockDocument.name)], toSection: .name)
-        snapShot.appendItems([.desc(viewModel.rockDocument.desc)], toSection: .desc)
-        snapShot.appendItems([.season(viewModel.rockDocument.seasons)], toSection: .season)
-        snapShot.appendItems([.lithology(viewModel.rockDocument.lithology)], toSection: .lithology)
+        snapShot.appendItems([.name(viewModel.rockEntity.name)], toSection: .name)
+        snapShot.appendItems([.desc(viewModel.rockEntity.desc)], toSection: .desc)
+        snapShot.appendItems([.season(viewModel.rockEntity.seasons)], toSection: .season)
+        snapShot.appendItems([.lithology(viewModel.rockEntity.lithology)], toSection: .lithology)
         let location = LocationManager.LocationStructure(
             location: .init(
-                latitude: viewModel.rockDocument.location.latitude,
-                longitude: viewModel.rockDocument.location.longitude
+                latitude: viewModel.rockEntity.location.latitude,
+                longitude: viewModel.rockEntity.location.longitude
             ),
-            address: viewModel.rockDocument.address,
-            prefecture: viewModel.rockDocument.prefecture
+            address: viewModel.rockEntity.address,
+            prefecture: viewModel.rockEntity.prefecture
         )
         snapShot.appendItems([.location(location)], toSection: .location)
         snapShot.appendItems([.header(viewModel.header)], toSection: .header)

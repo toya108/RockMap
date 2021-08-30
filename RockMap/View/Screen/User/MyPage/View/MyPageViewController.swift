@@ -1,10 +1,5 @@
-//
-//  MyPageViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/10/31.
-//
 
+import Auth
 import Combine
 import UIKit
 
@@ -107,17 +102,17 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
 extension MyPageViewController {
 
-    private func userSink(_ user: LoadingState<FIDocument.User>) {
+    private func userSink(_ user: LoadingState<Entity.User>) {
         snapShot.reloadSections([.user, .socialLink])
         datasource.apply(snapShot, animatingDifferences: false)
     }
 
-    private func climbedListSink(_ climbedList: Set<FIDocument.ClimbRecord>) {
+    private func climbedListSink(_ climbedList: [Entity.ClimbRecord]) {
         snapShot.reloadSections([.climbedNumber])
         datasource.apply(snapShot, animatingDifferences: false)
     }
 
-    private func recentClimbedCoursesSink(_ courses: Set<FIDocument.Course>) {
+    private func recentClimbedCoursesSink(_ courses: [Entity.Course]) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .recentClimbedCourses))
 
         if courses.isEmpty {
@@ -156,13 +151,13 @@ extension MyPageViewController {
 
             case .registeredRock:
                 router.route(
-                    to: .rockList(AuthManager.shared.authUserReference),
+                    to: .rockList,
                     from: self
                 )
 
             case .registeredCourse:
                 router.route(
-                    to: .courseList(AuthManager.shared.authUserReference),
+                    to: .courseList,
                     from: self
                 )
 

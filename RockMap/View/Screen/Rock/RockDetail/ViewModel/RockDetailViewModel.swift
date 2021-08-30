@@ -9,36 +9,36 @@ import Combine
 import Foundation
 
 final class RockDetailViewModel: ViewModelProtocol {
-    @Published var rockDocument: FIDocument.Rock
+    @Published var rockDocument: Entity.Rock
     @Published var rockName = ""
     @Published var rockId = ""
-    @Published var registeredUser: FIDocument.User?
+    @Published var registeredUser: Entity.User?
     @Published var rockDesc = ""
-    @Published var seasons: Set<FIDocument.Rock.Season> = []
-    @Published var lithology: FIDocument.Rock.Lithology = .unKnown
+    @Published var seasons: Set<Entity.Rock.Season> = []
+    @Published var lithology: Entity.Rock.Lithology = .unKnown
     @Published var rockLocation = LocationManager.LocationStructure()
     @Published var headerImage: ImageLoadable?
     @Published var images: [ImageLoadable] = []
-    @Published var courses: [FIDocument.Course] = []
+    @Published var courses: [Entity.Course] = []
+
+    private let fetchUserUsecase = Usecase.User.FetchById()
+    private let fetchCoursesUsecase = Usecase.Course.FetchByRockId()
 
     private var bindings = Set<AnyCancellable>()
     
-    init(rock: FIDocument.Rock) {
+    init(rock: Entity.Rock) {
         self.rockDocument = rock
 
         self.rockName = rock.name
         self.rockId = rock.id
         self.rockDesc = rock.desc
-        setImage(rock: rock)
 
-        FirestoreManager.db
-            .collection(FIDocument.User.colletionName)
-            .document(rock.registeredUserId)
-            .getDocument(FIDocument.User.self)
+        fetchUserUsecase.fetchUser(by: rock.registeredUserId)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
             }
+            .map { Optional($0) }
             .assign(to: &$registeredUser)
 
         self.rockLocation = .init(
@@ -55,11 +55,8 @@ final class RockDetailViewModel: ViewModelProtocol {
     }
     
     func fetchCourses() {
-        FirestoreManager.db
-            .collectionGroup(FIDocument.Course.colletionName)
-            .whereField("parentRockId", in: [rockDocument.id])
-            .getDocuments(FIDocument.Course.self)
-            .catch { error -> Just<[FIDocument.Course]> in
+        fetchCoursesUsecase.fetch(by: rockDocument.id)
+            .catch { error -> Just<[Entity.Course]> in
                 print(error)
                 return .init([])
             }
@@ -67,58 +64,11 @@ final class RockDetailViewModel: ViewModelProtocol {
             .assign(to: &$courses)
     }
 
-    private func setImage(rock: FIDocument.Rock) {
-        setHeaderStorage(rock: rock)
-        setStorages(rock: rock)
-    }
-
-    private func setHeaderStorage(rock: FIDocument.Rock) {
-
-        if let headerUrl = rock.headerUrl {
-            self.headerImage = .url(headerUrl)
-            return
+    func makeGradeNumberStrings(dic: [Entity.Course.Grade: Int]) -> String {
+        dic.map {
+            $0.key.name + "/" + $0.value.description + "本"
         }
-
-        StorageManager.getReference(
-            destinationDocument: FINameSpace.Rocks.self,
-            documentId: rock.id,
-            imageType: .header
-        )
-        .catch { error -> Empty in
-            print(error.localizedDescription)
-            return Empty()
-        }
-        .compactMap { $0 }
-        .map { ImageLoadable.storage($0) }
-        .assign(to: &$headerImage)
-    }
-
-    private func setStorages(rock: FIDocument.Rock) {
-
-        guard rock.imageUrls.isEmpty else {
-            self.images = rock.imageUrls.map { .url($0) }
-            return
-        }
-
-        StorageManager
-            .getNormalImagePrefixes(
-                destinationDocument: FINameSpace.Rocks.self,
-                documentId: rock.id
-            )
-            .catch { error -> Empty in
-                print(error)
-                return Empty()
-            }
-            .flatMap {
-                $0.getReferences().catch { error -> Empty in
-                    print(error)
-                    return Empty()
-                }
-            }
-            .map {
-                $0.map { ImageLoadable.storage($0) }
-            }
-            .assign(to: &$images)
+        .joined(separator: ", ")
     }
 
 }
