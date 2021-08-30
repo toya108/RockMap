@@ -17,7 +17,7 @@ let package = Package(
         .package(
             name: "FirebaseUI",
             url: "https://github.com/firebase/FirebaseUI-iOS.git",
-            from: .init("12.0.0")
+            from: .init("12.0.2")
         ),
         .package(url: "../Domain", from: "1.0.0"),
         .package(url: "../Utilities", from: "1.0.0")
