@@ -621,15 +621,15 @@
 			path = UserDefaults;
 			sourceTree = "<group>";
 		};
-		9E2B112D25471F1800D7E56C /* View */ = {
+		9E2B112D25471F1800D7E56C /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				9E98D53D2552F88B00EC5AC1 /* SupportView */,
 				9EB7DB9C266FD43B003B0041 /* Screen */,
+				9E98D53D2552F88B00EC5AC1 /* SupportView */,
 				9EB7DB9B266FD42A003B0041 /* Container */,
 				9E9E6375262EFDEE0096340C /* Emumeration */,
 			);
-			path = View;
+			path = Presentation;
 			sourceTree = "<group>";
 		};
 		9E2DA75625F91B47008F339E /* Cells */ = {
@@ -784,13 +784,11 @@
 		9E5CEFCA25277B25001C95AA /* RockMap */ = {
 			isa = PBXGroup;
 			children = (
-				9EC7FFCE269BCDB500715F86 /* RockMap.entitlements */,
-				9EC7FFCD269BCC7900715F86 /* RockMapDebug.entitlements */,
-				9E98D5472553009100EC5AC1 /* Resources */,
+				9E2B112D25471F1800D7E56C /* Presentation */,
 				9EB00BD2262976AF00379182 /* Protocol */,
 				9E04B1AA254BA9720097DA8E /* Extension */,
-				9E2B112D25471F1800D7E56C /* View */,
 				9E04B191254B28230097DA8E /* Model */,
+				9E98D5472553009100EC5AC1 /* Resources */,
 				9EA6B04C26651A2300DAA888 /* Settings.bundle */,
 				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
 				9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */,
@@ -798,6 +796,8 @@
 				9E5CEFD925277B26001C95AA /* Info.plist */,
 				9EB7DB98266FC4F9003B0041 /* GoogleService-Info-release.plist */,
 				9E016FBB252CD0C600C2B85C /* GoogleService-Info-dev.plist */,
+				9EC7FFCE269BCDB500715F86 /* RockMap.entitlements */,
+				9EC7FFCD269BCC7900715F86 /* RockMapDebug.entitlements */,
 			);
 			path = RockMap;
 			sourceTree = "<group>";
