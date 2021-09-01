@@ -147,13 +147,13 @@ extension RockDetailViewController {
         radius: CGFloat = 0.0
     ) -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
-        ImageLoadable
+        URL
     > {
         .init { cell, _, imageLoadable in
 
             cell.clipsToBounds = true
             cell.layer.cornerRadius = radius
-            cell.imageView.loadImage(imageLoadable: imageLoadable)
+            cell.imageView.loadImage(url: imageLoadable)
         }
     }
 

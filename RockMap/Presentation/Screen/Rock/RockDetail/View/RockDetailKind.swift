@@ -54,7 +54,7 @@ extension RockDetailViewController {
     }
     
     enum ItemKind: Hashable {
-        case header(ImageLoadable)
+        case header(URL)
         case title(String)
         case registeredUser(user: Entity.User)
         case desc(String)
@@ -64,7 +64,7 @@ extension RockDetailViewController {
         case map(LocationManager.LocationStructure)
         case courses(Entity.Course)
         case nocourse
-        case image(ImageLoadable)
+        case image(URL)
         case noImage
     }
     

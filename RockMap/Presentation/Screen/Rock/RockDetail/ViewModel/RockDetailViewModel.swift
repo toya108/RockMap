@@ -17,8 +17,8 @@ final class RockDetailViewModel: ViewModelProtocol {
     @Published var seasons: Set<Entity.Rock.Season> = []
     @Published var lithology: Entity.Rock.Lithology = .unKnown
     @Published var rockLocation = LocationManager.LocationStructure()
-    @Published var headerImage: ImageLoadable?
-    @Published var images: [ImageLoadable] = []
+    @Published var headerImage: URL?
+    @Published var images: [URL] = []
     @Published var courses: [Entity.Course] = []
 
     private let fetchUserUsecase = Usecase.User.FetchById()
@@ -51,6 +51,8 @@ final class RockDetailViewModel: ViewModelProtocol {
         )
         self.seasons = rock.seasons
         self.lithology = rock.lithology
+        self.headerImage = rock.headerUrl
+        self.images = rock.imageUrls
         self.fetchCourses()
     }
     
