@@ -74,6 +74,37 @@ extension StorageReference {
         }.eraseToAnyPublisher()
     }
 
+    func putData(
+        _ uploadData: Data,
+        metadata: StorageMetadata = .init()
+    ) -> AnyPublisher<EmptyResponse, Error> {
+
+        metadata.cacheControl = "no-cache"
+
+        var task: StorageUploadTask?
+
+        return Deferred {
+            Future<EmptyResponse, Error> { [weak self] promise in
+
+                guard let self = self else { return }
+
+                task = self.putData(uploadData, metadata: metadata) { _, error in
+
+                    if let error = error {
+                        promise(.failure(error))
+                        return
+                    }
+
+                    promise(.success(.init()))
+                }
+            }
+            .handleEvents(receiveCancel: {
+                task?.cancel()
+            })
+        }
+        .eraseToAnyPublisher()
+    }
+
     func delete() -> AnyPublisher<Void, Error> {
 
         Deferred {
