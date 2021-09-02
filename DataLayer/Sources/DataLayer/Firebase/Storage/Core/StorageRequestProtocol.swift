@@ -1,10 +1,8 @@
 
 public protocol StorageRequestProtocol: RequestProtocol {
-    associatedtype Collection: CollectionProtocol
 
-    var method: StorageMethod { get }
+    associatedtype Directory: ImageDirectoryProtocol
 
     @PathBuilder
     var path: String { get }
-
 }

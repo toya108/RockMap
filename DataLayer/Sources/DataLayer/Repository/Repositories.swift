@@ -32,4 +32,10 @@ public struct Repositories {
     public struct TotalClimbedNumber {
         public typealias ListenByCourseId = Repository<FS.Request.TotalClimbedNumber.ListenByCourseId>
     }
+
+    public struct Storage {
+        public struct Header {
+            public typealias Fetch = Repository<FireStorage.Request.Fetch>
+        }
+    }
 }
