@@ -35,7 +35,10 @@ public struct Repositories {
 
     public struct Storage {
         public struct Header {
-            public typealias Fetch = Repository<FireStorage.Request.Fetch>
+            public typealias Fetch = Repository<FireStorage.Request.Header.Fetch>
+        }
+        public struct Icon {
+            public typealias Fetch = Repository<FireStorage.Request.Icon.Fetch>
         }
     }
 }

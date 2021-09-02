@@ -1,12 +1,11 @@
-
 import Combine
 import Foundation
 
-public extension FireStorage.Request.Header {
+public extension FireStorage.Request.Icon {
     struct Fetch: StorageRequestProtocol {
 
-        public typealias Directory = FireStorage.ImageDirectory.Header
-        
+        public typealias Directory = FireStorage.ImageDirectory.Icon
+
         public typealias Response = FireStorage.Image
 
         public struct Parameters {
