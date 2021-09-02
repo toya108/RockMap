@@ -105,10 +105,10 @@ extension StorageReference {
         .eraseToAnyPublisher()
     }
 
-    func delete() -> AnyPublisher<Void, Error> {
+    func delete() -> AnyPublisher<EmptyResponse, Error> {
 
         Deferred {
-            Future<Void, Error> { [weak self] promise in
+            Future<EmptyResponse, Error> { [weak self] promise in
 
                 guard let self = self else { return }
 
@@ -119,11 +119,12 @@ extension StorageReference {
                         return
                     }
 
-                    promise(.success(()))
+                    promise(.success(.init()))
                 }
             }
 
-        }.eraseToAnyPublisher()
+        }
+        .eraseToAnyPublisher()
     }
 
     func getImage() -> AnyPublisher<FireStorage.Image, Error> {
