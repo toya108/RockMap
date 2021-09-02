@@ -40,6 +40,7 @@ public struct Repositories {
         }
         public struct Icon {
             public typealias Fetch = Repository<FireStorage.Request.Icon.Fetch>
+            public typealias Set = Repository<FireStorage.Request.Icon.Set>
         }
     }
 }
