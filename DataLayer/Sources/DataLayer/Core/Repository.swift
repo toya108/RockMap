@@ -5,6 +5,8 @@ import Foundation
 public protocol RepositoryProtocol {
     associatedtype Request: RequestProtocol
 
+    init()
+
     func request(
         useTestData: Bool,
         parameters: Request.Parameters
