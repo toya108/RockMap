@@ -46,10 +46,10 @@ extension StorageReference {
         }.eraseToAnyPublisher()
     }
 
-    func getReference() -> AnyPublisher<StorageReference?, Error> {
+    func getReference() -> AnyPublisher<StorageReference, Error> {
 
         Deferred {
-            Future<StorageReference?, Error> { [weak self] promise in
+            Future<StorageReference, Error> { [weak self] promise in
 
                 guard let self = self else { return }
 
@@ -95,18 +95,31 @@ extension StorageReference {
         }.eraseToAnyPublisher()
     }
 
-    func getDownloadURL(
-        completion: @escaping ((Result<URL?, Error>) -> Void)
-    )  {
-        self.downloadURL { url, error in
+    func getImage() -> AnyPublisher<FireStorage.Image, Error> {
+        Deferred {
+            Future<FireStorage.Image, Error> { [weak self] promise in
 
-            if let error = error {
-                completion(.failure(error))
-                return
+                guard let self = self else { return }
+
+                let fullPath = self.fullPath
+
+                self.downloadURL { url, error in
+
+                    if let error = error {
+                        promise(.failure(error))
+                        return
+                    }
+
+                    guard let url = url else {
+                        promise(.failure(FirestoreError.nilResultError))
+                        return
+                    }
+
+                    promise(.success(.init(fullPath: fullPath, url: url)))
+                }
             }
 
-            completion(.success(url))
-        }
+        }.eraseToAnyPublisher()
     }
 }
 
