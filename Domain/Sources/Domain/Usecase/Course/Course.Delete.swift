@@ -3,7 +3,7 @@ import DataLayer
 import Foundation
 
 public extension Domain.Usecase.Course {
-    struct Delete: UsecaseProtocol {
+    struct Delete: PassthroughUsecaseProtocol {
         public typealias Repository = Repositories.Course.Delete
         public typealias Mapper = Domain.Mapper.Course
 

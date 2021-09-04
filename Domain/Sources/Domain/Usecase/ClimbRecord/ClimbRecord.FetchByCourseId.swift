@@ -3,7 +3,7 @@ import Combine
 import DataLayer
 
 public extension Domain.Usecase.ClimbRecord {
-    struct FetchByCourseId: UsecaseProtocol {
+    struct FetchByCourseId: PassthroughUsecaseProtocol {
         public typealias Repository = Repositories.ClimbRecord.FetchByCourseId
         public typealias Mapper = Domain.Mapper.ClimbRecord
 

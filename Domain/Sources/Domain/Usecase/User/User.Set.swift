@@ -4,7 +4,7 @@ import DataLayer
 import Foundation
 
 public extension Domain.Usecase.User {
-    struct Set: UsecaseProtocol {
+    struct Set: PassthroughUsecaseProtocol {
         public typealias Repository = Repositories.User.Set
         public typealias Mapper = Domain.Mapper.User
 

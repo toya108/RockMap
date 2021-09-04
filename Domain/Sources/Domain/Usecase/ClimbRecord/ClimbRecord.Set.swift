@@ -2,7 +2,7 @@ import Combine
 import DataLayer
 
 public extension Domain.Usecase.ClimbRecord {
-    struct Set: UsecaseProtocol {
+    struct Set: PassthroughUsecaseProtocol {
         public typealias Repository = Repositories.ClimbRecord.Set
         public typealias Mapper = Domain.Mapper.ClimbRecord
 

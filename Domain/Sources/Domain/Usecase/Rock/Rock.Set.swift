@@ -4,7 +4,7 @@ import Combine
 import DataLayer
 
 public extension Domain.Usecase.Rock {
-    struct Set: UsecaseProtocol {
+    struct Set: PassthroughUsecaseProtocol {
         public typealias Repository = Repositories.Rock.Set
         public typealias Mapper = Domain.Mapper.Rock
 
