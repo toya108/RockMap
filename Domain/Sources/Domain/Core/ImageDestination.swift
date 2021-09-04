@@ -18,4 +18,17 @@ public enum ImageDestination {
                 return FS.Collection.Users.self
         }
     }
+
+    var name: String {
+        switch self {
+            case .rock:
+                return "rocks"
+
+            case .course:
+                return "courses"
+
+            case .user:
+                return "users"
+        }
+    }
 }
