@@ -158,8 +158,8 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             output.header.image.imageType
         }
 
-       let writeIcon = writeIconUsecase.write(
-        data: output.icon.updateData,
+        let writeIcon = writeIconUsecase.write(
+            data: output.icon.updateData,
             shouldDelete: output.icon.shouldDelete,
             image: output.icon.image
         ) {
