@@ -179,9 +179,12 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             }
             .sink { [weak self] _ in
 
-                guard let self = self else { return }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak self] in
 
-                self.output.imageUploadState = .finish(content: ())
+                    guard let self = self else { return }
+
+                    self.output.imageUploadState = .finish(content: ())
+                }
             }
             .store(in: &bindings)
     }

@@ -262,7 +262,6 @@ extension EditProfileViewController {
                 showIndicatorView()
 
             case .finish:
-                hideIndicatorView()
                 viewModel.uploadImage()
 
             case .failure(let error):
