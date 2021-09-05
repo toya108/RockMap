@@ -2,6 +2,7 @@
 import Combine
 import Foundation
 import Utilities
+import FirebaseFirestore
 
 public extension FS.Request.User {
     struct Update: FirestoreRequestProtocol {
@@ -11,28 +12,17 @@ public extension FS.Request.User {
         public typealias Collection = FS.Collection.Users
         public typealias Response = EmptyResponse
         public struct Parameters: Codable {
-            public var id: String
-            public var name: String?
-            public var introduction: String?
-            public var socialLinks: [FS.Document.User.SocialLink]?
-            public init(
-                id: String,
-                name: String?,
-                introduction: String?,
-                socialLinks: [FS.Document.User.SocialLink]?
-            ) {
-                self.id = id
-                self.name = name
-                self.introduction = introduction
-                self.socialLinks = socialLinks
+            public var user: FS.Document.User
+
+            public init(user: FS.Document.User) {
+                self.user = user
             }
         }
 
         public var parameters: Parameters
         public var testDataPath: URL?
         public var path: String {
-            Collection.name
-            parameters.id
+            parameters.user
         }
         public var entry: Entry { FirestoreManager.db.document(path) }
 
@@ -44,30 +34,7 @@ public extension FS.Request.User {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<EmptyResponse, Error> {
-
-            @ListBuilder<[AnyHashable: Any]>
-            var updateFields: [[AnyHashable: Any]] {
-                if let name = parameters.name {
-                    ["name": name]
-                }
-
-                if let introduction = parameters.introduction {
-                    ["introduction": introduction]
-                }
-
-                if let socialLinks = parameters.socialLinks {
-                    ["socialLinks": socialLinks]
-                }
-
-            }
-
-            let fields = updateFields.flatMap { $0 }.reduce([AnyHashable: Any]()) {
-                var result = $0
-                result[$1.key] = $1.value
-                return result
-            }
-
-            return entry.updateData(fields)
+            return entry.setData(from: parameters.user)
         }
 
     }

@@ -168,16 +168,30 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
 
         output.userUploadState = .loading
 
-        updateUserUsecase.update(
-            id: user.id,
-            name: output.name,
-            introduction: output.introduction,
-            socialLinks: output.socialLinks
-        )
-        .sinkState { [weak self] state in
-            self?.output.userUploadState = state
+        var updateUser: Entity.User {
+            var updateUser = user
+            updateUser.name = output.name
+            updateUser.introduction = output.introduction
+            updateUser.socialLinks = output.socialLinks
+            return updateUser
         }
-        .store(in: &bindings)
+
+        updateUserUsecase.update(user: updateUser)
+            .catch { [weak self] error -> Empty in
+
+                guard let self = self else { return Empty()}
+
+                print(error)
+                self.output.userUploadState = .failure(error)
+                return Empty()
+            }
+            .sink { [weak self] _ in
+
+                guard let self = self else { return }
+
+                self.output.userUploadState = .finish(content: ())
+            }
+            .store(in: &bindings)
     }
 }
 
