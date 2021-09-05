@@ -10,24 +10,17 @@ public extension FireStorage.Request.Header {
         public typealias Response = EmptyResponse
 
         public struct Parameters {
-            let documentId: String
-            let collectionType: CollectionProtocol.Type
+            let path: String
 
-            public init(
-                documentId: String,
-                collectionType: CollectionProtocol.Type
-            ) {
-                self.documentId = documentId
-                self.collectionType = collectionType
+            public init(path: String) {
+                self.path = path
             }
         }
 
         public var parameters: Parameters
         public var testDataPath: URL?
         public var path: String {
-            parameters.collectionType.name
-            parameters.documentId
-            Directory.name
+            parameters.path
         }
 
         public init(parameters: Parameters) {
@@ -39,8 +32,7 @@ public extension FireStorage.Request.Header {
             parameters: Parameters
         ) -> AnyPublisher<EmptyResponse, Error> {
             StorageAssets.storage.reference(withPath: path)
-                .getReference()
-                .flatMap { $0.delete() }
+                .delete()
                 .eraseToAnyPublisher()
         }
 

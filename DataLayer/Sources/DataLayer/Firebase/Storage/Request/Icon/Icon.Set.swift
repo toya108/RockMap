@@ -10,17 +10,14 @@ public extension FireStorage.Request.Icon {
         public typealias Response = EmptyResponse
 
         public struct Parameters {
-            let documentId: String
-            let collectionType: CollectionProtocol.Type
+            let path: String
             let data: Data
 
             public init(
-                documentId: String,
-                collectionType: CollectionProtocol.Type,
+                path: String,
                 data: Data
             ) {
-                self.documentId = documentId
-                self.collectionType = collectionType
+                self.path = path
                 self.data = data
             }
         }
@@ -28,9 +25,7 @@ public extension FireStorage.Request.Icon {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var path: String {
-            parameters.collectionType.name
-            parameters.documentId
-            Directory.name
+            parameters.path
         }
 
         public init(parameters: Parameters) {
@@ -42,8 +37,7 @@ public extension FireStorage.Request.Icon {
             parameters: Parameters
         ) -> AnyPublisher<EmptyResponse, Error> {
             StorageAssets.storage.reference(withPath: path)
-                .getReference()
-                .flatMap { $0.putData(parameters.data) }
+                .putData(parameters.data)
                 .eraseToAnyPublisher()
         }
 

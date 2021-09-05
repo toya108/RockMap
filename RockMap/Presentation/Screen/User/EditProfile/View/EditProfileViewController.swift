@@ -169,22 +169,25 @@ extension EditProfileViewController: UICollectionViewDelegate {
 
 extension EditProfileViewController {
 
-    private func headerSink(_ image: CrudableImage) {
+    private func headerSink(_ crudableImage: CrudableImageV2) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .header))
 
-        let shouldAppend = image.updateData != nil
-            || image.storageReference != nil
-            && !image.shouldDelete
+        let shouldAppend = crudableImage.updateData != nil
+            || crudableImage.image.url != nil
+            && !crudableImage.shouldDelete
 
-        snapShot.appendItems([shouldAppend ? .header(image) : .noImage], toSection: .header)
+        snapShot.appendItems(
+            [shouldAppend ? .header(crudableImage) : .noImage],
+            toSection: .header
+        )
         datasource.apply(snapShot)
 
         hideIndicatorView()
     }
 
-    private func iconSink(_ image: CrudableImage) {
+    private func iconSink(_ crudableImage: CrudableImageV2) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .icon))
-        snapShot.appendItems([.icon(image)], toSection: .icon)
+        snapShot.appendItems([.icon(crudableImage)], toSection: .icon)
         datasource.apply(snapShot)
 
         hideIndicatorView()
@@ -216,15 +219,15 @@ extension EditProfileViewController {
     }
 
 
-    private func imageUploadStateSink(_ state: StorageUploader.UploadState) {
+    private func imageUploadStateSink(_ state: LoadingState<Void>) {
         switch state {
             case .stanby:
                 hideIndicatorView()
 
-            case .progress:
+            case .loading:
                 showIndicatorView()
 
-            case .complete:
+            case .finish:
                 hideIndicatorView()
                 dismiss(animated: true) { [weak self] in
                     guard
@@ -240,7 +243,7 @@ extension EditProfileViewController {
                 hideIndicatorView()
                 showOKAlert(
                     title: "画像の登録に失敗しました",
-                    message: error.localizedDescription
+                    message: error?.localizedDescription ?? ""
                 ) { [weak self] _ in
 
                     guard let self = self else { return }

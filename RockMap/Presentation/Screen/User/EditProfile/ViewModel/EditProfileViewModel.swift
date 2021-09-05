@@ -20,9 +20,12 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
     var output: Output = .init()
     let user: Entity.User
 
-    private var bindings = Set<AnyCancellable>()
-    private let uploader = StorageUploader()
-    private let updateUserUsecase = Usecase.User.Update()
+    private var bindings           = Set<AnyCancellable>()
+    private let updateUserUsecase  = Usecase.User.Update()
+    private let fetchHeaderUsecase = Usecase.Image.Header.Fetch()
+    private let fetchIconUsecase   = Usecase.Image.Icon.Fetch()
+    private let writeHeaderUsecase   = Usecase.Image.Header.Write()
+    private let writeIconUsecase     = Usecase.Image.Icon.Write()
 
     init(user: Entity.User) {
         self.user = user
@@ -74,9 +77,6 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
     }
 
     private func bindOutput() {
-        uploader.$uploadState
-            .assign(to: &output.$imageUploadState)
-
         output.$name
             .dropFirst()
             .removeDuplicates()
@@ -85,34 +85,20 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
     }
 
     private func fetchImageStorage() {
-        StorageManager
-            .getReference(
-                destinationDocument: FINameSpace.Users.self,
-                documentId: user.id,
-                imageType: .header
-            )
+        fetchHeaderUsecase.fetch(id: user.id, destination: .user)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
             }
-            .map {
-                CrudableImage(storageReference: $0, imageType: .icon)
-            }
+            .map { .init(image: $0) }
             .assign(to: &output.$header)
 
-        StorageManager
-            .getReference(
-                destinationDocument: FINameSpace.Users.self,
-                documentId: user.id,
-                imageType: .icon
-            )
+        fetchIconUsecase.fetch(id: user.id, destination: .user)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
             }
-            .map {
-                CrudableImage(storageReference: $0, imageType: .icon)
-            }
+            .map { .init(image: $0) }
             .assign(to: &output.$icon)
     }
 
@@ -138,7 +124,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             case .header:
                 output.header.updateData = nil
 
-                if output.header.storageReference != nil {
+                if output.header.image.url != nil {
                     output.header.shouldDelete = true
                 }
 
@@ -159,9 +145,45 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
     }
 
     func uploadImage() {
-        uploader.addData(image: output.icon, id: user.id, documentType: FINameSpace.Users.self)
-        uploader.addData(image: output.header, id: user.id, documentType: FINameSpace.Users.self)
-        uploader.start()
+
+        self.output.imageUploadState = .loading
+
+        let writeHeader = writeHeaderUsecase.write(
+            data: output.header.updateData,
+            shouldDelete: output.header.shouldDelete,
+            image: output.header.image
+        ) {
+            .user
+            user.id
+            output.header.image.imageType
+        }
+
+       let writeIcon = writeIconUsecase.write(
+        data: output.icon.updateData,
+            shouldDelete: output.icon.shouldDelete,
+            image: output.icon.image
+        ) {
+            .user
+            user.id
+            output.icon.image.imageType
+        }
+
+        writeHeader.combineLatest(writeIcon)
+            .catch { [weak self] error -> Empty in
+
+                guard let self = self else { return Empty()}
+
+                print(error)
+                self.output.imageUploadState = .failure(error)
+                return Empty()
+            }
+            .sink { [weak self] _ in
+
+                guard let self = self else { return }
+
+                self.output.imageUploadState = .finish(content: ())
+            }
+            .store(in: &bindings)
     }
 
     func editProfile() {
@@ -208,14 +230,14 @@ extension EditProfileViewModel {
     final class Output {
         @Published var name = ""
         @Published var introduction = ""
-        @Published var header: CrudableImage = .init(imageType: .header)
-        @Published var icon: CrudableImage = .init(imageType: .icon)
+        @Published var header: CrudableImageV2 = .init(imageType: .header)
+        @Published var icon: CrudableImageV2 = .init(imageType: .icon)
         @Published var socialLinks: [Entity.User.SocialLink] = Entity.User.SocialLinkType.allCases.map {
             Entity.User.SocialLink(linkType: $0, link: "")
         }
         @Published var nameValidationResult: ValidationResult = .none
 
-        @Published var imageUploadState: StorageUploader.UploadState = .stanby
+        @Published var imageUploadState: LoadingState<Void> = .stanby
         @Published var userUploadState: LoadingState<Void> = .stanby
     }
 }

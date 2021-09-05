@@ -68,4 +68,23 @@ class DeletableImageCollectionViewCell: UICollectionViewCell {
             for: .touchUpInside
         )
     }
+
+    func configure(
+        crudableImage: CrudableImageV2,
+        deleteButtonTapped: @escaping () -> Void
+    ) {
+
+        if let data = crudableImage.updateData {
+            imageView.image = UIImage(data: data)
+        } else {
+            imageView.loadImage(url: crudableImage.image.url)
+        }
+
+        deleteButton.addAction(
+            .init { _ in
+                deleteButtonTapped()
+            },
+            for: .touchUpInside
+        )
+    }
 }

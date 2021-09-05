@@ -152,10 +152,10 @@ extension EditProfileViewController {
 
     private func configureDeletabelImageCell() -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
-        CrudableImage
+        CrudableImageV2
     > {
-        .init { cell, _, image in
-            cell.configure(image: image) { [weak self] in
+        .init { cell, _, crudableImage in
+            cell.configure(crudableImage: crudableImage) { [weak self] in
 
                 guard let self = self else { return }
 
@@ -243,7 +243,7 @@ extension EditProfileViewController {
 
     private func configureIconEditCell() -> UICollectionView.CellRegistration<
         IconEditCollectionViewCell,
-        CrudableImage
+        CrudableImageV2
     > {
         .init { [weak self] cell, _, image in
 
