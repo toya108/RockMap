@@ -2,7 +2,8 @@
 import Combine
 import Foundation
 
-public extension FireStorage.Request.Image {
+public extension FireStorage.Request {
+    
     struct Set: StorageRequestProtocol {
 
         public typealias Response = EmptyResponse

@@ -35,8 +35,8 @@ public struct Repositories {
 
     public struct Storage {
 
-        public typealias Set = Repository<FireStorage.Request.Image.Set>
-        public typealias Delete = Repository<FireStorage.Request.Image.Delete>
+        public typealias Set = Repository<FireStorage.Request.Set>
+        public typealias Delete = Repository<FireStorage.Request.Delete>
         public struct Fetch {
             public typealias Header = Repository<FireStorage.Request.Fetch.Header>
             public typealias Icon = Repository<FireStorage.Request.Fetch.Icon>
