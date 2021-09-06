@@ -2,14 +2,38 @@
 import Combine
 import Foundation
 
+public protocol WriteImageUsecaseProtocol: UsecaseProtocol {
+
+    associatedtype Set: SetImageUsecaseProtocol
+    associatedtype Delete: DeleteImageUsecaseProtocol
+
+    var setUsecase: Set { get }
+    var deleteUsecase: Delete { get }
+
+    func write(
+        data: Data?,
+        shouldDelete: Bool,
+        image: Domain.Entity.Image,
+        @StoragePathBuilder _ builder: () -> String
+    ) -> AnyPublisher<Void, Error>
+
+    init(set: Set, delete: Delete)
+}
+
 public extension Domain.Usecase.Image {
 
-    struct Write<S: SetImageUsecaseProtocol, D: DeleteImageUsecaseProtocol>: UsecaseProtocol {
+    struct Write: WriteImageUsecaseProtocol {
 
-        let setUsecase = S()
-        let deleteUsecase = D()
+        public typealias Set = Domain.Usecase.Image.Set
+        public typealias Delete = Domain.Usecase.Image.Delete
 
-        public init() {}
+        public var setUsecase: Domain.Usecase.Image.Set
+        public var deleteUsecase: Domain.Usecase.Image.Delete
+
+        public init(set: Set = .init(), delete: Delete = .init()) {
+            self.setUsecase = set
+            self.deleteUsecase = delete
+        }
 
         public func write(
             data: Data?,
@@ -35,26 +59,6 @@ public extension Domain.Usecase.Image {
                 }
             }.eraseToAnyPublisher()
         }
-
-//        public func write(
-//            data: Data?,
-//            shouldDelete: Bool,
-//            @PathBuilder _ builder: () -> String
-//        ) -> AnyPublisher<Void, Error> {
-//            if shouldDelete {
-//                return deleteUsecase.delete(path: path)
-//            }
-//
-//            if let data = data {
-//                return setUsecase.set(path: builder(), data: data)
-//            }
-//
-//            return .init(Empty())
-//        }
-
-
-
-
     }
 
 }

@@ -2,53 +2,102 @@
 import Combine
 import DataLayer
 
+protocol FetchImageUsecaseProtocol: PassthroughUsecaseProtocol {
+    associatedtype Response
+    func fetch(id: String, destination: ImageDestination) -> AnyPublisher<Response, Error>
+}
+
 public extension Domain.Usecase.Image {
-    struct Fetch<R: RepositoryProtocol>: PassthroughUsecaseProtocol where R.Request: StorageRequestProtocol {
-        public typealias Repository = R
+    struct Fetch {}
+}
+
+public extension Domain.Usecase.Image.Fetch {
+
+    struct Header: FetchImageUsecaseProtocol {
+        public typealias Repository = Repositories.Storage.Header.Fetch
         public typealias Mapper = Domain.Mapper.Image
 
-        var repository: R
+        var repository: Repository
         var mapper: Mapper
 
         public init(repository: Repository = .init(), mapper: Mapper = .init()) {
             self.repository = repository
             self.mapper = mapper
         }
-    }
-}
 
-public extension Domain.Usecase.Image.Fetch where R == Repositories.Storage.Header.Fetch {
-
-    func fetch(
-        id: String,
-        destination: ImageDestination
-    ) -> AnyPublisher<Domain.Entity.Image, Error> {
-        repository.request(
-            parameters: .init(
-                documentId: id,
-                collectionType: destination.to
+        public func fetch(
+            id: String,
+            destination: ImageDestination
+        ) -> AnyPublisher<Domain.Entity.Image, Error> {
+            repository.request(
+                parameters: .init(
+                    documentId: id,
+                    collectionType: destination.to,
+                    directory: .header
+                )
             )
-        )
-        .map { mapper.map(from: $0) }
-        .eraseToAnyPublisher()
+            .map { mapper.map(from: $0) }
+            .eraseToAnyPublisher()
+        }
     }
 
-}
+    struct Icon: FetchImageUsecaseProtocol {
+        public typealias Repository = Repositories.Storage.Icon.Fetch
+        public typealias Mapper = Domain.Mapper.Image
 
-public extension Domain.Usecase.Image.Fetch where R == Repositories.Storage.Icon.Fetch {
+        var repository: Repository
+        var mapper: Mapper
 
-    func fetch(
-        id: String,
-        destination: ImageDestination
-    ) -> AnyPublisher<Domain.Entity.Image, Error> {
-        repository.request(
-            parameters: .init(
-                documentId: id,
-                collectionType: destination.to
+        public init(repository: Repository = .init(), mapper: Mapper = .init()) {
+            self.repository = repository
+            self.mapper = mapper
+        }
+
+        public func fetch(
+            id: String,
+            destination: ImageDestination
+        ) -> AnyPublisher<Domain.Entity.Image, Error> {
+            repository.request(
+                parameters: .init(
+                    documentId: id,
+                    collectionType: destination.to,
+                    directory: .icon
+                )
             )
-        )
-        .map { mapper.map(from: $0) }
-        .eraseToAnyPublisher()
+            .map { mapper.map(from: $0) }
+            .eraseToAnyPublisher()
+        }
     }
 
+    struct Normal: FetchImageUsecaseProtocol {
+        public typealias Repository = Repositories.Storage.Normal.Fetch
+        public typealias Mapper = Domain.Mapper.Image
+
+        var repository: Repository
+        var mapper: Mapper
+
+        public init(repository: Repository = .init(), mapper: Mapper = .init()) {
+            self.repository = repository
+            self.mapper = mapper
+        }
+
+        public func fetch(
+            id: String,
+            destination: ImageDestination
+        ) -> AnyPublisher<[Domain.Entity.Image], Error> {
+            repository.request(
+                parameters: .init(
+                    documentId: id,
+                    collectionType: destination.to,
+                    directory: .normal
+                )
+            )
+            .map { images in
+                images.map {
+                    mapper.map(from: $0)
+                }
+            }
+            .eraseToAnyPublisher()
+        }
+    }
 }

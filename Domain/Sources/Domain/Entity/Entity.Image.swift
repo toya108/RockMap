@@ -5,22 +5,18 @@ public extension Domain.Entity {
     struct Image: AnyEntity {
         public let url: URL?
         public let fullPath: String?
-        public let imageType: ImageType
 
         public init(
             url: URL,
-            fullPath: String,
-            imageType: Domain.Entity.Image.ImageType
+            fullPath: String
         ) {
             self.url = url
             self.fullPath = fullPath
-            self.imageType = imageType
         }
 
-        public init(imageType: ImageType) {
+        public init() {
             self.url = .init(string: "")
             self.fullPath = nil
-            self.imageType = imageType
         }
     }
 }

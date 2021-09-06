@@ -13,8 +13,7 @@ public extension Domain.Mapper {
         public func map(from other: FireStorage.Image) -> Image {
             .init(
                 url: other.url,
-                fullPath: other.fullPath,
-                imageType: .header
+                fullPath: other.fullPath
             )
         }
     }

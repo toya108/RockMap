@@ -4,17 +4,21 @@ import Foundation
 public extension FireStorage.Request.Normal {
     struct Fetch: StorageRequestProtocol {
 
-        public typealias Directory = FireStorage.ImageDirectory.Normal
-
         public typealias Response = [FireStorage.Image]
 
         public struct Parameters {
             let documentId: String
             let collectionType: CollectionProtocol.Type
+            let directory: ImageDirectory
 
-            public init(documentId: String, collectionType: CollectionProtocol.Type) {
+            public init(
+                documentId: String,
+                collectionType: CollectionProtocol.Type,
+                directory: ImageDirectory
+            ) {
                 self.documentId = documentId
                 self.collectionType = collectionType
+                self.directory = directory
             }
         }
 
@@ -23,7 +27,7 @@ public extension FireStorage.Request.Normal {
         public var path: String {
             parameters.collectionType.name
             parameters.documentId
-            Directory.name
+            parameters.directory.rawValue
         }
 
         public init(parameters: Parameters) {

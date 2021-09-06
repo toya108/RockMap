@@ -9,13 +9,8 @@ public protocol SetImageUsecaseProtocol: UsecaseProtocol {
 }
 
 public extension Domain.Usecase.Image {
-    struct Set {}
-}
-
-public extension Domain.Usecase.Image.Set {
-
-    struct Header: SetImageUsecaseProtocol {
-        let repository = Repositories.Storage.Header.Set()
+    struct Set: SetImageUsecaseProtocol {
+        let repository = Repositories.Storage.Set()
 
         public init() {}
 
@@ -27,23 +22,4 @@ public extension Domain.Usecase.Image.Set {
             .eraseToAnyPublisher()
         }
     }
-
-}
-
-public extension Domain.Usecase.Image.Set {
-
-    struct Icon: SetImageUsecaseProtocol {
-        let repository = Repositories.Storage.Icon.Set()
-
-        public init() {}
-
-        public func set(path: String, data: Data) -> AnyPublisher<Void, Error> {
-            repository.request(
-                parameters: .init(path: path, data: data)
-            )
-            .map { _ in ()}
-            .eraseToAnyPublisher()
-        }
-    }
-
 }

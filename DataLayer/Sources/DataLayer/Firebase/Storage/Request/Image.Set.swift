@@ -2,18 +2,21 @@
 import Combine
 import Foundation
 
-public extension FireStorage.Request.Icon {
-    struct Delete: StorageRequestProtocol {
-
-        public typealias Directory = FireStorage.ImageDirectory.Icon
+public extension FireStorage.Request.Image {
+    struct Set: StorageRequestProtocol {
 
         public typealias Response = EmptyResponse
 
         public struct Parameters {
             let path: String
+            let data: Data
 
-            public init(path: String) {
+            public init(
+                path: String,
+                data: Data
+            ) {
                 self.path = path
+                self.data = data
             }
         }
 
@@ -32,7 +35,7 @@ public extension FireStorage.Request.Icon {
             parameters: Parameters
         ) -> AnyPublisher<EmptyResponse, Error> {
             StorageAssets.storage.reference(withPath: path)
-                .delete()
+                .putData(parameters.data)
                 .eraseToAnyPublisher()
         }
 

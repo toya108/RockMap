@@ -9,13 +9,8 @@ public protocol DeleteImageUsecaseProtocol: UsecaseProtocol {
 }
 
 public extension Domain.Usecase.Image {
-    struct Delete {}
-}
-
-public extension Domain.Usecase.Image.Delete {
-
-    struct Header: DeleteImageUsecaseProtocol {
-        let repository = Repositories.Storage.Header.Delete()
+    struct Delete: DeleteImageUsecaseProtocol {
+        let repository = Repositories.Storage.Delete()
 
         public init() {}
 
@@ -27,23 +22,4 @@ public extension Domain.Usecase.Image.Delete {
             .eraseToAnyPublisher()
         }
     }
-
-}
-
-public extension Domain.Usecase.Image.Delete {
-
-    struct Icon: DeleteImageUsecaseProtocol {
-        let repository = Repositories.Storage.Icon.Delete()
-
-        public init() {}
-
-        public func delete(path: String) -> AnyPublisher<Void, Error> {
-            repository.request(
-                parameters: .init(path: path)
-            )
-            .map { _ in ()}
-            .eraseToAnyPublisher()
-        }
-    }
-
 }

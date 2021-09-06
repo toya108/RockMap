@@ -34,15 +34,14 @@ public struct Repositories {
     }
 
     public struct Storage {
+
+        public typealias Set = Repository<FireStorage.Request.Image.Set>
+        public typealias Delete = Repository<FireStorage.Request.Image.Delete>
         public struct Header {
             public typealias Fetch = Repository<FireStorage.Request.Header.Fetch>
-            public typealias Delete = Repository<FireStorage.Request.Header.Delete>
-            public typealias Set = Repository<FireStorage.Request.Header.Set>
         }
         public struct Icon {
             public typealias Fetch = Repository<FireStorage.Request.Icon.Fetch>
-            public typealias Delete = Repository<FireStorage.Request.Icon.Delete>
-            public typealias Set = Repository<FireStorage.Request.Icon.Set>
         }
         public struct Normal {
             public typealias Fetch = Repository<FireStorage.Request.Normal.Fetch>

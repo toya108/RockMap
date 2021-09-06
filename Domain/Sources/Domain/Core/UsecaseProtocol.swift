@@ -2,9 +2,7 @@ import Combine
 import Foundation
 import DataLayer
 
-public protocol UsecaseProtocol {
-    init()
-}
+public protocol UsecaseProtocol {}
 
 protocol PassthroughUsecaseProtocol {
     associatedtype Repository: RepositoryProtocol

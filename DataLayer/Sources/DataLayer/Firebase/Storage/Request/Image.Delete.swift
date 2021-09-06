@@ -2,23 +2,16 @@
 import Combine
 import Foundation
 
-public extension FireStorage.Request.Header {
-    struct Set: StorageRequestProtocol {
-
-        public typealias Directory = FireStorage.ImageDirectory.Header
+public extension FireStorage.Request.Image {
+    struct Delete: StorageRequestProtocol {
 
         public typealias Response = EmptyResponse
 
         public struct Parameters {
             let path: String
-            let data: Data
 
-            public init(
-                path: String,
-                data: Data
-            ) {
+            public init(path: String) {
                 self.path = path
-                self.data = data
             }
         }
 
@@ -37,7 +30,7 @@ public extension FireStorage.Request.Header {
             parameters: Parameters
         ) -> AnyPublisher<EmptyResponse, Error> {
             StorageAssets.storage.reference(withPath: path)
-                .putData(parameters.data)
+                .delete()
                 .eraseToAnyPublisher()
         }
 
