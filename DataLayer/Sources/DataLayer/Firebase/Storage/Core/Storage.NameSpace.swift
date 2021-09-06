@@ -9,4 +9,5 @@ public extension FireStorage {
 public extension FireStorage.Request {
     struct Header {}
     struct Icon {}
+    struct Normal {}
 }

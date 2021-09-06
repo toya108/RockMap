@@ -44,5 +44,8 @@ public struct Repositories {
             public typealias Delete = Repository<FireStorage.Request.Icon.Delete>
             public typealias Set = Repository<FireStorage.Request.Icon.Set>
         }
+        public struct Normal {
+            public typealias Fetch = Repository<FireStorage.Request.Normal.Fetch>
+        }
     }
 }
