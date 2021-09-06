@@ -1,10 +1,12 @@
+
 import Combine
 import Foundation
 
-public extension FireStorage.Request.Normal {
-    struct Fetch: StorageRequestProtocol {
+public extension FireStorage.Request.Fetch {
 
-        public typealias Response = [FireStorage.Image]
+    struct Icon: StorageRequestProtocol {
+
+        public typealias Response = FireStorage.Image
 
         public struct Parameters {
             let documentId: String
@@ -37,15 +39,10 @@ public extension FireStorage.Request.Normal {
         public func reguest(
             useTestData: Bool,
             parameters: Parameters
-        ) -> AnyPublisher<[FireStorage.Image], Error> {
+        ) -> AnyPublisher<FireStorage.Image, Error> {
             StorageAssets.storage.reference(withPath: path)
-                .getPrefixes()
-                .flatMap {
-                    $0.getReferences()
-                }
-                .flatMap {
-                    $0.publisher.flatMap { $0.getImage() } .collect()
-                }
+                .getReference()
+                .flatMap { $0.getImage() }
                 .eraseToAnyPublisher()
         }
 

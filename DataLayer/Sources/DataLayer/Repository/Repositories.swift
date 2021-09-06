@@ -37,14 +37,10 @@ public struct Repositories {
 
         public typealias Set = Repository<FireStorage.Request.Image.Set>
         public typealias Delete = Repository<FireStorage.Request.Image.Delete>
-        public struct Header {
-            public typealias Fetch = Repository<FireStorage.Request.Header.Fetch>
-        }
-        public struct Icon {
-            public typealias Fetch = Repository<FireStorage.Request.Icon.Fetch>
-        }
-        public struct Normal {
-            public typealias Fetch = Repository<FireStorage.Request.Normal.Fetch>
+        public struct Fetch {
+            public typealias Header = Repository<FireStorage.Request.Fetch.Header>
+            public typealias Icon = Repository<FireStorage.Request.Fetch.Icon>
+            public typealias Normal = Repository<FireStorage.Request.Fetch.Normal>
         }
     }
 }

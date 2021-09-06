@@ -2,8 +2,9 @@
 import Combine
 import Foundation
 
-public extension FireStorage.Request.Header {
-    struct Fetch: StorageRequestProtocol {
+public extension FireStorage.Request.Fetch {
+
+    struct Header: StorageRequestProtocol {
 
         public typealias Response = FireStorage.Image
 
@@ -44,6 +45,5 @@ public extension FireStorage.Request.Header {
                 .flatMap { $0.getImage() }
                 .eraseToAnyPublisher()
         }
-
     }
 }

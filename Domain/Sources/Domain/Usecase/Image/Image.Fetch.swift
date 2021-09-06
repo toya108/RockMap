@@ -14,7 +14,7 @@ public extension Domain.Usecase.Image {
 public extension Domain.Usecase.Image.Fetch {
 
     struct Header: FetchImageUsecaseProtocol {
-        public typealias Repository = Repositories.Storage.Header.Fetch
+        public typealias Repository = Repositories.Storage.Fetch.Header
         public typealias Mapper = Domain.Mapper.Image
 
         var repository: Repository
@@ -42,7 +42,7 @@ public extension Domain.Usecase.Image.Fetch {
     }
 
     struct Icon: FetchImageUsecaseProtocol {
-        public typealias Repository = Repositories.Storage.Icon.Fetch
+        public typealias Repository = Repositories.Storage.Fetch.Icon
         public typealias Mapper = Domain.Mapper.Image
 
         var repository: Repository
@@ -70,7 +70,7 @@ public extension Domain.Usecase.Image.Fetch {
     }
 
     struct Normal: FetchImageUsecaseProtocol {
-        public typealias Repository = Repositories.Storage.Normal.Fetch
+        public typealias Repository = Repositories.Storage.Fetch.Normal
         public typealias Mapper = Domain.Mapper.Image
 
         var repository: Repository
