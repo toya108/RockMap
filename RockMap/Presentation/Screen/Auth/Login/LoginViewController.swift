@@ -113,12 +113,7 @@ final class LoginViewController: UIViewController {
         }}
 
         let message: String = {
-            guard
-                let userName = AuthManager.shared.currentUser?.displayName
-            else {
-                return ""
-            }
-            return "既にこちらのユーザーとしてログイン中です。\n\(userName)"
+            return "既にこちらのユーザーとしてログイン中です。\n\(AuthManager.shared.displayName)"
         }()
 
         showAlert(

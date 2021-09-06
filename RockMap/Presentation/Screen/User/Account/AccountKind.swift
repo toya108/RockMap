@@ -69,7 +69,7 @@ extension AccountViewController {
                     return AuthManager.shared.uid
 
                 case .authProvider:
-                    return AuthManager.shared.currentUser?.providerID ?? "-"
+                    return AuthManager.shared.providerID
 
                 default:
                     return nil

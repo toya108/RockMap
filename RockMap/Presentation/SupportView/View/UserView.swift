@@ -68,7 +68,7 @@ class UserView: UIView {
 
         iconButton.addAction(
             .init { _ in
-                if AuthManager.shared.currentUser?.uid == user.id {
+                if AuthManager.shared.uid == user.id {
                     guard
                         let index = ScreenType.allCases.firstIndex(of: .myPage)
                     else {
