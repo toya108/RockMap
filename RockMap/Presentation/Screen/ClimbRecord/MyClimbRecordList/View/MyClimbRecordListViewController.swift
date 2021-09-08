@@ -43,7 +43,7 @@ class MyClimbedListViewController: UIViewController, CompositionalColectionViewC
         self.emptyLabel.text = "課題が見つかりませんでした。"
         NSLayoutConstraint.activate([
             self.emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            self.emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            self.emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 

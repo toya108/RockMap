@@ -26,7 +26,7 @@ class LabelCollectionViewCell: UICollectionViewCell {
             self.label.topAnchor.constraint(equalTo: contentView.topAnchor),
             self.label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             self.label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            self.label.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            self.label.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
     }
 }

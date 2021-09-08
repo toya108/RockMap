@@ -45,7 +45,7 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
         self.emptyLabel.text = "課題が見つかりませんでした。"
         NSLayoutConstraint.activate([
             self.emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            self.emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            self.emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 
@@ -145,7 +145,7 @@ extension CourseListViewController {
                 title: "",
                 children: [
                     self.makeEditAction(course: course),
-                    self.makeDeleteAction(course: course),
+                    self.makeDeleteAction(course: course)
                 ]
             )
         }
@@ -197,7 +197,7 @@ extension CourseListViewController {
                 message: "削除した課題は復元できません。\n削除してもよろしいですか？",
                 actions: [
                     deleteAction,
-                    cancelAction,
+                    cancelAction
                 ],
                 style: .actionSheet
             )

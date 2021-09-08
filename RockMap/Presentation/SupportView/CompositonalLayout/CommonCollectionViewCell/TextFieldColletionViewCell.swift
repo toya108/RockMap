@@ -26,7 +26,7 @@ class TextFieldColletionViewCell: UICollectionViewCell {
             self.stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             self.stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             self.stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            self.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            self.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
 
         [self.textField, self.borderView].forEach {
@@ -36,7 +36,7 @@ class TextFieldColletionViewCell: UICollectionViewCell {
         self.borderView.translatesAutoresizingMaskIntoConstraints = false
         self.borderView.backgroundColor = .lightGray
         NSLayoutConstraint.activate([
-            self.borderView.heightAnchor.constraint(equalToConstant: 0.5),
+            self.borderView.heightAnchor.constraint(equalToConstant: 0.5)
         ])
     }
 

@@ -27,7 +27,7 @@ class ErrorLabelCollectionViewCell: UICollectionViewCell {
             self.errorLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             self.errorLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             self.errorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            self.errorLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            self.errorLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
     }
 }

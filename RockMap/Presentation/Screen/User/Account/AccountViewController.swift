@@ -120,7 +120,7 @@ extension AccountViewController {
                 message: "アカウントを削除しても登録した岩と課題は無くなりません。",
                 actions: [
                     deleteAction,
-                    .init(title: "Cancel", style: .cancel),
+                    .init(title: "Cancel", style: .cancel)
                 ],
                 style: .alert
             )
@@ -171,7 +171,7 @@ extension AccountViewController {
             message: "ログアウトするとアプリの最初の画面に戻ります。",
             actions: [
                 okAction,
-                .init(title: "Cancel", style: .cancel),
+                .init(title: "Cancel", style: .cancel)
             ],
             style: .alert
         )
@@ -206,7 +206,7 @@ extension AccountViewController {
             message: "ログインするとアプリの最初の画面に戻ります。",
             actions: [
                 okAction,
-                .init(title: "Cancel", style: .cancel),
+                .init(title: "Cancel", style: .cancel)
             ],
             style: .alert
         )

@@ -62,7 +62,7 @@ struct RockRegisterRouter: RouterProtocol {
                 .init(title: "破棄", style: .destructive) { _ in
                     from.dismiss(animated: true)
                 },
-                .init(title: "キャンセル", style: .cancel),
+                .init(title: "キャンセル", style: .cancel)
             ],
             style: .actionSheet
         )

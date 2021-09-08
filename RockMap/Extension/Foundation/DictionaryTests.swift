@@ -8,7 +8,7 @@ class DictionaryTests: XCTestCase {
             "bbb": 2344,
             "ccc": "aaaaaaa",
             "ddd": true,
-            "eee": "",
+            "eee": ""
         ] as [String: Any]
 
         let result = containsEmptyDictionary.makeEmptyExcludedDictionary()

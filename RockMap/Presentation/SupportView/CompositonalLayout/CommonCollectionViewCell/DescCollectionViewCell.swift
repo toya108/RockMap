@@ -23,7 +23,7 @@ class DescCollectionViewCell: UICollectionViewCell {
             self.descLabel.topAnchor.constraint(equalTo: topAnchor),
             self.descLabel.leftAnchor.constraint(equalTo: leftAnchor),
             self.descLabel.rightAnchor.constraint(equalTo: rightAnchor),
-            self.descLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            self.descLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }

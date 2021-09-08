@@ -45,7 +45,7 @@ class RockListViewController: UIViewController, CompositionalColectionViewContro
         self.emptyLabel.text = "登録した岩が見つかりませんでした。"
         NSLayoutConstraint.activate([
             self.emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            self.emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            self.emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 
@@ -145,7 +145,7 @@ extension RockListViewController {
                 title: "",
                 children: [
                     self.makeEditAction(rock: rock),
-                    self.makeDeleteAction(rock: rock),
+                    self.makeDeleteAction(rock: rock)
                 ]
             )
         }
@@ -197,7 +197,7 @@ extension RockListViewController {
                 message: "削除した情報は復元できません。\n削除してもよろしいですか？",
                 actions: [
                     deleteAction,
-                    cancelAction,
+                    cancelAction
                 ],
                 style: .actionSheet
             )

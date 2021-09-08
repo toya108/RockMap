@@ -21,7 +21,7 @@ class AnnotationHeaderCollectionViewCell: UICollectionViewCell {
             self.headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
             self.headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
             self.headerLabel.rightAnchor.constraint(equalTo: rightAnchor),
-            self.headerLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            self.headerLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         self.headerLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
     }

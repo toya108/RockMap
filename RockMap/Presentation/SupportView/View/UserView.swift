@@ -32,7 +32,7 @@ class UserView: UIView {
             view.topAnchor.constraint(equalTo: topAnchor),
             view.leadingAnchor.constraint(equalTo: leadingAnchor),
             view.rightAnchor.constraint(equalTo: rightAnchor),
-            view.bottomAnchor.constraint(equalTo: bottomAnchor),
+            view.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
 
         self.iconButton.clipsToBounds = true

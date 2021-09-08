@@ -29,7 +29,7 @@ class ConfirmationButtonCollectionViewCell: UICollectionViewCell {
                 constant: -16
             ),
             self.stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            self.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            self.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
 
         self.cautionLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
@@ -42,7 +42,7 @@ class ConfirmationButtonCollectionViewCell: UICollectionViewCell {
         self.button.translatesAutoresizingMaskIntoConstraints = false
         self.stackView.addArrangedSubview(self.button)
         NSLayoutConstraint.activate([
-            self.button.heightAnchor.constraint(equalToConstant: 44),
+            self.button.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 

@@ -93,37 +93,37 @@ enum ValidationError: Error, Hashable {
 
 struct RockNameValidator: CompositeValidator {
     var validators: [ValidatorProtocol] = [
-        EmptyValidator(formName: "岩の名前"),
+        EmptyValidator(formName: "岩の名前")
     ]
 }
 
 struct RockAddressValidator: CompositeValidator {
     var validators: [ValidatorProtocol] = [
-        EmptyValidator(formName: "岩の住所"),
+        EmptyValidator(formName: "岩の住所")
     ]
 }
 
 struct RockImageValidator: CompositeValidator {
     var validators: [ValidatorProtocol] = [
-        QuantityValidator(formName: "画像", max: 10),
+        QuantityValidator(formName: "画像", max: 10)
     ]
 }
 
 struct HeaderImageValidator: CompositeValidator {
     var validators: [ValidatorProtocol] = [
-        HeaderValidator(formName: "ヘッダー画像"),
+        HeaderValidator(formName: "ヘッダー画像")
     ]
 }
 
 struct CourseNameValidator: CompositeValidator {
     var validators: [ValidatorProtocol] = [
-        EmptyValidator(formName: "課題名"),
+        EmptyValidator(formName: "課題名")
     ]
 }
 
 struct UserNameValidator: CompositeValidator {
     var validators: [ValidatorProtocol] = [
-        EmptyValidator(formName: "ユーザー名"),
+        EmptyValidator(formName: "ユーザー名")
     ]
 }
 

@@ -24,7 +24,7 @@ class HorizontalImageListCollectionViewCell: UICollectionViewCell {
             self.imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             self.imageView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             self.imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            self.imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            self.imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 

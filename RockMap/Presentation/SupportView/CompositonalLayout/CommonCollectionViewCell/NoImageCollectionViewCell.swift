@@ -24,7 +24,7 @@ class NoImageCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             self.label.centerYAnchor.constraint(equalTo: centerYAnchor),
             self.label.leftAnchor.constraint(equalTo: leftAnchor),
-            self.label.rightAnchor.constraint(equalTo: rightAnchor),
+            self.label.rightAnchor.constraint(equalTo: rightAnchor)
         ])
     }
 }

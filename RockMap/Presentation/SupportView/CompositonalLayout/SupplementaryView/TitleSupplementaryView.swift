@@ -19,7 +19,7 @@ class TitleSupplementaryView: UICollectionReusableView {
         self.label.adjustsFontForContentSizeCategory = true
         NSLayoutConstraint.activate([
             self.label.topAnchor.constraint(equalTo: topAnchor),
-            self.label.bottomAnchor.constraint(equalTo: bottomAnchor),
+            self.label.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         self.label.font = UIFont.preferredFont(forTextStyle: .headline)
     }
@@ -27,7 +27,7 @@ class TitleSupplementaryView: UICollectionReusableView {
     func setSideInset(_ inset: CGFloat) {
         NSLayoutConstraint.activate([
             self.label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: inset),
-            self.label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: inset),
+            self.label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: inset)
         ])
     }
 }

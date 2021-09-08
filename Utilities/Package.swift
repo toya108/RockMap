@@ -6,14 +6,14 @@ import PackageDescription
 let package = Package(
     name: "Utilities",
     platforms: [
-        .iOS(.v14),
+        .iOS(.v14)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "Utilities",
             targets: ["Utilities"]
-        ),
+        )
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -29,6 +29,6 @@ let package = Package(
         .testTarget(
             name: "UtilitiesTests",
             dependencies: ["Utilities"]
-        ),
+        )
     ]
 )

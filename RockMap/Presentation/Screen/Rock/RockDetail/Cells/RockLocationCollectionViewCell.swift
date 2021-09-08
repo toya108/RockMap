@@ -47,7 +47,7 @@ class RockLocationCollectionViewCell: UICollectionViewCell {
             self.stackView.topAnchor.constraint(equalTo: topAnchor),
             self.stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
             self.stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            self.stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            self.stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
 
         self.stackView.addArrangedSubview(self.addressLabel)
@@ -58,7 +58,7 @@ class RockLocationCollectionViewCell: UICollectionViewCell {
         self.stackView.addArrangedSubview(self.mapView)
         self.mapView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.mapView.heightAnchor.constraint(equalToConstant: bounds.width * 9 / 16),
+            self.mapView.heightAnchor.constraint(equalToConstant: bounds.width * 9 / 16)
         ])
         self.mapView.showsUserLocation = true
         self.mapView.layer.cornerRadius = 8
@@ -83,7 +83,7 @@ class RockLocationCollectionViewCell: UICollectionViewCell {
             self.trackingButton.rightAnchor.constraint(
                 equalTo: self.mapView.rightAnchor,
                 constant: -8
-            ),
+            )
         ])
     }
 }

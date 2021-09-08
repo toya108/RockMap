@@ -21,7 +21,7 @@ class DebugViewController: UIViewController {
             self.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             self.tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             self.tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            self.tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            self.tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
         self.tableView.delegate = self

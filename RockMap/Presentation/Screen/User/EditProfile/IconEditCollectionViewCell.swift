@@ -30,7 +30,7 @@ class IconEditCollectionViewCell: UICollectionViewCell {
             self.stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             self.stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             self.stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            self.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            self.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
 
         self.imageView.isUserInteractionEnabled = true
@@ -46,7 +46,7 @@ class IconEditCollectionViewCell: UICollectionViewCell {
 
         NSLayoutConstraint.activate([
             self.imageView.heightAnchor.constraint(equalToConstant: 88),
-            self.imageView.widthAnchor.constraint(equalToConstant: 88),
+            self.imageView.widthAnchor.constraint(equalToConstant: 88)
         ])
 
         self.editButton.translatesAutoresizingMaskIntoConstraints = false

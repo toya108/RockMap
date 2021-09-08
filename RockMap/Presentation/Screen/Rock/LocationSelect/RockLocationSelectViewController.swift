@@ -100,7 +100,7 @@ class RockLocationSelectViewController: UIViewController {
             self.trackingButton.rightAnchor.constraint(
                 equalTo: self.mapView.rightAnchor,
                 constant: -8
-            ),
+            )
         ])
 
         self.locationSelectMapView.setRegion(

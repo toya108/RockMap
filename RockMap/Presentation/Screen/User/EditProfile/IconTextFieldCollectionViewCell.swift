@@ -27,14 +27,14 @@ class IconTextFieldCollectionViewCell: UICollectionViewCell {
             self.stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             self.stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 8),
             self.stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            self.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            self.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
 
         self.iconImageView.translatesAutoresizingMaskIntoConstraints = false
         self.stackView.addArrangedSubview(self.iconImageView)
         NSLayoutConstraint.activate([
             self.iconImageView.heightAnchor.constraint(equalToConstant: 32),
-            self.iconImageView.widthAnchor.constraint(equalToConstant: 32),
+            self.iconImageView.widthAnchor.constraint(equalToConstant: 32)
         ])
 
         self.textField.translatesAutoresizingMaskIntoConstraints = false

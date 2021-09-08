@@ -121,7 +121,7 @@ final class LoginViewController: UIViewController {
             message: message,
             actions: [
                 .init(title: "はい", style: .default, handler: logoutHandler),
-                .init(title: "キャンセル", style: .cancel),
+                .init(title: "キャンセル", style: .cancel)
             ]
         )
     }

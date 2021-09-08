@@ -47,7 +47,7 @@ class IconCollectionViewCell: UICollectionViewCell {
                 equalTo: contentView.leadingAnchor,
                 constant: 8
             ),
-            self.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
+            self.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8)
         ])
 
         self.iconImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +60,7 @@ class IconCollectionViewCell: UICollectionViewCell {
 
         NSLayoutConstraint.activate([
             self.iconImageView.widthAnchor.constraint(equalToConstant: 24),
-            self.iconImageView.heightAnchor.constraint(equalToConstant: 24),
+            self.iconImageView.heightAnchor.constraint(equalToConstant: 24)
         ])
     }
 

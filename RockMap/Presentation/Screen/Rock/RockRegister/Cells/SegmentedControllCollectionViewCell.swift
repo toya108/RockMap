@@ -28,7 +28,7 @@ class SegmentedControllCollectionViewCell: UICollectionViewCell {
             self.segmentedControl.topAnchor.constraint(equalTo: contentView.topAnchor),
             self.segmentedControl.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             self.segmentedControl.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            self.segmentedControl.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            self.segmentedControl.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
     }
 

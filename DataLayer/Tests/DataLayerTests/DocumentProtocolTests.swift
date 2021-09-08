@@ -54,7 +54,7 @@ final class DocumentProtocolTests: XCTestCase {
             FS.Collection.Users.name,
             self.userDocument.id,
             FS.Collection.Rocks.name,
-            rockDocument.id,
+            rockDocument.id
         ].joined(separator: "/")
 
         XCTAssertEqual(
@@ -83,7 +83,7 @@ final class DocumentProtocolTests: XCTestCase {
             FS.Collection.Users.name,
             self.userDocument.id,
             FS.Collection.Courses.name,
-            courseDocument.id,
+            courseDocument.id
         ].joined(separator: "/")
 
         XCTAssertEqual(
@@ -111,7 +111,7 @@ final class DocumentProtocolTests: XCTestCase {
             FS.Collection.Users.name,
             self.userDocument.id,
             FS.Collection.ClimbRecord.name,
-            climbRecordDocument.id,
+            climbRecordDocument.id
         ].joined(separator: "/")
 
         XCTAssertEqual(

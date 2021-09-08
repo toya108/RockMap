@@ -124,7 +124,7 @@ extension UIViewController {
                     vc.modalTransitionStyle = .crossDissolve
                     self.present(vc, animated: true)
                 },
-                .init(title: "Cancel", style: .cancel),
+                .init(title: "Cancel", style: .cancel)
             ],
             style: .alert
         )

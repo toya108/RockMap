@@ -22,7 +22,7 @@ public class AuthManager: NSObject {
         authUI.providers = [
             FUIGoogleAuth(authUI: authUI),
             FUIEmailAuth(),
-            FUIOAuth.appleAuthProvider(),
+            FUIOAuth.appleAuthProvider()
         ]
         return authUI
     }()

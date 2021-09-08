@@ -27,7 +27,7 @@ class DeletableImageCollectionViewCell: UICollectionViewCell {
             self.imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             self.imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             self.imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            self.imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            self.imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
 
         self.deleteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +38,7 @@ class DeletableImageCollectionViewCell: UICollectionViewCell {
             self.deleteButton.heightAnchor.constraint(equalToConstant: 44),
             self.deleteButton.widthAnchor.constraint(equalToConstant: 44),
             self.deleteButton.topAnchor.constraint(equalTo: self.imageView.topAnchor),
-            self.deleteButton.rightAnchor.constraint(equalTo: self.imageView.rightAnchor),
+            self.deleteButton.rightAnchor.constraint(equalTo: self.imageView.rightAnchor)
         ])
     }
 

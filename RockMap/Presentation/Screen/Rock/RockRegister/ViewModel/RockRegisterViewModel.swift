@@ -239,7 +239,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             output.headerImageValidationResult,
             self.output.rockImageValidationResult,
             self.output.rockNameValidationResult,
-            self.output.rockAddressValidationResult,
+            self.output.rockAddressValidationResult
         ]
         .map(\.isValid)
         .allSatisfy { $0 }

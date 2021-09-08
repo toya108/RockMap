@@ -176,7 +176,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         return [
             self.output.courseNameValidationResult,
             self.output.courseImageValidationResult,
-            self.output.headerImageValidationResult,
+            self.output.headerImageValidationResult
         ]
         .map(\.isValid)
         .allSatisfy { $0 }

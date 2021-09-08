@@ -39,7 +39,7 @@ class ClimbedUserListViewController: UIViewController {
             self.tableView.topAnchor.constraint(equalTo: view.topAnchor),
             self.tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             self.tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            self.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            self.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ])
         self.tableView.contentInset = .init(top: -16, left: 0, bottom: 0, right: 0)
 
@@ -184,7 +184,7 @@ class ClimbedUserListViewController: UIViewController {
                 message: "削除した記録は復元できません。\n削除してもよろしいですか？",
                 actions: [
                     deleteAction,
-                    cancelAction,
+                    cancelAction
                 ],
                 style: .actionSheet
             )
@@ -237,7 +237,7 @@ extension ClimbedUserListViewController: UITableViewDelegate {
                 title: "",
                 children: [
                     self.makeEditAction(to: cellData),
-                    self.makeDeleteAction(to: cellData),
+                    self.makeDeleteAction(to: cellData)
                 ]
             )
         }

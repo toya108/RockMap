@@ -57,7 +57,7 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
                             .init(title: "破棄", style: .destructive) { _ in
                                 self.dismiss(animated: true)
                             },
-                            .init(title: "キャンセル", style: .cancel),
+                            .init(title: "キャンセル", style: .cancel)
                         ],
                         style: .actionSheet
                     )

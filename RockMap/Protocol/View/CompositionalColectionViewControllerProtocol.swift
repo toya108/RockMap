@@ -23,7 +23,7 @@ extension CompositionalColectionViewControllerProtocol {
             collectionView.topAnchor.constraint(equalTo: view.topAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
         collectionView.delegate = self
 

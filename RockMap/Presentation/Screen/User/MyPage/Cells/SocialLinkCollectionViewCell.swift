@@ -27,7 +27,7 @@ class SocialLinkCollectionViewCell: UICollectionViewCell {
             self.socialLinkButton.topAnchor.constraint(equalTo: contentView.topAnchor),
             self.socialLinkButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             self.socialLinkButton.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            self.socialLinkButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            self.socialLinkButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
         ])
     }
 

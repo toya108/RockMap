@@ -87,7 +87,7 @@ final class RockSearchViewController: UIViewController {
             self.buttonStackView.addArrangedSubview(self.trackingButton)
             NSLayoutConstraint.activate([
                 self.trackingButton.heightAnchor.constraint(equalToConstant: 44),
-                self.trackingButton.widthAnchor.constraint(equalToConstant: 44),
+                self.trackingButton.widthAnchor.constraint(equalToConstant: 44)
             ])
         }
 

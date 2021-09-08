@@ -64,5 +64,6 @@
 --wrapreturntype preserve
 --xcodeindentation disabled
 --yodaswap always
+--commas inline
 
 --disable enumNamespaces

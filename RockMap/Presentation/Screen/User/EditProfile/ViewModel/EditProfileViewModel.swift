@@ -128,7 +128,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             self.output.nameValidationResult = UserNameValidator().validate(self.output.name)
         }
         return [
-            self.output.nameValidationResult,
+            self.output.nameValidationResult
         ]
         .map(\.isValid)
         .allSatisfy { $0 }
