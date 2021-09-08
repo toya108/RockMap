@@ -51,7 +51,7 @@ class DeletableImageCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(
-        crudableImage: CrudableImageV2,
+        crudableImage: CrudableImage,
         deleteButtonTapped: @escaping () -> Void
     ) {
 

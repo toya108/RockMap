@@ -232,8 +232,8 @@ extension EditProfileViewModel {
     final class Output {
         @Published var name = ""
         @Published var introduction = ""
-        @Published var header: CrudableImageV2 = .init(imageType: .header)
-        @Published var icon: CrudableImageV2 = .init(imageType: .icon)
+        @Published var header: CrudableImage = .init(imageType: .header)
+        @Published var icon: CrudableImage = .init(imageType: .icon)
         @Published var socialLinks: [Entity.User.SocialLink] = Entity.User.SocialLinkType.allCases.map {
             Entity.User.SocialLink(linkType: $0, link: "")
         }

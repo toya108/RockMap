@@ -16,8 +16,8 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
 
     let registerType: RockRegisterViewModel.RegisterType
     var rockEntity: Entity.Rock
-    let header: CrudableImageV2
-    let images: [CrudableImageV2]
+    let header: CrudableImage
+    let images: [CrudableImage]
 
     private var bindings = Set<AnyCancellable>()
     private let setRockUsecase = Usecase.Rock.Set()
@@ -27,8 +27,8 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
     init(
         registerType: RockRegisterViewModel.RegisterType,
         rockEntity: Entity.Rock,
-        header: CrudableImageV2,
-        images: [CrudableImageV2]
+        header: CrudableImage,
+        images: [CrudableImage]
     ) {
         self.registerType = registerType
         self.rockEntity = rockEntity

@@ -164,7 +164,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
                 print(error)
                 return Empty()
             }
-            .map { CrudableImageV2(imageType: .header, image: $0) }
+            .map { CrudableImage(imageType: .header, image: $0) }
             .assign(to: &output.$header)
 
         fetchImagesUsecase.fetch(id: rockId, destination: .rock)
@@ -182,7 +182,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
 
         switch imageType {
             case .normal:
-                let newImage = CrudableImageV2(
+                let newImage = CrudableImage(
                     updateData: data,
                     shouldDelete: false,
                     imageType: .normal,
@@ -199,7 +199,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
         }
     }
 
-    private func deleteImage(_ crudableImage: CrudableImageV2) {
+    private func deleteImage(_ crudableImage: CrudableImage) {
         switch crudableImage.imageType {
             case .header:
                 output.header.updateData = nil
@@ -314,7 +314,7 @@ extension RockRegisterViewModel {
         let selectSeasonSubject = PassthroughSubject<Entity.Rock.Season, Never>()
         let lithologySubject = PassthroughSubject<Entity.Rock.Lithology, Never>()
         let setImageSubject = PassthroughSubject<(Entity.Image.ImageType, Data), Never>()
-        let deleteImageSubject = PassthroughSubject<(CrudableImageV2), Never>()
+        let deleteImageSubject = PassthroughSubject<(CrudableImage), Never>()
     }
 
     final class Output {
@@ -323,8 +323,8 @@ extension RockRegisterViewModel {
         @Published var rockDesc = ""
         @Published var seasons: Set<Entity.Rock.Season> = []
         @Published var lithology: Entity.Rock.Lithology = .unKnown
-        @Published var header: CrudableImageV2 = .init(imageType: .header)
-        @Published var images: [CrudableImageV2] = []
+        @Published var header: CrudableImage = .init(imageType: .header)
+        @Published var images: [CrudableImage] = []
 
         @Published var rockNameValidationResult: ValidationResult = .none
         @Published var rockAddressValidationResult: ValidationResult = .none

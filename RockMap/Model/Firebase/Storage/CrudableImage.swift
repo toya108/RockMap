@@ -1,7 +1,7 @@
 
 import Foundation
 
-struct CrudableImageV2: Hashable {
+struct CrudableImage: Hashable {
     var updateData: Data?
     var shouldDelete: Bool = false
     var imageType: Entity.Image.ImageType

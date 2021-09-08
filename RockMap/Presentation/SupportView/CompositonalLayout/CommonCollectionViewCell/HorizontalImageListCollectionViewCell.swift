@@ -36,7 +36,7 @@ class HorizontalImageListCollectionViewCell: UICollectionViewCell {
         ])
     }
 
-    func configure(crudableImage: CrudableImageV2) {
+    func configure(crudableImage: CrudableImage) {
         if let data = crudableImage.updateData {
             imageView.image = UIImage(data: data)
         } else {

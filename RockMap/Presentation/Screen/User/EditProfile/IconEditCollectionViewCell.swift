@@ -68,7 +68,7 @@ class IconEditCollectionViewCell: UICollectionViewCell {
         deleteButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
     }
 
-    func configure(image: CrudableImageV2) {
+    func configure(image: CrudableImage) {
         if let data = image.updateData {
             imageView.image = UIImage(data: data)
         } else if let url = image.image.url {

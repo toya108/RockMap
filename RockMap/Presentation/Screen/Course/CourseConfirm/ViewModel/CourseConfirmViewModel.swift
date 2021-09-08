@@ -14,8 +14,8 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     var output: Output = .init()
     
     let registerType: CourseRegisterViewModel.RegisterType
-    let header: CrudableImageV2
-    let images: [CrudableImageV2]
+    let header: CrudableImage
+    let images: [CrudableImage]
     private(set) var course: Entity.Course
     private let setCourseUsecase = Usecase.Course.Set()
     private let updateCourseUsecase = Usecase.Course.Update()
@@ -26,8 +26,8 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     init(
         registerType: CourseRegisterViewModel.RegisterType,
         course: Entity.Course,
-        header: CrudableImageV2,
-        images: [CrudableImageV2]
+        header: CrudableImage,
+        images: [CrudableImage]
     ) {
         self.registerType = registerType
         self.course = course

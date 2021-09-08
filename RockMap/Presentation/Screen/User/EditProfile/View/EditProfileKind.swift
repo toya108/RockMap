@@ -68,9 +68,9 @@ extension EditProfileViewController {
     enum ItemKind: Hashable {
         case name
         case introduction
-        case header(CrudableImageV2)
+        case header(CrudableImage)
         case noImage
-        case icon(CrudableImageV2)
+        case icon(CrudableImage)
         case socialLink(Entity.User.SocialLinkType)
         case error(ValidationError)
 

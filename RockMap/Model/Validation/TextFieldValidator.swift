@@ -163,7 +163,7 @@ private struct HeaderValidator: ValidatorProtocol {
     func validate(_ value: Any?) -> ValidationResult {
 
         guard
-            let crudableImage = value as? CrudableImageV2
+            let crudableImage = value as? CrudableImage
         else {
             return .invalid(.none(formName: formName))
         }

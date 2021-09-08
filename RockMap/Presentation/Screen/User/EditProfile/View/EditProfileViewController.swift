@@ -169,7 +169,7 @@ extension EditProfileViewController: UICollectionViewDelegate {
 
 extension EditProfileViewController {
 
-    private func headerSink(_ crudableImage: CrudableImageV2) {
+    private func headerSink(_ crudableImage: CrudableImage) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .header))
 
         let shouldAppend = crudableImage.updateData != nil
@@ -185,7 +185,7 @@ extension EditProfileViewController {
         hideIndicatorView()
     }
 
-    private func iconSink(_ crudableImage: CrudableImageV2) {
+    private func iconSink(_ crudableImage: CrudableImage) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .icon))
         snapShot.appendItems([.icon(crudableImage)], toSection: .icon)
         datasource.apply(snapShot)

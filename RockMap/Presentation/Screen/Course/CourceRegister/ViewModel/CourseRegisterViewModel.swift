@@ -103,7 +103,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
                 print(error)
                 return Empty()
             }
-            .map { CrudableImageV2(imageType: .header, image: $0) }
+            .map { CrudableImage(imageType: .header, image: $0) }
             .assign(to: &output.$header)
 
         fetchImagesUsecase.fetch(id: courseId, destination: .course)
@@ -121,7 +121,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
         switch imageType {
             case .normal:
-                let newImage = CrudableImageV2(
+                let newImage = CrudableImage(
                     updateData: data,
                     shouldDelete: false,
                     imageType: .normal,
@@ -138,7 +138,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         }
     }
 
-    private func deleteImage(_ crudableImage: CrudableImageV2) {
+    private func deleteImage(_ crudableImage: CrudableImage) {
         switch crudableImage.imageType {
             case .header:
                 output.header.updateData = nil
@@ -244,7 +244,7 @@ extension CourseRegisterViewModel {
         let gradeSubject = PassthroughSubject<Entity.Course.Grade, Never>()
         let shapeSubject = PassthroughSubject<Set<Entity.Course.Shape>, Never>()
         let setImageSubject = PassthroughSubject<(Data, Entity.Image.ImageType), Never>()
-        let deleteImageSubject = PassthroughSubject<(CrudableImageV2), Never>()
+        let deleteImageSubject = PassthroughSubject<(CrudableImage), Never>()
     }
 
     final class Output {
@@ -252,8 +252,8 @@ extension CourseRegisterViewModel {
         @Published var courseDesc = ""
         @Published var grade = Entity.Course.Grade.q10
         @Published var shapes = Set<Entity.Course.Shape>()
-        @Published var header: CrudableImageV2 = .init(imageType: .header)
-        @Published var images: [CrudableImageV2] = []
+        @Published var header: CrudableImage = .init(imageType: .header)
+        @Published var images: [CrudableImage] = []
         @Published var courseNameValidationResult: ValidationResult = .none
         @Published var courseImageValidationResult: ValidationResult = .none
         @Published var headerImageValidationResult: ValidationResult = .none
