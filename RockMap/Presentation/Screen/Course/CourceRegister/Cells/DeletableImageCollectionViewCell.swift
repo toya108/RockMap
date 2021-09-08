@@ -49,25 +49,6 @@ class DeletableImageCollectionViewCell: UICollectionViewCell {
             deleteButton.rightAnchor.constraint(equalTo: imageView.rightAnchor)
         ])
     }
-    
-    func configure(
-        image: CrudableImage,
-        deleteButtonTapped: @escaping () -> Void
-    ) {
-
-        if let data = image.updateData {
-            imageView.image = UIImage(data: data)
-        } else if let storage = image.storageReference {
-            imageView.loadImage(reference: storage)
-        }
-
-        deleteButton.addAction(
-            .init { _ in
-                deleteButtonTapped()
-            },
-            for: .touchUpInside
-        )
-    }
 
     func configure(
         crudableImage: CrudableImageV2,

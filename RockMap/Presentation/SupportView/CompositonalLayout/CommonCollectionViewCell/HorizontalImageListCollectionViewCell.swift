@@ -36,15 +36,6 @@ class HorizontalImageListCollectionViewCell: UICollectionViewCell {
         ])
     }
 
-    func configure(image: CrudableImage) {
-        if let data = image.updateData {
-            imageView.image = UIImage(data: data)
-
-        } else if let storage = image.storageReference {
-            imageView.loadImage(reference: storage)
-        }
-    }
-
     func configure(crudableImage: CrudableImageV2) {
         if let data = crudableImage.updateData {
             imageView.image = UIImage(data: data)
