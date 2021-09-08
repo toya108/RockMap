@@ -218,7 +218,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
                     }
                 }
 
-            default:
+            case .icon, .unhandle:
                 break
         }
     }

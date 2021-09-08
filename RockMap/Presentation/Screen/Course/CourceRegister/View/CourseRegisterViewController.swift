@@ -190,16 +190,16 @@ extension CourseRegisterViewController {
         datasource.apply(snapShot)
     }
 
-    private func headerSink(_ image: CrudableImage) {
+    private func headerSink(_ crudableImage: CrudableImageV2) {
 
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .header))
 
-        let shouldAppend = image.updateData != nil
-            || image.storageReference != nil
-            && !image.shouldDelete
+        let shouldAppend = crudableImage.updateData != nil
+            || crudableImage.image.url != nil
+            && !crudableImage.shouldDelete
 
         snapShot.appendItems(
-            [shouldAppend ? .header(image) : .noImage(.header)],
+            [shouldAppend ? .header(crudableImage) : .noImage(.header)],
             toSection: .header
         )
         datasource.apply(snapShot)
@@ -207,11 +207,11 @@ extension CourseRegisterViewController {
         hideIndicatorView()
     }
 
-    private func imagesSink(_ images: [CrudableImage]) {
+    private func imagesSink(_ crudableImages: [CrudableImageV2]) {
         snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .images))
         snapShot.appendItems([.noImage(.normal)], toSection: .images)
 
-        let items = images.filter { !$0.shouldDelete } .map { ItemKind.images($0) }
+        let items = crudableImages.filter { !$0.shouldDelete } .map { ItemKind.images($0) }
         snapShot.appendItems(items, toSection: .images)
         datasource.apply(snapShot)
 

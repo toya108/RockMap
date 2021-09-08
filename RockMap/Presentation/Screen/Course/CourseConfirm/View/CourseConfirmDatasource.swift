@@ -127,12 +127,12 @@ extension CourseConfirmViewController {
     
     private func configureImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
-        CrudableImage
+        CrudableImageV2
     > {
-        .init { cell, _, image in
+        .init { cell, _, crudableImage in
             cell.layer.cornerRadius = 8
             cell.clipsToBounds = true
-            cell.configure(image: image)
+            cell.configure(crudableImage: crudableImage)
         }
     }
     

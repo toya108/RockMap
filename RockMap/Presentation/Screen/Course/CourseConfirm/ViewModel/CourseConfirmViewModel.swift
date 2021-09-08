@@ -1,10 +1,5 @@
-//
-//  CourseConfirmViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/03.
-//
 
+import Auth
 import Combine
 import Foundation
 
@@ -19,32 +14,26 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     var output: Output = .init()
     
     let registerType: CourseRegisterViewModel.RegisterType
-    let header: CrudableImage
-    let images: [CrudableImage]
+    let header: CrudableImageV2
+    let images: [CrudableImageV2]
     private(set) var course: Entity.Course
     private let setCourseUsecase = Usecase.Course.Set()
     private let updateCourseUsecase = Usecase.Course.Update()
+    private let writeImageUsecase = Usecase.Image.Write()
 
     private var bindings = Set<AnyCancellable>()
-    private let uploader = StorageUploader()
-    
+
     init(
         registerType: CourseRegisterViewModel.RegisterType,
         course: Entity.Course,
-        header: CrudableImage,
-        images: [CrudableImage]
+        header: CrudableImageV2,
+        images: [CrudableImageV2]
     ) {
         self.registerType = registerType
         self.course = course
         self.header = header
         self.images = images
-        bindImageUploader()
         bindInput()
-    }
-    
-    private func bindImageUploader() {
-        uploader.$uploadState
-            .assign(to: &output.$imageUploadState)
     }
 
     private func bindInput() {
@@ -58,19 +47,51 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
     }
     
     private func uploadImages() {
-        uploader.addData(
-            image: header,
-            id: course.id,
-            documentType: FINameSpace.Course.self
-        )
-        images.forEach {
-            uploader.addData(
-                image: $0,
-                id: course.id,
-                documentType: FINameSpace.Course.self
-            )
+
+        let writeHeader = writeImageUsecase.write(
+            data: header.updateData,
+            shouldDelete: header.shouldDelete,
+            image: header.image
+        ) {
+            .course
+            course.id
+            header.imageType
         }
-        uploader.start()
+
+        let writeImages = images.map {
+            writeImageUsecase.write(
+                data: $0.updateData,
+                shouldDelete: $0.shouldDelete,
+                image: $0.image
+            ) {
+                .course
+                course.id
+                Entity.Image.ImageType.normal
+                AuthManager.shared.uid
+            }
+        }
+
+        let writeImagePublishers = [writeHeader] + writeImages
+
+        Publishers.MergeMany(writeImagePublishers).collect()
+            .catch { [weak self] error -> Empty in
+
+                guard let self = self else { return Empty() }
+
+                print(error)
+                self.output.imageUploadState = .failure(error)
+                return Empty()
+            }
+            .sink { [weak self] _ in
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+
+                    guard let self = self else { return }
+
+                    self.output.imageUploadState = .finish(content: ())
+                }
+            }
+            .store(in: &bindings)
     }
 
     private func registerCourse() {
@@ -130,7 +151,7 @@ extension CourseConfirmViewModel {
     }
 
     final class Output {
-        @Published var imageUploadState: StorageUploader.UploadState = .stanby
+        @Published var imageUploadState: LoadingState<Void> = .stanby
         @Published var courseUploadState: LoadingState<Void> = .stanby
     }
 }

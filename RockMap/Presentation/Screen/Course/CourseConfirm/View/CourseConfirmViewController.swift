@@ -85,7 +85,6 @@ extension CourseConfirmViewController {
                 showIndicatorView()
 
             case .finish:
-                hideIndicatorView()
                 viewModel.input.uploadImageSubject.send(())
 
             case .failure(let error):
@@ -97,14 +96,14 @@ extension CourseConfirmViewController {
         }
     }
 
-    private func imageUploadStateSink(_ state: StorageUploader.UploadState) {
+    private func imageUploadStateSink(_ state: LoadingState<Void>) {
         switch state {
             case .stanby: break
 
-            case .progress:
+            case .loading:
                 showIndicatorView()
 
-            case .complete:
+            case .finish:
                 hideIndicatorView()
                 router.route(to: .dismiss, from: self)
 
@@ -112,7 +111,7 @@ extension CourseConfirmViewController {
                 hideIndicatorView()
                 showOKAlert(
                     title: "画像の登録に失敗しました",
-                    message: error.localizedDescription
+                    message: error?.localizedDescription ?? ""
                 ) { [weak self] _ in
 
                     guard let self = self else { return }
