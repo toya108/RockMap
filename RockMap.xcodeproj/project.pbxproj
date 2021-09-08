@@ -502,12 +502,10 @@
 		9E04B191254B28230097DA8E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				9ECFB27D26E9031C00CB77F9 /* Domain */,
 				9EED75E02669267E00E46676 /* Validation */,
 				9E623685258A65EC00152AF9 /* Firebase */,
 				9E04B1CE254BE7A70097DA8E /* Location */,
-				9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */,
-				9E0C9C2726D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift */,
-				9E5E690626D9D0BE00414C60 /* Entity.Rock.Season.Icon.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -820,17 +818,8 @@
 			isa = PBXGroup;
 			children = (
 				9EA88DBB2691E3960036D6C1 /* RemoteConfig */,
-				9E623686258A660700152AF9 /* Storage */,
 			);
 			path = Firebase;
-			sourceTree = "<group>";
-		};
-		9E623686258A660700152AF9 /* Storage */ = {
-			isa = PBXGroup;
-			children = (
-				9EFE2B2B2694AF4B002F4923 /* CrudableImage.swift */,
-			);
-			path = Storage;
 			sourceTree = "<group>";
 		};
 		9E64FD1126B59F38005984F6 /* Frameworks */ = {
@@ -1398,6 +1387,17 @@
 				9E0BE3772605005700576869 /* Cells */,
 			);
 			path = CourseDetail;
+			sourceTree = "<group>";
+		};
+		9ECFB27D26E9031C00CB77F9 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				9E5E690626D9D0BE00414C60 /* Entity.Rock.Season.Icon.swift */,
+				9E0C9C2726D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift */,
+				9EFE2B2B2694AF4B002F4923 /* CrudableImage.swift */,
+				9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		9EE9D0E02614DD2000570097 /* View */ = {
