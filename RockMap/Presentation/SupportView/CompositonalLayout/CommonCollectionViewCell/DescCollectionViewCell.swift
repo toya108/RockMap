@@ -1,37 +1,29 @@
-//
-//  DescCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/02/06.
-//
-
 import UIKit
 
 class DescCollectionViewCell: UICollectionViewCell {
-    
     let descLabel = UILabel()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
+        self.setupLayout()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupLayout()
+        self.setupLayout()
     }
-    
+
     private func setupLayout() {
-        addSubview(descLabel)
-        descLabel.numberOfLines = 0
-        descLabel.textColor = .darkGray
-        descLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        descLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(self.descLabel)
+        self.descLabel.numberOfLines = 0
+        self.descLabel.textColor = .darkGray
+        self.descLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        self.descLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            descLabel.topAnchor.constraint(equalTo: topAnchor),
-            descLabel.leftAnchor.constraint(equalTo: leftAnchor),
-            descLabel.rightAnchor.constraint(equalTo: rightAnchor),
-            descLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+            self.descLabel.topAnchor.constraint(equalTo: topAnchor),
+            self.descLabel.leftAnchor.constraint(equalTo: leftAnchor),
+            self.descLabel.rightAnchor.constraint(equalTo: rightAnchor),
+            self.descLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
 }

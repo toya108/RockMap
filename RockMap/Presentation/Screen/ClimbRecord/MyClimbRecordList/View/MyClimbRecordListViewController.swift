@@ -1,15 +1,7 @@
-//
-//  MyClimbedViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/27.
-//
-
-import UIKit
 import Combine
+import UIKit
 
 class MyClimbedListViewController: UIViewController, CompositionalColectionViewControllerProtocol {
-
     let emptyLabel = UILabel()
     var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionKind, ItemKind>()
@@ -29,12 +21,12 @@ class MyClimbedListViewController: UIViewController, CompositionalColectionViewC
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupSubViews()
-        setupNavigationBar()
-        setupEmptyView()
+        self.setupSubViews()
+        self.setupNavigationBar()
+        self.setupEmptyView()
         configureCollectionView()
-        setupSections()
-        setupViewModelOutput()
+        self.setupSections()
+        self.setupViewModelOutput()
     }
 
     private func setupSubViews() {
@@ -46,22 +38,22 @@ class MyClimbedListViewController: UIViewController, CompositionalColectionViewC
     }
 
     private func setupEmptyView() {
-        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(emptyLabel)
-        emptyLabel.text = "課題が見つかりませんでした。"
+        self.emptyLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(self.emptyLabel)
+        self.emptyLabel.text = "課題が見つかりませんでした。"
         NSLayoutConstraint.activate([
-            emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            self.emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            self.emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
 
     private func setupSections() {
-        snapShot.appendSections(SectionKind.allCases)
-        datasource.apply(snapShot)
+        self.snapShot.appendSections(SectionKind.allCases)
+        self.datasource.apply(self.snapShot)
     }
 
     private func setupViewModelOutput() {
-        viewModel.output.$climbedCourses
+        self.viewModel.output.$climbedCourses
             .filter { !$0.isEmpty }
             .receive(on: DispatchQueue.main)
             .sink { [weak self] climbedCourses in
@@ -75,9 +67,9 @@ class MyClimbedListViewController: UIViewController, CompositionalColectionViewC
                 )
                 self.datasource.apply(self.snapShot)
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        viewModel.output.$isEmpty
+        self.viewModel.output.$isEmpty
             .removeDuplicates()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] isEmpty in
@@ -86,12 +78,11 @@ class MyClimbedListViewController: UIViewController, CompositionalColectionViewC
 
                 self.collectionView.isHidden = isEmpty
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 }
 
 extension MyClimbedListViewController {
-
     func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
@@ -121,7 +112,8 @@ extension MyClimbedListViewController {
                 imageUrls: climbedCourse.course.imageUrls
             )
         )
-        let courseDetailViewController = CourseDetailViewController.createInstance(viewModel: courseViewModel)
+        let courseDetailViewController = CourseDetailViewController
+            .createInstance(viewModel: courseViewModel)
         navigationController?.pushViewController(courseDetailViewController, animated: true)
     }
 }

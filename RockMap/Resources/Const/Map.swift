@@ -1,10 +1,3 @@
-//
-//  Const.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/12/15.
-//
-
 import Foundation
 
 extension Resources.Const {

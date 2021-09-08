@@ -1,16 +1,8 @@
-//
-//  DictionaryExtension.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/29.
-//
-
 import Foundation
 
 extension Dictionary where Key == String, Value == Any {
-
-    func makeEmptyExcludedDictionary () -> [String: Any] {
-        return reduce([String: Any]()) { dictionary, element in
+    func makeEmptyExcludedDictionary() -> [String: Any] {
+        reduce([String: Any]()) { dictionary, element in
 
             if let stringValue = element.1 as? String, stringValue.isEmpty {
                 return dictionary
@@ -21,5 +13,4 @@ extension Dictionary where Key == String, Value == Any {
             return dictionary
         }
     }
-
 }

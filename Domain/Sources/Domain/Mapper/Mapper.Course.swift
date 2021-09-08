@@ -3,9 +3,7 @@ import DataLayer
 import Foundation
 
 public extension Domain.Mapper {
-
     struct Course: MapperProtocol {
-
         public typealias Course = Domain.Entity.Course
 
         public init() {}
@@ -46,5 +44,4 @@ public extension Domain.Mapper {
             )
         }
     }
-
 }

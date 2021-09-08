@@ -1,19 +1,17 @@
-//
-//  ClimbedUserListViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/04.
-//
-
-import UIKit
 import Combine
+import UIKit
 
 class ClimbedUserListViewController: UIViewController {
-
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     private var viewModel: ClimbedUserListViewModel!
-    private var snapShot = NSDiffableDataSourceSnapshot<SectionKind, ClimbedUserListViewModel.ClimbedCellData>()
-    private var datasource: UITableViewDiffableDataSource<SectionKind, ClimbedUserListViewModel.ClimbedCellData>!
+    private var snapShot = NSDiffableDataSourceSnapshot<
+        SectionKind,
+        ClimbedUserListViewModel.ClimbedCellData
+    >()
+    private var datasource: UITableViewDiffableDataSource<
+        SectionKind,
+        ClimbedUserListViewModel.ClimbedCellData
+    >!
     private var bindings = Set<AnyCancellable>()
 
     static func createInstance(course: Entity.Course) -> Self {
@@ -25,27 +23,27 @@ class ClimbedUserListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupTableView()
-        setupNavigationBar()
-        datasource = configureDatasource()
-        setupSections()
-        bindViewToViewModel()
+        self.setupTableView()
+        self.setupNavigationBar()
+        self.datasource = self.configureDatasource()
+        self.setupSections()
+        self.bindViewToViewModel()
     }
 
     private func setupTableView() {
-        tableView.tableFooterView = UIView()
-        tableView.delegate = self
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.tableView.tableFooterView = UIView()
+        self.tableView.delegate = self
+        view.addSubview(self.tableView)
+        self.tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+            self.tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            self.tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            self.tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            self.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
         ])
-        tableView.contentInset = .init(top: -16, left: 0, bottom: 0, right: 0)
+        self.tableView.contentInset = .init(top: -16, left: 0, bottom: 0, right: 0)
 
-        tableView.register(
+        self.tableView.register(
             .init(
                 nibName: ClimbRecordTableViewCell.className,
                 bundle: nil
@@ -64,7 +62,7 @@ class ClimbedUserListViewController: UIViewController {
         SectionKind,
         ClimbedUserListViewModel.ClimbedCellData
     > {
-        return .init(tableView: tableView) { [weak self] tableView, index, cellData in
+        .init(tableView: self.tableView) { [weak self] _, index, cellData in
 
             guard let self = self else { return UITableViewCell() }
 
@@ -84,17 +82,16 @@ class ClimbedUserListViewController: UIViewController {
                 parentVc: self
             )
             return climbedCell
-
         }
     }
 
     private func setupSections() {
-        snapShot.appendSections(SectionKind.allCases)
-        datasource.apply(snapShot)
+        self.snapShot.appendSections(SectionKind.allCases)
+        self.datasource.apply(self.snapShot)
     }
 
     private func bindViewToViewModel() {
-        viewModel.output.$myClimbedCellData
+        self.viewModel.output.$myClimbedCellData
             .receive(on: RunLoop.main)
             .sink { [weak self] cellData in
 
@@ -105,9 +102,9 @@ class ClimbedUserListViewController: UIViewController {
 
                 self.datasource.apply(self.snapShot)
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        viewModel.output.$climbedCellData
+        self.viewModel.output.$climbedCellData
             .receive(on: RunLoop.main)
             .sink { [weak self] cellData in
 
@@ -118,14 +115,13 @@ class ClimbedUserListViewController: UIViewController {
 
                 self.datasource.apply(self.snapShot)
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     private func makeEditAction(
         to cellData: ClimbedUserListViewModel.ClimbedCellData
     ) -> UIAction {
-
-        return .init(
+        .init(
             title: "編集",
             image: UIImage.SystemImages.squareAndPencil
         ) { [weak self] _ in
@@ -142,8 +138,7 @@ class ClimbedUserListViewController: UIViewController {
     private func makeDeleteAction(
         to cellData: ClimbedUserListViewModel.ClimbedCellData
     ) -> UIAction {
-
-        return .init(
+        .init(
             title: "削除",
             image: UIImage.SystemImages.trash,
             attributes: .destructive
@@ -169,15 +164,15 @@ class ClimbedUserListViewController: UIViewController {
                     self.hideIndicatorView()
 
                     switch result {
-                        case .success:
-                            self.snapShot.deleteItems([cellData])
-                            self.datasource.apply(self.snapShot)
+                    case .success:
+                        self.snapShot.deleteItems([cellData])
+                        self.datasource.apply(self.snapShot)
 
-                        case .failure(let error):
-                            self.showOKAlert(
-                                title: "削除に失敗しました。",
-                                message: error.localizedDescription
-                            )
+                    case let .failure(error):
+                        self.showOKAlert(
+                            title: "削除に失敗しました。",
+                            message: error.localizedDescription
+                        )
                     }
                 }
             }
@@ -189,7 +184,7 @@ class ClimbedUserListViewController: UIViewController {
                 message: "削除した記録は復元できません。\n削除してもよろしいですか？",
                 actions: [
                     deleteAction,
-                    cancelAction
+                    cancelAction,
                 ],
                 style: .actionSheet
             )
@@ -198,26 +193,23 @@ class ClimbedUserListViewController: UIViewController {
 }
 
 extension ClimbedUserListViewController {
-
     enum SectionKind: Hashable, CaseIterable {
         case owned
         case others
 
         var headerTitle: String {
             switch self {
-                case .owned:
-                    return "自分の記録"
+            case .owned:
+                return "自分の記録"
 
-                case .others:
-                    return "自分以外の記録"
+            case .others:
+                return "自分以外の記録"
             }
         }
     }
-
 }
 
 extension ClimbedUserListViewController: UITableViewDelegate {
-
     func tableView(
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
@@ -230,7 +222,6 @@ extension ClimbedUserListViewController: UITableViewDelegate {
         contextMenuConfigurationForRowAt indexPath: IndexPath,
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
-
         guard
             let cellData = self.datasource.itemIdentifier(for: indexPath),
             cellData.isOwned
@@ -246,13 +237,12 @@ extension ClimbedUserListViewController: UITableViewDelegate {
                 title: "",
                 children: [
                     self.makeEditAction(to: cellData),
-                    self.makeDeleteAction(to: cellData)
+                    self.makeDeleteAction(to: cellData),
                 ]
             )
         }
 
         return .init(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
-
     }
 
     func tableView(
@@ -263,21 +253,18 @@ extension ClimbedUserListViewController: UITableViewDelegate {
         header.textLabel?.text = SectionKind.allCases[section].headerTitle
         return header
     }
-
 }
 
 extension ClimbedUserListViewController: RegisterClimbRecordDetectableDelegate {
-
     func finishedRegisterClimbed(
         id: String,
         date: Date,
         type: Entity.ClimbRecord.ClimbedRecordType
     ) {
-        viewModel.updateClimbedData(
+        self.viewModel.updateClimbedData(
             id: id,
             date: date,
             type: type
         )
     }
-
 }

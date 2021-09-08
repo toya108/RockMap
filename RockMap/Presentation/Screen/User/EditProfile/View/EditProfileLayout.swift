@@ -1,27 +1,18 @@
-//
-//  EditProfileLayout.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/10.
-//
-
-
 import UIKit
 
 extension EditProfileViewController {
-
     func createLayout() -> UICollectionViewCompositionalLayout {
+        let layout =
+            UICollectionViewCompositionalLayout { [weak self] sectionNumber, env -> NSCollectionLayoutSection in
 
-        let layout = UICollectionViewCompositionalLayout { [weak self] sectionNumber, env -> NSCollectionLayoutSection in
+                guard let self = self else {
+                    return UICollectionViewCompositionalLayout.zeroSizesLayout
+                }
 
-            guard let self = self else {
-                return UICollectionViewCompositionalLayout.zeroSizesLayout
-            }
+                let section: NSCollectionLayoutSection
+                let sectionType = SectionLayoutKind.allCases[sectionNumber]
 
-            let section: NSCollectionLayoutSection
-            let sectionType = SectionLayoutKind.allCases[sectionNumber]
-
-            switch sectionType {
+                switch sectionType {
                 case .name:
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(
@@ -84,8 +75,14 @@ extension EditProfileViewController {
                             heightDimension: .fractionalHeight(1)
                         )
                     )
-                    let collectionViewWidth = self.collectionView.bounds.width - (self.collectionView.layoutMargins.left + self.collectionView.layoutMargins.right)
-                    let height = collectionViewWidth * 9/16
+                    let collectionViewWidth = self.collectionView.bounds
+                        .width -
+                        (
+                            self.collectionView.layoutMargins.left + self.collectionView
+                                .layoutMargins
+                                .right
+                        )
+                    let height = collectionViewWidth * 9 / 16
                     let group = NSCollectionLayoutGroup.horizontal(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
@@ -94,29 +91,28 @@ extension EditProfileViewController {
                         subitems: [item]
                     )
                     section = .init(group: group)
-            }
+                }
 
-            if !sectionType.headerIdentifer.isEmpty {
-                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                    layoutSize: .init(
-                        widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(52)
-                    ),
-                    elementKind: sectionType.headerIdentifer,
-                    alignment: .top
+                if !sectionType.headerIdentifer.isEmpty {
+                    let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .absolute(52)
+                        ),
+                        elementKind: sectionType.headerIdentifer,
+                        alignment: .top
+                    )
+                    section.boundarySupplementaryItems = [sectionHeader]
+                }
+
+                let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(
+                    elementKind: SectionBackgroundDecorationView.className
                 )
-                section.boundarySupplementaryItems = [sectionHeader]
+                section.decorationItems = [sectionBackgroundDecoration]
+                section.contentInsetsReference = .layoutMargins
+
+                return section
             }
-
-            let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(
-                elementKind: SectionBackgroundDecorationView.className
-            )
-            section.decorationItems = [sectionBackgroundDecoration]
-            section.contentInsetsReference = .layoutMargins
-
-            return section
-
-        }
 
         layout.register(
             SectionBackgroundDecorationView.self,

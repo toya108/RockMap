@@ -1,15 +1,7 @@
-//
-//  RockListViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/06.
-//
-
-import UIKit
 import Combine
+import UIKit
 
 class RockListViewController: UIViewController, CompositionalColectionViewControllerProtocol {
-
     let emptyLabel = UILabel()
     var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionKind, ItemKind>()
@@ -31,12 +23,12 @@ class RockListViewController: UIViewController, CompositionalColectionViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupSubViews()
-        setupNavigationBar()
-        setupEmptyView()
+        self.setupSubViews()
+        self.setupNavigationBar()
+        self.setupEmptyView()
         configureCollectionView(topInset: 16)
-        setupSections()
-        setupViewModelOutput()
+        self.setupSections()
+        self.setupViewModelOutput()
     }
 
     private func setupSubViews() {
@@ -48,77 +40,75 @@ class RockListViewController: UIViewController, CompositionalColectionViewContro
     }
 
     private func setupEmptyView() {
-        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(emptyLabel)
-        emptyLabel.text = "登録した岩が見つかりませんでした。"
+        self.emptyLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(self.emptyLabel)
+        self.emptyLabel.text = "登録した岩が見つかりませんでした。"
         NSLayoutConstraint.activate([
-            emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            self.emptyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            self.emptyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
 
     private func setupSections() {
-        snapShot.appendSections(SectionKind.allCases)
-        if viewModel.isMine {
-            snapShot.appendItems([.annotationHeader], toSection: .annotationHeader)
+        self.snapShot.appendSections(SectionKind.allCases)
+        if self.viewModel.isMine {
+            self.snapShot.appendItems([.annotationHeader], toSection: .annotationHeader)
         }
-        datasource.apply(snapShot)
+        self.datasource.apply(self.snapShot)
     }
 
     private func setupViewModelOutput() {
-        viewModel.output.$rocks
+        self.viewModel.output.$rocks
             .removeDuplicates()
             .drop(while: { $0.isEmpty })
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: rocksSink)
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        viewModel.output.$isEmpty
+        self.viewModel.output.$isEmpty
             .removeDuplicates()
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: isEmptySink)
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        viewModel.output.$deleteState
+        self.viewModel.output.$deleteState
             .removeDuplicates()
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: deleteStateSink)
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 }
 
 extension RockListViewController {
-
     private func rocksSink(_ courses: [Entity.Rock]) {
-        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .main))
-        snapShot.appendItems(courses.map { ItemKind.rock($0) }, toSection: .main)
-        datasource.apply(snapShot)
+        self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .main))
+        self.snapShot.appendItems(courses.map { ItemKind.rock($0) }, toSection: .main)
+        self.datasource.apply(self.snapShot)
     }
 
     private func isEmptySink(_ isEmpty: Bool) {
-        collectionView.isHidden = isEmpty
+        self.collectionView.isHidden = isEmpty
     }
 
     private func deleteStateSink(_ state: LoadingState<Void>) {
         switch state {
-            case .loading:
-                self.showIndicatorView()
+        case .loading:
+            self.showIndicatorView()
 
-            case .finish, .stanby:
-                self.hideIndicatorView()
+        case .finish, .stanby:
+            self.hideIndicatorView()
 
-            case .failure(let error):
-                self.hideIndicatorView()
-                self.showOKAlert(
-                    title: "削除に失敗しました",
-                    message: error?.localizedDescription ?? ""
-                )
+        case let .failure(error):
+            self.hideIndicatorView()
+            self.showOKAlert(
+                title: "削除に失敗しました",
+                message: error?.localizedDescription ?? ""
+            )
         }
     }
 }
 
 extension RockListViewController {
-
     func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
@@ -130,7 +120,7 @@ extension RockListViewController {
             return
         }
 
-        router.route(to: .rockDetail(rock), from: self)
+        self.router.route(to: .rockDetail(rock), from: self)
     }
 
     func collectionView(
@@ -138,8 +128,7 @@ extension RockListViewController {
         contextMenuConfigurationForItemAt indexPath: IndexPath,
         point: CGPoint
     ) -> UIContextMenuConfiguration? {
-
-        guard viewModel.isMine else { return nil }
+        guard self.viewModel.isMine else { return nil }
 
         let actionProvider: ([UIMenuElement]) -> UIMenu? = { [weak self] _ in
 
@@ -156,7 +145,7 @@ extension RockListViewController {
                 title: "",
                 children: [
                     self.makeEditAction(rock: rock),
-                    self.makeDeleteAction(rock: rock)
+                    self.makeDeleteAction(rock: rock),
                 ]
             )
         }
@@ -166,12 +155,10 @@ extension RockListViewController {
             previewProvider: nil,
             actionProvider: actionProvider
         )
-
     }
 
     private func makeEditAction(rock: Entity.Rock) -> UIAction {
-
-        return .init(
+        .init(
             title: "編集",
             image: UIImage.SystemImages.squareAndPencil
         ) { [weak self] _ in
@@ -185,8 +172,7 @@ extension RockListViewController {
     private func makeDeleteAction(
         rock: Entity.Rock
     ) -> UIAction {
-
-        return .init(
+        .init(
             title: "削除",
             image: UIImage.SystemImages.trash,
             attributes: .destructive
@@ -211,19 +197,16 @@ extension RockListViewController {
                 message: "削除した情報は復元できません。\n削除してもよろしいですか？",
                 actions: [
                     deleteAction,
-                    cancelAction
+                    cancelAction,
                 ],
                 style: .actionSheet
             )
         }
     }
-
 }
 
 extension RockListViewController: RockRegisterDetectableViewControllerProtocol {
-
     func didRockRegisterFinished() {
-        viewModel.fetchRockList()
+        self.viewModel.fetchRockList()
     }
-
 }

@@ -1,16 +1,8 @@
-//
-//  EditProfileViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/10.
-//
-
-import UIKit
 import Combine
 import PhotosUI
+import UIKit
 
 class EditProfileViewController: UIViewController, CompositionalColectionViewControllerProtocol {
-
     var collectionView: UICollectionView!
     var viewModel: EditProfileViewModel!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
@@ -32,21 +24,21 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
         super.viewDidLoad()
 
         configureCollectionView()
-        setupPickerManager()
-        setupNavigationBar()
-        bindViewModelToView()
-        configureSections()
+        self.setupPickerManager()
+        self.setupNavigationBar()
+        self.bindViewModelToView()
+        self.configureSections()
     }
 
     private func setupPickerManager() {
         var configuration = PHPickerConfiguration()
         configuration.selectionLimit = 1
         configuration.filter = .images
-        pickerManager = PickerManager(
+        self.pickerManager = PickerManager(
             from: self,
             configuration: configuration
         )
-        pickerManager.delegate = self
+        self.pickerManager.delegate = self
     }
 
     private func setupNavigationBar() {
@@ -55,7 +47,7 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
         navigationItem.setLeftBarButton(
             .init(
                 image: UIImage.SystemImages.xmark,
-                primaryAction: .init {  [weak self] _ in
+                primaryAction: .init { [weak self] _ in
 
                     guard let self = self else { return }
 
@@ -65,7 +57,7 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
                             .init(title: "破棄", style: .destructive) { _ in
                                 self.dismiss(animated: true)
                             },
-                            .init(title: "キャンセル", style: .cancel)
+                            .init(title: "キャンセル", style: .cancel),
                         ],
                         style: .actionSheet
                     )
@@ -93,43 +85,43 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
     }
 
     private func bindViewModelToView() {
-        viewModel.output.$header
+        self.viewModel.output.$header
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: headerSink)
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        viewModel.output.$icon
+        self.viewModel.output.$icon
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: iconSink)
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        viewModel.output.$nameValidationResult
+        self.viewModel.output.$nameValidationResult
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: nameValidationSink)
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        viewModel.output.$imageUploadState
+        self.viewModel.output.$imageUploadState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: imageUploadStateSink)
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        viewModel.output.$userUploadState
+        self.viewModel.output.$userUploadState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: uploadLoadingStateSink)
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     private func configureSections() {
-        snapShot.appendSections(SectionLayoutKind.allCases)
+        self.snapShot.appendSections(SectionLayoutKind.allCases)
         SectionLayoutKind.allCases.forEach {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
-        datasource.apply(snapShot)
+        self.datasource.apply(self.snapShot)
     }
 
     private func startUpdateSequence() {
         guard
-            viewModel.callValidations()
+            self.viewModel.callValidations()
         else {
             showOKAlert(
                 title: "入力内容に不備があります。",
@@ -137,7 +129,7 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
             )
             return
         }
-        viewModel.editProfile()
+        self.viewModel.editProfile()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -146,7 +138,6 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
 }
 
 extension EditProfileViewController: PickerManagerDelegate {
-
     func beganResultHandling() {
         showIndicatorView()
     }
@@ -155,122 +146,117 @@ extension EditProfileViewController: PickerManagerDelegate {
         data: Data,
         imageType: Entity.Image.ImageType
     ) {
-        viewModel.input.setImageSubject.send((imageType, data))
+        self.viewModel.input.setImageSubject.send((imageType, data))
     }
 }
 
 extension EditProfileViewController: UICollectionViewDelegate {
-
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         view.endEditing(true)
     }
-
 }
 
 extension EditProfileViewController {
-
     private func headerSink(_ crudableImage: CrudableImage) {
-        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .header))
+        self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .header))
 
         let shouldAppend = crudableImage.updateData != nil
             || crudableImage.image.url != nil
             && !crudableImage.shouldDelete
 
-        snapShot.appendItems(
+        self.snapShot.appendItems(
             [shouldAppend ? .header(crudableImage) : .noImage],
             toSection: .header
         )
-        datasource.apply(snapShot)
+        self.datasource.apply(self.snapShot)
 
         hideIndicatorView()
     }
 
     private func iconSink(_ crudableImage: CrudableImage) {
-        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .icon))
-        snapShot.appendItems([.icon(crudableImage)], toSection: .icon)
-        datasource.apply(snapShot)
+        self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .icon))
+        self.snapShot.appendItems([.icon(crudableImage)], toSection: .icon)
+        self.datasource.apply(self.snapShot)
 
         hideIndicatorView()
     }
 
     private func nameValidationSink(_ result: ValidationResult) {
         switch result {
-            case .valid, .none:
-                let items = snapShot.itemIdentifiers(inSection: .name)
+        case .valid, .none:
+            let items = self.snapShot.itemIdentifiers(inSection: .name)
 
-                guard
-                    let item = items.first(where: { $0.isErrorItem })
-                else {
-                    return
-                }
+            guard
+                let item = items.first(where: { $0.isErrorItem })
+            else {
+                return
+            }
 
-                snapShot.deleteItems([item])
+            self.snapShot.deleteItems([item])
 
-            case let .invalid(error):
-                let items = snapShot.itemIdentifiers(inSection: .name)
+        case let .invalid(error):
+            let items = self.snapShot.itemIdentifiers(inSection: .name)
 
-                if let item = items.first(where: { $0.isErrorItem }) {
-                    snapShot.deleteItems([item])
-                }
+            if let item = items.first(where: { $0.isErrorItem }) {
+                self.snapShot.deleteItems([item])
+            }
 
-                snapShot.appendItems([.error(error)], toSection: .name)
+            self.snapShot.appendItems([.error(error)], toSection: .name)
         }
-        datasource.apply(snapShot)
+        self.datasource.apply(self.snapShot)
     }
-
 
     private func imageUploadStateSink(_ state: LoadingState<Void>) {
         switch state {
-            case .stanby:
-                hideIndicatorView()
+        case .stanby:
+            hideIndicatorView()
 
-            case .loading:
-                showIndicatorView()
+        case .loading:
+            showIndicatorView()
 
-            case .finish:
-                hideIndicatorView()
-                dismiss(animated: true) { [weak self] in
-                    guard
-                        let self = self,
-                        case let myPageVc as MyPageViewController = self.getVisibleViewController()
-                    else {
-                        return
-                    }
-                    myPageVc.viewModel.fetchUser()
+        case .finish:
+            hideIndicatorView()
+            dismiss(animated: true) { [weak self] in
+                guard
+                    let self = self,
+                    case let myPageVc as MyPageViewController = self.getVisibleViewController()
+                else {
+                    return
                 }
+                myPageVc.viewModel.fetchUser()
+            }
 
-            case .failure(let error):
-                hideIndicatorView()
-                showOKAlert(
-                    title: "画像の登録に失敗しました",
-                    message: error?.localizedDescription ?? ""
-                ) { [weak self] _ in
+        case let .failure(error):
+            hideIndicatorView()
+            showOKAlert(
+                title: "画像の登録に失敗しました",
+                message: error?.localizedDescription ?? ""
+            ) { [weak self] _ in
 
-                    guard let self = self else { return }
+                guard let self = self else { return }
 
-                    self.dismiss(animated: true)
-                }
+                self.dismiss(animated: true)
+            }
         }
     }
 
     private func uploadLoadingStateSink(_ state: LoadingState<Void>) {
         switch state {
-            case .stanby:
-                break
+        case .stanby:
+            break
 
-            case .loading:
-                showIndicatorView()
+        case .loading:
+            showIndicatorView()
 
-            case .finish:
-                viewModel.uploadImage()
+        case .finish:
+            self.viewModel.uploadImage()
 
-            case .failure(let error):
-                hideIndicatorView()
-                showOKAlert(
-                    title: "編集に失敗しました",
-                    message: error?.localizedDescription ?? ""
-                )
+        case let .failure(error):
+            hideIndicatorView()
+            showOKAlert(
+                title: "編集に失敗しました",
+                message: error?.localizedDescription ?? ""
+            )
         }
     }
-
 }

@@ -1,42 +1,34 @@
-//
-//  AnnotationHeaderCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/28.
-//
-
 import UIKit
 
 class AnnotationHeaderCollectionViewCell: UICollectionViewCell {
-
     let headerLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configure()
+        self.configure()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configure()
+        self.configure()
     }
 
     private func configure() {
-        addSubview(headerLabel)
-        headerLabel.translatesAutoresizingMaskIntoConstraints = false
-        headerLabel.adjustsFontForContentSizeCategory = true
+        addSubview(self.headerLabel)
+        self.headerLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.headerLabel.adjustsFontForContentSizeCategory = true
         NSLayoutConstraint.activate([
-            headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
-            headerLabel.rightAnchor.constraint(equalTo: rightAnchor),
-            headerLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+            self.headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            self.headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+            self.headerLabel.rightAnchor.constraint(equalTo: rightAnchor),
+            self.headerLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
-        headerLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
+        self.headerLabel.font = UIFont.preferredFont(forTextStyle: .caption1)
     }
 
     func configure(
         title: String
     ) {
-        headerLabel.text = title
+        self.headerLabel.text = title
     }
 }

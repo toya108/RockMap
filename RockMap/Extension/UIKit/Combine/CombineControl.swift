@@ -1,15 +1,7 @@
-//
-//  CombineControl.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/13.
-//
-
 import Combine
 import UIKit
 
 public extension Combine.Publishers {
-
     struct ControlProperty<Control: UIControl, Value>: Publisher {
         public typealias Output = Value
         public typealias Failure = Never
@@ -31,7 +23,6 @@ public extension Combine.Publishers {
         public func receive<S: Subscriber>(
             subscriber: S
         ) where S.Failure == Failure, S.Input == Output {
-
             let subscription = Subscription(
                 subscriber: subscriber,
                 control: control,
@@ -41,15 +32,14 @@ public extension Combine.Publishers {
             subscriber.receive(subscription: subscription)
         }
     }
-    
 }
 
 extension Combine.Publishers.ControlProperty {
-
-    private final class Subscription<S: Subscriber, Control: UIControl, Value>: Combine.Subscription where S.Input == Value {
-
+    private final class Subscription<S: Subscriber, Control: UIControl, Value>: Combine
+        .Subscription where S.Input == Value
+    {
         private var subscriber: S?
-        weak private var control: Control?
+        private weak var control: Control?
 
         let keyPath: KeyPath<Control, Value>
         private var didEmitInitial = false
@@ -65,38 +55,37 @@ extension Combine.Publishers.ControlProperty {
             self.control = control
             self.keyPath = keyPath
             self.event = event
-            control.addTarget(self, action: #selector(handleEvent), for: event)
+            control.addTarget(self, action: #selector(self.handleEvent), for: event)
         }
 
         func request(
             _ demand: Subscribers.Demand
         ) {
             if
-                !didEmitInitial,
+                !self.didEmitInitial,
                 demand > .none,
                 let control = control,
                 let subscriber = subscriber
             {
-                _ = subscriber.receive(control[keyPath: keyPath])
-                didEmitInitial = true
+                _ = subscriber.receive(control[keyPath: self.keyPath])
+                self.didEmitInitial = true
             }
         }
 
         func cancel() {
-            control?.removeTarget(self, action: #selector(handleEvent), for: event)
-            subscriber = nil
+            self.control?.removeTarget(self, action: #selector(self.handleEvent), for: self.event)
+            self.subscriber = nil
         }
 
         @objc private func handleEvent() {
             guard let control = control else { return }
-            _ = subscriber?.receive(control[keyPath: keyPath])
+            _ = self.subscriber?.receive(control[keyPath: self.keyPath])
         }
     }
-
 }
 
 extension UIControl.Event {
     static var defaultValueEvents: UIControl.Event {
-        return [.allEditingEvents, .valueChanged]
+        [.allEditingEvents, .valueChanged]
     }
 }

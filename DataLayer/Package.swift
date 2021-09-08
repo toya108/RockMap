@@ -7,12 +7,13 @@ let package = Package(
     name: "DataLayer",
     platforms: [
         .iOS(.v14),
-        .macOS(.v11)
+        .macOS(.v11),
     ],
     products: [
         .library(
             name: "DataLayer",
-            targets: ["DataLayer"])
+            targets: ["DataLayer"]
+        ),
     ],
     dependencies: [
         .package(
@@ -20,7 +21,7 @@ let package = Package(
             url: "https://github.com/firebase/firebase-ios-sdk.git",
             from: .init("8.6.0")
         ),
-        .package(url: "../Utilities", from: "1.0.0")
+        .package(url: "../Utilities", from: "1.0.0"),
     ],
     targets: [
         .target(
@@ -29,11 +30,12 @@ let package = Package(
                 .product(name: "FirebaseFirestore", package: "Firebase"),
                 .product(name: "FirebaseFirestoreSwift-Beta", package: "Firebase"),
                 .product(name: "FirebaseStorage", package: "Firebase"),
-                "Utilities"
-            ]),
+                "Utilities",
+            ]
+        ),
         .testTarget(
             name: "DataLayerTests",
             dependencies: ["DataLayer"]
-        )
+        ),
     ]
 )

@@ -2,11 +2,9 @@
 import Combine
 
 extension FSDocument {
-
     func setData<T: DocumentProtocol>(
         from data: T
     ) -> AnyPublisher<EmptyResponse, Error> {
-
         Deferred {
             Future<EmptyResponse, Error> { [weak self] promise in
 
@@ -59,7 +57,6 @@ extension FSDocument {
     func getDocument<T: DocumentProtocol>(
         _ type: T.Type
     ) -> AnyPublisher<T, Error> {
-
         Deferred {
             Future<T, Error> { [weak self] promise in
 
@@ -91,7 +88,6 @@ extension FSDocument {
     func updateData(
         _ fields: [AnyHashable: Any]
     ) -> AnyPublisher<EmptyResponse, Error> {
-
         Deferred {
             Future<EmptyResponse, Error> { [weak self] promise in
 
@@ -111,7 +107,6 @@ extension FSDocument {
     }
 
     func delete() -> AnyPublisher<EmptyResponse, Error> {
-
         Deferred {
             Future<EmptyResponse, Error> { [weak self] promise in
 
@@ -133,7 +128,6 @@ extension FSDocument {
 }
 
 extension Array where Element: FSDocument {
-
     func getDocuments<T: DocumentProtocol>(
         _ type: T.Type
     ) -> AnyPublisher<[T], Error> {
@@ -143,5 +137,4 @@ extension Array where Element: FSDocument {
             .collect()
             .eraseToAnyPublisher()
     }
-
 }

@@ -1,7 +1,6 @@
 import Foundation
 
 public extension Domain.Entity {
-
     struct Image: AnyEntity {
         public let url: URL?
         public let fullPath: String?
@@ -22,7 +21,6 @@ public extension Domain.Entity {
 }
 
 public extension Domain.Entity.Image {
-
     enum ImageType: Hashable {
         case header
         case normal
@@ -31,30 +29,30 @@ public extension Domain.Entity.Image {
 
         public var limit: Int {
             switch self {
-                case .header, .icon:
-                    return 1
+            case .header, .icon:
+                return 1
 
-                case .unhandle:
-                    return 0
+            case .unhandle:
+                return 0
 
-                case .normal:
-                    return 10
+            case .normal:
+                return 10
             }
         }
 
         public var name: String {
             switch self {
-                case .header:
-                    return "header"
+            case .header:
+                return "header"
 
-                case .normal:
-                    return "normal"
+            case .normal:
+                return "normal"
 
-                case .icon:
-                    return "icon"
+            case .icon:
+                return "icon"
 
-                case .unhandle:
-                    return ""
+            case .unhandle:
+                return ""
             }
         }
     }

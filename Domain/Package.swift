@@ -11,7 +11,8 @@ let package = Package(
     products: [
         .library(
             name: "Domain",
-            targets: ["Domain"]),
+            targets: ["Domain"]
+        ),
     ],
     dependencies: [
         .package(url: "../DataLayer", from: "1.0.0"),
@@ -21,9 +22,11 @@ let package = Package(
             name: "Domain",
             dependencies: [
                 .product(name: "DataLayer", package: "DataLayer"),
-            ]),
+            ]
+        ),
         .testTarget(
             name: "DomainTests",
-            dependencies: ["Domain"]),
+            dependencies: ["Domain"]
+        ),
     ]
 )

@@ -16,10 +16,9 @@ public extension Domain.Usecase.User {
         }
 
         public func fetchUser(by id: String) -> AnyPublisher<Domain.Entity.User, Error> {
-            repository.request(parameters: .init(id: id))
+            self.repository.request(parameters: .init(id: id))
                 .map { mapper.map(from: $0) }
                 .eraseToAnyPublisher()
         }
-
     }
 }

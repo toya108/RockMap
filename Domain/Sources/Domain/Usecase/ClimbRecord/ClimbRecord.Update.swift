@@ -21,7 +21,7 @@ public extension Domain.Usecase.ClimbRecord {
             climbedDate: Date?,
             type: Domain.Entity.ClimbRecord.ClimbedRecordType?
         ) -> AnyPublisher<Void, Error> {
-            repository.request(
+            self.repository.request(
                 parameters: .init(
                     parentPath: parentPath,
                     id: id,
@@ -32,6 +32,5 @@ public extension Domain.Usecase.ClimbRecord {
             .map { _ in () }
             .eraseToAnyPublisher()
         }
-
     }
 }

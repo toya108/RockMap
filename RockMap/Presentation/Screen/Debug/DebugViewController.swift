@@ -1,32 +1,31 @@
 #if DEBUG
 
 import Auth
-import UIKit
 import Combine
+import UIKit
 
 class DebugViewController: UIViewController {
-    
-    private lazy var tableView: UITableView = UITableView()
+    private lazy var tableView = UITableView()
     private var bindings = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupTableView()
+
+        self.setupTableView()
     }
-    
+
     private func setupTableView() {
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(tableView)
+        self.tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(self.tableView)
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            self.tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            self.tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            self.tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            self.tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
-        
-        tableView.delegate = self
-        tableView.dataSource = self
+
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
     }
 }
 
@@ -39,50 +38,47 @@ private enum DebugCellType: Int, CaseIterable {
             return "Logout"
         }
     }
-
 }
 
 extension DebugViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         DebugCellType.allCases.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = UITableViewCell()
         let cellType = DebugCellType.allCases[indexPath.row]
-        
+
         switch cellType {
         case .logout:
             cell.textLabel?.text = cellType.title
             return cell
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cellType = DebugCellType.allCases[indexPath.row]
-        
+
         switch cellType {
         case .logout:
             AuthManager.shared.logout()
                 .catch { _ -> Just<Void> in
-                    return .init(())
+                    .init(())
                 }
                 .sink {
                     guard
-                        let vc = UIStoryboard(name: LoginViewController.className, bundle: nil).instantiateInitialViewController()
+                        let vc = UIStoryboard(name: LoginViewController.className, bundle: nil)
+                            .instantiateInitialViewController()
                     else {
                         return
                     }
 
-                    UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController = vc
+                    UIApplication.shared.windows.first(where: { $0.isKeyWindow })?
+                        .rootViewController = vc
                 }
-                .store(in: &bindings)
+                .store(in: &self.bindings)
         }
-        
     }
-    
-    
 }
 
 #endif

@@ -1,15 +1,7 @@
-//
-//  ForceUpdateAlertManagerTests.swift
-//  RockMapTests
-//
-//  Created by TOUYA KAWANO on 2021/07/04.
-//
-
-import XCTest
 @testable import RockMap
+import XCTest
 
 class ForceUpdateAlertManagerTests: XCTestCase {
-
     func testIsUpdateRequired() throws {
         let forceUpdateAlertManager = ForceUpdateAlertManager()
 
@@ -75,6 +67,5 @@ class ForceUpdateAlertManagerTests: XCTestCase {
                 currentVersion: "1.0.0"
             )
         )
-
     }
 }

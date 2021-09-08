@@ -1,9 +1,8 @@
 
-import FirebaseStorage
 import Combine
+import FirebaseStorage
 
 class StorageUploader {
-
     private struct Component {
         var file: URL?
         var data: Data?
@@ -83,21 +82,21 @@ class StorageUploader {
     }
 
     func start() {
-        if components.isEmpty {
-            uploadState = .complete([])
+        if self.components.isEmpty {
+            self.uploadState = .complete([])
         } else {
-            prepareUpload()
-            uploadState = .progress(
+            self.prepareUpload()
+            self.uploadState = .progress(
                 .init(
-                    total: totalUnitCount,
-                    completed: completedUnitCount
+                    total: self.totalUnitCount,
+                    completed: self.completedUnitCount
                 )
             )
         }
     }
 
     private func prepareUpload() {
-        components.enumerated().forEach { index, component in
+        self.components.enumerated().forEach { index, component in
 
             let reference = component.reference
             let metadata = component.metadata
@@ -127,10 +126,9 @@ class StorageUploader {
         total: Int,
         index: Int
     ) {
+        self.uploadTasks.append(uploadTask)
 
-        uploadTasks.append(uploadTask)
-
-        uploadTask.observe(.progress) { [weak self] snapshot in
+        uploadTask.observe(.progress) { [weak self] _ in
 
             guard let self = self else { return }
 
@@ -153,7 +151,7 @@ class StorageUploader {
             )
         }
 
-        uploadTask.observe(.success) { [weak self] snapshot in
+        uploadTask.observe(.success) { [weak self] _ in
 
             guard let self = self else { return }
 
@@ -164,7 +162,7 @@ class StorageUploader {
             }
 
             let metaDatas = self.uploadTasks.map { uploadTask -> StorageMetadata in
-                return uploadTask.snapshot.metadata ?? StorageMetadata()
+                uploadTask.snapshot.metadata ?? StorageMetadata()
             }
             self.uploadState = .complete(metaDatas)
         }

@@ -1,7 +1,7 @@
 
 import Auth
-import Foundation
 import Combine
+import Foundation
 
 protocol MyClimbedListViewModelProtocol: ViewModelProtocol {
     var input: MyClimbedListViewModel.Input { get }
@@ -9,7 +9,6 @@ protocol MyClimbedListViewModelProtocol: ViewModelProtocol {
 }
 
 class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
-
     var input: Input = .init()
     var output: Output = .init()
 
@@ -19,8 +18,8 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
     private let fetchCourseUsecase = Usecase.Course.FetchByReference()
 
     init() {
-        bindOutput()
-        fetchClimbedList()
+        self.bindOutput()
+        self.fetchClimbedList()
     }
 
     private func bindOutput() {
@@ -28,7 +27,7 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
 
         share
             .map(\.isEmpty)
-            .assign(to: &output.$isEmpty)
+            .assign(to: &self.output.$isEmpty)
 
         share
             .filter { !$0.isEmpty }
@@ -54,11 +53,11 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
                         .store(in: &self.bindings)
                 }
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     func fetchClimbedList() {
-        fetchClimbRecordUsecase.fetch(by: AuthManager.shared.uid)
+        self.fetchClimbRecordUsecase.fetch(by: AuthManager.shared.uid)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
@@ -66,11 +65,9 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
             .map { $0.sorted { $0.createdAt > $1.createdAt } }
             .assign(to: &$climbRecordList)
     }
-
 }
 
 extension MyClimbedListViewModel {
-
     struct ClimbedCourse: Hashable {
         let course: Entity.Course
         let climbed: Entity.ClimbRecord
@@ -82,5 +79,4 @@ extension MyClimbedListViewModel {
         @Published var climbedCourses: [ClimbedCourse] = []
         @Published var isEmpty: Bool = false
     }
-
 }

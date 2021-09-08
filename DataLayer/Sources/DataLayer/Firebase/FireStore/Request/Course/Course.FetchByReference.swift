@@ -4,7 +4,6 @@ import Foundation
 
 public extension FS.Request.Course {
     struct FetchByReference: FirestoreRequestProtocol {
-
         public typealias Entry = FSDocument
 
         public typealias Collection = FS.Collection.Courses
@@ -21,7 +20,7 @@ public extension FS.Request.Course {
         public var testDataPath: URL?
         public var path: String { "" }
         public var entry: Entry {
-            FirestoreManager.db.document(parameters.reference)
+            FirestoreManager.db.document(self.parameters.reference)
         }
 
         public init(parameters: Parameters) {
@@ -32,8 +31,7 @@ public extension FS.Request.Course {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<FS.Document.Course, Error> {
-            entry.getDocument(Response.self)
+            self.entry.getDocument(Response.self)
         }
-
     }
 }

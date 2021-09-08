@@ -6,12 +6,13 @@ import PackageDescription
 let package = Package(
     name: "Auth",
     platforms: [
-        .iOS(.v14)
+        .iOS(.v14),
     ],
     products: [
         .library(
             name: "Auth",
-            targets: ["Auth"])
+            targets: ["Auth"]
+        ),
     ],
     dependencies: [
         .package(
@@ -20,7 +21,7 @@ let package = Package(
             from: .init("12.0.2")
         ),
         .package(url: "../Domain", from: "1.0.0"),
-        .package(url: "../Utilities", from: "1.0.0")
+        .package(url: "../Utilities", from: "1.0.0"),
     ],
     targets: [
         .target(
@@ -30,10 +31,12 @@ let package = Package(
                 .product(name: "FirebaseGoogleAuthUI", package: "FirebaseUI"),
                 .product(name: "FirebaseEmailAuthUI", package: "FirebaseUI"),
                 .product(name: "FirebaseOAuthUI", package: "FirebaseUI"),
-                .product(name: "Domain", package: "Domain")
-            ]),
+                .product(name: "Domain", package: "Domain"),
+            ]
+        ),
         .testTarget(
             name: "AuthTests",
-            dependencies: ["Auth"])
+            dependencies: ["Auth"]
+        ),
     ]
 )

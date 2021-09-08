@@ -2,9 +2,7 @@ import Combine
 import FirebaseFirestore
 
 extension WriteBatch {
-
     func commit() -> AnyPublisher<Void, Error> {
-
         Deferred {
             Future<Void, Error> { [weak self] promise in
 
@@ -22,7 +20,5 @@ extension WriteBatch {
             }
         }
         .eraseToAnyPublisher()
-
     }
-
 }

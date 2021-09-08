@@ -1,13 +1,6 @@
-//
-//  DocumentProtocol.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/12/02.
-//
-
-import Foundation
-import FirebaseFirestore
 import Combine
+import FirebaseFirestore
+import Foundation
 
 public typealias FSDocument = DocumentReference
 public typealias FSListenerRegistration = ListenerRegistration
@@ -21,7 +14,6 @@ public protocol DocumentProtocol: Codable {
 }
 
 extension DocumentProtocol {
-
     var reference: DocumentReference {
         if collection.isRoot {
             return FirestoreManager.db
@@ -64,7 +56,6 @@ extension DocumentProtocol {
             return dictionaly
         }
     }
-    
 }
 
 protocol UserRegisterableDocumentProtocol: Codable, Hashable {

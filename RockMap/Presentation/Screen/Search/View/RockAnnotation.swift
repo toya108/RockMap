@@ -1,14 +1,6 @@
-//
-//  RockAnnotation.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/28.
-//
-
 import MapKit
 
 class RockAnnotation: NSObject, MKAnnotation {
-
     let rock: Entity.Rock
     let coordinate: CLLocationCoordinate2D
     var title: String?

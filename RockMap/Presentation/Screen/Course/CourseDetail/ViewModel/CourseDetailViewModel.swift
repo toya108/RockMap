@@ -1,10 +1,3 @@
-//
-//  CourseDetailViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/19.
-//
-
 import Combine
 import Foundation
 
@@ -16,7 +9,7 @@ protocol CourseDetailViewModelProtocol: ViewModelProtocol {
 final class CourseDetailViewModel: CourseDetailViewModelProtocol {
     var input: Input = .init()
     var output: Output = .init()
-    
+
     let course: Entity.Course
     private let listenTotalClimbedNumberUsecase = Usecase.TotalClimbedNumber.ListenByCourseId()
     private let fetchRegisteredUserSubject = PassthroughSubject<String, Error>()
@@ -25,16 +18,16 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
     private let fetchRockUsecase = Usecase.Rock.FetchById()
 
     private var bindings = Set<AnyCancellable>()
-    
+
     init(course: Entity.Course) {
         self.course = course
 
-        setupInput()
-        setupOutput()
+        self.setupInput()
+        self.setupOutput()
     }
 
     private func setupInput() {
-        input.finishedCollectionViewSetup
+        self.input.finishedCollectionViewSetup
             .sink { [weak self] in
 
                 guard let self = self else { return }
@@ -42,11 +35,11 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
                 self.fetchRegisteredUserSubject.send(self.course.registeredUserId)
                 self.fetchParentRockSubject.send(self.course.parentRockId)
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
-    
+
     private func setupOutput() {
-        fetchRegisteredUserSubject
+        self.fetchRegisteredUserSubject
             .handleEvents(receiveOutput: { [weak self] _ in
                 self?.output.fetchRegisteredUserState = .loading
             })
@@ -56,9 +49,9 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
             .sinkState { [weak self] state in
                 self?.output.fetchRegisteredUserState = state
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        fetchParentRockSubject
+        self.fetchParentRockSubject
             .handleEvents(receiveOutput: { [weak self] _ in
                 self?.output.fetchParentRockState = .loading
             })
@@ -68,21 +61,25 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
             .sinkState { [weak self] state in
                 self?.output.fetchParentRockState = state
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        listenTotalClimbedNumberUsecase
-            .listen(useTestData: false, courseId: course.id, parantPath: course.parentPath)
+        self.listenTotalClimbedNumberUsecase
+            .listen(
+                useTestData: false,
+                courseId: self.course.id,
+                parantPath: self.course.parentPath
+            )
             .catch { error -> Empty in
                 print(error)
                 return Empty()
             }
-            .assign(to: &output.$totalClimbedNumber)
+            .assign(to: &self.output.$totalClimbedNumber)
     }
 }
 
 extension CourseDetailViewModel {
     struct Input {
-        let finishedCollectionViewSetup = PassthroughSubject<(Void), Never>()
+        let finishedCollectionViewSetup = PassthroughSubject<Void, Never>()
     }
 
     final class Output {

@@ -1,14 +1,6 @@
-//
-//  RockListKind.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/06.
-//
-
 import Foundation
 
 extension RockListViewController {
-
     enum SectionKind: CaseIterable, Hashable {
         case annotationHeader
         case main
@@ -18,5 +10,4 @@ extension RockListViewController {
         case annotationHeader
         case rock(Entity.Rock)
     }
-
 }

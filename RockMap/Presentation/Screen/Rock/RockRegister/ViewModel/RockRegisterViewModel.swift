@@ -1,8 +1,8 @@
 
 import Auth
 import Combine
-import Foundation
 import CoreLocation
+import Foundation
 
 protocol RockRegisterViewModelProtocol: ViewModelProtocol {
     var input: RockRegisterViewModel.Input { get }
@@ -10,7 +10,6 @@ protocol RockRegisterViewModelProtocol: ViewModelProtocol {
 }
 
 final class RockRegisterViewModel: RockRegisterViewModelProtocol {
-
     private typealias HeaderValidator = HeaderImageValidator
 
     var input = Input()
@@ -24,57 +23,55 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
 
     init(registerType: RegisterType) {
         self.registerType = registerType
-        bindInput()
-        bindOutput()
+        self.bindInput()
+        self.bindOutput()
 
         switch registerType {
-            case let .create(location):
-                guard
-                    let location = location
-                else {
-                    return
-                }
-                input.locationSubject.send(.init(location: location))
+        case let .create(location):
+            guard
+                let location = location
+            else {
+                return
+            }
+            self.input.locationSubject.send(.init(location: location))
 
-            case let .edit(rock):
-                input.rockNameSubject.send(rock.name)
-                input.rockDescSubject.send(rock.desc)
-                let location = LocationManager.LocationStructure(
-                    location: .init(
-                        latitude: rock.location.latitude,
-                        longitude: rock.location.longitude
-                    ),
-                    address: rock.address,
-                    prefecture: rock.prefecture
-                )
-                input.locationSubject.send(location)
-                rock.seasons.forEach {
-                    input.selectSeasonSubject.send($0)
-                }
-                input.lithologySubject.send(rock.lithology)
+        case let .edit(rock):
+            self.input.rockNameSubject.send(rock.name)
+            self.input.rockDescSubject.send(rock.desc)
+            let location = LocationManager.LocationStructure(
+                location: .init(
+                    latitude: rock.location.latitude,
+                    longitude: rock.location.longitude
+                ),
+                address: rock.address,
+                prefecture: rock.prefecture
+            )
+            self.input.locationSubject.send(location)
+            rock.seasons.forEach {
+                input.selectSeasonSubject.send($0)
+            }
+            self.input.lithologySubject.send(rock.lithology)
 
-                fetchRockStorage(rockId: rock.id)
+            self.fetchRockStorage(rockId: rock.id)
         }
-
-
     }
 
     private func bindInput() {
-        input.rockNameSubject
+        self.input.rockNameSubject
             .removeDuplicates()
             .compactMap { $0 }
-            .assign(to: &output.$rockName)
+            .assign(to: &self.output.$rockName)
 
-        input.rockDescSubject
+        self.input.rockDescSubject
             .removeDuplicates()
             .compactMap { $0 }
-            .assign(to: &output.$rockDesc)
+            .assign(to: &self.output.$rockDesc)
 
-        input.locationSubject
+        self.input.locationSubject
             .removeDuplicates()
-            .assign(to: &output.$rockLocation)
+            .assign(to: &self.output.$rockLocation)
 
-        input.selectSeasonSubject
+        self.input.selectSeasonSubject
             .sink { [weak self] in
 
                 guard let self = self else { return }
@@ -85,30 +82,29 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
                     self.output.seasons.insert($0)
                 }
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        input.lithologySubject
+        self.input.lithologySubject
             .removeDuplicates()
-            .assign(to: &output.$lithology)
+            .assign(to: &self.output.$lithology)
 
-        input.setImageSubject
-            .sink(receiveValue: setImage)
-            .store(in: &bindings)
+        self.input.setImageSubject
+            .sink(receiveValue: self.setImage)
+            .store(in: &self.bindings)
 
-        input.deleteImageSubject
-            .sink(receiveValue: deleteImage)
-            .store(in: &bindings)
+        self.input.deleteImageSubject
+            .sink(receiveValue: self.deleteImage)
+            .store(in: &self.bindings)
     }
 
     private func bindOutput() {
-
-        output.$rockName
+        self.output.$rockName
             .dropFirst()
             .removeDuplicates()
             .map { name -> ValidationResult in RockNameValidator().validate(name) }
-            .assign(to: &output.$rockNameValidationResult)
+            .assign(to: &self.output.$rockNameValidationResult)
 
-        output.$rockLocation
+        self.output.$rockLocation
             .removeDuplicates()
             .map(\.location)
             .flatMap {
@@ -120,12 +116,14 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
                     guard let self = self else { return }
 
                     switch result {
-                        case .finished:
-                            break
+                    case .finished:
+                        break
 
-                        case .failure(let error):
-                            print(error.localizedDescription)
-                            self.output.rockAddressValidationResult = .invalid(.cannotConvertLocationToAddrress)
+                    case let .failure(error):
+                        print(error.localizedDescription)
+                        self.output
+                            .rockAddressValidationResult =
+                            .invalid(.cannotConvertLocationToAddrress)
                     }
 
                 },
@@ -137,37 +135,35 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
                     self.output.rockLocation.prefecture = placemark.prefecture
                 }
             )
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        output.$rockLocation
+        self.output.$rockLocation
             .dropFirst()
             .removeDuplicates()
             .map { RockAddressValidator().validate($0.address) }
-            .assign(to: &output.$rockAddressValidationResult)
+            .assign(to: &self.output.$rockAddressValidationResult)
 
-        output.$images
+        self.output.$images
             .dropFirst()
             .map { RockImageValidator().validate($0.filter(\.shouldDelete)) }
-            .assign(to: &output.$rockImageValidationResult)
+            .assign(to: &self.output.$rockImageValidationResult)
 
-        output.$header
+        self.output.$header
             .dropFirst()
             .map { HeaderValidator().validate($0) }
-            .assign(to: &output.$headerImageValidationResult)
-
+            .assign(to: &self.output.$headerImageValidationResult)
     }
 
     private func fetchRockStorage(rockId: String) {
-
-        fetchHeaderUsecase.fetch(id: rockId, destination: .rock)
+        self.fetchHeaderUsecase.fetch(id: rockId, destination: .rock)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
             }
             .map { CrudableImage(imageType: .header, image: $0) }
-            .assign(to: &output.$header)
+            .assign(to: &self.output.$header)
 
-        fetchImagesUsecase.fetch(id: rockId, destination: .rock)
+        self.fetchImagesUsecase.fetch(id: rockId, destination: .rock)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
@@ -179,70 +175,71 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
     }
 
     private func setImage(imageType: Entity.Image.ImageType, data: Data) {
-
         switch imageType {
-            case .normal:
-                let newImage = CrudableImage(
-                    updateData: data,
-                    shouldDelete: false,
-                    imageType: .normal,
-                    image: .init()
-                )
-                output.images.append(newImage)
+        case .normal:
+            let newImage = CrudableImage(
+                updateData: data,
+                shouldDelete: false,
+                imageType: .normal,
+                image: .init()
+            )
+            output.images.append(newImage)
 
-            case .header:
-                output.header.updateData = data
-                output.header.shouldDelete = false
+        case .header:
+            self.output.header.updateData = data
+            self.output.header.shouldDelete = false
 
-            case .icon, .unhandle:
-                break
+        case .icon, .unhandle:
+            break
         }
     }
 
     private func deleteImage(_ crudableImage: CrudableImage) {
         switch crudableImage.imageType {
-            case .header:
-                output.header.updateData = nil
+        case .header:
+            self.output.header.updateData = nil
 
-                if output.header.image.url != nil {
-                    output.header.shouldDelete = true
+            if self.output.header.image.url != nil {
+                self.output.header.shouldDelete = true
+            }
+
+        case .normal:
+            if let index = output.images.firstIndex(of: crudableImage) {
+                if self.output.images[index].image.url != nil {
+                    self.output.images[index].updateData = nil
+                    self.output.images[index].shouldDelete = true
+                } else {
+                    self.output.images.remove(at: index)
                 }
+            }
 
-            case .normal:
-                if let index = output.images.firstIndex(of: crudableImage) {
-                    if output.images[index].image.url != nil {
-                        output.images[index].updateData = nil
-                        output.images[index].shouldDelete = true
-                    } else {
-                        output.images.remove(at: index)
-                    }
-                }
-
-            case .icon, .unhandle:
-                break
+        case .icon, .unhandle:
+            break
         }
     }
-    
+
     func callValidations() -> Bool {
-        if !output.rockAddressValidationResult.isValid {
-            output.rockAddressValidationResult = RockAddressValidator().validate(output.rockLocation.address)
+        if !self.output.rockAddressValidationResult.isValid {
+            self.output.rockAddressValidationResult = RockAddressValidator()
+                .validate(self.output.rockLocation.address)
         }
-        if !output.rockNameValidationResult.isValid {
-            output.rockNameValidationResult = RockNameValidator().validate(output.rockName)
+        if !self.output.rockNameValidationResult.isValid {
+            self.output.rockNameValidationResult = RockNameValidator()
+                .validate(self.output.rockName)
         }
-        if !output.headerImageValidationResult.isValid {
-            output.headerImageValidationResult = HeaderValidator().validate(output.header)
+        if !self.output.headerImageValidationResult.isValid {
+            self.output.headerImageValidationResult = HeaderValidator().validate(self.output.header)
         }
-        if !output.rockImageValidationResult.isValid {
-            let images = output.images.filter(\.shouldDelete)
-            output.rockImageValidationResult = RockImageValidator().validate(images)
+        if !self.output.rockImageValidationResult.isValid {
+            let images = self.output.images.filter(\.shouldDelete)
+            self.output.rockImageValidationResult = RockImageValidator().validate(images)
         }
 
         let isPassedAllValidation = [
             output.headerImageValidationResult,
-            output.rockImageValidationResult,
-            output.rockNameValidationResult,
-            output.rockAddressValidationResult
+            self.output.rockImageValidationResult,
+            self.output.rockNameValidationResult,
+            self.output.rockAddressValidationResult,
         ]
         .map(\.isValid)
         .allSatisfy { $0 }
@@ -251,62 +248,59 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
     }
 
     var rockEntity: Entity.Rock {
-        switch registerType {
-            case .create:
-                return .init(
-                    id: UUID().uuidString,
-                    createdAt: Date(),
-                    parentPath: AuthManager.shared.userPath,
-                    name: output.rockName,
-                    address: output.rockLocation.address,
-                    prefecture: output.rockLocation.prefecture,
-                    location: .init(
-                        latitude: output.rockLocation.location.coordinate.latitude,
-                        longitude: output.rockLocation.location.coordinate.longitude
-                    ),
-                    seasons: output.seasons,
-                    lithology: output.lithology,
-                    desc: output.rockDesc,
-                    registeredUserId: AuthManager.shared.uid,
-                    imageUrls: []
-                )
+        switch self.registerType {
+        case .create:
+            return .init(
+                id: UUID().uuidString,
+                createdAt: Date(),
+                parentPath: AuthManager.shared.userPath,
+                name: self.output.rockName,
+                address: self.output.rockLocation.address,
+                prefecture: self.output.rockLocation.prefecture,
+                location: .init(
+                    latitude: self.output.rockLocation.location.coordinate.latitude,
+                    longitude: self.output.rockLocation.location.coordinate.longitude
+                ),
+                seasons: self.output.seasons,
+                lithology: self.output.lithology,
+                desc: self.output.rockDesc,
+                registeredUserId: AuthManager.shared.uid,
+                imageUrls: []
+            )
 
-            case var .edit(rock):
-                rock.name = output.rockName
-                rock.desc = output.rockDesc
-                rock.location = .init(
-                    latitude: output.rockLocation.location.coordinate.latitude,
-                    longitude: output.rockLocation.location.coordinate.longitude
-                )
-                rock.seasons = output.seasons
-                rock.lithology = output.lithology
-                rock.prefecture = output.rockLocation.prefecture
-                rock.address = output.rockLocation.address
-                return rock
+        case var .edit(rock):
+            rock.name = self.output.rockName
+            rock.desc = self.output.rockDesc
+            rock.location = .init(
+                latitude: self.output.rockLocation.location.coordinate.latitude,
+                longitude: self.output.rockLocation.location.coordinate.longitude
+            )
+            rock.seasons = self.output.seasons
+            rock.lithology = self.output.lithology
+            rock.prefecture = self.output.rockLocation.prefecture
+            rock.address = self.output.rockLocation.address
+            return rock
         }
     }
 }
 
 extension RockRegisterViewModel {
-
     enum RegisterType {
         case create(CLLocation?)
         case edit(Entity.Rock)
 
         var name: String {
             switch self {
-                case .create:
-                    return "作成"
-                case .edit:
-                    return "編集"
+            case .create:
+                return "作成"
+            case .edit:
+                return "編集"
             }
         }
     }
-
 }
 
 extension RockRegisterViewModel {
-
     struct Input {
         let rockNameSubject = PassthroughSubject<String?, Never>()
         let rockDescSubject = PassthroughSubject<String?, Never>()
@@ -314,7 +308,7 @@ extension RockRegisterViewModel {
         let selectSeasonSubject = PassthroughSubject<Entity.Rock.Season, Never>()
         let lithologySubject = PassthroughSubject<Entity.Rock.Lithology, Never>()
         let setImageSubject = PassthroughSubject<(Entity.Image.ImageType, Data), Never>()
-        let deleteImageSubject = PassthroughSubject<(CrudableImage), Never>()
+        let deleteImageSubject = PassthroughSubject<CrudableImage, Never>()
     }
 
     final class Output {

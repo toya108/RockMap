@@ -9,7 +9,6 @@ protocol ClimbedUserListViewModelProtocol: ViewModelProtocol {
 }
 
 class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
-
     var input: Input = .init()
     var output: Output = .init()
 
@@ -22,19 +21,18 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
 
     init(course: Entity.Course) {
         self.course = course
-        setupOutput()
-        fetchClimbed()
+        self.setupOutput()
+        self.fetchClimbed()
     }
 
     private func fetchClimbed() {
-        fetchClimbRecordUsecase.fetch(by: course.id)
+        self.fetchClimbRecordUsecase.fetch(by: self.course.id)
             .catch { _ in Empty() }
-            .assign(to: &output.$climbRecordList )
+            .assign(to: &self.output.$climbRecordList)
     }
 
     private func setupOutput() {
-
-        let share = output.$climbRecordList 
+        let share = self.output.$climbRecordList
             .filter { !$0.isEmpty }
             .share()
 
@@ -58,12 +56,12 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
                         )
                     }
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
         share
             .map { $0.filter { $0.registeredUserId != AuthManager.shared.uid } }
             .map { Set($0) }
-            .map { $0.map { $0.registeredUserId } }
+            .map { $0.map(\.registeredUserId) }
             .flatMap {
                 $0.publisher.flatMap { id in
                     Usecase.User.FetchById().fetchUser(by: id)
@@ -75,31 +73,33 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
 
                 guard let self = self else { return }
 
-                let cellData = self.output.climbRecordList.compactMap { climbed -> ClimbedCellData? in
+                let cellData = self.output.climbRecordList
+                    .compactMap { climbed -> ClimbedCellData? in
 
-                    guard
-                        let user = climbedUserList.first(where: { climbed.registeredUserId == $0.id })
-                    else {
-                        return nil
+                        guard
+                            let user = climbedUserList
+                                .first(where: { climbed.registeredUserId == $0.id })
+                        else {
+                            return nil
+                        }
+
+                        return .init(
+                            climbed: climbed,
+                            user: user,
+                            isOwned: false
+                        )
                     }
-
-                    return .init(
-                        climbed: climbed,
-                        user: user,
-                        isOwned: false
-                    )
-                }
 
                 self.output.climbedCellData = cellData
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     func deleteClimbRecord(
         climbRecord: Entity.ClimbRecord,
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        deleteClimbRecordUsecase
+        self.deleteClimbRecordUsecase
             .delete(parentPath: climbRecord.parentPath, id: climbRecord.id)
             .catch { error -> Empty in
                 completion(.failure(error))
@@ -108,7 +108,7 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
             .sink {
                 completion(.success(()))
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     func updateClimbedData(
@@ -122,30 +122,25 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
             return
         }
 
-        output.myClimbedCellData[index].climbed.climbedDate = date
-        output.myClimbedCellData[index].climbed.type = type
+        self.output.myClimbedCellData[index].climbed.climbedDate = date
+        self.output.myClimbedCellData[index].climbed.type = type
 
-        output.myClimbedCellData.sort(
+        self.output.myClimbedCellData.sort(
             by: { $0.climbed.climbedDate < $1.climbed.climbedDate }
         )
-
     }
 }
 
 extension ClimbedUserListViewModel {
-
     struct ClimbedCellData: Hashable {
         var climbed: Entity.ClimbRecord
         let user: Entity.User
         let isOwned: Bool
     }
-
 }
 
 extension ClimbedUserListViewModel {
-
-    struct Input {
-    }
+    struct Input {}
 
     final class Output {
         @Published var climbRecordList: [Entity.ClimbRecord] = []

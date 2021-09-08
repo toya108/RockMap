@@ -3,7 +3,6 @@ import Foundation
 
 @resultBuilder
 public struct StoragePathBuilder {
-
     typealias FinalResult = String
 
     public static func buildBlock(_ components: String...) -> [String] {

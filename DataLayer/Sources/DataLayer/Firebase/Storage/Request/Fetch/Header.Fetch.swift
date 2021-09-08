@@ -3,9 +3,7 @@ import Combine
 import Foundation
 
 public extension FireStorage.Request.Fetch {
-
     struct Header: StorageRequestProtocol {
-
         public typealias Response = FireStorage.Image
 
         public struct Parameters {
@@ -27,9 +25,9 @@ public extension FireStorage.Request.Fetch {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var path: String {
-            parameters.collectionType.name
-            parameters.documentId
-            parameters.directory.rawValue
+            self.parameters.collectionType.name
+            self.parameters.documentId
+            self.parameters.directory.rawValue
         }
 
         public init(parameters: Parameters) {
@@ -40,7 +38,7 @@ public extension FireStorage.Request.Fetch {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<FireStorage.Image, Error> {
-            StorageAssets.storage.reference(withPath: path)
+            StorageAssets.storage.reference(withPath: self.path)
                 .getReference()
                 .flatMap { $0.getImage() }
                 .eraseToAnyPublisher()

@@ -9,10 +9,9 @@ protocol CourseConfirmViewModelModelProtocol: ViewModelProtocol {
 }
 
 class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
-
     var input: Input = .init()
     var output: Output = .init()
-    
+
     let registerType: CourseRegisterViewModel.RegisterType
     let header: CrudableImage
     let images: [CrudableImage]
@@ -33,32 +32,31 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
         self.course = course
         self.header = header
         self.images = images
-        bindInput()
+        self.bindInput()
     }
 
     private func bindInput() {
-        input.uploadImageSubject
-            .sink(receiveValue: uploadImages)
-            .store(in: &bindings)
+        self.input.uploadImageSubject
+            .sink(receiveValue: self.uploadImages)
+            .store(in: &self.bindings)
 
-        input.registerCourseSubject
-            .sink(receiveValue: registerCourse)
-            .store(in: &bindings)
+        self.input.registerCourseSubject
+            .sink(receiveValue: self.registerCourse)
+            .store(in: &self.bindings)
     }
-    
-    private func uploadImages() {
 
-        let writeHeader = writeImageUsecase.write(
-            data: header.updateData,
-            shouldDelete: header.shouldDelete,
-            image: header.image
+    private func uploadImages() {
+        let writeHeader = self.writeImageUsecase.write(
+            data: self.header.updateData,
+            shouldDelete: self.header.shouldDelete,
+            image: self.header.image
         ) {
             .course
             course.id
             header.imageType
         }
 
-        let writeImages = images.map {
+        let writeImages = self.images.map {
             writeImageUsecase.write(
                 data: $0.updateData,
                 shouldDelete: $0.shouldDelete,
@@ -91,23 +89,23 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
                     self.output.imageUploadState = .finish(content: ())
                 }
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     private func registerCourse() {
-        output.courseUploadState = .loading
+        self.output.courseUploadState = .loading
 
-        switch registerType {
-            case .create:
-                createCourse()
+        switch self.registerType {
+        case .create:
+            self.createCourse()
 
-            case .edit:
-                editCourse()
+        case .edit:
+            self.editCourse()
         }
     }
 
     private func createCourse() {
-        setCourseUsecase.set(course: course)
+        self.setCourseUsecase.set(course: self.course)
             .catch { [weak self] error -> Empty in
 
                 guard let self = self else { return Empty() }
@@ -121,11 +119,11 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
 
                 self.output.courseUploadState = .finish(content: ())
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     private func editCourse() {
-        updateCourseUsecase.update(from: self.course)
+        self.updateCourseUsecase.update(from: self.course)
             .catch { [weak self] error -> Empty in
 
                 guard let self = self else { return Empty() }
@@ -139,12 +137,11 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
 
                 self.output.courseUploadState = .finish(content: ())
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 }
 
 extension CourseConfirmViewModel {
-
     struct Input {
         let uploadImageSubject = PassthroughSubject<Void, Never>()
         let registerCourseSubject = PassthroughSubject<Void, Never>()

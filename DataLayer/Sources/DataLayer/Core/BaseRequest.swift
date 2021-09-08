@@ -10,7 +10,6 @@ public struct EmptyResponse: Codable, Equatable {
     public init() {}
 }
 
-
 public protocol RequestProtocol {
     associatedtype Response: Decodable
     associatedtype Parameters
@@ -28,9 +27,7 @@ public protocol RequestProtocol {
 }
 
 public extension RequestProtocol {
-
     func localDataInterceptor(parameters: Parameters) -> AnyPublisher<Response, Error> {
         Empty<Response, Error>().eraseToAnyPublisher()
     }
-
 }

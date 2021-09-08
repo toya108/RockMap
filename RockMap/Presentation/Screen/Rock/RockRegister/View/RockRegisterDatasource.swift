@@ -1,22 +1,13 @@
-//
-//  RockRegisterDatasource.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/10.
-//
-
 import UIKit
 
 extension RockRegisterViewController {
-    
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
-        
         let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
             collectionView: collectionView
         ) { [weak self] collectionView, indexPath, item in
-            
+
             guard let self = self else { return UICollectionViewCell() }
-            
+
             switch item {
             case .name:
                 return collectionView.dequeueConfiguredReusableCell(
@@ -37,42 +28,42 @@ extension RockRegisterViewController {
                     for: indexPath,
                     item: locationStructure
                 )
-                
+
             case let .noImage(imageType):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureImageSelectCell(),
                     for: indexPath,
                     item: imageType
                 )
-                
+
             case let .images(image):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureDeletabelImageCell(),
                     for: indexPath,
                     item: image
                 )
-                
-            case .season(let season, let isSelecting):
+
+            case let .season(season, isSelecting):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureSeasonCell(),
                     for: indexPath,
                     item: (season, isSelecting)
                 )
-                
+
             case let .lithology(lithology):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureLithologyCell(),
                     for: indexPath,
                     item: lithology
                 )
-                
+
             case .confirmation:
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureConfirmationButtonCell(),
                     for: indexPath,
                     item: Dummy()
                 )
-                
+
             case let .error(error):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: self.configureErrorLabelCell(),
@@ -88,22 +79,23 @@ extension RockRegisterViewController {
                 )
             }
         }
-        
+
         let headerRegistration = UICollectionView.SupplementaryRegistration<TitleSupplementaryView>(
             elementKind: TitleSupplementaryView.className
         ) { [weak self] supplementaryView, _, indexPath in
-            
+
             guard let self = self else { return }
-            
+
             supplementaryView.setSideInset(0)
             supplementaryView.backgroundColor = .white
-            supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section].headerTitle
+            supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section]
+                .headerTitle
         }
-        
-        datasource.supplementaryViewProvider = { [weak self] collectionView, _, index in
-            
+
+        datasource.supplementaryViewProvider = { [weak self] _, _, index in
+
             guard let self = self else { return nil }
-            
+
             return self.collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration,
                 for: index
@@ -111,13 +103,13 @@ extension RockRegisterViewController {
         }
         return datasource
     }
-    
+
     private func configureNameCell() -> UICollectionView.CellRegistration<
         TextFieldColletionViewCell,
         Dummy
     > {
         .init { [weak self] cell, _, _ in
-            
+
             guard let self = self else { return }
 
             cell.textField.text = self.viewModel.output.rockName
@@ -133,7 +125,7 @@ extension RockRegisterViewController {
                 .store(in: &self.bindings)
         }
     }
-    
+
     private func configureDescCell() -> UICollectionView.CellRegistration<
         TextViewCollectionViewCell,
         Dummy
@@ -144,7 +136,7 @@ extension RockRegisterViewController {
                 bundle: nil
             )
         ) { [weak self] cell, _, _ in
-            
+
             guard let self = self else { return }
 
             cell.textView.text = self.viewModel.output.rockDesc
@@ -159,7 +151,7 @@ extension RockRegisterViewController {
                 .store(in: &self.bindings)
         }
     }
-    
+
     private func configureLocationCell() -> UICollectionView.CellRegistration<
         LocationSelectCollectionViewCell,
         LocationManager.LocationStructure
@@ -170,31 +162,32 @@ extension RockRegisterViewController {
                 bundle: nil
             )
         ) { [weak self] cell, _, locationStructure in
-            
+
             cell.configure(locationStructure: locationStructure)
-            
+
             cell.currentAddressButton.addAction(
                 .init { [weak self] _ in
-                    
+
                     guard let self = self else { return }
 
-                    self.viewModel.input.locationSubject.send(.init(location: LocationManager.shared.location))
+                    self.viewModel.input.locationSubject
+                        .send(.init(location: LocationManager.shared.location))
                 },
                 for: .touchUpInside
             )
-            
+
             cell.selectLocationButton.addAction(
                 .init { [weak self] _ in
-                    
+
                     guard let self = self else { return }
-                    
+
                     self.router.route(to: .locationSelect, from: self)
                 },
                 for: .touchUpInside
             )
         }
     }
-    
+
     private func configureImageSelectCell() -> UICollectionView.CellRegistration<
         ImageSelactCollectionViewCell,
         Entity.Image.ImageType
@@ -205,16 +198,16 @@ extension RockRegisterViewController {
                 bundle: nil
             )
         ) { [weak self] cell, _, imageType in
-            
+
             guard let self = self else { return }
-            
+
             self.setupImageUploadButtonActions(
                 button: cell.uploadButton,
                 imageType: imageType
             )
         }
     }
-    
+
     private func configureDeletabelImageCell() -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
         CrudableImage
@@ -229,7 +222,7 @@ extension RockRegisterViewController {
             }
         }
     }
-    
+
     private func configureSeasonCell() -> UICollectionView.CellRegistration<
         IconCollectionViewCell,
         (season: Entity.Rock.Season, isSelecting: Bool)
@@ -239,7 +232,7 @@ extension RockRegisterViewController {
             cell.isSelecting = season.isSelecting
         }
     }
-    
+
     private func configureLithologyCell() -> UICollectionView.CellRegistration<
         SegmentedControllCollectionViewCell,
         Entity.Rock.Lithology
@@ -249,27 +242,28 @@ extension RockRegisterViewController {
                 items: Entity.Rock.Lithology.allCases.map(\.name),
                 selectedIndex: Entity.Rock.Lithology.allCases.firstIndex(of: lithology)
             )
-            
+
             cell.segmentedControl.addAction(
                 .init { [weak self] action in
-                    
+
                     guard let self = self else { return }
-                    
+
                     guard
                         let segmentedControl = action.sender as? UISegmentedControl,
-                        let selected = Entity.Rock.Lithology.allCases.any(at: segmentedControl.selectedSegmentIndex)
+                        let selected = Entity.Rock.Lithology.allCases
+                            .any(at: segmentedControl.selectedSegmentIndex)
                     else {
                         return
                     }
-                    
+
                     self.viewModel.input.lithologySubject.send(selected)
-                    
+
                 },
                 for: .valueChanged
             )
         }
     }
-    
+
     private func configureConfirmationButtonCell() -> UICollectionView.CellRegistration<
         ConfirmationButtonCollectionViewCell,
         Dummy
@@ -277,14 +271,14 @@ extension RockRegisterViewController {
         .init { cell, _, _ in
             cell.configure(title: "　登録内容を確認する　")
             cell.configure { [weak self] in
-                
+
                 guard let self = self else { return }
 
                 self.router.route(to: .rockConfirm, from: self)
             }
         }
     }
-    
+
     private func configureErrorLabelCell() -> UICollectionView.CellRegistration<
         ErrorLabelCollectionViewCell,
         ValidationError
@@ -293,7 +287,7 @@ extension RockRegisterViewController {
             cell.configure(message: error.description)
         }
     }
-    
+
     private func setupImageUploadButtonActions(
         button: UIButton,
         imageType: Entity.Image.ImageType
@@ -302,22 +296,22 @@ extension RockRegisterViewController {
             title: "フォトライブラリ",
             image: UIImage.SystemImages.folderFill
         ) { [weak self] _ in
-            
+
             guard let self = self else { return }
 
             self.pickerManager.presentPhPicker(imageType: imageType)
         }
-        
+
         let cameraAction = UIAction(
             title: "写真を撮る",
             image: UIImage.SystemImages.cameraFill
         ) { [weak self] _ in
-            
+
             guard let self = self else { return }
-            
+
             self.pickerManager.presentImagePicker(sourceType: .camera, imageType: imageType)
         }
-        
+
         let menu = UIMenu(title: "", children: [photoLibraryAction, cameraAction])
         button.menu = menu
         button.showsMenuAsPrimaryAction = true

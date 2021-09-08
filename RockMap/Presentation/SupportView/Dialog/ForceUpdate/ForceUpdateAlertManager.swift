@@ -1,14 +1,6 @@
-//
-//  ForceUpdateAlertManager.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/07/04.
-//
-
 import UIKit
 
 struct ForceUpdateAlertManager {
-
     func showGoToStoreAlertIfNeeded(minimumAppVersion: String) {
         let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
 
@@ -30,7 +22,6 @@ struct ForceUpdateAlertManager {
             title: "OK",
             style: .default
         ) { _ in
-
         }
         forceUpdateAlert.addAction(goToStoreAction)
 
@@ -69,5 +60,4 @@ struct ForceUpdateAlertManager {
 
         return false
     }
-
 }

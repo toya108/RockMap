@@ -9,7 +9,6 @@ protocol CourseRegisterViewModelProtocol: ViewModelProtocol {
 }
 
 class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
-
     typealias HeaderValidator = HeaderImageValidator
 
     var input: Input = .init()
@@ -23,8 +22,8 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
 
     init(registerType: RegisterType) {
         self.registerType = registerType
-        bindInput()
-        bindOutput()
+        self.bindInput()
+        self.bindOutput()
 
         guard
             case let .edit(course) = registerType
@@ -32,30 +31,30 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
             return
         }
 
-        input.courseNameSubject.send(course.name)
-        input.courseDescSubject.send(course.desc)
-        input.gradeSubject.send(course.grade)
-        input.shapeSubject.send(course.shape)
-        input.courseNameSubject.send(course.name)
-        fetchCourseStorage(courseId: course.id)
+        self.input.courseNameSubject.send(course.name)
+        self.input.courseDescSubject.send(course.desc)
+        self.input.gradeSubject.send(course.grade)
+        self.input.shapeSubject.send(course.shape)
+        self.input.courseNameSubject.send(course.name)
+        self.fetchCourseStorage(courseId: course.id)
     }
 
     private func bindInput() {
-        input.courseNameSubject
+        self.input.courseNameSubject
             .removeDuplicates()
             .compactMap { $0 }
-            .assign(to: &output.$courseName)
+            .assign(to: &self.output.$courseName)
 
-        input.courseDescSubject
+        self.input.courseDescSubject
             .removeDuplicates()
             .compactMap { $0 }
-            .assign(to: &output.$courseDesc)
+            .assign(to: &self.output.$courseDesc)
 
-        input.gradeSubject
+        self.input.gradeSubject
             .removeDuplicates()
-            .assign(to: &output.$grade)
+            .assign(to: &self.output.$grade)
 
-        input.shapeSubject
+        self.input.shapeSubject
             .sink { [weak self] shapes in
 
                 guard let self = self else { return }
@@ -68,45 +67,45 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
                     }
                 }
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        input.setImageSubject
-            .sink(receiveValue: setImage)
-            .store(in: &bindings)
+        self.input.setImageSubject
+            .sink(receiveValue: self.setImage)
+            .store(in: &self.bindings)
 
-        input.deleteImageSubject
-            .sink(receiveValue: deleteImage)
-            .store(in: &bindings)
+        self.input.deleteImageSubject
+            .sink(receiveValue: self.deleteImage)
+            .store(in: &self.bindings)
     }
 
     private func bindOutput() {
-        output.$courseName
+        self.output.$courseName
             .dropFirst()
             .removeDuplicates()
             .map { name -> ValidationResult in CourseNameValidator().validate(name) }
-            .assign(to: &output.$courseNameValidationResult)
+            .assign(to: &self.output.$courseNameValidationResult)
 
-        output.$images
+        self.output.$images
             .dropFirst()
             .map { RockImageValidator().validate($0.filter(\.shouldDelete)) }
-            .assign(to: &output.$courseImageValidationResult)
+            .assign(to: &self.output.$courseImageValidationResult)
 
-        output.$header
+        self.output.$header
             .dropFirst()
             .map { HeaderValidator().validate($0) }
-            .assign(to: &output.$headerImageValidationResult)
+            .assign(to: &self.output.$headerImageValidationResult)
     }
 
     private func fetchCourseStorage(courseId: String) {
-        fetchHeaderUsecase.fetch(id: courseId, destination: .course)
+        self.fetchHeaderUsecase.fetch(id: courseId, destination: .course)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
             }
             .map { CrudableImage(imageType: .header, image: $0) }
-            .assign(to: &output.$header)
+            .assign(to: &self.output.$header)
 
-        fetchImagesUsecase.fetch(id: courseId, destination: .course)
+        self.fetchImagesUsecase.fetch(id: courseId, destination: .course)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
@@ -118,102 +117,101 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
     }
 
     private func setImage(data: Data, imageType: Entity.Image.ImageType) {
-
         switch imageType {
-            case .normal:
-                let newImage = CrudableImage(
-                    updateData: data,
-                    shouldDelete: false,
-                    imageType: .normal,
-                    image: .init()
-                )
-                output.images.append(newImage)
+        case .normal:
+            let newImage = CrudableImage(
+                updateData: data,
+                shouldDelete: false,
+                imageType: .normal,
+                image: .init()
+            )
+            output.images.append(newImage)
 
-            case .header:
-                output.header.updateData = data
-                output.header.shouldDelete = false
+        case .header:
+            self.output.header.updateData = data
+            self.output.header.shouldDelete = false
 
-            case .icon, .unhandle:
-                break
+        case .icon, .unhandle:
+            break
         }
     }
 
     private func deleteImage(_ crudableImage: CrudableImage) {
         switch crudableImage.imageType {
-            case .header:
-                output.header.updateData = nil
+        case .header:
+            self.output.header.updateData = nil
 
-                if output.header.image.url != nil {
-                    output.header.shouldDelete = true
+            if self.output.header.image.url != nil {
+                self.output.header.shouldDelete = true
+            }
+
+        case .normal:
+            if let index = output.images.firstIndex(of: crudableImage) {
+                if self.output.images[index].image.url != nil {
+                    self.output.images[index].updateData = nil
+                    self.output.images[index].shouldDelete = true
+                } else {
+                    self.output.images.remove(at: index)
                 }
+            }
 
-            case .normal:
-                if let index = output.images.firstIndex(of: crudableImage) {
-                    if output.images[index].image.url != nil {
-                        output.images[index].updateData = nil
-                        output.images[index].shouldDelete = true
-                    } else {
-                        output.images.remove(at: index)
-                    }
-                }
-
-            case .icon, .unhandle:
-                break
+        case .icon, .unhandle:
+            break
         }
     }
-    
+
     func callValidations() -> Bool {
-        if !output.headerImageValidationResult.isValid {
-            output.headerImageValidationResult = HeaderValidator().validate(output.header)
+        if !self.output.headerImageValidationResult.isValid {
+            self.output.headerImageValidationResult = HeaderValidator().validate(self.output.header)
         }
-        if !output.courseImageValidationResult.isValid {
-            let images = output.images.filter(\.shouldDelete)
-            output.courseImageValidationResult = RockImageValidator().validate(images)
+        if !self.output.courseImageValidationResult.isValid {
+            let images = self.output.images.filter(\.shouldDelete)
+            self.output.courseImageValidationResult = RockImageValidator().validate(images)
         }
-        if !output.courseNameValidationResult.isValid {
-            output.courseNameValidationResult = CourseNameValidator().validate(output.courseName)
+        if !self.output.courseNameValidationResult.isValid {
+            self.output.courseNameValidationResult = CourseNameValidator()
+                .validate(self.output.courseName)
         }
 
         return [
-            output.courseNameValidationResult,
-            output.courseImageValidationResult,
-            output.headerImageValidationResult
+            self.output.courseNameValidationResult,
+            self.output.courseImageValidationResult,
+            self.output.headerImageValidationResult,
         ]
         .map(\.isValid)
         .allSatisfy { $0 }
     }
 
     var courseEntity: Entity.Course {
-        switch registerType {
-            case let .create(rockHeader):
-                return .init(
-                    id: UUID().uuidString,
-                    parentPath: AuthManager.shared.userPath,
-                    createdAt: Date(),
-                    updatedAt: nil,
-                    name: output.courseName,
-                    desc: output.courseDesc,
-                    grade: output.grade,
-                    shape: output.shapes,
-                    parentRockName: rockHeader.name,
-                    parentRockId: rockHeader.id,
-                    registeredUserId: AuthManager.shared.uid,
-                    headerUrl: nil,
-                    imageUrls: []
-                )
-                
-            case var .edit(course):
-                course.name = output.courseName
-                course.desc = output.courseDesc
-                course.grade = output.grade
-                course.shape = output.shapes
-                return course
+        switch self.registerType {
+        case let .create(rockHeader):
+            return .init(
+                id: UUID().uuidString,
+                parentPath: AuthManager.shared.userPath,
+                createdAt: Date(),
+                updatedAt: nil,
+                name: self.output.courseName,
+                desc: self.output.courseDesc,
+                grade: self.output.grade,
+                shape: self.output.shapes,
+                parentRockName: rockHeader.name,
+                parentRockId: rockHeader.id,
+                registeredUserId: AuthManager.shared.uid,
+                headerUrl: nil,
+                imageUrls: []
+            )
+
+        case var .edit(course):
+            course.name = self.output.courseName
+            course.desc = self.output.courseDesc
+            course.grade = self.output.grade
+            course.shape = self.output.shapes
+            return course
         }
     }
 }
 
 extension CourseRegisterViewModel {
-
     struct RockHeader {
         let name: String
         let id: String
@@ -226,25 +224,23 @@ extension CourseRegisterViewModel {
 
         var name: String {
             switch self {
-                case .create:
-                    return "作成"
-                case .edit:
-                    return "編集"
+            case .create:
+                return "作成"
+            case .edit:
+                return "編集"
             }
         }
     }
-
 }
 
 extension CourseRegisterViewModel {
-
     struct Input {
         let courseNameSubject = PassthroughSubject<String?, Never>()
         let courseDescSubject = PassthroughSubject<String?, Never>()
         let gradeSubject = PassthroughSubject<Entity.Course.Grade, Never>()
         let shapeSubject = PassthroughSubject<Set<Entity.Course.Shape>, Never>()
         let setImageSubject = PassthroughSubject<(Data, Entity.Image.ImageType), Never>()
-        let deleteImageSubject = PassthroughSubject<(CrudableImage), Never>()
+        let deleteImageSubject = PassthroughSubject<CrudableImage, Never>()
     }
 
     final class Output {

@@ -1,42 +1,34 @@
-//
-//  LocationSelectCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/11.
-//
-
-import UIKit
 import MapKit
+import UIKit
 
 class LocationSelectCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var mapBaseView: UIView!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var currentAddressButton: UIButton!
-    @IBOutlet weak var selectLocationButton: UIButton!
-    
+    @IBOutlet var mapView: MKMapView!
+    @IBOutlet var mapBaseView: UIView!
+    @IBOutlet var addressLabel: UILabel!
+    @IBOutlet var currentAddressButton: UIButton!
+    @IBOutlet var selectLocationButton: UIButton!
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        currentAddressButton.layer.cornerRadius = 8
-        mapBaseView.layer.cornerRadius = 8
+
+        self.currentAddressButton.layer.cornerRadius = 8
+        self.mapBaseView.layer.cornerRadius = 8
     }
-    
+
     func configure(locationStructure: LocationManager.LocationStructure) {
-        addressLabel.text = locationStructure.address
-        
-        mapView.setRegion(
+        self.addressLabel.text = locationStructure.address
+
+        self.mapView.setRegion(
             .init(
                 center: locationStructure.location.coordinate,
                 span: .init(latitudeDelta: 0.001, longitudeDelta: 0.001)
             ),
             animated: true
         )
-        
-        mapView.removeAnnotations(mapView.annotations)
+
+        self.mapView.removeAnnotations(self.mapView.annotations)
         let rockAddressPin = MKPointAnnotation()
         rockAddressPin.coordinate = locationStructure.location.coordinate
-        mapView.addAnnotation(rockAddressPin)
+        self.mapView.addAnnotation(rockAddressPin)
     }
-
 }

@@ -1,91 +1,89 @@
-//
-//  RockLocationCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/02/07.
-//
-
-import UIKit
 import MapKit
+import UIKit
 
 class RockLocationCollectionViewCell: UICollectionViewCell {
-    
     let stackView = UIStackView()
     let addressLabel = UILabel()
     let mapView = MKMapView()
     lazy var trackingButton: MKUserTrackingButton = {
-        return .init(mapView: mapView)
+        .init(mapView: mapView)
     }()
-    
+
     var location: CLLocationCoordinate2D = .init(latitude: 0, longitude: 0)
     private let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
+        self.setupLayout()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupLayout()
+        self.setupLayout()
     }
-    
+
     func configure(locationStructure: LocationManager.LocationStructure) {
-        addressLabel.text = locationStructure.address
-        
-        mapView.setRegion(
+        self.addressLabel.text = locationStructure.address
+
+        self.mapView.setRegion(
             .init(
                 center: locationStructure.location.coordinate,
-                span: span
+                span: self.span
             ),
             animated: false
         )
-        
+
         let rockAnnotation = MKPointAnnotation()
         rockAnnotation.coordinate = locationStructure.location.coordinate
-        mapView.addAnnotation(rockAnnotation)
+        self.mapView.addAnnotation(rockAnnotation)
     }
-    
+
     private func setupLayout() {
-        addSubview(stackView)
-        stackView.axis = .vertical
-        stackView.spacing = 16
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(self.stackView)
+        self.stackView.axis = .vertical
+        self.stackView.spacing = 16
+        self.stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            self.stackView.topAnchor.constraint(equalTo: topAnchor),
+            self.stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            self.stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            self.stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
-        
-        stackView.addArrangedSubview(addressLabel)
-        addressLabel.numberOfLines = 0
-        addressLabel.textColor = .darkGray
-        addressLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        
-        stackView.addArrangedSubview(mapView)
-        mapView.translatesAutoresizingMaskIntoConstraints = false
+
+        self.stackView.addArrangedSubview(self.addressLabel)
+        self.addressLabel.numberOfLines = 0
+        self.addressLabel.textColor = .darkGray
+        self.addressLabel.font = UIFont.preferredFont(forTextStyle: .body)
+
+        self.stackView.addArrangedSubview(self.mapView)
+        self.mapView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            mapView.heightAnchor.constraint(equalToConstant: bounds.width * 9/16)
+            self.mapView.heightAnchor.constraint(equalToConstant: bounds.width * 9 / 16),
         ])
-        mapView.showsUserLocation = true
-        mapView.layer.cornerRadius = 8
-        
-        trackingButton.tintColor = UIColor.Pallete.primaryGreen
-        trackingButton.backgroundColor = .white
-        trackingButton.layer.cornerRadius = 4
-        trackingButton.layer.shadowRadius = Resources.Const.UI.Shadow.radius
-        trackingButton.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
-        trackingButton.layer.shadowColor = Resources.Const.UI.Shadow.color
-        trackingButton.layer.shadowOffset = .init(width: 4, height: 4)
-        
-        trackingButton.translatesAutoresizingMaskIntoConstraints = false
-        mapView.addSubview(trackingButton)
+        self.mapView.showsUserLocation = true
+        self.mapView.layer.cornerRadius = 8
+
+        self.trackingButton.tintColor = UIColor.Pallete.primaryGreen
+        self.trackingButton.backgroundColor = .white
+        self.trackingButton.layer.cornerRadius = 4
+        self.trackingButton.layer.shadowRadius = Resources.Const.UI.Shadow.radius
+        self.trackingButton.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
+        self.trackingButton.layer.shadowColor = Resources.Const.UI.Shadow.color
+        self.trackingButton.layer.shadowOffset = .init(width: 4, height: 4)
+
+        self.trackingButton.translatesAutoresizingMaskIntoConstraints = false
+        self.mapView.addSubview(self.trackingButton)
         NSLayoutConstraint.activate([
-            trackingButton.heightAnchor.constraint(equalToConstant: 44),
-            trackingButton.widthAnchor.constraint(equalToConstant: 44),
-            trackingButton.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -8),
-            trackingButton.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -8)
+            self.trackingButton.heightAnchor.constraint(equalToConstant: 44),
+            self.trackingButton.widthAnchor.constraint(equalToConstant: 44),
+            self.trackingButton.bottomAnchor.constraint(
+                equalTo: self.mapView.bottomAnchor,
+                constant: -8
+            ),
+            self.trackingButton.rightAnchor.constraint(
+                equalTo: self.mapView.rightAnchor,
+                constant: -8
+            ),
         ])
     }
 }

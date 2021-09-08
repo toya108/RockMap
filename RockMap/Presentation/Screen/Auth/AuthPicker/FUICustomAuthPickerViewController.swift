@@ -1,13 +1,4 @@
-//
-//  FUICustomAuthPickerViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/11/29.
-//
-
-import UIKit
 import FirebaseAuthUI
+import UIKit
 
-final class FUICustomAuthPickerViewController: FUIAuthPickerViewController {
-
-}
+final class FUICustomAuthPickerViewController: FUIAuthPickerViewController {}

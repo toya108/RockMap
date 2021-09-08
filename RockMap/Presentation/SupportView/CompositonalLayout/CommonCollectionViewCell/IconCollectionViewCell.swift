@@ -1,83 +1,79 @@
-//
-//  IconCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/12.
-//
-
 import UIKit
 
 class IconCollectionViewCell: UICollectionViewCell {
-    
     let stackView = UIStackView()
     let iconImageView = UIImageView()
     let titleLabel = UILabel()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
+        self.setupLayout()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupLayout()
+        self.setupLayout()
     }
-    
+
     var isSelecting: Bool = false {
         didSet {
-            if isSelecting {
+            if self.isSelecting {
                 layer.borderColor = UIColor.Pallete.primaryGreen.cgColor
                 layer.borderWidth = 1.5
-                titleLabel.textColor = UIColor.Pallete.primaryGreen
-                titleLabel.font = .systemFont(ofSize: 17, weight: .medium)
+                self.titleLabel.textColor = UIColor.Pallete.primaryGreen
+                self.titleLabel.font = .systemFont(ofSize: 17, weight: .medium)
             } else {
                 layer.borderColor = UIColor.gray.cgColor
                 layer.borderWidth = 1
-                titleLabel.textColor = .gray
-                titleLabel.font = .systemFont(ofSize: 17)
+                self.titleLabel.textColor = .gray
+                self.titleLabel.font = .systemFont(ofSize: 17)
             }
         }
     }
-    
+
     private func setupLayout() {
         layer.cornerRadius = 8
-        
-        stackView.axis = .horizontal
-        stackView.alignment = .fill
-        stackView.spacing = 4
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(stackView)
-        
+
+        self.stackView.axis = .horizontal
+        self.stackView.alignment = .fill
+        self.stackView.spacing = 4
+        self.stackView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(self.stackView)
+
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8)
+            self.stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
+            self.stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
+            self.stackView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: 8
+            ),
+            self.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -8),
         ])
-        
-        iconImageView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.addArrangedSubview(iconImageView)
-        
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.textAlignment = .center
-        titleLabel.textColor = .gray
-        stackView.addArrangedSubview(titleLabel)
-        
+
+        self.iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.stackView.addArrangedSubview(self.iconImageView)
+
+        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.titleLabel.textAlignment = .center
+        self.titleLabel.textColor = .gray
+        self.stackView.addArrangedSubview(self.titleLabel)
+
         NSLayoutConstraint.activate([
-            iconImageView.widthAnchor.constraint(equalToConstant: 24),
-            iconImageView.heightAnchor.constraint(equalToConstant: 24)
+            self.iconImageView.widthAnchor.constraint(equalToConstant: 24),
+            self.iconImageView.heightAnchor.constraint(equalToConstant: 24),
         ])
     }
-    
+
     func configure(icon: UIImage? = nil, title: String) {
         if
             let icon = icon
         {
-            iconImageView.image = icon
+            self.iconImageView.image = icon
         } else {
-            stackView.arrangedSubviews.first(where: { $0 === iconImageView })?.removeFromSuperview()
+            self.stackView.arrangedSubviews.first(where: { $0 === iconImageView })?
+                .removeFromSuperview()
         }
-        
-        titleLabel.text = title
+
+        self.titleLabel.text = title
     }
 }

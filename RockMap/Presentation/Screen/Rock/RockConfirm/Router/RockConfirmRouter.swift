@@ -1,14 +1,6 @@
-//
-//  RockConfirmRouter.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/31.
-//
-
 import UIKit
 
 struct RockConfirmRouter: RouterProtocol {
-
     typealias Destination = DestinationType
     typealias ViewModel = RockConfirmViewModel
 
@@ -27,18 +19,14 @@ struct RockConfirmRouter: RouterProtocol {
         from: UIViewController
     ) {
         switch destination {
-            case .dismiss:
-                dismiss(from)
-
+        case .dismiss:
+            self.dismiss(from)
         }
     }
 
     private func dismiss(_ from: UIViewController) {
-        
         RegisterSucceededViewController.showSuccessView(present: from) {
-
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-
                 UIApplication.shared.windows
                     .first(where: { $0.isKeyWindow })?
                     .rootViewController?
@@ -55,8 +43,6 @@ struct RockConfirmRouter: RouterProtocol {
 
                 presentedVc.didRockRegisterFinished()
             }
-
         }
-
     }
 }

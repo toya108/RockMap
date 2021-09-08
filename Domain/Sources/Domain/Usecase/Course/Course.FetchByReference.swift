@@ -16,10 +16,9 @@ public extension Domain.Usecase.Course {
         }
 
         public func fetch(by reference: String) -> AnyPublisher<Domain.Entity.Course, Error> {
-            repository.request(parameters: .init(reference: reference))
+            self.repository.request(parameters: .init(reference: reference))
                 .map { mapper.map(from: $0) }
                 .eraseToAnyPublisher()
         }
-
     }
 }

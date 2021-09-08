@@ -1,10 +1,9 @@
-import XCTest
 import FirebaseFirestore
+import XCTest
 
 @testable import DataLayer
 
 final class DocumentProtocolTests: XCTestCase {
-
     override func setUp() {
         super.setUp()
         FirebaseTestHelper.setupFirebaseApp()
@@ -29,8 +28,8 @@ final class DocumentProtocolTests: XCTestCase {
 
     func testUserReference() throws {
         XCTAssertEqual(
-            FS.Collection.Users.name + "/" + userDocument.id,
-            userDocument.reference.path
+            FS.Collection.Users.name + "/" + self.userDocument.id,
+            self.userDocument.reference.path
         )
     }
 
@@ -39,7 +38,7 @@ final class DocumentProtocolTests: XCTestCase {
             id: UUID().uuidString,
             createdAt: Date(),
             updatedAt: nil,
-            parentPath: userDocument.reference.path,
+            parentPath: self.userDocument.reference.path,
             name: "aaa",
             address: "北海道",
             prefecture: "北海道",
@@ -47,15 +46,15 @@ final class DocumentProtocolTests: XCTestCase {
             seasons: [],
             lithology: "chert",
             desc: "aaa",
-            registeredUserId: userDocument.id,
+            registeredUserId: self.userDocument.id,
             headerUrl: nil
         )
 
         let expectPath = [
             FS.Collection.Users.name,
-            userDocument.id,
+            self.userDocument.id,
             FS.Collection.Rocks.name,
-            rockDocument.id
+            rockDocument.id,
         ].joined(separator: "/")
 
         XCTAssertEqual(
@@ -67,7 +66,7 @@ final class DocumentProtocolTests: XCTestCase {
     func testCourseReference() throws {
         let courseDocument = FS.Document.Course(
             id: UUID().uuidString,
-            parentPath: userDocument.reference.path,
+            parentPath: self.userDocument.reference.path,
             createdAt: Date(),
             updatedAt: nil,
             name: "aaa",
@@ -76,15 +75,15 @@ final class DocumentProtocolTests: XCTestCase {
             shape: [],
             parentRockName: "rock",
             parentRockId: UUID().uuidString,
-            registeredUserId: userDocument.id,
+            registeredUserId: self.userDocument.id,
             headerUrl: nil,
             imageUrls: []
         )
         let expectPath = [
             FS.Collection.Users.name,
-            userDocument.id,
+            self.userDocument.id,
             FS.Collection.Courses.name,
-            courseDocument.id
+            courseDocument.id,
         ].joined(separator: "/")
 
         XCTAssertEqual(
@@ -98,21 +97,21 @@ final class DocumentProtocolTests: XCTestCase {
 
         let climbRecordDocument = FS.Document.ClimbRecord(
             id: UUID().uuidString,
-            registeredUserId: userDocument.id,
+            registeredUserId: self.userDocument.id,
             parentCourseId: dummyDocumentReference.documentID,
             parentCourseReference: dummyDocumentReference,
             totalNumberReference: dummyDocumentReference,
             createdAt: Date(),
             updatedAt: nil,
-            parentPath: userDocument.reference.path,
+            parentPath: self.userDocument.reference.path,
             climbedDate: Date(),
             type: "flash"
         )
         let expectPath = [
             FS.Collection.Users.name,
-            userDocument.id,
+            self.userDocument.id,
             FS.Collection.ClimbRecord.name,
-            climbRecordDocument.id
+            climbRecordDocument.id,
         ].joined(separator: "/")
 
         XCTAssertEqual(

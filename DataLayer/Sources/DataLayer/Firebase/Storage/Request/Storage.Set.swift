@@ -3,9 +3,7 @@ import Combine
 import Foundation
 
 public extension FireStorage.Request {
-    
     struct Set: StorageRequestProtocol {
-
         public typealias Response = EmptyResponse
 
         public struct Parameters {
@@ -24,7 +22,7 @@ public extension FireStorage.Request {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var path: String {
-            parameters.path
+            self.parameters.path
         }
 
         public init(parameters: Parameters) {
@@ -35,10 +33,9 @@ public extension FireStorage.Request {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<EmptyResponse, Error> {
-            StorageAssets.storage.reference(withPath: path)
+            StorageAssets.storage.reference(withPath: self.path)
                 .putData(parameters.data)
                 .eraseToAnyPublisher()
         }
-
     }
 }

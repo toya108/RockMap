@@ -1,10 +1,3 @@
-//
-//  RockDetailViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/11/19.
-//
-
 import Combine
 import Foundation
 
@@ -25,7 +18,7 @@ final class RockDetailViewModel: ViewModelProtocol {
     private let fetchCoursesUsecase = Usecase.Course.FetchByRockId()
 
     private var bindings = Set<AnyCancellable>()
-    
+
     init(rock: Entity.Rock) {
         self.rockDocument = rock
 
@@ -33,7 +26,7 @@ final class RockDetailViewModel: ViewModelProtocol {
         self.rockId = rock.id
         self.rockDesc = rock.desc
 
-        fetchUserUsecase.fetchUser(by: rock.registeredUserId)
+        self.fetchUserUsecase.fetchUser(by: rock.registeredUserId)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
@@ -55,9 +48,9 @@ final class RockDetailViewModel: ViewModelProtocol {
         self.images = rock.imageUrls
         self.fetchCourses()
     }
-    
+
     func fetchCourses() {
-        fetchCoursesUsecase.fetch(by: rockDocument.id)
+        self.fetchCoursesUsecase.fetch(by: self.rockDocument.id)
             .catch { error -> Just<[Entity.Course]> in
                 print(error)
                 return .init([])
@@ -72,5 +65,4 @@ final class RockDetailViewModel: ViewModelProtocol {
         }
         .joined(separator: ", ")
     }
-
 }

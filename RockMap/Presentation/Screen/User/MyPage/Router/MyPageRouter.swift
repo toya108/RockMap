@@ -1,14 +1,6 @@
-//
-//  MyPageRouter.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/20.
-//
-
 import UIKit
 
 struct MyPageRouter: RouterProtocol {
-    
     typealias Destination = DestinationType
     typealias ViewModel = MyPageViewModel
 
@@ -32,23 +24,23 @@ struct MyPageRouter: RouterProtocol {
         from context: UIViewController
     ) {
         switch destination {
-            case .climbedCourseList:
-                pushClimbedCourseList(context)
+        case .climbedCourseList:
+            self.pushClimbedCourseList(context)
 
-            case .courseDetail(let course):
-                pushCourseDetail(context, course: course)
+        case let .courseDetail(course):
+            self.pushCourseDetail(context, course: course)
 
-            case .rockList:
-                pushRockList(context)
+        case .rockList:
+            self.pushRockList(context)
 
-            case .courseList:
-                pushCourseList(context)
+        case .courseList:
+            self.pushCourseList(context)
 
-            case .editProfile(let user):
-                presentEditProfile(context, user: user)
+        case let .editProfile(user):
+            self.presentEditProfile(context, user: user)
 
-            case .settings:
-                presentSettings(context)
+        case .settings:
+            self.presentSettings(context)
         }
     }
 
@@ -86,7 +78,10 @@ struct MyPageRouter: RouterProtocol {
     ) {
         let viewModel = EditProfileViewModel(user: user)
         let vc = EditProfileViewController.createInstance(viewModel: viewModel)
-        let nc = RockMapNavigationController(rootVC: vc, naviBarClass: RockMapNoShadowNavigationBar.self)
+        let nc = RockMapNavigationController(
+            rootVC: vc,
+            naviBarClass: RockMapNoShadowNavigationBar.self
+        )
         nc.isModalInPresentation = true
         from.present(nc, animated: true)
     }
@@ -94,8 +89,10 @@ struct MyPageRouter: RouterProtocol {
     private func presentSettings(
         _ from: UIViewController
     ) {
-        let nc = RockMapNavigationController(rootVC: SettingsViewController(), naviBarClass: RockMapNoShadowNavigationBar.self)
+        let nc = RockMapNavigationController(
+            rootVC: SettingsViewController(),
+            naviBarClass: RockMapNoShadowNavigationBar.self
+        )
         from.present(nc, animated: true)
     }
-
 }

@@ -4,7 +4,6 @@ import Combine
 import Foundation
 
 class RegisterClimbRecordViewModel {
-
     enum RegisterType {
         case edit(Entity.ClimbRecord)
         case create(Entity.Course)
@@ -25,7 +24,6 @@ class RegisterClimbRecordViewModel {
     }
 
     func isSelectedFutureDate(climbedDate: Date?) -> Bool {
-
         guard
             let climbedDate = climbedDate
         else {
@@ -34,16 +32,15 @@ class RegisterClimbRecordViewModel {
 
         let result = climbedDate.compare(Date())
         switch result {
-            case .orderedAscending, .orderedSame:
-                return false
+        case .orderedAscending, .orderedSame:
+            return false
 
-            case .orderedDescending:
-                return true
+        case .orderedDescending:
+            return true
         }
     }
 
     func editClimbRecord() {
-
         guard
             let climbedDate = climbedDate,
             case let .edit(climbed) = registerType
@@ -51,13 +48,13 @@ class RegisterClimbRecordViewModel {
             return
         }
 
-        loadingState = .loading
+        self.loadingState = .loading
 
         let targetClimbedDate: Date? = climbed.climbedDate == climbedDate ? nil : climbedDate
         let targetClimbedRecordType: Entity.ClimbRecord.ClimbedRecordType?
-            = climbed.type == climbRecordType ? nil : climbRecordType
+            = climbed.type == self.climbRecordType ? nil : self.climbRecordType
 
-        updateClimbRecordUsecase.update(
+        self.updateClimbRecordUsecase.update(
             parentPath: climbed.parentPath,
             id: climbed.id,
             climbedDate: targetClimbedDate,
@@ -77,11 +74,10 @@ class RegisterClimbRecordViewModel {
 
             self.loadingState = .finish(content: ())
         }
-        .store(in: &bindings)
+        .store(in: &self.bindings)
     }
 
     func registerClimbRecord() {
-
         guard
             let climbedDate = climbedDate,
             case let .create(course) = registerType
@@ -89,7 +85,7 @@ class RegisterClimbRecordViewModel {
             return
         }
 
-        loadingState = .loading
+        self.loadingState = .loading
 
         let climbRecord = Entity.ClimbRecord(
             id: UUID().uuidString,
@@ -103,7 +99,7 @@ class RegisterClimbRecordViewModel {
             type: .flash
         )
 
-        setClimbRecordUsecase.set(climbRecord: climbRecord)
+        self.setClimbRecordUsecase.set(climbRecord: climbRecord)
             .catch { [weak self] error -> Empty in
 
                 guard let self = self else { return Empty() }
@@ -117,7 +113,6 @@ class RegisterClimbRecordViewModel {
 
                 self.loadingState = .finish(content: ())
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
-
 }

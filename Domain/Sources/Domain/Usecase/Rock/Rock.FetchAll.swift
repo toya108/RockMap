@@ -16,12 +16,11 @@ public extension Domain.Usecase.Rock {
         }
 
         public func fetchAll() -> AnyPublisher<[Domain.Entity.Rock], Error> {
-            repository.request(parameters: .init())
+            self.repository.request(parameters: .init())
                 .map { responses -> [Domain.Entity.Rock] in
                     responses.map { mapper.map(from: $0) }
                 }
                 .eraseToAnyPublisher()
         }
-
     }
 }

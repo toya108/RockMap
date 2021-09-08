@@ -1,17 +1,12 @@
-//
-//  RockAnnotationsTableViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/27.
-//
-
 import UIKit
 
 protocol RockAnnotationTableViewDelegate: AnyObject {
     func didSelectRockAnnotaitonCell(rock: Entity.Rock)
 }
 
-class RockAnnotationListViewController: UIViewController, CompositionalColectionViewControllerProtocol {
+class RockAnnotationListViewController: UIViewController,
+    CompositionalColectionViewControllerProtocol
+{
     var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionKind, Entity.Rock>()
     var datasource: UICollectionViewDiffableDataSource<SectionKind, Entity.Rock>!
@@ -31,13 +26,13 @@ class RockAnnotationListViewController: UIViewController, CompositionalColection
 
         view.backgroundColor = .systemGroupedBackground
         configureCollectionView(topInset: 16)
-        setupSections()
+        self.setupSections()
     }
 
     private func setupSections() {
-        snapShot.appendSections([.main])
-        snapShot.appendItems(rocks, toSection: .main)
-        datasource.apply(snapShot)
+        self.snapShot.appendSections([.main])
+        self.snapShot.appendItems(self.rocks, toSection: .main)
+        self.datasource.apply(self.snapShot)
     }
 }
 
@@ -49,10 +44,9 @@ extension RockAnnotationListViewController {
 
 extension RockAnnotationListViewController {
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, Entity.Rock> {
-
         let datasource = UICollectionViewDiffableDataSource<SectionKind, Entity.Rock>(
             collectionView: collectionView
-        ) { [weak self] collectionView, indexPath, rock in
+        ) { [weak self] _, indexPath, rock in
 
             guard let self = self else { return UICollectionViewCell() }
 
@@ -86,7 +80,7 @@ extension RockAnnotationListViewController {
 
     func createLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout { _, env -> NSCollectionLayoutSection in
-            return NSCollectionLayoutSection.list(
+            NSCollectionLayoutSection.list(
                 using: .init(appearance: .insetGrouped),
                 layoutEnvironment: env
             )
@@ -97,7 +91,6 @@ extension RockAnnotationListViewController {
 }
 
 extension RockAnnotationListViewController: UICollectionViewDelegate {
-
     func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
@@ -108,7 +101,6 @@ extension RockAnnotationListViewController: UICollectionViewDelegate {
             return
         }
 
-        delegate?.didSelectRockAnnotaitonCell(rock: selectedRock)
+        self.delegate?.didSelectRockAnnotaitonCell(rock: selectedRock)
     }
-
 }

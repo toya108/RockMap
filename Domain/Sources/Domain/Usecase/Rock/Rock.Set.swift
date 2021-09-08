@@ -1,7 +1,7 @@
 
-import Foundation
 import Combine
 import DataLayer
+import Foundation
 
 public extension Domain.Usecase.Rock {
     struct Set: PassthroughUsecaseProtocol {
@@ -17,13 +17,12 @@ public extension Domain.Usecase.Rock {
         }
 
         public func set(rock: Domain.Entity.Rock) -> AnyPublisher<Void, Error> {
-            let document = mapper.reverse(to: rock)
-            return repository.request(
+            let document = self.mapper.reverse(to: rock)
+            return self.repository.request(
                 parameters: .init(rock: document)
             )
-            .map { _ in ()}
+            .map { _ in () }
             .eraseToAnyPublisher()
         }
-
     }
 }

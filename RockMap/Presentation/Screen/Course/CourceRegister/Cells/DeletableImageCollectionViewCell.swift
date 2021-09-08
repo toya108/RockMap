@@ -1,52 +1,44 @@
-//
-//  DeletableImageCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/02/19.
-//
-
 import UIKit
 
 class DeletableImageCollectionViewCell: UICollectionViewCell {
-    
     let imageView = UIImageView()
     let deleteButton = UIButton()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
+        self.setupLayout()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupLayout()
+        self.setupLayout()
     }
-    
+
     private func setupLayout() {
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.isUserInteractionEnabled = true
-        imageView.layer.cornerRadius = Resources.Const.UI.View.radius
-        imageView.clipsToBounds = true
-        imageView.contentMode = .scaleAspectFill
-        
-        contentView.addSubview(imageView)
-        
+        self.imageView.translatesAutoresizingMaskIntoConstraints = false
+        self.imageView.isUserInteractionEnabled = true
+        self.imageView.layer.cornerRadius = Resources.Const.UI.View.radius
+        self.imageView.clipsToBounds = true
+        self.imageView.contentMode = .scaleAspectFill
+
+        contentView.addSubview(self.imageView)
+
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+            self.imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            self.imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            self.imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            self.imageView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
         ])
-        
-        deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.setImage(UIImage.SystemImages.xmarkCircleFill, for: .normal)
-        deleteButton.tintColor = .white
-        imageView.addSubview(deleteButton)
+
+        self.deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        self.deleteButton.setImage(UIImage.SystemImages.xmarkCircleFill, for: .normal)
+        self.deleteButton.tintColor = .white
+        self.imageView.addSubview(self.deleteButton)
         NSLayoutConstraint.activate([
-            deleteButton.heightAnchor.constraint(equalToConstant: 44),
-            deleteButton.widthAnchor.constraint(equalToConstant: 44),
-            deleteButton.topAnchor.constraint(equalTo: imageView.topAnchor),
-            deleteButton.rightAnchor.constraint(equalTo: imageView.rightAnchor)
+            self.deleteButton.heightAnchor.constraint(equalToConstant: 44),
+            self.deleteButton.widthAnchor.constraint(equalToConstant: 44),
+            self.deleteButton.topAnchor.constraint(equalTo: self.imageView.topAnchor),
+            self.deleteButton.rightAnchor.constraint(equalTo: self.imageView.rightAnchor),
         ])
     }
 
@@ -54,14 +46,13 @@ class DeletableImageCollectionViewCell: UICollectionViewCell {
         crudableImage: CrudableImage,
         deleteButtonTapped: @escaping () -> Void
     ) {
-
         if let data = crudableImage.updateData {
-            imageView.image = UIImage(data: data)
+            self.imageView.image = UIImage(data: data)
         } else {
-            imageView.loadImage(url: crudableImage.image.url)
+            self.imageView.loadImage(url: crudableImage.image.url)
         }
 
-        deleteButton.addAction(
+        self.deleteButton.addAction(
             .init { _ in
                 deleteButtonTapped()
             },

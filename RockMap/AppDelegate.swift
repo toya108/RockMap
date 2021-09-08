@@ -1,24 +1,16 @@
-//
-//  AppDelegate.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/10/03.
-//
-
-import UIKit
 import Firebase
 import FirebaseAuthUI
+import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        setupFirebase()
-        setupRemoteConfig()
-        setupPermissionOfLocation()
+        self.setupFirebase()
+        self.setupRemoteConfig()
+        self.setupPermissionOfLocation()
         return true
     }
 
@@ -27,13 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey: Any]
     ) -> Bool {
-
         guard
-            let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
+            let sourceApplication =
+            options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String
         else {
             return false
         }
-        
+
         // GoogleもしくはFacebook認証の場合、trueを返す
         if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
             return true
@@ -42,7 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func setupFirebase() {
-
         let configFileName: String
         #if DEBUG
         configFileName = "GoogleService-Info-dev"
@@ -78,4 +69,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         LocationManager.shared.requestWhenInUseAuthorization()
     }
 }
-

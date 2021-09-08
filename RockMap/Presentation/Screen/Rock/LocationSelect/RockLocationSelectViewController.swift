@@ -1,48 +1,40 @@
-//
-//  RockLocationSelectViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/11/08.
-//
-
-import UIKit
-import MapKit
 import Combine
+import MapKit
+import UIKit
 
 class RockLocationSelectViewController: UIViewController {
-    
     @Published private var location = LocationManager.shared.location
     private var address = ""
     private var prefecture = ""
-    
+
     private var bindings = Set<AnyCancellable>()
     private let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
-    
-    @IBOutlet weak var locationSelectMapView: MKMapView!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var mapView: MKMapView!
-    
+
+    @IBOutlet var locationSelectMapView: MKMapView!
+    @IBOutlet var addressLabel: UILabel!
+    @IBOutlet var mapView: MKMapView!
+
     private lazy var trackingButton: MKUserTrackingButton = {
-        return .init(mapView: mapView)
+        .init(mapView: mapView)
     }()
-    
+
     init?(coder: NSCoder, location: CLLocation) {
         self.location = location
         super.init(coder: coder)
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupNavigationBar()
-        setupBindings()
-        setupMapView()
+
+        self.setupNavigationBar()
+        self.setupBindings()
+        self.setupMapView()
     }
-    
+
     private func setupNavigationBar() {
         navigationItem.title = "岩の位置を選択する"
         navigationItem.setLeftBarButton(
@@ -50,21 +42,21 @@ class RockLocationSelectViewController: UIViewController {
                 image: UIImage.SystemImages.xmark,
                 style: .plain,
                 target: self,
-                action: #selector(didCancelButtonTapped)
+                action: #selector(self.didCancelButtonTapped)
             ),
             animated: true
         )
-        
+
         let doneButton = UIBarButtonItem(
             title: "完了",
             style: .done,
             target: self,
-            action: #selector(didCompleteButtonTapped)
+            action: #selector(self.didCompleteButtonTapped)
         )
         doneButton.tintColor = UIColor.Pallete.primaryGreen
         navigationItem.setRightBarButton(doneButton, animated: true)
     }
-    
+
     private func setupBindings() {
         $location
             .removeDuplicates()
@@ -72,7 +64,7 @@ class RockLocationSelectViewController: UIViewController {
                 LocationManager.shared.reverseGeocoding(location: $0)
             }
             .catch { _ -> Just<CLPlacemark> in
-                return .init(.init())
+                .init(.init())
             }
             .sink { [weak self] placemark in
 
@@ -82,90 +74,104 @@ class RockLocationSelectViewController: UIViewController {
                 self.prefecture = placemark.prefecture
                 self.addressLabel.text = "📍 " + placemark.address
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
-    
+
     private func setupMapView() {
-        mapView.delegate = self
-        
-        trackingButton.tintColor = UIColor.Pallete.primaryGreen
-        trackingButton.backgroundColor = .white
-        trackingButton.layer.cornerRadius = 4
-        trackingButton.layer.shadowRadius = Resources.Const.UI.Shadow.radius
-        trackingButton.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
-        trackingButton.layer.shadowColor = Resources.Const.UI.Shadow.color
-        trackingButton.layer.shadowOffset = .init(width: 4, height: 4)
-        
-        trackingButton.translatesAutoresizingMaskIntoConstraints = false
-        mapView.addSubview(trackingButton)
+        self.mapView.delegate = self
+
+        self.trackingButton.tintColor = UIColor.Pallete.primaryGreen
+        self.trackingButton.backgroundColor = .white
+        self.trackingButton.layer.cornerRadius = 4
+        self.trackingButton.layer.shadowRadius = Resources.Const.UI.Shadow.radius
+        self.trackingButton.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
+        self.trackingButton.layer.shadowColor = Resources.Const.UI.Shadow.color
+        self.trackingButton.layer.shadowOffset = .init(width: 4, height: 4)
+
+        self.trackingButton.translatesAutoresizingMaskIntoConstraints = false
+        self.mapView.addSubview(self.trackingButton)
         NSLayoutConstraint.activate([
-            trackingButton.heightAnchor.constraint(equalToConstant: 44),
-            trackingButton.widthAnchor.constraint(equalToConstant: 44),
-            trackingButton.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -8),
-            trackingButton.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -8)
+            self.trackingButton.heightAnchor.constraint(equalToConstant: 44),
+            self.trackingButton.widthAnchor.constraint(equalToConstant: 44),
+            self.trackingButton.bottomAnchor.constraint(
+                equalTo: self.mapView.bottomAnchor,
+                constant: -8
+            ),
+            self.trackingButton.rightAnchor.constraint(
+                equalTo: self.mapView.rightAnchor,
+                constant: -8
+            ),
         ])
-        
-        locationSelectMapView.setRegion(.init(center: location.coordinate, span: span), animated: true)
-        
+
+        self.locationSelectMapView.setRegion(
+            .init(center: self.location.coordinate, span: self.span),
+            animated: true
+        )
+
         let rockAddressPin = MKPointAnnotation()
-        rockAddressPin.coordinate = location.coordinate
-        locationSelectMapView.addAnnotation(rockAddressPin)
-        
-        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(didMapViewLongPressed(_:)))
-        locationSelectMapView.addGestureRecognizer(longPressGestureRecognizer)
+        rockAddressPin.coordinate = self.location.coordinate
+        self.locationSelectMapView.addAnnotation(rockAddressPin)
+
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(self.didMapViewLongPressed(_:))
+        )
+        self.locationSelectMapView.addGestureRecognizer(longPressGestureRecognizer)
     }
-    
+
     @objc private func didCompleteButtonTapped() {
         dismiss(animated: true) { [weak self] in
-            
+
             guard
                 let self = self,
                 let presenting = self.topViewController(
-                    controller: UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController
+                    controller: UIApplication.shared.windows.first { $0.isKeyWindow }?
+                        .rootViewController
                 ) as? RockRegisterViewController
             else {
                 return
             }
-            
+
             presenting.viewModel.input.locationSubject.send(
                 .init(location: self.location, address: self.address)
             )
         }
     }
-    
+
     @objc private func didCancelButtonTapped() {
         dismiss(animated: true)
     }
-    
+
     @objc private func didMapViewLongPressed(_ sender: UILongPressGestureRecognizer) {
-        locationSelectMapView.removeAnnotations(locationSelectMapView.annotations)
-        
+        self.locationSelectMapView.removeAnnotations(self.locationSelectMapView.annotations)
+
         let rockAddressPin = MKPointAnnotation()
-        let tapPoint = sender.location(in: locationSelectMapView)
-        let coordinate = locationSelectMapView.convert(tapPoint, toCoordinateFrom: locationSelectMapView)
+        let tapPoint = sender.location(in: self.locationSelectMapView)
+        let coordinate = self.locationSelectMapView.convert(
+            tapPoint,
+            toCoordinateFrom: self.locationSelectMapView
+        )
         rockAddressPin.coordinate = coordinate
-        locationSelectMapView.addAnnotation(rockAddressPin)
-        
+        self.locationSelectMapView.addAnnotation(rockAddressPin)
+
         self.location = .init(latitude: coordinate.latitude, longitude: coordinate.longitude)
     }
 }
 
 extension RockLocationSelectViewController: MKMapViewDelegate {
-    
     func mapView(
         _ mapView: MKMapView,
         viewFor annotation: MKAnnotation
     ) -> MKAnnotationView? {
-        
         if annotation === mapView.userLocation {
             return nil
         }
-        
+
         let annotationView = mapView.dequeueReusableAnnotationView(
             withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier,
             for: annotation
         )
-        
+
         guard
             let markerAnnotationView = annotationView as? MKMarkerAnnotationView
         else {
@@ -175,5 +181,4 @@ extension RockLocationSelectViewController: MKMapViewDelegate {
         markerAnnotationView.markerTintColor = UIColor.Pallete.primaryGreen
         return markerAnnotationView
     }
-    
 }

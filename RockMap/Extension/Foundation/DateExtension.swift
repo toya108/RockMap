@@ -1,14 +1,6 @@
-//
-//  DateExtension.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/29.
-//
-
 import Foundation
 
 extension Date {
-
     var formatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.locale = .init(identifier: "ja_JP")

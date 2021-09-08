@@ -1,14 +1,6 @@
-//
-//  TitleCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/16.
-//
-
 import UIKit
 
 class TitleCollectionViewCell: UICollectionViewCell {
-
     let stackView = UIStackView()
     let iconImageView = UIImageView()
     let titleLabel = UILabel()
@@ -16,19 +8,19 @@ class TitleCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
+        self.setupLayout()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupLayout()
+        self.setupLayout()
     }
 
     private func setupLayout() {
-        stackView.axis = .horizontal
-        stackView.spacing = 8
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(stackView)
+        self.stackView.axis = .horizontal
+        self.stackView.spacing = 8
+        self.stackView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(self.stackView)
         NSLayoutConstraint.build {
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor)
             stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
@@ -36,21 +28,21 @@ class TitleCollectionViewCell: UICollectionViewCell {
             stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         }
 
-        iconImageView.translatesAutoresizingMaskIntoConstraints = false
-        iconImageView.tintColor = .black
-        stackView.addArrangedSubview(iconImageView)
-        stackView.addArrangedSubview(titleLabel)
+        self.iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.iconImageView.tintColor = .black
+        self.stackView.addArrangedSubview(self.iconImageView)
+        self.stackView.addArrangedSubview(self.titleLabel)
 
         NSLayoutConstraint.build {
             iconImageView.heightAnchor.constraint(equalToConstant: 36)
             iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor)
         }
 
-        titleLabel.font = .systemFont(ofSize: 24, weight: .bold)
-        titleLabel.setContentHuggingPriority(.required, for: .horizontal)
+        self.titleLabel.font = .systemFont(ofSize: 24, weight: .bold)
+        self.titleLabel.setContentHuggingPriority(.required, for: .horizontal)
 
-        supplementalyLabel.font = .systemFont(ofSize: 24, weight: .bold)
-        stackView.addArrangedSubview(supplementalyLabel)
+        self.supplementalyLabel.font = .systemFont(ofSize: 24, weight: .bold)
+        self.stackView.addArrangedSubview(self.supplementalyLabel)
     }
 
     func configure(
@@ -59,12 +51,12 @@ class TitleCollectionViewCell: UICollectionViewCell {
         supplementalyTitle: String = ""
     ) {
         if let icon = icon {
-            iconImageView.image = icon.withRenderingMode(.alwaysTemplate)
-            iconImageView.isHidden = false
+            self.iconImageView.image = icon.withRenderingMode(.alwaysTemplate)
+            self.iconImageView.isHidden = false
         } else {
-            iconImageView.isHidden = true
+            self.iconImageView.isHidden = true
         }
-        titleLabel.text = title
-        supplementalyLabel.text = supplementalyTitle
+        self.titleLabel.text = title
+        self.supplementalyLabel.text = supplementalyTitle
     }
 }

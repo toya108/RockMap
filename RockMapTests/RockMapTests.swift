@@ -1,15 +1,7 @@
-//
-//  RockMapTests.swift
-//  RockMapTests
-//
-//  Created by TOUYA KAWANO on 2020/10/03.
-//
-
-import XCTest
 @testable import RockMap
+import XCTest
 
 class RockMapTests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -29,5 +21,4 @@ class RockMapTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
 }

@@ -1,14 +1,6 @@
-//
-//  RockRegisterRouter.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/31.
-//
-
 import UIKit
 
 struct RockRegisterRouter: RouterProtocol {
-
     typealias Destination = DestinationType
     typealias ViewModel = RockRegisterViewModel
 
@@ -29,22 +21,20 @@ struct RockRegisterRouter: RouterProtocol {
         from: UIViewController
     ) {
         switch destination {
-            case .rockConfirm:
-                pushRockConfirm(from)
+        case .rockConfirm:
+            self.pushRockConfirm(from)
 
-            case .rockSearch:
-                dismissToRockSearch(from)
+        case .rockSearch:
+            self.dismissToRockSearch(from)
 
-            case .locationSelect:
-                presentLocationSelect(from)
-
+        case .locationSelect:
+            self.presentLocationSelect(from)
         }
     }
 
     private func pushRockConfirm(
         _ from: UIViewController
     ) {
-
         guard
             viewModel.callValidations()
         else {
@@ -72,7 +62,7 @@ struct RockRegisterRouter: RouterProtocol {
                 .init(title: "破棄", style: .destructive) { _ in
                     from.dismiss(animated: true)
                 },
-                .init(title: "キャンセル", style: .cancel)
+                .init(title: "キャンセル", style: .cancel),
             ],
             style: .actionSheet
         )
@@ -93,7 +83,7 @@ struct RockRegisterRouter: RouterProtocol {
         )
 
         let vc = stroryBoard.instantiateInitialViewController { coder in
-            return RockLocationSelectViewController(
+            RockLocationSelectViewController(
                 coder: coder,
                 location: location
             )
@@ -112,6 +102,5 @@ struct RockRegisterRouter: RouterProtocol {
             ),
             animated: true
         )
-
     }
 }

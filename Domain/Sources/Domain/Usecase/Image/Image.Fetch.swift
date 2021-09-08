@@ -12,7 +12,6 @@ public extension Domain.Usecase.Image {
 }
 
 public extension Domain.Usecase.Image.Fetch {
-
     struct Header: FetchImageUsecaseProtocol {
         public typealias Repository = Repositories.Storage.Fetch.Header
         public typealias Mapper = Domain.Mapper.Image
@@ -29,7 +28,7 @@ public extension Domain.Usecase.Image.Fetch {
             id: String,
             destination: ImageDestination
         ) -> AnyPublisher<Domain.Entity.Image, Error> {
-            repository.request(
+            self.repository.request(
                 parameters: .init(
                     documentId: id,
                     collectionType: destination.to,
@@ -57,7 +56,7 @@ public extension Domain.Usecase.Image.Fetch {
             id: String,
             destination: ImageDestination
         ) -> AnyPublisher<Domain.Entity.Image, Error> {
-            repository.request(
+            self.repository.request(
                 parameters: .init(
                     documentId: id,
                     collectionType: destination.to,
@@ -85,7 +84,7 @@ public extension Domain.Usecase.Image.Fetch {
             id: String,
             destination: ImageDestination
         ) -> AnyPublisher<[Domain.Entity.Image], Error> {
-            repository.request(
+            self.repository.request(
                 parameters: .init(
                     documentId: id,
                     collectionType: destination.to,

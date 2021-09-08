@@ -4,7 +4,6 @@ import DataLayer
 
 public extension Domain.Usecase.TotalClimbedNumber {
     struct ListenByCourseId: PassthroughUsecaseProtocol {
-
         public typealias Repository = Repositories.TotalClimbedNumber.ListenByCourseId
         public typealias Mapper = Domain.Mapper.TotalClimbedNumber
 
@@ -21,7 +20,7 @@ public extension Domain.Usecase.TotalClimbedNumber {
             courseId: String,
             parantPath: String
         ) -> AnyPublisher<Domain.Entity.TotalClimbedNumber, Error> {
-            repository.request(parameters: .init(parentPath: parantPath, courseId: courseId))
+            self.repository.request(parameters: .init(parentPath: parantPath, courseId: courseId))
                 .map { mapper.map(from: $0) }
                 .eraseToAnyPublisher()
         }
