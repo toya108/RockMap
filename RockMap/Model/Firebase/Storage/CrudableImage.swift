@@ -25,41 +25,25 @@ struct CrudableImage: Hashable {
 struct CrudableImageV2: Hashable {
     var updateData: Data?
     var shouldDelete: Bool = false
+    var imageType: Entity.Image.ImageType
     let image: Entity.Image
 
     init(imageType: Entity.Image.ImageType) {
         self.updateData = nil
         self.shouldDelete = false
-        self.image = .init(imageType: imageType)
+        self.image = .init()
+        self.imageType = imageType
     }
 
     init(
         updateData: Data? = nil,
         shouldDelete: Bool = false,
+        imageType: Entity.Image.ImageType,
         image: Entity.Image
     ) {
         self.updateData = updateData
         self.shouldDelete = shouldDelete
+        self.imageType = imageType
         self.image = image
     }
-//
-//    func addImage(
-//        set: 
-//    ) {
-//        if shouldDelete, let storage = image.storageReference {
-//            storage.delete(completion: { _ in })
-//            return
-//        }
-//
-//        if let storage = image.storageReference, let data = image.updateData {
-//            addData(data: data, reference: storage)
-//            return
-//        }
-//
-//        if let data = image.updateData {
-//            let reference = image.makeImageReference(documentId: id, documentType: documentType)
-//            addData(data: data, reference: reference)
-//            return
-//        }
-//    }
 }

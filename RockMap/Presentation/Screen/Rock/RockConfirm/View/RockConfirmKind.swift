@@ -66,8 +66,8 @@ extension RockConfirmViewController {
         case season(Set<Entity.Rock.Season>)
         case lithology(Entity.Rock.Lithology)
         case location(LocationManager.LocationStructure)
-        case header(CrudableImage)
-        case images(CrudableImage)
+        case header(CrudableImageV2)
+        case images(CrudableImageV2)
         case register
     }
     

@@ -19,6 +19,8 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
     let registerType: RegisterType
 
     private var bindings = Set<AnyCancellable>()
+    private let fetchHeaderUsecase = Usecase.Image.Fetch.Header()
+    private let fetchImagesUsecase = Usecase.Image.Fetch.Normal()
 
     init(registerType: RegisterType) {
         self.registerType = registerType
@@ -156,33 +158,22 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
     }
 
     private func fetchRockStorage(rockId: String) {
-        StorageManager
-            .getReference(
-                destinationDocument: FINameSpace.Rocks.self,
-                documentId: rockId,
-                imageType: .header
-            )
+
+        fetchHeaderUsecase.fetch(id: rockId, destination: .rock)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
             }
-            .map { .init(storageReference: $0, imageType: .header) }
+            .map { CrudableImageV2(imageType: .header, image: $0) }
             .assign(to: &output.$header)
 
-        StorageManager
-            .getNormalImagePrefixes(
-                destinationDocument: FINameSpace.Rocks.self,
-                documentId: rockId
-            )
+        fetchImagesUsecase.fetch(id: rockId, destination: .rock)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
             }
-            .flatMap {
-                $0.getReferences().catch { _ in return Empty() }
-            }
             .map {
-                $0.map { .init(storageReference: $0, imageType: .normal) }
+                $0.map { .init(imageType: .normal, image: $0) }
             }
             .assign(to: &self.output.$images)
     }
@@ -191,7 +182,13 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
 
         switch imageType {
             case .normal:
-                output.images.append(.init(updateData: data, imageType: imageType))
+                let newImage = CrudableImageV2(
+                    updateData: data,
+                    shouldDelete: false,
+                    imageType: .normal,
+                    image: .init()
+                )
+                output.images.append(newImage)
 
             case .header:
                 output.header.updateData = data
@@ -202,18 +199,18 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
         }
     }
 
-    private func deleteImage(_ image: CrudableImage) {
-        switch image.imageType {
+    private func deleteImage(_ crudableImage: CrudableImageV2) {
+        switch crudableImage.imageType {
             case .header:
                 output.header.updateData = nil
 
-                if output.header.storageReference != nil {
+                if output.header.image.url != nil {
                     output.header.shouldDelete = true
                 }
 
             case .normal:
-                if let index = output.images.firstIndex(of: image) {
-                    if output.images[index].storageReference != nil {
+                if let index = output.images.firstIndex(of: crudableImage) {
+                    if output.images[index].image.url != nil {
                         output.images[index].updateData = nil
                         output.images[index].shouldDelete = true
                     } else {
@@ -317,7 +314,7 @@ extension RockRegisterViewModel {
         let selectSeasonSubject = PassthroughSubject<Entity.Rock.Season, Never>()
         let lithologySubject = PassthroughSubject<Entity.Rock.Lithology, Never>()
         let setImageSubject = PassthroughSubject<(ImageType, Data), Never>()
-        let deleteImageSubject = PassthroughSubject<(CrudableImage), Never>()
+        let deleteImageSubject = PassthroughSubject<(CrudableImageV2), Never>()
     }
 
     final class Output {
@@ -326,8 +323,8 @@ extension RockRegisterViewModel {
         @Published var rockDesc = ""
         @Published var seasons: Set<Entity.Rock.Season> = []
         @Published var lithology: Entity.Rock.Lithology = .unKnown
-        @Published var header: CrudableImage = .init(imageType: .header)
-        @Published var images: [CrudableImage] = []
+        @Published var header: CrudableImageV2 = .init(imageType: .header)
+        @Published var images: [CrudableImageV2] = []
 
         @Published var rockNameValidationResult: ValidationResult = .none
         @Published var rockAddressValidationResult: ValidationResult = .none

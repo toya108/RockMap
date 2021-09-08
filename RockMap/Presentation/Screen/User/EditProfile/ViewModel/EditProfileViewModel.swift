@@ -22,10 +22,9 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
 
     private var bindings           = Set<AnyCancellable>()
     private let updateUserUsecase  = Usecase.User.Update()
-    private let fetchHeaderUsecase = Usecase.Image.Header.Fetch()
-    private let fetchIconUsecase   = Usecase.Image.Icon.Fetch()
-    private let writeHeaderUsecase   = Usecase.Image.Header.Write()
-    private let writeIconUsecase     = Usecase.Image.Icon.Write()
+    private let fetchHeaderUsecase = Usecase.Image.Fetch.Header()
+    private let fetchIconUsecase   = Usecase.Image.Fetch.Icon()
+    private let writeImageUsecase  = Usecase.Image.Write()
 
     init(user: Entity.User) {
         self.user = user
@@ -90,7 +89,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                 print(error)
                 return Empty()
             }
-            .map { .init(image: $0) }
+            .map { .init(imageType: .header, image: $0) }
             .assign(to: &output.$header)
 
         fetchIconUsecase.fetch(id: user.id, destination: .user)
@@ -98,7 +97,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                 print(error)
                 return Empty()
             }
-            .map { .init(image: $0) }
+            .map { .init(imageType: .icon, image: $0) }
             .assign(to: &output.$icon)
     }
 
@@ -148,24 +147,24 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
 
         self.output.imageUploadState = .loading
 
-        let writeHeader = writeHeaderUsecase.write(
+        let writeHeader = writeImageUsecase.write(
             data: output.header.updateData,
             shouldDelete: output.header.shouldDelete,
             image: output.header.image
         ) {
             .user
             user.id
-            output.header.image.imageType
+            output.header.imageType
         }
 
-        let writeIcon = writeIconUsecase.write(
+        let writeIcon = writeImageUsecase.write(
             data: output.icon.updateData,
             shouldDelete: output.icon.shouldDelete,
             image: output.icon.image
         ) {
             .user
             user.id
-            output.icon.image.imageType
+            output.icon.imageType
         }
 
         writeHeader.combineLatest(writeIcon)
@@ -179,7 +178,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             }
             .sink { [weak self] _ in
 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak self] in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
 
                     guard let self = self else { return }
 
