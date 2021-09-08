@@ -178,7 +178,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             .assign(to: &self.output.$images)
     }
 
-    private func setImage(imageType: ImageType, data: Data) {
+    private func setImage(imageType: Entity.Image.ImageType, data: Data) {
 
         switch imageType {
             case .normal:
@@ -194,7 +194,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
                 output.header.updateData = data
                 output.header.shouldDelete = false
 
-            case .icon:
+            case .icon, .unhandle:
                 break
         }
     }
@@ -313,7 +313,7 @@ extension RockRegisterViewModel {
         let locationSubject = PassthroughSubject<LocationManager.LocationStructure, Never>()
         let selectSeasonSubject = PassthroughSubject<Entity.Rock.Season, Never>()
         let lithologySubject = PassthroughSubject<Entity.Rock.Lithology, Never>()
-        let setImageSubject = PassthroughSubject<(ImageType, Data), Never>()
+        let setImageSubject = PassthroughSubject<(Entity.Image.ImageType, Data), Never>()
         let deleteImageSubject = PassthroughSubject<(CrudableImageV2), Never>()
     }
 

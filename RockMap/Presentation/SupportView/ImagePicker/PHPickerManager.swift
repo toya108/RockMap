@@ -10,14 +10,14 @@ import PhotosUI
 
 protocol PickerManagerDelegate: AnyObject {
     func beganResultHandling()
-    func didReceivePicking(data: Data, imageType: ImageType)
+    func didReceivePicking(data: Data, imageType: Entity.Image.ImageType)
 }
 
 class PickerManager: NSObject {
 
     weak var delegate: PickerManagerDelegate?
 
-    private var imageType: ImageType = .normal
+    private var imageType: Entity.Image.ImageType = .normal
     private let from: UIViewController
     private var configuration: PHPickerConfiguration
 
@@ -29,7 +29,7 @@ class PickerManager: NSObject {
         self.configuration = configuration
     }
 
-    func presentPhPicker(imageType: ImageType) {
+    func presentPhPicker(imageType: Entity.Image.ImageType) {
         self.imageType = imageType
         configuration.selectionLimit = imageType.limit
         let vc = PHPickerViewController(configuration: configuration)
@@ -39,7 +39,7 @@ class PickerManager: NSObject {
 
     func presentImagePicker(
         sourceType: UIImagePickerController.SourceType,
-        imageType: ImageType
+        imageType: Entity.Image.ImageType
     ) {
         self.imageType = imageType
         let vc = UIImagePickerController()

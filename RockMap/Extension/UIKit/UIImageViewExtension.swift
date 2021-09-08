@@ -31,45 +31,6 @@ extension UIImageView {
             self.image = UIImage.AssetsImages.noimage
         }
     }
-    
-    func loadImage(
-        reference: StorageReference?
-    ) {
-        guard
-            let reference = reference
-        else {
-            image = UIImage.AssetsImages.noimage
-            return
-        }
-
-        reference.getDownloadURL { [weak self] result in
-
-            guard let self = self else { return }
-
-            switch result {
-                case .success(let url):
-                    self.loadImage(url: url)
-
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    self.image = UIImage.AssetsImages.noimage
-            }
-        }
-    }
-
-    func loadImage(
-        imageLoadable: ImageLoadable
-    ) {
-        switch imageLoadable {
-            case .url(let url):
-                loadImage(url: url)
-
-            case .storage(let storage):
-                loadImage(reference: storage)
-        }
-
-    }
-
 }
 
 extension UIButton {

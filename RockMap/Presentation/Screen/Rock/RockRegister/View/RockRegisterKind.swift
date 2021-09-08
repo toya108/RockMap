@@ -88,7 +88,7 @@ extension RockRegisterViewController {
         case location(LocationManager.LocationStructure)
         case season(season: Entity.Rock.Season, isSelecting: Bool)
         case lithology(Entity.Rock.Lithology)
-        case noImage(ImageType)
+        case noImage(Entity.Image.ImageType)
         case header(CrudableImageV2)
         case images(CrudableImageV2)
         case confirmation

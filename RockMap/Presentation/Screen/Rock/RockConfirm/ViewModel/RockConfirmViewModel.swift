@@ -20,7 +20,6 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
     let images: [CrudableImageV2]
 
     private var bindings = Set<AnyCancellable>()
-    private let uploader = StorageUploader()
     private let setRockUsecase = Usecase.Rock.Set()
     private let updateRockUsecase = Usecase.Rock.Update()
     private let writeImageUsecase = Usecase.Image.Write()

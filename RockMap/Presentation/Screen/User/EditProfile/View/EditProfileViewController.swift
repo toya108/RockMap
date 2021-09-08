@@ -153,7 +153,7 @@ extension EditProfileViewController: PickerManagerDelegate {
 
     func didReceivePicking(
         data: Data,
-        imageType: ImageType
+        imageType: Entity.Image.ImageType
     ) {
         viewModel.input.setImageSubject.send((imageType, data))
     }

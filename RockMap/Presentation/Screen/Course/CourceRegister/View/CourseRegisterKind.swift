@@ -89,7 +89,7 @@ extension CourseRegisterViewController {
         case courseName
         case grade(Entity.Course.Grade)
         case shape(shape: Entity.Course.Shape, isSelecting: Bool)
-        case noImage(ImageType)
+        case noImage(Entity.Image.ImageType)
         case header(CrudableImageV2)
         case images(CrudableImageV2)
         case desc

@@ -213,7 +213,7 @@ extension CourseRegisterViewController {
     
     private func configureImageSelectCell() -> UICollectionView.CellRegistration<
         ImageSelactCollectionViewCell,
-        ImageType
+        Entity.Image.ImageType
     > {
         .init(
             cellNib: .init(
@@ -272,7 +272,7 @@ extension CourseRegisterViewController {
     
     private func setupImageUploadButtonActions(
         button: UIButton,
-        imageType: ImageType
+        imageType: Entity.Image.ImageType
     ) {
         let photoLibraryAction = UIAction(
             title: "フォトライブラリ",

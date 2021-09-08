@@ -91,7 +91,6 @@
 		9E60DCBA255714A1000CF2E8 /* RockLocationSelectViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E60DCB9255714A1000CF2E8 /* RockLocationSelectViewController.storyboard */; };
 		9E612BEF2588AFC000B2998A /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E612BEE2588AFC000B2998A /* Map.swift */; };
 		9E613ABC25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E613ABB25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift */; };
-		9E623688258A662B00152AF9 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E623687258A662B00152AF9 /* StorageManager.swift */; };
 		9E64FCFD26B59A82005984F6 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FCFC26B59A82005984F6 /* FirebaseAnalytics */; };
 		9E64FCFF26B59A82005984F6 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FCFE26B59A82005984F6 /* FirebaseRemoteConfig */; };
 		9E64FD0126B59A82005984F6 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0026B59A82005984F6 /* FirebaseStorage */; };
@@ -213,17 +212,13 @@
 		9EECEBB9265FBAD30057EE11 /* MyClimbRecordListLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECEBB8265FBAD30057EE11 /* MyClimbRecordListLayout.swift */; };
 		9EECEBBB265FBAE00057EE11 /* MyClimbRecordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECEBBA265FBAE00057EE11 /* MyClimbRecordListViewModel.swift */; };
 		9EED75E22669269F00E46676 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED75E12669269F00E46676 /* URL.swift */; };
-		9EF1895D258F98C5003492EE /* Uploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF1895C258F98C5003492EE /* Uploader.swift */; };
 		9EF71FD62611ADC700D5B375 /* PHPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF71FD52611ADC700D5B375 /* PHPickerManager.swift */; };
-		9EF74F792622044100974EBA /* StorageReference+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF74F782622044100974EBA /* StorageReference+Combine.swift */; };
 		9EF74F86262297C100974EBA /* RegisterClimbRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF74F85262297C100974EBA /* RegisterClimbRecordViewModel.swift */; };
 		9EF8E2B125EF6B8F00185A3D /* CourseConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF8E2B025EF6B8F00185A3D /* CourseConfirmViewModel.swift */; };
 		9EF8E2B625EF6E1C00185A3D /* CourseConfirmKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF8E2B525EF6E1C00185A3D /* CourseConfirmKind.swift */; };
 		9EF8E2BB25EF6E2B00185A3D /* CourseConfirmLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF8E2BA25EF6E2B00185A3D /* CourseConfirmLayout.swift */; };
 		9EF8E2C025EF6E4300185A3D /* CourseConfirmDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF8E2BF25EF6E4300185A3D /* CourseConfirmDatasource.swift */; };
 		9EFE2B2C2694AF4B002F4923 /* CrudableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFE2B2B2694AF4B002F4923 /* CrudableImage.swift */; };
-		9EFE88C826B034C400D8976F /* ImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFE88C726B034C400D8976F /* ImageType.swift */; };
-		9EFE88CA26B0360400D8976F /* ImageLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFE88C926B0360400D8976F /* ImageLoadable.swift */; };
 		9EFEE45625F7975F004BFE34 /* CourseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFEE45425F7975F004BFE34 /* CourseCollectionViewCell.swift */; };
 		9EFEE45725F7975F004BFE34 /* CourseCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFEE45525F7975F004BFE34 /* CourseCollectionViewCell.xib */; };
 		9EFEE45D25F79EE6004BFE34 /* NoCoursesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFEE45B25F79EE6004BFE34 /* NoCoursesCollectionViewCell.swift */; };
@@ -339,7 +334,6 @@
 		9E60DCB9255714A1000CF2E8 /* RockLocationSelectViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RockLocationSelectViewController.storyboard; sourceTree = "<group>"; };
 		9E612BEE2588AFC000B2998A /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		9E613ABB25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalImageListCollectionViewCell.swift; sourceTree = "<group>"; };
-		9E623687258A662B00152AF9 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		9E6C40BE2614779100F010BE /* RockConfirmRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmRouter.swift; sourceTree = "<group>"; };
 		9E6C40CF2614D0DA00F010BE /* ActivityIndicatorOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorOverlay.swift; sourceTree = "<group>"; };
 		9E6CF41B25CF10570098389E /* TitleSupplementaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSupplementaryView.swift; sourceTree = "<group>"; };
@@ -451,17 +445,13 @@
 		9EECEBB8265FBAD30057EE11 /* MyClimbRecordListLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClimbRecordListLayout.swift; sourceTree = "<group>"; };
 		9EECEBBA265FBAE00057EE11 /* MyClimbRecordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClimbRecordListViewModel.swift; sourceTree = "<group>"; };
 		9EED75E12669269F00E46676 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
-		9EF1895C258F98C5003492EE /* Uploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uploader.swift; sourceTree = "<group>"; };
 		9EF71FD52611ADC700D5B375 /* PHPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPickerManager.swift; sourceTree = "<group>"; };
-		9EF74F782622044100974EBA /* StorageReference+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StorageReference+Combine.swift"; sourceTree = "<group>"; };
 		9EF74F85262297C100974EBA /* RegisterClimbRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterClimbRecordViewModel.swift; sourceTree = "<group>"; };
 		9EF8E2B025EF6B8F00185A3D /* CourseConfirmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseConfirmViewModel.swift; sourceTree = "<group>"; };
 		9EF8E2B525EF6E1C00185A3D /* CourseConfirmKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseConfirmKind.swift; sourceTree = "<group>"; };
 		9EF8E2BA25EF6E2B00185A3D /* CourseConfirmLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseConfirmLayout.swift; sourceTree = "<group>"; };
 		9EF8E2BF25EF6E4300185A3D /* CourseConfirmDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseConfirmDatasource.swift; sourceTree = "<group>"; };
 		9EFE2B2B2694AF4B002F4923 /* CrudableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrudableImage.swift; sourceTree = "<group>"; };
-		9EFE88C726B034C400D8976F /* ImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageType.swift; sourceTree = "<group>"; };
-		9EFE88C926B0360400D8976F /* ImageLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoadable.swift; sourceTree = "<group>"; };
 		9EFEE45425F7975F004BFE34 /* CourseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EFEE45525F7975F004BFE34 /* CourseCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CourseCollectionViewCell.xib; sourceTree = "<group>"; };
 		9EFEE45B25F79EE6004BFE34 /* NoCoursesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCoursesCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -859,12 +849,7 @@
 		9E623686258A660700152AF9 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				9E623687258A662B00152AF9 /* StorageManager.swift */,
-				9EF74F782622044100974EBA /* StorageReference+Combine.swift */,
-				9EF1895C258F98C5003492EE /* Uploader.swift */,
 				9EFE2B2B2694AF4B002F4923 /* CrudableImage.swift */,
-				9EFE88C726B034C400D8976F /* ImageType.swift */,
-				9EFE88C926B0360400D8976F /* ImageLoadable.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -1819,7 +1804,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E623688258A662B00152AF9 /* StorageManager.swift in Sources */,
 				9EE8BC5C2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift in Sources */,
 				9E08AC812572A8AA00D69927 /* RockMapNavigationBar.swift in Sources */,
 				9E0BE3982605AD2800576869 /* UserDefaultsDataHolder.swift in Sources */,
@@ -1870,7 +1854,6 @@
 				9E06F9612649769200731352 /* EditProfileLayout.swift in Sources */,
 				9EC3A6C42604D74F001FBCA4 /* CourseDetailKind.swift in Sources */,
 				9E9E631D262EB1240096340C /* MyPageRouter.swift in Sources */,
-				9EF1895D258F98C5003492EE /* Uploader.swift in Sources */,
 				9EECEBB5265FBAAC0057EE11 /* MyClimbRecordListKind.swift in Sources */,
 				9E30EFED2643B29E0054C7C4 /* RockListViewController.swift in Sources */,
 				9EA94F7825D0462700D1272E /* RockDetailKind.swift in Sources */,
@@ -1880,7 +1863,6 @@
 				9E902B2525F0DC5300006624 /* LabelCollectionViewCell.swift in Sources */,
 				9EC3A6C92604D75C001FBCA4 /* CourseDetailLayout.swift in Sources */,
 				9E78129126199B1500CAC539 /* UserView.swift in Sources */,
-				9EFE88C826B034C400D8976F /* ImageType.swift in Sources */,
 				9E08AC9C2573D36A00D69927 /* UI.swift in Sources */,
 				9EA6B053266524E800DAA888 /* SettingsViewController.swift in Sources */,
 				9E5DD1C025C84DA500E38620 /* UIImageViewExtension.swift in Sources */,
@@ -1916,7 +1898,6 @@
 				9EA6B051266524CA00DAA888 /* SettingsKind.swift in Sources */,
 				9EECEBB7265FBABC0057EE11 /* MyCLimbRecordListDatasource.swift in Sources */,
 				9E9845D125D4F2FE00B03C4E /* CourseRegisterViewModel.swift in Sources */,
-				9EF74F792622044100974EBA /* StorageReference+Combine.swift in Sources */,
 				9E39B201261472E00005F6E1 /* RockRegisterRouter.swift in Sources */,
 				9E0BE37A2605006F00576869 /* LeadingRegisteredUserCollectionViewCell.swift in Sources */,
 				9E613ABC25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift in Sources */,
@@ -1946,7 +1927,6 @@
 				9E9845E725D5202500B03C4E /* CourseRegisterLayout.swift in Sources */,
 				9E39B1E0261458860005F6E1 /* RouterProtocol.swift in Sources */,
 				9E9845F525D5418C00B03C4E /* RockHeaderCollectionViewCell.swift in Sources */,
-				9EFE88CA26B0360400D8976F /* ImageLoadable.swift in Sources */,
 				9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */,
 				9EC88E0A260CCB5C0057EBEE /* LocationSelectButtonState.swift in Sources */,
 				9E33AB8F26478F320034B4E3 /* LoadingState+Combine.swift in Sources */,

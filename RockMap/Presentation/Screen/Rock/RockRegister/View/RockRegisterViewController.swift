@@ -269,7 +269,7 @@ extension RockRegisterViewController: PickerManagerDelegate {
         showIndicatorView()
     }
 
-    func didReceivePicking(data: Data, imageType: ImageType) {
+    func didReceivePicking(data: Data, imageType: Entity.Image.ImageType) {
         viewModel.input.setImageSubject.send((imageType, data: data))
     }
 

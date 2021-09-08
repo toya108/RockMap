@@ -101,7 +101,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             .assign(to: &output.$icon)
     }
 
-    private func setImage(imageType: ImageType, data: Data) {
+    private func setImage(imageType: Entity.Image.ImageType, data: Data) {
         switch imageType {
             case .icon:
                 output.icon.updateData = data
@@ -110,12 +110,12 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                 output.header.updateData = data
                 output.header.shouldDelete = false
 
-            case .normal:
+            case .normal, .unhandle:
                 break
         }
     }
 
-    private func deleteImage(imageType: ImageType) {
+    private func deleteImage(imageType: Entity.Image.ImageType) {
         switch imageType {
             case .icon:
                 output.icon.updateData = nil
@@ -127,7 +127,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                     output.header.shouldDelete = true
                 }
 
-            case .normal:
+            case .normal, .unhandle:
                 break
         }
     }
@@ -224,8 +224,8 @@ extension EditProfileViewModel {
     struct Input {
         let nameSubject = PassthroughSubject<String?, Never>()
         let introductionSubject = PassthroughSubject<String?, Never>()
-        let setImageSubject = PassthroughSubject<(ImageType, Data), Never>()
-        let deleteImageSubject = PassthroughSubject<ImageType, Never>()
+        let setImageSubject = PassthroughSubject<(Entity.Image.ImageType, Data), Never>()
+        let deleteImageSubject = PassthroughSubject<Entity.Image.ImageType, Never>()
         let socialLinkSubject = PassthroughSubject<Entity.User.SocialLink, Never>()
     }
 

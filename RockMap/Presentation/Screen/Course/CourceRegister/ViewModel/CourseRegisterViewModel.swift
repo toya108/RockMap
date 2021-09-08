@@ -117,7 +117,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
             .assign(to: &self.output.$images)
     }
 
-    private func setImage(data: Data, imageType: ImageType) {
+    private func setImage(data: Data, imageType: Entity.Image.ImageType) {
 
         switch imageType {
             case .normal:
@@ -133,7 +133,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
                 output.header.updateData = data
                 output.header.shouldDelete = false
 
-            case .icon:
+            case .icon, .unhandle:
                 break
         }
     }
@@ -243,7 +243,7 @@ extension CourseRegisterViewModel {
         let courseDescSubject = PassthroughSubject<String?, Never>()
         let gradeSubject = PassthroughSubject<Entity.Course.Grade, Never>()
         let shapeSubject = PassthroughSubject<Set<Entity.Course.Shape>, Never>()
-        let setImageSubject = PassthroughSubject<(Data, ImageType), Never>()
+        let setImageSubject = PassthroughSubject<(Data, Entity.Image.ImageType), Never>()
         let deleteImageSubject = PassthroughSubject<(CrudableImageV2), Never>()
     }
 

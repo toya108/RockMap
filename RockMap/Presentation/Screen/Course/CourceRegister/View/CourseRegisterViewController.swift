@@ -139,7 +139,7 @@ extension CourseRegisterViewController: PickerManagerDelegate {
 
     func didReceivePicking(
         data: Data,
-        imageType: ImageType
+        imageType: Entity.Image.ImageType
     ) {
         viewModel.input.setImageSubject.send((data, imageType))
     }

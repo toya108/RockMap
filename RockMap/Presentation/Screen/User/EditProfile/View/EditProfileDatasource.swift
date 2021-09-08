@@ -132,7 +132,7 @@ extension EditProfileViewController {
 
     private func configureImageSelectCell() -> UICollectionView.CellRegistration<
         ImageSelactCollectionViewCell,
-        ImageType
+        Entity.Image.ImageType
     > {
         .init(
             cellNib: .init(
@@ -175,7 +175,7 @@ extension EditProfileViewController {
 
     private func setupImageUploadButtonActions(
         button: UIButton,
-        imageType: ImageType
+        imageType: Entity.Image.ImageType
     ) {
         let photoLibraryAction = UIAction(
             title: "フォトライブラリ",
