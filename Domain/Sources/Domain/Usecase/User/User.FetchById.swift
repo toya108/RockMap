@@ -3,7 +3,7 @@ import Combine
 import DataLayer
 
 public extension Domain.Usecase.User {
-    struct FetchById: UsecaseProtocol {
+    struct FetchById: PassthroughUsecaseProtocol {
         public typealias Repository = Repositories.User.FetchById
         public typealias Mapper = Domain.Mapper.User
 

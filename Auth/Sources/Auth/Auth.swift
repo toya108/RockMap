@@ -41,12 +41,16 @@ public class AuthManager: NSObject {
         currentUser != nil
     }
 
-    public var currentUser: User? {
-        authUI?.auth?.currentUser
-    }
-
     public var uid: String {
         currentUser?.uid ?? ""
+    }
+
+    public var providerID: String {
+        currentUser?.providerID ?? ""
+    }
+
+    public var displayName: String {
+        currentUser?.displayName ?? ""
     }
 
     public var userPath: String {
@@ -78,6 +82,10 @@ public class AuthManager: NSObject {
         } catch {
             completion?(.failure(error))
         }
+    }
+
+    private var currentUser: User? {
+        authUI?.auth?.currentUser
     }
 }
 

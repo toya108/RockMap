@@ -163,17 +163,17 @@ private struct HeaderValidator: ValidatorProtocol {
     func validate(_ value: Any?) -> ValidationResult {
 
         guard
-            let image = value as? CrudableImage
+            let crudableImage = value as? CrudableImage
         else {
             return .invalid(.none(formName: formName))
         }
 
-        if image.storageReference == nil {
-            return image.updateData == nil
+        if crudableImage.image.url == nil {
+            return crudableImage.updateData == nil
                 ? .invalid(.none(formName: formName))
                 : .valid
         } else {
-            return image.shouldDelete
+            return crudableImage.shouldDelete
                 ? .invalid(.none(formName: formName))
                 : .valid
         }

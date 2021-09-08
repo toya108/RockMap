@@ -7,4 +7,5 @@ public extension Domain.Usecase {
     struct Rock {}
     struct ClimbRecord {}
     struct TotalClimbedNumber {}
+    struct Image {}
 }

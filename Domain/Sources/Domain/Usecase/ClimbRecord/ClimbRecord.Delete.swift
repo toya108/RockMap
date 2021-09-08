@@ -3,7 +3,7 @@ import DataLayer
 import Foundation
 
 public extension Domain.Usecase.ClimbRecord {
-    struct Delete: UsecaseProtocol {
+    struct Delete: PassthroughUsecaseProtocol {
         public typealias Repository = Repositories.ClimbRecord.Delete
         public typealias Mapper = Domain.Mapper.ClimbRecord
 

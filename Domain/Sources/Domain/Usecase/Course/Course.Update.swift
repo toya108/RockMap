@@ -2,7 +2,7 @@ import Combine
 import DataLayer
 
 public extension Domain.Usecase.Course {
-    struct Update: UsecaseProtocol {
+    struct Update: PassthroughUsecaseProtocol {
         public typealias Repository = Repositories.Course.Set
         public typealias Mapper = Domain.Mapper.Course
 

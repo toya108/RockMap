@@ -13,7 +13,7 @@ public struct EmptyResponse: Codable, Equatable {
 
 public protocol RequestProtocol {
     associatedtype Response: Decodable
-    associatedtype Parameters: Encodable
+    associatedtype Parameters
 
     var parameters: Parameters { get }
     func localDataInterceptor(parameters: Parameters) -> AnyPublisher<Response, Error>

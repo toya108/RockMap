@@ -15,22 +15,6 @@ public extension FS.Document {
         public var parentPath: String
         public var flash: Int
         public var redPoint: Int
-
-        public init(
-            id: String,
-            createdAt: Date,
-            updatedAt: Date?,
-            parentPath: String,
-            flash: Int,
-            redPoint: Int
-        ) {
-            self.id = id
-            self.createdAt = createdAt
-            self.updatedAt = updatedAt
-            self.parentPath = parentPath
-            self.flash = flash
-            self.redPoint = redPoint
-        }
     }
     
 }
