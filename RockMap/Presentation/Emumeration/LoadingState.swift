@@ -1,19 +1,11 @@
-//
-//  LoadingState.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/20.
-//
-
 enum LoadingState<T>: Equatable {
-
     static func == (lhs: LoadingState, rhs: LoadingState) -> Bool {
         switch (lhs, rhs) {
-            case (.stanby, .stanby), (.loading, .loading), (.finish, .finish), (.failure, failure):
-                return true
+        case (.stanby, .stanby), (.loading, .loading), (.finish, .finish), (.failure, failure):
+            return true
 
-            default:
-                return false
+        default:
+            return false
         }
     }
 

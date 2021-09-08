@@ -1,10 +1,3 @@
-//
-//  ActivityIndicatorOverlay.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/01.
-//
-
 import UIKit
 
 private let overlayViewTag: Int = 999
@@ -29,11 +22,11 @@ extension UIViewController {
     }
 
     func showIndicatorView() {
-        overlayContainerView.showIndicatorView()
+        self.overlayContainerView.showIndicatorView()
     }
 
     func hideIndicatorView() {
-        overlayContainerView.hideIndicatorView()
+        self.overlayContainerView.hideIndicatorView()
     }
 }
 
@@ -56,7 +49,7 @@ extension UIView {
     }
 
     private func setActivityIndicatorView() {
-        guard !isDisplayingActivityIndicatorOverlay() else { return }
+        guard !self.isDisplayingActivityIndicatorOverlay() else { return }
         let overlayView = self.overlayView
         let activityIndicatorView = self.activityIndicatorView
 
@@ -66,8 +59,10 @@ extension UIView {
         overlayView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
         overlayView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
 
-        activityIndicatorView.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor).isActive = true
-        activityIndicatorView.centerYAnchor.constraint(equalTo: overlayView.centerYAnchor).isActive = true
+        activityIndicatorView.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor)
+            .isActive = true
+        activityIndicatorView.centerYAnchor.constraint(equalTo: overlayView.centerYAnchor)
+            .isActive = true
 
         activityIndicatorView.startAnimating()
     }
@@ -93,7 +88,7 @@ extension UIView {
     }
 
     private func isDisplayingActivityIndicatorOverlay() -> Bool {
-        getActivityIndicatorView() != nil && getOverlayView() != nil
+        self.getActivityIndicatorView() != nil && self.getOverlayView() != nil
     }
 
     private func getActivityIndicatorView() -> UIActivityIndicatorView? {

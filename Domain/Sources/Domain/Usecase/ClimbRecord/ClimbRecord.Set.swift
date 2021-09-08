@@ -15,8 +15,7 @@ public extension Domain.Usecase.ClimbRecord {
         }
 
         public func set(climbRecord: Domain.Entity.ClimbRecord) -> AnyPublisher<Void, Error> {
-
-            repository.request(
+            self.repository.request(
                 parameters: .init(
                     id: climbRecord.id,
                     registeredUserId: climbRecord.registeredUserId,
@@ -32,6 +31,5 @@ public extension Domain.Usecase.ClimbRecord {
             .map { _ in () }
             .eraseToAnyPublisher()
         }
-
     }
 }

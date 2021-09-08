@@ -5,7 +5,6 @@ import Utilities
 
 public extension FS.Request.User {
     struct Delete: FirestoreRequestProtocol {
-
         public typealias Entry = FSDocument
 
         public typealias Collection = FS.Collection.Users
@@ -22,9 +21,10 @@ public extension FS.Request.User {
         public var testDataPath: URL?
         public var path: String {
             Collection.name
-            parameters.id
+            self.parameters.id
         }
-        public var entry: Entry { FirestoreManager.db.document(path) }
+
+        public var entry: Entry { FirestoreManager.db.document(self.path) }
 
         public init(parameters: Parameters) {
             self.parameters = parameters
@@ -34,8 +34,7 @@ public extension FS.Request.User {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<EmptyResponse, Error> {
-            return entry.updateData(["deleted": true])
+            self.entry.updateData(["deleted": true])
         }
-
     }
 }

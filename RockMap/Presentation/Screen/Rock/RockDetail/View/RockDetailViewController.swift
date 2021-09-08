@@ -1,16 +1,8 @@
-//
-//  RockDetailViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/02/02.
-//
-
-import UIKit
 import Combine
 import MapKit
+import UIKit
 
 class RockDetailViewController: UIViewController, CompositionalColectionViewControllerProtocol {
-    
     var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionLayoutKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>!
@@ -25,23 +17,23 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
         instance.viewModel = viewModel
         return instance
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureCollectionView()
-        setupNavigationBar()
-        bindViewToViewModel()
-        configureSections()
+        self.setupNavigationBar()
+        self.bindViewToViewModel()
+        self.configureSections()
     }
-    
+
     private func setupNavigationBar() {
         guard
             let rockMapNavigationBar = navigationController?.navigationBar as? RockMapNavigationBar
         else {
             return
         }
-        
+
         rockMapNavigationBar.setup()
 
         navigationItem.largeTitleDisplayMode = .never
@@ -50,9 +42,9 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
         let courseCreationButton = UIButton(
             type: .system,
             primaryAction: .init { [weak self] _ in
-                
+
                 guard let self = self else { return }
-                
+
                 self.router.route(
                     to: .courseRegister,
                     from: self
@@ -68,12 +60,12 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
     }
 
     private func configureSections() {
-        snapShot.appendSections(SectionLayoutKind.allCases)
-        datasource.apply(snapShot)
+        self.snapShot.appendSections(SectionLayoutKind.allCases)
+        self.datasource.apply(self.snapShot)
     }
-    
+
     private func bindViewToViewModel() {
-        viewModel.$rockName
+        self.viewModel.$rockName
             .receive(on: RunLoop.main)
             .sink { [weak self] title in
 
@@ -82,21 +74,21 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
                 self.snapShot.appendItems([.title(title)], toSection: .title)
                 self.datasource.apply(self.snapShot)
             }
-            .store(in: &bindings)
-        
-        viewModel.$headerImage
+            .store(in: &self.bindings)
+
+        self.viewModel.$headerImage
             .compactMap { $0 }
             .receive(on: RunLoop.main)
             .sink { [weak self] loadable in
-                
+
                 guard let self = self else { return }
 
                 self.snapShot.appendItems([.header(loadable)], toSection: .header)
                 self.datasource.apply(self.snapShot)
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        viewModel.$images
+        self.viewModel.$images
             .receive(on: RunLoop.main)
             .sink { [weak self] loadables in
 
@@ -107,88 +99,90 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
                 if loadables.isEmpty {
                     self.snapShot.appendItems([.noImage], toSection: .images)
                 } else {
-                    self.snapShot.appendItems(loadables.map { ItemKind.image($0) }, toSection: .images)
+                    self.snapShot.appendItems(
+                        loadables.map { ItemKind.image($0) },
+                        toSection: .images
+                    )
                 }
 
                 self.datasource.apply(self.snapShot)
             }
-            .store(in: &bindings)
-        
-        viewModel.$rockDesc
+            .store(in: &self.bindings)
+
+        self.viewModel.$rockDesc
             .receive(on: RunLoop.main)
             .sink { [weak self] desc in
-                
+
                 guard let self = self else { return }
-                
+
                 self.snapShot.appendItems([.desc(desc)], toSection: .desc)
                 self.datasource.apply(self.snapShot)
             }
-            .store(in: &bindings)
-        
-        viewModel.$seasons
+            .store(in: &self.bindings)
+
+        self.viewModel.$seasons
             .receive(on: RunLoop.main)
             .sink { [weak self] seasons in
-                
+
                 guard let self = self else { return }
-                
+
                 self.snapShot.appendItems([.season(seasons)], toSection: .info)
                 self.datasource.apply(self.snapShot)
             }
-            .store(in: &bindings)
-        
-        viewModel.$lithology
+            .store(in: &self.bindings)
+
+        self.viewModel.$lithology
             .receive(on: RunLoop.main)
             .sink { [weak self] lithology in
-                
+
                 guard let self = self else { return }
-                
+
                 self.snapShot.appendItems([.lithology(lithology)], toSection: .info)
                 self.datasource.apply(self.snapShot)
             }
-            .store(in: &bindings)
-        
-        viewModel.$registeredUser
+            .store(in: &self.bindings)
+
+        self.viewModel.$registeredUser
             .receive(on: RunLoop.main)
             .dropFirst()
             .sink { [weak self] user in
-                
+
                 guard
                     let self = self,
                     let user = user
                 else {
                     return
                 }
-                
+
                 self.snapShot.appendItems([.registeredUser(user: user)], toSection: .registeredUser)
                 self.datasource.apply(self.snapShot)
             }
-            .store(in: &bindings)
-        
-        viewModel.$rockLocation
+            .store(in: &self.bindings)
+
+        self.viewModel.$rockLocation
             .receive(on: RunLoop.main)
             .sink { [weak self] rockLocation in
-                
+
                 guard let self = self else { return }
-                
+
                 self.snapShot.appendItems([.map(rockLocation)], toSection: .map)
                 self.datasource.apply(self.snapShot)
             }
-            .store(in: &bindings)
-        
-        viewModel.$courses
+            .store(in: &self.bindings)
+
+        self.viewModel.$courses
             .receive(on: RunLoop.main)
             .sink { [weak self] courses in
-                
+
                 guard let self = self else { return }
-                
+
                 self.handleGrades(courses.map(\.grade))
                 self.handleCourses(courses)
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     private func handleGrades(_ grades: [Entity.Course.Grade]) {
-
         if grades.isEmpty { return }
 
         let gadesCounts = grades.reduce(into: [Entity.Course.Grade: Int]()) { dic, grade in
@@ -199,7 +193,7 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
             }
         }
 
-        let gradeItem = snapShot.itemIdentifiers(inSection: .info).filter {
+        let gradeItem = self.snapShot.itemIdentifiers(inSection: .info).filter {
             if case .containGrade = $0 {
                 return true
             } else {
@@ -207,39 +201,37 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
             }
         }
 
-        snapShot.deleteItems(gradeItem)
-        snapShot.appendItems([.containGrade(gadesCounts)], toSection: .info)
-        datasource.apply(snapShot)
+        self.snapShot.deleteItems(gradeItem)
+        self.snapShot.appendItems([.containGrade(gadesCounts)], toSection: .info)
+        self.datasource.apply(self.snapShot)
     }
 
     private func handleCourses(_ courses: [Entity.Course]) {
-        snapShot.deleteItems(snapShot.itemIdentifiers(inSection: .courses))
+        self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .courses))
 
         if courses.isEmpty {
-            snapShot.appendItems([.nocourse], toSection: .courses)
+            self.snapShot.appendItems([.nocourse], toSection: .courses)
         } else {
-            snapShot.appendItems(courses.map { ItemKind.courses($0) }, toSection: .courses)
+            self.snapShot.appendItems(courses.map { ItemKind.courses($0) }, toSection: .courses)
         }
-        datasource.apply(snapShot)
+        self.datasource.apply(self.snapShot)
     }
 }
 
 extension RockDetailViewController: MKMapViewDelegate {
-
     func mapView(
         _ mapView: MKMapView,
         viewFor annotation: MKAnnotation
     ) -> MKAnnotationView? {
-        
         if annotation === mapView.userLocation {
             return nil
         }
-        
+
         let annotationView = mapView.dequeueReusableAnnotationView(
             withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier,
             for: annotation
         )
-        
+
         guard
             let markerAnnotationView = annotationView as? MKMarkerAnnotationView
         else {
@@ -249,42 +241,35 @@ extension RockDetailViewController: MKMapViewDelegate {
         markerAnnotationView.markerTintColor = UIColor.Pallete.primaryGreen
         return markerAnnotationView
     }
-
 }
 
 extension RockDetailViewController: UICollectionViewDelegate {
-
     func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        
         guard
             let item = datasource.itemIdentifier(for: indexPath)
         else {
             return
         }
-        
+
         switch item {
         case let .courses(course):
             collectionView.cellForItem(at: indexPath)?.executeSelectAnimation()
-            router.route(
+            self.router.route(
                 to: .courseDetail(course),
                 from: self
             )
-            
+
         default:
             break
-            
         }
     }
-
 }
 
 extension RockDetailViewController: CourseRegisterDetectableViewControllerProtocol {
-
     func didCourseRegisterFinished() {
-        viewModel.fetchCourses()
+        self.viewModel.fetchCourses()
     }
-
 }

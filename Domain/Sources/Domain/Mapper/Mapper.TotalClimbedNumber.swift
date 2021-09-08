@@ -3,9 +3,7 @@ import DataLayer
 import Foundation
 
 public extension Domain.Mapper {
-
     struct TotalClimbedNumber: MapperProtocol {
-
         public typealias TotalClimbedNumber = Domain.Entity.TotalClimbedNumber
 
         public init() {}
@@ -17,5 +15,4 @@ public extension Domain.Mapper {
             )
         }
     }
-
 }

@@ -4,7 +4,6 @@ import Foundation
 
 public extension FS.Request.ClimbRecord {
     struct FetchByCourseId: FirestoreRequestProtocol {
-
         public typealias Entry = FSQuery
 
         public typealias Collection = FS.Collection.ClimbRecord
@@ -21,7 +20,7 @@ public extension FS.Request.ClimbRecord {
         public var testDataPath: URL?
         public var entry: Entry {
             Collection.group
-                .whereField("parentCourseId", in: [parameters.courseId])
+                .whereField("parentCourseId", in: [self.parameters.courseId])
                 .order(by: "climbedDate")
         }
 
@@ -33,8 +32,7 @@ public extension FS.Request.ClimbRecord {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<[FS.Document.ClimbRecord], Error> {
-            entry.getDocuments(Response.Element.self)
+            self.entry.getDocuments(Response.Element.self)
         }
-
     }
 }

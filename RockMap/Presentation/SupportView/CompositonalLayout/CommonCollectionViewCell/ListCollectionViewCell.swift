@@ -1,25 +1,18 @@
-//
-//  ListCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/23.
-//
-
 import UIKit
 
 class ListCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var mainImageView: UIImageView!
-    @IBOutlet weak var iconImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var firstLabel: UILabel!
-    @IBOutlet weak var secondLabel: UILabel!
-    @IBOutlet weak var thirdLabel: UILabel!
+    @IBOutlet var mainImageView: UIImageView!
+    @IBOutlet var iconImageView: UIImageView!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var firstLabel: UILabel!
+    @IBOutlet var secondLabel: UILabel!
+    @IBOutlet var thirdLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        mainImageView.layer.cornerRadius = 8
-        iconImageView.tintColor = .black
+        self.mainImageView.layer.cornerRadius = 8
+        self.iconImageView.tintColor = .black
     }
 
     func configure(
@@ -30,32 +23,32 @@ class ListCollectionViewCell: UICollectionViewCell {
         second: String?,
         third: String?
     ) {
-        mainImageView.loadImage(url: imageUrl)
-        titleLabel.text = title
+        self.mainImageView.loadImage(url: imageUrl)
+        self.titleLabel.text = title
 
         if let iconImage = iconImage {
-            iconImageView.image = iconImage
-            iconImageView.isHidden = false
+            self.iconImageView.image = iconImage
+            self.iconImageView.isHidden = false
         } else {
-            iconImageView.isHidden = true
+            self.iconImageView.isHidden = true
         }
 
         if let first = first {
-            firstLabel.text = first
+            self.firstLabel.text = first
         } else {
-            firstLabel.isHidden = true
+            self.firstLabel.isHidden = true
         }
 
         if let second = second {
-            secondLabel.text = second
+            self.secondLabel.text = second
         } else {
-            secondLabel.isHidden = true
+            self.secondLabel.isHidden = true
         }
 
         if let third = third {
-            thirdLabel.text = third
+            self.thirdLabel.text = third
         } else {
-            thirdLabel.isHidden = true
+            self.thirdLabel.isHidden = true
         }
     }
 }

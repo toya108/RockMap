@@ -1,19 +1,10 @@
-//
-//  RegisterSucceededViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/01/12.
-//
-
 import UIKit
 
 class RegisterSucceededViewController: UIViewController {
-    
     static func showSuccessView(
         present from: UIViewController,
         completion: @escaping () -> Void
     ) {
-        
         guard
             let vc = UIStoryboard(
                 name: RegisterSucceededViewController.className,
@@ -22,17 +13,18 @@ class RegisterSucceededViewController: UIViewController {
         else {
             return
         }
-        
+
         guard
             let delegate = from as? UIPopoverPresentationControllerDelegate
         else {
             assertionFailure()
             return
         }
-        
+
         vc.modalPresentationStyle = .popover
         vc.popoverPresentationController?.sourceView = from.view
-        vc.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+        vc.popoverPresentationController?
+            .permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
         vc.popoverPresentationController?.delegate = delegate
         vc.popoverPresentationController?.sourceRect = .init(
             origin: .init(
@@ -41,7 +33,7 @@ class RegisterSucceededViewController: UIViewController {
             ),
             size: .zero
         )
-        
+
         from.present(vc, animated: true, completion: completion)
     }
 }
@@ -50,6 +42,6 @@ extension RegisterSucceededViewController: UIPopoverPresentationControllerDelega
     func popoverPresentationControllerShouldDismissPopover(
         _ popoverPresentationController: UIPopoverPresentationController
     ) -> Bool {
-        return false
+        false
     }
 }

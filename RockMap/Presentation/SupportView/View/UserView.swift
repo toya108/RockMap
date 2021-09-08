@@ -1,23 +1,22 @@
 
 import Auth
-import UIKit
 import SDWebImage
+import UIKit
 
 @IBDesignable
 class UserView: UIView {
-
-    @IBOutlet weak var iconButton: UIButton!
-    @IBOutlet weak var userNameLabel: UILabel!
-    @IBOutlet weak var registeredDateLabel: UILabel!
+    @IBOutlet var iconButton: UIButton!
+    @IBOutlet var userNameLabel: UILabel!
+    @IBOutlet var registeredDateLabel: UILabel!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        loadFromNib()
+        self.loadFromNib()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        loadFromNib()
+        self.loadFromNib()
     }
 
     private func loadFromNib() {
@@ -36,8 +35,8 @@ class UserView: UIView {
             view.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
 
-        iconButton.clipsToBounds = true
-        iconButton.layer.cornerRadius = 20
+        self.iconButton.clipsToBounds = true
+        self.iconButton.layer.cornerRadius = 20
     }
 
     func configure(
@@ -46,27 +45,27 @@ class UserView: UIView {
         parentVc: UIViewController
     ) {
         if user.deleted {
-            registeredDateLabel.isHidden = true
-            userNameLabel.text = "退会済みユーザー"
-            iconButton.setImage(UIImage.AssetsImages.noimage, for: .normal)
+            self.registeredDateLabel.isHidden = true
+            self.userNameLabel.text = "退会済みユーザー"
+            self.iconButton.setImage(UIImage.AssetsImages.noimage, for: .normal)
             return
         }
 
-        userNameLabel.text = user.name
+        self.userNameLabel.text = user.name
 
         if let photoURL = user.photoURL {
-            iconButton.loadImage(url: photoURL)
+            self.iconButton.loadImage(url: photoURL)
         } else {
-            iconButton.setImage(UIImage.AssetsImages.noimage, for: .normal)
+            self.iconButton.setImage(UIImage.AssetsImages.noimage, for: .normal)
         }
 
         if let registeredDate = registeredDate {
-            registeredDateLabel.text = "登録日：" + registeredDate.string(dateStyle: .medium)
+            self.registeredDateLabel.text = "登録日：" + registeredDate.string(dateStyle: .medium)
         } else {
-            registeredDateLabel.isHidden = true
+            self.registeredDateLabel.isHidden = true
         }
 
-        iconButton.addAction(
+        self.iconButton.addAction(
             .init { _ in
                 if AuthManager.shared.uid == user.id {
                     guard
@@ -86,6 +85,4 @@ class UserView: UIView {
             for: .touchUpInside
         )
     }
-
-
 }

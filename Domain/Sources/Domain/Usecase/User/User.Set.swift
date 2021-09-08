@@ -22,7 +22,7 @@ public extension Domain.Usecase.User {
             displayName: String?,
             photoURL: URL?
         ) -> AnyPublisher<Void, Error> {
-            return repository.request(
+            self.repository.request(
                 parameters: .init(
                     id: id,
                     createdAt: createdAt,
@@ -33,6 +33,5 @@ public extension Domain.Usecase.User {
             .map { _ in () }
             .eraseToAnyPublisher()
         }
-
     }
 }

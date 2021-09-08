@@ -16,7 +16,7 @@ public extension Domain.Usecase.Course {
         }
 
         public func fetch(by rockId: String) -> AnyPublisher<[Domain.Entity.Course], Error> {
-            repository.request(
+            self.repository.request(
                 parameters: .init(rockId: rockId)
             )
             .map { responses -> [Domain.Entity.Course] in
@@ -24,6 +24,5 @@ public extension Domain.Usecase.Course {
             }
             .eraseToAnyPublisher()
         }
-
     }
 }

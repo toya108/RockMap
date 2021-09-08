@@ -1,6 +1,6 @@
 import Combine
-import Foundation
 import DataLayer
+import Foundation
 
 public protocol UsecaseProtocol {}
 

@@ -1,15 +1,7 @@
-//
-//  RockSearchViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/01/18.
-//
-
-import CoreLocation
 import Combine
+import CoreLocation
 
 class RockSearchViewModel: ViewModelProtocol {
-    
     @Published private(set) var rockDocuments: [Entity.Rock] = []
     @Published private(set) var error: Error?
     @Published var location: CLLocation?
@@ -21,8 +13,8 @@ class RockSearchViewModel: ViewModelProtocol {
     private var bindings = Set<AnyCancellable>()
 
     init() {
-        setupBindings()
-        fetchRockList()
+        self.setupBindings()
+        self.fetchRockList()
     }
 
     private func setupBindings() {
@@ -39,7 +31,7 @@ class RockSearchViewModel: ViewModelProtocol {
     }
 
     func fetchRockList() {
-        fetchRocksUsecase.fetchAll()
+        self.fetchRocksUsecase.fetchAll()
             .catch { error -> Just<[Entity.Rock]> in
                 self.error = error
                 return .init([])

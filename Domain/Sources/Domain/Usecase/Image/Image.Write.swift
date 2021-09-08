@@ -3,7 +3,6 @@ import Combine
 import Foundation
 
 public protocol WriteImageUsecaseProtocol: UsecaseProtocol {
-
     associatedtype Set: SetImageUsecaseProtocol
     associatedtype Delete: DeleteImageUsecaseProtocol
 
@@ -21,9 +20,7 @@ public protocol WriteImageUsecaseProtocol: UsecaseProtocol {
 }
 
 public extension Domain.Usecase.Image {
-
     struct Write: WriteImageUsecaseProtocol {
-
         public typealias Set = Domain.Usecase.Image.Set
         public typealias Delete = Domain.Usecase.Image.Delete
 
@@ -42,15 +39,15 @@ public extension Domain.Usecase.Image {
             @StoragePathBuilder _ builder: () -> String
         ) -> AnyPublisher<Void, Error> {
             if shouldDelete, let path = image.fullPath {
-                return deleteUsecase.delete(path: path)
+                return self.deleteUsecase.delete(path: path)
             }
 
             if let path = image.fullPath, let data = data {
-                return setUsecase.set(path: path, data: data)
+                return self.setUsecase.set(path: path, data: data)
             }
 
             if let data = data {
-                return setUsecase.set(path: builder(), data: data)
+                return self.setUsecase.set(path: builder(), data: data)
             }
 
             return Deferred {
@@ -60,5 +57,4 @@ public extension Domain.Usecase.Image {
             }.eraseToAnyPublisher()
         }
     }
-
 }

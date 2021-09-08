@@ -3,9 +3,7 @@ import DataLayer
 import Foundation
 
 public extension Domain.Mapper {
-
     struct Image: MapperProtocol {
-
         public typealias Image = Domain.Entity.Image
 
         public init() {}
@@ -17,5 +15,4 @@ public extension Domain.Mapper {
             )
         }
     }
-
 }

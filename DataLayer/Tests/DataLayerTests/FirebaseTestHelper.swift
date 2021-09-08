@@ -1,7 +1,7 @@
 
-import Foundation
 import Firebase
 import FirebaseFirestore
+import Foundation
 
 private let dateFormatter: DateFormatter = {
     let f = DateFormatter()
@@ -12,7 +12,6 @@ private let dateFormatter: DateFormatter = {
 
 enum FirebaseTestHelper {
     static func setupFirebaseApp() {
-
         if FirebaseApp.app() == nil {
             let options = FirebaseOptions(googleAppID: "1:123:ios:123abc", gcmSenderID: "sender_id")
             options.projectID = "test-" + dateFormatter.string(from: Date())

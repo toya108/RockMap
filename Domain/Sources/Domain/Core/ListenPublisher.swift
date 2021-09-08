@@ -2,7 +2,7 @@
 import Combine
 import DataLayer
 //
-//extension Domain.Usecase {
+// extension Domain.Usecase {
 //
 //    struct ListenPublisher<T: FSListenable>: Combine.Publisher {
 //
@@ -39,9 +39,9 @@ import DataLayer
 //
 //    }
 //
-//}
+// }
 //
-//extension Domain.Usecase {
+// extension Domain.Usecase {
 //
 //    fileprivate final class Subscription<
 //        SubscriberType: Subscriber,
@@ -80,4 +80,4 @@ import DataLayer
 //            registration = nil
 //        }
 //    }
-//}
+// }

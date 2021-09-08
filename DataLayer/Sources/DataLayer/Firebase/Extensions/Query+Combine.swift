@@ -1,14 +1,12 @@
 
 
-import FirebaseFirestore
 import Combine
+import FirebaseFirestore
 
 extension FSQuery {
-
     func getDocuments<T: DocumentProtocol>(
         _ type: T.Type
     ) -> AnyPublisher<[T], Error> {
-
         Deferred {
             Future<[T], Error> { [weak self] promise in
 
@@ -35,14 +33,11 @@ extension FSQuery {
                 }
             }
         }.eraseToAnyPublisher()
-
     }
 }
 
 extension FSQuery {
-
     struct Publisher: Combine.Publisher {
-
         typealias Output = QuerySnapshot
         typealias Failure = Error
 
@@ -57,10 +52,9 @@ extension FSQuery {
             Publisher.Failure == S.Failure,
             Publisher.Output == S.Input
         {
-            let subscription = QuerySnapshot.Subscription(subscriber: subscriber, query: query)
+            let subscription = QuerySnapshot.Subscription(subscriber: subscriber, query: self.query)
             subscriber.receive(subscription: subscription)
         }
-
     }
 
     private func publisher() -> AnyPublisher<QuerySnapshot, Error> {
@@ -70,28 +64,25 @@ extension FSQuery {
     func listen<T: DocumentProtocol>(
         to type: T.Type
     ) -> AnyPublisher<[T], Error> {
-        publisher().map {
-            return $0.documents.map { $0.data() }.compactMap { T.initialize(json: $0) }
+        self.publisher().map {
+            $0.documents.map { $0.data() }.compactMap { T.initialize(json: $0) }
         }
         .eraseToAnyPublisher()
     }
 }
 
-extension QuerySnapshot {
-
-    fileprivate final class Subscription<SubscriberType: Subscriber>: Combine.Subscription where
+private extension QuerySnapshot {
+    final class Subscription<SubscriberType: Subscriber>: Combine.Subscription where
         SubscriberType.Input == QuerySnapshot,
         SubscriberType.Failure == Error
     {
-
         private var registration: ListenerRegistration?
 
         init(
             subscriber: SubscriberType,
             query: Query
         ) {
-
-            registration = query.addSnapshotListener { (querySnapshot, error) in
+            self.registration = query.addSnapshotListener { querySnapshot, error in
 
                 if let error = error {
                     subscriber.receive(completion: .failure(error))
@@ -112,8 +103,8 @@ extension QuerySnapshot {
         func request(_ demand: Subscribers.Demand) {}
 
         func cancel() {
-            registration?.remove()
-            registration = nil
+            self.registration?.remove()
+            self.registration = nil
         }
     }
 }

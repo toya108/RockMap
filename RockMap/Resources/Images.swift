@@ -1,10 +1,3 @@
-//
-//  Images.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/11/06.
-//
-
 // swiftlint:disable force_unwrapping
 
 import UIKit
@@ -40,7 +33,7 @@ extension UIImage {
         static let checkmarkShield = UIImage(systemName: "checkmark.shield")!
         static let starCircle = UIImage(systemName: "star.circle")!
     }
-    
+
     struct AssetsImages {
         static let back = UIImage(named: "back")!
         static let rock = UIImage(named: "rock")!

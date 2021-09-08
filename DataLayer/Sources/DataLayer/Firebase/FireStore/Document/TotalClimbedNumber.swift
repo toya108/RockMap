@@ -1,11 +1,9 @@
 
-import Foundation
 import FirebaseFirestoreSwift
+import Foundation
 
 public extension FS.Document {
-
     struct TotalClimbedNumber: DocumentProtocol {
-
         public var collection: CollectionProtocol.Type { FS.Collection.TotalClimbedNumber.self }
 
         public var id: String
@@ -16,5 +14,4 @@ public extension FS.Document {
         public var flash: Int
         public var redPoint: Int
     }
-    
 }

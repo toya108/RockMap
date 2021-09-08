@@ -1,15 +1,7 @@
-//
-//  DictionaryTests.swift
-//  RockMapTests
-//
-//  Created by TOUYA KAWANO on 2021/05/29.
-//
-
-import XCTest
 @testable import RockMap
+import XCTest
 
 class DictionaryTests: XCTestCase {
-
     func makeEmptyExcludedDictionary() throws {
         let containsEmptyDictionary = [
             "aaa": "",
@@ -25,5 +17,4 @@ class DictionaryTests: XCTestCase {
         XCTAssertNil(result["eee"])
         XCTAssertEqual(result["bbb"] as! Int, containsEmptyDictionary["bbb"] as! Int)
     }
-
 }

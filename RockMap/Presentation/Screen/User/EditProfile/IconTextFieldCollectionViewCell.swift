@@ -1,57 +1,48 @@
-//
-//  IconTextFieldCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/13.
-//
-
 import UIKit
 
 class IconTextFieldCollectionViewCell: UICollectionViewCell {
-
     let iconImageView = UIImageView()
     let textField = UITextField()
     let stackView = UIStackView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
+        self.setupLayout()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupLayout()
+        self.setupLayout()
     }
 
     private func setupLayout() {
-        iconImageView.tintColor = .gray
+        self.iconImageView.tintColor = .gray
 
-        contentView.addSubview(stackView)
-        stackView.spacing = 8
-        stackView.axis = .horizontal
+        contentView.addSubview(self.stackView)
+        self.stackView.spacing = 8
+        self.stackView.axis = .horizontal
 
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        self.stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 8),
-            stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+            self.stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            self.stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 8),
+            self.stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            self.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
 
-        iconImageView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.addArrangedSubview(iconImageView)
+        self.iconImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.stackView.addArrangedSubview(self.iconImageView)
         NSLayoutConstraint.activate([
-            iconImageView.heightAnchor.constraint(equalToConstant: 32),
-            iconImageView.widthAnchor.constraint(equalToConstant: 32)
+            self.iconImageView.heightAnchor.constraint(equalToConstant: 32),
+            self.iconImageView.widthAnchor.constraint(equalToConstant: 32)
         ])
 
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        stackView.addArrangedSubview(textField)
-
+        self.textField.translatesAutoresizingMaskIntoConstraints = false
+        self.stackView.addArrangedSubview(self.textField)
     }
 
     func configurePlaceholder(iconImage: UIImage, placeholder: String) {
-        textField.placeholder = placeholder
-        iconImageView.image = iconImage
+        self.textField.placeholder = placeholder
+        self.iconImageView.image = iconImage
     }
 }

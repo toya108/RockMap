@@ -15,11 +15,10 @@ public extension Domain.Usecase.Course {
         }
 
         public func update(from course: Domain.Entity.Course) -> AnyPublisher<Void, Error> {
-            let document = mapper.reverse(to: course)
-            return repository.request(parameters: .init(course: document))
+            let document = self.mapper.reverse(to: course)
+            return self.repository.request(parameters: .init(course: document))
                 .map { _ in () }
                 .eraseToAnyPublisher()
         }
-
     }
 }

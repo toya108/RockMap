@@ -1,10 +1,3 @@
-//
-//  PickerManager.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/29.
-//
-
 import Foundation
 import PhotosUI
 
@@ -14,7 +7,6 @@ protocol PickerManagerDelegate: AnyObject {
 }
 
 class PickerManager: NSObject {
-
     weak var delegate: PickerManagerDelegate?
 
     private var imageType: Entity.Image.ImageType = .normal
@@ -31,10 +23,10 @@ class PickerManager: NSObject {
 
     func presentPhPicker(imageType: Entity.Image.ImageType) {
         self.imageType = imageType
-        configuration.selectionLimit = imageType.limit
+        self.configuration.selectionLimit = imageType.limit
         let vc = PHPickerViewController(configuration: configuration)
         vc.delegate = self
-        from.present(vc, animated: true)
+        self.from.present(vc, animated: true)
     }
 
     func presentImagePicker(
@@ -45,25 +37,22 @@ class PickerManager: NSObject {
         let vc = UIImagePickerController()
         vc.delegate = self
         vc.sourceType = sourceType
-        from.present(vc, animated: true)
+        self.from.present(vc, animated: true)
     }
 }
 
 extension PickerManager: PHPickerViewControllerDelegate {
-
     func picker(
         _ picker: PHPickerViewController,
         didFinishPicking results: [PHPickerResult]
     ) {
-
         picker.dismiss(animated: true)
 
         if results.isEmpty { return }
 
-        delegate?.beganResultHandling()
+        self.delegate?.beganResultHandling()
 
         results.map(\.itemProvider).forEach {
-
             guard $0.canLoadObject(ofClass: UIImage.self) else { return }
 
             $0.loadObject(ofClass: UIImage.self) { [weak self] providerReading, error in
@@ -92,7 +81,7 @@ extension PickerManager: PHPickerViewControllerDelegate {
     ) -> UIImage? {
         let size = image.size
 
-        let widthRatio  = targetSize.width  / image.size.width
+        let widthRatio = targetSize.width / image.size.width
         let heightRatio = targetSize.height / image.size.height
 
         let newSize: CGSize = {
@@ -114,12 +103,10 @@ extension PickerManager: PHPickerViewControllerDelegate {
 }
 
 extension PickerManager: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-
     func imagePickerController(
         _ picker: UIImagePickerController,
         didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
-
         picker.dismiss(animated: true)
 
         guard
@@ -129,9 +116,8 @@ extension PickerManager: UIImagePickerControllerDelegate & UINavigationControlle
             return
         }
 
-        delegate?.beganResultHandling()
+        self.delegate?.beganResultHandling()
 
-        delegate?.didReceivePicking(data: data, imageType: imageType)
+        self.delegate?.didReceivePicking(data: data, imageType: self.imageType)
     }
-
 }

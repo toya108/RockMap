@@ -3,7 +3,6 @@ import Foundation
 
 @resultBuilder
 public struct ListBuilder<T> {
-
     /*
      Either (if/else)
      */
@@ -47,21 +46,24 @@ public struct ListBuilder<T> {
         component ?? [T]()
     }
 
-    public static func buildEither<C: ContentAccessible>(second component: C...) -> [T]
-    where C.ChildContent == T {
-        component.map({ $0.childContent }).reduce([], { $0 + $1 })
+    public static func buildEither<C: ContentAccessible>(
+        second component: C...
+    ) -> [T] where C.ChildContent == T {
+        component.map(\.childContent).reduce([]) { $0 + $1 }
     }
 
-    public static func buildEither<C: ContentAccessible>(first component: C...) -> [T]
-    where C.ChildContent == T {
-        component.map({ $0.childContent }).reduce([], { $0 + $1 })
+    public static func buildEither<C: ContentAccessible>(
+        first component: C...
+    ) -> [T] where C.ChildContent == T {
+        component.map(\.childContent).reduce([]) { $0 + $1 }
     }
 
     /*
      Expression ( { ... } )
      */
-    public static func buildExpression<C: ContentAccessible>(_ expression: C) -> [T]
-    where C.ChildContent == T {
+    public static func buildExpression<C: ContentAccessible>(
+        _ expression: C
+    ) -> [T] where C.ChildContent == T {
         expression.childContent
     }
 
@@ -101,8 +103,6 @@ public struct ListBuilder<T> {
         expression.compactMap { $0() }
     }
 
-
-
     /*
      Expression ( [ ... ] )
      */
@@ -114,9 +114,10 @@ public struct ListBuilder<T> {
         components.compactMap { $0 }
     }
 
-    public static func buildOptional<C: ContentAccessible>(_ component: [C]) -> [T]
-    where C.ChildContent == T {
-        component.map({ $0.childContent }).reduce([], { $0 + $1 })
+    public static func buildOptional<C: ContentAccessible>(
+        _ component: [C]
+    ) -> [T] where C.ChildContent == T {
+        component.map(\.childContent).reduce([]) { $0 + $1 }
     }
 
     /*
@@ -126,13 +127,15 @@ public struct ListBuilder<T> {
         component?.compactMap { $0 } ?? []
     }
 
-    public static func buildOptional<C: ContentAccessible>(_ component: [C?]?) -> [T]
-    where C.ChildContent == T {
-        component?.compactMap { $0?.childContent }.reduce([], { $0 + $1 } ) ?? []
+    public static func buildOptional<C: ContentAccessible>(
+        _ component: [C?]?
+    ) -> [T] where C.ChildContent == T {
+        component?.compactMap { $0?.childContent }.reduce([]) { $0 + $1 } ?? []
     }
 
-    public static func buildOptional<C: ContentAccessible>(_ component: C?) -> [T]
-    where C.ChildContent == T {
+    public static func buildOptional<C: ContentAccessible>(
+        _ component: C?
+    ) -> [T] where C.ChildContent == T {
         component?.childContent ?? []
     }
 
@@ -142,7 +145,6 @@ public struct ListBuilder<T> {
     public static func buildLimitedAvailability(_ component: [T]) -> [T] {
         component
     }
-
 
     /*
      Code Block
@@ -159,7 +161,6 @@ public struct ListBuilder<T> {
         components.reduce([]) { $0.compactMap { $0 } + $1.compactMap { $0 } }
     }
 
-
     public static func buildBlock(_ components: T...) -> [T] {
         components
     }
@@ -172,18 +173,23 @@ public struct ListBuilder<T> {
         components.reduce([]) { $0 + ($1 ?? [T]()) }
     }
 
-    public static func buildBlock<C: ContentAccessible>(_ components: C) -> [T]
-    where C.ChildContent == T {
+    public static func buildBlock<C: ContentAccessible>(
+        _ components: C
+    ) -> [T] where C.ChildContent == T {
         components.childContent
     }
 
-    public static func buildBlock<C: ContentAccessible>(_ components: C...) -> [T]
-    where C.ChildContent == T {
+    public static func buildBlock<C: ContentAccessible>(
+        _ components: C...
+    ) -> [T] where C.ChildContent == T {
+        // swiftformat:disable preferKeyPath
         components.compactMap { $0.childContent }.reduce([]) { $0 + $1 }
     }
 
-    public static func buildBlock<C: ContentAccessible>(_ components: [C]) -> [T]
-    where C.ChildContent == T {
+    public static func buildBlock<C: ContentAccessible>(
+        _ components: [C]
+    ) -> [T] where C.ChildContent == T {
+        // swiftformat:disable preferKeyPath
         components.compactMap { $0.childContent }.reduce([]) { $0 + $1 }
     }
 
@@ -194,18 +200,23 @@ public struct ListBuilder<T> {
         component
     }
 
-    public static func buildFinalResult<C: ContentAccessible>(_ component: [C]) -> [T]
-    where C.ChildContent == T {
+    public static func buildFinalResult<C: ContentAccessible>(
+        _ component: [C]
+    ) -> [T] where C.ChildContent == T {
+        // swiftformat:disable preferKeyPath
         component.compactMap { $0.childContent }.reduce([]) { $0 + $1 }
     }
 
-    public static func buildFinalResult<C: ContentAccessible>(_ component: C...) -> [T]
-    where C.ChildContent == T {
+    public static func buildFinalResult<C: ContentAccessible>(
+        _ component: C...
+    ) -> [T] where C.ChildContent == T {
+        // swiftformat:disable preferKeyPath
         component.compactMap { $0.childContent }.reduce([]) { $0 + $1 }
     }
 
-    public static func buildFinalResult<C: ContentAccessible>(_ component: C) -> [T]
-    where C.ChildContent == T {
+    public static func buildFinalResult<C: ContentAccessible>(
+        _ component: C
+    ) -> [T] where C.ChildContent == T {
         component.childContent
     }
 }

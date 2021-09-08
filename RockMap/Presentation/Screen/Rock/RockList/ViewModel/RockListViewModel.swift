@@ -10,7 +10,6 @@ protocol RockListViewModelProtocol: ViewModelProtocol {
 }
 
 class RockListViewModel: RockListViewModelProtocol {
-
     var input: Input = .init()
     var output: Output = .init()
 
@@ -24,15 +23,15 @@ class RockListViewModel: RockListViewModelProtocol {
 
     init(userId: String) {
         self.userId = userId
-        isMine = userId == AuthManager.shared.uid
+        self.isMine = userId == AuthManager.shared.uid
 
-        bindInput()
-        bindOutput()
-        fetchRockList()
+        self.bindInput()
+        self.bindOutput()
+        self.fetchRockList()
     }
 
     private func bindInput() {
-        input.deleteRockSubject
+        self.input.deleteRockSubject
             .handleEvents(receiveOutput: { [weak self] rock in
 
                 guard let self = self else { return }
@@ -61,29 +60,27 @@ class RockListViewModel: RockListViewModelProtocol {
                 self.output.rocks.remove(at: index)
                 self.output.deleteState = .finish(content: ())
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     private func bindOutput() {
-        output.$rocks
+        self.output.$rocks
             .map(\.isEmpty)
-            .assign(to: &output.$isEmpty)
+            .assign(to: &self.output.$isEmpty)
     }
 
     func fetchRockList() {
-        fetchRocksUsecase.fetch(by: self.userId)
+        self.fetchRocksUsecase.fetch(by: self.userId)
             .catch { error -> Just<[Entity.Rock]> in
                 print(error)
                 return .init([])
             }
             .map { $0.sorted { $0.createdAt > $1.createdAt } }
-            .assign(to: &output.$rocks)
+            .assign(to: &self.output.$rocks)
     }
-
 }
 
 extension RockListViewModel {
-
     struct Input {
         let deleteRockSubject = PassthroughSubject<Entity.Rock, Never>()
     }
@@ -93,5 +90,4 @@ extension RockListViewModel {
         @Published var isEmpty: Bool = false
         @Published var deleteState: LoadingState<Void> = .stanby
     }
-
 }

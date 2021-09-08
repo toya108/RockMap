@@ -1,16 +1,7 @@
-//
-//  EditProfileDatasource.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/10.
-//
-
 import UIKit
 
 extension EditProfileViewController {
-
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
-
         let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
             collectionView: collectionView
         ) { [weak self] collectionView, indexPath, item in
@@ -18,54 +9,54 @@ extension EditProfileViewController {
             guard let self = self else { return UICollectionViewCell() }
 
             switch item {
-                case .name:
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureNameCell(),
-                        for: indexPath,
-                        item: Dummy()
-                    )
+            case .name:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureNameCell(),
+                    for: indexPath,
+                    item: Dummy()
+                )
 
-                case .introduction:
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureIntroductionCell(),
-                        for: indexPath,
-                        item: Dummy()
-                    )
+            case .introduction:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureIntroductionCell(),
+                    for: indexPath,
+                    item: Dummy()
+                )
 
-                case let .header(image):
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureDeletabelImageCell(),
-                        for: indexPath,
-                        item: image
-                    )
+            case let .header(image):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureDeletabelImageCell(),
+                    for: indexPath,
+                    item: image
+                )
 
-                case let .error(error):
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureErrorLabelCell(),
-                        for: indexPath,
-                        item: error
-                    )
-                    
-                case .noImage:
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureImageSelectCell(),
-                        for: indexPath,
-                        item: .header
-                    )
+            case let .error(error):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureErrorLabelCell(),
+                    for: indexPath,
+                    item: error
+                )
 
-                case .socialLink(let socialLinkType):
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureSocialLinkCell(),
-                        for: indexPath,
-                        item: socialLinkType
-                    )
+            case .noImage:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureImageSelectCell(),
+                    for: indexPath,
+                    item: .header
+                )
 
-                case let .icon(image):
-                    return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureIconEditCell(),
-                        for: indexPath,
-                        item: image
-                    )
+            case let .socialLink(socialLinkType):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureSocialLinkCell(),
+                    for: indexPath,
+                    item: socialLinkType
+                )
+
+            case let .icon(image):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureIconEditCell(),
+                    for: indexPath,
+                    item: image
+                )
             }
         }
 
@@ -77,10 +68,11 @@ extension EditProfileViewController {
 
             supplementaryView.setSideInset(0)
             supplementaryView.backgroundColor = .white
-            supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section].headerTitle
+            supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section]
+                .headerTitle
         }
 
-        datasource.supplementaryViewProvider = { [weak self] collectionView, _, index in
+        datasource.supplementaryViewProvider = { [weak self] _, _, index in
 
             guard let self = self else { return nil }
 
@@ -264,5 +256,4 @@ extension EditProfileViewController {
             )
         }
     }
-
 }

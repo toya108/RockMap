@@ -1,11 +1,9 @@
 
-import UIKit
 import FirebaseFirestoreSwift
+import UIKit
 
 public extension Domain.Entity {
-
     struct ClimbRecord: AnyEntity {
-
         public var id: String
         public var registeredUserId: String
         public var parentCourseId: String
@@ -38,36 +36,31 @@ public extension Domain.Entity {
             self.type = type
         }
     }
-
 }
 
 public extension Domain.Entity.ClimbRecord {
-
     enum ClimbedRecordType: String, CaseIterable, Codable {
         case flash, redPoint
 
         public var name: String {
             switch self {
-                case .flash:
-                    return "Flash"
+            case .flash:
+                return "Flash"
 
-                case .redPoint:
-                    return "RedPoint"
-
+            case .redPoint:
+                return "RedPoint"
             }
         }
 
         public var fieldName: String {
             switch self {
-                case .flash:
-                    return "flashTotal"
+            case .flash:
+                return "flashTotal"
 
-                case .redPoint:
-                    return "redPointTotal"
-
+            case .redPoint:
+                return "redPointTotal"
             }
         }
-
 
         public var isFlash: Bool {
             self == .flash

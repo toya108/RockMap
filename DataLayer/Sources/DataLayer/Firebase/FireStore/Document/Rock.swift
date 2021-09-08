@@ -1,12 +1,10 @@
 
-import UIKit
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import UIKit
 
 public extension FS.Document {
-
     struct Rock: DocumentProtocol, UserRegisterableDocumentProtocol {
-
         public var collection: CollectionProtocol.Type { FS.Collection.Rocks.self }
 
         public var id: String
@@ -57,6 +55,5 @@ public extension FS.Document {
             self.headerUrl = headerUrl
             self.imageUrls = imageUrls
         }
-
     }
 }

@@ -4,7 +4,6 @@ import Foundation
 
 public extension FS.Request.TotalClimbedNumber {
     struct ListenByCourseId: FSListenable {
-
         public typealias Entry = FSQuery
 
         public typealias Collection = FS.Collection.TotalClimbedNumber
@@ -22,12 +21,13 @@ public extension FS.Request.TotalClimbedNumber {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var path: String {
-            parameters.parentPath
+            self.parameters.parentPath
             FS.Collection.Courses.name
-            parameters.courseId
+            self.parameters.courseId
         }
+
         public var entry: Entry {
-            FirestoreManager.db.document(path).collection(Collection.name)
+            FirestoreManager.db.document(self.path).collection(Collection.name)
         }
 
         public init(parameters: Parameters) {
@@ -38,11 +38,9 @@ public extension FS.Request.TotalClimbedNumber {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<FS.Document.TotalClimbedNumber, Error> {
-            entry.listen(to: Response.self)
-                .compactMap { $0.first }
+            self.entry.listen(to: Response.self)
+                .compactMap(\.first)
                 .eraseToAnyPublisher()
         }
-
     }
 }
-

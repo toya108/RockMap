@@ -10,7 +10,6 @@ protocol CourseListViewModelProtocol: ViewModelProtocol {
 }
 
 class CourseListViewModel: CourseListViewModelProtocol {
-
     var input: Input = .init()
     var output: Output = .init()
     let isMine: Bool
@@ -26,13 +25,13 @@ class CourseListViewModel: CourseListViewModelProtocol {
         self.userId = userId
         self.isMine = userId == AuthManager.shared.uid
 
-        bindInput()
-        bindOutput()
-        fetchCourseList()
+        self.bindInput()
+        self.bindOutput()
+        self.fetchCourseList()
     }
 
     private func bindInput() {
-        input.deleteCourseSubject
+        self.input.deleteCourseSubject
             .handleEvents(receiveOutput: { [weak self] course in
 
                 guard let self = self else { return }
@@ -61,29 +60,27 @@ class CourseListViewModel: CourseListViewModelProtocol {
                 self.output.courses.remove(at: index)
                 self.output.deleteState = .finish(content: ())
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     private func bindOutput() {
-        output.$courses
+        self.output.$courses
             .map(\.isEmpty)
-            .assign(to: &output.$isEmpty)
+            .assign(to: &self.output.$isEmpty)
     }
 
     func fetchCourseList() {
-        fetchCoursesUsecase.fetch(by: self.userId)
+        self.fetchCoursesUsecase.fetch(by: self.userId)
             .catch { error -> Just<[Entity.Course]> in
                 print(error)
                 return .init([])
             }
             .map { $0.sorted { $0.createdAt > $1.createdAt } }
-            .assign(to: &output.$courses)
+            .assign(to: &self.output.$courses)
     }
-
 }
 
 extension CourseListViewModel {
-
     struct Input {
         let deleteCourseSubject = PassthroughSubject<Entity.Course, Never>()
     }
@@ -93,5 +90,4 @@ extension CourseListViewModel {
         @Published var isEmpty: Bool = false
         @Published var deleteState: LoadingState<Void> = .stanby
     }
-
 }

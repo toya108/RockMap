@@ -16,12 +16,11 @@ public extension Domain.Usecase.User {
         }
 
         public func delete(id: String) -> AnyPublisher<Void, Error> {
-            repository.request(
+            self.repository.request(
                 parameters: .init(id: id)
             )
             .map { _ in () }
             .eraseToAnyPublisher()
         }
-
     }
 }

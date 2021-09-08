@@ -2,7 +2,6 @@ import Foundation
 
 @resultBuilder
 struct PathBuilder {
-
     typealias FinalResult = String
 
     static func buildBlock(_ components: String...) -> [String] {

@@ -1,14 +1,6 @@
-//
-//  RemoteConfigListener.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/07/04.
-//
-
 import FirebaseRemoteConfig
 
 struct RemoteConfigListener {
-
     let remoteConfig: RemoteConfig = {
         let remoteConfig = RemoteConfig.remoteConfig()
         let settings = RemoteConfigSettings()
@@ -20,13 +12,13 @@ struct RemoteConfigListener {
     }()
 
     var minimumAppVersion: String {
-        remoteConfig.configValue(forKey: "minimum_app_version").stringValue ?? ""
+        self.remoteConfig.configValue(forKey: "minimum_app_version").stringValue ?? ""
     }
 
     func fetchAndActivateRemoteConfig(
         completion: @escaping (Result<Void, Error>) -> Void
     ) {
-        remoteConfig.fetchAndActivate { _, error in
+        self.remoteConfig.fetchAndActivate { _, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -35,5 +27,4 @@ struct RemoteConfigListener {
             completion(.success(()))
         }
     }
-
 }

@@ -4,7 +4,6 @@ import Foundation
 
 public extension FS.Request.Rock {
     struct FetchAll: FirestoreRequestProtocol {
-
         public typealias Entry = FSQuery
         public typealias Parameters = EmptyParameters
 
@@ -25,9 +24,7 @@ public extension FS.Request.Rock {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<[FS.Document.Rock], Error> {
-            entry.getDocuments(Response.Element.self)
+            self.entry.getDocuments(Response.Element.self)
         }
-
     }
-
 }

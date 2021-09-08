@@ -3,9 +3,7 @@ import Combine
 import FirebaseStorage
 
 extension StorageReference {
-
     func getReferences() -> AnyPublisher<[StorageReference], Error> {
-
         Deferred {
             Future<[StorageReference], Error> { [weak self] promise in
 
@@ -26,7 +24,6 @@ extension StorageReference {
     }
 
     func getPrefixes() -> AnyPublisher<[StorageReference], Error> {
-
         Deferred {
             Future<[StorageReference], Error> { [weak self] promise in
 
@@ -47,7 +44,6 @@ extension StorageReference {
     }
 
     func getReference() -> AnyPublisher<StorageReference, Error> {
-
         Deferred {
             Future<StorageReference, Error> { [weak self] promise in
 
@@ -78,7 +74,6 @@ extension StorageReference {
         _ uploadData: Data,
         metadata: StorageMetadata = .init()
     ) -> AnyPublisher<EmptyResponse, Error> {
-
         metadata.cacheControl = "no-cache"
 
         var task: StorageUploadTask?
@@ -106,7 +101,6 @@ extension StorageReference {
     }
 
     func delete() -> AnyPublisher<EmptyResponse, Error> {
-
         Deferred {
             Future<EmptyResponse, Error> { [weak self] promise in
 
@@ -122,7 +116,6 @@ extension StorageReference {
                     promise(.success(.init()))
                 }
             }
-
         }
         .eraseToAnyPublisher()
     }
@@ -156,7 +149,6 @@ extension StorageReference {
 }
 
 extension Array where Element: StorageReference {
-
     func getReferences() -> AnyPublisher<[StorageReference], Error> {
         publisher
             .flatMap { $0.getReferences() }
@@ -164,5 +156,4 @@ extension Array where Element: StorageReference {
             .map { $0.flatMap { $0 } }
             .eraseToAnyPublisher()
     }
-
 }

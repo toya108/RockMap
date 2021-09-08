@@ -1,14 +1,6 @@
-//
-//  CompositionalColectionViewControllerProtocol.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/16.
-//
-
 import UIKit
 
 protocol CompositionalColectionViewControllerProtocol: UIViewController, UICollectionViewDelegate {
-
     associatedtype SectionKind: Hashable
     associatedtype ItemKind: Hashable
 
@@ -22,7 +14,6 @@ protocol CompositionalColectionViewControllerProtocol: UIViewController, UIColle
 }
 
 extension CompositionalColectionViewControllerProtocol {
-
     func configureCollectionView(topInset: CGFloat = 8) {
         collectionView = .init(frame: .zero, collectionViewLayout: createLayout())
         collectionView.backgroundColor = .systemBackground
@@ -37,7 +28,7 @@ extension CompositionalColectionViewControllerProtocol {
         collectionView.delegate = self
 
         datasource = configureDatasource()
-        
+
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
         collectionView.contentInset = .init(top: topInset, left: 0, bottom: 16, right: 0)
     }
@@ -52,14 +43,12 @@ extension CompositionalColectionViewControllerProtocol {
         else {
             return nil
         }
-        
+
         return cell
     }
-
 }
 
 extension UICollectionViewCompositionalLayout {
-
     static var zeroSizesLayout: NSCollectionLayoutSection {
         let item = NSCollectionLayoutItem(
             layoutSize: .init(
@@ -73,5 +62,4 @@ extension UICollectionViewCompositionalLayout {
         )
         return .init(group: group)
     }
-
 }

@@ -15,10 +15,10 @@ public extension Domain.Usecase.Image {
         public init() {}
 
         public func delete(path: String) -> AnyPublisher<Void, Error> {
-            repository.request(
+            self.repository.request(
                 parameters: .init(path: path)
             )
-            .map { _ in ()}
+            .map { _ in () }
             .eraseToAnyPublisher()
         }
     }

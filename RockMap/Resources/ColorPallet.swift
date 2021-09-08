@@ -1,10 +1,3 @@
-//
-//  ColorPallet.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/11/05.
-//
-
 import UIKit
 
 extension UIColor {

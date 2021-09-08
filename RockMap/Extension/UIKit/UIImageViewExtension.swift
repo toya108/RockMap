@@ -1,16 +1,8 @@
-//
-//  UIImageViewExtension.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/02/01.
-//
-
-import UIKit
-import SDWebImage
 import FirebaseStorage
+import SDWebImage
+import UIKit
 
 extension UIImageView {
-    
     func loadImage(
         url: URL?
     ) {
@@ -34,7 +26,6 @@ extension UIImageView {
 }
 
 extension UIButton {
-
     func loadImage(
         url: URL?
     ) {
@@ -56,5 +47,4 @@ extension UIButton {
             self.setImage(UIImage.AssetsImages.noimage, for: .normal)
         }
     }
-
 }

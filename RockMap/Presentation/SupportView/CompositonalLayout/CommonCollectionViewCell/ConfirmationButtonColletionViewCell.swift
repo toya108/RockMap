@@ -1,66 +1,61 @@
-//
-//  ConfirmationButtonColletionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/02/20.
-//
-
 import UIKit
 
 class ConfirmationButtonCollectionViewCell: UICollectionViewCell {
-    
     let stackView = UIStackView()
     let cautionLabel = UILabel()
     let button = UIButton()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
+        self.setupLayout()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupLayout()
+        self.setupLayout()
     }
-    
+
     private func setupLayout() {
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.spacing = 16
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(stackView)
-        
+        self.stackView.axis = .vertical
+        self.stackView.alignment = .leading
+        self.stackView.spacing = 16
+        self.stackView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(self.stackView)
+
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+            self.stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            self.stackView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -16
+            ),
+            self.stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            self.stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         ])
-        
-        cautionLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        cautionLabel.translatesAutoresizingMaskIntoConstraints = false
-        cautionLabel.text = "※登録内容は他のユーザーに公開されます。"
-        stackView.addArrangedSubview(cautionLabel)
-        
-        button.layer.cornerRadius = Resources.Const.UI.View.radius
-        button.backgroundColor = UIColor.Pallete.primaryGreen
-        button.translatesAutoresizingMaskIntoConstraints = false
-        stackView.addArrangedSubview(button)
+
+        self.cautionLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        self.cautionLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.cautionLabel.text = "※登録内容は他のユーザーに公開されます。"
+        self.stackView.addArrangedSubview(self.cautionLabel)
+
+        self.button.layer.cornerRadius = Resources.Const.UI.View.radius
+        self.button.backgroundColor = UIColor.Pallete.primaryGreen
+        self.button.translatesAutoresizingMaskIntoConstraints = false
+        self.stackView.addArrangedSubview(self.button)
         NSLayoutConstraint.activate([
-            button.heightAnchor.constraint(equalToConstant: 44)
+            self.button.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
-    
+
     func configure(confirmationButtonTapped: @escaping () -> Void) {
-        button.addAction(
+        self.button.addAction(
             .init { _ in
                 confirmationButtonTapped()
             },
             for: .touchUpInside
         )
     }
-    
+
     func configure(title: String) {
-        button.setTitle(title, for: .normal)
+        self.button.setTitle(title, for: .normal)
     }
 }

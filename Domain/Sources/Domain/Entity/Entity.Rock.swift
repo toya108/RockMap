@@ -2,7 +2,6 @@
 import Foundation
 
 public extension Domain.Entity {
-
     struct Rock: AnyEntity {
         public var id: String
         public var createdAt: Date
@@ -51,28 +50,25 @@ public extension Domain.Entity {
             self.imageUrls = imageUrls
         }
     }
-
 }
 
 public extension Domain.Entity.Rock {
-
     enum Season: String, CaseIterable, Codable {
         case spring, summer, autumn, winter
 
         public var name: String {
             switch self {
-                case .spring:
-                    return "春"
+            case .spring:
+                return "春"
 
-                case .summer:
-                    return "夏"
+            case .summer:
+                return "夏"
 
-                case .autumn:
-                    return "秋"
+            case .autumn:
+                return "秋"
 
-                case .winter:
-                    return "冬"
-
+            case .winter:
+                return "冬"
             }
         }
     }
@@ -82,27 +78,26 @@ public extension Domain.Entity.Rock {
 
         public var name: String {
             switch self {
-                case .unKnown:
-                    return "不明"
+            case .unKnown:
+                return "不明"
 
-                case .granite:
-                    return "花崗岩"
+            case .granite:
+                return "花崗岩"
 
-                case .andesite:
-                    return "安山岩"
+            case .andesite:
+                return "安山岩"
 
-                case .chert:
-                    return "チャート"
+            case .chert:
+                return "チャート"
 
-                case .limestone:
-                    return "石灰岩"
+            case .limestone:
+                return "石灰岩"
 
-                case .tuff:
-                    return "凝灰岩"
+            case .tuff:
+                return "凝灰岩"
 
-                case .sandstone:
-                    return "砂岩"
-
+            case .sandstone:
+                return "砂岩"
             }
         }
     }

@@ -1,9 +1,8 @@
 
 import Foundation
 
-extension Domain.Entity {
-
-    public struct User: AnyEntity {
+public extension Domain.Entity {
+    struct User: AnyEntity {
         public var id: String
         public var createdAt: Date
         public var updatedAt: Date?
@@ -32,66 +31,60 @@ extension Domain.Entity {
 
             public var placeHolder: String {
                 switch self {
-                    case .facebook, .twitter, .instagram:
-                        return "@"
+                case .facebook, .twitter, .instagram:
+                    return "@"
 
-                    case .other:
-                        return "ページURL"
-
+                case .other:
+                    return "ページURL"
                 }
             }
 
             public var urlBase: String {
                 switch self {
-                    case .twitter:
-                        return "twitter://user?screen_name="
+                case .twitter:
+                    return "twitter://user?screen_name="
 
-                    case .facebook:
-                        return "fb://profile/"
+                case .facebook:
+                    return "fb://profile/"
 
-                    case .instagram:
-                        return "instagram://"
+                case .instagram:
+                    return "instagram://"
 
-                    case .other:
-                        return ""
+                case .other:
+                    return ""
                 }
             }
 
             public var httpsUrlBase: String {
-
                 switch self {
-                    case .twitter:
-                        return "https://twitter.com/"
+                case .twitter:
+                    return "https://twitter.com/"
 
-                    case .facebook:
-                        return "https://www.facebook.com/"
+                case .facebook:
+                    return "https://www.facebook.com/"
 
-                    case .instagram:
-                        return "https://www.instagram.com/"
+                case .instagram:
+                    return "https://www.instagram.com/"
 
-                    case .other:
-                        return ""
+                case .other:
+                    return ""
                 }
             }
-
         }
     }
-
 }
 
 public extension Array where Element == Domain.Entity.User.SocialLink {
-
     func getLink(
         type: Domain.Entity.User.SocialLinkType
     ) -> Domain.Entity.User.SocialLink? {
-        return self.first(where: { $0.linkType == type })
+        self.first(where: { $0.linkType == type })
     }
 
     mutating func updateLink(
         type: Domain.Entity.User.SocialLinkType,
         link: String
     ) {
-
         guard
             let index = self.firstIndex(where: { $0.linkType == type })
         else {

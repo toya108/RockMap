@@ -4,7 +4,6 @@ import Foundation
 
 public extension FS.Request.User {
     struct FetchById: FirestoreRequestProtocol {
-
         public typealias Entry = FSDocument
 
         public typealias Collection = FS.Collection.Users
@@ -21,10 +20,11 @@ public extension FS.Request.User {
         public var testDataPath: URL?
         public var path: String {
             Collection.name
-            parameters.id
+            self.parameters.id
         }
+
         public var entry: Entry {
-            FirestoreManager.db.document(path)
+            FirestoreManager.db.document(self.path)
         }
 
         public init(parameters: Parameters) {
@@ -35,8 +35,7 @@ public extension FS.Request.User {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<FS.Document.User, Error> {
-            entry.getDocument(Response.self)
+            self.entry.getDocument(Response.self)
         }
     }
 }
-

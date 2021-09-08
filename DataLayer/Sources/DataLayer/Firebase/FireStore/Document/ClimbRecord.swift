@@ -1,11 +1,9 @@
 
-import Foundation
 import FirebaseFirestoreSwift
+import Foundation
 
 public extension FS.Document {
-
     struct ClimbRecord: DocumentProtocol, UserRegisterableDocumentProtocol {
-        
         public var collection: CollectionProtocol.Type { FS.Collection.ClimbRecord.self }
 
         public var id: String
@@ -20,5 +18,4 @@ public extension FS.Document {
         public var climbedDate: Date
         public var type: String
     }
-
 }

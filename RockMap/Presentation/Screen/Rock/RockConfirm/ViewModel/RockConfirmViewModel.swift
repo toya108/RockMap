@@ -1,8 +1,8 @@
 
-import CoreLocation
-import Combine
-import FirebaseFirestore
 import Auth
+import Combine
+import CoreLocation
+import FirebaseFirestore
 
 protocol RockConfirmViewModelModelProtocol: ViewModelProtocol {
     var input: RockConfirmViewModel.Input { get }
@@ -10,7 +10,6 @@ protocol RockConfirmViewModelModelProtocol: ViewModelProtocol {
 }
 
 final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
-
     var input: Input = .init()
     var output: Output = .init()
 
@@ -34,32 +33,31 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
         self.rockEntity = rockEntity
         self.header = header
         self.images = images
-        bindInput()
+        self.bindInput()
     }
 
     private func bindInput() {
-        input.uploadImageSubject
-            .sink(receiveValue: uploadImages)
-            .store(in: &bindings)
+        self.input.uploadImageSubject
+            .sink(receiveValue: self.uploadImages)
+            .store(in: &self.bindings)
 
-        input.registerRockSubject
-            .sink(receiveValue: registerRock)
-            .store(in: &bindings)
+        self.input.registerRockSubject
+            .sink(receiveValue: self.registerRock)
+            .store(in: &self.bindings)
     }
 
     private func uploadImages() {
-
-        let writeHeader = writeImageUsecase.write(
-            data: header.updateData,
-            shouldDelete: header.shouldDelete,
-            image: header.image
+        let writeHeader = self.writeImageUsecase.write(
+            data: self.header.updateData,
+            shouldDelete: self.header.shouldDelete,
+            image: self.header.image
         ) {
             .rock
             rockEntity.id
             header.imageType
         }
 
-        let writeImages = images.map {
+        let writeImages = self.images.map {
             writeImageUsecase.write(
                 data: $0.updateData,
                 shouldDelete: $0.shouldDelete,
@@ -92,23 +90,23 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
                     self.output.imageUploadState = .finish(content: ())
                 }
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     private func registerRock() {
-        output.rockUploadState = .loading
+        self.output.rockUploadState = .loading
 
-        switch registerType {
-            case .create:
-                createRock()
+        switch self.registerType {
+        case .create:
+            self.createRock()
 
-            case .edit:
-                editRock()
+        case .edit:
+            self.editRock()
         }
     }
 
     private func createRock() {
-        setRockUsecase.set(rock: rockEntity)
+        self.setRockUsecase.set(rock: self.rockEntity)
             .catch { [weak self] error -> Empty in
 
                 guard let self = self else { return Empty() }
@@ -122,11 +120,11 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
 
                 self.output.rockUploadState = .finish(content: ())
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     private func editRock() {
-        updateRockUsecase.update(rock: rockEntity)
+        self.updateRockUsecase.update(rock: self.rockEntity)
             .catch { [weak self] error -> Empty in
 
                 guard let self = self else { return Empty() }
@@ -140,12 +138,11 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
 
                 self.output.rockUploadState = .finish(content: ())
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 }
 
 extension RockConfirmViewModel {
-
     struct Input {
         let uploadImageSubject = PassthroughSubject<Void, Never>()
         let registerRockSubject = PassthroughSubject<Void, Never>()

@@ -5,7 +5,7 @@ public extension Domain.Entity {
     struct TotalClimbedNumber: AnyEntity {
         public var flash: Int
         public var redPoint: Int
-        public var total: Int { flash + redPoint }
+        public var total: Int { self.flash + self.redPoint }
 
         public init(
             flash: Int,

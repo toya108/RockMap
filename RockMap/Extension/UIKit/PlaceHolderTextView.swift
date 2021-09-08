@@ -1,20 +1,12 @@
-//
-//  PlaceHolderTextView.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/11/10.
-//
-
 import UIKit
 
 @IBDesignable class PlaceHolderTextView: UITextView {
-
     // MARK: Stored Instance Properties
 
     @IBInspectable var placeHolder: String = "" {
         willSet {
-            placeHolderLabel.text = newValue
-            placeHolderLabel.sizeToFit()
+            self.placeHolderLabel.text = newValue
+            self.placeHolderLabel.sizeToFit()
         }
     }
 
@@ -31,20 +23,25 @@ import UIKit
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        changeVisiblePlaceHolder()
-        NotificationCenter.default.addObserver(self, selector: #selector(textChanged), name: UITextView.textDidChangeNotification, object: nil)
+        self.changeVisiblePlaceHolder()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.textChanged),
+            name: UITextView.textDidChangeNotification,
+            object: nil
+        )
     }
-    
+
     func updatePlaceholder(_ placeholder: String) {
-        placeHolder = placeholder
-        changeVisiblePlaceHolder()
+        self.placeHolder = placeholder
+        self.changeVisiblePlaceHolder()
     }
 
     private func changeVisiblePlaceHolder() {
-        placeHolderLabel.alpha = (self.placeHolder.isEmpty || !self.text.isEmpty) ? 0.0 : 1.0
+        self.placeHolderLabel.alpha = (self.placeHolder.isEmpty || !self.text.isEmpty) ? 0.0 : 1.0
     }
 
     @objc private func textChanged(notification: NSNotification?) {
-        changeVisiblePlaceHolder()
+        self.changeVisiblePlaceHolder()
     }
 }

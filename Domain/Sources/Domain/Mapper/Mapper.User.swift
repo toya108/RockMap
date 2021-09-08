@@ -3,9 +3,7 @@ import DataLayer
 import Foundation
 
 public extension Domain.Mapper {
-
     struct User: MapperProtocol {
-
         public typealias User = Domain.Entity.User
 
         public init() {}
@@ -46,7 +44,5 @@ public extension Domain.Mapper {
                 deleted: other.deleted
             )
         }
-
     }
-
 }

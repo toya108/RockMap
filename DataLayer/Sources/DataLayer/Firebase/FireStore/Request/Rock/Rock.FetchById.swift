@@ -4,7 +4,6 @@ import Foundation
 
 public extension FS.Request.Rock {
     struct FetchById: FirestoreRequestProtocol {
-
         public typealias Entry = FSQuery
 
         public typealias Collection = FS.Collection.Rocks
@@ -20,7 +19,7 @@ public extension FS.Request.Rock {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var entry: Entry {
-            Collection.group.whereField("id", in: [parameters.id])
+            Collection.group.whereField("id", in: [self.parameters.id])
         }
 
         public init(parameters: Parameters) {
@@ -31,10 +30,9 @@ public extension FS.Request.Rock {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<FS.Document.Rock, Error> {
-            entry.getDocuments(Response.self)
-                .compactMap { $0.first }
+            self.entry.getDocuments(Response.self)
+                .compactMap(\.first)
                 .eraseToAnyPublisher()
         }
-
     }
 }

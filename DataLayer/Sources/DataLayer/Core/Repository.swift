@@ -11,11 +11,9 @@ public protocol RepositoryProtocol {
         useTestData: Bool,
         parameters: Request.Parameters
     ) -> AnyPublisher<Request.Response, Error>
-
 }
 
 public struct Repository<Request: RequestProtocol>: RepositoryProtocol {
-
     public init() {}
 
     public func request(
@@ -25,5 +23,4 @@ public struct Repository<Request: RequestProtocol>: RepositoryProtocol {
         let item = Request(parameters: parameters)
         return item.reguest(useTestData: useTestData, parameters: parameters)
     }
-
 }

@@ -1,30 +1,22 @@
-//
-//  MyPageLayout.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/19.
-//
-
 import UIKit
 
 extension MyPageViewController {
-
     func createLayout() -> UICollectionViewCompositionalLayout {
+        let layout =
+            UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
 
-        let layout = UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
+                let section: NSCollectionLayoutSection
 
-            let section: NSCollectionLayoutSection
-
-            let sectionType = SectionKind.allCases[sectionNumber]
-            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: .init(
-                    widthDimension: .fractionalWidth(1),
-                    heightDimension: .absolute(52)
-                ),
-                elementKind: sectionType.headerIdentifer,
-                alignment: .top
-            )
-            switch sectionType {
+                let sectionType = SectionKind.allCases[sectionNumber]
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(52)
+                    ),
+                    elementKind: sectionType.headerIdentifer,
+                    alignment: .top
+                )
+                switch sectionType {
                 case .headerImage:
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(
@@ -32,8 +24,14 @@ extension MyPageViewController {
                             heightDimension: .fractionalHeight(1)
                         )
                     )
-                    let collectionViewWidth = self.collectionView.bounds.width - (self.collectionView.layoutMargins.left + self.collectionView.layoutMargins.right)
-                    let height = collectionViewWidth * 3/4
+                    let collectionViewWidth = self.collectionView.bounds
+                        .width -
+                        (
+                            self.collectionView.layoutMargins.left + self.collectionView
+                                .layoutMargins
+                                .right
+                        )
+                    let height = collectionViewWidth * 3 / 4
                     let group = NSCollectionLayoutGroup.horizontal(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
@@ -114,7 +112,8 @@ extension MyPageViewController {
 
                     if
                         self.snapShot.itemIdentifiers(inSection: .recentClimbedCourses).count == 1,
-                        case .noCourse = self.snapShot.itemIdentifiers(inSection: .recentClimbedCourses).first
+                        case .noCourse = self.snapShot
+                            .itemIdentifiers(inSection: .recentClimbedCourses).first
                     {
                         item = .init(
                             layoutSize: .init(
@@ -153,23 +152,28 @@ extension MyPageViewController {
                     section.contentInsets.bottom = 16
 
                 case .registered:
-                    let configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
-                    section = NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: env)
+                    let configuration =
+                        UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+                    section = NSCollectionLayoutSection.list(
+                        using: configuration,
+                        layoutEnvironment: env
+                    )
                     section.boundarySupplementaryItems = [sectionHeader]
                     section.contentInsets.top = 0
                     return section
-            }
+                }
 
-            if !sectionType.headerIdentifer.isEmpty {
-                section.boundarySupplementaryItems = [sectionHeader]
-            }
+                if !sectionType.headerIdentifer.isEmpty {
+                    section.boundarySupplementaryItems = [sectionHeader]
+                }
 
-            let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem.background(elementKind: SectionBackgroundDecorationView.className)
-            section.decorationItems = [sectionBackgroundDecoration]
-            section.contentInsetsReference = .layoutMargins
-            
-            return section
-        }
+                let sectionBackgroundDecoration = NSCollectionLayoutDecorationItem
+                    .background(elementKind: SectionBackgroundDecorationView.className)
+                section.decorationItems = [sectionBackgroundDecoration]
+                section.contentInsetsReference = .layoutMargins
+
+                return section
+            }
 
         layout.register(
             SectionBackgroundDecorationView.self,

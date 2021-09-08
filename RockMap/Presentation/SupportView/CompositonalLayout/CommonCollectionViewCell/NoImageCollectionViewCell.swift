@@ -1,38 +1,30 @@
-//
-//  NoImageCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/14.
-//
-
 import UIKit
 
 class NoImageCollectionViewCell: UICollectionViewCell {
-
     let label = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
+        self.setupLayout()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupLayout()
+        self.setupLayout()
     }
 
     private func setupLayout() {
         backgroundColor = .systemGroupedBackground
         layer.cornerRadius = 8
-        addSubview(label)
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.text = "画像は未投稿です。"
-        label.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(self.label)
+        self.label.numberOfLines = 0
+        self.label.textAlignment = .center
+        self.label.text = "画像は未投稿です。"
+        self.label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            label.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label.leftAnchor.constraint(equalTo: leftAnchor),
-            label.rightAnchor.constraint(equalTo: rightAnchor)
+            self.label.centerYAnchor.constraint(equalTo: centerYAnchor),
+            self.label.leftAnchor.constraint(equalTo: leftAnchor),
+            self.label.rightAnchor.constraint(equalTo: rightAnchor)
         ])
     }
 }

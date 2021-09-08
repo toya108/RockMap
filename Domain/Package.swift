@@ -6,24 +6,27 @@ import PackageDescription
 let package = Package(
     name: "Domain",
     platforms: [
-        .iOS(.v14),
+        .iOS(.v14)
     ],
     products: [
         .library(
             name: "Domain",
-            targets: ["Domain"]),
+            targets: ["Domain"]
+        )
     ],
     dependencies: [
-        .package(url: "../DataLayer", from: "1.0.0"),
+        .package(url: "../DataLayer", from: "1.0.0")
     ],
     targets: [
         .target(
             name: "Domain",
             dependencies: [
-                .product(name: "DataLayer", package: "DataLayer"),
-            ]),
+                .product(name: "DataLayer", package: "DataLayer")
+            ]
+        ),
         .testTarget(
             name: "DomainTests",
-            dependencies: ["Domain"]),
+            dependencies: ["Domain"]
+        )
     ]
 )

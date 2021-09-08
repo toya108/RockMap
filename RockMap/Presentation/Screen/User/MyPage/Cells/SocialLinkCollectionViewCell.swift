@@ -1,52 +1,44 @@
-//
-//  SocialLinkCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/20.
-//
-
 import UIKit
 
 class SocialLinkCollectionViewCell: UICollectionViewCell {
-
     let socialLinkButton = UIButton()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
+        self.setupLayout()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupLayout()
+        self.setupLayout()
     }
 
     private func setupLayout() {
-        socialLinkButton.setImage(UIImage.AssetsImages.instagram, for: .normal)
+        self.socialLinkButton.setImage(UIImage.AssetsImages.instagram, for: .normal)
 
-        socialLinkButton.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(socialLinkButton)
+        self.socialLinkButton.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(self.socialLinkButton)
 
-        socialLinkButton.tintColor = UIColor.Pallete.primaryGreen
+        self.socialLinkButton.tintColor = UIColor.Pallete.primaryGreen
 
         NSLayoutConstraint.activate([
-            socialLinkButton.heightAnchor.constraint(equalToConstant: 28),
-            socialLinkButton.widthAnchor.constraint(equalToConstant: 28),
-            socialLinkButton.topAnchor.constraint(equalTo: contentView.topAnchor),
-            socialLinkButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            socialLinkButton.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            socialLinkButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+            self.socialLinkButton.heightAnchor.constraint(equalToConstant: 28),
+            self.socialLinkButton.widthAnchor.constraint(equalToConstant: 28),
+            self.socialLinkButton.topAnchor.constraint(equalTo: contentView.topAnchor),
+            self.socialLinkButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            self.socialLinkButton.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            self.socialLinkButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
         ])
     }
 
     func configure(
         for socialLink: Entity.User.SocialLink
     ) {
-        socialLinkButton.setImage(socialLink.linkType.icon, for: .normal)
-        socialLinkButton.isEnabled = !socialLink.link.isEmpty
-        socialLinkButton.tintColor = socialLink.linkType.color
-        socialLinkButton.addAction(
-            .init {[weak self] _ in
+        self.socialLinkButton.setImage(socialLink.linkType.icon, for: .normal)
+        self.socialLinkButton.isEnabled = !socialLink.link.isEmpty
+        self.socialLinkButton.tintColor = socialLink.linkType.color
+        self.socialLinkButton.addAction(
+            .init { [weak self] _ in
 
                 guard let self = self else { return }
 
@@ -57,9 +49,7 @@ class SocialLinkCollectionViewCell: UICollectionViewCell {
     }
 
     private func openLink(from socialLink: Entity.User.SocialLink) {
-
         if case .other = socialLink.linkType {
-
             guard
                 let url = URL(string: socialLink.link)
             else {
@@ -80,25 +70,24 @@ class SocialLinkCollectionViewCell: UICollectionViewCell {
         guard
             let url = URL(string: socialLink.linkType.urlBase + socialLink.link)
         else {
-            showDisableLinkAlert()
+            self.showDisableLinkAlert()
             return
         }
 
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         } else {
-
             guard
                 let httpsUrl = URL(string: socialLink.linkType.httpsUrlBase + socialLink.link)
             else {
-                showDisableLinkAlert()
+                self.showDisableLinkAlert()
                 return
             }
 
             guard
                 UIApplication.shared.canOpenURL(httpsUrl)
             else {
-                showDisableLinkAlert()
+                self.showDisableLinkAlert()
                 return
             }
 
@@ -107,7 +96,6 @@ class SocialLinkCollectionViewCell: UICollectionViewCell {
     }
 
     private func showDisableLinkAlert() {
-
         guard
             let topViewController = UIApplication.shared.windows
                 .first(where: { $0.isKeyWindow })?

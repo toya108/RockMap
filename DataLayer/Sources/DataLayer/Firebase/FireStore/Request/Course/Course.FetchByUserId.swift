@@ -4,7 +4,6 @@ import Foundation
 
 public extension FS.Request.Course {
     struct FetchByUserId: FirestoreRequestProtocol {
-
         public typealias Entry = FSQuery
 
         public typealias Collection = FS.Collection.Courses
@@ -20,7 +19,7 @@ public extension FS.Request.Course {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var entry: Entry {
-            Collection.group.whereField("registeredUserId", in: [parameters.userId])
+            Collection.group.whereField("registeredUserId", in: [self.parameters.userId])
         }
 
         public init(parameters: Parameters) {
@@ -31,8 +30,7 @@ public extension FS.Request.Course {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<[FS.Document.Course], Error> {
-            entry.getDocuments(Response.Element.self)
+            self.entry.getDocuments(Response.Element.self)
         }
-
     }
 }

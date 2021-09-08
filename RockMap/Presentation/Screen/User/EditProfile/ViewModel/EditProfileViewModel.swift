@@ -1,11 +1,3 @@
-//
-//  EditProfileViewModel.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/10.
-//
-
-
 import Combine
 import Foundation
 
@@ -15,50 +7,49 @@ protocol EditProfileViewModelProtocol: ViewModelProtocol {
 }
 
 class EditProfileViewModel: EditProfileViewModelProtocol {
-
     var input: Input = .init()
     var output: Output = .init()
     let user: Entity.User
 
-    private var bindings           = Set<AnyCancellable>()
-    private let updateUserUsecase  = Usecase.User.Update()
+    private var bindings = Set<AnyCancellable>()
+    private let updateUserUsecase = Usecase.User.Update()
     private let fetchHeaderUsecase = Usecase.Image.Fetch.Header()
-    private let fetchIconUsecase   = Usecase.Image.Fetch.Icon()
-    private let writeImageUsecase  = Usecase.Image.Write()
+    private let fetchIconUsecase = Usecase.Image.Fetch.Icon()
+    private let writeImageUsecase = Usecase.Image.Write()
 
     init(user: Entity.User) {
         self.user = user
-        bindInput()
-        bindOutput()
+        self.bindInput()
+        self.bindOutput()
 
-        input.nameSubject.send(user.name)
-        input.introductionSubject.send(user.introduction)
-        fetchImageStorage()
+        self.input.nameSubject.send(user.name)
+        self.input.introductionSubject.send(user.introduction)
+        self.fetchImageStorage()
         user.socialLinks.forEach {
             input.socialLinkSubject.send($0)
         }
     }
 
     private func bindInput() {
-        input.nameSubject
+        self.input.nameSubject
             .removeDuplicates()
             .compactMap { $0 }
-            .assign(to: &output.$name)
+            .assign(to: &self.output.$name)
 
-        input.introductionSubject
+        self.input.introductionSubject
             .removeDuplicates()
             .compactMap { $0 }
-            .assign(to: &output.$introduction)
+            .assign(to: &self.output.$introduction)
 
-        input.setImageSubject
-            .sink(receiveValue: setImage)
-            .store(in: &bindings)
+        self.input.setImageSubject
+            .sink(receiveValue: self.setImage)
+            .store(in: &self.bindings)
 
-        input.deleteImageSubject
-            .sink(receiveValue: deleteImage)
-            .store(in: &bindings)
+        self.input.deleteImageSubject
+            .sink(receiveValue: self.deleteImage)
+            .store(in: &self.bindings)
 
-        input.socialLinkSubject
+        self.input.socialLinkSubject
             .sink { [weak self] socialLink in
 
                 guard
@@ -72,95 +63,94 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
 
                 self.output.socialLinks[index].link = socialLink.link
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     private func bindOutput() {
-        output.$name
+        self.output.$name
             .dropFirst()
             .removeDuplicates()
             .map { name -> ValidationResult in CourseNameValidator().validate(name) }
-            .assign(to: &output.$nameValidationResult)
+            .assign(to: &self.output.$nameValidationResult)
     }
 
     private func fetchImageStorage() {
-        fetchHeaderUsecase.fetch(id: user.id, destination: .user)
+        self.fetchHeaderUsecase.fetch(id: self.user.id, destination: .user)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
             }
             .map { .init(imageType: .header, image: $0) }
-            .assign(to: &output.$header)
+            .assign(to: &self.output.$header)
 
-        fetchIconUsecase.fetch(id: user.id, destination: .user)
+        self.fetchIconUsecase.fetch(id: self.user.id, destination: .user)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
             }
             .map { .init(imageType: .icon, image: $0) }
-            .assign(to: &output.$icon)
+            .assign(to: &self.output.$icon)
     }
 
     private func setImage(imageType: Entity.Image.ImageType, data: Data) {
         switch imageType {
-            case .icon:
-                output.icon.updateData = data
+        case .icon:
+            self.output.icon.updateData = data
 
-            case .header:
-                output.header.updateData = data
-                output.header.shouldDelete = false
+        case .header:
+            self.output.header.updateData = data
+            self.output.header.shouldDelete = false
 
-            case .normal, .unhandle:
-                break
+        case .normal, .unhandle:
+            break
         }
     }
 
     private func deleteImage(imageType: Entity.Image.ImageType) {
         switch imageType {
-            case .icon:
-                output.icon.updateData = nil
+        case .icon:
+            self.output.icon.updateData = nil
 
-            case .header:
-                output.header.updateData = nil
+        case .header:
+            self.output.header.updateData = nil
 
-                if output.header.image.url != nil {
-                    output.header.shouldDelete = true
-                }
+            if self.output.header.image.url != nil {
+                self.output.header.shouldDelete = true
+            }
 
-            case .normal, .unhandle:
-                break
+        case .normal, .unhandle:
+            break
         }
     }
 
     func callValidations() -> Bool {
-        if !output.nameValidationResult.isValid {
-            output.nameValidationResult = UserNameValidator().validate(output.name)
+        if !self.output.nameValidationResult.isValid {
+            self.output.nameValidationResult = UserNameValidator().validate(self.output.name)
         }
         return [
-            output.nameValidationResult
+            self.output.nameValidationResult
         ]
         .map(\.isValid)
         .allSatisfy { $0 }
     }
 
     func uploadImage() {
-
         self.output.imageUploadState = .loading
 
-        let writeHeader = writeImageUsecase.write(
-            data: output.header.updateData,
-            shouldDelete: output.header.shouldDelete,
-            image: output.header.image
+        let writeHeader = self.writeImageUsecase.write(
+            data: self.output.header.updateData,
+            shouldDelete: self.output.header.shouldDelete,
+            image: self.output.header.image
         ) {
             .user
             user.id
             output.header.imageType
         }
 
-        let writeIcon = writeImageUsecase.write(
-            data: output.icon.updateData,
-            shouldDelete: output.icon.shouldDelete,
-            image: output.icon.image
+        let writeIcon = self.writeImageUsecase.write(
+            data: self.output.icon.updateData,
+            shouldDelete: self.output.icon.shouldDelete,
+            image: self.output.icon.image
         ) {
             .user
             user.id
@@ -170,7 +160,7 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
         writeHeader.combineLatest(writeIcon)
             .catch { [weak self] error -> Empty in
 
-                guard let self = self else { return Empty()}
+                guard let self = self else { return Empty() }
 
                 print(error)
                 self.output.imageUploadState = .failure(error)
@@ -185,12 +175,11 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
                     self.output.imageUploadState = .finish(content: ())
                 }
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     func editProfile() {
-
-        output.userUploadState = .loading
+        self.output.userUploadState = .loading
 
         var updateUser: Entity.User {
             var updateUser = user
@@ -200,10 +189,10 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             return updateUser
         }
 
-        updateUserUsecase.update(user: updateUser)
+        self.updateUserUsecase.update(user: updateUser)
             .catch { [weak self] error -> Empty in
 
-                guard let self = self else { return Empty()}
+                guard let self = self else { return Empty() }
 
                 print(error)
                 self.output.userUploadState = .failure(error)
@@ -215,12 +204,11 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
 
                 self.output.userUploadState = .finish(content: ())
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 }
 
 extension EditProfileViewModel {
-
     struct Input {
         let nameSubject = PassthroughSubject<String?, Never>()
         let introductionSubject = PassthroughSubject<String?, Never>()
@@ -234,9 +222,11 @@ extension EditProfileViewModel {
         @Published var introduction = ""
         @Published var header: CrudableImage = .init(imageType: .header)
         @Published var icon: CrudableImage = .init(imageType: .icon)
-        @Published var socialLinks: [Entity.User.SocialLink] = Entity.User.SocialLinkType.allCases.map {
-            Entity.User.SocialLink(linkType: $0, link: "")
-        }
+        @Published var socialLinks: [Entity.User.SocialLink] = Entity.User.SocialLinkType.allCases
+            .map {
+                Entity.User.SocialLink(linkType: $0, link: "")
+            }
+
         @Published var nameValidationResult: ValidationResult = .none
 
         @Published var imageUploadState: LoadingState<Void> = .stanby

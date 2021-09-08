@@ -3,7 +3,6 @@ import Foundation
 
 public extension FS.Request.User {
     struct Set: FirestoreRequestProtocol {
-
         public typealias Entry = FSDocument
 
         public typealias Collection = FS.Collection.Users
@@ -31,9 +30,9 @@ public extension FS.Request.User {
         public var testDataPath: URL?
         public var path: String {
             Collection.name
-
         }
-        public var entry: Entry { FirestoreManager.db.document(path) }
+
+        public var entry: Entry { FirestoreManager.db.document(self.path) }
 
         public init(parameters: Parameters) {
             self.parameters = parameters
@@ -43,7 +42,6 @@ public extension FS.Request.User {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<EmptyResponse, Error> {
-
             let userDocument = FS.Document.User(
                 id: parameters.id,
                 createdAt: parameters.createdAt,
@@ -60,14 +58,12 @@ public extension FS.Request.User {
                     setUserDocument(exists: $0, document: userDocument)
                 }
                 .eraseToAnyPublisher()
-
         }
 
         private func setUserDocument(
             exists: Bool,
             document: FS.Document.User
         ) -> AnyPublisher<EmptyResponse, Error> {
-
             guard exists else {
                 return document.reference.setData(from: document)
             }
@@ -84,6 +80,5 @@ public extension FS.Request.User {
                 return Fail<EmptyResponse, Error>(error: error).eraseToAnyPublisher()
             }
         }
-
     }
 }

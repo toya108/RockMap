@@ -8,7 +8,6 @@ protocol MyPageViewModelProtocol: ViewModelProtocol {
 }
 
 class MyPageViewModel: MyPageViewModelProtocol {
-
     var input: Input
     var output: Output
     let userKind: UserKind
@@ -19,27 +18,26 @@ class MyPageViewModel: MyPageViewModelProtocol {
     private let fetchCourseUsecase = Usecase.Course.FetchByReference()
 
     init(userKind: UserKind) {
-
         self.userKind = userKind
 
         self.input = .init()
         self.output = .init()
 
-        setupInput()
-        setupOutput()
+        self.setupInput()
+        self.setupOutput()
     }
 
     private func setupInput() {
-        input.finishedCollectionViewSetup
+        self.input.finishedCollectionViewSetup
             .sink { [weak self] in
                 self?.fetchUser()
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     private func setupOutput() {
-        output.$fetchUserState
-            .filter { $0.isFinished }
+        self.output.$fetchUserState
+            .filter(\.isFinished)
             .compactMap { $0.content?.id }
             .flatMap {
                 self.fetchClimbRecordsUsecase.fetch(by: $0).catch { error -> Empty in
@@ -47,9 +45,9 @@ class MyPageViewModel: MyPageViewModelProtocol {
                     return Empty()
                 }
             }
-            .assign(to: &output.$climbedList)
+            .assign(to: &self.output.$climbedList)
 
-        output.$climbedList
+        self.output.$climbedList
             .map { $0.map(\.parentCourseReference).unique.prefix(5) }
             .flatMap {
                 $0.publisher.flatMap { id in
@@ -60,36 +58,34 @@ class MyPageViewModel: MyPageViewModelProtocol {
                 }
                 .collect()
             }
-            .assign(to: &output.$recentClimbedCourses)
+            .assign(to: &self.output.$recentClimbedCourses)
     }
 
     func fetchUser() {
-        switch userKind {
-            case .mine:
-                fetchUser(from: AuthManager.shared.uid)
+        switch self.userKind {
+        case .mine:
+            self.fetchUser(from: AuthManager.shared.uid)
 
-            case .guest:
-                break
+        case .guest:
+            break
 
-            case .other(let user):
-                output.fetchUserState = .finish(content: user)
+        case let .other(user):
+            self.output.fetchUserState = .finish(content: user)
         }
     }
 
     private func fetchUser(from id: String) {
-        output.fetchUserState = .loading
+        self.output.fetchUserState = .loading
 
-        fetchUserUsecase.fetchUser(by: id)
+        self.fetchUserUsecase.fetchUser(by: id)
             .sinkState { [weak self] state in
                 self?.output.fetchUserState = state
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
-
 }
 
 extension MyPageViewModel {
-
     enum UserKind {
         case guest
         case mine
@@ -97,11 +93,11 @@ extension MyPageViewModel {
 
         var title: String {
             switch self {
-                case .guest, .mine:
-                    return "マイページ"
-                    
-                case .other(let user):
-                    return user.name
+            case .guest, .mine:
+                return "マイページ"
+
+            case let .other(user):
+                return user.name
             }
         }
 
@@ -115,23 +111,22 @@ extension MyPageViewModel {
 
         var userId: String {
             switch self {
-                case .guest:
-                    return ""
+            case .guest:
+                return ""
 
-                case .mine:
-                    return AuthManager.shared.uid
+            case .mine:
+                return AuthManager.shared.uid
 
-                case .other(let user):
-                    return user.id
+            case let .other(user):
+                return user.id
             }
         }
     }
 }
 
 extension MyPageViewModel {
-
     struct Input {
-        let finishedCollectionViewSetup = PassthroughSubject<(Void), Never>()
+        let finishedCollectionViewSetup = PassthroughSubject<Void, Never>()
     }
 
     final class Output {
@@ -140,5 +135,4 @@ extension MyPageViewModel {
         @Published var climbedList: [Entity.ClimbRecord] = []
         @Published var recentClimbedCourses: [Entity.Course] = []
     }
-
 }

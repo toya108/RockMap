@@ -4,13 +4,11 @@ import Foundation
 
 public extension FS.Request.ClimbRecord {
     struct Set: FirestoreRequestProtocol {
-
         public typealias Entry = FSDocument
 
         public typealias Collection = FS.Collection.ClimbRecord
         public typealias Response = EmptyResponse
         public struct Parameters: Codable {
-
             public var id: String
             public var registeredUserId: String
             public var parentCourseId: String
@@ -47,11 +45,12 @@ public extension FS.Request.ClimbRecord {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var path: String {
-            parameters.parentPath
+            self.parameters.parentPath
             Collection.name
-            parameters.id
+            self.parameters.id
         }
-        public var entry: Entry { FirestoreManager.db.document(path) }
+
+        public var entry: Entry { FirestoreManager.db.document(self.path) }
 
         public init(parameters: Parameters) {
             self.parameters = parameters
@@ -77,7 +76,8 @@ public extension FS.Request.ClimbRecord {
                         id: parameters.id,
                         registeredUserId: parameters.registeredUserId,
                         parentCourseId: parameters.parentCourseId,
-                        parentCourseReference: FirestoreManager.db.document(parameters.parentCourseReference),
+                        parentCourseReference: FirestoreManager.db
+                            .document(parameters.parentCourseReference),
                         totalNumberReference: totalNumber.reference,
                         createdAt: parameters.createdAt,
                         updatedAt: parameters.updatedAt,
@@ -90,6 +90,5 @@ public extension FS.Request.ClimbRecord {
                 }
                 .eraseToAnyPublisher()
         }
-
     }
 }

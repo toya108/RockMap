@@ -1,22 +1,13 @@
-//
-//  RockDetailDatasource.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/02/08.
-//
-
 import UIKit
 
 extension RockDetailViewController {
-    
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
-        
         let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
             collectionView: collectionView,
             cellProvider: { [weak self] collectionView, indexPath, item in
-                
+
                 guard let self = self else { return UICollectionViewCell() }
-                
+
                 switch item {
                 case let .header(loadable):
                     return collectionView.dequeueConfiguredReusableCell(
@@ -38,14 +29,14 @@ extension RockDetailViewController {
                         for: indexPath,
                         item: user
                     )
-                    
+
                 case let .desc(desc):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureRockDescCell(),
                         for: indexPath,
                         item: desc
                     )
-                
+
                 case let .map(rockLocation):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureLocationCell(),
@@ -70,14 +61,14 @@ extension RockDetailViewController {
                         for: indexPath,
                         item: course
                     )
-                
+
                 case .nocourse:
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureNoCourseCell(),
                         for: indexPath,
                         item: Dummy()
                     )
-                    
+
                 case let .season(seasons):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: self.configureValueCell(),
@@ -113,36 +104,35 @@ extension RockDetailViewController {
                         for: indexPath,
                         item: Dummy()
                     )
-
                 }
             }
         )
-        
+
         let headerRegistration = UICollectionView.SupplementaryRegistration<TitleSupplementaryView>(
             elementKind: TitleSupplementaryView.className
         ) { [weak self] supplementaryView, _, indexPath in
-            
+
             guard let self = self else { return }
-            
+
             supplementaryView.setSideInset(0)
-            supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section].headerTitle
+            supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section]
+                .headerTitle
         }
-        
-        datasource.supplementaryViewProvider = { [weak self] collectionView, _, index in
-            
+
+        datasource.supplementaryViewProvider = { [weak self] _, _, index in
+
             guard let self = self else { return nil }
-            
+
             return self.collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration,
                 for: index
             )
         }
         return datasource
-    }    
+    }
 }
 
 extension RockDetailViewController {
-    
     private func configureImageCell(
         radius: CGFloat = 0.0
     ) -> UICollectionView.CellRegistration<
@@ -165,7 +155,7 @@ extension RockDetailViewController {
             cell.configure(icon: UIImage.AssetsImages.rockFill, title: title)
         }
     }
-    
+
     private func configureRegisteredUserCell() -> UICollectionView.CellRegistration<
         LeadingRegisteredUserCollectionViewCell,
         Entity.User
@@ -186,7 +176,7 @@ extension RockDetailViewController {
             )
         }
     }
-    
+
     private func configureRockDescCell() -> UICollectionView.CellRegistration<
         DescCollectionViewCell,
         String
@@ -195,7 +185,7 @@ extension RockDetailViewController {
             cell.descLabel.text = desc
         }
     }
-    
+
     private func configureLocationCell() -> UICollectionView.CellRegistration<
         RockLocationCollectionViewCell,
         LocationManager.LocationStructure
@@ -205,7 +195,7 @@ extension RockDetailViewController {
             cell.mapView.delegate = self
         }
     }
-    
+
     private func configureNoCourseCell() -> UICollectionView.CellRegistration<
         NoCoursesCollectionViewCell,
         Dummy
@@ -216,9 +206,9 @@ extension RockDetailViewController {
                 bundle: nil
             )
         ) { [weak self] cell, _, _ in
-            
+
             guard let self = self else { return }
-            
+
             cell.addCourseButton.addAction(
                 .init { _ in
                     self.router.route(
@@ -230,7 +220,7 @@ extension RockDetailViewController {
             )
         }
     }
-    
+
     private func configureValueCell() -> UICollectionView.CellRegistration<
         ValueCollectionViewCell,
         ValueCollectionViewCell.ValueCellStructure
@@ -268,5 +258,4 @@ extension RockDetailViewController {
     > {
         .init { _, _, _ in }
     }
-    
 }

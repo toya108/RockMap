@@ -1,12 +1,11 @@
 
 import Combine
+import FirebaseFirestore
 import Foundation
 import Utilities
-import FirebaseFirestore
 
 public extension FS.Request.User {
     struct Update: FirestoreRequestProtocol {
-
         public typealias Entry = FSDocument
 
         public typealias Collection = FS.Collection.Users
@@ -22,9 +21,10 @@ public extension FS.Request.User {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var path: String {
-            parameters.user
+            self.parameters.user
         }
-        public var entry: Entry { FirestoreManager.db.document(path) }
+
+        public var entry: Entry { FirestoreManager.db.document(self.path) }
 
         public init(parameters: Parameters) {
             self.parameters = parameters
@@ -34,8 +34,7 @@ public extension FS.Request.User {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<EmptyResponse, Error> {
-            return entry.setData(from: parameters.user)
+            self.entry.setData(from: parameters.user)
         }
-
     }
 }

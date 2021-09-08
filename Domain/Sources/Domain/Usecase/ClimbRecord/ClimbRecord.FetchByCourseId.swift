@@ -16,12 +16,11 @@ public extension Domain.Usecase.ClimbRecord {
         }
 
         public func fetch(by courseId: String) -> AnyPublisher<[Domain.Entity.ClimbRecord], Error> {
-            repository.request(parameters: .init(courseId: courseId))
+            self.repository.request(parameters: .init(courseId: courseId))
                 .map { responses -> [Domain.Entity.ClimbRecord] in
                     responses.map { mapper.map(from: $0) }
                 }
                 .eraseToAnyPublisher()
         }
-
     }
 }

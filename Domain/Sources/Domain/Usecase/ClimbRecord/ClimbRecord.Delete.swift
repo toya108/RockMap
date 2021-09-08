@@ -16,12 +16,11 @@ public extension Domain.Usecase.ClimbRecord {
         }
 
         public func delete(parentPath: String, id: String) -> AnyPublisher<Void, Error> {
-            repository.request(
+            self.repository.request(
                 parameters: .init(parentPath: parentPath, id: id)
             )
             .map { _ in () }
             .eraseToAnyPublisher()
         }
-
     }
 }

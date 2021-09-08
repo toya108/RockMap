@@ -3,7 +3,6 @@ import Auth
 import UIKit
 
 struct RockDetailRouter: RouterProtocol {
-
     typealias Destination = DestinationType
     typealias ViewModel = RockDetailViewModel
 
@@ -23,12 +22,11 @@ struct RockDetailRouter: RouterProtocol {
         from: UIViewController
     ) {
         switch destination {
-            case let .courseDetail(course):
-                pushCourseDetail(from, course: course)
+        case let .courseDetail(course):
+            self.pushCourseDetail(from, course: course)
 
-            case .courseRegister:
-                presentCourseRegister(from)
-
+        case .courseRegister:
+            self.presentCourseRegister(from)
         }
     }
 
@@ -44,7 +42,6 @@ struct RockDetailRouter: RouterProtocol {
     }
 
     private func presentCourseRegister(_ from: UIViewController) {
-        
         guard
             AuthManager.shared.isLoggedIn
         else {
@@ -56,8 +53,8 @@ struct RockDetailRouter: RouterProtocol {
             registerType: .create(
                 .init(
                     name: viewModel.rockDocument.name,
-                    id: viewModel.rockDocument.id,
-                    headerUrl: viewModel.rockDocument.headerUrl
+                    id: self.viewModel.rockDocument.id,
+                    headerUrl: self.viewModel.rockDocument.headerUrl
                 )
             )
         )

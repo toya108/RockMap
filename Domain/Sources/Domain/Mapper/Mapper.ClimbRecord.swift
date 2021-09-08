@@ -3,9 +3,7 @@ import DataLayer
 import Foundation
 
 public extension Domain.Mapper {
-
     struct ClimbRecord: MapperProtocol {
-
         public typealias ClimbRecord = Domain.Entity.ClimbRecord
 
         public init() {}
@@ -24,5 +22,4 @@ public extension Domain.Mapper {
             )
         }
     }
-
 }

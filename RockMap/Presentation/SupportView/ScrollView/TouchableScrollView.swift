@@ -1,10 +1,3 @@
-//
-//  TouchableScrollView.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/11/04.
-//
-
 import UIKit
 
 /// touchedBeganを検出可能なScrollView

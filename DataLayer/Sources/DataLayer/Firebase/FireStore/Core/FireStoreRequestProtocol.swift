@@ -13,8 +13,8 @@ extension FirestoreRequestProtocol {
     static var Document: DocumentProtocol.Type { Collection.Document }
 }
 
-extension FirestoreRequestProtocol where Entry == FSQuery {
-    public var path: String { "" }
+public extension FirestoreRequestProtocol where Entry == FSQuery {
+    var path: String { "" }
 }
 
 public protocol FSListenable: FirestoreRequestProtocol where Entry == FSQuery {}

@@ -11,7 +11,8 @@ let package = Package(
     products: [
         .library(
             name: "Auth",
-            targets: ["Auth"])
+            targets: ["Auth"]
+        )
     ],
     dependencies: [
         .package(
@@ -31,9 +32,11 @@ let package = Package(
                 .product(name: "FirebaseEmailAuthUI", package: "FirebaseUI"),
                 .product(name: "FirebaseOAuthUI", package: "FirebaseUI"),
                 .product(name: "Domain", package: "Domain")
-            ]),
+            ]
+        ),
         .testTarget(
             name: "AuthTests",
-            dependencies: ["Auth"])
+            dependencies: ["Auth"]
+        )
     ]
 )

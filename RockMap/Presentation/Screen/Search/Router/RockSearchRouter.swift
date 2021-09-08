@@ -1,10 +1,9 @@
 
 import Auth
-import UIKit
 import CoreLocation
+import UIKit
 
 struct RockSeachRouter: RouterProtocol {
-
     typealias Destination = DestinationType
     typealias ViewModel = RockSearchViewModel
 
@@ -24,15 +23,14 @@ struct RockSeachRouter: RouterProtocol {
         from: UIViewController
     ) {
         switch destination {
-            case let .rockDetail(rock):
-                pushRockDetail(from, rock: rock)
+        case let .rockDetail(rock):
+            self.pushRockDetail(from, rock: rock)
 
-            case let .rockRegister(location):
-                presentRockRegister(
-                    from,
-                    location: location
-                )
-
+        case let .rockRegister(location):
+            self.presentRockRegister(
+                from,
+                location: location
+            )
         }
     }
 

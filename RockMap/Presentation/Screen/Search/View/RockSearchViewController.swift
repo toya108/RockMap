@@ -1,40 +1,32 @@
-//
-//  ViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2020/10/03.
-//
-
 import Combine
-import UIKit
-import MapKit
 import FloatingPanel
+import MapKit
+import UIKit
 
 final class RockSearchViewController: UIViewController {
-
     private var viewModel: RockSearchViewModel!
     private var router: RockSeachRouter!
     private var bindings = Set<AnyCancellable>()
 
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var buttonStackView: UIStackView!
-    @IBOutlet weak var addressBaseView: UIView!
-    @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var addressBaseViewTopConstraint: NSLayoutConstraint!
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet var mapView: MKMapView!
+    @IBOutlet var buttonStackView: UIStackView!
+    @IBOutlet var addressBaseView: UIView!
+    @IBOutlet var addressLabel: UILabel!
+    @IBOutlet var addressBaseViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet var searchBar: UISearchBar!
     private let floatingPanelVc = FloatingPanelController()
 
     private lazy var trackingButton: MKUserTrackingButton = {
-        return .init(mapView: mapView)
+        .init(mapView: mapView)
     }()
 
-    @IBOutlet weak var selectLocationButton: UIButton!
+    @IBOutlet var selectLocationButton: UIButton!
 
     @IBAction func selectLocationButtonTapped(_ sender: UIButton) {
-        if viewModel.locationSelectState == .standby {
-            viewModel.locationSelectState = .selecting
+        if self.viewModel.locationSelectState == .standby {
+            self.viewModel.locationSelectState = .selecting
         } else {
-            viewModel.locationSelectState = .standby
+            self.viewModel.locationSelectState = .standby
         }
     }
 
@@ -49,27 +41,27 @@ final class RockSearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupLayout()
-        setupBindings()
-        setupMapView()
-        setupSearchBar()
-        setupFloatingPanel()
-        updateLocation(LocationManager.shared.location)
-        setupLongPressGesture()
+
+        self.setupLayout()
+        self.setupBindings()
+        self.setupMapView()
+        self.setupSearchBar()
+        self.setupFloatingPanel()
+        self.updateLocation(LocationManager.shared.location)
+        self.setupLongPressGesture()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        setupNavigationBar()
-        viewModel.fetchRockList()
+
+        self.setupNavigationBar()
+        self.viewModel.fetchRockList()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
-        viewModel.locationSelectState = .standby
+        self.viewModel.locationSelectState = .standby
     }
 
     private func setupNavigationBar() {
@@ -77,38 +69,37 @@ final class RockSearchViewController: UIViewController {
     }
 
     private func setupSearchBar() {
-        searchBar.delegate = self
-        searchBar.backgroundImage = UIImage()
-        searchBar.searchTextField.backgroundColor = .white
-        searchBar.placeholder = "地名を入力"
-        searchBar.addShadow()
+        self.searchBar.delegate = self
+        self.searchBar.backgroundImage = UIImage()
+        self.searchBar.searchTextField.backgroundColor = .white
+        self.searchBar.placeholder = "地名を入力"
+        self.searchBar.addShadow()
     }
-    
-    private func setupLayout() {
 
+    private func setupLayout() {
         func setupTrackingButton() {
-            trackingButton.tintColor = UIColor.Pallete.primaryGreen
-            trackingButton.backgroundColor = .white
-            trackingButton.layer.cornerRadius = 4
-            trackingButton.addShadow()
-            
-            trackingButton.translatesAutoresizingMaskIntoConstraints = false
-            buttonStackView.addArrangedSubview(trackingButton)
+            self.trackingButton.tintColor = UIColor.Pallete.primaryGreen
+            self.trackingButton.backgroundColor = .white
+            self.trackingButton.layer.cornerRadius = 4
+            self.trackingButton.addShadow()
+
+            self.trackingButton.translatesAutoresizingMaskIntoConstraints = false
+            self.buttonStackView.addArrangedSubview(self.trackingButton)
             NSLayoutConstraint.activate([
-                trackingButton.heightAnchor.constraint(equalToConstant: 44),
-                trackingButton.widthAnchor.constraint(equalToConstant: 44)
+                self.trackingButton.heightAnchor.constraint(equalToConstant: 44),
+                self.trackingButton.widthAnchor.constraint(equalToConstant: 44)
             ])
         }
 
         func setupSelectLocationButton() {
-            selectLocationButton.layer.cornerRadius = 22
-            selectLocationButton.addShadow()
+            self.selectLocationButton.layer.cornerRadius = 22
+            self.selectLocationButton.addShadow()
         }
 
         func setupAddressBaseView() {
-            addressBaseView.addShadow()
-            addressBaseView.layer.cornerRadius = 16
-            addressLabel.layer.cornerRadius = 8
+            self.addressBaseView.addShadow()
+            self.addressBaseView.layer.cornerRadius = 16
+            self.addressLabel.layer.cornerRadius = 8
         }
 
         setupTrackingButton()
@@ -117,16 +108,16 @@ final class RockSearchViewController: UIViewController {
     }
 
     private func setupMapView() {
-        mapView.delegate = self
-        mapView.register(
+        self.mapView.delegate = self
+        self.mapView.register(
             MKMarkerAnnotationView.self,
             forAnnotationViewWithReuseIdentifier: RockAnnotation.className
         )
     }
 
     private func setupFloatingPanel() {
-        floatingPanelVc.delegate = self
-        floatingPanelVc.isRemovalInteractionEnabled = true
+        self.floatingPanelVc.delegate = self
+        self.floatingPanelVc.isRemovalInteractionEnabled = true
 
         let appearence = SurfaceAppearance()
         appearence.cornerRadius = 16
@@ -134,32 +125,35 @@ final class RockSearchViewController: UIViewController {
         shadow.radius = Resources.Const.UI.Shadow.radius
         shadow.opacity = 0.3
         appearence.shadows = [shadow]
-        floatingPanelVc.surfaceView.appearance = appearence
+        self.floatingPanelVc.surfaceView.appearance = appearence
     }
-    
+
     private func setupBindings() {
-        viewModel.$rockDocuments
+        self.viewModel.$rockDocuments
             .dropFirst()
             .removeDuplicates()
             .receive(on: RunLoop.main)
             .sink { [weak self] documents in
-                
+
                 guard let self = self else { return }
-                
+
                 self.mapView.removeAnnotations(self.mapView.annotations)
-                
+
                 documents.forEach {
                     let annotation = RockAnnotation(
-                        coordinate: .init(latitude: $0.location.latitude, longitude: $0.location.longitude),
+                        coordinate: .init(
+                            latitude: $0.location.latitude,
+                            longitude: $0.location.longitude
+                        ),
                         rock: $0,
                         title: $0.name
                     )
                     self.mapView.addAnnotation(annotation)
                 }
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        viewModel.$locationSelectState
+        self.viewModel.$locationSelectState
             .removeDuplicates()
             .receive(on: RunLoop.main)
             .sink { [weak self] state in
@@ -177,9 +171,9 @@ final class RockSearchViewController: UIViewController {
                     self.view.layoutIfNeeded()
                 }
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        viewModel.$address
+        self.viewModel.$address
             .removeDuplicates()
             .receive(on: RunLoop.main)
             .sink { [weak self] address in
@@ -193,7 +187,7 @@ final class RockSearchViewController: UIViewController {
 
                 self.addressLabel.text = "📍" + address
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 
     private func updateSelectButtonLayout(state: LocationSelectButtonState) {
@@ -206,14 +200,17 @@ final class RockSearchViewController: UIViewController {
 
     private func updateMapView(state: LocationSelectButtonState) {
         switch state {
-            case .standby:
-                if let pointAnnotation = mapView.annotations.first(where: { $0 is MKPointAnnotation }) {
-                    mapView.removeAnnotation(pointAnnotation)
-                }
-                addressLabel.text = nil
+        case .standby:
+            if
+                let pointAnnotation = mapView.annotations
+                    .first(where: { $0 is MKPointAnnotation })
+            {
+                self.mapView.removeAnnotation(pointAnnotation)
+            }
+            self.addressLabel.text = nil
 
-            case .selecting:
-                break
+        case .selecting:
+            break
         }
     }
 
@@ -227,44 +224,44 @@ final class RockSearchViewController: UIViewController {
     }
 
     private func setupLongPressGesture() {
-        mapView.addGestureRecognizer(
+        self.mapView.addGestureRecognizer(
             UILongPressGestureRecognizer(
                 target: self,
-                action: #selector(didMapViewLongPressed(_:))
+                action: #selector(self.didMapViewLongPressed(_:))
             )
         )
     }
 
     @objc private func didMapViewLongPressed(_ sender: UILongPressGestureRecognizer) {
-
         if sender.state == .began { return }
 
-        if viewModel.locationSelectState == .standby {
-            viewModel.locationSelectState = .selecting
+        if self.viewModel.locationSelectState == .standby {
+            self.viewModel.locationSelectState = .selecting
         }
 
         if let pointAnnotation = mapView.annotations.first(where: { $0 is MKPointAnnotation }) {
-            mapView.removeAnnotations([pointAnnotation])
+            self.mapView.removeAnnotations([pointAnnotation])
         }
 
         let rockAddressPin = MKPointAnnotation()
-        let tapPoint = sender.location(in: mapView)
-        let coordinate = mapView.convert(tapPoint, toCoordinateFrom: mapView)
+        let tapPoint = sender.location(in: self.mapView)
+        let coordinate = self.mapView.convert(tapPoint, toCoordinateFrom: self.mapView)
         rockAddressPin.coordinate = coordinate
-        mapView.addAnnotation(rockAddressPin)
-        mapView.selectAnnotation(rockAddressPin, animated: false)
+        self.mapView.addAnnotation(rockAddressPin)
+        self.mapView.selectAnnotation(rockAddressPin, animated: false)
 
-        viewModel.location = .init(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        self.viewModel.location = .init(
+            latitude: coordinate.latitude,
+            longitude: coordinate.longitude
+        )
     }
 }
 
 extension RockSearchViewController: MKMapViewDelegate {
-
     func mapView(
         _ mapView: MKMapView,
         viewFor annotation: MKAnnotation
     ) -> MKAnnotationView? {
-        
         if annotation.isKind(of: MKUserLocation.self) {
             return nil
         }
@@ -272,23 +269,26 @@ extension RockSearchViewController: MKMapViewDelegate {
         let annotationView: MKAnnotationView
 
         switch annotation {
-            case let rockAnnotation as RockAnnotation:
-                annotationView = makeRockAnnotationView(for: rockAnnotation, on: mapView)
+        case let rockAnnotation as RockAnnotation:
+            annotationView = self.makeRockAnnotationView(for: rockAnnotation, on: mapView)
 
-            case let clusterAnnotation as MKClusterAnnotation:
-                annotationView = makeRockClusterAnnotationView(for: clusterAnnotation, on: mapView)
+        case let clusterAnnotation as MKClusterAnnotation:
+            annotationView = self.makeRockClusterAnnotationView(
+                for: clusterAnnotation,
+                on: mapView
+            )
 
-            case let pointAnnotation as MKPointAnnotation:
-                annotationView = makePointAnnotationView(for: pointAnnotation, on: mapView)
+        case let pointAnnotation as MKPointAnnotation:
+            annotationView = self.makePointAnnotationView(for: pointAnnotation, on: mapView)
 
-            default:
-                annotationView = MKMarkerAnnotationView()
+        default:
+            annotationView = MKMarkerAnnotationView()
         }
         return annotationView
     }
 
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        floatingPanelVc.removePanelFromParent(animated: true)
+        self.floatingPanelVc.removePanelFromParent(animated: true)
     }
 
     func mapView(
@@ -296,28 +296,27 @@ extension RockSearchViewController: MKMapViewDelegate {
         didSelect view: MKAnnotationView
     ) {
         switch view.annotation {
-            case let rockAnnotation as RockAnnotation:
-                showFloatingPanel(rocks: [rockAnnotation.rock])
+        case let rockAnnotation as RockAnnotation:
+            self.showFloatingPanel(rocks: [rockAnnotation.rock])
 
-            case let clusterAnnotation as MKClusterAnnotation:
-                showFloatingPanel(
-                    rocks: clusterAnnotation.memberAnnotations.compactMap { $0 as? RockAnnotation }.map(\.rock)
-                )
+        case let clusterAnnotation as MKClusterAnnotation:
+            self.showFloatingPanel(
+                rocks: clusterAnnotation.memberAnnotations.compactMap { $0 as? RockAnnotation }
+                    .map(\.rock)
+            )
 
-            default:
-                break
-
+        default:
+            break
         }
     }
 
     private func showFloatingPanel(rocks: [Entity.Rock]) {
-
-        if floatingPanelVc.contentViewController == nil {
-            addFloatingPanel(rocks: rocks)
+        if self.floatingPanelVc.contentViewController == nil {
+            self.addFloatingPanel(rocks: rocks)
             return
         }
 
-        floatingPanelVc.removePanelFromParent(animated: true) { [weak self] in
+        self.floatingPanelVc.removePanelFromParent(animated: true) { [weak self] in
 
             guard let self = self else { return }
 
@@ -328,16 +327,15 @@ extension RockSearchViewController: MKMapViewDelegate {
     private func addFloatingPanel(rocks: [Entity.Rock]) {
         let contentVC = RockAnnotationListViewController.createInstance(rocks: rocks)
         contentVC.delegate = self
-        floatingPanelVc.set(contentViewController: contentVC)
-        floatingPanelVc.track(scrollView: contentVC.collectionView)
-        floatingPanelVc.addPanel(toParent: self, animated: true)
+        self.floatingPanelVc.set(contentViewController: contentVC)
+        self.floatingPanelVc.track(scrollView: contentVC.collectionView)
+        self.floatingPanelVc.addPanel(toParent: self, animated: true)
     }
 
     private func makeRockAnnotationView(
         for annotation: RockAnnotation,
         on mapView: MKMapView
     ) -> MKAnnotationView {
-
         let view = mapView.dequeueReusableAnnotationView(
             withIdentifier: RockAnnotation.className,
             for: annotation
@@ -358,7 +356,6 @@ extension RockSearchViewController: MKMapViewDelegate {
         for annotation: MKClusterAnnotation,
         on mapView: MKMapView
     ) -> MKAnnotationView {
-
         let view = mapView.dequeueReusableAnnotationView(
             withIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier,
             for: annotation
@@ -378,7 +375,6 @@ extension RockSearchViewController: MKMapViewDelegate {
         for annotation: MKPointAnnotation,
         on mapView: MKMapView
     ) -> MKAnnotationView {
-
         let view = mapView.dequeueReusableAnnotationView(
             withIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier,
             for: annotation
@@ -419,43 +415,40 @@ extension RockSearchViewController: MKMapViewDelegate {
 }
 
 extension RockSearchViewController: FloatingPanelControllerDelegate {
-
     func floatingPanel(
         _ fpc: FloatingPanelController,
         layoutFor newCollection: UITraitCollection
     ) -> FloatingPanelLayout {
-        return RockSearchFloatingPanelLayout()
+        RockSearchFloatingPanelLayout()
     }
-
 }
 
 class RockSearchFloatingPanelLayout: FloatingPanelLayout {
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .half
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
-        return [.half: FloatingPanelLayoutAnchor(fractionalInset: 0.35, edge: .bottom, referenceGuide: .safeArea)]
+        [.half: FloatingPanelLayoutAnchor(
+            fractionalInset: 0.35,
+            edge: .bottom,
+            referenceGuide: .safeArea
+        )]
     }
 }
 
 extension RockSearchViewController: RockAnnotationTableViewDelegate {
-
     func didSelectRockAnnotaitonCell(rock: Entity.Rock) {
-        router.route(to: .rockDetail(rock), from: self)
+        self.router.route(to: .rockDetail(rock), from: self)
     }
-
 }
 
 extension RockSearchViewController: RockRegisterDetectableViewControllerProtocol {
-
     func didRockRegisterFinished() {
-        viewModel.locationSelectState = .standby
-        viewModel.fetchRockList()
+        self.viewModel.locationSelectState = .standby
+        self.viewModel.fetchRockList()
     }
-
 }
 
 extension RockSearchViewController: UISearchBarDelegate {
-
     func searchBar(
         _ searchBar: UISearchBar,
         textDidChange searchText: String
@@ -473,6 +466,6 @@ extension RockSearchViewController: UISearchBarDelegate {
 
                 self.updateLocation(location)
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 }

@@ -1,14 +1,6 @@
-//
-//  RockListRouter.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/06.
-//
-
 import UIKit
 
 struct RocklistRouter: RouterProtocol {
-
     typealias Destination = DestinationType
     typealias ViewModel = RockListViewModel
 
@@ -28,12 +20,11 @@ struct RocklistRouter: RouterProtocol {
         from context: UIViewController
     ) {
         switch destination {
-            case .rockDetail(let rock):
-                pushRockDetail(context, rock: rock)
+        case let .rockDetail(rock):
+            self.pushRockDetail(context, rock: rock)
 
-            case .rockRegister(let rock):
-                presentCourseRegister(context, rock: rock)
-
+        case let .rockRegister(rock):
+            self.presentCourseRegister(context, rock: rock)
         }
     }
 
@@ -58,5 +49,4 @@ struct RocklistRouter: RouterProtocol {
         vc.isModalInPresentation = true
         from.present(vc, animated: true)
     }
-
 }

@@ -1,16 +1,8 @@
-//
-//  SettingsViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/31.
-//
-
-import UIKit
-import StoreKit
 import SafariServices
+import StoreKit
+import UIKit
 
 class SettingsViewController: UIViewController, CompositionalColectionViewControllerProtocol {
-
     var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionKind, ItemKind>!
@@ -18,17 +10,17 @@ class SettingsViewController: UIViewController, CompositionalColectionViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupNavigationBar()
+        self.setupNavigationBar()
         configureCollectionView(topInset: 16)
-        configureSections()
+        self.configureSections()
     }
 
     private func configureSections() {
-        snapShot.appendSections(SectionKind.allCases)
+        self.snapShot.appendSections(SectionKind.allCases)
         SectionKind.allCases.forEach {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
-        datasource.apply(snapShot)
+        self.datasource.apply(self.snapShot)
     }
 
     private func setupNavigationBar() {
@@ -51,7 +43,6 @@ class SettingsViewController: UIViewController, CompositionalColectionViewContro
 }
 
 extension SettingsViewController {
-
     func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
@@ -65,40 +56,38 @@ extension SettingsViewController {
         }
 
         switch item {
-            case .account:
-                navigationController?.pushViewController(
-                    AccountViewController(),
-                    animated: true
-                )
+        case .account:
+            navigationController?.pushViewController(
+                AccountViewController(),
+                animated: true
+            )
 
-            case .privacyPolicy:
-                let vc = SFSafariViewController(url: Resources.Const.Url.privacyPolicy)
-                navigationController?.present(vc, animated: true)
+        case .privacyPolicy:
+            let vc = SFSafariViewController(url: Resources.Const.Url.privacyPolicy)
+            navigationController?.present(vc, animated: true)
 
-            case .terms:
-                let vc = SFSafariViewController(url: Resources.Const.Url.terms)
-                navigationController?.present(vc, animated: true)
+        case .terms:
+            let vc = SFSafariViewController(url: Resources.Const.Url.terms)
+            navigationController?.present(vc, animated: true)
 
-            case .review:
-                guard
-                    let scene = UIApplication.shared.connectedScenes.first(
-                        where: { $0.activationState == .foregroundActive }
-                    ) as? UIWindowScene
-                else {
-                    return
-                }
-                SKStoreReviewController.requestReview(in: scene)
+        case .review:
+            guard
+                let scene = UIApplication.shared.connectedScenes.first(
+                    where: { $0.activationState == .foregroundActive }
+                ) as? UIWindowScene
+            else {
+                return
+            }
+            SKStoreReviewController.requestReview(in: scene)
         }
     }
-
 }
 
 extension SettingsViewController {
-
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, ItemKind> {
         let datasource = UICollectionViewDiffableDataSource<SectionKind, ItemKind>(
             collectionView: collectionView
-        ) { [weak self] collectionView, indexPath, item in
+        ) { [weak self] _, indexPath, item in
 
             guard let self = self else { return UICollectionViewCell() }
 
@@ -127,11 +116,12 @@ extension SettingsViewController {
 
             guard let self = self else { return }
 
-            supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section].headerTitle
+            supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section]
+                .headerTitle
             supplementaryView.label.font = UIFont.preferredFont(forTextStyle: .caption1)
         }
 
-        datasource.supplementaryViewProvider = { [weak self] collectionView, _, index in
+        datasource.supplementaryViewProvider = { [weak self] _, _, index in
 
             guard let self = self else { return nil }
 
@@ -145,30 +135,29 @@ extension SettingsViewController {
     }
 
     func createLayout() -> UICollectionViewCompositionalLayout {
+        let layout =
+            UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
 
-        let layout = UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
+                let sectionType = SectionKind.allCases[sectionNumber]
 
-            let sectionType = SectionKind.allCases[sectionNumber]
+                let section = NSCollectionLayoutSection.list(
+                    using: .init(appearance: .insetGrouped),
+                    layoutEnvironment: env
+                )
 
-            let section = NSCollectionLayoutSection.list(
-                using: .init(appearance: .insetGrouped),
-                layoutEnvironment: env
-            )
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .estimated(24)
+                    ),
+                    elementKind: sectionType.headerIdentifer,
+                    alignment: .top
+                )
 
-            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: .init(
-                    widthDimension: .fractionalWidth(1),
-                    heightDimension: .estimated(24)
-                ),
-                elementKind: sectionType.headerIdentifer,
-                alignment: .top
-            )
-
-            section.boundarySupplementaryItems = [sectionHeader]
-            return section
-        }
+                section.boundarySupplementaryItems = [sectionHeader]
+                return section
+            }
 
         return layout
     }
-
 }

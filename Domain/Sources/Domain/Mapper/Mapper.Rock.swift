@@ -3,9 +3,7 @@ import DataLayer
 import Foundation
 
 public extension Domain.Mapper {
-
     struct Rock: MapperProtocol {
-
         public typealias Rock = Domain.Entity.Rock
 
         public init() {}

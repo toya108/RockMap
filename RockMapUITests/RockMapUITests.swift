@@ -1,14 +1,6 @@
-//
-//  RockMapUITests.swift
-//  RockMapUITests
-//
-//  Created by TOUYA KAWANO on 2020/10/03.
-//
-
 import XCTest
 
 class RockMapUITests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 

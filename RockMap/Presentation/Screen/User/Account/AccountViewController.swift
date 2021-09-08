@@ -1,10 +1,9 @@
 
 import Auth
-import UIKit
 import Combine
+import UIKit
 
 class AccountViewController: UIViewController, CompositionalColectionViewControllerProtocol {
-
     var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionKind, ItemKind>!
@@ -15,18 +14,18 @@ class AccountViewController: UIViewController, CompositionalColectionViewControl
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupBindings()
-        setupNavigationBar()
+        self.setupBindings()
+        self.setupNavigationBar()
         configureCollectionView(topInset: 16)
-        configureSections()
+        self.configureSections()
     }
 
     private func configureSections() {
-        snapShot.appendSections(SectionKind.allCases)
+        self.snapShot.appendSections(SectionKind.allCases)
         SectionKind.allCases.forEach {
             snapShot.appendItems($0.initialItems, toSection: $0)
         }
-        datasource.apply(snapShot)
+        self.datasource.apply(self.snapShot)
     }
 
     private func setupNavigationBar() {
@@ -40,22 +39,22 @@ class AccountViewController: UIViewController, CompositionalColectionViewControl
                 guard let self = self else { return }
 
                 switch result {
-                    case .success:
-                        UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController = MainTabBarController()
+                case .success:
+                    UIApplication.shared.windows.first(where: { $0.isKeyWindow })?
+                        .rootViewController = MainTabBarController()
 
-                    case .failure(let error):
-                        self.showOKAlert(
-                            title: "ログインに失敗しました",
-                            message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)"
-                        )
+                case let .failure(error):
+                    self.showOKAlert(
+                        title: "ログインに失敗しました",
+                        message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)"
+                    )
                 }
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
 }
 
 extension AccountViewController {
-
     func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
@@ -69,64 +68,65 @@ extension AccountViewController {
         }
 
         switch item {
-            case .loginOrLogout:
-                AuthManager.shared.isLoggedIn ? logout() : login()
+        case .loginOrLogout:
+            AuthManager.shared.isLoggedIn ? self.logout() : self.login()
 
-            case .deleteUser:
-                let deleteAction = UIAlertAction(
-                    title: "削除",
-                    style: .destructive
-                ) { [weak self] _ in
+        case .deleteUser:
+            let deleteAction = UIAlertAction(
+                title: "削除",
+                style: .destructive
+            ) { [weak self] _ in
 
-                    guard let self = self else { return }
+                guard let self = self else { return }
 
-                    self.showIndicatorView()
+                self.showIndicatorView()
 
-                    self.deleteUserUsecase.delete(id: AuthManager.shared.uid)
-                        .catch { [weak self] error -> Empty in
+                self.deleteUserUsecase.delete(id: AuthManager.shared.uid)
+                    .catch { [weak self] error -> Empty in
 
-                            guard let self = self else { return Empty() }
+                        guard let self = self else { return Empty() }
 
-                            self.hideIndicatorView()
-                            self.showOKAlert(
-                                title: "アカウントの削除に失敗しました。",
-                                message: error.localizedDescription
-                            )
-                            return Empty()
+                        self.hideIndicatorView()
+                        self.showOKAlert(
+                            title: "アカウントの削除に失敗しました。",
+                            message: error.localizedDescription
+                        )
+                        return Empty()
+                    }
+                    .sink { [weak self] _ in
+
+                        guard let self = self else { return }
+
+                        self.hideIndicatorView()
+
+                        guard
+                            let vc = UIStoryboard(
+                                name: LoginViewController.className,
+                                bundle: nil
+                            ).instantiateInitialViewController() as? LoginViewController
+                        else {
+                            assertionFailure()
+                            return
                         }
-                        .sink { [weak self] _ in
 
-                            guard let self = self else { return }
+                        UIApplication.shared.windows.first(where: { $0.isKeyWindow })?
+                            .rootViewController = vc
+                    }
+                    .store(in: &self.bindings)
+            }
 
-                            self.hideIndicatorView()
+            showAlert(
+                title: "アカウントを削除しますか？",
+                message: "アカウントを削除しても登録した岩と課題は無くなりません。",
+                actions: [
+                    deleteAction,
+                    .init(title: "Cancel", style: .cancel)
+                ],
+                style: .alert
+            )
 
-                            guard
-                                let vc = UIStoryboard(
-                                    name: LoginViewController.className,
-                                    bundle: nil
-                                ).instantiateInitialViewController() as? LoginViewController
-                            else {
-                                assertionFailure()
-                                return
-                            }
-
-                            UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController = vc
-                        }
-                        .store(in: &self.bindings)
-                }
-
-                showAlert(
-                    title: "アカウントを削除しますか？",
-                    message: "アカウントを削除しても登録した岩と課題は無くなりません。",
-                    actions: [
-                        deleteAction,
-                        .init(title: "Cancel", style: .cancel)
-                    ],
-                    style: .alert
-                )
-
-            default:
-                break
+        default:
+            break
         }
     }
 
@@ -160,7 +160,8 @@ extension AccountViewController {
                         return
                     }
 
-                    UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController = vc
+                    UIApplication.shared.windows.first(where: { $0.isKeyWindow })?
+                        .rootViewController = vc
                 }
                 .store(in: &self.bindings)
         }
@@ -213,11 +214,10 @@ extension AccountViewController {
 }
 
 extension AccountViewController {
-
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, ItemKind> {
         let datasource = UICollectionViewDiffableDataSource<SectionKind, ItemKind>(
             collectionView: collectionView
-        ) { [weak self] collectionView, indexPath, item in
+        ) { [weak self] _, indexPath, item in
 
             guard let self = self else { return UICollectionViewCell() }
 
@@ -249,11 +249,12 @@ extension AccountViewController {
 
             guard let self = self else { return }
 
-            supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section].headerTitle
+            supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section]
+                .headerTitle
             supplementaryView.label.font = UIFont.preferredFont(forTextStyle: .caption1)
         }
 
-        datasource.supplementaryViewProvider = { [weak self] collectionView, _, index in
+        datasource.supplementaryViewProvider = { [weak self] _, _, index in
 
             guard let self = self else { return nil }
 
@@ -267,30 +268,29 @@ extension AccountViewController {
     }
 
     func createLayout() -> UICollectionViewCompositionalLayout {
+        let layout =
+            UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
 
-        let layout = UICollectionViewCompositionalLayout { sectionNumber, env -> NSCollectionLayoutSection in
+                let sectionType = SectionKind.allCases[sectionNumber]
 
-            let sectionType = SectionKind.allCases[sectionNumber]
+                let section = NSCollectionLayoutSection.list(
+                    using: .init(appearance: .insetGrouped),
+                    layoutEnvironment: env
+                )
 
-            let section = NSCollectionLayoutSection.list(
-                using: .init(appearance: .insetGrouped),
-                layoutEnvironment: env
-            )
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: .init(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .estimated(24)
+                    ),
+                    elementKind: sectionType.headerIdentifer,
+                    alignment: .top
+                )
 
-            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: .init(
-                    widthDimension: .fractionalWidth(1),
-                    heightDimension: .estimated(24)
-                ),
-                elementKind: sectionType.headerIdentifer,
-                alignment: .top
-            )
-
-            section.boundarySupplementaryItems = [sectionHeader]
-            return section
-        }
+                section.boundarySupplementaryItems = [sectionHeader]
+                return section
+            }
 
         return layout
     }
-
 }

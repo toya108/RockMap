@@ -1,13 +1,12 @@
 
-import FirebaseAuthUI
-import FirebaseGoogleAuthUI
-import FirebaseEmailAuthUI
-import FirebaseOAuthUI
 import Combine
+import FirebaseAuthUI
+import FirebaseEmailAuthUI
+import FirebaseGoogleAuthUI
+import FirebaseOAuthUI
 import Utilities
 
 public class AuthManager: NSObject {
-
     public static let shared = AuthManager()
 
     private var setUserCancellable: AnyCancellable?
@@ -28,37 +27,37 @@ public class AuthManager: NSObject {
         return authUI
     }()
 
-    private override init() {
+    override private init() {
         super.init()
-        authUI?.delegate = self
+        self.authUI?.delegate = self
     }
 
     public var loginFinishedPublisher: AnyPublisher<Result<Void, Error>, Never> {
-        loginFinishedSubject.eraseToAnyPublisher()
+        self.loginFinishedSubject.eraseToAnyPublisher()
     }
 
     public var isLoggedIn: Bool {
-        currentUser != nil
+        self.currentUser != nil
     }
 
     public var uid: String {
-        currentUser?.uid ?? ""
+        self.currentUser?.uid ?? ""
     }
 
     public var providerID: String {
-        currentUser?.providerID ?? ""
+        self.currentUser?.providerID ?? ""
     }
 
     public var displayName: String {
-        currentUser?.displayName ?? ""
+        self.currentUser?.displayName ?? ""
     }
 
     public var userPath: String {
-        "users" + "/" + uid
+        "users" + "/" + self.uid
     }
 
     public var authViewController: UIViewController? {
-        authUI?.authViewController().viewControllers.first
+        self.authUI?.authViewController().viewControllers.first
     }
 
     public func logout() -> AnyPublisher<Void, Error> {
@@ -85,30 +84,29 @@ public class AuthManager: NSObject {
     }
 
     private var currentUser: User? {
-        authUI?.auth?.currentUser
+        self.authUI?.auth?.currentUser
     }
 }
 
 extension AuthManager: FUIAuthDelegate {
-
     public func authUI(
         _ authUI: FUIAuth,
         didSignInWith authDataResult: AuthDataResult?,
         error: Error?
     ) {
         if let error = error {
-            loginFinishedSubject.send(.failure(error))
+            self.loginFinishedSubject.send(.failure(error))
             return
         }
 
         guard
             let user = authDataResult?.user
         else {
-            loginFinishedSubject.send(.failure(AuthError.noUser))
+            self.loginFinishedSubject.send(.failure(AuthError.noUser))
             return
         }
 
-        self.setUserCancellable = setUserUsecase.set(
+        self.setUserCancellable = self.setUserUsecase.set(
             id: user.uid,
             createdAt: user.metadata.creationDate ?? Date(),
             displayName: user.displayName,
@@ -126,19 +124,17 @@ extension AuthManager: FUIAuthDelegate {
 
             self.loginFinishedSubject.send(.success(()))
         }
-
     }
 
     public func authPickerViewController(
         forAuthUI authUI: FUIAuth
     ) -> FUIAuthPickerViewController {
-        return FUICustomAuthPickerViewController(
+        FUICustomAuthPickerViewController(
             nibName: FUICustomAuthPickerViewController.className,
             bundle: Bundle.main,
             authUI: authUI
         )
     }
-
 }
 
 public enum AuthError: LocalizedError {
@@ -146,7 +142,6 @@ public enum AuthError: LocalizedError {
 }
 
 private extension Publisher where Output == Void, Failure == Error {
-
     func handleLoginResult(
         _ loginFinishedSubject: PassthroughSubject<Result<Void, Error>, Never>
     ) -> AnyCancellable {
@@ -162,5 +157,4 @@ private extension Publisher where Output == Void, Failure == Error {
             loginFinishedSubject.send(.success(()))
         }
     }
-
 }

@@ -1,21 +1,13 @@
-//
-//  ClimbedNumberCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/21.
-//
-
 import UIKit
 
 class ClimbedNumberCollectionViewCell: UICollectionViewCell {
-
-    @IBOutlet weak var totalNumberLabel: UILabel!
-    @IBOutlet weak var totalFlashLabel: UILabel!
-    @IBOutlet weak var totalRedPointLabel: UILabel!
+    @IBOutlet var totalNumberLabel: UILabel!
+    @IBOutlet var totalFlashLabel: UILabel!
+    @IBOutlet var totalRedPointLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         layer.cornerRadius = 8
     }
 
@@ -24,8 +16,8 @@ class ClimbedNumberCollectionViewCell: UICollectionViewCell {
         flash: Int,
         redPoint: Int
     ) {
-        totalNumberLabel.text = total.description
-        totalFlashLabel.text = flash.description
-        totalRedPointLabel.text = redPoint.description
+        self.totalNumberLabel.text = total.description
+        self.totalFlashLabel.text = flash.description
+        self.totalRedPointLabel.text = redPoint.description
     }
 }

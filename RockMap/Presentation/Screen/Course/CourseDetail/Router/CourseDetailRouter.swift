@@ -3,7 +3,6 @@ import Auth
 import UIKit
 
 struct CourseDetailRouter: RouterProtocol {
-
     typealias Destination = DestinationType
     typealias ViewModel = CourseDetailViewModel
 
@@ -24,20 +23,18 @@ struct CourseDetailRouter: RouterProtocol {
         from: UIViewController
     ) {
         switch destination {
-            case .registerClimbed:
-                presentRegisterClimbedBottomSheet(from)
+        case .registerClimbed:
+            self.presentRegisterClimbedBottomSheet(from)
 
-            case .climbedUserList:
-                pushClimbedUserList(from)
+        case .climbedUserList:
+            self.pushClimbedUserList(from)
 
-            case .parentRock(let rock):
-                transitionToParentRock(from, rock: rock)
-
+        case let .parentRock(rock):
+            self.transitionToParentRock(from, rock: rock)
         }
     }
 
     private func presentRegisterClimbedBottomSheet(_ from: UIViewController) {
-
         guard
             AuthManager.shared.isLoggedIn
         else {
@@ -53,7 +50,7 @@ struct CourseDetailRouter: RouterProtocol {
 
     private func pushClimbedUserList(_ from: UIViewController) {
         from.navigationController?.pushViewController(
-            ClimbedUserListViewController.createInstance(course: viewModel.course),
+            ClimbedUserListViewController.createInstance(course: self.viewModel.course),
             animated: true
         )
     }
@@ -75,5 +72,4 @@ struct CourseDetailRouter: RouterProtocol {
             from.navigationController?.pushViewController(vc, animated: true)
         }
     }
-
 }

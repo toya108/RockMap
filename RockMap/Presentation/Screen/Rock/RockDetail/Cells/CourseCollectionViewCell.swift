@@ -1,25 +1,17 @@
-//
-//  CourseCollectionViewCell.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/09.
-//
-
-import UIKit
 import Combine
+import UIKit
 
 class CourseCollectionViewCell: UICollectionViewCell {
-
-    @IBOutlet weak var courseNameLabel: UILabel!
-    @IBOutlet weak var courseImageView: UIImageView!
-    @IBOutlet weak var userView: UserView!
+    @IBOutlet var courseNameLabel: UILabel!
+    @IBOutlet var courseImageView: UIImageView!
+    @IBOutlet var userView: UserView!
 
     private var bindings = Set<AnyCancellable>()
     private let fetchUserUsecase = Usecase.User.FetchById()
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         backgroundColor = .white
         layer.masksToBounds = false
         layer.shadowOpacity = 0.2
@@ -32,10 +24,10 @@ class CourseCollectionViewCell: UICollectionViewCell {
         course: Entity.Course,
         parentVc: UIViewController
     ) {
-        courseNameLabel.text = course.name + course.grade.name
-        courseImageView.loadImage(url: course.headerUrl)
+        self.courseNameLabel.text = course.name + course.grade.name
+        self.courseImageView.loadImage(url: course.headerUrl)
 
-        fetchUserUsecase.fetchUser(by: course.registeredUserId)
+        self.fetchUserUsecase.fetchUser(by: course.registeredUserId)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
@@ -51,7 +43,6 @@ class CourseCollectionViewCell: UICollectionViewCell {
                     parentVc: parentVc
                 )
             }
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
-
 }

@@ -1,14 +1,6 @@
-//
-//  LoadingState+Combine.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/09.
-//
-
 import Combine
 
 extension Publisher {
-
     func sinkState<T>(
         _ setState: @escaping (LoadingState<T>) -> Void
     ) -> AnyCancellable {

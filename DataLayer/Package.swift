@@ -12,7 +12,8 @@ let package = Package(
     products: [
         .library(
             name: "DataLayer",
-            targets: ["DataLayer"])
+            targets: ["DataLayer"]
+        )
     ],
     dependencies: [
         .package(
@@ -30,7 +31,8 @@ let package = Package(
                 .product(name: "FirebaseFirestoreSwift-Beta", package: "Firebase"),
                 .product(name: "FirebaseStorage", package: "Firebase"),
                 "Utilities"
-            ]),
+            ]
+        ),
         .testTarget(
             name: "DataLayerTests",
             dependencies: ["DataLayer"]

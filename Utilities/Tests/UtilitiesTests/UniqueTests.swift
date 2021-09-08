@@ -1,9 +1,8 @@
 
-import XCTest
 @testable import Utilities
+import XCTest
 
 class UniqueTests: XCTestCase {
-
     func testUnique() {
         XCTAssertEqual([1, 1, 1, 1].unique, [1])
 
@@ -13,5 +12,4 @@ class UniqueTests: XCTestCase {
 
         XCTAssertEqual([1, 2, 3, 4].unique, [1, 2, 3, 4])
     }
-
 }

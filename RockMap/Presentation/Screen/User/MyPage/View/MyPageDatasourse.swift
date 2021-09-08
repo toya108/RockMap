@@ -1,78 +1,69 @@
-//
-//  MyPageDatasourse.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/19.
-//
-
 import UIKit
 
 extension MyPageViewController {
-
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, ItemKind> {
-
         let datasource = UICollectionViewDiffableDataSource<SectionKind, ItemKind>(
             collectionView: collectionView
-        ) { [weak self] collectionView, indexPath, item in
+        ) { [weak self] _, indexPath, item in
 
             guard let self = self else { return UICollectionViewCell() }
 
             switch item {
-                case .headerImage:
-                    return self.collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureHeaderImageCell(),
-                        for: indexPath,
-                        item: Dummy()
-                    )
+            case .headerImage:
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureHeaderImageCell(),
+                    for: indexPath,
+                    item: Dummy()
+                )
 
-                case .user:
-                    return self.collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureUserCell(),
-                        for: indexPath,
-                        item: Dummy()
-                    )
+            case .user:
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureUserCell(),
+                    for: indexPath,
+                    item: Dummy()
+                )
 
-                case let .socialLink(socialLink):
-                    return self.collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureSocialLinkCell(),
-                        for: indexPath,
-                        item: socialLink
-                    )
+            case let .socialLink(socialLink):
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureSocialLinkCell(),
+                    for: indexPath,
+                    item: socialLink
+                )
 
-                case .introduction:
-                    return self.collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureIntroductionCell(),
-                        for: indexPath,
-                        item: Dummy()
-                    )
+            case .introduction:
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureIntroductionCell(),
+                    for: indexPath,
+                    item: Dummy()
+                )
 
-                case .climbedNumber:
-                    return self.collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureClimbedNumberCell(),
-                        for: indexPath,
-                        item: Dummy()
-                    )
+            case .climbedNumber:
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureClimbedNumberCell(),
+                    for: indexPath,
+                    item: Dummy()
+                )
 
-                case .registeredRock(let kind), .registeredCourse(let kind):
-                    return self.collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureListCell(),
-                        for: indexPath,
-                        item: kind
-                    )
+            case let .registeredRock(kind), let .registeredCourse(kind):
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureListCell(),
+                    for: indexPath,
+                    item: kind
+                )
 
-                case .noCourse:
-                    return self.collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureNoCourseCell(),
-                        for: indexPath,
-                        item: Dummy()
-                    )
+            case .noCourse:
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureNoCourseCell(),
+                    for: indexPath,
+                    item: Dummy()
+                )
 
-                case let .climbedCourse(course):
-                    return self.collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureCoursesCell(),
-                        for: indexPath,
-                        item: course
-                    )
+            case let .climbedCourse(course):
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: self.configureCoursesCell(),
+                    for: indexPath,
+                    item: course
+                )
             }
         }
 
@@ -83,10 +74,11 @@ extension MyPageViewController {
             guard let self = self else { return }
 
             supplementaryView.setSideInset(0)
-            supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section].headerTitle
+            supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section]
+                .headerTitle
         }
 
-        datasource.supplementaryViewProvider = { [weak self] collectionView, _, index in
+        datasource.supplementaryViewProvider = { [weak self] _, _, index in
 
             guard let self = self else { return nil }
 
@@ -126,39 +118,38 @@ extension MyPageViewController {
             )
         ) { [weak self] cell, _, _ in
 
-
             guard let self = self else { return }
 
             switch self.viewModel.userKind {
-                case .guest:
-                    cell.editProfileButton.isHidden = true
-                    cell.userView.userNameLabel.text = "ゲスト"
-                    cell.userView.registeredDateLabel.isHidden = true
+            case .guest:
+                cell.editProfileButton.isHidden = true
+                cell.userView.userNameLabel.text = "ゲスト"
+                cell.userView.registeredDateLabel.isHidden = true
 
-                case .mine, .other:
-                    cell.editProfileButton.isHidden = !self.viewModel.userKind.isMine
+            case .mine, .other:
+                cell.editProfileButton.isHidden = !self.viewModel.userKind.isMine
 
-                    guard
-                        let user = self.viewModel.output.fetchUserState.content
-                    else {
-                        return
-                    }
+                guard
+                    let user = self.viewModel.output.fetchUserState.content
+                else {
+                    return
+                }
 
-                    cell.editProfileButton.addAction(
-                        .init { [weak self] _ in
+                cell.editProfileButton.addAction(
+                    .init { [weak self] _ in
 
-                            guard let self = self else { return }
+                        guard let self = self else { return }
 
-                            self.router.route(to: .editProfile(user), from: self)
-                        },
-                        for: .touchUpInside
-                    )
+                        self.router.route(to: .editProfile(user), from: self)
+                    },
+                    for: .touchUpInside
+                )
 
-                    cell.userView.configure(
-                        user: user,
-                        registeredDate: user.createdAt,
-                        parentVc: self
-                    )
+                cell.userView.configure(
+                    user: user,
+                    registeredDate: user.createdAt,
+                    parentVc: self
+                )
             }
         }
     }
@@ -264,7 +255,7 @@ extension MyPageViewController {
         ) { [weak self] cell, _, course in
 
             guard let self = self else { return }
-            
+
             cell.configure(course: course, parentVc: self)
         }
     }

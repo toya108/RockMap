@@ -1,14 +1,6 @@
-//
-//  CourseListRouter.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/05/05.
-//
-
 import UIKit
 
 struct CourselistRouter: RouterProtocol {
-
     typealias Destination = DestinationType
     typealias ViewModel = CourseListViewModel
 
@@ -28,12 +20,11 @@ struct CourselistRouter: RouterProtocol {
         from context: UIViewController
     ) {
         switch destination {
-            case .courseDetail(let course):
-                pushCourseDetail(context, course: course)
+        case let .courseDetail(course):
+            self.pushCourseDetail(context, course: course)
 
-            case .courseRegister(let course):
-                presentCourseRegister(context, course: course)
-
+        case let .courseRegister(course):
+            self.presentCourseRegister(context, course: course)
         }
     }
 
@@ -60,5 +51,4 @@ struct CourselistRouter: RouterProtocol {
         vc.isModalInPresentation = true
         from.present(vc, animated: true)
     }
-
 }

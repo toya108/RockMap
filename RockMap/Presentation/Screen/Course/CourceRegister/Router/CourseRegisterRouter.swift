@@ -1,14 +1,6 @@
-//
-//  CourseRegisterRouter.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/04/01.
-//
-
 import UIKit
 
 struct CourseRegisterRouter: RouterProtocol {
-
     typealias Destination = DestinationType
     typealias ViewModel = CourseRegisterViewModel
 
@@ -28,17 +20,15 @@ struct CourseRegisterRouter: RouterProtocol {
         from: UIViewController
     ) {
         switch destination {
-            case .courseConfirm:
-                pushCourseConfirm(from)
+        case .courseConfirm:
+            self.pushCourseConfirm(from)
 
-            case .rockDetail:
-                dismissToRockDetail(from)
-
+        case .rockDetail:
+            self.dismissToRockDetail(from)
         }
     }
 
     private func pushCourseConfirm(_ from: UIViewController) {
-
         guard
             viewModel.callValidations()
         else {

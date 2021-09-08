@@ -1,15 +1,7 @@
-//
-//  RockConfirmViewController.swift
-//  RockMap
-//
-//  Created by TOUYA KAWANO on 2021/03/12.
-//
-
 import Combine
 import UIKit
 
 class RockConfirmViewController: UIViewController, CompositionalColectionViewControllerProtocol {
-
     var collectionView: UICollectionView!
     var viewModel: RockConfirmViewModel!
     var router: RockConfirmRouter!
@@ -26,103 +18,104 @@ class RockConfirmViewController: UIViewController, CompositionalColectionViewCon
         instance.viewModel = viewModel
         return instance
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureCollectionView()
-        setupNavigationBar()
-        bindViewModelToView()
-        configureSections()
+        self.setupNavigationBar()
+        self.bindViewModelToView()
+        self.configureSections()
     }
-    
+
     private func setupNavigationBar() {
         navigationItem.title = "登録内容を確認"
     }
-    
+
     private func bindViewModelToView() {
-        viewModel.output.$imageUploadState
+        self.viewModel.output.$imageUploadState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: imageUploadStateSink)
-            .store(in: &bindings)
+            .store(in: &self.bindings)
 
-        viewModel.output.$rockUploadState
+        self.viewModel.output.$rockUploadState
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: rockUploadStateSink)
-            .store(in: &bindings)
+            .store(in: &self.bindings)
     }
-    
+
     private func configureSections() {
-        snapShot.appendSections(SectionLayoutKind.allCases)
-        snapShot.appendItems([.name(viewModel.rockEntity.name)], toSection: .name)
-        snapShot.appendItems([.desc(viewModel.rockEntity.desc)], toSection: .desc)
-        snapShot.appendItems([.season(viewModel.rockEntity.seasons)], toSection: .season)
-        snapShot.appendItems([.lithology(viewModel.rockEntity.lithology)], toSection: .lithology)
+        self.snapShot.appendSections(SectionLayoutKind.allCases)
+        self.snapShot.appendItems([.name(self.viewModel.rockEntity.name)], toSection: .name)
+        self.snapShot.appendItems([.desc(self.viewModel.rockEntity.desc)], toSection: .desc)
+        self.snapShot.appendItems([.season(self.viewModel.rockEntity.seasons)], toSection: .season)
+        self.snapShot.appendItems(
+            [.lithology(self.viewModel.rockEntity.lithology)],
+            toSection: .lithology
+        )
         let location = LocationManager.LocationStructure(
             location: .init(
-                latitude: viewModel.rockEntity.location.latitude,
-                longitude: viewModel.rockEntity.location.longitude
+                latitude: self.viewModel.rockEntity.location.latitude,
+                longitude: self.viewModel.rockEntity.location.longitude
             ),
-            address: viewModel.rockEntity.address,
-            prefecture: viewModel.rockEntity.prefecture
+            address: self.viewModel.rockEntity.address,
+            prefecture: self.viewModel.rockEntity.prefecture
         )
-        snapShot.appendItems([.location(location)], toSection: .location)
-        snapShot.appendItems([.header(viewModel.header)], toSection: .header)
-        snapShot.appendItems(
-            viewModel.images.filter { !$0.shouldDelete } .map { ItemKind.images($0) },
+        self.snapShot.appendItems([.location(location)], toSection: .location)
+        self.snapShot.appendItems([.header(self.viewModel.header)], toSection: .header)
+        self.snapShot.appendItems(
+            self.viewModel.images.filter { !$0.shouldDelete }.map { ItemKind.images($0) },
             toSection: .images
         )
-        snapShot.appendItems([.register], toSection: .register)
-        datasource.apply(snapShot)
+        self.snapShot.appendItems([.register], toSection: .register)
+        self.datasource.apply(self.snapShot)
     }
 }
 
 extension RockConfirmViewController {
-
     private func rockUploadStateSink(_ state: LoadingState<Void>) {
         switch state {
-            case .stanby: break
+        case .stanby: break
 
-            case .loading:
-                showIndicatorView()
+        case .loading:
+            showIndicatorView()
 
-            case .finish:
-                viewModel.input.uploadImageSubject.send()
+        case .finish:
+            self.viewModel.input.uploadImageSubject.send()
 
-            case .failure(let error):
-                hideIndicatorView()
-                showOKAlert(
-                    title: "岩の登録に失敗しました",
-                    message: error?.localizedDescription ?? ""
-                )
+        case let .failure(error):
+            hideIndicatorView()
+            showOKAlert(
+                title: "岩の登録に失敗しました",
+                message: error?.localizedDescription ?? ""
+            )
         }
     }
 
     private func imageUploadStateSink(_ state: LoadingState<Void>) {
         switch state {
-            case .stanby: break
+        case .stanby: break
 
-            case .loading:
-                showIndicatorView()
+        case .loading:
+            showIndicatorView()
 
-            case .finish:
-                hideIndicatorView()
-                router.route(to: .dismiss, from: self)
+        case .finish:
+            hideIndicatorView()
+            self.router.route(to: .dismiss, from: self)
 
-            case .failure(let error):
-                hideIndicatorView()
-                showOKAlert(
-                    title: "画像の登録に失敗しました",
-                    message: error?.localizedDescription ?? ""
-                ) { [weak self] _ in
+        case let .failure(error):
+            hideIndicatorView()
+            showOKAlert(
+                title: "画像の登録に失敗しました",
+                message: error?.localizedDescription ?? ""
+            ) { [weak self] _ in
 
-                    guard let self = self else { return }
+                guard let self = self else { return }
 
-                    self.router.route(to: .dismiss, from: self)
-                }
+                self.router.route(to: .dismiss, from: self)
+            }
         }
     }
-
 }
 
 extension RockConfirmViewController: UIPopoverPresentationControllerDelegate {
@@ -130,6 +123,6 @@ extension RockConfirmViewController: UIPopoverPresentationControllerDelegate {
         for controller: UIPresentationController,
         traitCollection: UITraitCollection
     ) -> UIModalPresentationStyle {
-        return .none
+        .none
     }
 }

@@ -4,7 +4,6 @@ import Foundation
 
 public extension FS.Request.Course {
     struct Delete: FirestoreRequestProtocol {
-
         public typealias Entry = FSDocument
 
         public typealias Collection = FS.Collection.Courses
@@ -22,11 +21,12 @@ public extension FS.Request.Course {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var path: String {
-            parameters.parentPath
+            self.parameters.parentPath
             Collection.name
-            parameters.id
+            self.parameters.id
         }
-        public var entry: Entry { FirestoreManager.db.document(path) }
+
+        public var entry: Entry { FirestoreManager.db.document(self.path) }
 
         public init(parameters: Parameters) {
             self.parameters = parameters
@@ -36,8 +36,7 @@ public extension FS.Request.Course {
             useTestData: Bool,
             parameters: Parameters
         ) -> AnyPublisher<EmptyResponse, Error> {
-            entry.delete()
+            self.entry.delete()
         }
-
     }
 }
