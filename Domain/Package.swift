@@ -15,13 +15,15 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "../DataLayer", from: "1.0.0")
+        .package(url: "../DataLayer", from: "1.0.0"),
+        .package(url: "../FirebaseTestHelper", from: "1.0.0")
     ],
     targets: [
         .target(
             name: "Domain",
             dependencies: [
-                .product(name: "DataLayer", package: "DataLayer")
+                .product(name: "DataLayer", package: "DataLayer"),
+                "FirebaseTestHelper"
             ]
         ),
         .testTarget(
