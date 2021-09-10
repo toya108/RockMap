@@ -21,7 +21,8 @@ let package = Package(
             url: "https://github.com/firebase/firebase-ios-sdk.git",
             from: .init("8.6.0")
         ),
-        .package(url: "../Utilities", from: "1.0.0")
+        .package(url: "../Utilities", from: "1.0.0"),
+        .package(url: "../FirebaseTestHelper", from: "1.0.0")
     ],
     targets: [
         .target(
@@ -30,12 +31,15 @@ let package = Package(
                 .product(name: "FirebaseFirestore", package: "Firebase"),
                 .product(name: "FirebaseFirestoreSwift-Beta", package: "Firebase"),
                 .product(name: "FirebaseStorage", package: "Firebase"),
-                "Utilities"
+                "Utilities",
+                "FirebaseTestHelper"
             ]
         ),
         .testTarget(
             name: "DataLayerTests",
-            dependencies: ["DataLayer"]
+            dependencies: [
+                "DataLayer"
+            ]
         )
     ]
 )
