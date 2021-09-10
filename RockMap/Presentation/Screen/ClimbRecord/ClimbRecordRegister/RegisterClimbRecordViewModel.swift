@@ -90,7 +90,7 @@ class RegisterClimbRecordViewModel {
             id: UUID().uuidString,
             registeredUserId: AuthManager.shared.uid,
             parentCourseId: course.id,
-            parentCourseReference: course.parentPath + "courses" + course.id,
+            parentCourseReference: [course.parentPath, "courses", course.id].joined(separator: "/"),
             createdAt: Date(),
             updatedAt: nil,
             parentPath: AuthManager.shared.userPath,
