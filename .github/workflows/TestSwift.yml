@@ -1,6 +1,6 @@
 name: Test Swift
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   test:
@@ -26,5 +26,8 @@ jobs:
           gem install bundler
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
+          - name: Setup - Xcode
+      - name: Setup - Xcode
+        run: sudo xcode-select -s /Applications/Xcode_12.5.app
       - name: Test - Fastlane tests
         run: bundle exec fastlane scan
