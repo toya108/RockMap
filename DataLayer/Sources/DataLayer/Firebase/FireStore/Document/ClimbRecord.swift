@@ -10,8 +10,8 @@ public extension FS.Document {
         public var registeredUserId: String
         public var parentCourseId: String
         public var parentCourseReference: FSDocument
-        @ExplicitNull
-        public var totalNumberReference: FSDocument?
+        // This property is used by cloudFunction
+        public var totalNumberReference: FSDocument
         public var createdAt: Date
         @ExplicitNull
         public var updatedAt: Date?
@@ -24,6 +24,7 @@ public extension FS.Document {
             registeredUserId: String,
             parentCourseId: String,
             parentCourseReference: FSDocument,
+            totalNumberReference: FSDocument,
             createdAt: Date,
             updatedAt: Date?,
             parentPath: String,
@@ -34,6 +35,7 @@ public extension FS.Document {
             self.registeredUserId = registeredUserId
             self.parentCourseId = parentCourseId
             self.parentCourseReference = parentCourseReference
+            self.totalNumberReference = totalNumberReference
             self.createdAt = createdAt
             self.updatedAt = updatedAt
             self.parentPath = parentPath

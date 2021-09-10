@@ -78,6 +78,7 @@ public extension FS.Request.ClimbRecord {
                         parentCourseReference: FirestoreManager.db.document(
                             parameters.parentCourseReference
                         ),
+                        totalNumberReference: totalNumber.reference,
                         createdAt: parameters.createdAt,
                         updatedAt: parameters.updatedAt,
                         parentPath: parameters.parentPath,

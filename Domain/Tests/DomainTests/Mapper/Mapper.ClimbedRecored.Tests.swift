@@ -28,6 +28,9 @@ final class ClimbRecordMapperTests: XCTestCase {
             registeredUserId: "userID",
             parentCourseId: "parentCourseId",
             parentCourseReference: FirestoreAssets.db.document("users/userID/courses/courseID"),
+            totalNumberReference: FirestoreAssets.db.document(
+                "users/userID/courses/courseID/totalNumbers/totalNumbersID"
+            ),
             createdAt: createdAt,
             updatedAt: updatedAt,
             parentPath: "users/userID",
@@ -55,6 +58,9 @@ final class ClimbRecordMapperTests: XCTestCase {
             registeredUserId: "userID",
             parentCourseId: "parentCourseId",
             parentCourseReference: FirestoreAssets.db.document("users/userID/courses/courseID"),
+            totalNumberReference: FirestoreAssets.db.document(
+                "users/userID/courses/courseID/totalNumbers/totalNumbersID"
+            ),
             createdAt: createdAt,
             updatedAt: updatedAt,
             parentPath: "users/userID",
