@@ -11,6 +11,6 @@ jobs:
         with:
           swift-version: "5.3.3"
       - name: Build
-         run: swift build
+        run: swift build
       - name: Run tests
-         run: swift test
+        run: swift test
