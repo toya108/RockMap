@@ -7,8 +7,22 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run tests
-        run: |
-          xcodebuild test -project RockMap.xcodeproj -scheme RockMap -destination 'platform=iOS Simulator,name=iPhone 12,OS=14.5'
-      - name: Run tests
-        run: swift test
+      - name: Xcode build
+        run: set -o pipefail &&
+          xcodebuild
+          -sdk iphonesimulator
+          -configuration Debug
+          -workspace RockMap.xcodeproj
+          -scheme RockMap
+          build
+          | bundle exec xcpretty
+      - name: Xcode test
+        run: set -o pipefail &&
+          xcodebuild
+          -sdk iphonesimulator
+          -configuration Debug
+          -workspace RockMap.xcodeproj
+          -scheme RockMap
+          -destination 'platform=iOS Simulator,name=iPhone 12'
+          clean test
+          | bundle exec xcpretty --report html
