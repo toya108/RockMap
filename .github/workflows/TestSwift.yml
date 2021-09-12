@@ -5,7 +5,7 @@ on: [push]
 jobs:
   test:
     runs-on: macos-latest
-    
+
     steps:
       - uses: actions/checkout@v2
       - name: Show Xcode list
@@ -13,16 +13,14 @@ jobs:
       - name: Show Xcode version
         run: xcodebuild -version
       - name: Xcode build
-        run: set -o pipefail &&
-          xcodebuild
+        run: xcodebuild
           -sdk iphonesimulator
           -configuration Debug
           -project RockMap.xcodeproj
           -scheme RockMap
           build
       - name: Xcode test
-        run: set -o pipefail &&
-          xcodebuild
+        run: xcodebuild
           -sdk iphonesimulator
           -configuration Debug
           -project RockMap.xcodeproj
