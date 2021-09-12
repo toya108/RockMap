@@ -8,6 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: swift build
+        run: swift build -v
       - name: Run tests
-        run: swift test
+        run: swift test -v
