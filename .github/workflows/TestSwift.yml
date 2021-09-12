@@ -5,9 +5,7 @@ on: [push]
 jobs:
   test:
     runs-on: macos-latest
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_12.5.0.app/Contents/Developer
-      
+    
     steps:
       - uses: actions/checkout@v2
       - name: Show Xcode list
