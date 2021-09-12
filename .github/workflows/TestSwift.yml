@@ -8,7 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
-        run: swift build -v
-        xcodebuild test -project RockMap.xcodeproj -scheme RockMap -destination 'platform=iOS Simulator, name=iPhone 12, OS=13.6'
+        run:
+          swift build -v
+          xcodebuild test -project RockMap.xcodeproj -scheme RockMap -destination 'platform=iOS Simulator, name=iPhone 12, OS=13.6'
       - name: Run tests
         run: swift test
