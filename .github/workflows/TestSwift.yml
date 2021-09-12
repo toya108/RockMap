@@ -6,9 +6,14 @@ jobs:
   test:
     runs-on: macos-latest
     env:
-      DEVELOPER_DIR: /Applications/Xcode_12.5.1.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_12.5.0.app/Contents/Developer
+      
     steps:
       - uses: actions/checkout@v2
+      - name: Show Xcode list
+        run: ls /Applications | grep 'Xcode'
+      - name: Show Xcode version
+        run: xcodebuild -version
       - name: Xcode build
         run: set -o pipefail &&
           xcodebuild
