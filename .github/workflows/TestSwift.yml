@@ -12,13 +12,19 @@ jobs:
         run: ls /Applications | grep 'Xcode'
       - name: Show Xcode version
         run: xcodebuild -version
+      - name: Cache Swift Packages
+        uses: actions/cache@v1
+        with:
+          path: SourcePackages
+          key: ${{ runner.os }}-spm-${{ hashFiles('*.xcodeproj/project.xcworkspace/ xcshareddata/swiftpm/Package.resolved') }}
+          restore-keys: ${{ runner.os }}-spm-
       - name: Xcode build
-        run: xcodebuild
+        run: xcodebuild build
           -sdk iphonesimulator
           -configuration Debug
           -project RockMap.xcodeproj
           -scheme RockMap
-          build
+          -clonedSourcePackagesDirPath SourcePackages
       - name: Xcode test
         run: xcodebuild
           -sdk iphonesimulator
