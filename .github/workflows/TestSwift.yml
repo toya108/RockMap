@@ -12,7 +12,7 @@ jobs:
           xcodebuild
           -sdk iphonesimulator
           -configuration Debug
-          -workspace RockMap.xcodeproj
+          -workspace RockMap.xcworkspace
           -scheme RockMap
           build
       - name: Xcode test
@@ -20,7 +20,7 @@ jobs:
           xcodebuild
           -sdk iphonesimulator
           -configuration Debug
-          -workspace RockMap.xcodeproj
+          -workspace RockMap.xcworkspace
           -scheme RockMap
           -destination 'platform=iOS Simulator,name=iPhone 12'
           clean test
