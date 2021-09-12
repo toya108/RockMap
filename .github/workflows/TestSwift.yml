@@ -15,7 +15,6 @@ jobs:
           -workspace RockMap.xcodeproj
           -scheme RockMap
           build
-          | bundle exec xcpretty
       - name: Xcode test
         run: set -o pipefail &&
           xcodebuild
@@ -25,4 +24,3 @@ jobs:
           -scheme RockMap
           -destination 'platform=iOS Simulator,name=iPhone 12'
           clean test
-          | bundle exec xcpretty --report html
