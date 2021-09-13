@@ -30,6 +30,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           bundle exec danger
+      - uses: fwal/setup-swift@v1
+      - name: Get swift version
+        run: swift --version
+      - name: Cache Swift Packages
+        uses: actions/cache@v1
+        with:
+          path: SourcePackages
+          key: ${{ runner.os }}-spm-${{ hashFiles('*.xcodeproj/project.xcworkspace/ xcshareddata/swiftpm/Package.resolved') }}
+          restore-keys: ${{ runner.os }}-spm-
       - name: Test
         run: |
           bundle exec fastlane scan
