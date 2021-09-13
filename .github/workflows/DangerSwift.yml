@@ -30,3 +30,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           bundle exec danger
+      - name: Test
+        run: |
+          bundle exec fastlane scan
