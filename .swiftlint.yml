@@ -7,16 +7,17 @@ disabled_rules:
 - trailing_closure # 括弧と一緒にクロージャ使う時とか省略できない場面があるから
 - todo # すぐに修正できない場合があり、pushの度にlintに引っかかってbotに書き込まれるのがノイズになるから
 - type_contents_order
+- type_name
 - file_types_order
 - identifier_name # 2文字を許容したいから
 - switch_case_alignment
+- force_unwrapping
 - force_cast
 - force_try
 - cyclomatic_complexity
 
 # 通常無効だけど有効にするルール
 opt_in_rules:
-- force_unwrapping
 - empty_string
 - empty_count
 - empty_collection_literal
@@ -28,11 +29,9 @@ opt_in_rules:
 - contains_over_first_not_nil
 - type_contents_order
 
-# 1行の文字列制限。pr_templeteの「適宜改行している」のチェックのため。
 line_length:
 - 200   # warning
 
-# メソッドの行数制限。pr_templeteの「メソッドが大きすぎていない」のチェックのため。
 function_body_length:
 - 100   # warning
 
@@ -56,3 +55,4 @@ excluded:
 - Cartfile.resolved
 - R.generated.swift
 - Pods
+- SourcePackages
