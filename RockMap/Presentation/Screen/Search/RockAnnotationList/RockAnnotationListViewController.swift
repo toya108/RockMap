@@ -5,8 +5,7 @@ protocol RockAnnotationTableViewDelegate: AnyObject {
 }
 
 class RockAnnotationListViewController: UIViewController,
-    CompositionalColectionViewControllerProtocol
-{
+    CompositionalColectionViewControllerProtocol {
     var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionKind, Entity.Rock>()
     var datasource: UICollectionViewDiffableDataSource<SectionKind, Entity.Rock>!

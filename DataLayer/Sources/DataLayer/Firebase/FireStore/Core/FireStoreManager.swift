@@ -1,4 +1,3 @@
-
 import FirebaseFirestore
 import Utilities
 

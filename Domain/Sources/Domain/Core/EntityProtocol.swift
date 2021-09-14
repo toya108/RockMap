@@ -1,2 +1,1 @@
-
 typealias AnyEntity = Hashable

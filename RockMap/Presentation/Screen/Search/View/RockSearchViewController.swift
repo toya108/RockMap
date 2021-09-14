@@ -201,10 +201,9 @@ final class RockSearchViewController: UIViewController {
     private func updateMapView(state: LocationSelectButtonState) {
         switch state {
         case .standby:
-            if
-                let pointAnnotation = mapView.annotations
-                    .first(where: { $0 is MKPointAnnotation })
-            {
+            if let pointAnnotation = mapView.annotations.first(
+                where: { $0 is MKPointAnnotation }
+            ) {
                 self.mapView.removeAnnotation(pointAnnotation)
             }
             self.addressLabel.text = nil

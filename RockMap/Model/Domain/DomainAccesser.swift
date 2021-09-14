@@ -1,4 +1,3 @@
-
 import Domain
 
 typealias Usecase = Domain.Usecase

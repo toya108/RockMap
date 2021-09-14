@@ -1,4 +1,3 @@
-
 public struct FireStorage {}
 
 public extension FireStorage {

@@ -1543,10 +1543,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E5CEFF225277B26001C95AA /* Build configuration list for PBXNativeTarget "RockMap" */;
 			buildPhases = (
+				9E0C9F3A2534A8F600F66F01 /* SwiftLint */,
 				9E5CEFC425277B25001C95AA /* Sources */,
 				9E5CEFC525277B25001C95AA /* Frameworks */,
 				9E5CEFC625277B25001C95AA /* Resources */,
-				9E0C9F3A2534A8F600F66F01 /* SwiftLint */,
 				9EB7DB9A266FCAF3003B0041 /* ShellScript */,
 				9E5C5E272554EFA600D00087 /* Crashlytics */,
 			);
@@ -1715,7 +1715,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		9E0C9F3A2534A8F600F66F01 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -1729,7 +1729,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\n  swiftlint autocorrect\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		9E5C5E272554EFA600D00087 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;

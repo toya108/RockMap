@@ -1,4 +1,3 @@
-
 public extension FS.Request {
     struct User {}
     struct Rock {}

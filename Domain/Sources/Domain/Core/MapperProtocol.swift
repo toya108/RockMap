@@ -1,4 +1,3 @@
-
 public protocol MapperProtocol {
     associatedtype From
     associatedtype To
