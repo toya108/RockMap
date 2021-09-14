@@ -201,8 +201,7 @@ extension RockRegisterViewController {
         case let .invalid(error):
             if
                 let item = items
-                    .first(where: { $0 == .error(.quantity(formName: "画像", max: 10)) })
-            {
+                    .first(where: { $0 == .error(.quantity(formName: "画像", max: 10)) }) {
                 self.snapShot.deleteItems([item])
             }
 

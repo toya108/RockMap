@@ -1,5 +1,3 @@
-
-
 import FirebaseStorage
 
 typealias StorageRef = StorageReference

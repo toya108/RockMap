@@ -1,4 +1,3 @@
-
 import DataLayer
 
 public enum ImageDestination {

@@ -1,4 +1,3 @@
-
 import FirebaseFirestore
 
 public protocol FireStoreEntryprotocol {}

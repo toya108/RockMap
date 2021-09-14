@@ -1,4 +1,3 @@
-
 import Auth
 import UIKit
 
@@ -20,9 +19,9 @@ extension UIViewController {
         return self.getVisibleViewController(rootViewController)
     }
 
-    private func getVisibleViewController(_ rootViewController: UIViewController)
-        -> UIViewController?
-    {
+    private func getVisibleViewController(
+        _ rootViewController: UIViewController
+    ) -> UIViewController? {
         if let presentedViewController = rootViewController.presentedViewController {
             return self.getVisibleViewController(presentedViewController)
         }

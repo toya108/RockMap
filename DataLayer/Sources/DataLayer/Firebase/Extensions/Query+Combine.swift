@@ -1,5 +1,3 @@
-
-
 import Combine
 import FirebaseFirestore
 
@@ -50,8 +48,7 @@ extension FSQuery {
         func receive<S>(subscriber: S) where
             S: Subscriber,
             Publisher.Failure == S.Failure,
-            Publisher.Output == S.Input
-        {
+            Publisher.Output == S.Input {
             let subscription = QuerySnapshot.Subscription(subscriber: subscriber, query: self.query)
             subscriber.receive(subscription: subscription)
         }
@@ -74,8 +71,7 @@ extension FSQuery {
 private extension QuerySnapshot {
     final class Subscription<SubscriberType: Subscriber>: Combine.Subscription where
         SubscriberType.Input == QuerySnapshot,
-        SubscriberType.Failure == Error
-    {
+        SubscriberType.Failure == Error {
         private var registration: ListenerRegistration?
 
         init(

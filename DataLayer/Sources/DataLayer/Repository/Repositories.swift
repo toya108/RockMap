@@ -1,4 +1,3 @@
-
 public struct Repositories {
     public struct User {
         public typealias FetchById = Repository<FS.Request.User.FetchById>

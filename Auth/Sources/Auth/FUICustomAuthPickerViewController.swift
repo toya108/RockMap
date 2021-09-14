@@ -1,4 +1,3 @@
-
 import FirebaseAuthUI
 import UIKit
 

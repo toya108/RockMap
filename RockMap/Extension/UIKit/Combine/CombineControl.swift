@@ -36,8 +36,7 @@ public extension Combine.Publishers {
 
 extension Combine.Publishers.ControlProperty {
     private final class Subscription<S: Subscriber, Control: UIControl, Value>: Combine
-        .Subscription where S.Input == Value
-    {
+        .Subscription where S.Input == Value {
         private var subscriber: S?
         private weak var control: Control?
 
