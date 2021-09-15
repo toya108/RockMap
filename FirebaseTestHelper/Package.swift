@@ -12,14 +12,14 @@ let package = Package(
     products: [
         .library(
             name: "FirebaseTestHelper",
-            targets: ["FirebaseTestHelper"]),
+            targets: ["FirebaseTestHelper"])
     ],
     dependencies: [
         .package(
             name: "Firebase",
             url: "https://github.com/firebase/firebase-ios-sdk.git",
             from: .init("8.6.0")
-        ),
+        )
     ],
     targets: [
         .target(
@@ -29,6 +29,6 @@ let package = Package(
             ]),
         .testTarget(
             name: "FirebaseTestHelperTests",
-            dependencies: ["FirebaseTestHelper"]),
+            dependencies: ["FirebaseTestHelper"])
     ]
 )
