@@ -18,7 +18,7 @@ public extension Domain.Mapper {
                     guard
                         let linkType = User.SocialLinkType(rawValue: $0.linkType)
                     else {
-                        return nil
+                        return .init(linkType: .other, link: $0.link)
                     }
                     return User.SocialLink(linkType: linkType, link: $0.link)
                 },
