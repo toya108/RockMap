@@ -339,6 +339,7 @@
 		9E7ABF0D262593570028DB19 /* UISegmentedControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Combine.swift"; sourceTree = "<group>"; };
 		9E807CA7254CFD150091935F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		9E807CC5254D00310091935F /* ScreenType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenType.swift; sourceTree = "<group>"; };
+		9E80EE2126EB75AE000782F4 /* FirebaseTestHelper */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FirebaseTestHelper; sourceTree = "<group>"; };
 		9E810721262DA3640025359C /* MyPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageLayout.swift; sourceTree = "<group>"; };
 		9E810729262DA3700025359C /* MyPageKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageKind.swift; sourceTree = "<group>"; };
 		9E81072E262DA37F0025359C /* MyPageDatasourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDatasourse.swift; sourceTree = "<group>"; };
@@ -725,6 +726,7 @@
 		9E5CEFBF25277B25001C95AA = {
 			isa = PBXGroup;
 			children = (
+				9E80EE2126EB75AE000782F4 /* FirebaseTestHelper */,
 				9E9162ED26BEB9D20012D2B0 /* Utilities */,
 				9E493DDF26B9949E00DCA210 /* DataLayer */,
 				9E493DD726B98DE800DCA210 /* Domain */,

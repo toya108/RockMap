@@ -37,7 +37,7 @@ public extension FS.Document {
             desc: String,
             registeredUserId: String,
             headerUrl: URL?,
-            imageUrls: [URL] = []
+            imageUrls: [URL]
         ) {
             self.id = id
             self.createdAt = createdAt

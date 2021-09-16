@@ -1,4 +1,5 @@
 import FirebaseFirestore
+import FirebaseTestHelper
 import XCTest
 
 @testable import DataLayer
