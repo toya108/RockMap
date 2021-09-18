@@ -234,6 +234,13 @@ final class RockSearchViewController: UIViewController {
     @objc private func didMapViewLongPressed(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began { return }
 
+        let tapPoint = sender.location(in: self.mapView)
+        let coordinate = self.mapView.convert(tapPoint, toCoordinateFrom: self.mapView)
+
+        self.addPinToTarget(coordinate: coordinate)
+    }
+
+    private func addPinToTarget(coordinate: CLLocationCoordinate2D) {
         if self.viewModel.locationSelectState == .standby {
             self.viewModel.locationSelectState = .selecting
         }
@@ -243,8 +250,6 @@ final class RockSearchViewController: UIViewController {
         }
 
         let rockAddressPin = MKPointAnnotation()
-        let tapPoint = sender.location(in: self.mapView)
-        let coordinate = self.mapView.convert(tapPoint, toCoordinateFrom: self.mapView)
         rockAddressPin.coordinate = coordinate
         self.mapView.addAnnotation(rockAddressPin)
         self.mapView.selectAnnotation(rockAddressPin, animated: false)
@@ -464,6 +469,7 @@ extension RockSearchViewController: UISearchBarDelegate {
                 guard let self = self else { return }
 
                 self.updateLocation(location)
+                self.addPinToTarget(coordinate: location.coordinate)
             }
             .store(in: &self.bindings)
     }
