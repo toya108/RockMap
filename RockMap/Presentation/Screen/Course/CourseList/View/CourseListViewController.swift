@@ -3,6 +3,7 @@ import UIKit
 
 class CourseListViewController: UIViewController, CompositionalColectionViewControllerProtocol {
     let emptyLabel = UILabel()
+    let registrations = Registrations()
     var collectionView: UICollectionView!
     var snapShot = NSDiffableDataSourceSnapshot<SectionKind, ItemKind>()
     var datasource: UICollectionViewDiffableDataSource<SectionKind, ItemKind>!
