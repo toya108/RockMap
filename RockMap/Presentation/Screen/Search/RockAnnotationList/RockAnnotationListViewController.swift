@@ -33,12 +33,17 @@ class RockAnnotationListViewController: UIViewController,
         self.snapShot.appendItems(self.rocks, toSection: .main)
         self.datasource.apply(self.snapShot)
     }
-    let registrations = Registrations()
+}
+
+extension RockAnnotationListViewController {
+    enum SectionKind: Hashable {
+        case main
+    }
 }
 
 extension RockAnnotationListViewController {
 
-    struct Registrations {
+    func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, Entity.Rock> {
         let registration = UICollectionView.CellRegistration<
             ListCollectionViewCell,
             Entity.Rock
@@ -57,18 +62,7 @@ extension RockAnnotationListViewController {
                 third: rock.desc
             )
         }
-    }
-}
 
-extension RockAnnotationListViewController {
-    enum SectionKind: Hashable {
-        case main
-    }
-}
-
-extension RockAnnotationListViewController {
-
-    func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, Entity.Rock> {
         let datasource = UICollectionViewDiffableDataSource<SectionKind, Entity.Rock>(
             collectionView: collectionView
         ) { [weak self] _, indexPath, rock in
@@ -76,7 +70,7 @@ extension RockAnnotationListViewController {
             guard let self = self else { return UICollectionViewCell() }
 
             return self.collectionView.dequeueConfiguredReusableCell(
-                using: self.registrations.registration,
+                using: registration,
                 for: indexPath,
                 item: rock
             )

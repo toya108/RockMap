@@ -2,34 +2,6 @@ import UIKit
 
 extension RockListViewController {
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, ItemKind> {
-        let datasource = UICollectionViewDiffableDataSource<SectionKind, ItemKind>(
-            collectionView: collectionView
-        ) { [weak self] _, indexPath, item in
-
-            guard let self = self else { return UICollectionViewCell() }
-
-            switch item {
-            case .annotationHeader:
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.registrations.headerCellRegistration,
-                    for: indexPath,
-                    item: Dummy()
-                )
-
-            case let .rock(rock):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.registrations.rockCellRegistration,
-                    for: indexPath,
-                    item: rock
-                )
-            }
-        }
-        return datasource
-    }
-}
-
-extension RockListViewController {
-    struct Registrations {
         let headerCellRegistration = UICollectionView.CellRegistration<
             AnnotationHeaderCollectionViewCell,
             Dummy
@@ -56,6 +28,28 @@ extension RockListViewController {
             )
         }
 
-    }
+        let datasource = UICollectionViewDiffableDataSource<SectionKind, ItemKind>(
+            collectionView: collectionView
+        ) { [weak self] _, indexPath, item in
 
+            guard let self = self else { return UICollectionViewCell() }
+
+            switch item {
+            case .annotationHeader:
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: headerCellRegistration,
+                    for: indexPath,
+                    item: Dummy()
+                )
+
+            case let .rock(rock):
+                return self.collectionView.dequeueConfiguredReusableCell(
+                    using: rockCellRegistration,
+                    for: indexPath,
+                    item: rock
+                )
+            }
+        }
+        return datasource
+    }
 }
