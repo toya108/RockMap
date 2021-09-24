@@ -2,58 +2,65 @@ import UIKit
 
 extension EditProfileViewController {
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
+
+        let nameCellRegistration = createNameCell()
+        let introductionCellRegistration = createIntroductionCell()
+        let deletableImageCellRegistration = createDeletabelImageCell()
+        let errorLabelCellRegistration = createErrorLabelCell()
+        let imageSelectCellRegistration = createImageSelectCell()
+        let socialLinkCellRegistration = createSocialLinkCell()
+        let iconCellRegistration = createIconEditCell()
+
         let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
             collectionView: collectionView
-        ) { [weak self] collectionView, indexPath, item in
-
-            guard let self = self else { return UICollectionViewCell() }
+        ) { collectionView, indexPath, item in
 
             switch item {
             case .name:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureNameCell(),
+                    using: nameCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case .introduction:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureIntroductionCell(),
+                    using: introductionCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case let .header(image):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDeletabelImageCell(),
+                    using: deletableImageCellRegistration,
                     for: indexPath,
                     item: image
                 )
 
             case let .error(error):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureErrorLabelCell(),
+                    using: errorLabelCellRegistration,
                     for: indexPath,
                     item: error
                 )
 
             case .noImage:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureImageSelectCell(),
+                    using: imageSelectCellRegistration,
                     for: indexPath,
                     item: .header
                 )
 
             case let .socialLink(socialLinkType):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureSocialLinkCell(),
+                    using: socialLinkCellRegistration,
                     for: indexPath,
                     item: socialLinkType
                 )
 
             case let .icon(image):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureIconEditCell(),
+                    using: iconCellRegistration,
                     for: indexPath,
                     item: image
                 )
@@ -72,11 +79,8 @@ extension EditProfileViewController {
                 .headerTitle
         }
 
-        datasource.supplementaryViewProvider = { [weak self] _, _, index in
-
-            guard let self = self else { return nil }
-
-            return self.collectionView.dequeueConfiguredReusableSupplementary(
+        datasource.supplementaryViewProvider = { collectionView, _, index in
+            collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration,
                 for: index
             )
@@ -84,7 +88,7 @@ extension EditProfileViewController {
         return datasource
     }
 
-    private func configureNameCell() -> UICollectionView.CellRegistration<
+    private func createNameCell() -> UICollectionView.CellRegistration<
         TextFieldColletionViewCell,
         Dummy
     > {
@@ -101,7 +105,7 @@ extension EditProfileViewController {
         }
     }
 
-    private func configureIntroductionCell() -> UICollectionView.CellRegistration<
+    private func createIntroductionCell() -> UICollectionView.CellRegistration<
         TextViewCollectionViewCell,
         Dummy
     > {
@@ -122,7 +126,7 @@ extension EditProfileViewController {
         }
     }
 
-    private func configureImageSelectCell() -> UICollectionView.CellRegistration<
+    private func createImageSelectCell() -> UICollectionView.CellRegistration<
         ImageSelactCollectionViewCell,
         Entity.Image.ImageType
     > {
@@ -142,7 +146,7 @@ extension EditProfileViewController {
         }
     }
 
-    private func configureDeletabelImageCell() -> UICollectionView.CellRegistration<
+    private func createDeletabelImageCell() -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
         CrudableImage
     > {
@@ -156,7 +160,7 @@ extension EditProfileViewController {
         }
     }
 
-    private func configureErrorLabelCell() -> UICollectionView.CellRegistration<
+    private func createErrorLabelCell() -> UICollectionView.CellRegistration<
         ErrorLabelCollectionViewCell,
         ValidationError
     > {
@@ -197,7 +201,7 @@ extension EditProfileViewController {
         button.showsMenuAsPrimaryAction = true
     }
 
-    private func configureSocialLinkCell() -> UICollectionView.CellRegistration<
+    private func createSocialLinkCell() -> UICollectionView.CellRegistration<
         IconTextFieldCollectionViewCell,
         Entity.User.SocialLinkType
     > {
@@ -233,7 +237,7 @@ extension EditProfileViewController {
         }
     }
 
-    private func configureIconEditCell() -> UICollectionView.CellRegistration<
+    private func createIconEditCell() -> UICollectionView.CellRegistration<
         IconEditCollectionViewCell,
         CrudableImage
     > {
