@@ -2,65 +2,75 @@ import UIKit
 
 extension MyPageViewController {
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, ItemKind> {
+
+        let headerImageCellRegistration = createHeaderImageCell()
+        let userCellRegistration = createUserCell()
+        let socialLinkCellRegistration = createSocialLinkCell()
+        let introductionCellRegistration = createIntroductionCell()
+        let climbedNumberCellRegistration = createClimbedNumberCell()
+        let listCellRegistration = createListCell()
+        let noCourseCellRegistration = createNoCourseCell()
+        let courseCellRegistration = createCourseCell()
+
         let datasource = UICollectionViewDiffableDataSource<SectionKind, ItemKind>(
             collectionView: collectionView
-        ) { [weak self] _, indexPath, item in
+        ) { [weak self] collectionView, indexPath, item in
 
             guard let self = self else { return UICollectionViewCell() }
 
             switch item {
             case .headerImage:
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureHeaderImageCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: headerImageCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case .user:
                 return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureUserCell(),
+                    using: userCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case let .socialLink(socialLink):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureSocialLinkCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: socialLinkCellRegistration,
                     for: indexPath,
                     item: socialLink
                 )
 
             case .introduction:
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureIntroductionCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: introductionCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case .climbedNumber:
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureClimbedNumberCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: climbedNumberCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case let .registeredRock(kind), let .registeredCourse(kind):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureListCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: listCellRegistration,
                     for: indexPath,
                     item: kind
                 )
 
             case .noCourse:
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureNoCourseCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: noCourseCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case let .climbedCourse(course):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureCoursesCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: courseCellRegistration,
                     for: indexPath,
                     item: course
                 )
@@ -91,7 +101,7 @@ extension MyPageViewController {
         return datasource
     }
 
-    private func configureHeaderImageCell() -> UICollectionView.CellRegistration<
+    private func createHeaderImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
         Dummy
     > {
@@ -107,7 +117,7 @@ extension MyPageViewController {
         }
     }
 
-    private func configureUserCell() -> UICollectionView.CellRegistration<
+    private func createUserCell() -> UICollectionView.CellRegistration<
         UserCollectionViewCell,
         Dummy
     > {
@@ -154,7 +164,7 @@ extension MyPageViewController {
         }
     }
 
-    private func configureSocialLinkCell() -> UICollectionView.CellRegistration<
+    private func createSocialLinkCell() -> UICollectionView.CellRegistration<
         SocialLinkCollectionViewCell,
         Entity.User.SocialLinkType
     > {
@@ -176,7 +186,7 @@ extension MyPageViewController {
         }
     }
 
-    private func configureIntroductionCell() -> UICollectionView.CellRegistration<
+    private func createIntroductionCell() -> UICollectionView.CellRegistration<
         LabelCollectionViewCell,
         Dummy
     > {
@@ -193,7 +203,7 @@ extension MyPageViewController {
         }
     }
 
-    private func configureClimbedNumberCell() -> UICollectionView.CellRegistration<
+    private func createClimbedNumberCell() -> UICollectionView.CellRegistration<
         ClimbedNumberCollectionViewCell,
         Dummy
     > {
@@ -214,7 +224,7 @@ extension MyPageViewController {
         }
     }
 
-    private func configureListCell() -> UICollectionView.CellRegistration<
+    private func createListCell() -> UICollectionView.CellRegistration<
         UICollectionViewListCell,
         ItemKind.RegisteredKind
     > {
@@ -228,7 +238,7 @@ extension MyPageViewController {
         }
     }
 
-    private func configureNoCourseCell() -> UICollectionView.CellRegistration<
+    private func createNoCourseCell() -> UICollectionView.CellRegistration<
         NoCoursesCollectionViewCell,
         Dummy
     > {
@@ -243,7 +253,7 @@ extension MyPageViewController {
         }
     }
 
-    private func configureCoursesCell() -> UICollectionView.CellRegistration<
+    private func createCourseCell() -> UICollectionView.CellRegistration<
         CourseCollectionViewCell,
         Entity.Course
     > {
