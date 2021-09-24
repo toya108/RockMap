@@ -101,7 +101,7 @@ extension RockRegisterViewController {
                 .headerTitle
         }
 
-        datasource.supplementaryViewProvider = { dcollectionView, _, index in
+        datasource.supplementaryViewProvider = { collectionView, _, index in
 
             collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration,
