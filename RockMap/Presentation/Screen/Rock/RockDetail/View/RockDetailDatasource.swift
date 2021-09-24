@@ -2,6 +2,18 @@ import UIKit
 
 extension RockDetailViewController {
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
+
+        let headeriImageCellRegistration = createHeaderImageCell()
+        let imageCellRegistration = createImageCell()
+        let titleCellRegistration = createTitleCell()
+        let registeredUserCellRegistration = createRegisteredUserCell()
+        let rockDescCellRegistration = createRockDescCell()
+        let locationCellRegistration = createLocationCell()
+        let noCourseCellRegistration = createNoCourseCell()
+        let valueCellRegistration = createValueCell()
+        let courseCellRegistration = createCourseCell()
+        let noImageCellRegistration = createNoImageCell()
+
         let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
             collectionView: collectionView,
             cellProvider: { [weak self] collectionView, indexPath, item in
@@ -11,42 +23,42 @@ extension RockDetailViewController {
                 switch item {
                 case let .header(loadable):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureImageCell(),
+                        using: headeriImageCellRegistration,
                         for: indexPath,
                         item: loadable
                     )
 
                 case let .title(title):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureTitleCell(),
+                        using: titleCellRegistration,
                         for: indexPath,
                         item: title
                     )
 
                 case let .registeredUser(user):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureRegisteredUserCell(),
+                        using: registeredUserCellRegistration,
                         for: indexPath,
                         item: user
                     )
 
                 case let .desc(desc):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureRockDescCell(),
+                        using: rockDescCellRegistration,
                         for: indexPath,
                         item: desc
                     )
 
                 case let .map(rockLocation):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureLocationCell(),
+                        using: locationCellRegistration,
                         for: indexPath,
                         item: rockLocation
                     )
 
                 case let .containGrade(grades):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureValueCell(),
+                        using: self.createValueCell(),
                         for: indexPath,
                         item: .init(
                             image: UIImage.SystemImages.docPlaintextFill,
@@ -57,21 +69,21 @@ extension RockDetailViewController {
 
                 case let .courses(course):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureCoursesCell(),
+                        using: courseCellRegistration,
                         for: indexPath,
                         item: course
                     )
 
                 case .nocourse:
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureNoCourseCell(),
+                        using: noCourseCellRegistration,
                         for: indexPath,
                         item: Dummy()
                     )
 
                 case let .season(seasons):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureValueCell(),
+                        using: valueCellRegistration,
                         for: indexPath,
                         item: .init(
                             image: UIImage.SystemImages.leafFill,
@@ -82,7 +94,7 @@ extension RockDetailViewController {
 
                 case let .lithology(lithology):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureValueCell(),
+                        using: valueCellRegistration,
                         for: indexPath,
                         item: .init(
                             image: UIImage.AssetsImages.rockFill,
@@ -93,14 +105,14 @@ extension RockDetailViewController {
 
                 case let .image(loadables):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureImageCell(radius: 8.0),
+                        using: imageCellRegistration,
                         for: indexPath,
                         item: loadables
                     )
 
                 case .noImage:
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.configureNoImageCell(),
+                        using: noImageCellRegistration,
                         for: indexPath,
                         item: Dummy()
                     )
@@ -133,21 +145,29 @@ extension RockDetailViewController {
 }
 
 extension RockDetailViewController {
-    private func configureImageCell(
-        radius: CGFloat = 0.0
-    ) -> UICollectionView.CellRegistration<
+
+    private func createHeaderImageCell() -> UICollectionView.CellRegistration<
+        HorizontalImageListCollectionViewCell,
+        URL
+    > {
+        .init { cell, _, imageLoadable in
+            cell.imageView.loadImage(url: imageLoadable)
+        }
+    }
+
+    private func createImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
         URL
     > {
         .init { cell, _, imageLoadable in
 
             cell.clipsToBounds = true
-            cell.layer.cornerRadius = radius
+            cell.layer.cornerRadius = 8.0
             cell.imageView.loadImage(url: imageLoadable)
         }
     }
 
-    private func configureTitleCell() -> UICollectionView.CellRegistration<
+    private func createTitleCell() -> UICollectionView.CellRegistration<
         TitleCollectionViewCell,
         String
     > {
@@ -156,7 +176,7 @@ extension RockDetailViewController {
         }
     }
 
-    private func configureRegisteredUserCell() -> UICollectionView.CellRegistration<
+    private func createRegisteredUserCell() -> UICollectionView.CellRegistration<
         LeadingRegisteredUserCollectionViewCell,
         Entity.User
     > {
@@ -177,7 +197,7 @@ extension RockDetailViewController {
         }
     }
 
-    private func configureRockDescCell() -> UICollectionView.CellRegistration<
+    private func createRockDescCell() -> UICollectionView.CellRegistration<
         DescCollectionViewCell,
         String
     > {
@@ -186,7 +206,7 @@ extension RockDetailViewController {
         }
     }
 
-    private func configureLocationCell() -> UICollectionView.CellRegistration<
+    private func createLocationCell() -> UICollectionView.CellRegistration<
         RockLocationCollectionViewCell,
         LocationManager.LocationStructure
     > {
@@ -196,7 +216,7 @@ extension RockDetailViewController {
         }
     }
 
-    private func configureNoCourseCell() -> UICollectionView.CellRegistration<
+    private func createNoCourseCell() -> UICollectionView.CellRegistration<
         NoCoursesCollectionViewCell,
         Dummy
     > {
@@ -221,7 +241,7 @@ extension RockDetailViewController {
         }
     }
 
-    private func configureValueCell() -> UICollectionView.CellRegistration<
+    private func createValueCell() -> UICollectionView.CellRegistration<
         ValueCollectionViewCell,
         ValueCollectionViewCell.ValueCellStructure
     > {
@@ -235,7 +255,7 @@ extension RockDetailViewController {
         }
     }
 
-    private func configureCoursesCell() -> UICollectionView.CellRegistration<
+    private func createCourseCell() -> UICollectionView.CellRegistration<
         CourseCollectionViewCell,
         Entity.Course
     > {
@@ -252,7 +272,7 @@ extension RockDetailViewController {
         }
     }
 
-    private func configureNoImageCell() -> UICollectionView.CellRegistration<
+    private func createNoImageCell() -> UICollectionView.CellRegistration<
         NoImageCollectionViewCell,
         Dummy
     > {
