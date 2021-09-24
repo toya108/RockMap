@@ -2,65 +2,69 @@ import UIKit
 
 extension CourseConfirmViewController {
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
+
+        let labelCellRegistration = createLabelCell()
+        let rockCellRegistration = createRockCell()
+        let imageCellRegistration = createImageCell()
+        let registerButtonCellRegistration = createRegisterButtonCell()
+
         let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
             collectionView: collectionView
-        ) { [weak self] _, indexPath, item in
-
-            guard let self = self else { return UICollectionViewCell() }
+        ) { collectionView, indexPath, item in
 
             switch item {
             case let .rock(rockName, headerUrl):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureRockCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: rockCellRegistration,
                     for: indexPath,
                     item: (rockName, headerUrl)
                 )
 
             case let .courseName(courseName):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureLabelCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: labelCellRegistration,
                     for: indexPath,
                     item: courseName
                 )
 
             case let .desc(desc):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureLabelCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: labelCellRegistration,
                     for: indexPath,
                     item: desc
                 )
 
             case let .grade(grade):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureLabelCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: labelCellRegistration,
                     for: indexPath,
                     item: grade.name
                 )
 
             case let .shape(shape):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureLabelCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: labelCellRegistration,
                     for: indexPath,
                     item: shape.map(\.name).joined(separator: "/")
                 )
 
             case let .header(header):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureImageCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: imageCellRegistration,
                     for: indexPath,
                     item: header
                 )
 
             case let .images(image):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureImageCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: imageCellRegistration,
                     for: indexPath,
                     item: image
                 )
 
             case .register:
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureRegisterButtonCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: registerButtonCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
@@ -79,11 +83,8 @@ extension CourseConfirmViewController {
                 .headerTitle
         }
 
-        datasource.supplementaryViewProvider = { [weak self] _, _, index in
-
-            guard let self = self else { return nil }
-
-            return self.collectionView.dequeueConfiguredReusableSupplementary(
+        datasource.supplementaryViewProvider = { collectionView, _, index in
+            collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration,
                 for: index
             )
@@ -91,7 +92,7 @@ extension CourseConfirmViewController {
         return datasource
     }
 
-    private func configureRockCell() -> UICollectionView.CellRegistration<
+    private func createRockCell() -> UICollectionView.CellRegistration<
         RockHeaderCollectionViewCell,
         (rockName: String, headerUrl: URL?)
     > {
@@ -108,7 +109,7 @@ extension CourseConfirmViewController {
         }
     }
 
-    private func configureLabelCell() -> UICollectionView.CellRegistration<
+    private func createLabelCell() -> UICollectionView.CellRegistration<
         LabelCollectionViewCell,
         String
     > {
@@ -117,7 +118,7 @@ extension CourseConfirmViewController {
         }
     }
 
-    private func configureImageCell() -> UICollectionView.CellRegistration<
+    private func createImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
         CrudableImage
     > {
@@ -128,7 +129,7 @@ extension CourseConfirmViewController {
         }
     }
 
-    private func configureRegisterButtonCell() -> UICollectionView.CellRegistration<
+    private func createRegisterButtonCell() -> UICollectionView.CellRegistration<
         ConfirmationButtonCollectionViewCell,
         Dummy
     > {
