@@ -2,65 +2,69 @@ import UIKit
 
 extension RockConfirmViewController {
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
+
+        let labelCellRegistration = createLabelCell()
+        let locationCellRegistration = createLocationCell()
+        let imageCellRegistration = createImageCell()
+        let registerButtonCellRegistration = createRegisterButtonCell()
+
         let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
             collectionView: collectionView
-        ) { [weak self] _, indexPath, item in
-
-            guard let self = self else { return UICollectionViewCell() }
+        ) { collectionView, indexPath, item in
 
             switch item {
             case let .name(rockName):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureLabelCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: labelCellRegistration,
                     for: indexPath,
                     item: rockName
                 )
 
             case let .desc(desc):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureLabelCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: labelCellRegistration,
                     for: indexPath,
                     item: desc
                 )
 
             case let .location(locationStructure):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureLocationCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: locationCellRegistration,
                     for: indexPath,
                     item: locationStructure
                 )
 
             case let .header(image):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureImageCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: imageCellRegistration,
                     for: indexPath,
                     item: image
                 )
 
             case let .images(image):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureImageCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: imageCellRegistration,
                     for: indexPath,
                     item: image
                 )
 
             case .register:
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureRegisterButtonCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: registerButtonCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case let .season(season):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureLabelCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: labelCellRegistration,
                     for: indexPath,
                     item: season.map(\.name).joined(separator: "/")
                 )
 
             case let .lithology(lithology):
-                return self.collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureLabelCell(),
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: labelCellRegistration,
                     for: indexPath,
                     item: lithology.name
                 )
@@ -79,11 +83,9 @@ extension RockConfirmViewController {
                 .headerTitle
         }
 
-        datasource.supplementaryViewProvider = { [weak self] _, _, index in
+        datasource.supplementaryViewProvider = { collectionView, _, index in
 
-            guard let self = self else { return nil }
-
-            return self.collectionView.dequeueConfiguredReusableSupplementary(
+            collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration,
                 for: index
             )
@@ -91,7 +93,7 @@ extension RockConfirmViewController {
         return datasource
     }
 
-    private func configureLabelCell() -> UICollectionView.CellRegistration<
+    private func createLabelCell() -> UICollectionView.CellRegistration<
         LabelCollectionViewCell,
         String
     > {
@@ -100,7 +102,7 @@ extension RockConfirmViewController {
         }
     }
 
-    private func configureLocationCell() -> UICollectionView.CellRegistration<
+    private func createLocationCell() -> UICollectionView.CellRegistration<
         RockLocationCollectionViewCell,
         LocationManager.LocationStructure
     > {
@@ -109,7 +111,7 @@ extension RockConfirmViewController {
         }
     }
 
-    private func configureImageCell() -> UICollectionView.CellRegistration<
+    private func createImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
         CrudableImage
     > {
@@ -120,7 +122,7 @@ extension RockConfirmViewController {
         }
     }
 
-    private func configureRegisterButtonCell() -> UICollectionView.CellRegistration<
+    private func createRegisterButtonCell() -> UICollectionView.CellRegistration<
         ConfirmationButtonCollectionViewCell,
         Dummy
     > {
