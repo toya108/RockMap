@@ -2,78 +2,87 @@ import UIKit
 
 extension RockRegisterViewController {
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
+
+        let nameCellRegistration = createNameCell()
+        let descCellRegistration = createDescCell()
+        let locationCellRegistration = createLocationCell()
+        let imageSelectCellRegistration = createImageSelectCell()
+        let deletabelImageCellRegistration = createDeletabelImageCell()
+        let seasonCellRegistration = createSeasonCell()
+        let lithologyCellRegistration = createLithologyCell()
+        let confirmationButtonCellRegistration = createConfirmationButtonCell()
+        let errorLabelCellRegistration = createErrorLabelCell()
+
         let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
             collectionView: collectionView
-        ) { [weak self] collectionView, indexPath, item in
-
-            guard let self = self else { return UICollectionViewCell() }
+        ) { collectionView, indexPath, item in
 
             switch item {
             case .name:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureNameCell(),
+                    using: nameCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case .desc:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDescCell(),
+                    using: descCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
             case let .location(locationStructure):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureLocationCell(),
+                    using: locationCellRegistration,
                     for: indexPath,
                     item: locationStructure
                 )
 
             case let .noImage(imageType):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureImageSelectCell(),
+                    using: imageSelectCellRegistration,
                     for: indexPath,
                     item: imageType
                 )
 
             case let .images(image):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDeletabelImageCell(),
+                    using: deletabelImageCellRegistration,
                     for: indexPath,
                     item: image
                 )
 
             case let .season(season, isSelecting):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureSeasonCell(),
+                    using: seasonCellRegistration,
                     for: indexPath,
                     item: (season, isSelecting)
                 )
 
             case let .lithology(lithology):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureLithologyCell(),
+                    using: lithologyCellRegistration,
                     for: indexPath,
                     item: lithology
                 )
 
             case .confirmation:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureConfirmationButtonCell(),
+                    using: confirmationButtonCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case let .error(error):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureErrorLabelCell(),
+                    using: errorLabelCellRegistration,
                     for: indexPath,
                     item: error
                 )
 
             case let .header(image):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDeletabelImageCell(),
+                    using: deletabelImageCellRegistration,
                     for: indexPath,
                     item: image
                 )
@@ -92,11 +101,9 @@ extension RockRegisterViewController {
                 .headerTitle
         }
 
-        datasource.supplementaryViewProvider = { [weak self] _, _, index in
+        datasource.supplementaryViewProvider = { dcollectionView, _, index in
 
-            guard let self = self else { return nil }
-
-            return self.collectionView.dequeueConfiguredReusableSupplementary(
+            collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration,
                 for: index
             )
@@ -104,7 +111,7 @@ extension RockRegisterViewController {
         return datasource
     }
 
-    private func configureNameCell() -> UICollectionView.CellRegistration<
+    private func createNameCell() -> UICollectionView.CellRegistration<
         TextFieldColletionViewCell,
         Dummy
     > {
@@ -126,7 +133,7 @@ extension RockRegisterViewController {
         }
     }
 
-    private func configureDescCell() -> UICollectionView.CellRegistration<
+    private func createDescCell() -> UICollectionView.CellRegistration<
         TextViewCollectionViewCell,
         Dummy
     > {
@@ -152,7 +159,7 @@ extension RockRegisterViewController {
         }
     }
 
-    private func configureLocationCell() -> UICollectionView.CellRegistration<
+    private func createLocationCell() -> UICollectionView.CellRegistration<
         LocationSelectCollectionViewCell,
         LocationManager.LocationStructure
     > {
@@ -188,7 +195,7 @@ extension RockRegisterViewController {
         }
     }
 
-    private func configureImageSelectCell() -> UICollectionView.CellRegistration<
+    private func createImageSelectCell() -> UICollectionView.CellRegistration<
         ImageSelactCollectionViewCell,
         Entity.Image.ImageType
     > {
@@ -208,7 +215,7 @@ extension RockRegisterViewController {
         }
     }
 
-    private func configureDeletabelImageCell() -> UICollectionView.CellRegistration<
+    private func createDeletabelImageCell() -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
         CrudableImage
     > {
@@ -223,7 +230,7 @@ extension RockRegisterViewController {
         }
     }
 
-    private func configureSeasonCell() -> UICollectionView.CellRegistration<
+    private func createSeasonCell() -> UICollectionView.CellRegistration<
         IconCollectionViewCell,
         (season: Entity.Rock.Season, isSelecting: Bool)
     > {
@@ -233,7 +240,7 @@ extension RockRegisterViewController {
         }
     }
 
-    private func configureLithologyCell() -> UICollectionView.CellRegistration<
+    private func createLithologyCell() -> UICollectionView.CellRegistration<
         SegmentedControllCollectionViewCell,
         Entity.Rock.Lithology
     > {
@@ -264,7 +271,7 @@ extension RockRegisterViewController {
         }
     }
 
-    private func configureConfirmationButtonCell() -> UICollectionView.CellRegistration<
+    private func createConfirmationButtonCell() -> UICollectionView.CellRegistration<
         ConfirmationButtonCollectionViewCell,
         Dummy
     > {
@@ -279,7 +286,7 @@ extension RockRegisterViewController {
         }
     }
 
-    private func configureErrorLabelCell() -> UICollectionView.CellRegistration<
+    private func createErrorLabelCell() -> UICollectionView.CellRegistration<
         ErrorLabelCollectionViewCell,
         ValidationError
     > {
