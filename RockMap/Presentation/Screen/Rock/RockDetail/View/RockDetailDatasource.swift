@@ -58,7 +58,7 @@ extension RockDetailViewController {
 
                 case let .containGrade(grades):
                     return collectionView.dequeueConfiguredReusableCell(
-                        using: self.createValueCell(),
+                        using: valueCellRegistration,
                         for: indexPath,
                         item: .init(
                             image: UIImage.SystemImages.docPlaintextFill,
