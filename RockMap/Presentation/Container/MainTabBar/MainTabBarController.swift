@@ -48,6 +48,7 @@ final class MainTabBarController: UITabBarController {
             stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
             appearance.stackedLayoutAppearance = stackedLayoutAppearance
             appearance.backgroundColor = UIColor.Pallete.primaryGreen
+            tabBar.standardAppearance = appearance
             tabBar.scrollEdgeAppearance = appearance
         }
     }
