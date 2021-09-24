@@ -65,11 +65,8 @@ extension RockAnnotationListViewController {
 
         let datasource = UICollectionViewDiffableDataSource<SectionKind, Entity.Rock>(
             collectionView: collectionView
-        ) { [weak self] _, indexPath, rock in
-
-            guard let self = self else { return UICollectionViewCell() }
-
-            return self.collectionView.dequeueConfiguredReusableCell(
+        ) { collectionView, indexPath, rock in
+            collectionView.dequeueConfiguredReusableCell(
                 using: registration,
                 for: indexPath,
                 item: rock

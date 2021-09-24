@@ -30,26 +30,25 @@ extension RockListViewController {
 
         let datasource = UICollectionViewDiffableDataSource<SectionKind, ItemKind>(
             collectionView: collectionView
-        ) { [weak self] _, indexPath, item in
-
-            guard let self = self else { return UICollectionViewCell() }
+        ) { collectionView, indexPath, item in
 
             switch item {
             case .annotationHeader:
-                return self.collectionView.dequeueConfiguredReusableCell(
+                return collectionView.dequeueConfiguredReusableCell(
                     using: headerCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case let .rock(rock):
-                return self.collectionView.dequeueConfiguredReusableCell(
+                return collectionView.dequeueConfiguredReusableCell(
                     using: rockCellRegistration,
                     for: indexPath,
                     item: rock
                 )
             }
         }
+        
         return datasource
     }
 }
