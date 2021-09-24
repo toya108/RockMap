@@ -2,79 +2,88 @@ import UIKit
 
 extension CourseRegisterViewController {
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
+
+        let rockCellRegistration = createRockCell()
+        let courseNameCellRegistration = createCourseNameCell()
+        let gradeSelectingCellRegistration = createGradeSelectingCell()
+        let shapeCellRegistration = createShapeCell()
+        let courseDescCellRegistration = createCourseDescCell()
+        let imageSelectCellRegistration = createImageSelectCell()
+        let confirmationButtonCellRegistration = createConfirmationButtonCell()
+        let deletableImageCellRegistration = createDeletableImageCell()
+        let errorLabelCellRegistration = createErrorLabelCell()
+
         let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
             collectionView: collectionView
-        ) { [weak self] collectionView, indexPath, item in
-
-            guard let self = self else { return UICollectionViewCell() }
+        ) { collectionView, indexPath, item in
 
             switch item {
             case .rock:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureRockCell(),
+                    using: rockCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case .courseName:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureCourseNameCell(),
+                    using: courseNameCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case let .grade(grade):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureGradeSelectingCell(),
+                    using: gradeSelectingCellRegistration,
                     for: indexPath,
                     item: grade
                 )
 
             case .desc:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureCourseDescCell(),
+                    using: courseDescCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case let .shape(shape, isSelecting):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureShapeCell(),
+                    using: shapeCellRegistration,
                     for: indexPath,
                     item: (shape, isSelecting)
                 )
 
             case let .noImage(imageType):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureImageSelectCell(),
+                    using: imageSelectCellRegistration,
                     for: indexPath,
                     item: imageType
                 )
 
             case let .header(image):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDeletabelImageCell(),
+                    using: deletableImageCellRegistration,
                     for: indexPath,
                     item: image
                 )
 
             case let .images(image):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDeletabelImageCell(),
+                    using: deletableImageCellRegistration,
                     for: indexPath,
                     item: image
                 )
 
             case .confirmation:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureConfirmationButtonCell(),
+                    using: confirmationButtonCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case let .error(error):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureErrorLabelCell(),
+                    using: errorLabelCellRegistration,
                     for: indexPath,
                     item: error
                 )
@@ -93,11 +102,8 @@ extension CourseRegisterViewController {
                 .headerTitle
         }
 
-        datasource.supplementaryViewProvider = { [weak self] _, _, index in
-
-            guard let self = self else { return nil }
-
-            return self.collectionView.dequeueConfiguredReusableSupplementary(
+        datasource.supplementaryViewProvider = { collectionView, _, index in
+            collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration,
                 for: index
             )
@@ -105,7 +111,7 @@ extension CourseRegisterViewController {
         return datasource
     }
 
-    private func configureRockCell() -> UICollectionView.CellRegistration<
+    private func createRockCell() -> UICollectionView.CellRegistration<
         RockHeaderCollectionViewCell,
         Dummy
     > {
@@ -127,7 +133,7 @@ extension CourseRegisterViewController {
         }
     }
 
-    private func configureCourseNameCell() -> UICollectionView.CellRegistration<
+    private func createCourseNameCell() -> UICollectionView.CellRegistration<
         TextFieldColletionViewCell,
         Dummy
     > {
@@ -149,7 +155,7 @@ extension CourseRegisterViewController {
         }
     }
 
-    private func configureGradeSelectingCell() -> UICollectionView.CellRegistration<
+    private func createGradeSelectingCell() -> UICollectionView.CellRegistration<
         GradeSelectingCollectionViewCell,
         Entity.Course.Grade
     > {
@@ -167,7 +173,7 @@ extension CourseRegisterViewController {
         }
     }
 
-    private func configureShapeCell() -> UICollectionView.CellRegistration<
+    private func createShapeCell() -> UICollectionView.CellRegistration<
         IconCollectionViewCell,
         (shape: Entity.Course.Shape, isSelecting: Bool)
     > {
@@ -177,7 +183,7 @@ extension CourseRegisterViewController {
         }
     }
 
-    private func configureCourseDescCell() -> UICollectionView.CellRegistration<
+    private func createCourseDescCell() -> UICollectionView.CellRegistration<
         TextViewCollectionViewCell,
         Dummy
     > {
@@ -203,7 +209,7 @@ extension CourseRegisterViewController {
         }
     }
 
-    private func configureImageSelectCell() -> UICollectionView.CellRegistration<
+    private func createImageSelectCell() -> UICollectionView.CellRegistration<
         ImageSelactCollectionViewCell,
         Entity.Image.ImageType
     > {
@@ -223,7 +229,7 @@ extension CourseRegisterViewController {
         }
     }
 
-    private func configureDeletabelImageCell() -> UICollectionView.CellRegistration<
+    private func createDeletableImageCell() -> UICollectionView.CellRegistration<
         DeletableImageCollectionViewCell,
         CrudableImage
     > {
@@ -238,7 +244,7 @@ extension CourseRegisterViewController {
         }
     }
 
-    private func configureConfirmationButtonCell() -> UICollectionView.CellRegistration<
+    private func createConfirmationButtonCell() -> UICollectionView.CellRegistration<
         ConfirmationButtonCollectionViewCell,
         Dummy
     > {
@@ -253,7 +259,7 @@ extension CourseRegisterViewController {
         }
     }
 
-    private func configureErrorLabelCell() -> UICollectionView.CellRegistration<
+    private func createErrorLabelCell() -> UICollectionView.CellRegistration<
         ErrorLabelCollectionViewCell,
         ValidationError
     > {
