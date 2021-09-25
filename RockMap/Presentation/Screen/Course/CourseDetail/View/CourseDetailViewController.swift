@@ -93,8 +93,7 @@ extension CourseDetailViewController {
             break
 
         case .finish:
-            self.snapShot.deleteItems([.parentRock])
-            self.snapShot.appendItems([.parentRock], toSection: .parentRock)
+            self.snapShot.reloadSections([.parentRock])
             self.datasource.apply(self.snapShot, animatingDifferences: false)
         }
     }
@@ -105,8 +104,7 @@ extension CourseDetailViewController {
             break
 
         case .finish:
-            self.snapShot.deleteItems([.registeredUser])
-            self.snapShot.appendItems([.registeredUser], toSection: .registeredUser)
+            self.snapShot.reloadSections([.registeredUser])
             self.datasource.apply(self.snapShot, animatingDifferences: false)
         }
     }
