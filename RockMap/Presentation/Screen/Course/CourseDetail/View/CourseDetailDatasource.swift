@@ -16,9 +16,7 @@ extension CourseDetailViewController {
 
         let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
             collectionView: collectionView
-        ) { [weak self] collectionView, indexPath, item in
-
-            guard let self = self else { return UICollectionViewCell() }
+        ) { collectionView, indexPath, item in
 
             switch item {
             case let .headerImage(url):
