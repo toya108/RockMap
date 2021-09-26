@@ -139,26 +139,27 @@ extension MyPageViewController {
             case .mine, .other:
                 cell.editProfileButton.isHidden = !self.viewModel.userKind.isMine
 
-                guard
-                    let user = self.viewModel.output.fetchUserState.content
-                else {
-                    return
-                }
-
-                cell.editProfileButton.addAction(
-                    .init { [weak self] _ in
-
-                        guard let self = self else { return }
-
-                        self.router.route(to: .editProfile(user), from: self)
-                    },
-                    for: .touchUpInside
-                )
+                guard let user = self.viewModel.output.fetchUserState.content else { return }
 
                 cell.userView.configure(
                     user: user,
                     registeredDate: user.createdAt,
                     parentVc: self
+                )
+
+                cell.editProfileButton.addActionForOnce(
+                    .init { [weak self] _ in
+
+                        guard
+                            let self = self,
+                            let user = self.viewModel.output.fetchUserState.content
+                        else {
+                            return
+                        }
+
+                        self.router.route(to: .editProfile(user), from: self)
+                    },
+                    for: .touchUpInside
                 )
             }
         }

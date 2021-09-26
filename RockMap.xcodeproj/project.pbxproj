@@ -192,6 +192,7 @@
 		9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */; };
 		9ED40FC726631B5C00A8D0AC /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 9ED40FC626631B5C00A8D0AC /* FloatingPanel */; };
 		9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED972992596471C0069FB94 /* ArrayExtension.swift */; };
+		9EDEFE8D2700019C00E2868D /* UIControl+UIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDEFE8C2700019C00E2868D /* UIControl+UIAction.swift */; };
 		9EE25B8F25C99C8E0050326D /* RockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */; };
 		9EE8BC5C2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE8BC5A2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift */; };
 		9EE8BC5D2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EE8BC5B2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib */; };
@@ -420,6 +421,7 @@
 		9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradeSelectingCollectionViewCell.xib; sourceTree = "<group>"; };
 		9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomImagePresentableImageView.swift; sourceTree = "<group>"; };
 		9ED972992596471C0069FB94 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		9EDEFE8C2700019C00E2868D /* UIControl+UIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+UIAction.swift"; sourceTree = "<group>"; };
 		9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewController.swift; sourceTree = "<group>"; };
 		9EE8BC5A2572A3DF002DCFDC /* FUICustomAuthPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FUICustomAuthPickerViewController.swift; sourceTree = "<group>"; };
 		9EE8BC5B2572A3DF002DCFDC /* FUICustomAuthPickerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FUICustomAuthPickerViewController.xib; sourceTree = "<group>"; };
@@ -798,6 +800,7 @@
 				9EEADA1B255AD39100F20228 /* PlaceHolderTextView.swift */,
 				9E5DD1D625C9857A00E38620 /* UIViewExtension.swift */,
 				9EBD5A1425F7C998009383F6 /* UICollectionViewCellExtension.swift */,
+				9EDEFE8C2700019C00E2868D /* UIControl+UIAction.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -1805,6 +1808,7 @@
 				9EF8E2B125EF6B8F00185A3D /* CourseConfirmViewModel.swift in Sources */,
 				9E0BE3D92607949E00576869 /* ClimbedNumberCollectionViewCell.swift in Sources */,
 				9EFEF88325E004A300007AD6 /* DeletableImageCollectionViewCell.swift in Sources */,
+				9EDEFE8D2700019C00E2868D /* UIControl+UIAction.swift in Sources */,
 				9EB6C3B9260F6F8400CDD607 /* RockAnnotationListViewController.swift in Sources */,
 				9E2DA74A25F915D9008F339E /* RockRegisterLayout.swift in Sources */,
 				9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */,
