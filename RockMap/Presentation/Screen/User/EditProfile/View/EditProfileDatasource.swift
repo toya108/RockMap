@@ -249,9 +249,7 @@ extension EditProfileViewController {
                 button: cell.editButton, imageType: .icon
             )
 
-            guard cell.deleteButton.allControlEvents.isEmpty else { return }
-
-            cell.deleteButton.addAction(
+            cell.deleteButton.addActionForOnce(
                 .init { [weak self] _ in
 
                     guard let self = self else { return }

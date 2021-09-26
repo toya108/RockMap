@@ -37,7 +37,7 @@ class SocialLinkCollectionViewCell: UICollectionViewCell {
         self.socialLinkButton.setImage(socialLink.linkType.icon, for: .normal)
         self.socialLinkButton.isEnabled = !socialLink.link.isEmpty
         self.socialLinkButton.tintColor = socialLink.linkType.color
-        self.socialLinkButton.addAction(
+        self.socialLinkButton.addActionForOnce(
             .init { [weak self] _ in
 
                 guard let self = self else { return }

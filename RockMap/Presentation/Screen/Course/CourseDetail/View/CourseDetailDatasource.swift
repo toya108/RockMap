@@ -146,7 +146,7 @@ extension CourseDetailViewController {
 
             guard let self = self else { return }
 
-            cell.completeButton.addAction(
+            cell.completeButton.addActionForOnce(
                 .init { [weak self] _ in
 
                     guard let self = self else { return }

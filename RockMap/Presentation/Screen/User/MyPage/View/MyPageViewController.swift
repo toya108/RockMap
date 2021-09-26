@@ -34,7 +34,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
     private func setupRefreshControl() {
         self.collectionView.refreshControl = self.refreshControl
-        self.refreshControl.addAction(
+        self.refreshControl.addActionForOnce(
             .init { [weak self] _ in
                 self?.viewModel.fetchUser()
                 self?.refreshControl.endRefreshing()

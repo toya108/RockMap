@@ -64,7 +64,7 @@ class UserView: UIView {
             self.registeredDateLabel.isHidden = true
         }
 
-        self.iconButton.addAction(
+        self.iconButton.addActionForOnce(
             .init { _ in
                 if AuthManager.shared.uid == user.id {
                     guard

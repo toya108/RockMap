@@ -229,7 +229,7 @@ extension RockDetailViewController {
 
             guard let self = self else { return }
 
-            cell.addCourseButton.addAction(
+            cell.addCourseButton.addActionForOnce(
                 .init { _ in
                     self.router.route(
                         to: .courseRegister,

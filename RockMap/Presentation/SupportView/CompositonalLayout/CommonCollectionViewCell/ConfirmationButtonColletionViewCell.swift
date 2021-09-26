@@ -47,7 +47,7 @@ class ConfirmationButtonCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(confirmationButtonTapped: @escaping () -> Void) {
-        self.button.addAction(
+        self.button.addActionForOnce(
             .init { _ in
                 confirmationButtonTapped()
             },

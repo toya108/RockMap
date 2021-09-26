@@ -392,7 +392,7 @@ extension RockSearchViewController: MKMapViewDelegate {
         markerAnnotationView.markerTintColor = UIColor.Pallete.primaryPink
         markerAnnotationView.canShowCallout = true
         let button = UIButton()
-        button.addAction(
+        button.addActionForOnce(
             .init { [weak self] _ in
 
                 guard let self = self else { return }
