@@ -172,7 +172,7 @@ extension RockRegisterViewController {
 
             cell.configure(locationStructure: locationStructure)
 
-            cell.currentAddressButton.addAction(
+            cell.currentAddressButton.addActionForOnce(
                 .init { [weak self] _ in
 
                     guard let self = self else { return }
@@ -183,7 +183,7 @@ extension RockRegisterViewController {
                 for: .touchUpInside
             )
 
-            cell.selectLocationButton.addAction(
+            cell.selectLocationButton.addActionForOnce(
                 .init { [weak self] _ in
 
                     guard let self = self else { return }
@@ -245,10 +245,9 @@ extension RockRegisterViewController {
         Entity.Rock.Lithology
     > {
         .init { cell, _, lithology in
-            cell.configure(
-                items: Entity.Rock.Lithology.allCases.map(\.name),
-                selectedIndex: Entity.Rock.Lithology.allCases.firstIndex(of: lithology)
-            )
+            if let selectedIndex = Entity.Rock.Lithology.allCases.firstIndex(of: lithology) {
+                cell.set(index: selectedIndex)
+            }
 
             cell.segmentedControl.addAction(
                 .init { [weak self] action in
