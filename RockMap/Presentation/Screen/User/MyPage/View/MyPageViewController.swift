@@ -34,7 +34,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
     private func setupRefreshControl() {
         self.collectionView.refreshControl = self.refreshControl
-        self.refreshControl.addAction(
+        self.refreshControl.addActionForOnce(
             .init { [weak self] _ in
                 self?.viewModel.fetchUser()
                 self?.refreshControl.endRefreshing()
@@ -100,7 +100,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
 extension MyPageViewController {
     private func userSink(_ user: LoadingState<Entity.User>) {
-        self.snapShot.reloadSections([.user, .socialLink])
+        self.snapShot.reloadSections(SectionKind.allCases)
         self.datasource.apply(self.snapShot, animatingDifferences: false)
     }
 

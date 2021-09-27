@@ -85,28 +85,27 @@ extension SettingsViewController {
 
 extension SettingsViewController {
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionKind, ItemKind> {
+
+        let registration = UICollectionView.CellRegistration<
+            UICollectionViewListCell,
+            ItemKind
+        > { cell, _, item in
+            var content = cell.defaultContentConfiguration()
+            content.imageProperties.maximumSize = CGSize(width: 24, height: 24)
+            content.imageProperties.tintColor = .black
+            content.image = item.iconImage
+            content.text = item.title
+            cell.contentConfiguration = content
+        }
+
         let datasource = UICollectionViewDiffableDataSource<SectionKind, ItemKind>(
             collectionView: collectionView
-        ) { [weak self] _, indexPath, item in
+        ) { collectionView, indexPath, item in
 
-            guard let self = self else { return UICollectionViewCell() }
-
-            let registration = UICollectionView.CellRegistration<
-                UICollectionViewListCell,
-                Dummy
-            > { cell, _, _ in
-                var content = cell.defaultContentConfiguration()
-                content.imageProperties.maximumSize = CGSize(width: 24, height: 24)
-                content.imageProperties.tintColor = .black
-                content.image = item.iconImage
-                content.text = item.title
-                cell.contentConfiguration = content
-            }
-
-            return self.collectionView.dequeueConfiguredReusableCell(
+            collectionView.dequeueConfiguredReusableCell(
                 using: registration,
                 for: indexPath,
-                item: Dummy()
+                item: item
             )
         }
 
@@ -121,11 +120,8 @@ extension SettingsViewController {
             supplementaryView.label.font = UIFont.preferredFont(forTextStyle: .caption1)
         }
 
-        datasource.supplementaryViewProvider = { [weak self] _, _, index in
-
-            guard let self = self else { return nil }
-
-            return self.collectionView.dequeueConfiguredReusableSupplementary(
+        datasource.supplementaryViewProvider = { collectionView, _, index in
+            collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration,
                 for: index
             )

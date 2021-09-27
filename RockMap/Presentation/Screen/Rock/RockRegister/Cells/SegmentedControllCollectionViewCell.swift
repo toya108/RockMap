@@ -6,11 +6,21 @@ class SegmentedControllCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupLayout()
+        self.configureControls()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setupLayout()
+        self.configureControls()
+    }
+
+    private func configureControls() {
+        let lithologyNames = Entity.Rock.Lithology.allCases.map(\.name)
+
+        lithologyNames.enumerated().forEach {
+            segmentedControl.insertSegment(withTitle: $1, at: $0, animated: true)
+        }
     }
 
     private func setupLayout() {
@@ -32,17 +42,7 @@ class SegmentedControllCollectionViewCell: UICollectionViewCell {
         ])
     }
 
-    func configure(items: [String], selectedIndex: Int?) {
-        items.enumerated().forEach { index, title in
-            segmentedControl.insertSegment(withTitle: title, at: index, animated: true)
-        }
-
-        guard
-            let index = selectedIndex
-        else {
-            return
-        }
-
+    func set(index: Int) {
         self.segmentedControl.selectedSegmentIndex = index
     }
 }

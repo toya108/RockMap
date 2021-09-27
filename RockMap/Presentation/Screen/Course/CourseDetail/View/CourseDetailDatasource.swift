@@ -2,79 +2,89 @@ import UIKit
 
 extension CourseDetailViewController {
     func configureDatasource() -> UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind> {
+
+        let headerImageCellRegistration = createHeaderImageCell()
+        let buttonsCellRegistration = createButtonsCell()
+        let titleCellRegistration = createTitleCell()
+        let userCellRegistration = createUserCell()
+        let climbedNumberCellRegistration = createClimbedNumberCell()
+        let rockCellRegistration = createRockCell()
+        let shapeCellRegistration = createShapeCell()
+        let descCellRegistration = createDescCell()
+        let imageCellRegistration = createImageCell()
+        let noImageCellRegistration = createNoImageCell()
+
         let datasource = UICollectionViewDiffableDataSource<SectionLayoutKind, ItemKind>(
             collectionView: collectionView
-        ) { [weak self] collectionView, indexPath, item in
-
-            guard let self = self else { return UICollectionViewCell() }
+        ) { collectionView, indexPath, item in
 
             switch item {
             case let .headerImage(url):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureImageCell(),
+                    using: headerImageCellRegistration,
                     for: indexPath,
                     item: url
                 )
 
             case .buttons:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureButtonsCell(),
+                    using: buttonsCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case .title:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureTitleCell(),
+                    using: titleCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case .registeredUser:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureUserCell(),
+                    using: userCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case .climbedNumber:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureClimbedNumberCell(),
+                    using: climbedNumberCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case .parentRock:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureRockCell(),
+                    using: rockCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case let .shape(cellData):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureShapeCell(),
+                    using: shapeCellRegistration,
                     for: indexPath,
                     item: cellData
                 )
 
             case .desc:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureDescCell(),
+                    using: descCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
 
             case let .image(url):
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureImageCell(radius: 8.0),
+                    using: imageCellRegistration,
                     for: indexPath,
                     item: url
                 )
 
             case .noImage:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: self.configureNoImageCell(),
+                    using: noImageCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
@@ -92,11 +102,8 @@ extension CourseDetailViewController {
                 .headerTitle
         }
 
-        datasource.supplementaryViewProvider = { [weak self] _, _, index in
-
-            guard let self = self else { return nil }
-
-            return self.collectionView.dequeueConfiguredReusableSupplementary(
+        datasource.supplementaryViewProvider = { collectionView, _, index in
+            collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration,
                 for: index
             )
@@ -106,18 +113,27 @@ extension CourseDetailViewController {
 }
 
 extension CourseDetailViewController {
-    private func configureImageCell(radius: CGFloat = 0.0) -> UICollectionView.CellRegistration<
+    private func createHeaderImageCell() -> UICollectionView.CellRegistration<
+        HorizontalImageListCollectionViewCell,
+        URL
+    > {
+        .init { cell, _, url in
+            cell.imageView.loadImage(url: url)
+        }
+    }
+
+    private func createImageCell() -> UICollectionView.CellRegistration<
         HorizontalImageListCollectionViewCell,
         URL
     > {
         .init { cell, _, url in
             cell.imageView.loadImage(url: url)
             cell.clipsToBounds = true
-            cell.layer.cornerRadius = radius
+            cell.layer.cornerRadius = 8.0
         }
     }
 
-    private func configureButtonsCell() -> UICollectionView.CellRegistration<
+    private func createButtonsCell() -> UICollectionView.CellRegistration<
         CompleteButtonCollectionViewCell,
         Dummy
     > {
@@ -130,7 +146,7 @@ extension CourseDetailViewController {
 
             guard let self = self else { return }
 
-            cell.completeButton.addAction(
+            cell.completeButton.addActionForOnce(
                 .init { [weak self] _ in
 
                     guard let self = self else { return }
@@ -142,7 +158,7 @@ extension CourseDetailViewController {
         }
     }
 
-    private func configureTitleCell() -> UICollectionView.CellRegistration<
+    private func createTitleCell() -> UICollectionView.CellRegistration<
         TitleCollectionViewCell,
         Dummy
     > {
@@ -158,7 +174,7 @@ extension CourseDetailViewController {
         }
     }
 
-    private func configureUserCell() -> UICollectionView.CellRegistration<
+    private func createUserCell() -> UICollectionView.CellRegistration<
         LeadingRegisteredUserCollectionViewCell,
         Dummy
     > {
@@ -184,7 +200,7 @@ extension CourseDetailViewController {
         }
     }
 
-    private func configureClimbedNumberCell() -> UICollectionView.CellRegistration<
+    private func createClimbedNumberCell() -> UICollectionView.CellRegistration<
         ClimbedNumberCollectionViewCell,
         Dummy
     > {
@@ -208,7 +224,7 @@ extension CourseDetailViewController {
         }
     }
 
-    private func configureRockCell() -> UICollectionView.CellRegistration<
+    private func createRockCell() -> UICollectionView.CellRegistration<
         ParentRockButtonCollectionViewCell,
         Dummy
     > {
@@ -230,7 +246,7 @@ extension CourseDetailViewController {
         }
     }
 
-    private func configureShapeCell() -> UICollectionView.CellRegistration<
+    private func createShapeCell() -> UICollectionView.CellRegistration<
         ValueCollectionViewCell,
         ValueCollectionViewCell.ValueCellStructure
     > {
@@ -244,7 +260,7 @@ extension CourseDetailViewController {
         }
     }
 
-    private func configureDescCell() -> UICollectionView.CellRegistration<
+    private func createDescCell() -> UICollectionView.CellRegistration<
         DescCollectionViewCell,
         Dummy
     > {
@@ -256,7 +272,7 @@ extension CourseDetailViewController {
         }
     }
 
-    private func configureNoImageCell() -> UICollectionView.CellRegistration<
+    private func createNoImageCell() -> UICollectionView.CellRegistration<
         NoImageCollectionViewCell,
         Dummy
     > {

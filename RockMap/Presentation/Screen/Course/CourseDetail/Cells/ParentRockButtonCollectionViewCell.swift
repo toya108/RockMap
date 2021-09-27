@@ -47,7 +47,7 @@ class ParentRockButtonCollectionViewCell: UICollectionViewCell {
         didTap: @escaping () -> Void
     ) {
         self.rockButton.setTitle(title, for: .normal)
-        self.rockButton.addAction(
+        self.rockButton.addActionForOnce(
             .init { _ in didTap() },
             for: .touchUpInside
         )

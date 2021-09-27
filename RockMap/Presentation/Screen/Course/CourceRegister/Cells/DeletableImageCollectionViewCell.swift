@@ -52,7 +52,7 @@ class DeletableImageCollectionViewCell: UICollectionViewCell {
             self.imageView.loadImage(url: crudableImage.image.url)
         }
 
-        self.deleteButton.addAction(
+        self.deleteButton.addActionForOnce(
             .init { _ in
                 deleteButtonTapped()
             },
