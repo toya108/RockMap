@@ -190,7 +190,6 @@
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
 		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
 		9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */; };
-		9ED40FC726631B5C00A8D0AC /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 9ED40FC626631B5C00A8D0AC /* FloatingPanel */; };
 		9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED972992596471C0069FB94 /* ArrayExtension.swift */; };
 		9EDEFE8D2700019C00E2868D /* UIControl+UIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDEFE8C2700019C00E2868D /* UIControl+UIAction.swift */; };
 		9EE25B8F25C99C8E0050326D /* RockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */; };
@@ -466,7 +465,6 @@
 				9E64FD1326B59F38005984F6 /* FirebaseStorageUI in Frameworks */,
 				9E64FD1026B59B3A005984F6 /* FirebaseEmailAuthUI in Frameworks */,
 				9E64FCFD26B59A82005984F6 /* FirebaseAnalytics in Frameworks */,
-				9ED40FC726631B5C00A8D0AC /* FloatingPanel in Frameworks */,
 				9E64FD0526B59A82005984F6 /* FirebaseFirestore in Frameworks */,
 				9E64FD0C26B59B3A005984F6 /* FirebaseOAuthUI in Frameworks */,
 				9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */,
@@ -1558,7 +1556,6 @@
 			);
 			name = RockMap;
 			packageProductDependencies = (
-				9ED40FC626631B5C00A8D0AC /* FloatingPanel */,
 				9E64FCFC26B59A82005984F6 /* FirebaseAnalytics */,
 				9E64FCFE26B59A82005984F6 /* FirebaseRemoteConfig */,
 				9E64FD0026B59A82005984F6 /* FirebaseStorage */,
@@ -1647,7 +1644,6 @@
 			);
 			mainGroup = 9E5CEFBF25277B25001C95AA;
 			packageReferences = (
-				9ED40FC526631B5C00A8D0AC /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */,
 			);
@@ -2300,14 +2296,6 @@
 				minimumVersion = 12.0.0;
 			};
 		};
-		9ED40FC526631B5C00A8D0AC /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/scenee/FloatingPanel.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.3.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2381,11 +2369,6 @@
 		9EC7982926D3E39500F9DC8D /* Auth */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Auth;
-		};
-		9ED40FC626631B5C00A8D0AC /* FloatingPanel */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9ED40FC526631B5C00A8D0AC /* XCRemoteSwiftPackageReference "FloatingPanel" */;
-			productName = FloatingPanel;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
