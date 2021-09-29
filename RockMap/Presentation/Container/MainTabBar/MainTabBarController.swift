@@ -41,15 +41,13 @@ final class MainTabBarController: UITabBarController {
         tabBar.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
         tabBar.layer.shadowOffset = .init(width: 0, height: -2)
 
-        if #available(iOS 15.0, *) {
-            let appearance = UITabBarAppearance()
-            let stackedLayoutAppearance = UITabBarItemAppearance()
-            stackedLayoutAppearance.normal.iconColor = .white
-            stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-            appearance.stackedLayoutAppearance = stackedLayoutAppearance
-            appearance.backgroundColor = UIColor.Pallete.primaryGreen
-            tabBar.standardAppearance = appearance
-            tabBar.scrollEdgeAppearance = appearance
-        }
+        let appearance = UITabBarAppearance()
+        let stackedLayoutAppearance = UITabBarItemAppearance()
+        stackedLayoutAppearance.normal.iconColor = .white
+        stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        appearance.stackedLayoutAppearance = stackedLayoutAppearance
+        appearance.backgroundColor = UIColor.Pallete.primaryGreen
+        tabBar.standardAppearance = appearance
+        tabBar.scrollEdgeAppearance = appearance
     }
 }

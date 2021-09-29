@@ -1,4 +1,4 @@
-// swift-tools-version:5.4
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "DataLayer",
     platforms: [
-        .iOS(.v14),
+        .iOS(.v15),
         .macOS(.v11)
     ],
     products: [
