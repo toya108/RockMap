@@ -27,10 +27,7 @@ class ZoomImagePresentableImageView: UIImageView {
     }
 
     @objc private func presentZoomImageViewController() {
-        let rootVc = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?
-            .rootViewController
-
-        rootVc?.present(
+        root?.present(
             ZoomImageViewController.createInstance(
                 images: [self.image ?? UIImage.AssetsImages.noimage],
                 currentIndex: 0
