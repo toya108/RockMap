@@ -27,7 +27,7 @@ struct RockConfirmRouter: RouterProtocol {
     private func dismiss(_ from: UIViewController) {
         RegisterSucceededViewController.showSuccessView(present: from) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                from.view.window?.windowScene?.keyWindow?.rootViewController?.dismiss(animated: true)
+                from.rootViewController?.dismiss(animated: true)
 
                 guard
                     let tabbarVC = from.presentingViewController as? UITabBarController,
