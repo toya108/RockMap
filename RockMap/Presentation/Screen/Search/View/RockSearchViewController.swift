@@ -386,6 +386,7 @@ extension RockSearchViewController: MKMapViewDelegate {
             },
             for: .touchUpInside
         )
+        // if I use button configutation, insets is not work in detailCalloutAccessoryView.
         button.contentEdgeInsets = .init(top: 4, left: 8, bottom: 4, right: 8)
         button.setTitle("ここに岩を登録する", for: .normal)
         button.layer.cornerRadius = 4
