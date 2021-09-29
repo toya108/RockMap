@@ -65,7 +65,10 @@ extension DebugViewController: UITableViewDelegate, UITableViewDataSource {
                 .catch { _ -> Just<Void> in
                     .init(())
                 }
-                .sink {
+                .sink { [weak self] in
+
+                    guard let self = self else { return }
+                    
                     guard
                         let vc = UIStoryboard(name: LoginViewController.className, bundle: nil)
                             .instantiateInitialViewController()
@@ -73,8 +76,7 @@ extension DebugViewController: UITableViewDelegate, UITableViewDataSource {
                         return
                     }
 
-                    UIApplication.shared.windows.first(where: { $0.isKeyWindow })?
-                        .rootViewController = vc
+                    self.view.replace(rootViewController: vc)
                 }
                 .store(in: &self.bindings)
         }

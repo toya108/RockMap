@@ -50,7 +50,7 @@ extension UIViewController {
     }
 
     var rootViewController: UIViewController? {
-        UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController
+        view.window?.windowScene?.keyWindow?.rootViewController
     }
 
     func topViewController(controller: UIViewController?) -> UIViewController? {

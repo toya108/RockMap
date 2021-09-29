@@ -39,8 +39,7 @@ class AccountViewController: UIViewController, CompositionalColectionViewControl
 
                 switch result {
                 case .success:
-                    UIApplication.shared.windows.first(where: { $0.isKeyWindow })?
-                        .rootViewController = MainTabBarController()
+                    self.view.replace(rootViewController: MainTabBarController())
 
                 case let .failure(error):
                     self.showOKAlert(
@@ -108,8 +107,7 @@ extension AccountViewController {
                             return
                         }
 
-                        UIApplication.shared.windows.first(where: { $0.isKeyWindow })?
-                            .rootViewController = vc
+                        self.view.replace(rootViewController: vc)
                     }
                     .store(in: &self.bindings)
             }
@@ -148,7 +146,10 @@ extension AccountViewController {
                     )
                     return Empty()
                 }
-                .sink { _ in
+                .sink { [weak self] _ in
+
+                    guard let self = self else { return }
+                    
                     guard
                         let vc = UIStoryboard(
                             name: LoginViewController.className,
@@ -159,8 +160,7 @@ extension AccountViewController {
                         return
                     }
 
-                    UIApplication.shared.windows.first(where: { $0.isKeyWindow })?
-                        .rootViewController = vc
+                    self.view.replace(rootViewController: vc)
                 }
                 .store(in: &self.bindings)
         }
