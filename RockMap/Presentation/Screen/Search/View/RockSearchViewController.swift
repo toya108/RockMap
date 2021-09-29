@@ -1,5 +1,4 @@
 import Combine
-import FloatingPanel
 import MapKit
 import UIKit
 
@@ -14,7 +13,6 @@ final class RockSearchViewController: UIViewController {
     @IBOutlet var addressLabel: UILabel!
     @IBOutlet var addressBaseViewTopConstraint: NSLayoutConstraint!
     @IBOutlet var searchBar: UISearchBar!
-    private let floatingPanelVc = FloatingPanelController()
 
     private lazy var trackingButton: MKUserTrackingButton = {
         .init(mapView: mapView)
@@ -46,7 +44,6 @@ final class RockSearchViewController: UIViewController {
         self.setupBindings()
         self.setupMapView()
         self.setupSearchBar()
-        self.setupFloatingPanel()
         self.updateLocation(LocationManager.shared.location)
         self.setupLongPressGesture()
     }
@@ -113,19 +110,6 @@ final class RockSearchViewController: UIViewController {
             MKMarkerAnnotationView.self,
             forAnnotationViewWithReuseIdentifier: RockAnnotation.className
         )
-    }
-
-    private func setupFloatingPanel() {
-        self.floatingPanelVc.delegate = self
-        self.floatingPanelVc.isRemovalInteractionEnabled = true
-
-        let appearence = SurfaceAppearance()
-        appearence.cornerRadius = 16
-        let shadow = SurfaceAppearance.Shadow()
-        shadow.radius = Resources.Const.UI.Shadow.radius
-        shadow.opacity = 0.3
-        appearence.shadows = [shadow]
-        self.floatingPanelVc.surfaceView.appearance = appearence
     }
 
     private func setupBindings() {
@@ -292,7 +276,7 @@ extension RockSearchViewController: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        self.floatingPanelVc.removePanelFromParent(animated: true)
+//        self.floatingPanelVc.removePanelFromParent(animated: true)
     }
 
     func mapView(
@@ -315,25 +299,19 @@ extension RockSearchViewController: MKMapViewDelegate {
     }
 
     private func showFloatingPanel(rocks: [Entity.Rock]) {
-        if self.floatingPanelVc.contentViewController == nil {
-            self.addFloatingPanel(rocks: rocks)
-            return
+        let rockAnnotationListViewController = RockAnnotationListViewController.createInstance(
+            rocks: rocks
+        )
+
+        rockAnnotationListViewController.delegate = self
+
+        if let sheet = rockAnnotationListViewController.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 16.0
         }
 
-        self.floatingPanelVc.removePanelFromParent(animated: true) { [weak self] in
-
-            guard let self = self else { return }
-
-            self.addFloatingPanel(rocks: rocks)
-        }
-    }
-
-    private func addFloatingPanel(rocks: [Entity.Rock]) {
-        let contentVC = RockAnnotationListViewController.createInstance(rocks: rocks)
-        contentVC.delegate = self
-        self.floatingPanelVc.set(contentViewController: contentVC)
-        self.floatingPanelVc.track(scrollView: contentVC.collectionView)
-        self.floatingPanelVc.addPanel(toParent: self, animated: true)
+        present(rockAnnotationListViewController, animated: true)
     }
 
     private func makeRockAnnotationView(
@@ -415,27 +393,6 @@ extension RockSearchViewController: MKMapViewDelegate {
         markerAnnotationView.detailCalloutAccessoryView = button
 
         return markerAnnotationView
-    }
-}
-
-extension RockSearchViewController: FloatingPanelControllerDelegate {
-    func floatingPanel(
-        _ fpc: FloatingPanelController,
-        layoutFor newCollection: UITraitCollection
-    ) -> FloatingPanelLayout {
-        RockSearchFloatingPanelLayout()
-    }
-}
-
-class RockSearchFloatingPanelLayout: FloatingPanelLayout {
-    let position: FloatingPanelPosition = .bottom
-    let initialState: FloatingPanelState = .half
-    var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
-        [.half: FloatingPanelLayoutAnchor(
-            fractionalInset: 0.35,
-            edge: .bottom,
-            referenceGuide: .safeArea
-        )]
     }
 }
 

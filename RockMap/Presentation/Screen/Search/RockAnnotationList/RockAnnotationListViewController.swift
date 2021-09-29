@@ -24,7 +24,7 @@ class RockAnnotationListViewController: UIViewController,
         super.viewDidLoad()
 
         view.backgroundColor = .systemGroupedBackground
-        configureCollectionView(topInset: 16)
+        configureCollectionView()
         self.setupSections()
     }
 
@@ -99,5 +99,6 @@ extension RockAnnotationListViewController: UICollectionViewDelegate {
         }
 
         self.delegate?.didSelectRockAnnotaitonCell(rock: selectedRock)
+        dismiss(animated: true)
     }
 }
