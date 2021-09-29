@@ -125,8 +125,7 @@ class RockLocationSelectViewController: UIViewController {
             guard
                 let self = self,
                 let presenting = self.topViewController(
-                    controller: UIApplication.shared.windows.first { $0.isKeyWindow }?
-                        .rootViewController
+                    controller: self.view.root
                 ) as? RockRegisterViewController
             else {
                 return

@@ -34,6 +34,14 @@ extension UIView {
         layer.shadowRadius = Resources.Const.UI.Shadow.radius
         layer.shadowOpacity = 0.3
     }
+
+    var root: UIViewController? {
+        self.window?.windowScene?.keyWindow?.rootViewController
+    }
+
+    func replace(rootViewController: UIViewController) {
+        self.window?.windowScene?.keyWindow?.rootViewController = rootViewController
+    }
 }
 
 extension NSLayoutConstraint {

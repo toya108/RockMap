@@ -97,10 +97,7 @@ class SocialLinkCollectionViewCell: UICollectionViewCell {
 
     private func showDisableLinkAlert() {
         guard
-            let topViewController = UIApplication.shared.windows
-                .first(where: { $0.isKeyWindow })?
-                .rootViewController?
-                .getVisibleViewController()
+            let topViewController = self.contentView.root?.getVisibleViewController()
         else {
             return
         }

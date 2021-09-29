@@ -25,10 +25,10 @@ struct ForceUpdateAlertManager {
         }
         forceUpdateAlert.addAction(goToStoreAction)
 
-        UIApplication.shared.windows
-            .first(where: { $0.isKeyWindow })?
-            .rootViewController?
-            .present(forceUpdateAlert, animated: true)
+        UIApplication.shared.keyWindow?.rootViewController?.present(
+            forceUpdateAlert,
+            animated: true
+        )
     }
 
     /**

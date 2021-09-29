@@ -19,15 +19,13 @@ final class LoginViewController: UIViewController {
         if AuthManager.shared.isLoggedIn {
             self.presentLogoutAlert()
         } else {
-            UIApplication.shared.windows.first { $0.isKeyWindow }?
-                .rootViewController = MainTabBarController()
+            view.replace(rootViewController: MainTabBarController())
         }
     }
 
     @IBAction func didLoginButtonTapped(_ sender: UIButton) {
         if AuthManager.shared.isLoggedIn {
-            UIApplication.shared.windows.first { $0.isKeyWindow }?
-                .rootViewController = MainTabBarController()
+            view.replace(rootViewController: MainTabBarController())
         } else {
             guard
                 let authViewController = AuthManager.shared.authViewController
@@ -69,8 +67,7 @@ final class LoginViewController: UIViewController {
 
                 switch result {
                 case .success:
-                    UIApplication.shared.windows.first { $0.isKeyWindow }?
-                        .rootViewController = MainTabBarController()
+                    self.view.replace(rootViewController: MainTabBarController())
 
                 case let .failure(error):
                     self.showOKAlert(
