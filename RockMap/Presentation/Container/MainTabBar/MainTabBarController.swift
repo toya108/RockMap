@@ -24,30 +24,30 @@ final class MainTabBarController: UITabBarController {
     }
 
     private func setupLayout() {
-        UITabBar.appearance().barTintColor = UIColor.Pallete.primaryGreen
-        UITabBar.appearance().tintColor = .white
-        UITabBar.appearance()
-            .backgroundImage = UIGraphicsImageRenderer(size: .init(width: 1, height: 1))
-            .image { context in
-                UIColor.Pallete.primaryGreen.setFill()
-                context.fill(.init(origin: .init(x: 0, y: 0), size: .init(width: 1, height: 1)))
-            }
-        UITabBar.appearance().shadowImage = UIImage()
-        UITabBarItem.appearance()
-            .setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
-
-        tabBar.layer.shadowColor = Resources.Const.UI.Shadow.color
-        tabBar.layer.shadowRadius = Resources.Const.UI.Shadow.radius
-        tabBar.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
-        tabBar.layer.shadowOffset = .init(width: 0, height: -2)
-
-        let appearance = UITabBarAppearance()
-        let stackedLayoutAppearance = UITabBarItemAppearance()
-        stackedLayoutAppearance.normal.iconColor = .white
-        stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        appearance.stackedLayoutAppearance = stackedLayoutAppearance
-        appearance.backgroundColor = UIColor.Pallete.primaryGreen
-        tabBar.standardAppearance = appearance
-        tabBar.scrollEdgeAppearance = appearance
+//        UITabBar.appearance().barTintColor = UIColor.Pallete.primaryGreen
+//        UITabBar.appearance().tintColor = .white
+//        UITabBar.appearance()
+//            .backgroundImage = UIGraphicsImageRenderer(size: .init(width: 1, height: 1))
+//            .image { context in
+//                UIColor.Pallete.primaryGreen.setFill()
+//                context.fill(.init(origin: .init(x: 0, y: 0), size: .init(width: 1, height: 1)))
+//            }
+//        UITabBar.appearance().shadowImage = UIImage()
+//        UITabBarItem.appearance()
+//            .setTitleTextAttributes([.foregroundColor: UIColor.white], for: .normal)
+//
+//        tabBar.layer.shadowColor = Resources.Const.UI.Shadow.color
+//        tabBar.layer.shadowRadius = Resources.Const.UI.Shadow.radius
+//        tabBar.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
+//        tabBar.layer.shadowOffset = .init(width: 0, height: -2)
+//
+//        let appearance = UITabBarAppearance()
+//        let stackedLayoutAppearance = UITabBarItemAppearance()
+//        stackedLayoutAppearance.normal.iconColor = .white
+//        stackedLayoutAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+//        appearance.stackedLayoutAppearance = stackedLayoutAppearance
+//        appearance.backgroundColor = UIColor.Pallete.primaryGreen
+//        tabBar.standardAppearance = appearance
+//        tabBar.scrollEdgeAppearance = appearance
     }
 }

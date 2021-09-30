@@ -116,6 +116,11 @@
 		9E810722262DA3640025359C /* MyPageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E810721262DA3640025359C /* MyPageLayout.swift */; };
 		9E81072A262DA3700025359C /* MyPageKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E810729262DA3700025359C /* MyPageKind.swift */; };
 		9E81072F262DA37F0025359C /* MyPageDatasourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81072E262DA37F0025359C /* MyPageDatasourse.swift */; };
+		9E82FAF12704AB39002972BD /* RockSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E82FAF02704AB39002972BD /* RockSearchView.swift */; };
+		9E82FAF32704ACFA002972BD /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E82FAF22704ACFA002972BD /* MainTabView.swift */; };
+		9E82FB2B2704AE37002972BD /* RockMapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E82FB2A2704AE37002972BD /* RockMapApp.swift */; };
+		9E82FB2D270523AE002972BD /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E82FB2C270523AE002972BD /* LoginView.swift */; };
+		9E82FB2F27052571002972BD /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E82FB2E27052571002972BD /* MyPageView.swift */; };
 		9E83EEBB25FB4D00002392AA /* IconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E83EEBA25FB4D00002392AA /* IconCollectionViewCell.swift */; };
 		9E83EEC625FCA856002392AA /* SegmentedControllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E83EEC525FCA856002392AA /* SegmentedControllCollectionViewCell.swift */; };
 		9E845ADA25ADEA6A00EC3BE6 /* Resouces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E845AD925ADEA6A00EC3BE6 /* Resouces.swift */; };
@@ -344,6 +349,11 @@
 		9E810721262DA3640025359C /* MyPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageLayout.swift; sourceTree = "<group>"; };
 		9E810729262DA3700025359C /* MyPageKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageKind.swift; sourceTree = "<group>"; };
 		9E81072E262DA37F0025359C /* MyPageDatasourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDatasourse.swift; sourceTree = "<group>"; };
+		9E82FAF02704AB39002972BD /* RockSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockSearchView.swift; sourceTree = "<group>"; };
+		9E82FAF22704ACFA002972BD /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		9E82FB2A2704AE37002972BD /* RockMapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockMapApp.swift; sourceTree = "<group>"; };
+		9E82FB2C270523AE002972BD /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		9E82FB2E27052571002972BD /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		9E83EEBA25FB4D00002392AA /* IconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E83EEC525FCA856002392AA /* SegmentedControllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControllCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E845AD925ADEA6A00EC3BE6 /* Resouces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resouces.swift; sourceTree = "<group>"; };
@@ -516,6 +526,7 @@
 			children = (
 				9E2B112E25471F6100D7E56C /* LoginViewController.swift */,
 				9E2B113325471F7400D7E56C /* LoginViewController.storyboard */,
+				9E82FB2C270523AE002972BD /* LoginView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -658,6 +669,7 @@
 			isa = PBXGroup;
 			children = (
 				9E5CEFCF25277B25001C95AA /* RockSearchViewController.swift */,
+				9E82FAF02704AB39002972BD /* RockSearchView.swift */,
 				9E5CEFD125277B25001C95AA /* RockSearchViewController.storyboard */,
 				9EC88E09260CCB5C0057EBEE /* LocationSelectButtonState.swift */,
 				9EB6C3CC260FA7A000CDD607 /* RockAnnotation.swift */,
@@ -761,6 +773,7 @@
 				9E98D5472553009100EC5AC1 /* Resources */,
 				9EA6B04C26651A2300DAA888 /* Settings.bundle */,
 				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
+				9E82FB2A2704AE37002972BD /* RockMapApp.swift */,
 				9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */,
 				9E5CEFD625277B26001C95AA /* LaunchScreen.storyboard */,
 				9E5CEFD925277B26001C95AA /* Info.plist */,
@@ -972,6 +985,7 @@
 			isa = PBXGroup;
 			children = (
 				9EB6BA66252E00E400553026 /* MainTabBarController.swift */,
+				9E82FAF22704ACFA002972BD /* MainTabView.swift */,
 				9E807CC5254D00310091935F /* ScreenType.swift */,
 			);
 			path = MainTabBar;
@@ -1045,6 +1059,7 @@
 			isa = PBXGroup;
 			children = (
 				9E807CA7254CFD150091935F /* MyPageViewController.swift */,
+				9E82FB2E27052571002972BD /* MyPageView.swift */,
 				9E810721262DA3640025359C /* MyPageLayout.swift */,
 				9E810729262DA3700025359C /* MyPageKind.swift */,
 				9E81072E262DA37F0025359C /* MyPageDatasourse.swift */,
@@ -1813,6 +1828,7 @@
 				9E2B112F25471F6100D7E56C /* LoginViewController.swift in Sources */,
 				9E4415742661E44200D48D12 /* DateExtension.swift in Sources */,
 				9EF71FD62611ADC700D5B375 /* PHPickerManager.swift in Sources */,
+				9E82FAF12704AB39002972BD /* RockSearchView.swift in Sources */,
 				9E6CF42725CFF16A0098389E /* RockLocationCollectionViewCell.swift in Sources */,
 				9EB7059526515855001FD2F6 /* IconEditCollectionViewCell.swift in Sources */,
 				9EECEBBB265FBAE00057EE11 /* MyClimbRecordListViewModel.swift in Sources */,
@@ -1835,6 +1851,7 @@
 				9E5DD1C025C84DA500E38620 /* UIImageViewExtension.swift in Sources */,
 				9EFE2B2C2694AF4B002F4923 /* CrudableImage.swift in Sources */,
 				9EA88DB82691D5900036D6C1 /* ForceUpdateAlertManager.swift in Sources */,
+				9E82FB2D270523AE002972BD /* LoginView.swift in Sources */,
 				9E99750026422B6000E8562B /* CourseListLayout.swift in Sources */,
 				9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */,
 				9E5C5E372555144000D00087 /* Images.swift in Sources */,
@@ -1876,6 +1893,7 @@
 				9E6D916B261AEB71006E2297 /* ZoomImageViewController.swift in Sources */,
 				9E0D09352566B31200D3075F /* RockDetailViewModel.swift in Sources */,
 				9E98D549255300B900EC5AC1 /* ColorPallet.swift in Sources */,
+				9E82FB2F27052571002972BD /* MyPageView.swift in Sources */,
 				9E9E6318262EADA10096340C /* MyPageViewModel.swift in Sources */,
 				9E2DA74F25F915E2008F339E /* RockRegisterKind.swift in Sources */,
 				9EFEE45D25F79EE6004BFE34 /* NoCoursesCollectionViewCell.swift in Sources */,
@@ -1910,6 +1928,7 @@
 				9EECEBB9265FBAD30057EE11 /* MyClimbRecordListLayout.swift in Sources */,
 				9E2DA74225F915CC008F339E /* RockRegisterDatasource.swift in Sources */,
 				9EEADA1C255AD39100F20228 /* PlaceHolderTextView.swift in Sources */,
+				9E82FB2B2704AE37002972BD /* RockMapApp.swift in Sources */,
 				9E0BE38426058FFE00576869 /* CompleteButtonCollectionViewCell.swift in Sources */,
 				9EA32A3F25FA778700FB0C75 /* RockConfirmViewController.swift in Sources */,
 				9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */,
@@ -1934,6 +1953,7 @@
 				9E60DCB52557148A000CF2E8 /* RockLocationSelectViewController.swift in Sources */,
 				9E9845EF25D5278C00B03C4E /* CourseRegisterDatasource.swift in Sources */,
 				9E479D2626C29DC3003EFCB5 /* DomainAccesser.swift in Sources */,
+				9E82FAF32704ACFA002972BD /* MainTabView.swift in Sources */,
 				9E81072A262DA3700025359C /* MyPageKind.swift in Sources */,
 				9E0C9C2826D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift in Sources */,
 				9E9974FE26422B1F00E8562B /* CourseListDatasource.swift in Sources */,
