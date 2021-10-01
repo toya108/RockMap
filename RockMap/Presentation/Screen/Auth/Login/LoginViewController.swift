@@ -66,14 +66,14 @@ final class LoginViewController: UIViewController {
                 guard let self = self else { return }
 
                 switch result {
-                case .success:
-                    self.view.replace(rootViewController: MainTabBarController())
+                    case .success:
+                        self.view.replace(rootViewController: MainTabBarController())
 
-                case let .failure(error):
-                    self.showOKAlert(
-                        title: "認証に失敗しました。",
-                        message: error.localizedDescription
-                    )
+                    case let .failure(error):
+                        self.showOKAlert(
+                            title: "認証に失敗しました。",
+                            message: error.localizedDescription
+                        )
                 }
             }
             .store(in: &self.bindings)

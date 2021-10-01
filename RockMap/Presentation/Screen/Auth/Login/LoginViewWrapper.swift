@@ -1,12 +1,12 @@
 import SwiftUI
 
-struct LoginView: UIViewControllerRepresentable {
+struct LoginViewWrapper: UIViewControllerRepresentable {
 
     typealias UIViewControllerType = LoginViewController
 
     func makeUIViewController(
-        context: UIViewControllerRepresentableContext<LoginView>
-    ) -> LoginView.UIViewControllerType {
+        context: UIViewControllerRepresentableContext<LoginViewWrapper>
+    ) -> LoginViewWrapper.UIViewControllerType {
         return UIStoryboard(
             name: LoginViewController.className,
             bundle: nil
@@ -14,8 +14,8 @@ struct LoginView: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(
-        _ uiViewController: LoginView.UIViewControllerType,
-        context: UIViewControllerRepresentableContext<LoginView>
+        _ uiViewController: LoginViewWrapper.UIViewControllerType,
+        context: UIViewControllerRepresentableContext<LoginViewWrapper>
     ) {
     }
 }

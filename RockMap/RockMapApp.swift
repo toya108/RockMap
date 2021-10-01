@@ -11,7 +11,7 @@ struct RockMapApp: App {
             if AuthManager.shared.isLoggedIn {
                 MainTabView()
             } else {
-                LoginView()
+                LoginViewWrapper()
             }
         }
     }

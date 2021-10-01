@@ -119,7 +119,7 @@
 		9E82FAF12704AB39002972BD /* RockSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E82FAF02704AB39002972BD /* RockSearchView.swift */; };
 		9E82FAF32704ACFA002972BD /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E82FAF22704ACFA002972BD /* MainTabView.swift */; };
 		9E82FB2B2704AE37002972BD /* RockMapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E82FB2A2704AE37002972BD /* RockMapApp.swift */; };
-		9E82FB2D270523AE002972BD /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E82FB2C270523AE002972BD /* LoginView.swift */; };
+		9E82FB2D270523AE002972BD /* LoginViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E82FB2C270523AE002972BD /* LoginViewWrapper.swift */; };
 		9E82FB2F27052571002972BD /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E82FB2E27052571002972BD /* MyPageView.swift */; };
 		9E83EEBB25FB4D00002392AA /* IconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E83EEBA25FB4D00002392AA /* IconCollectionViewCell.swift */; };
 		9E83EEC625FCA856002392AA /* SegmentedControllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E83EEC525FCA856002392AA /* SegmentedControllCollectionViewCell.swift */; };
@@ -352,7 +352,7 @@
 		9E82FAF02704AB39002972BD /* RockSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockSearchView.swift; sourceTree = "<group>"; };
 		9E82FAF22704ACFA002972BD /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		9E82FB2A2704AE37002972BD /* RockMapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockMapApp.swift; sourceTree = "<group>"; };
-		9E82FB2C270523AE002972BD /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		9E82FB2C270523AE002972BD /* LoginViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewWrapper.swift; sourceTree = "<group>"; };
 		9E82FB2E27052571002972BD /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		9E83EEBA25FB4D00002392AA /* IconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E83EEC525FCA856002392AA /* SegmentedControllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControllCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -526,7 +526,7 @@
 			children = (
 				9E2B112E25471F6100D7E56C /* LoginViewController.swift */,
 				9E2B113325471F7400D7E56C /* LoginViewController.storyboard */,
-				9E82FB2C270523AE002972BD /* LoginView.swift */,
+				9E82FB2C270523AE002972BD /* LoginViewWrapper.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1851,7 +1851,7 @@
 				9E5DD1C025C84DA500E38620 /* UIImageViewExtension.swift in Sources */,
 				9EFE2B2C2694AF4B002F4923 /* CrudableImage.swift in Sources */,
 				9EA88DB82691D5900036D6C1 /* ForceUpdateAlertManager.swift in Sources */,
-				9E82FB2D270523AE002972BD /* LoginView.swift in Sources */,
+				9E82FB2D270523AE002972BD /* LoginViewWrapper.swift in Sources */,
 				9E99750026422B6000E8562B /* CourseListLayout.swift in Sources */,
 				9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */,
 				9E5C5E372555144000D00087 /* Images.swift in Sources */,
