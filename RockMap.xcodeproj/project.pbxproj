@@ -66,6 +66,7 @@
 		9E479D2626C29DC3003EFCB5 /* DomainAccesser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */; };
 		9E493DDB26B98EA300DCA210 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 9E493DDA26B98EA300DCA210 /* Domain */; };
 		9E493DE126B994BB00DCA210 /* DataLayer in Frameworks */ = {isa = PBXBuildFile; productRef = 9E493DE026B994BB00DCA210 /* DataLayer */; };
+		9E4B45382706906A005CAB32 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B45372706906A005CAB32 /* LoginView.swift */; };
 		9E5C5E372555144000D00087 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5C5E362555144000D00087 /* Images.swift */; };
 		9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCB25277B25001C95AA /* AppDelegate.swift */; };
 		9E5CEFCE25277B25001C95AA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */; };
@@ -303,6 +304,7 @@
 		9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainAccesser.swift; sourceTree = "<group>"; };
 		9E493DD726B98DE800DCA210 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Domain; sourceTree = "<group>"; };
 		9E493DDF26B9949E00DCA210 /* DataLayer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataLayer; sourceTree = "<group>"; };
+		9E4B45372706906A005CAB32 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9E5C5E362555144000D00087 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		9E5CEFC825277B25001C95AA /* RockMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RockMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5CEFCB25277B25001C95AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 				9E2B112E25471F6100D7E56C /* LoginViewController.swift */,
 				9E2B113325471F7400D7E56C /* LoginViewController.storyboard */,
 				9E82FB2C270523AE002972BD /* LoginViewWrapper.swift */,
+				9E4B45372706906A005CAB32 /* LoginView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1900,6 +1903,7 @@
 				9EC3A6BF2604D5F8001FBCA4 /* CourseDetailViewModel.swift in Sources */,
 				9E9C1E1E25E49AAA0050FDDE /* ErrorLabelCollectionViewCell.swift in Sources */,
 				9E94C7C425E2BAAE00276333 /* SectionBackgroundDecorationView.swift in Sources */,
+				9E4B45382706906A005CAB32 /* LoginView.swift in Sources */,
 				9EE25B8F25C99C8E0050326D /* RockDetailViewController.swift in Sources */,
 				9E11A7DA26272ABA006C925A /* NoImageCollectionViewCell.swift in Sources */,
 				9E6CF41C25CF10570098389E /* TitleSupplementaryView.swift in Sources */,
