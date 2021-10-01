@@ -1,6 +1,10 @@
 import SwiftUI
 
 struct LoginView: View {
+
+    @State var isPresentedTerms = false
+    @State var isPresentedPrivacyPolicy = false
+
     var body: some View {
         VStack(spacing: 24) {
             Image(uiImage: UIImage.AssetsImages.mountainBackGround)
@@ -46,14 +50,20 @@ struct LoginView: View {
                 }
                 HStack {
                     Button("利用規約") {
-
+                        isPresentedTerms.toggle()
                     }
                     .font(.system(size: 14))
+                    .sheet(isPresented: $isPresentedTerms) {
+                        SafariView(url: Resources.Const.Url.terms)
+                    }
 
                     Button("プライバシーポリシー") {
-
+                        isPresentedPrivacyPolicy.toggle()
                     }
                     .font(.system(size: 14))
+                    .sheet(isPresented: $isPresentedTerms) {
+                        SafariView(url: Resources.Const.Url.privacyPolicy)
+                    }
                     Spacer()
                 }
             }
