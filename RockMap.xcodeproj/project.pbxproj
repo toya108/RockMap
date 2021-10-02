@@ -130,6 +130,7 @@
 		9E8723AE256BF89400735C65 /* HeaderIgnorableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8723AD256BF89400735C65 /* HeaderIgnorableScrollView.swift */; };
 		9E8723D3256C037000735C65 /* RockConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8723D2256C037000735C65 /* RockConfirmViewModel.swift */; };
 		9E8A145C2707509F00903D38 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A145B2707509F00903D38 /* SafariView.swift */; };
+		9E8A1470270887F300903D38 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A146E2708836E00903D38 /* Localizable.strings */; };
 		9E902B2525F0DC5300006624 /* LabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E902B2425F0DC5300006624 /* LabelCollectionViewCell.swift */; };
 		9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9E9162EF26BF7DF10012D2B0 /* Utilities */; };
 		9E94C7C425E2BAAE00276333 /* SectionBackgroundDecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E94C7C325E2BAAE00276333 /* SectionBackgroundDecorationView.swift */; };
@@ -365,6 +366,9 @@
 		9E8723AD256BF89400735C65 /* HeaderIgnorableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderIgnorableScrollView.swift; sourceTree = "<group>"; };
 		9E8723D2256C037000735C65 /* RockConfirmViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmViewModel.swift; sourceTree = "<group>"; };
 		9E8A145B2707509F00903D38 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
+		9E8A14672708826A00903D38 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		9E8A146D2708836E00903D38 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9E8A146F2708837000903D38 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9E902B2425F0DC5300006624 /* LabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E9162ED26BEB9D20012D2B0 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Utilities; sourceTree = "<group>"; };
 		9E94C7C325E2BAAE00276333 /* SectionBackgroundDecorationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionBackgroundDecorationView.swift; sourceTree = "<group>"; };
@@ -780,6 +784,7 @@
 				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
 				9E82FB2A2704AE37002972BD /* RockMapApp.swift */,
 				9E5CEFCD25277B25001C95AA /* SceneDelegate.swift */,
+				9E8A146E2708836E00903D38 /* Localizable.strings */,
 				9E5CEFD625277B26001C95AA /* LaunchScreen.storyboard */,
 				9E5CEFD925277B26001C95AA /* Info.plist */,
 				9EB7DB98266FC4F9003B0041 /* GoogleService-Info-release.plist */,
@@ -1665,6 +1670,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 9E5CEFBF25277B25001C95AA;
 			packageReferences = (
@@ -1709,6 +1715,7 @@
 				9E0BE3DA2607949E00576869 /* ClimbedNumberCollectionViewCell.xib in Resources */,
 				9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */,
 				9E9845F625D5418C00B03C4E /* RockHeaderCollectionViewCell.xib in Resources */,
+				9E8A1470270887F300903D38 /* Localizable.strings in Resources */,
 				9E2BD68725DD6DA90011B020 /* ImageSelactCollectionViewCell.xib in Resources */,
 				9E9E6371262EF1730096340C /* UserCollectionViewCell.xib in Resources */,
 				9EB7DB99266FC4F9003B0041 /* GoogleService-Info-release.plist in Resources */,
@@ -2016,8 +2023,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				9E5CEFD725277B26001C95AA /* Base */,
+				9E8A14672708826A00903D38 /* ja */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		9E8A146E2708836E00903D38 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9E8A146D2708836E00903D38 /* en */,
+				9E8A146F2708837000903D38 /* ja */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -2027,6 +2044,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -2088,6 +2106,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
