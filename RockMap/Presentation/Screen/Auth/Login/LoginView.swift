@@ -13,9 +13,9 @@ struct LoginView: View {
             VStack(alignment: .leading, spacing: 16) {
                 Text("RockMap")
                     .font(.system(size: 33, weight: .heavy))
-                Text("Hello Climbers!\nLet's share rocks & courses!")
+                Text("text_hello")
                     .font(.system(size: 18, weight: .heavy))
-                Text("RockMapはクライマーのための地図アプリです。\n岩と課題の情報をシェアしましょう！")
+                Text("text_rockmap_description")
                     .font(.footnote)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -27,7 +27,7 @@ struct LoginView: View {
                             appStore.rootViewType = .main
                         },
                         label: {
-                            Text("Login")
+                            Text("login")
                                 .font(.system(size: 20, weight: .heavy, design: .default))
                                 .padding(8)
                                 .foregroundColor(Color(uiColor: .white))
@@ -40,7 +40,7 @@ struct LoginView: View {
 
                         },
                         label: {
-                            Text("Guest Login")
+                            Text("guest_login")
                                 .font(.system(size: 20, weight: .heavy, design: .default))
                                 .padding(8)
                                 .foregroundColor(Color(uiColor: UIColor.Pallete.primaryGreen))
@@ -50,14 +50,14 @@ struct LoginView: View {
                     Spacer()
                 }
                 HStack {
-                    Button("利用規約") {
+                    Button("terms") {
                         isPresentedTerms.toggle()
                     }
                     .font(.system(size: 14))
                     .sheet(isPresented: $isPresentedTerms) {
                         SafariView(url: Resources.Const.Url.terms)
                     }
-                    Button("プライバシーポリシー") {
+                    Button("privacy_policy") {
                         isPresentedPrivacyPolicy.toggle()
                     }
                     .font(.system(size: 14))
