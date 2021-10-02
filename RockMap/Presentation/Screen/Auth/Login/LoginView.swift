@@ -4,6 +4,7 @@ struct LoginView: View {
 
     @State var isPresentedTerms = false
     @State var isPresentedPrivacyPolicy = false
+    @EnvironmentObject var appStore: AppStore
 
     var body: some View {
         VStack(spacing: 24) {
@@ -23,7 +24,7 @@ struct LoginView: View {
                 HStack {
                     Button(
                         action: {
-
+                            appStore.rootViewType = .main
                         },
                         label: {
                             Text("Login")
@@ -56,7 +57,6 @@ struct LoginView: View {
                     .sheet(isPresented: $isPresentedTerms) {
                         SafariView(url: Resources.Const.Url.terms)
                     }
-
                     Button("プライバシーポリシー") {
                         isPresentedPrivacyPolicy.toggle()
                     }
