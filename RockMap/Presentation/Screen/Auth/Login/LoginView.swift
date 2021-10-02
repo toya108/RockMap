@@ -61,7 +61,7 @@ struct LoginView: View {
                         isPresentedPrivacyPolicy.toggle()
                     }
                     .font(.system(size: 14))
-                    .sheet(isPresented: $isPresentedTerms) {
+                    .sheet(isPresented: $isPresentedPrivacyPolicy) {
                         SafariView(url: Resources.Const.Url.privacyPolicy)
                     }
                     Spacer()
