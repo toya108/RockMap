@@ -131,6 +131,7 @@
 		9E8723D3256C037000735C65 /* RockConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8723D2256C037000735C65 /* RockConfirmViewModel.swift */; };
 		9E8A145C2707509F00903D38 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A145B2707509F00903D38 /* SafariView.swift */; };
 		9E8A1470270887F300903D38 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A146E2708836E00903D38 /* Localizable.strings */; };
+		9E8A14722709EC7100903D38 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A14712709EC7100903D38 /* LoginViewModel.swift */; };
 		9E902B2525F0DC5300006624 /* LabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E902B2425F0DC5300006624 /* LabelCollectionViewCell.swift */; };
 		9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9E9162EF26BF7DF10012D2B0 /* Utilities */; };
 		9E94C7C425E2BAAE00276333 /* SectionBackgroundDecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E94C7C325E2BAAE00276333 /* SectionBackgroundDecorationView.swift */; };
@@ -369,6 +370,7 @@
 		9E8A14672708826A00903D38 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		9E8A146D2708836E00903D38 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9E8A146F2708837000903D38 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9E8A14712709EC7100903D38 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		9E902B2425F0DC5300006624 /* LabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E9162ED26BEB9D20012D2B0 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Utilities; sourceTree = "<group>"; };
 		9E94C7C325E2BAAE00276333 /* SectionBackgroundDecorationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionBackgroundDecorationView.swift; sourceTree = "<group>"; };
@@ -536,6 +538,7 @@
 				9E2B113325471F7400D7E56C /* LoginViewController.storyboard */,
 				9E82FB2C270523AE002972BD /* LoginViewWrapper.swift */,
 				9E4B45372706906A005CAB32 /* LoginView.swift */,
+				9E8A14712709EC7100903D38 /* LoginViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1817,6 +1820,7 @@
 				9E9974FA264227D400E8562B /* CourseListRouter.swift in Sources */,
 				9E5D261C26595C1000DE7E57 /* ParentRockButtonCollectionViewCell.swift in Sources */,
 				9E0A9F29255104A0007B9A90 /* KeyboardExtension.swift in Sources */,
+				9E8A14722709EC7100903D38 /* LoginViewModel.swift in Sources */,
 				9E807CC6254D00310091935F /* ScreenType.swift in Sources */,
 				9EA58D16263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift in Sources */,
 				9E60D4C2262F0D8200B116C2 /* SocialLinkCollectionViewCell.swift in Sources */,
