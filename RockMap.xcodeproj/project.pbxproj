@@ -132,6 +132,7 @@
 		9E8A145C2707509F00903D38 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A145B2707509F00903D38 /* SafariView.swift */; };
 		9E8A1470270887F300903D38 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A146E2708836E00903D38 /* Localizable.strings */; };
 		9E8A14722709EC7100903D38 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A14712709EC7100903D38 /* LoginViewModel.swift */; };
+		9E8A14742709F95700903D38 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A14732709F95700903D38 /* AuthView.swift */; };
 		9E902B2525F0DC5300006624 /* LabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E902B2425F0DC5300006624 /* LabelCollectionViewCell.swift */; };
 		9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9E9162EF26BF7DF10012D2B0 /* Utilities */; };
 		9E94C7C425E2BAAE00276333 /* SectionBackgroundDecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E94C7C325E2BAAE00276333 /* SectionBackgroundDecorationView.swift */; };
@@ -371,6 +372,7 @@
 		9E8A146D2708836E00903D38 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9E8A146F2708837000903D38 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9E8A14712709EC7100903D38 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		9E8A14732709F95700903D38 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		9E902B2425F0DC5300006624 /* LabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E9162ED26BEB9D20012D2B0 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Utilities; sourceTree = "<group>"; };
 		9E94C7C325E2BAAE00276333 /* SectionBackgroundDecorationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionBackgroundDecorationView.swift; sourceTree = "<group>"; };
@@ -539,6 +541,7 @@
 				9E82FB2C270523AE002972BD /* LoginViewWrapper.swift */,
 				9E4B45372706906A005CAB32 /* LoginView.swift */,
 				9E8A14712709EC7100903D38 /* LoginViewModel.swift */,
+				9E8A14732709F95700903D38 /* AuthView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1969,6 +1972,7 @@
 				9EA32A4925FA77EE00FB0C75 /* RockConfirmLayout.swift in Sources */,
 				9EA32A4E25FA77F700FB0C75 /* RockConfirmKind.swift in Sources */,
 				9E81072F262DA37F0025359C /* MyPageDatasourse.swift in Sources */,
+				9E8A14742709F95700903D38 /* AuthView.swift in Sources */,
 				9E60DCB52557148A000CF2E8 /* RockLocationSelectViewController.swift in Sources */,
 				9E9845EF25D5278C00B03C4E /* CourseRegisterDatasource.swift in Sources */,
 				9E479D2626C29DC3003EFCB5 /* DomainAccesser.swift in Sources */,

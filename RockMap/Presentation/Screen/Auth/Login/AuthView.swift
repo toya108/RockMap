@@ -1,5 +1,5 @@
+import Auth
 import SwiftUI
-import FirebaseAuthUI
 
 public struct AuthView: UIViewControllerRepresentable {
     public typealias UIViewControllerType = UINavigationController
@@ -7,11 +7,15 @@ public struct AuthView: UIViewControllerRepresentable {
     public init() { }
 
     public func makeUIViewController(context: Context) -> UINavigationController {
-        guard let authViewController = AuthManager.shared.authUI?.authViewController() else {
+        guard let authViewController = AuthManager.shared.authViewController else {
             assertionFailure()
             return UINavigationController()
         }
-        return authViewController
+
+        return RockMapNavigationController(
+            rootVC: authViewController,
+            naviBarClass: RockMapNavigationBar.self
+        )
     }
 
     public func updateUIViewController(
