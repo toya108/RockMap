@@ -135,7 +135,7 @@ extension AccountViewController {
 
             guard let self = self else { return }
 
-            AuthManager.shared.logout()
+            AuthManager.shared.logoutPublisher()
                 .catch { [weak self] error -> Empty in
 
                     guard let self = self else { return Empty() }

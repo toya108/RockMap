@@ -59,7 +59,7 @@ public class AuthManager: NSObject {
         self.authUI?.authViewController().viewControllers.first
     }
 
-    public func logout() -> AnyPublisher<Void, Error> {
+    public func logoutPublisher() -> AnyPublisher<Void, Error> {
         Deferred {
             Future<Void, Error> { [weak self] promise in
                 do {
@@ -73,13 +73,17 @@ public class AuthManager: NSObject {
         .eraseToAnyPublisher()
     }
 
-    public func logout(_ completion: ((Result<Void, Error>) -> Void)?) {
+    public func logout(completion: ((Result<Void, Error>) -> Void)?) {
         do {
             try self.authUI?.signOut()
             completion?(.success(()))
         } catch {
             completion?(.failure(error))
         }
+    }
+
+    public func logout() throws {
+        try self.authUI?.signOut()
     }
 
     private var currentUser: User? {
@@ -146,7 +150,7 @@ private extension Publisher where Output == Void, Failure == Error {
     ) -> AnyCancellable {
         self.catch { error -> Empty in
             if AuthManager.shared.isLoggedIn {
-                AuthManager.shared.logout(nil)
+                AuthManager.shared.logout(completion: nil)
             }
 
             loginFinishedSubject.send(.failure(error))

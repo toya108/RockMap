@@ -84,7 +84,7 @@ final class LoginViewController: UIViewController {
 
             guard let self = self else { return }
 
-            AuthManager.shared.logout()
+            AuthManager.shared.logoutPublisher()
                 .sink(
                     receiveCompletion: { [weak self] result in
 

@@ -61,7 +61,7 @@ extension DebugViewController: UITableViewDelegate, UITableViewDataSource {
 
         switch cellType {
         case .logout:
-            AuthManager.shared.logout()
+            AuthManager.shared.logoutPublisher()
                 .catch { _ -> Just<Void> in
                     .init(())
                 }
