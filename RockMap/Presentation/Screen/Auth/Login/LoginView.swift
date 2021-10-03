@@ -1,9 +1,9 @@
+import Auth
 import SwiftUI
 
 struct LoginView: View {
 
-    @State var isPresentedTerms = false
-    @State var isPresentedPrivacyPolicy = false
+    @ObservedObject private var viewModel = LoginViewModel()
     @EnvironmentObject var appStore: AppStore
 
     var body: some View {
@@ -24,7 +24,7 @@ struct LoginView: View {
                 HStack {
                     Button(
                         action: {
-                            appStore.rootViewType = .main
+                            viewModel.loginIfNeeded()
                         },
                         label: {
                             Text("login")
@@ -35,9 +35,12 @@ struct LoginView: View {
                         }
                     )
                     .cornerRadius(8)
+                    .fullScreenCover(isPresented: $viewModel.isPresentedAuthView) {
+                        AuthView()
+                    }
                     Button(
                         action: {
-
+                            viewModel.guestLoginIfNeeded()
                         },
                         label: {
                             Text("guest_login")
@@ -46,22 +49,22 @@ struct LoginView: View {
                                 .foregroundColor(Color(uiColor: UIColor.Pallete.primaryGreen))
                         }
                     )
-                        .cornerRadius(8)
+                    .cornerRadius(8)
                     Spacer()
                 }
                 HStack {
                     Button("terms") {
-                        isPresentedTerms.toggle()
+                        viewModel.isPresentedTerms.toggle()
                     }
                     .font(.system(size: 14))
-                    .sheet(isPresented: $isPresentedTerms) {
+                    .sheet(isPresented: $viewModel.isPresentedTerms) {
                         SafariView(url: Resources.Const.Url.terms)
                     }
                     Button("privacy_policy") {
-                        isPresentedPrivacyPolicy.toggle()
+                        viewModel.isPresentedPrivacyPolicy.toggle()
                     }
                     .font(.system(size: 14))
-                    .sheet(isPresented: $isPresentedPrivacyPolicy) {
+                    .sheet(isPresented: $viewModel.isPresentedPrivacyPolicy) {
                         SafariView(url: Resources.Const.Url.privacyPolicy)
                     }
                     Spacer()
@@ -69,6 +72,47 @@ struct LoginView: View {
             }
             .padding()
         }
+        .onAppear {
+            viewModel.appStore = appStore
+        }
+        .alert(
+            "text_auth_failure",
+            isPresented: $viewModel.isPresentedAuthFailureAlert,
+            actions: {
+                Button("ok") {}
+            },
+            message: {
+                Text(viewModel.authError?.localizedDescription ?? "")
+            }
+        )
+        .alert("text_logout_succeeded", isPresented: $viewModel.isPresentedDidLogoutAlert) {
+            Button("ok") {}
+        }
+        .alert(
+            "text_logout_failure",
+            isPresented: $viewModel.isPresentedLogoutFailureAlert,
+            actions: {
+                Button("ok") {}
+            },
+            message: {
+                Text("retry_suggestion_with\(viewModel.logoutError?.localizedDescription ?? "")")
+            }
+        )
+        .alert(
+            "text_logout_question",
+            isPresented: $viewModel.isPresentedLogoutAlert,
+            actions: {
+                Button("yes") {
+                    viewModel.logout()
+                }
+                Button("cancel") {
+                    viewModel.isPresentedLogoutAlert = false
+                }
+            },
+            message: {
+                Text("text_aleady_logged_in_with\(AuthManager.shared.displayName)")
+            }
+        )
     }
 }
 
