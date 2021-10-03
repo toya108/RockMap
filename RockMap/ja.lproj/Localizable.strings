@@ -1,3 +1,8 @@
+// MARK: - Common
+"ok" = "OK";
+"yes" = "はい";
+"cancel" = "キャンセル";
+
 // MARK: - Auth
 "rockmap" = "RockMap";
 "text_hello" = "Hello Climbers!\nLet's share rocks & courses!";
@@ -6,3 +11,9 @@
 "guest_login" = "Guest Login";
 "privacy_policy" = "プライバシーポリシー";
 "terms" = "利用規約";
+"text_auth_failure" = "認証できませんでした。";
+"text_logout_succeeded" = "ログアウトしました。";
+"text_logout_failure" = "ログアウトできませんでした。";
+"text_retry_suggestion_with%@" = "通信環境をご確認の上、再度お試して下さい。\n%@";
+"text_logout_question" = "ログアウトしますか？";
+"text_aleady_logged_in_with%@" = "既にこちらのユーザーとしてログインしています。\n%@";

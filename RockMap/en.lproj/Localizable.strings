@@ -1,3 +1,8 @@
+// MARK: - Common
+"ok" = "OK";
+"yes" = "Yes";
+"cancel" = "Cancel";
+
 // MARK: - Auth
 "rockmap" = "RockMap";
 "text_hello" = "Hello Climbers!\nLet's share rocks & courses!";
@@ -6,3 +11,10 @@
 "guest_login" = "Guest Login";
 "privacy_policy" = "Privacy Policy";
 "terms" = "Terms";
+"text_auth_failure" = "Authentication Failed";
+"text_logout_succeeded" = "Logout Succeeded";
+"text_logout_failure" = "Logout Failed";
+"text_retry_suggestion_with%@" = "Please check your network environment and try again.\n%@";
+"text_logout_question" = "Would you like to logout?";
+"text_aleady_logged_in_with%@" = "You are already logged in as a user here.\n%@";
+
