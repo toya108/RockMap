@@ -12,7 +12,7 @@ public class AuthManager: NSObject {
     private let loginFinishedSubject: PassthroughSubject<Result<Void, Error>, Never> = .init()
     private let setUserUsecase = Usecase.User.Set()
 
-    private let authUI: FUIAuth? = {
+    let authUI: FUIAuth? = {
         guard
             let authUI = FUIAuth.defaultAuthUI()
         else {
