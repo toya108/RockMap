@@ -5,9 +5,7 @@ import SwiftUI
 struct RockMapApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
-    @StateObject private var appStore = AppStore(
-        rootViewType: AuthManager.shared.isLoggedIn ? .main : .login
-    )
+    @StateObject private var appStore = AppStore.shared
 
     var body: some Scene {
         WindowGroup {
@@ -20,16 +18,18 @@ struct RockMapApp: App {
 
 final class AppStore: ObservableObject {
 
+    static let shared: AppStore = AppStore()
+
+    private init() {
+        rootViewType = AuthManager.shared.isLoggedIn ? .main : .login
+    }
+
     enum RootViewType {
         case main
         case login
     }
 
     @Published var rootViewType: RootViewType = .login
-
-    init(rootViewType: RootViewType) {
-        self.rootViewType = rootViewType
-    }
 
     @ViewBuilder
     var rootView: some View {
