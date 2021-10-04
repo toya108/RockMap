@@ -1564,7 +1564,7 @@
 				9E5CEFC625277B25001C95AA /* Resources */,
 				9EB7DB9A266FCAF3003B0041 /* Run Script */,
 				9E5C5E272554EFA600D00087 /* Crashlytics */,
-				9EC8D8B1270B431400A9D370 /* Run Script */,
+				9EC8D8B1270B431400A9D370 /* Update Licenses */,
 			);
 			buildRules = (
 			);
@@ -1778,7 +1778,7 @@
 			shellPath = /bin/sh;
 			shellScript = "PATH_TO_GOOGLE_PLISTS=\"${PROJECT_DIR}/RockMap\"\n\ncase \"${CONFIGURATION}\" in\n\n   \"Debug\" )\n        cp -r \"$PATH_TO_GOOGLE_PLISTS/GoogleService-Info-dev.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\" ;;\n   \"Release\" )\n        cp -r \"$PATH_TO_GOOGLE_PLISTS/GoogleService-Info-release.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\" ;;\n    *)\n        ;;\nesac\n";
 		};
-		9EC8D8B1270B431400A9D370 /* Run Script */ = {
+		9EC8D8B1270B431400A9D370 /* Update Licenses */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1787,7 +1787,7 @@
 			);
 			inputPaths = (
 			);
-			name = "Run Script";
+			name = "Update Licenses";
 			outputFileListPaths = (
 			);
 			outputPaths = (
