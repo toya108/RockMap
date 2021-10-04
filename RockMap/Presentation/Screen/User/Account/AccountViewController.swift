@@ -97,17 +97,8 @@ extension AccountViewController {
 
                         self.hideIndicatorView()
 
-                        guard
-                            let vc = UIStoryboard(
-                                name: LoginViewController.className,
-                                bundle: nil
-                            ).instantiateInitialViewController() as? LoginViewController
-                        else {
-                            assertionFailure()
-                            return
-                        }
-
-                        self.view.replace(rootViewController: vc)
+                        AppStore.shared.rootViewType = .login
+                        self.dismiss(animated: true)
                     }
                     .store(in: &self.bindings)
             }
@@ -135,7 +126,7 @@ extension AccountViewController {
 
             guard let self = self else { return }
 
-            AuthManager.shared.logout()
+            AuthManager.shared.logoutPublisher()
                 .catch { [weak self] error -> Empty in
 
                     guard let self = self else { return Empty() }
@@ -149,18 +140,9 @@ extension AccountViewController {
                 .sink { [weak self] _ in
 
                     guard let self = self else { return }
-                    
-                    guard
-                        let vc = UIStoryboard(
-                            name: LoginViewController.className,
-                            bundle: nil
-                        ).instantiateInitialViewController() as? LoginViewController
-                    else {
-                        assertionFailure()
-                        return
-                    }
 
-                    self.view.replace(rootViewController: vc)
+                    AppStore.shared.rootViewType = .login
+                    self.dismiss(animated: true)
                 }
                 .store(in: &self.bindings)
         }

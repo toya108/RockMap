@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="i5d-oh-wSZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="i5d-oh-wSZ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -80,7 +80,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="FBk-H5-d3c" firstAttribute="trailing" secondItem="VFy-rZ-63K" secondAttribute="trailing" id="52C-gg-tD5"/>
-                            <constraint firstItem="Yo7-GV-UOO" firstAttribute="leading" secondItem="FBk-H5-d3c" secondAttribute="leading" id="8v4-LO-3R3"/>
+                            <constraint firstItem="Yo7-GV-UOO" firstAttribute="leading" secondItem="Zpy-Qi-fxf" secondAttribute="leading" id="8v4-LO-3R3"/>
                             <constraint firstItem="FBk-H5-d3c" firstAttribute="trailing" secondItem="Ndg-HL-HfF" secondAttribute="trailing" constant="16" id="9jr-Rs-xhJ"/>
                             <constraint firstItem="R4y-fK-nDT" firstAttribute="leading" secondItem="FBk-H5-d3c" secondAttribute="leading" id="9pi-HN-cID"/>
                             <constraint firstItem="FBk-H5-d3c" firstAttribute="trailing" secondItem="R4y-fK-nDT" secondAttribute="trailing" id="BQP-1Q-bcM"/>
@@ -89,7 +89,7 @@
                             <constraint firstItem="VFy-rZ-63K" firstAttribute="top" secondItem="Yo7-GV-UOO" secondAttribute="bottom" id="ere-sM-rYv"/>
                             <constraint firstItem="VFy-rZ-63K" firstAttribute="top" secondItem="Ndg-HL-HfF" secondAttribute="bottom" constant="16" id="sBP-aL-pkV"/>
                             <constraint firstItem="Yo7-GV-UOO" firstAttribute="top" secondItem="Zpy-Qi-fxf" secondAttribute="top" id="v03-Bi-uSk"/>
-                            <constraint firstItem="FBk-H5-d3c" firstAttribute="trailing" secondItem="Yo7-GV-UOO" secondAttribute="trailing" id="wiw-Fu-Dlw"/>
+                            <constraint firstAttribute="trailing" secondItem="Yo7-GV-UOO" secondAttribute="trailing" id="wiw-Fu-Dlw"/>
                             <constraint firstItem="FBk-H5-d3c" firstAttribute="bottom" secondItem="Yo7-GV-UOO" secondAttribute="bottom" id="zVh-0I-Wy4"/>
                         </constraints>
                     </view>

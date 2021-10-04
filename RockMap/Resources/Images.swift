@@ -49,5 +49,6 @@ extension UIImage {
         static let twitter = UIImage(named: "twitter")!
         static let link = UIImage(named: "link")!
         static let penguinRock = UIImage(named: "penguin_rock")!
+        static let mountainBackGround = UIImage(named: "mountain_back_ground")!
     }
 }

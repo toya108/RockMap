@@ -1,5 +1,6 @@
 import Auth
 import UIKit
+import SwiftUI
 
 // swiftlint:disable force_unwrapping
 

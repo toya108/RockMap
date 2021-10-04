@@ -61,22 +61,12 @@ extension DebugViewController: UITableViewDelegate, UITableViewDataSource {
 
         switch cellType {
         case .logout:
-            AuthManager.shared.logout()
+            AuthManager.shared.logoutPublisher()
                 .catch { _ -> Just<Void> in
                     .init(())
                 }
-                .sink { [weak self] in
-
-                    guard let self = self else { return }
-                    
-                    guard
-                        let vc = UIStoryboard(name: LoginViewController.className, bundle: nil)
-                            .instantiateInitialViewController()
-                    else {
-                        return
-                    }
-
-                    self.view.replace(rootViewController: vc)
+                .sink {
+                    AppStore.shared.rootViewType = .login
                 }
                 .store(in: &self.bindings)
         }
