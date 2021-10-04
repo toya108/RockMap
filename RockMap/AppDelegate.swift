@@ -1,5 +1,5 @@
 import Firebase
-import FirebaseAuthUI
+import Auth
 import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,11 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
 
-        // GoogleもしくはFacebook認証の場合、trueを返す
-        if FUIAuth.defaultAuthUI()?.handleOpen(url, sourceApplication: sourceApplication) ?? false {
-            return true
-        }
-        return false
+
+        let shouldOpen = AuthManager.shared.authUI?.handleOpen(
+            url,
+            sourceApplication: sourceApplication
+        ) ?? false
+        return shouldOpen
     }
 
     private func setupFirebase() {
