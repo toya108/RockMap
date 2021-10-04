@@ -31,6 +31,7 @@
 		9E0BE4622608C51900576869 /* RegisterClimbRecordBottomSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E0BE4612608C51900576869 /* RegisterClimbRecordBottomSheetViewController.xib */; };
 		9E0C9C2826D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9C2726D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift */; };
 		9E0D09352566B31200D3075F /* RockDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D09342566B31200D3075F /* RockDetailViewModel.swift */; };
+		9E1056E1270B31C7007254DA /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 9E1056E0270B31C7007254DA /* SDWebImage */; };
 		9E11A7DA26272ABA006C925A /* NoImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E11A7D926272ABA006C925A /* NoImageCollectionViewCell.swift */; };
 		9E171174263305B900D35BFE /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E171172263305B900D35BFE /* ListCollectionViewCell.swift */; };
 		9E171175263305B900D35BFE /* ListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E171173263305B900D35BFE /* ListCollectionViewCell.xib */; };
@@ -89,11 +90,6 @@
 		9E64FD0326B59A82005984F6 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0226B59A82005984F6 /* FirebaseCrashlytics */; };
 		9E64FD0526B59A82005984F6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0426B59A82005984F6 /* FirebaseFirestore */; };
 		9E64FD0726B59A82005984F6 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0626B59A82005984F6 /* FirebaseFirestoreSwift-Beta */; };
-		9E64FD0A26B59B3A005984F6 /* FirebaseAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0926B59B3A005984F6 /* FirebaseAuthUI */; };
-		9E64FD0C26B59B3A005984F6 /* FirebaseOAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0B26B59B3A005984F6 /* FirebaseOAuthUI */; };
-		9E64FD0E26B59B3A005984F6 /* FirebaseGoogleAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0D26B59B3A005984F6 /* FirebaseGoogleAuthUI */; };
-		9E64FD1026B59B3A005984F6 /* FirebaseEmailAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0F26B59B3A005984F6 /* FirebaseEmailAuthUI */; };
-		9E64FD1326B59F38005984F6 /* FirebaseStorageUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD1226B59F38005984F6 /* FirebaseStorageUI */; };
 		9E6C40BF2614779100F010BE /* RockConfirmRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C40BE2614779100F010BE /* RockConfirmRouter.swift */; };
 		9E6C40D02614D0DA00F010BE /* ActivityIndicatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C40CF2614D0DA00F010BE /* ActivityIndicatorOverlay.swift */; };
 		9E6CF41C25CF10570098389E /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CF41B25CF10570098389E /* TitleSupplementaryView.swift */; };
@@ -472,19 +468,15 @@
 			files = (
 				9E493DE126B994BB00DCA210 /* DataLayer in Frameworks */,
 				9E493DDB26B98EA300DCA210 /* Domain in Frameworks */,
-				9E64FD0E26B59B3A005984F6 /* FirebaseGoogleAuthUI in Frameworks */,
 				9E64FCFF26B59A82005984F6 /* FirebaseRemoteConfig in Frameworks */,
 				9E64FD0126B59A82005984F6 /* FirebaseStorage in Frameworks */,
 				9E64FD0726B59A82005984F6 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				9EC7982A26D3E39500F9DC8D /* Auth in Frameworks */,
 				9E64FD0326B59A82005984F6 /* FirebaseCrashlytics in Frameworks */,
-				9E64FD1326B59F38005984F6 /* FirebaseStorageUI in Frameworks */,
-				9E64FD1026B59B3A005984F6 /* FirebaseEmailAuthUI in Frameworks */,
 				9E64FCFD26B59A82005984F6 /* FirebaseAnalytics in Frameworks */,
+				9E1056E1270B31C7007254DA /* SDWebImage in Frameworks */,
 				9E64FD0526B59A82005984F6 /* FirebaseFirestore in Frameworks */,
-				9E64FD0C26B59B3A005984F6 /* FirebaseOAuthUI in Frameworks */,
 				9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */,
-				9E64FD0A26B59B3A005984F6 /* FirebaseAuthUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1585,15 +1577,11 @@
 				9E64FD0226B59A82005984F6 /* FirebaseCrashlytics */,
 				9E64FD0426B59A82005984F6 /* FirebaseFirestore */,
 				9E64FD0626B59A82005984F6 /* FirebaseFirestoreSwift-Beta */,
-				9E64FD0926B59B3A005984F6 /* FirebaseAuthUI */,
-				9E64FD0B26B59B3A005984F6 /* FirebaseOAuthUI */,
-				9E64FD0D26B59B3A005984F6 /* FirebaseGoogleAuthUI */,
-				9E64FD0F26B59B3A005984F6 /* FirebaseEmailAuthUI */,
-				9E64FD1226B59F38005984F6 /* FirebaseStorageUI */,
 				9E493DDA26B98EA300DCA210 /* Domain */,
 				9E493DE026B994BB00DCA210 /* DataLayer */,
 				9E9162EF26BF7DF10012D2B0 /* Utilities */,
 				9EC7982926D3E39500F9DC8D /* Auth */,
+				9E1056E0270B31C7007254DA /* SDWebImage */,
 			);
 			productName = RockMap;
 			productReference = 9E5CEFC825277B25001C95AA /* RockMap.app */;
@@ -1669,7 +1657,7 @@
 			mainGroup = 9E5CEFBF25277B25001C95AA;
 			packageReferences = (
 				9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */,
+				9E1056DF270B31C7007254DA /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 9E5CEFC925277B25001C95AA /* Products */;
 			projectDirPath = "";
@@ -2323,6 +2311,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9E1056DF270B31C7007254DA /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -2331,17 +2327,14 @@
 				minimumVersion = 8.6.0;
 			};
 		};
-		9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/FirebaseUI-iOS.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 12.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9E1056E0270B31C7007254DA /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E1056DF270B31C7007254DA /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		9E493DDA26B98EA300DCA210 /* Domain */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Domain;
@@ -2379,31 +2372,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseFirestoreSwift-Beta";
-		};
-		9E64FD0926B59B3A005984F6 /* FirebaseAuthUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
-			productName = FirebaseAuthUI;
-		};
-		9E64FD0B26B59B3A005984F6 /* FirebaseOAuthUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
-			productName = FirebaseOAuthUI;
-		};
-		9E64FD0D26B59B3A005984F6 /* FirebaseGoogleAuthUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
-			productName = FirebaseGoogleAuthUI;
-		};
-		9E64FD0F26B59B3A005984F6 /* FirebaseEmailAuthUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
-			productName = FirebaseEmailAuthUI;
-		};
-		9E64FD1226B59F38005984F6 /* FirebaseStorageUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
-			productName = FirebaseStorageUI;
 		};
 		9E9162EF26BF7DF10012D2B0 /* Utilities */ = {
 			isa = XCSwiftPackageProductDependency;

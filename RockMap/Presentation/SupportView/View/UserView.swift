@@ -1,5 +1,4 @@
 import Auth
-import SDWebImage
 import UIKit
 
 @IBDesignable
