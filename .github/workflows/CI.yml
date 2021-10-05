@@ -35,7 +35,9 @@ jobs:
 
   tests:
     name: Tests
-    runs-on: macos-11
+    runs-on: macOS-latest
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_13.0.app/Contents/Developer
 
     steps:
       - uses: actions/checkout@v2
