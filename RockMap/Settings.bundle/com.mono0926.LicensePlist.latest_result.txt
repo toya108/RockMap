@@ -30,8 +30,6 @@ name: nanopb, nameSpecified: nanopb, owner: firebase, version: 2.30908.0
 
 name: promises, nameSpecified: Promises, owner: google, version: 2.0.0
 
-name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.12.0
-
 name: swift-protobuf, nameSpecified: SwiftProtobuf, owner: apple, version: 1.17.0
 
 add-version-numbers: false
