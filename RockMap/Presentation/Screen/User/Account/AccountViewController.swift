@@ -38,14 +38,14 @@ class AccountViewController: UIViewController, CompositionalColectionViewControl
                 guard let self = self else { return }
 
                 switch result {
-                case .success:
-                    self.view.replace(rootViewController: MainTabBarController())
+                    case .success:
+                        AppStore.shared.rootViewType = .main
 
-                case let .failure(error):
-                    self.showOKAlert(
-                        title: "ログインに失敗しました",
-                        message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)"
-                    )
+                    case let .failure(error):
+                        self.showOKAlert(
+                            title: "ログインに失敗しました",
+                            message: "通信環境をご確認の上、再度お試し下さい。\(error.localizedDescription)"
+                        )
                 }
             }
             .store(in: &self.bindings)

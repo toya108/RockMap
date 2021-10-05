@@ -67,7 +67,7 @@ class UserView: UIView {
             .init { _ in
                 if AuthManager.shared.uid == user.id {
                     guard
-                        let index = ScreenType.allCases.firstIndex(of: .myPage)
+                        let index = TabKind.allCases.firstIndex(of: .myPage)
                     else {
                         return
                     }
