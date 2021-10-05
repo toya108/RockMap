@@ -6,27 +6,9 @@ struct MainTabView: View {
 
     var body: some View {
         TabView(selection: $selection) {
-            RockSearchView().tabItem {
-                VStack {
-                    Image(uiImage: self.selection == .rockSearch
-                          ? UIImage.SystemImages.mapFill
-                          : UIImage.SystemImages.map
-                    )
-                    Text("岩を探す")
-                }
+            ForEach(TabKind.allCases) {
+                $0.makeTab(selection: selection)
             }
-            .edgesIgnoringSafeArea(.all)
-            .tag(TabKind.rockSearch)
-            MyPageView().tabItem {
-                VStack {
-                    Image(uiImage: self.selection == .myPage
-                          ? UIImage.SystemImages.personCircleFill
-                          : UIImage.SystemImages.personCircle
-                    )
-                    Text("マイページ")
-                }
-            }
-            .tag(TabKind.myPage)
         }
         .onAppear {
             setupAppearance()
@@ -55,9 +37,4 @@ struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
         MainTabView()
     }
-}
-
-enum TabKind: Hashable {
-    case rockSearch
-    case myPage
 }

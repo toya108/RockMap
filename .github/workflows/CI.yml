@@ -5,8 +5,8 @@ on: [push, pull_request]
 jobs:
   danger:
     name: Danger
-    runs-on: macos-11
-    
+    runs-on: macOS-latest
+
     steps:
       - uses: actions/checkout@v2
         with:
@@ -35,7 +35,7 @@ jobs:
 
   tests:
     name: Tests
-    runs-on: macos-11
+    runs-on: macOS-latest
 
     steps:
       - uses: actions/checkout@v2

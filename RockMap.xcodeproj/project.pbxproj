@@ -31,6 +31,7 @@
 		9E0BE4622608C51900576869 /* RegisterClimbRecordBottomSheetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E0BE4612608C51900576869 /* RegisterClimbRecordBottomSheetViewController.xib */; };
 		9E0C9C2826D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C9C2726D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift */; };
 		9E0D09352566B31200D3075F /* RockDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D09342566B31200D3075F /* RockDetailViewModel.swift */; };
+		9E1056E1270B31C7007254DA /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 9E1056E0270B31C7007254DA /* SDWebImage */; };
 		9E11A7DA26272ABA006C925A /* NoImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E11A7D926272ABA006C925A /* NoImageCollectionViewCell.swift */; };
 		9E171174263305B900D35BFE /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E171172263305B900D35BFE /* ListCollectionViewCell.swift */; };
 		9E171175263305B900D35BFE /* ListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E171173263305B900D35BFE /* ListCollectionViewCell.xib */; };
@@ -61,6 +62,7 @@
 		9E4415742661E44200D48D12 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4415732661E44200D48D12 /* DateExtension.swift */; };
 		9E44157626620FA800D48D12 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E44157526620FA800D48D12 /* DictionaryExtension.swift */; };
 		9E441578266214D000D48D12 /* DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E441577266214D000D48D12 /* DictionaryTests.swift */; };
+		9E45A3AC270C566400582AEB /* TabKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E45A3AB270C566400582AEB /* TabKind.swift */; };
 		9E479D2626C29DC3003EFCB5 /* DomainAccesser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */; };
 		9E493DDB26B98EA300DCA210 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 9E493DDA26B98EA300DCA210 /* Domain */; };
 		9E493DE126B994BB00DCA210 /* DataLayer in Frameworks */ = {isa = PBXBuildFile; productRef = 9E493DE026B994BB00DCA210 /* DataLayer */; };
@@ -89,11 +91,6 @@
 		9E64FD0326B59A82005984F6 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0226B59A82005984F6 /* FirebaseCrashlytics */; };
 		9E64FD0526B59A82005984F6 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0426B59A82005984F6 /* FirebaseFirestore */; };
 		9E64FD0726B59A82005984F6 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0626B59A82005984F6 /* FirebaseFirestoreSwift-Beta */; };
-		9E64FD0A26B59B3A005984F6 /* FirebaseAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0926B59B3A005984F6 /* FirebaseAuthUI */; };
-		9E64FD0C26B59B3A005984F6 /* FirebaseOAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0B26B59B3A005984F6 /* FirebaseOAuthUI */; };
-		9E64FD0E26B59B3A005984F6 /* FirebaseGoogleAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0D26B59B3A005984F6 /* FirebaseGoogleAuthUI */; };
-		9E64FD1026B59B3A005984F6 /* FirebaseEmailAuthUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD0F26B59B3A005984F6 /* FirebaseEmailAuthUI */; };
-		9E64FD1326B59F38005984F6 /* FirebaseStorageUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E64FD1226B59F38005984F6 /* FirebaseStorageUI */; };
 		9E6C40BF2614779100F010BE /* RockConfirmRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C40BE2614779100F010BE /* RockConfirmRouter.swift */; };
 		9E6C40D02614D0DA00F010BE /* ActivityIndicatorOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6C40CF2614D0DA00F010BE /* ActivityIndicatorOverlay.swift */; };
 		9E6CF41C25CF10570098389E /* TitleSupplementaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6CF41B25CF10570098389E /* TitleSupplementaryView.swift */; };
@@ -110,7 +107,6 @@
 		9E7ABF09262590450028DB19 /* CombineControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7ABF08262590450028DB19 /* CombineControl.swift */; };
 		9E7ABF0E262593570028DB19 /* UISegmentedControl+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7ABF0D262593570028DB19 /* UISegmentedControl+Combine.swift */; };
 		9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CA7254CFD150091935F /* MyPageViewController.swift */; };
-		9E807CC6254D00310091935F /* ScreenType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E807CC5254D00310091935F /* ScreenType.swift */; };
 		9E810722262DA3640025359C /* MyPageLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E810721262DA3640025359C /* MyPageLayout.swift */; };
 		9E81072A262DA3700025359C /* MyPageKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E810729262DA3700025359C /* MyPageKind.swift */; };
 		9E81072F262DA37F0025359C /* MyPageDatasourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81072E262DA37F0025359C /* MyPageDatasourse.swift */; };
@@ -176,7 +172,6 @@
 		9EB00BD42629770200379182 /* CompositionalColectionViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB00BD32629770200379182 /* CompositionalColectionViewControllerProtocol.swift */; };
 		9EB00BDC2629903E00379182 /* RockRegisterDetectableViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB00BDB2629903E00379182 /* RockRegisterDetectableViewControllerProtocol.swift */; };
 		9EB00BF12629BC4D00379182 /* TitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB00BF02629BC4D00379182 /* TitleCollectionViewCell.swift */; };
-		9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6BA66252E00E400553026 /* MainTabBarController.swift */; };
 		9EB6C3B9260F6F8400CDD607 /* RockAnnotationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6C3B8260F6F8400CDD607 /* RockAnnotationListViewController.swift */; };
 		9EB6C3CD260FA7A000CDD607 /* RockAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6C3CC260FA7A000CDD607 /* RockAnnotation.swift */; };
 		9EB7059526515855001FD2F6 /* IconEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB7059426515855001FD2F6 /* IconEditCollectionViewCell.swift */; };
@@ -299,6 +294,7 @@
 		9E4415732661E44200D48D12 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		9E44157526620FA800D48D12 /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		9E441577266214D000D48D12 /* DictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryTests.swift; sourceTree = "<group>"; };
+		9E45A3AB270C566400582AEB /* TabKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabKind.swift; sourceTree = "<group>"; };
 		9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainAccesser.swift; sourceTree = "<group>"; };
 		9E493DD726B98DE800DCA210 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Domain; sourceTree = "<group>"; };
 		9E493DDF26B9949E00DCA210 /* DataLayer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataLayer; sourceTree = "<group>"; };
@@ -343,7 +339,6 @@
 		9E7ABF08262590450028DB19 /* CombineControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineControl.swift; sourceTree = "<group>"; };
 		9E7ABF0D262593570028DB19 /* UISegmentedControl+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Combine.swift"; sourceTree = "<group>"; };
 		9E807CA7254CFD150091935F /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
-		9E807CC5254D00310091935F /* ScreenType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenType.swift; sourceTree = "<group>"; };
 		9E80EE2126EB75AE000782F4 /* FirebaseTestHelper */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FirebaseTestHelper; sourceTree = "<group>"; };
 		9E810721262DA3640025359C /* MyPageLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageLayout.swift; sourceTree = "<group>"; };
 		9E810729262DA3700025359C /* MyPageKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageKind.swift; sourceTree = "<group>"; };
@@ -412,7 +407,6 @@
 		9EB00BD32629770200379182 /* CompositionalColectionViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalColectionViewControllerProtocol.swift; sourceTree = "<group>"; };
 		9EB00BDB2629903E00379182 /* RockRegisterDetectableViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockRegisterDetectableViewControllerProtocol.swift; sourceTree = "<group>"; };
 		9EB00BF02629BC4D00379182 /* TitleCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCollectionViewCell.swift; sourceTree = "<group>"; };
-		9EB6BA66252E00E400553026 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		9EB6C3B8260F6F8400CDD607 /* RockAnnotationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockAnnotationListViewController.swift; sourceTree = "<group>"; };
 		9EB6C3CC260FA7A000CDD607 /* RockAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockAnnotation.swift; sourceTree = "<group>"; };
 		9EB7059426515855001FD2F6 /* IconEditCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconEditCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -472,19 +466,15 @@
 			files = (
 				9E493DE126B994BB00DCA210 /* DataLayer in Frameworks */,
 				9E493DDB26B98EA300DCA210 /* Domain in Frameworks */,
-				9E64FD0E26B59B3A005984F6 /* FirebaseGoogleAuthUI in Frameworks */,
 				9E64FCFF26B59A82005984F6 /* FirebaseRemoteConfig in Frameworks */,
 				9E64FD0126B59A82005984F6 /* FirebaseStorage in Frameworks */,
 				9E64FD0726B59A82005984F6 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				9EC7982A26D3E39500F9DC8D /* Auth in Frameworks */,
 				9E64FD0326B59A82005984F6 /* FirebaseCrashlytics in Frameworks */,
-				9E64FD1326B59F38005984F6 /* FirebaseStorageUI in Frameworks */,
-				9E64FD1026B59B3A005984F6 /* FirebaseEmailAuthUI in Frameworks */,
 				9E64FCFD26B59A82005984F6 /* FirebaseAnalytics in Frameworks */,
+				9E1056E1270B31C7007254DA /* SDWebImage in Frameworks */,
 				9E64FD0526B59A82005984F6 /* FirebaseFirestore in Frameworks */,
-				9E64FD0C26B59B3A005984F6 /* FirebaseOAuthUI in Frameworks */,
 				9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */,
-				9E64FD0A26B59B3A005984F6 /* FirebaseAuthUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -989,9 +979,8 @@
 		9E807CC4254D000A0091935F /* MainTabBar */ = {
 			isa = PBXGroup;
 			children = (
-				9EB6BA66252E00E400553026 /* MainTabBarController.swift */,
 				9E82FAF22704ACFA002972BD /* MainTabView.swift */,
-				9E807CC5254D00310091935F /* ScreenType.swift */,
+				9E45A3AB270C566400582AEB /* TabKind.swift */,
 			);
 			path = MainTabBar;
 			sourceTree = "<group>";
@@ -1570,8 +1559,9 @@
 				9E5CEFC425277B25001C95AA /* Sources */,
 				9E5CEFC525277B25001C95AA /* Frameworks */,
 				9E5CEFC625277B25001C95AA /* Resources */,
-				9EB7DB9A266FCAF3003B0041 /* ShellScript */,
+				9EB7DB9A266FCAF3003B0041 /* Run Script */,
 				9E5C5E272554EFA600D00087 /* Crashlytics */,
+				9EC8D8B1270B431400A9D370 /* Update Licenses */,
 			);
 			buildRules = (
 			);
@@ -1585,15 +1575,11 @@
 				9E64FD0226B59A82005984F6 /* FirebaseCrashlytics */,
 				9E64FD0426B59A82005984F6 /* FirebaseFirestore */,
 				9E64FD0626B59A82005984F6 /* FirebaseFirestoreSwift-Beta */,
-				9E64FD0926B59B3A005984F6 /* FirebaseAuthUI */,
-				9E64FD0B26B59B3A005984F6 /* FirebaseOAuthUI */,
-				9E64FD0D26B59B3A005984F6 /* FirebaseGoogleAuthUI */,
-				9E64FD0F26B59B3A005984F6 /* FirebaseEmailAuthUI */,
-				9E64FD1226B59F38005984F6 /* FirebaseStorageUI */,
 				9E493DDA26B98EA300DCA210 /* Domain */,
 				9E493DE026B994BB00DCA210 /* DataLayer */,
 				9E9162EF26BF7DF10012D2B0 /* Utilities */,
 				9EC7982926D3E39500F9DC8D /* Auth */,
+				9E1056E0270B31C7007254DA /* SDWebImage */,
 			);
 			productName = RockMap;
 			productReference = 9E5CEFC825277B25001C95AA /* RockMap.app */;
@@ -1669,7 +1655,7 @@
 			mainGroup = 9E5CEFBF25277B25001C95AA;
 			packageReferences = (
 				9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */,
+				9E1056DF270B31C7007254DA /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 9E5CEFC925277B25001C95AA /* Products */;
 			projectDirPath = "";
@@ -1771,7 +1757,7 @@
 			shellPath = /bin/sh;
 			shellScript = "${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n";
 		};
-		9EB7DB9A266FCAF3003B0041 /* ShellScript */ = {
+		9EB7DB9A266FCAF3003B0041 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1780,6 +1766,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -1787,6 +1774,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "PATH_TO_GOOGLE_PLISTS=\"${PROJECT_DIR}/RockMap\"\n\ncase \"${CONFIGURATION}\" in\n\n   \"Debug\" )\n        cp -r \"$PATH_TO_GOOGLE_PLISTS/GoogleService-Info-dev.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\" ;;\n   \"Release\" )\n        cp -r \"$PATH_TO_GOOGLE_PLISTS/GoogleService-Info-release.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\" ;;\n    *)\n        ;;\nesac\n";
+		};
+		9EC8D8B1270B431400A9D370 /* Update Licenses */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Update Licenses";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $CONFIGURATION = \"Debug\" ]; then\ncd $SRCROOT\n/usr/local/bin/license-plist --output-path $PRODUCT_NAME/Settings.bundle\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1811,7 +1816,6 @@
 				9E5D261C26595C1000DE7E57 /* ParentRockButtonCollectionViewCell.swift in Sources */,
 				9E0A9F29255104A0007B9A90 /* KeyboardExtension.swift in Sources */,
 				9E8A14722709EC7100903D38 /* LoginViewModel.swift in Sources */,
-				9E807CC6254D00310091935F /* ScreenType.swift in Sources */,
 				9EA58D16263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift in Sources */,
 				9E60D4C2262F0D8200B116C2 /* SocialLinkCollectionViewCell.swift in Sources */,
 				9E2BD68625DD6DA90011B020 /* ImageSelactCollectionViewCell.swift in Sources */,
@@ -1938,12 +1942,12 @@
 				9E82FB2B2704AE37002972BD /* RockMapApp.swift in Sources */,
 				9E0BE38426058FFE00576869 /* CompleteButtonCollectionViewCell.swift in Sources */,
 				9EA32A3F25FA778700FB0C75 /* RockConfirmViewController.swift in Sources */,
-				9EB6BA67252E00E400553026 /* MainTabBarController.swift in Sources */,
 				9E7812832619933200CAC539 /* ClimbedUserListViewController.swift in Sources */,
 				9EED75E22669269F00E46676 /* URL.swift in Sources */,
 				9E83EEC625FCA856002392AA /* SegmentedControllCollectionViewCell.swift in Sources */,
 				9E0BE4552608C42D00576869 /* RegisterClimbRecordBottomSheetViewController.swift in Sources */,
 				9EB00BB226295BCD00379182 /* UITextField+Combine.swift in Sources */,
+				9E45A3AC270C566400582AEB /* TabKind.swift in Sources */,
 				9EB87ED92632CC050042EA9C /* CourseListViewModel.swift in Sources */,
 				9E7ABF0E262593570028DB19 /* UISegmentedControl+Combine.swift in Sources */,
 				9E08AC7C2572A84100D69927 /* RockMapNavigationController.swift in Sources */,
@@ -2323,6 +2327,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9E1056DF270B31C7007254DA /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -2331,17 +2343,14 @@
 				minimumVersion = 8.6.0;
 			};
 		};
-		9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/FirebaseUI-iOS.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 12.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9E1056E0270B31C7007254DA /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E1056DF270B31C7007254DA /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		9E493DDA26B98EA300DCA210 /* Domain */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Domain;
@@ -2379,31 +2388,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseFirestoreSwift-Beta";
-		};
-		9E64FD0926B59B3A005984F6 /* FirebaseAuthUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
-			productName = FirebaseAuthUI;
-		};
-		9E64FD0B26B59B3A005984F6 /* FirebaseOAuthUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
-			productName = FirebaseOAuthUI;
-		};
-		9E64FD0D26B59B3A005984F6 /* FirebaseGoogleAuthUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
-			productName = FirebaseGoogleAuthUI;
-		};
-		9E64FD0F26B59B3A005984F6 /* FirebaseEmailAuthUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
-			productName = FirebaseEmailAuthUI;
-		};
-		9E64FD1226B59F38005984F6 /* FirebaseStorageUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9E64FD0826B59B3A005984F6 /* XCRemoteSwiftPackageReference "FirebaseUI-iOS" */;
-			productName = FirebaseStorageUI;
 		};
 		9E9162EF26BF7DF10012D2B0 /* Utilities */ = {
 			isa = XCSwiftPackageProductDependency;
