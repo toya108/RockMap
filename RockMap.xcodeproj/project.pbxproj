@@ -62,6 +62,7 @@
 		9E4415742661E44200D48D12 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4415732661E44200D48D12 /* DateExtension.swift */; };
 		9E44157626620FA800D48D12 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E44157526620FA800D48D12 /* DictionaryExtension.swift */; };
 		9E441578266214D000D48D12 /* DictionaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E441577266214D000D48D12 /* DictionaryTests.swift */; };
+		9E45A3AC270C566400582AEB /* TabKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E45A3AB270C566400582AEB /* TabKind.swift */; };
 		9E479D2626C29DC3003EFCB5 /* DomainAccesser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */; };
 		9E493DDB26B98EA300DCA210 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 9E493DDA26B98EA300DCA210 /* Domain */; };
 		9E493DE126B994BB00DCA210 /* DataLayer in Frameworks */ = {isa = PBXBuildFile; productRef = 9E493DE026B994BB00DCA210 /* DataLayer */; };
@@ -293,6 +294,7 @@
 		9E4415732661E44200D48D12 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		9E44157526620FA800D48D12 /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
 		9E441577266214D000D48D12 /* DictionaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryTests.swift; sourceTree = "<group>"; };
+		9E45A3AB270C566400582AEB /* TabKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabKind.swift; sourceTree = "<group>"; };
 		9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainAccesser.swift; sourceTree = "<group>"; };
 		9E493DD726B98DE800DCA210 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Domain; sourceTree = "<group>"; };
 		9E493DDF26B9949E00DCA210 /* DataLayer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataLayer; sourceTree = "<group>"; };
@@ -978,6 +980,7 @@
 			isa = PBXGroup;
 			children = (
 				9E82FAF22704ACFA002972BD /* MainTabView.swift */,
+				9E45A3AB270C566400582AEB /* TabKind.swift */,
 			);
 			path = MainTabBar;
 			sourceTree = "<group>";
@@ -1944,6 +1947,7 @@
 				9E83EEC625FCA856002392AA /* SegmentedControllCollectionViewCell.swift in Sources */,
 				9E0BE4552608C42D00576869 /* RegisterClimbRecordBottomSheetViewController.swift in Sources */,
 				9EB00BB226295BCD00379182 /* UITextField+Combine.swift in Sources */,
+				9E45A3AC270C566400582AEB /* TabKind.swift in Sources */,
 				9EB87ED92632CC050042EA9C /* CourseListViewModel.swift in Sources */,
 				9E7ABF0E262593570028DB19 /* UISegmentedControl+Combine.swift in Sources */,
 				9E08AC7C2572A84100D69927 /* RockMapNavigationController.swift in Sources */,
