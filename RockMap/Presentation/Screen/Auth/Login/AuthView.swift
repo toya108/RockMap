@@ -11,7 +11,7 @@ struct AuthView: UIViewControllerRepresentable {
         self.coordinator = coordinator
     }
 
-    func makeCoordinator() -> AuthCoorddinatorProtocol {
+    func makeCoordinator() -> AuthCoordinatorProtocol {
         self.coordinator
     }
 
