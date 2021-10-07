@@ -82,10 +82,6 @@ public class AuthManager: NSObject {
         }
     }
 
-    public func logout() throws {
-        try self.authUI?.signOut()
-    }
-
     private var currentUser: User? {
         self.authUI?.auth?.currentUser
     }

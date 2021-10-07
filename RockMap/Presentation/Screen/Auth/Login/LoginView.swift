@@ -3,8 +3,12 @@ import SwiftUI
 
 struct LoginView: View {
 
-    @ObservedObject private var viewModel = LoginViewModel()
+    @ObservedObject private var viewModel: LoginViewModel
     @EnvironmentObject var appStore: AppStore
+
+    init(viewModel: LoginViewModel = .init()) {
+        self.viewModel = viewModel
+    }
 
     var body: some View {
         VStack(spacing: 24) {
@@ -36,7 +40,7 @@ struct LoginView: View {
                     )
                     .cornerRadius(8)
                     .fullScreenCover(isPresented: $viewModel.isPresentedAuthView) {
-                        AuthView()
+                        AuthView(coordinator: viewModel.authCoordinator)
                     }
                     Button(
                         action: {
@@ -119,7 +123,9 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LoginView()
+            LoginView(
+                viewModel: .init()
+            )
         }
     }
 }

@@ -1,13 +1,27 @@
 import Auth
 import SwiftUI
 
-public struct AuthView: UIViewControllerRepresentable {
-    public typealias UIViewControllerType = UINavigationController
+struct AuthView: UIViewControllerRepresentable {
 
-    public init() { }
+    typealias UIViewControllerType = UINavigationController
 
-    public func makeUIViewController(context: Context) -> UINavigationController {
-        guard let authViewController = AuthManager.shared.authViewController else {
+    private let coordinator: AuthCoordinatorProtocol
+
+    init(coordinator: AuthCoordinatorProtocol) {
+        self.coordinator = coordinator
+    }
+
+    func makeCoordinator() -> AuthCoorddinatorProtocol {
+        self.coordinator
+    }
+
+    func makeUIViewController(context: Context) -> UINavigationController {
+
+        guard
+            let authViewController = AuthUIAccessor().authViewController(
+                coordinator: context.coordinator
+            )
+        else {
             assertionFailure()
             return UINavigationController()
         }
@@ -18,7 +32,7 @@ public struct AuthView: UIViewControllerRepresentable {
         )
     }
 
-    public func updateUIViewController(
+    func updateUIViewController(
         _ uiViewController: UINavigationController,
         context: Context
     ) {

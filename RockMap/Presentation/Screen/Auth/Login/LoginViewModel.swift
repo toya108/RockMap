@@ -15,14 +15,21 @@ final class LoginViewModel: ObservableObject {
     var appStore: AppStore?
     var authError: Error?
     var logoutError: Error?
+    private let authAccessor: AuthAccessorProtocol
+    let authCoordinator: AuthCoordinatorProtocol
     private var loginFinishedCancellable: Cancellable?
 
-    init() {
+    init(
+        authAccessor: AuthAccessorProtocol = AuthAccessor(),
+        authCoordinator: AuthCoordinatorProtocol = AuthCoordinator()
+    ) {
+        self.authAccessor = authAccessor
+        self.authCoordinator = authCoordinator
         setupBindings()
     }
 
     func loginIfNeeded() {
-        if AuthManager.shared.isLoggedIn {
+        if authAccessor.isLoggedIn {
             self.appStore?.rootViewType = .main
         } else {
             self.isPresentedAuthView = true
@@ -30,7 +37,7 @@ final class LoginViewModel: ObservableObject {
     }
 
     func guestLoginIfNeeded() {
-        if AuthManager.shared.isLoggedIn {
+        if authAccessor.isLoggedIn {
             self.isPresentedLogoutAlert = true
         } else {
             self.appStore?.rootViewType = .main
@@ -39,7 +46,7 @@ final class LoginViewModel: ObservableObject {
 
     func logout() {
         do {
-            try AuthManager.shared.logout()
+            try authAccessor.logout()
             self.isPresentedDidLogoutAlert = true
         } catch {
             self.logoutError = error
@@ -48,7 +55,7 @@ final class LoginViewModel: ObservableObject {
     }
 
     private func setupBindings() {
-        self.loginFinishedCancellable = AuthManager.shared.loginFinishedPublisher
+        self.loginFinishedCancellable = authCoordinator.loginFinishedPublisher
             .sink { [weak self] result in
 
                 guard let self = self else { return }
