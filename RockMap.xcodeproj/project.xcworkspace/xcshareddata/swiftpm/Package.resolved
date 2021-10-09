@@ -146,6 +146,24 @@
         }
       },
       {
+        "package": "Resolver",
+        "repositoryURL": "https://github.com/hmlongco/Resolver",
+        "state": {
+          "branch": null,
+          "revision": "473a53747489e48da848fbec8cc8ee944c28f3b2",
+          "version": "1.4.5"
+        }
+      },
+      {
+        "package": "SDWebImage",
+        "repositoryURL": "https://github.com/SDWebImage/SDWebImage",
+        "state": {
+          "branch": null,
+          "revision": "d6367439527663d2038ca445a3c3c4e4bac40d60",
+          "version": "5.12.0"
+        }
+      },
+      {
         "package": "SwiftProtobuf",
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {
