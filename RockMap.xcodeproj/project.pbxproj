@@ -15,6 +15,7 @@
 		9E06F963264976A100731352 /* EditProfileDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E06F962264976A100731352 /* EditProfileDatasource.swift */; };
 		9E06F965264976AE00731352 /* EditProfileKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E06F964264976AE00731352 /* EditProfileKind.swift */; };
 		9E06F967264976BC00731352 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E06F966264976BC00731352 /* EditProfileViewModel.swift */; };
+		9E081FFB270FF9D3003F0AD8 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = 9E081FFA270FF9D3003F0AD8 /* Resolver */; };
 		9E08AC7C2572A84100D69927 /* RockMapNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08AC7B2572A84100D69927 /* RockMapNavigationController.swift */; };
 		9E08AC812572A8AA00D69927 /* RockMapNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08AC802572A8AA00D69927 /* RockMapNavigationBar.swift */; };
 		9E08AC9C2573D36A00D69927 /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08AC9B2573D36A00D69927 /* UI.swift */; };
@@ -470,6 +471,7 @@
 				9E64FD0126B59A82005984F6 /* FirebaseStorage in Frameworks */,
 				9E64FD0726B59A82005984F6 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				9EC7982A26D3E39500F9DC8D /* Auth in Frameworks */,
+				9E081FFB270FF9D3003F0AD8 /* Resolver in Frameworks */,
 				9E64FD0326B59A82005984F6 /* FirebaseCrashlytics in Frameworks */,
 				9E64FCFD26B59A82005984F6 /* FirebaseAnalytics in Frameworks */,
 				9E1056E1270B31C7007254DA /* SDWebImage in Frameworks */,
@@ -1580,6 +1582,7 @@
 				9E9162EF26BF7DF10012D2B0 /* Utilities */,
 				9EC7982926D3E39500F9DC8D /* Auth */,
 				9E1056E0270B31C7007254DA /* SDWebImage */,
+				9E081FFA270FF9D3003F0AD8 /* Resolver */,
 			);
 			productName = RockMap;
 			productReference = 9E5CEFC825277B25001C95AA /* RockMap.app */;
@@ -1656,6 +1659,7 @@
 			packageReferences = (
 				9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				9E1056DF270B31C7007254DA /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				9E081FF9270FF9D3003F0AD8 /* XCRemoteSwiftPackageReference "Resolver" */,
 			);
 			productRefGroup = 9E5CEFC925277B25001C95AA /* Products */;
 			projectDirPath = "";
@@ -2327,6 +2331,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9E081FF9270FF9D3003F0AD8 /* XCRemoteSwiftPackageReference "Resolver" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Resolver";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		9E1056DF270B31C7007254DA /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
@@ -2346,6 +2358,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9E081FFA270FF9D3003F0AD8 /* Resolver */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E081FF9270FF9D3003F0AD8 /* XCRemoteSwiftPackageReference "Resolver" */;
+			productName = Resolver;
+		};
 		9E1056E0270B31C7007254DA /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9E1056DF270B31C7007254DA /* XCRemoteSwiftPackageReference "SDWebImage" */;
