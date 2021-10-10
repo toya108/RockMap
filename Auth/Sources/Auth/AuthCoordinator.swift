@@ -69,5 +69,29 @@ extension AuthCoordinator: FUIAuthDelegate {
             bundle: Bundle.main,
             authUI: authUI
         )
+#if DEBUG
+
+public class MockAuthCoordinatorSucceded: NSObject, AuthCoordinatorProtocol, FUIAuthDelegate {
+    public var loginFinishedPublisher: AnyPublisher<Result<Void, Error>, Never> {
+        Future { promise in
+            promise(.success(.success(())))
+        }
+        .eraseToAnyPublisher()
     }
 }
+
+public class MockAuthCoordinatorFailed: NSObject, AuthCoordinatorProtocol, FUIAuthDelegate {
+
+    enum LoginError: LocalizedError {
+        case failed
+    }
+
+    public var loginFinishedPublisher: AnyPublisher<Result<Void, Error>, Never> {
+        Future { promise in
+            promise(.success(.failure(LoginError.failed)))
+        }
+        .eraseToAnyPublisher()
+    }
+}
+
+#endif

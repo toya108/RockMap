@@ -49,3 +49,32 @@ extension AuthAccessor: AuthAccessorProtocol {
         try self.auth.signOut()
     }
 }
+
+#if DEBUG
+
+public struct MockLoggedInAuthAccessor: AuthAccessorProtocol {
+    public var isLoggedIn: Bool = true
+    public var uid: String = "123456789"
+    public var providerID: String = "Firebase"
+    public var displayName: String = "mogumogu"
+    public var userPath: String = "users" + "/" + "123456789"
+    public func logout() throws {}
+}
+
+public struct MockNoLoggedInAuthAccessor: AuthAccessorProtocol {
+
+    enum LogoutError: LocalizedError {
+        case failed
+    }
+
+    public var isLoggedIn: Bool = false
+    public var uid: String = ""
+    public var providerID: String = ""
+    public var displayName: String = ""
+    public var userPath: String = "users" + "/" + ""
+    public func logout() throws {
+        throw LogoutError.failed
+    }
+}
+
+#endif
