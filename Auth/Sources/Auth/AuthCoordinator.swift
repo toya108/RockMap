@@ -60,15 +60,8 @@ extension AuthCoordinator: FUIAuthDelegate {
             }
 
     }
+}
 
-    public func authPickerViewController(
-        forAuthUI authUI: FUIAuth
-    ) -> FUIAuthPickerViewController {
-        FUICustomAuthPickerViewController(
-            nibName: FUICustomAuthPickerViewController.className,
-            bundle: Bundle.main,
-            authUI: authUI
-        )
 #if DEBUG
 
 public class MockAuthCoordinatorSucceded: NSObject, AuthCoordinatorProtocol, FUIAuthDelegate {
