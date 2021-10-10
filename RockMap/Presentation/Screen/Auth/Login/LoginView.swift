@@ -1,14 +1,11 @@
 import Auth
 import SwiftUI
+import Resolver
 
 struct LoginView: View {
 
-    @ObservedObject private var viewModel: LoginViewModel
+    @StateObject private var viewModel: LoginViewModel = Resolver.resolve()
     @EnvironmentObject var appStore: AppStore
-
-    init(viewModel: LoginViewModel = .init()) {
-        self.viewModel = viewModel
-    }
 
     var body: some View {
         VStack(spacing: 24) {
@@ -76,8 +73,10 @@ struct LoginView: View {
             }
             .padding()
         }
-        .onAppear {
-            viewModel.appStore = appStore
+        .onReceive(viewModel.$shouldChangeRootView) {
+            if $0 {
+                appStore.rootViewType = .main
+            }
         }
         .alert(
             "text_auth_failure",
@@ -123,9 +122,7 @@ struct LoginView: View {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LoginView(
-                viewModel: .init()
-            )
+            LoginView()
         }
     }
 }

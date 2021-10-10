@@ -1,5 +1,6 @@
 import Auth
 import Combine
+import Resolver
 
 final class LoginViewModel: ObservableObject {
 
@@ -11,26 +12,22 @@ final class LoginViewModel: ObservableObject {
     @Published var isPresentedLogoutFailureAlert = false
     @Published var isPresentedTerms = false
     @Published var isPresentedPrivacyPolicy = false
+    @Published var shouldChangeRootView = false
 
-    var appStore: AppStore?
     var authError: Error?
     var logoutError: Error?
-    private let authAccessor: AuthAccessorProtocol
-    let authCoordinator: AuthCoordinatorProtocol
+
+    @Injected var authAccessor: AuthAccessorProtocol
+    @Injected var authCoordinator: AuthCoordinatorProtocol
     private var loginFinishedCancellable: Cancellable?
 
-    init(
-        authAccessor: AuthAccessorProtocol = AuthAccessor(),
-        authCoordinator: AuthCoordinatorProtocol = AuthCoordinator()
-    ) {
-        self.authAccessor = authAccessor
-        self.authCoordinator = authCoordinator
+    init() {
         setupBindings()
     }
 
     func loginIfNeeded() {
         if authAccessor.isLoggedIn {
-            self.appStore?.rootViewType = .main
+            self.shouldChangeRootView = true
         } else {
             self.isPresentedAuthView = true
         }
@@ -40,7 +37,7 @@ final class LoginViewModel: ObservableObject {
         if authAccessor.isLoggedIn {
             self.isPresentedLogoutAlert = true
         } else {
-            self.appStore?.rootViewType = .main
+            self.shouldChangeRootView = true
         }
     }
 
@@ -62,7 +59,7 @@ final class LoginViewModel: ObservableObject {
 
                 switch result {
                     case .success:
-                        self.appStore?.rootViewType = .main
+                        self.shouldChangeRootView = true
 
                     case let .failure(error):
                         self.authError = error
