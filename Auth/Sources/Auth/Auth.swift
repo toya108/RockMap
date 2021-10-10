@@ -125,15 +125,6 @@ extension AuthManager: FUIAuthDelegate {
         }
     }
 
-    public func authPickerViewController(
-        forAuthUI authUI: FUIAuth
-    ) -> FUIAuthPickerViewController {
-        FUICustomAuthPickerViewController(
-            nibName: FUICustomAuthPickerViewController.className,
-            bundle: Bundle.main,
-            authUI: authUI
-        )
-    }
 }
 
 public enum AuthError: LocalizedError {
