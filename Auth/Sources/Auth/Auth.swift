@@ -82,10 +82,6 @@ public class AuthManager: NSObject {
         }
     }
 
-    public func logout() throws {
-        try self.authUI?.signOut()
-    }
-
     private var currentUser: User? {
         self.authUI?.auth?.currentUser
     }
@@ -129,15 +125,6 @@ extension AuthManager: FUIAuthDelegate {
         }
     }
 
-    public func authPickerViewController(
-        forAuthUI authUI: FUIAuth
-    ) -> FUIAuthPickerViewController {
-        FUICustomAuthPickerViewController(
-            nibName: FUICustomAuthPickerViewController.className,
-            bundle: Bundle.main,
-            authUI: authUI
-        )
-    }
 }
 
 public enum AuthError: LocalizedError {

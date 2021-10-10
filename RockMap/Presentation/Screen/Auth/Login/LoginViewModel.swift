@@ -1,5 +1,6 @@
 import Auth
 import Combine
+import Resolver
 
 final class LoginViewModel: ObservableObject {
 
@@ -11,10 +12,13 @@ final class LoginViewModel: ObservableObject {
     @Published var isPresentedLogoutFailureAlert = false
     @Published var isPresentedTerms = false
     @Published var isPresentedPrivacyPolicy = false
+    @Published var shouldChangeRootView = false
 
-    var appStore: AppStore?
     var authError: Error?
     var logoutError: Error?
+
+    @Injected var authAccessor: AuthAccessorProtocol
+    @Injected var authCoordinator: AuthCoordinatorProtocol
     private var loginFinishedCancellable: Cancellable?
 
     init() {
@@ -22,24 +26,24 @@ final class LoginViewModel: ObservableObject {
     }
 
     func loginIfNeeded() {
-        if AuthManager.shared.isLoggedIn {
-            self.appStore?.rootViewType = .main
+        if authAccessor.isLoggedIn {
+            self.shouldChangeRootView = true
         } else {
             self.isPresentedAuthView = true
         }
     }
 
     func guestLoginIfNeeded() {
-        if AuthManager.shared.isLoggedIn {
+        if authAccessor.isLoggedIn {
             self.isPresentedLogoutAlert = true
         } else {
-            self.appStore?.rootViewType = .main
+            self.shouldChangeRootView = true
         }
     }
 
     func logout() {
         do {
-            try AuthManager.shared.logout()
+            try authAccessor.logout()
             self.isPresentedDidLogoutAlert = true
         } catch {
             self.logoutError = error
@@ -48,14 +52,14 @@ final class LoginViewModel: ObservableObject {
     }
 
     private func setupBindings() {
-        self.loginFinishedCancellable = AuthManager.shared.loginFinishedPublisher
+        self.loginFinishedCancellable = authCoordinator.loginFinishedPublisher
             .sink { [weak self] result in
 
                 guard let self = self else { return }
 
                 switch result {
                     case .success:
-                        self.appStore?.rootViewType = .main
+                        self.shouldChangeRootView = true
 
                     case let .failure(error):
                         self.authError = error

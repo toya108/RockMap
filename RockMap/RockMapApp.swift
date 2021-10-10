@@ -21,7 +21,7 @@ final class AppStore: ObservableObject {
     static let shared: AppStore = AppStore()
 
     private init() {
-        rootViewType = AuthManager.shared.isLoggedIn ? .main : .login
+        rootViewType = AuthAccessor().isLoggedIn ? .main : .login
     }
 
     enum RootViewType {

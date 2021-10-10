@@ -1,9 +1,10 @@
 import Auth
 import SwiftUI
+import Resolver
 
 struct LoginView: View {
 
-    @ObservedObject private var viewModel = LoginViewModel()
+    @StateObject private var viewModel: LoginViewModel = Resolver.resolve()
     @EnvironmentObject var appStore: AppStore
 
     var body: some View {
@@ -36,7 +37,7 @@ struct LoginView: View {
                     )
                     .cornerRadius(8)
                     .fullScreenCover(isPresented: $viewModel.isPresentedAuthView) {
-                        AuthView()
+                        AuthView(coordinator: viewModel.authCoordinator)
                     }
                     Button(
                         action: {
@@ -72,8 +73,10 @@ struct LoginView: View {
             }
             .padding()
         }
-        .onAppear {
-            viewModel.appStore = appStore
+        .onReceive(viewModel.$shouldChangeRootView) {
+            if $0 {
+                appStore.rootViewType = .main
+            }
         }
         .alert(
             "text_auth_failure",

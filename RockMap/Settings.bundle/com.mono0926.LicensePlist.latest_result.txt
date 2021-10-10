@@ -1,5 +1,7 @@
 name: abseil-cpp-SwiftPM, nameSpecified: abseil, owner: firebase, version: 0.20200225.4
 
+name: APIKit, nameSpecified: APIKit, owner: ishkawa, version: 5.2.0
+
 name: AppAuth-iOS, nameSpecified: AppAuth, owner: openid, version: 1.4.0
 
 name: boringssl-SwiftPM, nameSpecified: BoringSSL-GRPC, owner: firebase, version: 0.7.2
@@ -24,14 +26,42 @@ name: gtm-session-fetcher, nameSpecified: GTMSessionFetcher, owner: google, vers
 
 name: GTMAppAuth, nameSpecified: GTMAppAuth, owner: google, version: 1.2.2
 
+name: HeliumLogger, nameSpecified: HeliumLogger, owner: Kitura, version: 1.9.200
+
 name: leveldb, nameSpecified: leveldb, owner: firebase, version: 1.22.2
+
+name: LicensePlist, nameSpecified: LicensePlist, owner: mono0926, version: 3.14.2
+
+name: LoggerAPI, nameSpecified: LoggerAPI, owner: Kitura, version: 1.9.200
 
 name: nanopb, nameSpecified: nanopb, owner: firebase, version: 2.30908.0
 
 name: promises, nameSpecified: Promises, owner: google, version: 2.0.0
 
+name: Resolver, nameSpecified: Resolver, owner: hmlongco, version: 1.4.5
+
+name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.12.0
+
+name: SourceKitten, nameSpecified: SourceKitten, owner: jpsim, version: 0.31.0
+
+name: swift-argument-parser, nameSpecified: swift-argument-parser, owner: apple, version: 0.3.2
+
+name: swift-html-entities, nameSpecified: HTMLEntities, owner: Kitura, version: 3.0.200
+
+name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.4.2
+
 name: swift-protobuf, nameSpecified: SwiftProtobuf, owner: apple, version: 1.17.0
+
+name: SwiftLint, nameSpecified: SwiftLint, owner: realm, version: 0.44.0
+
+name: SwiftyTextTable, nameSpecified: SwiftyTextTable, owner: scottrhoyt, version: 0.9.0
+
+name: SWXMLHash, nameSpecified: SWXMLHash, owner: drmohundro, version: 5.0.2
+
+name: YamlSwift, nameSpecified: Yaml, owner: behrang, version: 3.4.4
+
+name: Yams, nameSpecified: Yams, owner: jpsim, version: 4.0.6
 
 add-version-numbers: false
 
-LicensePlist Version: 3.13.0
+LicensePlist Version: 3.14.2
