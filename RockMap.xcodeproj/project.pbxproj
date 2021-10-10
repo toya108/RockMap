@@ -782,7 +782,6 @@
 				9EA6B04C26651A2300DAA888 /* Settings.bundle */,
 				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
 				9E82FB2A2704AE37002972BD /* RockMapApp.swift */,
-				9E8A146E2708836E00903D38 /* Localizable.strings */,
 				9E5CEFD625277B26001C95AA /* LaunchScreen.storyboard */,
 				9E5CEFD925277B26001C95AA /* Info.plist */,
 				9EB7DB98266FC4F9003B0041 /* GoogleService-Info-release.plist */,
@@ -1172,11 +1171,12 @@
 			isa = PBXGroup;
 			children = (
 				9E845AD925ADEA6A00EC3BE6 /* Resouces.swift */,
-				9E5CEFD425277B26001C95AA /* Assets.xcassets */,
-				9EC7FFC5269915B300715F86 /* ColorAssets.xcassets */,
 				9E98D548255300B900EC5AC1 /* ColorPallet.swift */,
 				9E5C5E362555144000D00087 /* Images.swift */,
 				9E845AD425ADEA3300EC3BE6 /* Const */,
+				9E8A146E2708836E00903D38 /* Localizable.strings */,
+				9E5CEFD425277B26001C95AA /* Assets.xcassets */,
+				9EC7FFC5269915B300715F86 /* ColorAssets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
