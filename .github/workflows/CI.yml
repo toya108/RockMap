@@ -55,7 +55,7 @@ jobs:
           gem install bundler
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-      - uses: fwal/setup-swift@d43a564349d1341cd990cfbd70d94d63b8899475
+      - uses: fwal/setup-swift@v1
         with:
           swift-version: "5.5.0"
       - name: Get swift version
