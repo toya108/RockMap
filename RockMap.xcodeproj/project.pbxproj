@@ -274,6 +274,7 @@
 		9E171173263305B900D35BFE /* ListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E21C388264D5F4C003B02E7 /* IconTextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E26400425B5C0300088DAFB /* RockSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockSearchViewModel.swift; sourceTree = "<group>"; };
+		9E2B4217271334380018E105 /* RockMapTools */ = {isa = PBXFileReference; lastKnownFileType = folder; path = RockMapTools; sourceTree = "<group>"; };
 		9E2BD65025DD55B00011B020 /* TextViewCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextViewCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E2BD68425DD6DA90011B020 /* ImageSelactCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelactCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E2BD68525DD6DA90011B020 /* ImageSelactCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageSelactCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -619,6 +620,14 @@
 			path = Presentation;
 			sourceTree = "<group>";
 		};
+		9E2B42132713325A0018E105 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				9E2B4217271334380018E105 /* RockMapTools */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
 		9E2DA75625F91B47008F339E /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -747,6 +756,7 @@
 		9E5CEFBF25277B25001C95AA = {
 			isa = PBXGroup;
 			children = (
+				9E2B42132713325A0018E105 /* Tools */,
 				9E80EE2126EB75AE000782F4 /* FirebaseTestHelper */,
 				9E9162ED26BEB9D20012D2B0 /* Utilities */,
 				9E493DDF26B9949E00DCA210 /* DataLayer */,
@@ -1751,7 +1761,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\n  swiftlint autocorrect\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if which swiftlint >/dev/null; then\n  xcrun --sdk macosx swift run -c release --package-path Tools/RockMapTools swiftlint\n  xcrun --sdk macosx swift run -c release --package-path Tools/RockMapTools swiftlint autocorrect\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		9E5C5E272554EFA600D00087 /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1805,7 +1815,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION = \"Debug\" ]; then\ncd $SRCROOT\n/usr/local/bin/license-plist --output-path $PRODUCT_NAME/Settings.bundle\nfi\n";
+			shellScript = "if [ $CONFIGURATION = \"Debug\" ]; then\n  xcrun --sdk macosx swift run -c release --package-path Tools/RockMapTools license-plist --output-path $PRODUCT_NAME/Settings.bundle\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
