@@ -15,8 +15,10 @@
 		9E06F963264976A100731352 /* EditProfileDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E06F962264976A100731352 /* EditProfileDatasource.swift */; };
 		9E06F965264976AE00731352 /* EditProfileKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E06F964264976AE00731352 /* EditProfileKind.swift */; };
 		9E06F967264976BC00731352 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E06F966264976BC00731352 /* EditProfileViewModel.swift */; };
+		9E081FF8270FEA35003F0AD8 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E081FF7270FEA35003F0AD8 /* LoginViewModelTests.swift */; };
 		9E081FFB270FF9D3003F0AD8 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = 9E081FFA270FF9D3003F0AD8 /* Resolver */; };
 		9E081FFD270FFAA3003F0AD8 /* AppDelegate+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E081FFC270FFAA3003F0AD8 /* AppDelegate+Injection.swift */; };
+		9E081FFF27101727003F0AD8 /* Resolver+XCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E081FFE27101727003F0AD8 /* Resolver+XCTest.swift */; };
 		9E08AC7C2572A84100D69927 /* RockMapNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08AC7B2572A84100D69927 /* RockMapNavigationController.swift */; };
 		9E08AC812572A8AA00D69927 /* RockMapNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08AC802572A8AA00D69927 /* RockMapNavigationBar.swift */; };
 		9E08AC9C2573D36A00D69927 /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08AC9B2573D36A00D69927 /* UI.swift */; };
@@ -250,7 +252,9 @@
 		9E06F962264976A100731352 /* EditProfileDatasource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileDatasource.swift; sourceTree = "<group>"; };
 		9E06F964264976AE00731352 /* EditProfileKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileKind.swift; sourceTree = "<group>"; };
 		9E06F966264976BC00731352 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		9E081FF7270FEA35003F0AD8 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		9E081FFC270FFAA3003F0AD8 /* AppDelegate+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swift"; sourceTree = "<group>"; };
+		9E081FFE27101727003F0AD8 /* Resolver+XCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+XCTest.swift"; sourceTree = "<group>"; };
 		9E08AC7B2572A84100D69927 /* RockMapNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockMapNavigationController.swift; sourceTree = "<group>"; };
 		9E08AC802572A8AA00D69927 /* RockMapNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockMapNavigationBar.swift; sourceTree = "<group>"; };
 		9E08AC9B2573D36A00D69927 /* UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
@@ -525,6 +529,7 @@
 				9E4B45372706906A005CAB32 /* LoginView.swift */,
 				9E8A14712709EC7100903D38 /* LoginViewModel.swift */,
 				9E8A14732709F95700903D38 /* AuthView.swift */,
+				9E081FF7270FEA35003F0AD8 /* LoginViewModelTests.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -772,6 +777,7 @@
 				9EA6B04C26651A2300DAA888 /* Settings.bundle */,
 				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
 				9E081FFC270FFAA3003F0AD8 /* AppDelegate+Injection.swift */,
+				9E081FFE27101727003F0AD8 /* Resolver+XCTest.swift */,
 				9E82FB2A2704AE37002972BD /* RockMapApp.swift */,
 				9E8A146E2708836E00903D38 /* Localizable.strings */,
 				9E5CEFD625277B26001C95AA /* LaunchScreen.storyboard */,
@@ -1985,7 +1991,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E081FF8270FEA35003F0AD8 /* LoginViewModelTests.swift in Sources */,
 				9E5CEFE325277B26001C95AA /* RockMapTests.swift in Sources */,
+				9E081FFF27101727003F0AD8 /* Resolver+XCTest.swift in Sources */,
 				9EA88DBA2691D7B00036D6C1 /* ForceUpdateAlertManagerTests.swift in Sources */,
 				9E441578266214D000D48D12 /* DictionaryTests.swift in Sources */,
 			);
