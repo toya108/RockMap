@@ -1,19 +1,25 @@
 import Combine
 import DataLayer
 import Foundation
+import Resolver
+
+public protocol SetUserUsecaseProtocol {
+
+    func set(
+        id: String,
+        createdAt: Date,
+        displayName: String?,
+        photoURL: URL?
+    ) -> AnyPublisher<Void, Error>
+
+}
 
 public extension Domain.Usecase.User {
-    struct Set: PassthroughUsecaseProtocol {
-        public typealias Repository = Repositories.User.Set
-        public typealias Mapper = Domain.Mapper.User
 
-        var repository: Repository
-        var mapper: Mapper
+    struct Set: SetUserUsecaseProtocol {
 
-        public init(repository: Repository = .init(), mapper: Mapper = .init()) {
-            self.repository = repository
-            self.mapper = mapper
-        }
+        @Injected var repository: Repositories.User.Set
+        @Injected var mapper: Domain.Mapper.User
 
         public func set(
             id: String,

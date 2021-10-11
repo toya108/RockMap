@@ -1,5 +1,7 @@
 import Combine
 import FirebaseAuthUI
+import Resolver
+import Domain
 
 public protocol AuthCoordinatorProtocol where Self: NSObject & FUIAuthDelegate {
     var loginFinishedPublisher: AnyPublisher<Result<Void, Error>, Never> { get }
@@ -8,12 +10,8 @@ public protocol AuthCoordinatorProtocol where Self: NSObject & FUIAuthDelegate {
 public class AuthCoordinator: NSObject, AuthCoordinatorProtocol {
 
     private var setUserCancellable: Cancellable?
-    private let setUserUsecase = Usecase.User.Set()
     private let loginFinishedSubject: PassthroughSubject<Result<Void, Error>, Never> = .init()
-
-    public override init() {
-        super.init()
-    }
+    @Injected private var setUserUsecase: SetUserUsecaseProtocol
 
     public var loginFinishedPublisher: AnyPublisher<Result<Void, Error>, Never> {
         self.loginFinishedSubject.eraseToAnyPublisher()
