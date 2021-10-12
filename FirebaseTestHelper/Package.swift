@@ -26,9 +26,7 @@ let package = Package(
             name: "FirebaseTestHelper",
             dependencies: [
                 .product(name: "FirebaseFirestore", package: "Firebase")
-            ]),
-        .testTarget(
-            name: "FirebaseTestHelperTests",
-            dependencies: ["FirebaseTestHelper"])
+            ]
+        )
     ]
 )
