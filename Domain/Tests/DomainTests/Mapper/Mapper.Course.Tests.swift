@@ -69,11 +69,11 @@ final class CourseMapperTests: XCTestCase {
 
         let document = mapper.reverse(to: entity)
 
-        XCTAssertEqual(document.id, rockId)
+        XCTAssertEqual(document.id, courseId)
         XCTAssertEqual(document.createdAt, createdAt)
         XCTAssertEqual(document.updatedAt, updatedAt)
         XCTAssertEqual(document.parentPath, "users/" + userId)
-        XCTAssertEqual(document.name, "日陰岩")
+        XCTAssertEqual(document.name, "峰の夕")
         XCTAssertEqual(document.desc, "rockrockrock")
         XCTAssertEqual(document.grade, "q10")
         XCTAssertEqual(document.shape, Set(["overhang"]))
