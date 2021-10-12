@@ -48,6 +48,46 @@
                ReferencedContainer = "container:RockMap.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "UtilitiesTests"
+               BuildableName = "UtilitiesTests"
+               BlueprintName = "UtilitiesTests"
+               ReferencedContainer = "container:Utilities">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DataLayerTests"
+               BuildableName = "DataLayerTests"
+               BlueprintName = "DataLayerTests"
+               ReferencedContainer = "container:DataLayer">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DomainTests"
+               BuildableName = "DomainTests"
+               BlueprintName = "DomainTests"
+               ReferencedContainer = "container:Domain">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AuthTests"
+               BuildableName = "AuthTests"
+               BlueprintName = "AuthTests"
+               ReferencedContainer = "container:Auth">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
