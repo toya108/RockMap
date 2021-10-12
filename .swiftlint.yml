@@ -57,3 +57,4 @@ excluded:
 - R.generated.swift
 - Pods
 - SourcePackages
+- Tools
