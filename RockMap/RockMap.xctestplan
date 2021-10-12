@@ -1,0 +1,64 @@
+{
+  "configurations" : [
+    {
+      "id" : "E9ACA391-1AE6-456F-B3FC-DC498A41CAC0",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:RockMap.xcodeproj",
+      "identifier" : "9E5CEFC725277B25001C95AA",
+      "name" : "RockMap"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:RockMap.xcodeproj",
+        "identifier" : "9E5CEFDD25277B26001C95AA",
+        "name" : "RockMapTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:RockMap.xcodeproj",
+        "identifier" : "9E5CEFE825277B26001C95AA",
+        "name" : "RockMapUITests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Utilities",
+        "identifier" : "UtilitiesTests",
+        "name" : "UtilitiesTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:DataLayer",
+        "identifier" : "DataLayerTests",
+        "name" : "DataLayerTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Domain",
+        "identifier" : "DomainTests",
+        "name" : "DomainTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Auth",
+        "identifier" : "AuthTests",
+        "name" : "AuthTests"
+      }
+    }
+  ],
+  "version" : 1
+}

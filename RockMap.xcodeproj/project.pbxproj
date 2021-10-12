@@ -304,6 +304,7 @@
 		9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainAccesser.swift; sourceTree = "<group>"; };
 		9E493DD726B98DE800DCA210 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Domain; sourceTree = "<group>"; };
 		9E493DDF26B9949E00DCA210 /* DataLayer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataLayer; sourceTree = "<group>"; };
+		9E4A49212715BEB800DA5502 /* RockMap.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RockMap.xctestplan; sourceTree = "<group>"; };
 		9E4B45372706906A005CAB32 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9E5C5E362555144000D00087 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		9E5CEFC825277B25001C95AA /* RockMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RockMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -798,6 +799,7 @@
 				9E016FBB252CD0C600C2B85C /* GoogleService-Info-dev.plist */,
 				9EC7FFCE269BCDB500715F86 /* RockMap.entitlements */,
 				9EC7FFCD269BCC7900715F86 /* RockMapDebug.entitlements */,
+				9E4A49212715BEB800DA5502 /* RockMap.xctestplan */,
 			);
 			path = RockMap;
 			sourceTree = "<group>";
