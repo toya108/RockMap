@@ -1,7 +1,4 @@
-import Foundation
 import Resolver
-@testable import RockMap
-@testable import Auth
 
 extension Resolver {
 

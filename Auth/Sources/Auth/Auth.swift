@@ -4,13 +4,15 @@ import FirebaseEmailAuthUI
 import FirebaseGoogleAuthUI
 import FirebaseOAuthUI
 import Utilities
+import Resolver
+import Domain
 
 public class AuthManager: NSObject {
     public static let shared = AuthManager()
 
     private var setUserCancellable: AnyCancellable?
     private let loginFinishedSubject: PassthroughSubject<Result<Void, Error>, Never> = .init()
-    private let setUserUsecase = Usecase.User.Set()
+    @Injected private var setUserUsecase: SetUserUsecaseProtocol
 
     public let authUI: FUIAuth? = {
         guard
