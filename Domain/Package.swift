@@ -15,6 +15,7 @@ let package = Package(
         )
     ],
     dependencies: [
+        .package(url: "https://github.com/hmlongco/Resolver", from: "1.0.0"),
         .package(url: "../DataLayer", from: "1.0.0"),
         .package(url: "../FirebaseTestHelper", from: "1.0.0")
     ],
@@ -22,7 +23,8 @@ let package = Package(
         .target(
             name: "Domain",
             dependencies: [
-                .product(name: "DataLayer", package: "DataLayer"),
+                .product(name: "Resolver", package: "Resolver"),
+                "DataLayer",
                 "FirebaseTestHelper"
             ]
         ),

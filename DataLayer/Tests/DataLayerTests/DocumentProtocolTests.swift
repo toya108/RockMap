@@ -48,7 +48,8 @@ final class DocumentProtocolTests: XCTestCase {
             lithology: "chert",
             desc: "aaa",
             registeredUserId: self.userDocument.id,
-            headerUrl: nil
+            headerUrl: nil,
+            imageUrls: []
         )
 
         let expectPath = [

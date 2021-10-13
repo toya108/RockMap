@@ -2,7 +2,8 @@
 import XCTest
 
 class DictionaryTests: XCTestCase {
-    func makeEmptyExcludedDictionary() throws {
+
+    func testsMakeEmptyExcludedDictionary() throws {
         let containsEmptyDictionary = [
             "aaa": "",
             "bbb": 2344,
@@ -17,4 +18,5 @@ class DictionaryTests: XCTestCase {
         XCTAssertNil(result["eee"])
         XCTAssertEqual(result["bbb"] as! Int, containsEmptyDictionary["bbb"] as! Int)
     }
+    
 }
