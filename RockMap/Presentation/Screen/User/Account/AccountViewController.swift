@@ -159,38 +159,8 @@ extension AccountViewController {
     }
 
     private func login() {
-        let okAction = UIAlertAction(
-            title: "OK",
-            style: .default,
-            handler: { [weak self] _ in
-
-                guard let self = self else { return }
-
-                guard
-                    let authViewController = AuthManager.shared.authViewController
-                else {
-                    return
-                }
-
-                let vc = RockMapNavigationController(
-                    rootVC: authViewController,
-                    naviBarClass: RockMapNavigationBar.self
-                )
-                vc.modalPresentationStyle = .fullScreen
-                vc.modalTransitionStyle = .crossDissolve
-                self.present(vc, animated: true)
-            }
-        )
-
-        showAlert(
-            title: "ログインしますか？",
-            message: "ログインするとアプリの最初の画面に戻ります。",
-            actions: [
-                okAction,
-                .init(title: "Cancel", style: .cancel)
-            ],
-            style: .alert
-        )
+        AppStore.shared.rootViewType = .login
+        dismiss(animated: true)
     }
 }
 
