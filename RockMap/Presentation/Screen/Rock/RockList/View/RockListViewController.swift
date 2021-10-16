@@ -29,6 +29,7 @@ class RockListViewController: UIViewController, CompositionalColectionViewContro
         configureCollectionView(topInset: 16)
         self.setupSections()
         self.setupViewModelOutput()
+        self.setupNotification()
     }
 
     private func setupSubViews() {
@@ -76,6 +77,17 @@ class RockListViewController: UIViewController, CompositionalColectionViewContro
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: deleteStateSink)
             .store(in: &self.bindings)
+    }
+
+    private func setupNotification() {
+        NotificationCenter.default.publisher(for: .didRockRegisterFinished)
+            .sink { [weak self] _ in
+
+                guard let self = self else { return }
+
+                self.viewModel.fetchRockList()
+            }
+            .store(in: &bindings)
     }
 }
 
@@ -202,11 +214,5 @@ extension RockListViewController {
                 style: .actionSheet
             )
         }
-    }
-}
-
-extension RockListViewController: RockRegisterDetectableViewControllerProtocol {
-    func didRockRegisterFinished() {
-        self.viewModel.fetchRockList()
     }
 }
