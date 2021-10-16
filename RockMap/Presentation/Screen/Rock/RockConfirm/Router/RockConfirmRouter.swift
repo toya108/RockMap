@@ -28,17 +28,7 @@ struct RockConfirmRouter: RouterProtocol {
         RegisterSucceededViewController.showSuccessView(present: from) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 from.rootViewController?.dismiss(animated: true)
-
-                guard
-                    let tabbarVC = from.presentingViewController as? UITabBarController,
-                    let nc = tabbarVC.selectedViewController as? UINavigationController,
-                    let vc = nc.viewControllers.last,
-                    let presentedVc = vc as? RockRegisterDetectableViewControllerProtocol
-                else {
-                    return
-                }
-
-                presentedVc.didRockRegisterFinished()
+                NotificationCenter.default.post(name: .didRockRegisterFinished, object: nil)
             }
         }
     }

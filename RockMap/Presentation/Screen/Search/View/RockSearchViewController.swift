@@ -46,6 +46,7 @@ final class RockSearchViewController: UIViewController {
         self.setupSearchBar()
         self.updateLocation(LocationManager.shared.location)
         self.setupLongPressGesture()
+        self.setupNotification()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +60,19 @@ final class RockSearchViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
         self.viewModel.locationSelectState = .standby
+    }
+
+    private func setupNotification() {
+        NotificationCenter.default
+            .publisher(for: .didRockRegisterFinished)
+            .sink { [weak self] _ in
+
+                guard let self = self else { return }
+
+                self.viewModel.locationSelectState = .standby
+                self.viewModel.fetchRockList()
+            }
+            .store(in: &bindings)
     }
 
     private func setupNavigationBar() {
@@ -400,13 +414,6 @@ extension RockSearchViewController: MKMapViewDelegate {
 extension RockSearchViewController: RockAnnotationTableViewDelegate {
     func didSelectRockAnnotaitonCell(rock: Entity.Rock) {
         self.router.route(to: .rockDetail(rock), from: self)
-    }
-}
-
-extension RockSearchViewController: RockRegisterDetectableViewControllerProtocol {
-    func didRockRegisterFinished() {
-        self.viewModel.locationSelectState = .standby
-        self.viewModel.fetchRockList()
     }
 }
 
