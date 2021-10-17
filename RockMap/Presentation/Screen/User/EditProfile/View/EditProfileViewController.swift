@@ -216,15 +216,8 @@ extension EditProfileViewController {
 
         case .finish:
             hideIndicatorView()
-            dismiss(animated: true) { [weak self] in
-                guard
-                    let self = self,
-                    case let myPageVc as MyPageViewController = self.getVisibleViewController()
-                else {
-                    return
-                }
-                myPageVc.viewModel.fetchUser()
-            }
+            NotificationCenter.default.post(name: .didProfileEditFinished, object: nil)
+            dismiss(animated: true)
 
         case let .failure(error):
             hideIndicatorView()

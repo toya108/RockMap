@@ -30,6 +30,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
         self.configureSections()
         self.bindViewModelOutput()
         self.setupRefreshControl()
+        self.setupNotification()
     }
 
     private func setupRefreshControl() {
@@ -95,6 +96,17 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
         self.datasource.apply(self.snapShot) { [weak self] in
             self?.viewModel.input.finishedCollectionViewSetup.send()
         }
+    }
+
+    private func setupNotification() {
+        NotificationCenter.default.publisher(for: .didProfileEditFinished)
+            .sink { [weak self] _ in
+
+                guard let self = self else { return }
+
+                self.viewModel.fetchUser()
+            }
+            .store(in: &bindings)
     }
 }
 
