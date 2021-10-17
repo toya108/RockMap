@@ -32,6 +32,7 @@ extension UIImage {
         static let gear = UIImage(systemName: "gear")!
         static let checkmarkShield = UIImage(systemName: "checkmark.shield")!
         static let starCircle = UIImage(systemName: "star.circle")!
+        static let arrowUpLeftSquare = UIImage(systemName: "arrow.up.left.square")!
     }
 
     struct AssetsImages {
