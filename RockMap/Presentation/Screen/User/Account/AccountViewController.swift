@@ -95,6 +95,8 @@ extension AccountViewController {
 
                         guard let self = self else { return }
 
+                        AuthManager.shared.logout { _ in }
+
                         self.hideIndicatorView()
 
                         AppStore.shared.rootViewType = .login
