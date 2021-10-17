@@ -64,6 +64,17 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
         self.datasource.apply(self.snapShot)
     }
 
+    private func setupNotification() {
+        NotificationCenter.default.publisher(for: .didCourseRegisterFinished)
+            .sink { [weak self] _ in
+
+                guard let self = self else { return }
+
+                self.viewModel.fetchCourses()
+            }
+            .store(in: &bindings)
+    }
+
     private func bindViewToViewModel() {
         self.viewModel.$rockName
             .receive(on: RunLoop.main)
@@ -265,11 +276,5 @@ extension RockDetailViewController: UICollectionViewDelegate {
         default:
             break
         }
-    }
-}
-
-extension RockDetailViewController: CourseRegisterDetectableViewControllerProtocol {
-    func didCourseRegisterFinished() {
-        self.viewModel.fetchCourses()
     }
 }

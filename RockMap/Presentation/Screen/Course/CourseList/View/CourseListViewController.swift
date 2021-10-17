@@ -77,6 +77,17 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
             .sink(receiveValue: deleteStateSink)
             .store(in: &self.bindings)
     }
+
+    private func setupNotification() {
+        NotificationCenter.default.publisher(for: .didCourseRegisterFinished)
+            .sink { [weak self] _ in
+
+                guard let self = self else { return }
+
+                self.viewModel.fetchCourseList()
+            }
+            .store(in: &bindings)
+    }
 }
 
 extension CourseListViewController {
@@ -202,11 +213,5 @@ extension CourseListViewController {
                 style: .actionSheet
             )
         }
-    }
-}
-
-extension CourseListViewController: CourseRegisterDetectableViewControllerProtocol {
-    func didCourseRegisterFinished() {
-        self.viewModel.fetchCourseList()
     }
 }
