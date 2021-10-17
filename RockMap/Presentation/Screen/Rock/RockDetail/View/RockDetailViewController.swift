@@ -25,6 +25,7 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
         self.setupNavigationBar()
         self.bindViewToViewModel()
         self.configureSections()
+        self.setupNotification()
     }
 
     private func setupNavigationBar() {
