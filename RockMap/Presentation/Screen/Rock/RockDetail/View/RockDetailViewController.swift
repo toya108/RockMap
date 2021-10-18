@@ -25,6 +25,7 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
         self.setupNavigationBar()
         self.bindViewToViewModel()
         self.configureSections()
+        self.setupNotification()
     }
 
     private func setupNavigationBar() {
@@ -62,6 +63,17 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
     private func configureSections() {
         self.snapShot.appendSections(SectionLayoutKind.allCases)
         self.datasource.apply(self.snapShot)
+    }
+
+    private func setupNotification() {
+        NotificationCenter.default.publisher(for: .didCourseRegisterFinished)
+            .sink { [weak self] _ in
+
+                guard let self = self else { return }
+
+                self.viewModel.fetchCourses()
+            }
+            .store(in: &bindings)
     }
 
     private func bindViewToViewModel() {
@@ -265,11 +277,5 @@ extension RockDetailViewController: UICollectionViewDelegate {
         default:
             break
         }
-    }
-}
-
-extension RockDetailViewController: CourseRegisterDetectableViewControllerProtocol {
-    func didCourseRegisterFinished() {
-        self.viewModel.fetchCourses()
     }
 }
