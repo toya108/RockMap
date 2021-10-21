@@ -45,25 +45,28 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
             .store(in: &self.bindings)
     }
 
-    private func uploadImages() {
+    private var uploadImages: () -> Void {{ [weak self] in
+
+        guard let self = self else { return }
+
         let writeHeader = self.writeImageUsecase.write(
             data: self.header.updateData,
             shouldDelete: self.header.shouldDelete,
             image: self.header.image
         ) {
             .rock
-            rockEntity.id
-            header.imageType
+            self.rockEntity.id
+            self.header.imageType
         }
 
         let writeImages = self.images.map {
-            writeImageUsecase.write(
+            self.writeImageUsecase.write(
                 data: $0.updateData,
                 shouldDelete: $0.shouldDelete,
                 image: $0.image
             ) {
                 .rock
-                rockEntity.id
+                self.rockEntity.id
                 Entity.Image.ImageType.normal
                 AuthManager.shared.uid
             }
@@ -90,7 +93,7 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
                 }
             }
             .store(in: &self.bindings)
-    }
+    }}
 
     private func registerRock() {
         self.output.rockUploadState = .loading
