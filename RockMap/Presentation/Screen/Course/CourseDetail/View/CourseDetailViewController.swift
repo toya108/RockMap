@@ -23,7 +23,7 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
         super.viewDidLoad()
 
         self.setupNavigationBar()
-        configureCollectionView()
+        self.configureCollectionView()
         self.bindViewToViewModel()
         self.configureSections()
     }
@@ -87,7 +87,11 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
 }
 
 extension CourseDetailViewController {
-    private func fetchParentRockStateSink(_ state: LoadingState<Entity.Rock>) {
+
+    private var fetchParentRockStateSink: (LoadingState<Entity.Rock>) -> Void {{ [weak self] state in
+
+        guard let self = self else { return }
+
         switch state {
         case .stanby, .failure, .loading:
             break
@@ -96,9 +100,12 @@ extension CourseDetailViewController {
             self.snapShot.reloadSections([.parentRock])
             self.datasource.apply(self.snapShot, animatingDifferences: false)
         }
-    }
+    }}
 
-    private func fetchRegisteredUserStateSink(_ state: LoadingState<Entity.User>) {
+    private var fetchRegisteredUserStateSink: (LoadingState<Entity.User>) -> Void {{ [weak self] state in
+
+        guard let self = self else { return }
+
         switch state {
         case .stanby, .failure, .loading:
             break
@@ -107,12 +114,15 @@ extension CourseDetailViewController {
             self.snapShot.reloadSections([.registeredUser])
             self.datasource.apply(self.snapShot, animatingDifferences: false)
         }
-    }
+    }}
 
-    private func totalClimbedNumberSink(_ state: Entity.TotalClimbedNumber?) {
+    private var totalClimbedNumberSink: (Entity.TotalClimbedNumber?) -> Void {{ [weak self] _ in
+
+        guard let self = self else { return }
+
         self.snapShot.reloadSections([.climbedNumber])
         self.datasource.apply(self.snapShot, animatingDifferences: false)
-    }
+    }}
 }
 
 extension CourseDetailViewController: UICollectionViewDelegate {
