@@ -117,22 +117,32 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
 }
 
 extension RockRegisterViewController {
-    private func locationSink(_ location: LocationManager.LocationStructure) {
+
+    private var locationSink: (LocationManager.LocationStructure) -> Void {{ [weak self] location in
+
+        guard let self = self else { return }
+
         self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .location))
         self.snapShot.appendItems([.location(location)], toSection: .location)
         self.datasource.apply(self.snapShot)
-    }
+    }}
 
-    private func seasonsSink(_ seasons: Set<Entity.Rock.Season>) {
+    private var seasonsSink: (Set<Entity.Rock.Season>) -> Void {{ [weak self] seasons in
+
+        guard let self = self else { return }
+
         self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .season))
         let items = Entity.Rock.Season.allCases.map {
             ItemKind.season(season: $0, isSelecting: seasons.contains($0))
         }
         self.snapShot.appendItems(items, toSection: .season)
         self.datasource.apply(self.snapShot)
-    }
+    }}
 
-    private func headerSink(_ crudableImage: CrudableImage) {
+    private var headerSink: (CrudableImage) -> Void {{ [weak self] crudableImage in
+
+        guard let self = self else { return }
+
         self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .header))
 
         let shouldAppend = crudableImage.updateData != nil
@@ -145,10 +155,13 @@ extension RockRegisterViewController {
         )
         self.datasource.apply(self.snapShot)
 
-        hideIndicatorView()
-    }
+        self.hideIndicatorView()
+    }}
 
-    private func imagesSink(_ crudableImages: [CrudableImage]) {
+    private var imagesSink: ([CrudableImage]) -> Void {{ [weak self] crudableImages in
+
+        guard let self = self else { return }
+
         self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .images))
         self.snapShot.appendItems([.noImage(.normal)], toSection: .images)
 
@@ -156,10 +169,13 @@ extension RockRegisterViewController {
         self.snapShot.appendItems(items, toSection: .images)
         self.datasource.apply(self.snapShot)
 
-        hideIndicatorView()
-    }
+        self.hideIndicatorView()
+    }}
 
-    private func rockNameValidationSink(_ result: ValidationResult) {
+    private var rockNameValidationSink: (ValidationResult) -> Void {{ [weak self] result in
+
+        guard let self = self else { return }
+
         switch result {
         case .valid, .none:
             let items = self.snapShot.itemIdentifiers(inSection: .name)
@@ -182,9 +198,12 @@ extension RockRegisterViewController {
             self.snapShot.appendItems([.error(error)], toSection: .name)
         }
         self.datasource.apply(self.snapShot)
-    }
+    }}
 
-    private func rockImageValidationSink(_ result: ValidationResult) {
+    private var rockImageValidationSink: (ValidationResult) -> Void {{ [weak self] result in
+
+        guard let self = self else { return }
+
         let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
 
         switch result {
@@ -208,9 +227,12 @@ extension RockRegisterViewController {
             self.snapShot.appendItems([.error(error)], toSection: .confirmation)
         }
         self.datasource.apply(self.snapShot)
-    }
+    }}
 
-    private func headerImageValidationSink(_ result: ValidationResult) {
+    private var headerImageValidationSink: (ValidationResult) -> Void {{ [weak self] result in
+
+        guard let self = self else { return }
+
         let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
 
         switch result {
@@ -231,7 +253,7 @@ extension RockRegisterViewController {
         }
 
         self.datasource.apply(self.snapShot)
-    }
+    }}
 }
 
 extension RockRegisterViewController {
