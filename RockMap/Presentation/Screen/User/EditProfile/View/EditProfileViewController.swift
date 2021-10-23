@@ -157,7 +157,11 @@ extension EditProfileViewController: UICollectionViewDelegate {
 }
 
 extension EditProfileViewController {
-    private func headerSink(_ crudableImage: CrudableImage) {
+    
+    private var headerSink: (CrudableImage) -> Void {{ [weak self] crudableImage in
+
+        guard let self = self else { return }
+
         self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .header))
 
         let shouldAppend = crudableImage.updateData != nil
@@ -170,86 +174,98 @@ extension EditProfileViewController {
         )
         self.datasource.apply(self.snapShot)
 
-        hideIndicatorView()
-    }
+        self.hideIndicatorView()
+    }}
 
-    private func iconSink(_ crudableImage: CrudableImage) {
+    private var iconSink: (CrudableImage) -> Void {{ [weak self] crudableImage in
+
+        guard let self = self else { return }
+
         self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .icon))
         self.snapShot.appendItems([.icon(crudableImage)], toSection: .icon)
         self.datasource.apply(self.snapShot)
 
-        hideIndicatorView()
-    }
+        self.hideIndicatorView()
+    }}
 
-    private func nameValidationSink(_ result: ValidationResult) {
+    private var nameValidationSink: (ValidationResult) -> Void {{ [weak self] result in
+
+        guard let self = self else { return }
+
         switch result {
-        case .valid, .none:
-            let items = self.snapShot.itemIdentifiers(inSection: .name)
+            case .valid, .none:
+                let items = self.snapShot.itemIdentifiers(inSection: .name)
 
-            guard
-                let item = items.first(where: { $0.isErrorItem })
-            else {
-                return
-            }
+                guard
+                    let item = items.first(where: { $0.isErrorItem })
+                else {
+                    return
+                }
 
-            self.snapShot.deleteItems([item])
-
-        case let .invalid(error):
-            let items = self.snapShot.itemIdentifiers(inSection: .name)
-
-            if let item = items.first(where: { $0.isErrorItem }) {
                 self.snapShot.deleteItems([item])
-            }
 
-            self.snapShot.appendItems([.error(error)], toSection: .name)
+            case let .invalid(error):
+                let items = self.snapShot.itemIdentifiers(inSection: .name)
+
+                if let item = items.first(where: { $0.isErrorItem }) {
+                    self.snapShot.deleteItems([item])
+                }
+
+                self.snapShot.appendItems([.error(error)], toSection: .name)
         }
         self.datasource.apply(self.snapShot)
-    }
+    }}
 
-    private func imageUploadStateSink(_ state: LoadingState<Void>) {
+    private var imageUploadStateSink: (LoadingState<Void>) -> Void {{ [weak self] state in
+
+        guard let self = self else { return }
+
         switch state {
-        case .stanby:
-            hideIndicatorView()
+            case .stanby:
+                self.hideIndicatorView()
 
-        case .loading:
-            showIndicatorView()
+            case .loading:
+                self.showIndicatorView()
 
-        case .finish:
-            hideIndicatorView()
-            NotificationCenter.default.post(name: .didProfileEditFinished, object: nil)
-            dismiss(animated: true)
-
-        case let .failure(error):
-            hideIndicatorView()
-            showOKAlert(
-                title: "画像の登録に失敗しました",
-                message: error?.localizedDescription ?? ""
-            ) { [weak self] _ in
-
-                guard let self = self else { return }
-
+            case .finish:
+                self.hideIndicatorView()
+                NotificationCenter.default.post(name: .didProfileEditFinished, object: nil)
                 self.dismiss(animated: true)
-            }
-        }
-    }
 
-    private func uploadLoadingStateSink(_ state: LoadingState<Void>) {
+            case let .failure(error):
+                self.hideIndicatorView()
+                self.showOKAlert(
+                    title: "画像の登録に失敗しました",
+                    message: error?.localizedDescription ?? ""
+                ) { [weak self] _ in
+
+                    guard let self = self else { return }
+
+                    self.dismiss(animated: true)
+                }
+        }
+    }}
+
+    private var uploadLoadingStateSink: (LoadingState<Void>) -> Void {{ [weak self] state in
+
+        guard let self = self else { return }
+
         switch state {
-        case .stanby:
-            break
+            case .stanby:
+                break
 
-        case .loading:
-            showIndicatorView()
+            case .loading:
+                self.showIndicatorView()
 
-        case .finish:
-            self.viewModel.uploadImage()
+            case .finish:
+                self.viewModel.uploadImage()
 
-        case let .failure(error):
-            hideIndicatorView()
-            showOKAlert(
-                title: "編集に失敗しました",
-                message: error?.localizedDescription ?? ""
-            )
+            case let .failure(error):
+                self.hideIndicatorView()
+                self.showOKAlert(
+                    title: "編集に失敗しました",
+                    message: error?.localizedDescription ?? ""
+                )
         }
-    }
+    }}
 }

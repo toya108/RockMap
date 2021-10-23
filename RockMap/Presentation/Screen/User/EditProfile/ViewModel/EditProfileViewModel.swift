@@ -92,36 +92,42 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             .assign(to: &self.output.$icon)
     }
 
-    private func setImage(imageType: Entity.Image.ImageType, data: Data) {
+    private var setImage: (Entity.Image.ImageType, Data) -> Void {{ [weak self] imageType, data in
+
+        guard let self = self else { return }
+
         switch imageType {
-        case .icon:
-            self.output.icon.updateData = data
+            case .icon:
+                self.output.icon.updateData = data
 
-        case .header:
-            self.output.header.updateData = data
-            self.output.header.shouldDelete = false
+            case .header:
+                self.output.header.updateData = data
+                self.output.header.shouldDelete = false
 
-        case .normal, .unhandle:
-            break
+            case .normal, .unhandle:
+                break
         }
-    }
+    }}
 
-    private func deleteImage(imageType: Entity.Image.ImageType) {
+    private var deleteImage: (Entity.Image.ImageType) -> Void {{ [weak self] imageType in
+
+        guard let self = self else { return }
+
         switch imageType {
-        case .icon:
-            self.output.icon.updateData = nil
+            case .icon:
+                self.output.icon.updateData = nil
 
-        case .header:
-            self.output.header.updateData = nil
+            case .header:
+                self.output.header.updateData = nil
 
-            if self.output.header.image.url != nil {
-                self.output.header.shouldDelete = true
-            }
+                if self.output.header.image.url != nil {
+                    self.output.header.shouldDelete = true
+                }
 
-        case .normal, .unhandle:
-            break
+            case .normal, .unhandle:
+                break
         }
-    }
+    }}
 
     func callValidations() -> Bool {
         if !self.output.nameValidationResult.isValid {
