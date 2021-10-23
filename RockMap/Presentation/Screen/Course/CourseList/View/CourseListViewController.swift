@@ -91,32 +91,42 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
 }
 
 extension CourseListViewController {
-    private func coursesSink(_ courses: [Entity.Course]) {
+
+    private var coursesSink: ([Entity.Course]) -> Void {{ [weak self] courses in
+
+        guard let self = self else { return }
+
         self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .main))
         self.snapShot.appendItems(courses.map { ItemKind.course($0) }, toSection: .main)
         self.datasource.apply(self.snapShot)
-    }
+    }}
 
-    private func isEmptySink(_ isEmpty: Bool) {
+    private var isEmptySink: (Bool) -> Void {{ [weak self] isEmpty in
+
+        guard let self = self else { return }
+
         self.collectionView.isHidden = isEmpty
-    }
+    }}
 
-    private func deleteStateSink(_ state: LoadingState<Void>) {
+    private var deleteStateSink: (LoadingState<Void>) -> Void {{ [weak self] state in
+
+        guard let self = self else { return }
+
         switch state {
-        case .loading:
-            self.showIndicatorView()
+            case .loading:
+                self.showIndicatorView()
+                
+            case .finish, .stanby:
+                self.hideIndicatorView()
 
-        case .finish, .stanby:
-            self.hideIndicatorView()
-
-        case let .failure(error):
-            self.hideIndicatorView()
-            self.showOKAlert(
-                title: "削除に失敗しました",
-                message: error?.localizedDescription ?? ""
-            )
+            case let .failure(error):
+                self.hideIndicatorView()
+                self.showOKAlert(
+                    title: "削除に失敗しました",
+                    message: error?.localizedDescription ?? ""
+                )
         }
-    }
+    }}
 }
 
 extension CourseListViewController {
