@@ -40,8 +40,6 @@ name: promises, nameSpecified: Promises, owner: google, version: 2.0.0
 
 name: Resolver, nameSpecified: Resolver, owner: hmlongco, version: 1.4.5
 
-name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.12.0
-
 name: SourceKitten, nameSpecified: SourceKitten, owner: jpsim, version: 0.31.0
 
 name: swift-argument-parser, nameSpecified: swift-argument-parser, owner: apple, version: 0.3.2
