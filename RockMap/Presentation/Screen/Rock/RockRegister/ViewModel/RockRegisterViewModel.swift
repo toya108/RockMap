@@ -173,7 +173,10 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             .assign(to: &self.output.$images)
     }
 
-    private func setImage(imageType: Entity.Image.ImageType, data: Data) {
+    private var setImage: (Entity.Image.ImageType, Data) -> Void {{ [weak self] imageType, data in
+
+        guard let self = self else { return }
+
         switch imageType {
         case .normal:
             let newImage = CrudableImage(
@@ -182,7 +185,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
                 imageType: .normal,
                 image: .init()
             )
-            output.images.append(newImage)
+            self.output.images.append(newImage)
 
         case .header:
             self.output.header.updateData = data
@@ -191,9 +194,12 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
         case .icon, .unhandle:
             break
         }
-    }
+    }}
 
-    private func deleteImage(_ crudableImage: CrudableImage) {
+    private var deleteImage: (CrudableImage) -> Void {{ [weak self] crudableImage in
+
+        guard let self = self else { return }
+
         switch crudableImage.imageType {
         case .header:
             self.output.header.updateData = nil
@@ -203,7 +209,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             }
 
         case .normal:
-            if let index = output.images.firstIndex(of: crudableImage) {
+            if let index = self.output.images.firstIndex(of: crudableImage) {
                 if self.output.images[index].image.url != nil {
                     self.output.images[index].updateData = nil
                     self.output.images[index].shouldDelete = true
@@ -215,7 +221,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
         case .icon, .unhandle:
             break
         }
-    }
+    }}
 
     func callValidations() -> Bool {
         if !self.output.rockAddressValidationResult.isValid {

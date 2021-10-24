@@ -68,49 +68,56 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
 }
 
 extension CourseConfirmViewController {
-    private func courseUploadStateSink(_ state: LoadingState<Void>) {
+
+    private var courseUploadStateSink: (LoadingState<Void>) -> Void {{ [weak self] state in
+
+        guard let self = self else { return }
+
         switch state {
-        case .stanby: break
+            case .stanby: break
 
-        case .loading:
-            showIndicatorView()
+            case .loading:
+                self.showIndicatorView()
 
-        case .finish:
-            self.viewModel.input.uploadImageSubject.send(())
+            case .finish:
+                self.viewModel.input.uploadImageSubject.send(())
 
-        case let .failure(error):
-            hideIndicatorView()
-            showOKAlert(
-                title: "課題の登録に失敗しました",
-                message: error?.localizedDescription ?? ""
-            )
+            case let .failure(error):
+                self.hideIndicatorView()
+                self.showOKAlert(
+                    title: "課題の登録に失敗しました",
+                    message: error?.localizedDescription ?? ""
+                )
         }
-    }
+    }}
 
-    private func imageUploadStateSink(_ state: LoadingState<Void>) {
+    private var imageUploadStateSink: (LoadingState<Void>) -> Void {{ [weak self] state in
+
+        guard let self = self else { return }
+
         switch state {
-        case .stanby: break
+            case .stanby: break
 
-        case .loading:
-            showIndicatorView()
+            case .loading:
+                self.showIndicatorView()
 
-        case .finish:
-            hideIndicatorView()
-            self.router.route(to: .dismiss, from: self)
-
-        case let .failure(error):
-            hideIndicatorView()
-            showOKAlert(
-                title: "画像の登録に失敗しました",
-                message: error?.localizedDescription ?? ""
-            ) { [weak self] _ in
-
-                guard let self = self else { return }
-
+            case .finish:
+                self.hideIndicatorView()
                 self.router.route(to: .dismiss, from: self)
-            }
+
+            case let .failure(error):
+                self.hideIndicatorView()
+                self.showOKAlert(
+                    title: "画像の登録に失敗しました",
+                    message: error?.localizedDescription ?? ""
+                ) { [weak self] _ in
+
+                    guard let self = self else { return }
+
+                    self.router.route(to: .dismiss, from: self)
+                }
         }
-    }
+    }}
 }
 
 extension CourseConfirmViewController: UIPopoverPresentationControllerDelegate {

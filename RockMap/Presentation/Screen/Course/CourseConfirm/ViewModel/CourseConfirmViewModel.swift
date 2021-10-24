@@ -44,25 +44,28 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
             .store(in: &self.bindings)
     }
 
-    private func uploadImages() {
+    private var uploadImages: () -> Void {{ [weak self] in
+
+        guard let self = self else { return }
+
         let writeHeader = self.writeImageUsecase.write(
             data: self.header.updateData,
             shouldDelete: self.header.shouldDelete,
             image: self.header.image
         ) {
             .course
-            course.id
-            header.imageType
+            self.course.id
+            self.header.imageType
         }
 
         let writeImages = self.images.map {
-            writeImageUsecase.write(
+            self.writeImageUsecase.write(
                 data: $0.updateData,
                 shouldDelete: $0.shouldDelete,
                 image: $0.image
             ) {
                 .course
-                course.id
+                self.course.id
                 Entity.Image.ImageType.normal
                 AuthManager.shared.uid
             }
@@ -89,19 +92,22 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
                 }
             }
             .store(in: &self.bindings)
-    }
+    }}
 
-    private func registerCourse() {
+    private var registerCourse: () -> Void {{ [weak self] in
+
+        guard let self = self else { return }
+
         self.output.courseUploadState = .loading
 
         switch self.registerType {
-        case .create:
-            self.createCourse()
+            case .create:
+                self.createCourse()
 
-        case .edit:
-            self.editCourse()
+            case .edit:
+                self.editCourse()
         }
-    }
+    }}
 
     private func createCourse() {
         self.setCourseUsecase.set(course: self.course)

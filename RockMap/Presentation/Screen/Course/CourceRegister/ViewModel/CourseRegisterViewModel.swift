@@ -115,7 +115,10 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
             .assign(to: &self.output.$images)
     }
 
-    private func setImage(data: Data, imageType: Entity.Image.ImageType) {
+    private var setImage: (Data, Entity.Image.ImageType) -> Void {{ [weak self] data, imageType in
+
+        guard let self = self else { return }
+
         switch imageType {
         case .normal:
             let newImage = CrudableImage(
@@ -124,7 +127,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
                 imageType: .normal,
                 image: .init()
             )
-            output.images.append(newImage)
+            self.output.images.append(newImage)
 
         case .header:
             self.output.header.updateData = data
@@ -133,9 +136,12 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         case .icon, .unhandle:
             break
         }
-    }
+    }}
 
-    private func deleteImage(_ crudableImage: CrudableImage) {
+    private var deleteImage: (CrudableImage) -> Void {{ [weak self] crudableImage in
+
+        guard let self = self else { return }
+
         switch crudableImage.imageType {
         case .header:
             self.output.header.updateData = nil
@@ -145,7 +151,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
             }
 
         case .normal:
-            if let index = output.images.firstIndex(of: crudableImage) {
+            if let index = self.output.images.firstIndex(of: crudableImage) {
                 if self.output.images[index].image.url != nil {
                     self.output.images[index].updateData = nil
                     self.output.images[index].shouldDelete = true
@@ -157,7 +163,7 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         case .icon, .unhandle:
             break
         }
-    }
+    }}
 
     func callValidations() -> Bool {
         if !self.output.headerImageValidationResult.isValid {

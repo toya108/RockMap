@@ -94,26 +94,10 @@ extension MyClimbedListViewController {
             return
         }
 
-        // temporary
-        let courseViewModel = CourseDetailViewModel(
-            course: .init(
-                id: climbedCourse.course.id,
-                parentPath: climbedCourse.course.parentPath,
-                createdAt: climbedCourse.course.createdAt,
-                updatedAt: climbedCourse.course.updatedAt,
-                name: climbedCourse.course.name,
-                desc: climbedCourse.course.desc,
-                grade: .init(rawValue: climbedCourse.course.grade.rawValue) ?? .q10,
-                shape: Set(climbedCourse.course.shape.compactMap { .init(rawValue: $0.rawValue) }),
-                parentRockName: climbedCourse.course.parentRockName,
-                parentRockId: climbedCourse.course.parentRockId,
-                registeredUserId: climbedCourse.course.registeredUserId,
-                headerUrl: climbedCourse.course.headerUrl,
-                imageUrls: climbedCourse.course.imageUrls
-            )
+        let courseViewModel = CourseDetailViewModel(course: climbedCourse.course)
+        let courseDetailViewController = CourseDetailViewController.createInstance(
+            viewModel: courseViewModel
         )
-        let courseDetailViewController = CourseDetailViewController
-            .createInstance(viewModel: courseViewModel)
         navigationController?.pushViewController(courseDetailViewController, animated: true)
     }
 }

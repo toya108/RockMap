@@ -162,22 +162,32 @@ extension CourseRegisterViewController: UICollectionViewDelegate {
 }
 
 extension CourseRegisterViewController {
-    private func gradeSink(_ grade: Entity.Course.Grade) {
+
+    private var gradeSink: (Entity.Course.Grade) -> Void {{ [weak self] grade in
+
+        guard let self = self else { return }
+
         self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .grade))
         self.snapShot.appendItems([.grade(grade)], toSection: .grade)
         self.datasource.apply(self.snapShot)
-    }
+    }}
 
-    private func shapeSink(_ shapes: Set<Entity.Course.Shape>) {
+    private var shapeSink: (Set<Entity.Course.Shape>) -> Void {{ [weak self] shapes in
+
+        guard let self = self else { return }
+
         self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .shape))
         let items = Entity.Course.Shape.allCases.map {
             ItemKind.shape(shape: $0, isSelecting: shapes.contains($0))
         }
         self.snapShot.appendItems(items, toSection: .shape)
         self.datasource.apply(self.snapShot)
-    }
+    }}
 
-    private func headerSink(_ crudableImage: CrudableImage) {
+    private var headerSink: (CrudableImage) -> Void {{ [weak self] crudableImage in
+
+        guard let self = self else { return }
+
         self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .header))
 
         let shouldAppend = crudableImage.updateData != nil
@@ -190,10 +200,13 @@ extension CourseRegisterViewController {
         )
         self.datasource.apply(self.snapShot)
 
-        hideIndicatorView()
-    }
+        self.hideIndicatorView()
+    }}
 
-    private func imagesSink(_ crudableImages: [CrudableImage]) {
+    private var imagesSink: ([CrudableImage]) -> Void {{ [weak self] crudableImages in
+
+        guard let self = self else { return }
+
         self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .images))
         self.snapShot.appendItems([.noImage(.normal)], toSection: .images)
 
@@ -201,10 +214,13 @@ extension CourseRegisterViewController {
         self.snapShot.appendItems(items, toSection: .images)
         self.datasource.apply(self.snapShot)
 
-        hideIndicatorView()
-    }
+        self.hideIndicatorView()
+    }}
 
-    private func courseNameValidationSink(_ result: ValidationResult) {
+    private var courseNameValidationSink: (ValidationResult) -> Void {{ [weak self] result in
+
+        guard let self = self else { return }
+
         switch result {
         case .valid, .none:
             let items = self.snapShot.itemIdentifiers(inSection: .courseName)
@@ -227,9 +243,12 @@ extension CourseRegisterViewController {
             self.snapShot.appendItems([.error(error)], toSection: .courseName)
         }
         self.datasource.apply(self.snapShot)
-    }
+    }}
 
-    private func courseImageValidationSink(_ result: ValidationResult) {
+    private var courseImageValidationSink: (ValidationResult) -> Void {{ [weak self] result in
+
+        guard let self = self else { return }
+
         let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
 
         switch result {
@@ -253,9 +272,12 @@ extension CourseRegisterViewController {
             self.snapShot.appendItems([.error(error)], toSection: .confirmation)
         }
         self.datasource.apply(self.snapShot)
-    }
+    }}
 
-    private func headerImageValidationSink(_ result: ValidationResult) {
+    private var headerImageValidationSink: (ValidationResult) -> Void {{ [weak self] result in
+
+        guard let self = self else { return }
+
         let items = self.snapShot.itemIdentifiers(inSection: .confirmation)
 
         switch result {
@@ -276,5 +298,5 @@ extension CourseRegisterViewController {
         }
 
         self.datasource.apply(self.snapShot)
-    }
+    }}
 }

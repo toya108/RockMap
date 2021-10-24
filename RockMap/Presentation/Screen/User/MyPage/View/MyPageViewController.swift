@@ -111,17 +111,27 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 }
 
 extension MyPageViewController {
-    private func userSink(_ user: LoadingState<Entity.User>) {
+
+    private var userSink: (LoadingState<Entity.User>) -> Void {{ [weak self] _ in
+
+        guard let self = self else { return }
+
         self.snapShot.reloadSections(SectionKind.allCases)
         self.datasource.apply(self.snapShot, animatingDifferences: false)
-    }
+    }}
 
-    private func climbedListSink(_ climbedList: [Entity.ClimbRecord]) {
+    private var climbedListSink: ([Entity.ClimbRecord]) -> Void {{ [weak self] _ in
+
+        guard let self = self else { return }
+
         self.snapShot.reloadSections([.climbedNumber])
         self.datasource.apply(self.snapShot, animatingDifferences: false)
-    }
+    }}
 
-    private func recentClimbedCoursesSink(_ courses: [Entity.Course]) {
+    private var recentClimbedCoursesSink: ([Entity.Course]) -> Void {{ [weak self] courses in
+
+        guard let self = self else { return }
+
         self.snapShot.deleteItems(self.snapShot.itemIdentifiers(inSection: .recentClimbedCourses))
 
         if courses.isEmpty {
@@ -133,7 +143,7 @@ extension MyPageViewController {
             )
         }
         self.datasource.apply(self.snapShot, animatingDifferences: false)
-    }
+    }}
 }
 
 extension MyPageViewController {
