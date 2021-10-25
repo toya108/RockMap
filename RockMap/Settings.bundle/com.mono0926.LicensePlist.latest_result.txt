@@ -6,23 +6,25 @@ name: AppAuth-iOS, nameSpecified: AppAuth, owner: openid, version: 1.4.0
 
 name: boringssl-SwiftPM, nameSpecified: BoringSSL-GRPC, owner: firebase, version: 0.7.2
 
-name: facebook-ios-sdk, nameSpecified: Facebook, owner: facebook, version: 11.1.0
+name: facebook-ios-sdk, nameSpecified: Facebook, owner: facebook, version: 11.2.1
 
-name: firebase-ios-sdk, nameSpecified: Firebase, owner: firebase, version: 8.8.0
+name: firebase-ios-sdk, nameSpecified: Firebase, owner: firebase, version: 8.8.1
 
-name: FirebaseUI-iOS, nameSpecified: FirebaseUI, owner: firebase, version: 12.0.2
+name: FirebaseUI-iOS, nameSpecified: FirebaseUI, owner: firebase, version: 12.1.0
+
+name: FloatingPanel, nameSpecified: FloatingPanel, owner: scenee, version: 2.5.0
 
 name: GoogleAppMeasurement, nameSpecified: GoogleAppMeasurement, owner: google, version: 8.8.0
 
-name: GoogleDataTransport, nameSpecified: GoogleDataTransport, owner: google, version: 9.1.0
+name: GoogleDataTransport, nameSpecified: GoogleDataTransport, owner: google, version: 9.1.2
 
 name: GoogleSignIn-iOS, nameSpecified: GoogleSignIn, owner: google, version: 6.0.2
 
-name: GoogleUtilities, nameSpecified: GoogleUtilities, owner: google, version: 7.5.1
+name: GoogleUtilities, nameSpecified: GoogleUtilities, owner: google, version: 7.6.0
 
 name: grpc-SwiftPM, nameSpecified: gRPC, owner: firebase, version: 1.28.4
 
-name: gtm-session-fetcher, nameSpecified: GTMSessionFetcher, owner: google, version: 1.6.1
+name: gtm-session-fetcher, nameSpecified: GTMSessionFetcher, owner: google, version: 1.7.0
 
 name: GTMAppAuth, nameSpecified: GTMAppAuth, owner: google, version: 1.2.2
 
@@ -30,7 +32,7 @@ name: HeliumLogger, nameSpecified: HeliumLogger, owner: Kitura, version: 1.9.200
 
 name: leveldb, nameSpecified: leveldb, owner: firebase, version: 1.22.2
 
-name: LicensePlist, nameSpecified: LicensePlist, owner: mono0926, version: 3.14.2
+name: LicensePlist, nameSpecified: LicensePlist, owner: mono0926, version: 3.14.4
 
 name: LoggerAPI, nameSpecified: LoggerAPI, owner: Kitura, version: 1.9.200
 
@@ -38,19 +40,21 @@ name: nanopb, nameSpecified: nanopb, owner: firebase, version: 2.30908.0
 
 name: promises, nameSpecified: Promises, owner: google, version: 2.0.0
 
-name: Resolver, nameSpecified: Resolver, owner: hmlongco, version: 1.4.5
+name: Resolver, nameSpecified: Resolver, owner: hmlongco, version: 1.5.0
 
-name: SourceKitten, nameSpecified: SourceKitten, owner: jpsim, version: 0.31.0
+name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.12.1
 
-name: swift-argument-parser, nameSpecified: swift-argument-parser, owner: apple, version: 0.3.2
+name: SourceKitten, nameSpecified: SourceKitten, owner: jpsim, version: 0.31.1
+
+name: swift-argument-parser, nameSpecified: swift-argument-parser, owner: apple, version: 1.0.1
 
 name: swift-html-entities, nameSpecified: HTMLEntities, owner: Kitura, version: 3.0.200
 
 name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.4.2
 
-name: swift-protobuf, nameSpecified: SwiftProtobuf, owner: apple, version: 1.17.0
+name: swift-protobuf, nameSpecified: SwiftProtobuf, owner: apple, version: 1.18.0
 
-name: SwiftLint, nameSpecified: SwiftLint, owner: realm, version: 0.44.0
+name: SwiftLint, nameSpecified: SwiftLint, owner: realm, version: 0.45.0
 
 name: SwiftyTextTable, nameSpecified: SwiftyTextTable, owner: scottrhoyt, version: 0.9.0
 
