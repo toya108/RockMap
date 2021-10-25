@@ -99,6 +99,5 @@ extension RockAnnotationListViewController: UICollectionViewDelegate {
         }
 
         self.delegate?.didSelectRockAnnotaitonCell(rock: selectedRock)
-        dismiss(animated: true)
     }
 }
