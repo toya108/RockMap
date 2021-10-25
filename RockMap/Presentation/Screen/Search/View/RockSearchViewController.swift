@@ -487,7 +487,7 @@ class RockSearchFloatingPanelLayout: FloatingPanelLayout {
                 referenceGuide: .safeArea
             ),
             .half: FloatingPanelLayoutAnchor(
-                fractionalInset: 0.5,
+                fractionalInset: 0.4,
                 edge: .bottom,
                 referenceGuide: .safeArea
             ),
