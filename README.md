@@ -19,21 +19,16 @@ https://apps.apple.com/jp/app/rockmap/id1576276950
 * Register rocks, courses, climbing(FireStore)
 
 ## Architecture
-### Design
-* MVVM + Routor
-
----
-Note: Currently I'm replacing an archtecture from MVVM to CleanArchtecture.
-
-- Before: MVVM + Routor
-- After: CleanArchtecture(Presentation + Domain + Data)
-
----
+* Presentation(View + ViewModel + Router)
+* Domain(UseCase + Mapper + Entity)
+* Data(Repository)
 
 ### UI
 * UIKit
 * CompositionalLayout
 * DiffableDataSource
+
+Note: Currently I'm replacing UI from UIKit to SwiftUI.
 
 ### Database
 * Firestore
@@ -47,7 +42,7 @@ Note: Currently I'm replacing an archtecture from MVVM to CleanArchtecture.
 * FirebaseUI 
 
 ### Manage Library
-- SPM     
+- SwiftPM     
 
 ## Data Model
 
