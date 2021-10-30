@@ -72,6 +72,7 @@ struct RockRegisterRouter: RouterProtocol {
         _ from: UIViewController
     ) {
         guard
+            let rockRegisterViewController = from as? RockRegisterViewController,
             let location = viewModel?.output.rockLocation.location
         else {
             return
@@ -85,7 +86,8 @@ struct RockRegisterRouter: RouterProtocol {
         let vc = stroryBoard.instantiateInitialViewController { coder in
             RockLocationSelectViewController(
                 coder: coder,
-                location: location
+                location: location,
+                delegate: rockRegisterViewController
             )
         }
 
@@ -94,7 +96,7 @@ struct RockRegisterRouter: RouterProtocol {
         else {
             return
         }
-
+        
         from.present(
             RockMapNavigationController(
                 rootVC: locationSelectViewController,

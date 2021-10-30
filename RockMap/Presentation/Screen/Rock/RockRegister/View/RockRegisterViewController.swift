@@ -287,3 +287,11 @@ extension RockRegisterViewController: PickerManagerDelegate {
         self.viewModel.input.setImageSubject.send((imageType, data: data))
     }
 }
+
+extension RockRegisterViewController: LocationSelectDelegate {
+    func didFinishSelectLocation(location: CLLocation, address: String) {
+        viewModel.input.locationSubject.send(
+            .init(location: location, address: address)
+        )
+    }
+}
