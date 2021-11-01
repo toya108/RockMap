@@ -2,13 +2,20 @@ import Combine
 import MapKit
 import UIKit
 
+protocol LocationSelectDelegate: AnyObject {
+    func didFinishSelectLocation(location: CLLocation, address: String)
+}
+
 class RockLocationSelectViewController: UIViewController {
+
     @Published private var location = LocationManager.shared.location
     private var address = ""
     private var prefecture = ""
 
     private var bindings = Set<AnyCancellable>()
     private let span = MKCoordinateSpan(latitudeDelta: 0.001, longitudeDelta: 0.001)
+
+    private weak var delegate: LocationSelectDelegate?
 
     @IBOutlet var locationSelectMapView: MKMapView!
     @IBOutlet var addressLabel: UILabel!
@@ -18,8 +25,9 @@ class RockLocationSelectViewController: UIViewController {
         .init(mapView: mapView)
     }()
 
-    init?(coder: NSCoder, location: CLLocation) {
+    init?(coder: NSCoder, location: CLLocation, delegate: LocationSelectDelegate?) {
         self.location = location
+        self.delegate = delegate
         super.init(coder: coder)
     }
 
@@ -120,21 +128,8 @@ class RockLocationSelectViewController: UIViewController {
     }
 
     @objc private func didCompleteButtonTapped() {
-        dismiss(animated: true) { [weak self] in
-
-            guard
-                let self = self,
-                let presenting = self.topViewController(
-                    controller: self.view.root
-                ) as? RockRegisterViewController
-            else {
-                return
-            }
-
-            presenting.viewModel.input.locationSubject.send(
-                .init(location: self.location, address: self.address)
-            )
-        }
+        dismiss(animated: true)
+        delegate?.didFinishSelectLocation(location: self.location, address: self.address)
     }
 
     @objc private func didCancelButtonTapped() {
