@@ -156,3 +156,132 @@ extension Array where Element: StorageReference {
             .eraseToAnyPublisher()
     }
 }
+
+extension StorageReference {
+
+    func getReferences() async throws -> [StorageReference] {
+        try await withCheckedThrowingContinuation { [weak self] continuation in
+
+            guard let self = self else { return }
+
+            self.listAll { result, error in
+
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+
+                continuation.resume(returning: result.items)
+            }
+        }
+
+    }
+
+    func getPrefixes() async throws -> [StorageReference] {
+        try await withCheckedThrowingContinuation { [weak self] continuation in
+
+            guard let self = self else { return }
+
+            self.listAll { result, error in
+
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+
+                continuation.resume(returning: result.prefixes)
+            }
+        }
+    }
+
+    func getReference() async throws -> StorageReference {
+        try await withCheckedThrowingContinuation { [weak self] continuation in
+
+            guard let self = self else { return }
+
+            self.list(maxResults: 1) { result, error in
+
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+
+                guard
+                    let item = result.items.first
+                else {
+                    continuation.resume(throwing: FirestoreError.nilResultError)
+                    return
+                }
+
+                continuation.resume(returning: item)
+            }
+        }
+    }
+
+
+    func putData(
+        _ uploadData: Data,
+        metadata: StorageMetadata = .init()
+    ) async throws -> EmptyResponse {
+
+        metadata.cacheControl = "no-cache"
+
+        return try await withCheckedThrowingContinuation { [weak self] continuation in
+
+            guard let self = self else { return }
+
+            self.putData(uploadData, metadata: metadata) { _, error in
+
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+
+                continuation.resume(returning: .init())
+            }
+            .resume()
+        }
+    }
+
+    func delete() async throws -> EmptyResponse {
+
+        try await withCheckedThrowingContinuation { [weak self] continuation in
+
+            guard let self = self else { return }
+
+            self.delete { error in
+
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+
+                continuation.resume(returning: .init())
+            }
+        }
+    }
+
+    func getImage() async throws -> FireStorage.Image {
+        try await withCheckedThrowingContinuation { [weak self] continuation in
+
+            guard let self = self else { return }
+
+            let fullPath = self.fullPath
+
+            self.downloadURL { url, error in
+
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+
+                guard let url = url else {
+                    continuation.resume(throwing: FirestoreError.nilResultError)
+                    return
+                }
+
+                continuation.resume(returning: .init(fullPath: fullPath, url: url))
+            }
+        }
+    }
+}
