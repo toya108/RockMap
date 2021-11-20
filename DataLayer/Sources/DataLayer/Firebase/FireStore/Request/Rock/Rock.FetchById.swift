@@ -25,13 +25,8 @@ public extension FS.Request.Rock {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<FS.Document.Rock, Error> {
-            self.entry.getDocuments(Response.self)
-                .compactMap(\.first)
-                .eraseToAnyPublisher()
+        public func request() async throws -> Response {
+            try await self.entry.getDocument(Response.self)
         }
     }
 }

@@ -33,13 +33,15 @@ public extension FS.Request.TotalClimbedNumber {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<FS.Document.TotalClimbedNumber, Error> {
-            self.entry.listen(to: Response.self)
-                .compactMap(\.first)
-                .eraseToAnyPublisher()
+        public func request() async throws -> Response {
+
+            guard
+                let total = try await self.entry.listen(to: Response.self).first
+            else {
+                throw FirestoreError.nilResultError
+            }
+
+            return total
         }
     }
 }

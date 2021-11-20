@@ -55,40 +55,28 @@ public extension FS.Request.ClimbRecord {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<EmptyResponse, Error> {
-            FirestoreManager.db
+        public func request() async throws -> Response {
+            let totalNumber = try await FirestoreManager.db
                 .document(parameters.parentCourseReference)
                 .collection(FS.Collection.TotalClimbedNumber.name)
-                .getDocuments(FS.Document.TotalClimbedNumber.self)
-                .tryMap { documents -> FS.Document.TotalClimbedNumber in
-                    guard let document = documents.first else {
-                        throw FirestoreError.nilResultError
-                    }
-                    return document
-                }
-                .flatMap { totalNumber -> AnyPublisher<EmptyResponse, Error> in
+                .getDocument(FS.Document.TotalClimbedNumber.self)
 
-                    let climbRecord = FS.Document.ClimbRecord(
-                        id: parameters.id,
-                        registeredUserId: parameters.registeredUserId,
-                        parentCourseId: parameters.parentCourseId,
-                        parentCourseReference: FirestoreManager.db.document(
-                            parameters.parentCourseReference
-                        ),
-                        totalNumberReference: totalNumber.reference,
-                        createdAt: parameters.createdAt,
-                        updatedAt: parameters.updatedAt,
-                        parentPath: parameters.parentPath,
-                        climbedDate: parameters.climbedDate,
-                        type: parameters.type
-                    )
+            let climbRecord = FS.Document.ClimbRecord(
+                id: parameters.id,
+                registeredUserId: parameters.registeredUserId,
+                parentCourseId: parameters.parentCourseId,
+                parentCourseReference: FirestoreManager.db.document(
+                    parameters.parentCourseReference
+                ),
+                totalNumberReference: totalNumber.reference,
+                createdAt: parameters.createdAt,
+                updatedAt: parameters.updatedAt,
+                parentPath: parameters.parentPath,
+                climbedDate: parameters.climbedDate,
+                type: parameters.type
+            )
 
-                    return entry.setData(from: climbRecord)
-                }
-                .eraseToAnyPublisher()
+            return try await entry.setData(from: climbRecord)
         }
     }
 }

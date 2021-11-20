@@ -24,11 +24,8 @@ public extension FS.Request.Rock {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<EmptyResponse, Error> {
-            self.entry.updateData(parameters.rock.dictionary)
+        public func request() async throws -> Response {
+            try await self.entry.updateData(parameters.rock.dictionary)
         }
     }
 }

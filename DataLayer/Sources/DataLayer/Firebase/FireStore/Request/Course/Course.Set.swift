@@ -24,11 +24,8 @@ public extension FS.Request.Course {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<EmptyResponse, Error> {
-            FirestoreManager.db.document(self.path).setData(from: parameters.course)
+        public func request() async throws -> Response {
+            try await FirestoreManager.db.document(self.path).setData(from: parameters.course)
         }
     }
 }

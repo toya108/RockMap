@@ -19,11 +19,8 @@ public extension FS.Request.Rock {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<[FS.Document.Rock], Error> {
-            self.entry.getDocuments(Response.Element.self)
+        public func request() async throws -> Response {
+            try await self.entry.getDocuments(Response.Element.self)
         }
     }
 }

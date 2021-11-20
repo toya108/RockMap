@@ -38,10 +38,7 @@ public extension FS.Request.User {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<EmptyResponse, Error> {
+        public func request() async throws -> Response {
             let userDocument = FS.Document.User(
                 id: parameters.id,
                 createdAt: parameters.createdAt,
@@ -53,32 +50,26 @@ public extension FS.Request.User {
                 headerUrl: nil
             )
 
-            return userDocument.reference.exists()
-                .flatMap {
-                    setUserDocument(exists: $0, document: userDocument)
-                }
-                .eraseToAnyPublisher()
+            let exists = try await userDocument.reference.exists()
+
+            return try await setUserDocument(exists: exists, document: userDocument)
         }
 
         private func setUserDocument(
             exists: Bool,
             document: FS.Document.User
-        ) -> AnyPublisher<EmptyResponse, Error> {
+        ) async throws -> EmptyResponse {
+
             guard exists else {
-                return document.reference.setData(from: document)
+                return try await document.reference.setData(from: document)
             }
 
-            do {
-                var updateDictionary = try document.makedictionary(shouldExcludeEmpty: true)
-                updateDictionary.removeValue(forKey: "photoURL")
-                updateDictionary.removeValue(forKey: "headerUrl")
-                updateDictionary.removeValue(forKey: "socialLinks")
+            var updateDictionary = try document.makedictionary(shouldExcludeEmpty: true)
+            updateDictionary.removeValue(forKey: "photoURL")
+            updateDictionary.removeValue(forKey: "headerUrl")
+            updateDictionary.removeValue(forKey: "socialLinks")
 
-                return document.reference.updateData(updateDictionary)
-
-            } catch {
-                return Fail<EmptyResponse, Error>(error: error).eraseToAnyPublisher()
-            }
+            return try await document.reference.updateData(updateDictionary)
         }
     }
 }

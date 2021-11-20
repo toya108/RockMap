@@ -23,13 +23,8 @@ public extension FireStorage.Request {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<EmptyResponse, Error> {
-            StorageAssets.storage.reference(withPath: self.path)
-                .delete()
-                .eraseToAnyPublisher()
+        public func request() async throws -> Response {
+            try await StorageAssets.storage.reference(withPath: self.path).delete()
         }
     }
 }

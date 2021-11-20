@@ -4,8 +4,12 @@ public protocol FirestoreRequestProtocol: RequestProtocol {
 
     @PathBuilder
     var path: String { get }
-
     var entry: Entry { get }
+
+    var parameters: Parameters { get set }
+    init(parameters: Parameters)
+
+    func request() async throws -> Response
 }
 
 extension FirestoreRequestProtocol {
