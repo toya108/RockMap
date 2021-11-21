@@ -4,13 +4,16 @@ import Foundation
 
 public extension Domain.Usecase.ClimbRecord {
     struct Update: PassthroughUsecaseProtocol {
-        public typealias Repository = Repositories.ClimbRecord.Update
+        public typealias Repository = AnyRepository<Repositories.ClimbRecord.Update.R>
         public typealias Mapper = Domain.Mapper.ClimbRecord
 
         var repository: Repository
         var mapper: Mapper
 
-        public init(repository: Repository = .init(), mapper: Mapper = .init()) {
+        public init(
+            repository: Repository = AnyRepository(Repositories.ClimbRecord.Update()),
+            mapper: Mapper = .init()
+        ) {
             self.repository = repository
             self.mapper = mapper
         }
@@ -20,8 +23,8 @@ public extension Domain.Usecase.ClimbRecord {
             id: String,
             climbedDate: Date?,
             type: Domain.Entity.ClimbRecord.ClimbedRecordType?
-        ) -> AnyPublisher<Void, Error> {
-            self.repository.request(
+        ) async throws {
+            _ = try await self.repository.request(
                 parameters: .init(
                     parentPath: parentPath,
                     id: id,
@@ -29,8 +32,7 @@ public extension Domain.Usecase.ClimbRecord {
                     type: type?.rawValue
                 )
             )
-            .map { _ in () }
-            .eraseToAnyPublisher()
+            return ()
         }
     }
 }

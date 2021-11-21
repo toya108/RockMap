@@ -3,25 +3,25 @@ import DataLayer
 
 public extension Domain.Usecase.Course {
     struct FetchByRockId: PassthroughUsecaseProtocol {
-        public typealias Repository = Repositories.Course.FetchByRockId
+        public typealias Repository = AnyRepository<Repositories.Course.FetchByRockId.R>
         public typealias Mapper = Domain.Mapper.Course
 
         var repository: Repository
         var mapper: Mapper
 
-        public init(repository: Repository = .init(), mapper: Mapper = .init()) {
+        public init(
+            repository: Repository = AnyRepository(Repositories.Course.FetchByRockId()),
+            mapper: Mapper = .init()
+        ) {
             self.repository = repository
             self.mapper = mapper
         }
 
-        public func fetch(by rockId: String) -> AnyPublisher<[Domain.Entity.Course], Error> {
-            self.repository.request(
+        public func fetch(by rockId: String) async throws -> [Domain.Entity.Course] {
+            let documents = try await self.repository.request(
                 parameters: .init(rockId: rockId)
             )
-            .map { responses -> [Domain.Entity.Course] in
-                responses.map { mapper.map(from: $0) }
-            }
-            .eraseToAnyPublisher()
+            return documents.map { mapper.map(from: $0) }
         }
     }
 }

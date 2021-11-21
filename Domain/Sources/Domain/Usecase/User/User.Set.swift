@@ -10,7 +10,7 @@ public protocol SetUserUsecaseProtocol {
         createdAt: Date,
         displayName: String?,
         photoURL: URL?
-    ) -> AnyPublisher<Void, Error>
+    ) async throws
 
 }
 
@@ -18,7 +18,7 @@ public extension Domain.Usecase.User {
 
     struct Set: SetUserUsecaseProtocol {
 
-        @Injected var repository: Repositories.User.Set
+        @Injected var repository: AnyRepository<Repositories.User.Set.R>
         @Injected var mapper: Domain.Mapper.User
 
         public func set(
@@ -26,8 +26,8 @@ public extension Domain.Usecase.User {
             createdAt: Date,
             displayName: String?,
             photoURL: URL?
-        ) -> AnyPublisher<Void, Error> {
-            self.repository.request(
+        ) async throws {
+            _ = try await self.repository.request(
                 parameters: .init(
                     id: id,
                     createdAt: createdAt,
@@ -35,8 +35,7 @@ public extension Domain.Usecase.User {
                     photoURL: photoURL
                 )
             )
-            .map { _ in () }
-            .eraseToAnyPublisher()
+            return ()
         }
     }
 }
