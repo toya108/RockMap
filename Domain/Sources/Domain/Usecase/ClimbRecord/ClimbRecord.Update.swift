@@ -24,7 +24,7 @@ public extension Domain.Usecase.ClimbRecord {
             climbedDate: Date?,
             type: Domain.Entity.ClimbRecord.ClimbedRecordType?
         ) async throws {
-            _ = try await self.repository.request(
+            try await self.repository.request(
                 parameters: .init(
                     parentPath: parentPath,
                     id: id,
@@ -32,7 +32,6 @@ public extension Domain.Usecase.ClimbRecord {
                     type: type?.rawValue
                 )
             )
-            return ()
         }
     }
 }

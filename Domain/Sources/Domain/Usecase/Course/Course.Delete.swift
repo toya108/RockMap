@@ -19,10 +19,9 @@ public extension Domain.Usecase.Course {
         }
 
         public func delete(id: String, parentPath: String) async throws {
-            _ = try await self.repository.request(
+            try await self.repository.request(
                 parameters: .init(id: id, parentPath: parentPath)
             )
-            return ()
         }
     }
 }

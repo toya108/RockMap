@@ -38,18 +38,19 @@ public extension Domain.Usecase.Image {
             @StoragePathBuilder _ builder: () -> String
         ) async throws {
             if shouldDelete, let path = image.fullPath {
-                return try await self.deleteUsecase.delete(path: path)
+                try await self.deleteUsecase.delete(path: path)
+                return
             }
 
             if let path = image.fullPath, let data = data {
-                return try await self.setUsecase.set(path: path, data: data)
+                try await self.setUsecase.set(path: path, data: data)
+                return
             }
 
             if let data = data {
-                return try await self.setUsecase.set(path: builder(), data: data)
+                try await self.setUsecase.set(path: builder(), data: data)
+                return
             }
-
-            return ()
         }
     }
 }

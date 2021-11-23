@@ -27,7 +27,7 @@ public extension Domain.Usecase.User {
             displayName: String?,
             photoURL: URL?
         ) async throws {
-            _ = try await self.repository.request(
+            try await self.repository.request(
                 parameters: .init(
                     id: id,
                     createdAt: createdAt,
@@ -35,7 +35,6 @@ public extension Domain.Usecase.User {
                     photoURL: photoURL
                 )
             )
-            return ()
         }
     }
 }

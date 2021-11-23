@@ -19,10 +19,9 @@ public extension Domain.Usecase.ClimbRecord {
         }
 
         public func delete(parentPath: String, id: String) async throws {
-            _ = try await self.repository.request(
+            try await self.repository.request(
                 parameters: .init(parentPath: parentPath, id: id)
             )
-            return ()
         }
     }
 }

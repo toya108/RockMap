@@ -19,7 +19,7 @@ public extension Domain.Usecase.User {
         }
 
         public func delete(id: String) async throws {
-            _ = try await self.repository.request(
+            try await self.repository.request(
                 parameters: .init(id: id)
             )
         }

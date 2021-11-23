@@ -19,10 +19,9 @@ public extension Domain.Usecase.Course {
 
         public func set(course: Domain.Entity.Course) async throws {
             let document = self.mapper.reverse(to: course)
-            _ = try await self.repository.request(
+            try await self.repository.request(
                 parameters: .init(course: document)
             )
-            return ()
         }
     }
 }

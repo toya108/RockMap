@@ -18,7 +18,7 @@ public extension Domain.Usecase.ClimbRecord {
         }
 
         public func set(climbRecord: Domain.Entity.ClimbRecord) async throws {
-            _ = try await self.repository.request(
+            try await self.repository.request(
                 parameters: .init(
                     id: climbRecord.id,
                     registeredUserId: climbRecord.registeredUserId,
@@ -31,7 +31,6 @@ public extension Domain.Usecase.ClimbRecord {
                     type: climbRecord.type.rawValue
                 )
             )
-            return ()
         }
     }
 }

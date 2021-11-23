@@ -14,10 +14,9 @@ public extension Domain.Usecase.Image {
         public init() {}
 
         public func set(path: String, data: Data) async throws {
-            _ = try await self.repository.request(
+            try await self.repository.request(
                 parameters: .init(path: path, data: data)
             )
-            return ()
         }
     }
 }
