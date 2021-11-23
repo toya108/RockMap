@@ -35,6 +35,15 @@ public extension RepositoryProtocol where R: FirestoreRequestProtocol, R.Paramet
 
 }
 
+public extension RepositoryProtocol where R: FirestoreRequestProtocol, R.Response == EmptyResponse {
+
+    @discardableResult
+    func request(parameters: R.Parameters) async throws -> R.Response {
+        try await R(parameters: parameters).request()
+    }
+
+}
+
 public extension RepositoryProtocol where R: StorageRequestProtocol {
 
     func request(parameters: R.Parameters) async throws -> R.Response {
@@ -46,6 +55,15 @@ public extension RepositoryProtocol where R: StorageRequestProtocol {
 public extension RepositoryProtocol where R: StorageRequestProtocol, R.Parameters == EmptyParameters {
 
     func request(parameters: R.Parameters = .init()) async throws -> R.Response {
+        try await R(parameters: parameters).request()
+    }
+
+}
+
+public extension RepositoryProtocol where R: StorageRequestProtocol, R.Response == EmptyResponse {
+
+    @discardableResult
+    func request(parameters: R.Parameters) async throws -> R.Response {
         try await R(parameters: parameters).request()
     }
 
