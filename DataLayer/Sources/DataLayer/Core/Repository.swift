@@ -14,6 +14,7 @@ public struct AnyRepository<Request: RequestProtocol>: RepositoryProtocol {
         self._reguest = { try await base.request(parameters: $0)  }
     }
 
+    @discardableResult
     public func request(parameters: Request.Parameters) async throws -> Request.Response {
         try await _reguest(parameters)
     }
@@ -37,7 +38,6 @@ public extension RepositoryProtocol where R: FirestoreRequestProtocol, R.Paramet
 
 public extension RepositoryProtocol where R: FirestoreRequestProtocol, R.Response == EmptyResponse {
 
-    @discardableResult
     func request(parameters: R.Parameters) async throws -> R.Response {
         try await R(parameters: parameters).request()
     }
@@ -62,7 +62,6 @@ public extension RepositoryProtocol where R: StorageRequestProtocol, R.Parameter
 
 public extension RepositoryProtocol where R: StorageRequestProtocol, R.Response == EmptyResponse {
 
-    @discardableResult
     func request(parameters: R.Parameters) async throws -> R.Response {
         try await R(parameters: parameters).request()
     }
