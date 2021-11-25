@@ -34,7 +34,11 @@ public extension FireStorage.Request.Fetch {
         }
 
         public func request() async throws -> Response {
-            try await StorageAssets.storage.reference(withPath: self.path).getImage()
+            try await StorageAssets.storage
+                .reference(withPath: self.path)
+                .getReference()
+                .getImage()
+            
         }
     }
 }
