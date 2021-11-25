@@ -108,32 +108,24 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             .map(\.location)
             .flatMap {
                 LocationManager.shared.reverseGeocoding(location: $0)
-            }
-            .sink(
-                receiveCompletion: { [weak self] result in
+                    .catch { [weak self] error -> Empty in
 
-                    guard let self = self else { return }
+                        guard let self = self else { return Empty()}
 
-                    switch result {
-                    case .finished:
-                        break
-
-                    case let .failure(error):
                         print(error.localizedDescription)
                         self.output
                             .rockAddressValidationResult =
                             .invalid(.cannotConvertLocationToAddrress)
+                        return Empty()
                     }
+            }
+            .sink { [weak self] placemark in
 
-                },
-                receiveValue: { [weak self] placemark in
+                guard let self = self else { return }
 
-                    guard let self = self else { return }
-
-                    self.output.rockLocation.address = placemark.address
-                    self.output.rockLocation.prefecture = placemark.prefecture
-                }
-            )
+                self.output.rockLocation.address = placemark.address
+                self.output.rockLocation.prefecture = placemark.prefecture
+            }
             .store(in: &self.bindings)
 
         self.output.$rockLocation
@@ -154,23 +146,16 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
     }
 
     private func fetchRockStorage(rockId: String) {
-        self.fetchHeaderUsecase.fetch(id: rockId, destination: .rock)
-            .catch { error -> Empty in
+        Task {
+            do {
+                let header = try await self.fetchHeaderUsecase.fetch(id: rockId, destination: .rock)
+                self.output.header = .init(imageType: .header, image: header)
+                let images = try await self.fetchImagesUsecase.fetch(id: rockId, destination: .rock)
+                self.output.images = images.map { CrudableImage(imageType: .normal, image: $0) }
+            } catch {
                 print(error)
-                return Empty()
             }
-            .map { CrudableImage(imageType: .header, image: $0) }
-            .assign(to: &self.output.$header)
-
-        self.fetchImagesUsecase.fetch(id: rockId, destination: .rock)
-            .catch { error -> Empty in
-                print(error)
-                return Empty()
-            }
-            .map {
-                $0.map { .init(imageType: .normal, image: $0) }
-            }
-            .assign(to: &self.output.$images)
+        }
     }
 
     private var setImage: (Entity.Image.ImageType, Data) -> Void {{ [weak self] imageType, data in
@@ -209,13 +194,17 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             }
 
         case .normal:
-            if let index = self.output.images.firstIndex(of: crudableImage) {
-                if self.output.images[index].image.url != nil {
-                    self.output.images[index].updateData = nil
-                    self.output.images[index].shouldDelete = true
-                } else {
-                    self.output.images.remove(at: index)
-                }
+            guard
+                let index = self.output.images.firstIndex(of: crudableImage)
+            else {
+                return
+            }
+
+            if self.output.images[index].image.url != nil {
+                self.output.images[index].updateData = nil
+                self.output.images[index].shouldDelete = true
+            } else {
+                self.output.images.remove(at: index)
             }
 
         case .icon, .unhandle:
