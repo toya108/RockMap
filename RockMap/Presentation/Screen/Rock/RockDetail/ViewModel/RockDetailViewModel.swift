@@ -26,13 +26,14 @@ final class RockDetailViewModel: ViewModelProtocol {
         self.rockId = rock.id
         self.rockDesc = rock.desc
 
-        self.fetchUserUsecase.fetchUser(by: rock.registeredUserId)
-            .catch { error -> Empty in
+        Task {
+            do {
+                let user = try await self.fetchUserUsecase.fetchUser(by: rock.registeredUserId)
+                self.registeredUser = user
+            } catch {
                 print(error)
-                return Empty()
             }
-            .map { Optional($0) }
-            .assign(to: &$registeredUser)
+        }
 
         self.rockLocation = .init(
             location: .init(
@@ -50,13 +51,14 @@ final class RockDetailViewModel: ViewModelProtocol {
     }
 
     func fetchCourses() {
-        self.fetchCoursesUsecase.fetch(by: self.rockDocument.id)
-            .catch { error -> Just<[Entity.Course]> in
+        Task {
+            do {
+                let courses = try await self.fetchCoursesUsecase.fetch(by: self.rockDocument.id)
+                self.courses = courses.sorted { $0.createdAt > $1.createdAt }
+            } catch {
                 print(error)
-                return .init([])
             }
-            .map { $0.sorted { $0.createdAt > $1.createdAt } }
-            .assign(to: &$courses)
+        }
     }
 
     func makeGradeNumberStrings(dic: [Entity.Course.Grade: Int]) -> String {
