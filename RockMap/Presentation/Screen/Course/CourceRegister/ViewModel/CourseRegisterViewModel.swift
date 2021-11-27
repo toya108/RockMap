@@ -96,23 +96,16 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
     }
 
     private func fetchCourseStorage(courseId: String) {
-        self.fetchHeaderUsecase.fetch(id: courseId, destination: .course)
-            .catch { error -> Empty in
+        Task {
+            do {
+                let header = try await self.fetchHeaderUsecase.fetch(id: courseId, destination: .course)
+                self.output.header = .init(imageType: .header, image: header)
+                let images = try await self.fetchImagesUsecase.fetch(id: courseId, destination: .course)
+                self.output.images = images.map { CrudableImage(imageType: .normal, image: $0) }
+            } catch {
                 print(error)
-                return Empty()
             }
-            .map { CrudableImage(imageType: .header, image: $0) }
-            .assign(to: &self.output.$header)
-
-        self.fetchImagesUsecase.fetch(id: courseId, destination: .course)
-            .catch { error -> Empty in
-                print(error)
-                return Empty()
-            }
-            .map {
-                $0.map { .init(imageType: .normal, image: $0) }
-            }
-            .assign(to: &self.output.$images)
+        }
     }
 
     private var setImage: (Data, Entity.Image.ImageType) -> Void {{ [weak self] data, imageType in
@@ -143,25 +136,30 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         guard let self = self else { return }
 
         switch crudableImage.imageType {
-        case .header:
-            self.output.header.updateData = nil
+            case .header:
+                self.output.header.updateData = nil
 
-            if self.output.header.image.url != nil {
-                self.output.header.shouldDelete = true
-            }
+                if self.output.header.image.url != nil {
+                    self.output.header.shouldDelete = true
+                }
 
-        case .normal:
-            if let index = self.output.images.firstIndex(of: crudableImage) {
+            case .normal:
+
+                guard
+                    let index = self.output.images.firstIndex(of: crudableImage)
+                else {
+                    return
+                }
+                
                 if self.output.images[index].image.url != nil {
                     self.output.images[index].updateData = nil
                     self.output.images[index].shouldDelete = true
                 } else {
                     self.output.images.remove(at: index)
                 }
-            }
 
-        case .icon, .unhandle:
-            break
+            case .icon, .unhandle:
+                break
         }
     }}
 
