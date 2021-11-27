@@ -37,110 +37,99 @@ final class RockConfirmViewModel: RockConfirmViewModelModelProtocol {
 
     private func bindInput() {
         self.input.uploadImageSubject
-            .sink(receiveValue: self.uploadImages)
+            .asyncSink(receiveValue: uploadImages)
             .store(in: &self.bindings)
 
         self.input.registerRockSubject
-            .sink(receiveValue: self.registerRock)
+            .asyncSink(receiveValue: registerRock)
             .store(in: &self.bindings)
     }
 
-    private var uploadImages: () -> Void {{ [weak self] in
+    private var uploadImages: () async -> Void {{ [weak self] in
 
         guard let self = self else { return }
 
-        let writeHeader = self.writeImageUsecase.write(
-            data: self.header.updateData,
-            shouldDelete: self.header.shouldDelete,
-            image: self.header.image
-        ) {
-            .rock
-            self.rockEntity.id
-            self.header.imageType
-        }
+        do {
+            try await withThrowingTaskGroup(of: Void.self) { group in
 
-        let writeImages = self.images.map {
-            self.writeImageUsecase.write(
-                data: $0.updateData,
-                shouldDelete: $0.shouldDelete,
-                image: $0.image
-            ) {
-                .rock
-                self.rockEntity.id
-                Entity.Image.ImageType.normal
-                AuthManager.shared.uid
-            }
-        }
-
-        let writeImagePublishers = [writeHeader] + writeImages
-
-        Publishers.MergeMany(writeImagePublishers).collect()
-            .catch { [weak self] error -> Empty in
-
-                guard let self = self else { return Empty() }
-
-                print(error)
-                self.output.imageUploadState = .failure(error)
-                return Empty()
-            }
-            .sink { [weak self] _ in
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+                group.addTask { [weak self] in
 
                     guard let self = self else { return }
 
-                    self.output.imageUploadState = .finish(content: ())
+                    try await self.writeImageUsecase.write(
+                        data: self.header.updateData,
+                        shouldDelete: self.header.shouldDelete,
+                        image: self.header.image
+                    ) {
+                        .rock
+                        self.rockEntity.id
+                        self.header.imageType
+                    }
                 }
+
+                for image in self.images {
+                    group.addTask { [weak self] in
+
+                        guard let self = self else { return }
+
+                        try await self.writeImageUsecase.write(
+                            data: image.updateData,
+                            shouldDelete: image.shouldDelete,
+                            image: image.image
+                        ) {
+                            .rock
+                            self.rockEntity.id
+                            Entity.Image.ImageType.normal
+                            AuthManager.shared.uid
+                        }
+                    }
+                }
+
+                while let _ = try await group.next() {}
             }
-            .store(in: &self.bindings)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+
+                guard let self = self else { return }
+
+                self.output.imageUploadState = .finish(content: ())
+            }
+        } catch {
+            self.output.imageUploadState = .failure(error)
+        }
     }}
 
-    private func registerRock() {
+    private var registerRock: () async -> Void {{ [weak self] in
+
+        guard let self = self else { return }
+
         self.output.rockUploadState = .loading
 
         switch self.registerType {
-        case .create:
-            self.createRock()
+            case .create:
+                await self.createRock()
 
-        case .edit:
-            self.editRock()
+            case .edit:
+                await self.editRock()
+        }
+    }}
+
+    private func createRock() async {
+        do {
+            try await self.setRockUsecase.set(rock: self.rockEntity)
+            self.output.rockUploadState = .finish(content: ())
+        } catch {
+            self.output.rockUploadState = .failure(error)
         }
     }
 
-    private func createRock() {
-        self.setRockUsecase.set(rock: self.rockEntity)
-            .catch { [weak self] error -> Empty in
-
-                guard let self = self else { return Empty() }
-
-                self.output.rockUploadState = .failure(error)
-                return Empty()
-            }
-            .sink { [weak self] _ in
-
-                guard let self = self else { return }
-
-                self.output.rockUploadState = .finish(content: ())
-            }
-            .store(in: &self.bindings)
-    }
-
-    private func editRock() {
-        self.updateRockUsecase.update(rock: self.rockEntity)
-            .catch { [weak self] error -> Empty in
-
-                guard let self = self else { return Empty() }
-
-                self.output.rockUploadState = .failure(error)
-                return Empty()
-            }
-            .sink { [weak self] _ in
-
-                guard let self = self else { return }
-
-                self.output.rockUploadState = .finish(content: ())
-            }
-            .store(in: &self.bindings)
+    private func editRock() async {
+        do {
+            try await self.updateRockUsecase.update(rock: self.rockEntity)
+            self.output.rockUploadState = .finish(content: ())
+        } catch {
+            self.output.rockUploadState = .failure(error)
+        }
     }
 }
 
