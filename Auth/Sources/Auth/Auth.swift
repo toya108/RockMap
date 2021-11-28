@@ -107,7 +107,7 @@ extension AuthManager: FUIAuthDelegate {
             guard let self = self else { return }
 
             do {
-                let _ = try await self.setUserUsecase.set(
+                try await self.setUserUsecase.set(
                     id: user.uid,
                     createdAt: user.metadata.creationDate ?? Date(),
                     displayName: user.displayName,
@@ -124,22 +124,4 @@ extension AuthManager: FUIAuthDelegate {
 
 public enum AuthError: LocalizedError {
     case noUser
-}
-
-private extension Publisher where Output == Void, Failure == Error {
-    func handleLoginResult(
-        _ loginFinishedSubject: PassthroughSubject<Result<Void, Error>, Never>
-    ) -> AnyCancellable {
-        self.catch { error -> Empty in
-            if AuthManager.shared.isLoggedIn {
-                AuthManager.shared.logout(completion: nil)
-            }
-
-            loginFinishedSubject.send(.failure(error))
-            return Empty()
-        }
-        .sink { _ in
-            loginFinishedSubject.send(.success(()))
-        }
-    }
 }
