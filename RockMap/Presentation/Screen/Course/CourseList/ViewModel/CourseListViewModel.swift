@@ -38,26 +38,28 @@ class CourseListViewModel: CourseListViewModelProtocol {
                 self.output.deleteState = .loading
                 self.deleteCourse = course
             })
-            .flatMap {
-                self.deleteCourseUsecase.delete(id: $0.id, parentPath: $0.parentPath)
-                    .catch { [weak self] error -> Empty in
+            .asyncSink { [weak self] course in
 
-                        guard let self = self else { return Empty() }
+                guard let self = self else { return }
 
-                        self.output.deleteState = .failure(error)
-                        return Empty()
+                do {
+                    try await self.deleteCourseUsecase.delete(
+                        id: course.id,
+                        parentPath: course.parentPath
+                    )
+
+                    guard
+                        let deleteCourse = self.deleteCourse,
+                        let index = self.output.courses.firstIndex(of: deleteCourse)
+                    else {
+                        return
                     }
-            }
-            .sink { [weak self] _ in
-                guard
-                    let self = self,
-                    let deleteCourse = self.deleteCourse,
-                    let index = self.output.courses.firstIndex(of: deleteCourse)
-                else {
-                    return
+                    self.output.courses.remove(at: index)
+                    self.output.deleteState = .finish(content: ())
+
+                } catch {
+                    self.output.deleteState = .failure(error)
                 }
-                self.output.courses.remove(at: index)
-                self.output.deleteState = .finish(content: ())
             }
             .store(in: &self.bindings)
     }
@@ -69,13 +71,14 @@ class CourseListViewModel: CourseListViewModelProtocol {
     }
 
     func fetchCourseList() {
-        self.fetchCoursesUsecase.fetch(by: self.userId)
-            .catch { error -> Just<[Entity.Course]> in
+        Task {
+            do {
+                let courses = try await self.fetchCoursesUsecase.fetch(by: self.userId)
+                self.output.courses = courses.sorted { $0.createdAt > $1.createdAt }
+            } catch {
                 print(error)
-                return .init([])
             }
-            .map { $0.sorted { $0.createdAt > $1.createdAt } }
-            .assign(to: &self.output.$courses)
+        }
     }
 }
 

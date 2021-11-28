@@ -14,7 +14,6 @@ class RockListViewModel: RockListViewModelProtocol {
 
     let isMine: Bool
     private let userId: String
-    private var deleteRock: Entity.Rock?
     private let fetchRocksUsecase = Usecase.Rock.FetchByUserId()
     private let delteRockUsecase = Usecase.Rock.Delete()
 
@@ -31,33 +30,32 @@ class RockListViewModel: RockListViewModelProtocol {
 
     private func bindInput() {
         self.input.deleteRockSubject
-            .handleEvents(receiveOutput: { [weak self] rock in
+            .handleEvents(receiveOutput: { [weak self] _ in
 
                 guard let self = self else { return }
 
                 self.output.deleteState = .loading
-                self.deleteRock = rock
             })
-            .flatMap {
-                self.delteRockUsecase.delete(id: $0.id, parentPath: $0.parentPath)
-                    .catch { [weak self] error -> Empty in
+            .asyncSink { [weak self] rock in
 
-                        guard let self = self else { return Empty() }
+                guard let self = self else { return }
 
-                        self.output.deleteState = .failure(error)
-                        return Empty()
+                do {
+                    try await self.delteRockUsecase.delete(
+                        id: rock.id,
+                        parentPath: rock.parentPath
+                    )
+
+                    guard
+                        let index = self.output.rocks.firstIndex(of: rock)
+                    else {
+                        return
                     }
-            }
-            .sink { [weak self] _ in
-                guard
-                    let self = self,
-                    let deleteRock = self.deleteRock,
-                    let index = self.output.rocks.firstIndex(of: deleteRock)
-                else {
-                    return
+                    self.output.rocks.remove(at: index)
+                    self.output.deleteState = .finish(content: ())
+                } catch {
+                    self.output.deleteState = .failure(error)
                 }
-                self.output.rocks.remove(at: index)
-                self.output.deleteState = .finish(content: ())
             }
             .store(in: &self.bindings)
     }
@@ -69,13 +67,10 @@ class RockListViewModel: RockListViewModelProtocol {
     }
 
     func fetchRockList() {
-        self.fetchRocksUsecase.fetch(by: self.userId)
-            .catch { error -> Just<[Entity.Rock]> in
-                print(error)
-                return .init([])
-            }
-            .map { $0.sorted { $0.createdAt > $1.createdAt } }
-            .assign(to: &self.output.$rocks)
+        Task {
+            let rocks = try await self.fetchRocksUsecase.fetch(by: self.userId)
+            self.output.rocks = rocks.sorted { $0.createdAt > $1.createdAt }
+        }
     }
 }
 
