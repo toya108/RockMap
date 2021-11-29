@@ -79,30 +79,22 @@ extension AccountViewController {
 
                 self.showIndicatorView()
 
-                self.deleteUserUsecase.delete(id: AuthManager.shared.uid)
-                    .catch { [weak self] error -> Empty in
+                Task {
+                    do {
+                        try await self.deleteUserUsecase.delete(id: AuthManager.shared.uid)
+                        try AuthManager.shared.logout()
 
-                        guard let self = self else { return Empty() }
-
+                        self.hideIndicatorView()
+                        AppStore.shared.rootViewType = .login
+                        self.dismiss(animated: true)
+                    } catch {
                         self.hideIndicatorView()
                         self.showOKAlert(
                             title: "アカウントの削除に失敗しました。",
                             message: error.localizedDescription
                         )
-                        return Empty()
                     }
-                    .sink { [weak self] _ in
-
-                        guard let self = self else { return }
-
-                        AuthManager.shared.logout { _ in }
-
-                        self.hideIndicatorView()
-
-                        AppStore.shared.rootViewType = .login
-                        self.dismiss(animated: true)
-                    }
-                    .store(in: &self.bindings)
+                }
             }
 
             showAlert(
