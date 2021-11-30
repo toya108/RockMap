@@ -1,6 +1,7 @@
 import Auth
 import Combine
 import Foundation
+import Utilities
 
 protocol MyClimbedListViewModelProtocol: ViewModelProtocol {
     var input: MyClimbedListViewModel.Input { get }
@@ -24,45 +25,59 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
     private func bindOutput() {
         let share = $climbRecordList.share()
 
-        share
-            .map(\.isEmpty)
-            .assign(to: &self.output.$isEmpty)
+        share.map(\.isEmpty).assign(to: &self.output.$isEmpty)
 
         share
             .filter { !$0.isEmpty }
-            .sink { [weak self] climbRecordList in
+            .asyncMap(
+                transform: { [weak self] climbRecordList in
 
-                guard let self = self else { return }
+                    guard let self = self else { throw MemoryError.noneSelf }
 
-                climbRecordList.forEach { climbRecord in
-                    self.fetchCourseUsecase.fetch(by: climbRecord.parentCourseReference)
-                        .catch { error -> Empty in
-                            print(error)
-                            return Empty()
-                        }
-                        .sink { [weak self] course in
+                    return try await self.fetchClimbedCourses(climbRecordList: climbRecordList)
+                },
+                errorCompletion: {
+                    print($0)
+                }
+            )
+            .assign(to: &self.output.$climbedCourses)
+    }
 
-                            let climbedCourse = ClimbedCourse(
-                                course: course,
-                                climbed: climbRecord
-                            )
+    private func fetchClimbedCourses(
+        climbRecordList: [Entity.ClimbRecord]
+    ) async throws -> [ClimbedCourse] {
+        var courses: [ClimbedCourse] = []
 
-                            self?.output.climbedCourses.append(climbedCourse)
-                        }
-                        .store(in: &self.bindings)
+        try await withThrowingTaskGroup(of: ClimbedCourse.self) { group in
+
+            for climbRecord in climbRecordList {
+                group.addTask {
+                    .init(
+                        course: try await self.fetchCourseUsecase.fetch(
+                            by: climbRecord.parentCourseReference
+                        ),
+                        climbed: climbRecord
+                    )
                 }
             }
-            .store(in: &self.bindings)
+
+            for try await course in group {
+                courses.append(course)
+            }
+        }
+
+        return courses
     }
 
     func fetchClimbedList() {
-        self.fetchClimbRecordUsecase.fetch(by: AuthManager.shared.uid)
-            .catch { error -> Empty in
+        Task {
+            do {
+                let records = try await self.fetchClimbRecordUsecase.fetch(by: AuthManager.shared.uid)
+                self.climbRecordList = records.sorted { $0.createdAt > $1.createdAt }
+            } catch {
                 print(error)
-                return Empty()
             }
-            .map { $0.sorted { $0.createdAt > $1.createdAt } }
-            .assign(to: &$climbRecordList)
+        }
     }
 }
 
