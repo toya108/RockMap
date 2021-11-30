@@ -155,20 +155,16 @@ class ClimbedUserListViewController: UIViewController {
 
                 self.showIndicatorView()
 
-                self.viewModel.deleteClimbRecord(
-                    climbRecord: cellData.climbed
-                ) { [weak self] result in
-
-                    guard let self = self else { return }
-
-                    self.hideIndicatorView()
-
-                    switch result {
-                    case .success:
+                Task {
+                    do {
+                        try await self.viewModel.deleteClimbRecord(
+                            climbRecord: cellData.climbed
+                        )
+                        self.hideIndicatorView()
                         self.snapShot.deleteItems([cellData])
-                        self.datasource.apply(self.snapShot)
-
-                    case let .failure(error):
+                        await self.datasource.apply(self.snapShot)
+                    } catch {
+                        self.hideIndicatorView()
                         self.showOKAlert(
                             title: "削除に失敗しました。",
                             message: error.localizedDescription

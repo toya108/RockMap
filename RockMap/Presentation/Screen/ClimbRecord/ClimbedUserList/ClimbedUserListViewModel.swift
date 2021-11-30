@@ -15,6 +15,7 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
     private var bindings = Set<AnyCancellable>()
     private let fetchClimbedSubject = PassthroughSubject<String, Error>()
     private let fetchClimbRecordUsecase = Usecase.ClimbRecord.FetchByCourseId()
+    private let fetchUserUsecase = Usecase.User.FetchById()
 
     private let deleteClimbRecordUsecase = Usecase.ClimbRecord.Delete()
 
@@ -25,9 +26,14 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
     }
 
     private func fetchClimbed() {
-        self.fetchClimbRecordUsecase.fetch(by: self.course.id)
-            .catch { _ in Empty() }
-            .assign(to: &self.output.$climbRecordList)
+        Task {
+            do {
+                let records = try await self.fetchClimbRecordUsecase.fetch(by: self.course.id)
+                self.output.climbRecordList = records
+            } catch {
+                print(error)
+            }
+        }
     }
 
     private func setupOutput() {
@@ -36,78 +42,88 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
             .share()
 
         share
-            .flatMap { _ in
-                Usecase.User.FetchById().fetchUser(by: AuthManager.shared.uid)
-            }
-            .catch { _ in Empty() }
-            .compactMap { $0 }
-            .sink { [weak self] user in
-
-                guard let self = self else { return }
-
-                self.output.myClimbedCellData = self.output.climbRecordList
-                    .filter { $0.registeredUserId == AuthManager.shared.uid }
-                    .map {
-                        ClimbedCellData(
-                            climbed: $0,
-                            user: user,
-                            isOwned: true
-                        )
-                    }
-            }
+            .asyncSink(receiveValue: updateMyClimbRecordCellData)
             .store(in: &self.bindings)
 
         share
             .map { $0.filter { $0.registeredUserId != AuthManager.shared.uid } }
             .map { Set($0) }
             .map { $0.map(\.registeredUserId) }
-            .flatMap {
-                $0.publisher.flatMap { id in
-                    Usecase.User.FetchById().fetchUser(by: id)
-                }
-                .collect()
-            }
-            .catch { _ in Empty() }
-            .sink { [weak self] climbedUserList in
-
-                guard let self = self else { return }
-
-                let cellData = self.output.climbRecordList
-                    .compactMap { climbed -> ClimbedCellData? in
-
-                        guard
-                            let user = climbedUserList
-                                .first(where: { climbed.registeredUserId == $0.id })
-                        else {
-                            return nil
-                        }
-
-                        return .init(
-                            climbed: climbed,
-                            user: user,
-                            isOwned: false
-                        )
-                    }
-
-                self.output.climbedCellData = cellData
-            }
+            .asyncSink(receiveValue: updateClimbRecordCellData)
             .store(in: &self.bindings)
     }
 
-    func deleteClimbRecord(
-        climbRecord: Entity.ClimbRecord,
-        completion: @escaping (Result<Void, Error>) -> Void
-    ) {
-        self.deleteClimbRecordUsecase
-            .delete(parentPath: climbRecord.parentPath, id: climbRecord.id)
-            .catch { error -> Empty in
-                completion(.failure(error))
-                return Empty()
+    private var updateMyClimbRecordCellData: ([Entity.ClimbRecord]) async -> Void {{ [weak self] _ in
+
+        guard let self = self else { return }
+
+        do {
+            let user = try await self.fetchUserUsecase.fetchUser(
+                by: AuthManager.shared.uid
+            )
+            self.output.myClimbedCellData = self.output.climbRecordList
+                .filter { $0.registeredUserId == AuthManager.shared.uid }
+                .map {
+                    ClimbedCellData(
+                        climbed: $0,
+                        user: user,
+                        isOwned: true
+                    )
+                }
+        } catch {
+
+        }
+    }}
+
+    private var updateClimbRecordCellData: ([String]) async -> Void {{ [weak self] userIds in
+
+        guard let self = self else { return }
+
+        do {
+
+            var users: [Entity.User] = []
+
+            try await withThrowingTaskGroup(of: Entity.User.self) { group in
+
+                for id in userIds {
+                    group.addTask {
+                        return try await self.fetchUserUsecase.fetchUser(by: id)
+                    }
+                }
+
+                for try await user in group {
+                    users.append(user)
+                }
             }
-            .sink {
-                completion(.success(()))
+
+            let cellData = self.output.climbRecordList.compactMap { climbed -> ClimbedCellData? in
+
+                guard
+                    let user = users.first(
+                        where: { climbed.registeredUserId == $0.id }
+                    )
+                else {
+                    return nil
+                }
+
+                return .init(
+                    climbed: climbed,
+                    user: user,
+                    isOwned: false
+                )
             }
-            .store(in: &self.bindings)
+
+            self.output.climbedCellData = cellData
+        } catch {
+
+        }
+    }}
+
+    func deleteClimbRecord(climbRecord: Entity.ClimbRecord) async throws {
+        try await self.deleteClimbRecordUsecase.delete(
+            parentPath: climbRecord.parentPath,
+            id: climbRecord.id
+        )
     }
 
     func updateClimbedData(
