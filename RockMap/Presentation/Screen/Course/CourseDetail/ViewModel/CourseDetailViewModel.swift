@@ -1,5 +1,6 @@
 import Combine
 import Foundation
+import Utilities
 
 protocol CourseDetailViewModelProtocol: ViewModelProtocol {
     var input: CourseDetailViewModel.Input { get }
@@ -12,8 +13,6 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
 
     let course: Entity.Course
     private let listenTotalClimbedNumberUsecase = Usecase.TotalClimbedNumber.ListenByCourseId()
-    private let fetchRegisteredUserSubject = PassthroughSubject<String, Error>()
-    private let fetchParentRockSubject = PassthroughSubject<String, Error>()
     private let fetchUserUsecase = Usecase.User.FetchById()
     private let fetchRockUsecase = Usecase.Rock.FetchById()
 
@@ -28,41 +27,42 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
 
     private func setupInput() {
         self.input.finishedCollectionViewSetup
-            .sink { [weak self] in
+            .asyncSink { [weak self] in
 
                 guard let self = self else { return }
 
-                self.fetchRegisteredUserSubject.send(self.course.registeredUserId)
-                self.fetchParentRockSubject.send(self.course.parentRockId)
+                await self.fetchRegisteredUser()
+                await self.fetchParentRock()
             }
             .store(in: &self.bindings)
     }
 
+    private func fetchRegisteredUser() async {
+        self.output.fetchRegisteredUserState = .loading
+        do {
+            self.output.fetchRegisteredUserState = .loading
+            let user = try await self.fetchUserUsecase.fetchUser(
+                by: self.course.registeredUserId
+            )
+            self.output.fetchRegisteredUserState = .finish(content: user)
+        } catch {
+            self.output.fetchRegisteredUserState = .failure(error)
+        }
+    }
+
+    private func fetchParentRock() async {
+        self.output.fetchParentRockState = .loading
+        do {
+            let rock = try await self.fetchRockUsecase.fetch(
+                by: self.course.parentRockId
+            )
+            self.output.fetchParentRockState = .finish(content: rock)
+        } catch {
+            self.output.fetchParentRockState = .failure(error)
+        }
+    }
+
     private func setupOutput() {
-        self.fetchRegisteredUserSubject
-            .handleEvents(receiveOutput: { [weak self] _ in
-                self?.output.fetchRegisteredUserState = .loading
-            })
-            .flatMap { userId -> AnyPublisher<Entity.User, Error> in
-                Usecase.User.FetchById().fetchUser(by: userId)
-            }
-            .sinkState { [weak self] state in
-                self?.output.fetchRegisteredUserState = state
-            }
-            .store(in: &self.bindings)
-
-        self.fetchParentRockSubject
-            .handleEvents(receiveOutput: { [weak self] _ in
-                self?.output.fetchParentRockState = .loading
-            })
-            .flatMap {
-                self.fetchRockUsecase.fetch(by: $0)
-            }
-            .sinkState { [weak self] state in
-                self?.output.fetchParentRockState = state
-            }
-            .store(in: &self.bindings)
-
         self.listenTotalClimbedNumberUsecase
             .listen(
                 useTestData: false,
