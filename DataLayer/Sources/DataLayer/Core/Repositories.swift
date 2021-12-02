@@ -96,7 +96,7 @@ public struct Repositories {
     }
 
     public struct TotalClimbedNumber {
-        public struct ListenByCourseId: RepositoryProtocol, Initializable {
+        public struct ListenByCourseId: ListenableRepositoryProtocol, Initializable {
             public typealias R = FS.Request.TotalClimbedNumber.ListenByCourseId
             public init() {}
         }

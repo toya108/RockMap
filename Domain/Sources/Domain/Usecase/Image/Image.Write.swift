@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-public protocol WriteImageUsecaseProtocol: UsecaseProtocol {
+public protocol WriteImageUsecaseProtocol {
     associatedtype Set: SetImageUsecaseProtocol
     associatedtype Delete: DeleteImageUsecaseProtocol
 

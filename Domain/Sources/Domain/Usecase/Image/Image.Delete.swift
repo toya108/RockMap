@@ -2,7 +2,7 @@ import Combine
 import DataLayer
 import Foundation
 
-public protocol DeleteImageUsecaseProtocol: UsecaseProtocol {
+public protocol DeleteImageUsecaseProtocol {
     func delete(path: String) async throws
     init()
 }

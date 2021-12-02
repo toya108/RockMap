@@ -2,7 +2,7 @@ import Combine
 import Foundation
 
 public extension FS.Request.TotalClimbedNumber {
-    struct ListenByCourseId: FSListenable {
+    struct ListenByCourseId: FirestoreListenableProtocol {
         public typealias Entry = FSQuery
 
         public typealias Collection = FS.Collection.TotalClimbedNumber
@@ -33,15 +33,10 @@ public extension FS.Request.TotalClimbedNumber {
             self.parameters = parameters
         }
 
-        public func request() async throws -> Response {
-
-            guard
-                let total = try await self.entry.listen(to: Response.self).first
-            else {
-                throw FirestoreError.nilResultError
-            }
-
-            return total
+        public func request() -> AnyPublisher<Response, Error> {
+            return self.entry.listen(to: Response.self)
+                .compactMap { $0.first }
+                .eraseToAnyPublisher()
         }
     }
 }

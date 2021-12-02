@@ -1,8 +1,22 @@
+import Combine
 import Foundation
 
 public protocol RepositoryProtocol {
     associatedtype R: RequestProtocol
     func request(parameters: R.Parameters) async throws -> R.Response
+}
+
+public protocol ListenableRepositoryProtocol {
+    associatedtype R: FirestoreListenableProtocol
+    func request(parameters: R.Parameters) -> AnyPublisher<R.Response, Error>
+}
+
+public extension ListenableRepositoryProtocol {
+
+    func request(parameters: R.Parameters) -> AnyPublisher<R.Response, Error> {
+        R(parameters: parameters).request()
+    }
+
 }
 
 public struct AnyRepository<Request: RequestProtocol>: RepositoryProtocol {

@@ -2,7 +2,7 @@ import Combine
 import DataLayer
 import Foundation
 
-public protocol SetImageUsecaseProtocol: UsecaseProtocol {
+public protocol SetImageUsecaseProtocol {
     func set(path: String, data: Data) async throws
     init()
 }

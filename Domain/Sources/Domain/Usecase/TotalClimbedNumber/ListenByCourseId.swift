@@ -2,15 +2,15 @@ import Combine
 import DataLayer
 
 public extension Domain.Usecase.TotalClimbedNumber {
-    struct ListenByCourseId: PassthroughUsecaseProtocol {
-        public typealias Repository = AnyRepository<Repositories.TotalClimbedNumber.ListenByCourseId.R>
+    struct ListenByCourseId: ListenableUsecaseProtocol {
+        public typealias Repository = Repositories.TotalClimbedNumber.ListenByCourseId
         public typealias Mapper = Domain.Mapper.TotalClimbedNumber
 
         var repository: Repository
         var mapper: Mapper
 
         public init(
-            repository: Repository = AnyRepository(Repositories.TotalClimbedNumber.ListenByCourseId()),
+            repository: Repository = Repositories.TotalClimbedNumber.ListenByCourseId(),
             mapper: Mapper = .init()
         ) {
             self.repository = repository
@@ -21,14 +21,13 @@ public extension Domain.Usecase.TotalClimbedNumber {
             useTestData: Bool,
             courseId: String,
             parantPath: String
-        ) async throws -> Domain.Entity.TotalClimbedNumber {
-            let document = try await self.repository.request(
+        ) -> AnyPublisher<Domain.Entity.TotalClimbedNumber, Error> {
+            self.repository.request(
                 parameters: .init(
                     parentPath: parantPath,
                     courseId: courseId
                 )
-            )
-            return mapper.map(from: document)
+            ).map { mapper.map(from: $0) }.eraseToAnyPublisher()
         }
     }
 }
