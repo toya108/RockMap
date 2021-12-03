@@ -1,5 +1,6 @@
 import Auth
 import Combine
+import Utilities
 
 protocol MyPageViewModelProtocol: ViewModelProtocol {
     var input: MyPageViewModel.Input { get }
@@ -38,24 +39,33 @@ class MyPageViewModel: MyPageViewModelProtocol {
         self.output.$fetchUserState
             .filter(\.isFinished)
             .compactMap { $0.content?.id }
-            .flatMap {
-                self.fetchClimbRecordsUsecase.fetch(by: $0).catch { error -> Empty in
-                    print(error)
-                    return Empty()
+            .asyncMap(
+                transform: { [weak self] id in
+
+                    guard let self = self else { throw MemoryError.noneSelf }
+
+                    return try await self.fetchClimbRecordsUsecase.fetch(by: id)
+                },
+                errorCompletion: {
+                    print($0)
                 }
-            }
+            )
             .assign(to: &self.output.$climbedList)
 
         self.output.$climbedList
             .map { $0.map(\.parentCourseReference).unique.prefix(5) }
-            .flatMap {
-                $0.publisher.flatMap { id in
-                    self.fetchCourseUsecase.fetch(by: id).catch { error -> Empty in
-                        print(error)
-                        return Empty()
+            .flatMap { references in
+                references.publisher.asyncMap(
+                    transform: { [weak self] ref in
+
+                        guard let self = self else { throw MemoryError.noneSelf }
+
+                        return try await self.fetchCourseUsecase.fetch(by: ref)
+                    },
+                    errorCompletion: {
+                        print($0)
                     }
-                }
-                .collect()
+                ).collect()
             }
             .assign(to: &self.output.$recentClimbedCourses)
     }
@@ -76,11 +86,14 @@ class MyPageViewModel: MyPageViewModelProtocol {
     private func fetchUser(from id: String) {
         self.output.fetchUserState = .loading
 
-        self.fetchUserUsecase.fetchUser(by: id)
-            .sinkState { [weak self] state in
-                self?.output.fetchUserState = state
+        Task {
+            do {
+                let user = try await self.fetchUserUsecase.fetchUser(by: id)
+                self.output.fetchUserState = .finish(content: user)
+            } catch {
+                self.output.fetchUserState = .failure(error)
             }
-            .store(in: &self.bindings)
+        }
     }
 }
 
