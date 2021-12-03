@@ -75,21 +75,20 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
     }
 
     private func fetchImageStorage() {
-        self.fetchHeaderUsecase.fetch(id: self.user.id, destination: .user)
-            .catch { error -> Empty in
+        Task {
+            do {
+                let header = try await self.fetchHeaderUsecase.fetch(id: self.user.id, destination: .user)
+                self.output.header = .init(imageType: .header, image: header)
+            } catch {
                 print(error)
-                return Empty()
             }
-            .map { .init(imageType: .header, image: $0) }
-            .assign(to: &self.output.$header)
-
-        self.fetchIconUsecase.fetch(id: self.user.id, destination: .user)
-            .catch { error -> Empty in
+            do {
+                let icon = try await self.fetchIconUsecase.fetch(id: self.user.id, destination: .user)
+                self.output.icon = .init(imageType: .icon, image: icon)
+            } catch {
                 print(error)
-                return Empty()
             }
-            .map { .init(imageType: .icon, image: $0) }
-            .assign(to: &self.output.$icon)
+        }
     }
 
     private var setImage: (Entity.Image.ImageType, Data) -> Void {{ [weak self] imageType, data in
@@ -143,45 +142,37 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
     func uploadImage() {
         self.output.imageUploadState = .loading
 
-        let writeHeader = self.writeImageUsecase.write(
-            data: self.output.header.updateData,
-            shouldDelete: self.output.header.shouldDelete,
-            image: self.output.header.image
-        ) {
-            .user
-            user.id
-            output.header.imageType
-        }
+        Task {
+            do {
+                try await self.writeImageUsecase.write(
+                    data: self.output.header.updateData,
+                    shouldDelete: self.output.header.shouldDelete,
+                    image: self.output.header.image
+                ) {
+                    .user
+                    user.id
+                    output.header.imageType
+                }
 
-        let writeIcon = self.writeImageUsecase.write(
-            data: self.output.icon.updateData,
-            shouldDelete: self.output.icon.shouldDelete,
-            image: self.output.icon.image
-        ) {
-            .user
-            user.id
-            output.icon.imageType
-        }
-
-        writeHeader.combineLatest(writeIcon)
-            .catch { [weak self] error -> Empty in
-
-                guard let self = self else { return Empty() }
-
-                print(error)
-                self.output.imageUploadState = .failure(error)
-                return Empty()
-            }
-            .sink { [weak self] _ in
-
+                try await self.writeImageUsecase.write(
+                    data: self.output.icon.updateData,
+                    shouldDelete: self.output.icon.shouldDelete,
+                    image: self.output.icon.image
+                ) {
+                    .user
+                    user.id
+                    output.icon.imageType
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
 
                     guard let self = self else { return }
 
                     self.output.imageUploadState = .finish(content: ())
                 }
+            } catch {
+                self.output.imageUploadState = .failure(error)
             }
-            .store(in: &self.bindings)
+        }
     }
 
     func editProfile() {
@@ -195,22 +186,14 @@ class EditProfileViewModel: EditProfileViewModelProtocol {
             return updateUser
         }
 
-        self.updateUserUsecase.update(user: updateUser)
-            .catch { [weak self] error -> Empty in
-
-                guard let self = self else { return Empty() }
-
-                print(error)
-                self.output.userUploadState = .failure(error)
-                return Empty()
-            }
-            .sink { [weak self] _ in
-
-                guard let self = self else { return }
-
+        Task {
+            do {
+                try await self.updateUserUsecase.update(user: updateUser)
                 self.output.userUploadState = .finish(content: ())
+            } catch {
+                self.output.userUploadState = .failure(error)
             }
-            .store(in: &self.bindings)
+        }
     }
 }
 
