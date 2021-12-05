@@ -29,11 +29,8 @@ public extension FS.Request.User {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<EmptyResponse, Error> {
-            self.entry.updateData(["deleted": true])
+        public func request() async throws -> Response {
+            try await self.entry.updateData(["deleted": true])
         }
     }
 }

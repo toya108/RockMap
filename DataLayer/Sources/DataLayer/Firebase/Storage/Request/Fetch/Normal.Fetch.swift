@@ -33,19 +33,9 @@ public extension FireStorage.Request.Fetch {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<[FireStorage.Image], Error> {
-            StorageAssets.storage.reference(withPath: self.path)
-                .getPrefixes()
-                .flatMap {
-                    $0.getReferences()
-                }
-                .flatMap {
-                    $0.publisher.flatMap { $0.getImage() }.collect()
-                }
-                .eraseToAnyPublisher()
+        public func request() async throws -> Response {
+            let prefixes = try await StorageAssets.storage.reference(withPath: self.path).getPrefixes()
+            return try await prefixes.getReferences().getImages()
         }
     }
 }

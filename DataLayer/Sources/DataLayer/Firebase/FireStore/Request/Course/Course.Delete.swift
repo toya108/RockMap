@@ -3,6 +3,7 @@ import Foundation
 
 public extension FS.Request.Course {
     struct Delete: FirestoreRequestProtocol {
+
         public typealias Entry = FSDocument
 
         public typealias Collection = FS.Collection.Courses
@@ -31,11 +32,8 @@ public extension FS.Request.Course {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<EmptyResponse, Error> {
-            self.entry.delete()
+        public func request() async throws -> Response {
+            try await self.entry.delete()
         }
     }
 }

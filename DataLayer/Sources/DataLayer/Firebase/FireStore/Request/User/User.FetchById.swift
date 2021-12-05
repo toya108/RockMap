@@ -30,11 +30,8 @@ public extension FS.Request.User {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<FS.Document.User, Error> {
-            self.entry.getDocument(Response.self)
+        public func request() async throws -> Response {
+            try await self.entry.getDocument()
         }
     }
 }

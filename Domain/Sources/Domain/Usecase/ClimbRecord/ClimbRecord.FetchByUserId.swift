@@ -3,23 +3,23 @@ import DataLayer
 
 public extension Domain.Usecase.ClimbRecord {
     struct FetchByUserId: PassthroughUsecaseProtocol {
-        public typealias Repository = Repositories.ClimbRecord.FetchByUserId
+        public typealias Repository = AnyRepository<Repositories.ClimbRecord.FetchByUserId.R>
         public typealias Mapper = Domain.Mapper.ClimbRecord
 
         var repository: Repository
         var mapper: Mapper
 
-        public init(repository: Repository = .init(), mapper: Mapper = .init()) {
+        public init(
+            repository: Repository = AnyRepository(Repositories.ClimbRecord.FetchByUserId()),
+            mapper: Mapper = .init()
+        ) {
             self.repository = repository
             self.mapper = mapper
         }
 
-        public func fetch(by userId: String) -> AnyPublisher<[Domain.Entity.ClimbRecord], Error> {
-            self.repository.request(parameters: .init(userId: userId))
-                .map { responses -> [Domain.Entity.ClimbRecord] in
-                    responses.map { mapper.map(from: $0) }
-                }
-                .eraseToAnyPublisher()
+        public func fetch(by userId: String) async throws -> [Domain.Entity.ClimbRecord] {
+            let documents = try await self.repository.request(parameters: .init(userId: userId))
+            return documents.map { mapper.map(from: $0) }
         }
     }
 }

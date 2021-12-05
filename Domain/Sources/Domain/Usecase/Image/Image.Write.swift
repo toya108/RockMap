@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-public protocol WriteImageUsecaseProtocol: UsecaseProtocol {
+public protocol WriteImageUsecaseProtocol {
     associatedtype Set: SetImageUsecaseProtocol
     associatedtype Delete: DeleteImageUsecaseProtocol
 
@@ -13,7 +13,7 @@ public protocol WriteImageUsecaseProtocol: UsecaseProtocol {
         shouldDelete: Bool,
         image: Domain.Entity.Image,
         @StoragePathBuilder _ builder: () -> String
-    ) -> AnyPublisher<Void, Error>
+    ) async throws
 
     init(set: Set, delete: Delete)
 }
@@ -36,24 +36,21 @@ public extension Domain.Usecase.Image {
             shouldDelete: Bool,
             image: Domain.Entity.Image,
             @StoragePathBuilder _ builder: () -> String
-        ) -> AnyPublisher<Void, Error> {
+        ) async throws {
             if shouldDelete, let path = image.fullPath {
-                return self.deleteUsecase.delete(path: path)
+                try await self.deleteUsecase.delete(path: path)
+                return
             }
 
             if let path = image.fullPath, let data = data {
-                return self.setUsecase.set(path: path, data: data)
+                try await self.setUsecase.set(path: path, data: data)
+                return
             }
 
             if let data = data {
-                return self.setUsecase.set(path: builder(), data: data)
+                try await self.setUsecase.set(path: builder(), data: data)
+                return
             }
-
-            return Deferred {
-                Future<Void, Error> { promise in
-                    promise(.success(()))
-                }
-            }.eraseToAnyPublisher()
         }
     }
 }

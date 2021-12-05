@@ -3,23 +3,23 @@ import DataLayer
 
 public extension Domain.Usecase.Rock {
     struct FetchById: PassthroughUsecaseProtocol {
-        public typealias Repository = Repositories.Rock.FetchById
+        public typealias Repository = AnyRepository<Repositories.Rock.FetchById.R>
         public typealias Mapper = Domain.Mapper.Rock
 
         var repository: Repository
         var mapper: Mapper
 
-        public init(repository: Repository = .init(), mapper: Mapper = .init()) {
+        public init(
+            repository: Repository = AnyRepository(Repositories.Rock.FetchById()),
+            mapper: Mapper = .init()
+        ) {
             self.repository = repository
             self.mapper = mapper
         }
 
-        public func fetch(by id: String) -> AnyPublisher<Domain.Entity.Rock, Error> {
-            self.repository.request(parameters: .init(id: id))
-                .map {
-                    mapper.map(from: $0)
-                }
-                .eraseToAnyPublisher()
+        public func fetch(by id: String) async throws -> Domain.Entity.Rock {
+            let document = try await self.repository.request(parameters: .init(id: id))
+            return mapper.map(from: document)
         }
     }
 }

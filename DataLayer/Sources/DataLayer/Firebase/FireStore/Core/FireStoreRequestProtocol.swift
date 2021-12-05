@@ -1,19 +1,29 @@
-public protocol FirestoreRequestProtocol: RequestProtocol {
+import Combine
+
+public protocol FirestoreRequestBaseProcotol: RequestProtocol {
     associatedtype Collection: CollectionProtocol
     associatedtype Entry: FireStoreEntryprotocol
 
     @PathBuilder
     var path: String { get }
-
     var entry: Entry { get }
+
+    var parameters: Parameters { get }
+    init(parameters: Parameters)
 }
 
-extension FirestoreRequestProtocol {
+extension FirestoreRequestBaseProcotol {
     static var Document: DocumentProtocol.Type { Collection.Document }
 }
 
-public extension FirestoreRequestProtocol where Entry == FSQuery {
+public extension FirestoreRequestBaseProcotol where Entry == FSQuery {
     var path: String { "" }
 }
 
-public protocol FSListenable: FirestoreRequestProtocol where Entry == FSQuery {}
+public protocol FirestoreRequestProtocol: FirestoreRequestBaseProcotol {
+    func request() async throws -> Response
+}
+
+public protocol FirestoreListenableProtocol: FirestoreRequestBaseProcotol where Entry == FSQuery {
+    func request() -> AnyPublisher<Response, Error>
+}

@@ -4,24 +4,26 @@ import Foundation
 
 public extension Domain.Usecase.Rock {
     struct Update: PassthroughUsecaseProtocol {
-        public typealias Repository = Repositories.Rock.Update
+        public typealias Repository = AnyRepository<Repositories.Rock.Update.R>
         public typealias Mapper = Domain.Mapper.Rock
 
         var repository: Repository
         var mapper: Mapper
 
-        public init(repository: Repository = .init(), mapper: Mapper = .init()) {
+        public init(
+            repository: Repository = AnyRepository(Repositories.Rock.Update()),
+            mapper: Mapper = .init()
+        ) {
             self.repository = repository
             self.mapper = mapper
         }
 
-        public func update(rock: Domain.Entity.Rock) -> AnyPublisher<Void, Error> {
+        public func update(rock: Domain.Entity.Rock) async throws {
             let document = self.mapper.reverse(to: rock)
-            return self.repository.request(
+            _ = try await self.repository.request(
                 parameters: .init(rock: document)
             )
-            .map { _ in () }
-            .eraseToAnyPublisher()
+            return ()
         }
     }
 }

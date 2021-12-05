@@ -36,65 +36,69 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
 
     private func bindInput() {
         self.input.uploadImageSubject
-            .sink(receiveValue: self.uploadImages)
+            .asyncSink(receiveValue: self.uploadImages)
             .store(in: &self.bindings)
 
         self.input.registerCourseSubject
-            .sink(receiveValue: self.registerCourse)
+            .asyncSink(receiveValue: self.registerCourse)
             .store(in: &self.bindings)
     }
 
-    private var uploadImages: () -> Void {{ [weak self] in
+    private var uploadImages: () async -> Void {{ [weak self] in
 
         guard let self = self else { return }
 
-        let writeHeader = self.writeImageUsecase.write(
-            data: self.header.updateData,
-            shouldDelete: self.header.shouldDelete,
-            image: self.header.image
-        ) {
-            .course
-            self.course.id
-            self.header.imageType
-        }
+        do {
 
-        let writeImages = self.images.map {
-            self.writeImageUsecase.write(
-                data: $0.updateData,
-                shouldDelete: $0.shouldDelete,
-                image: $0.image
-            ) {
-                .course
-                self.course.id
-                Entity.Image.ImageType.normal
-                AuthManager.shared.uid
-            }
-        }
+            try await withThrowingTaskGroup(of: Void.self) { group in
 
-        let writeImagePublishers = [writeHeader] + writeImages
-
-        Publishers.MergeMany(writeImagePublishers).collect()
-            .catch { [weak self] error -> Empty in
-
-                guard let self = self else { return Empty() }
-
-                print(error)
-                self.output.imageUploadState = .failure(error)
-                return Empty()
-            }
-            .sink { [weak self] _ in
-
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+                group.addTask { [weak self] in
 
                     guard let self = self else { return }
 
-                    self.output.imageUploadState = .finish(content: ())
+                    try await self.writeImageUsecase.write(
+                        data: self.header.updateData,
+                        shouldDelete: self.header.shouldDelete,
+                        image: self.header.image
+                    ) {
+                        .course
+                        self.course.id
+                        self.header.imageType
+                    }
                 }
+
+                for image in self.images {
+                    group.addTask { [weak self] in
+
+                        guard let self = self else { return }
+
+                        try await self.writeImageUsecase.write(
+                            data: image.updateData,
+                            shouldDelete: image.shouldDelete,
+                            image: image.image
+                        ) {
+                            .course
+                            self.course.id
+                            Entity.Image.ImageType.normal
+                            AuthManager.shared.uid
+                        }
+                    }
+                }
+
+                while let _ = try await group.next() {}
             }
-            .store(in: &self.bindings)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+
+                guard let self = self else { return }
+
+                self.output.imageUploadState = .finish(content: ())
+            }
+        } catch {
+            self.output.imageUploadState = .failure(error)
+        }
     }}
 
-    private var registerCourse: () -> Void {{ [weak self] in
+    private var registerCourse: () async -> Void {{ [weak self] in
 
         guard let self = self else { return }
 
@@ -102,47 +106,29 @@ class CourseConfirmViewModel: CourseConfirmViewModelModelProtocol {
 
         switch self.registerType {
             case .create:
-                self.createCourse()
+                await self.createCourse()
 
             case .edit:
-                self.editCourse()
+                await self.editCourse()
         }
     }}
 
-    private func createCourse() {
-        self.setCourseUsecase.set(course: self.course)
-            .catch { [weak self] error -> Empty in
-
-                guard let self = self else { return Empty() }
-
-                self.output.courseUploadState = .failure(error)
-                return Empty()
-            }
-            .sink { [weak self] _ in
-
-                guard let self = self else { return }
-
-                self.output.courseUploadState = .finish(content: ())
-            }
-            .store(in: &self.bindings)
+    private func createCourse() async {
+        do {
+            try await self.setCourseUsecase.set(course: self.course)
+            self.output.courseUploadState = .finish(content: ())
+        } catch {
+            self.output.courseUploadState = .failure(error)
+        }
     }
 
-    private func editCourse() {
-        self.updateCourseUsecase.update(from: self.course)
-            .catch { [weak self] error -> Empty in
-
-                guard let self = self else { return Empty() }
-
-                self.output.courseUploadState = .failure(error)
-                return Empty()
-            }
-            .sink { [weak self] _ in
-
-                guard let self = self else { return }
-
-                self.output.courseUploadState = .finish(content: ())
-            }
-            .store(in: &self.bindings)
+    private func editCourse() async {
+        do {
+            try await self.updateCourseUsecase.update(from: self.course)
+            self.output.courseUploadState = .finish(content: ())
+        } catch {
+            self.output.courseUploadState = .failure(error)
+        }
     }
 }
 

@@ -36,10 +36,8 @@ public extension FS.Request.ClimbRecord {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<EmptyResponse, Error> {
+        public func request() async throws -> Response {
+
             @ListBuilder<[AnyHashable: Any]>
             var updateFields: [[AnyHashable: Any]] {
                 if let climbedDate = parameters.climbedDate {
@@ -57,7 +55,7 @@ public extension FS.Request.ClimbRecord {
                 return result
             }
 
-            return self.entry.updateData(fields)
+            return try await self.entry.updateData(fields)
         }
     }
 }

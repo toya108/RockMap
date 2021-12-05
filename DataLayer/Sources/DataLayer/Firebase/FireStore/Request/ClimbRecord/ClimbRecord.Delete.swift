@@ -32,11 +32,8 @@ public extension FS.Request.ClimbRecord {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<EmptyResponse, Error> {
-            self.entry.delete()
+        public func request() async throws -> Response {
+            try await self.entry.delete()
         }
     }
 }

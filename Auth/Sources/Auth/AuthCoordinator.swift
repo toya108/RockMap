@@ -37,26 +37,22 @@ extension AuthCoordinator: FUIAuthDelegate {
             return
         }
 
-        self.setUserCancellable = self.setUserUsecase.set(
-            id: user.uid,
-            createdAt: user.metadata.creationDate ?? Date(),
-            displayName: user.displayName,
-            photoURL: user.photoURL
-        )
-            .catch { [weak self] error -> Empty in
+        Task { [weak self] in
 
-                guard let self = self else { return Empty() }
+            guard let self = self else { return }
 
-                self.loginFinishedSubject.send(.failure(error))
-                return Empty()
-            }
-            .sink { [weak self] in
-
-                guard let self = self else { return }
-
+            do {
+                _ = try await self.setUserUsecase.set(
+                    id: user.uid,
+                    createdAt: user.metadata.creationDate ?? Date(),
+                    displayName: user.displayName,
+                    photoURL: user.photoURL
+                )
                 self.loginFinishedSubject.send(.success(()))
+            } catch {
+                self.loginFinishedSubject.send(.failure(error))
             }
-
+        }
     }
 }
 

@@ -4,23 +4,24 @@ import Foundation
 
 public extension Domain.Usecase.User {
     struct Delete: PassthroughUsecaseProtocol {
-        public typealias Repository = Repositories.User.Delete
+        public typealias Repository = AnyRepository<Repositories.User.Delete.R>
         public typealias Mapper = Domain.Mapper.User
 
         var repository: Repository
         var mapper: Mapper
 
-        public init(repository: Repository = .init(), mapper: Mapper = .init()) {
+        public init(
+            repository: Repository = AnyRepository(Repositories.User.Delete()),
+            mapper: Mapper = .init()
+        ) {
             self.repository = repository
             self.mapper = mapper
         }
 
-        public func delete(id: String) -> AnyPublisher<Void, Error> {
-            self.repository.request(
+        public func delete(id: String) async throws {
+            try await self.repository.request(
                 parameters: .init(id: id)
             )
-            .map { _ in () }
-            .eraseToAnyPublisher()
         }
     }
 }

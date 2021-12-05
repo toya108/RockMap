@@ -31,11 +31,12 @@ class RockSearchViewModel: ViewModelProtocol {
     }
 
     func fetchRockList() {
-        self.fetchRocksUsecase.fetchAll()
-            .catch { error -> Just<[Entity.Rock]> in
+        Task {
+            do {
+                self.rockDocuments = try await self.fetchRocksUsecase.fetchAll()
+            } catch {
                 self.error = error
-                return .init([])
             }
-            .assign(to: &self.$rockDocuments)
+        }
     }
 }

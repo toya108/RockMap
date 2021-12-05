@@ -3,21 +3,24 @@ import DataLayer
 
 public extension Domain.Usecase.Course {
     struct FetchByReference: PassthroughUsecaseProtocol {
-        public typealias Repository = Repositories.Course.FetchByReference
+        public typealias Repository = AnyRepository<Repositories.Course.FetchByReference.R>
         public typealias Mapper = Domain.Mapper.Course
 
         var repository: Repository
         var mapper: Mapper
 
-        public init(repository: Repository = .init(), mapper: Mapper = .init()) {
+        public init(
+            repository: Repository = AnyRepository(Repositories.Course.FetchByReference()),
+            mapper: Mapper = .init()
+        ) {
             self.repository = repository
             self.mapper = mapper
         }
 
-        public func fetch(by reference: String) -> AnyPublisher<Domain.Entity.Course, Error> {
-            self.repository.request(parameters: .init(reference: reference))
-                .map { mapper.map(from: $0) }
-                .eraseToAnyPublisher()
+        public func fetch(by reference: String) async throws -> Domain.Entity.Course {
+            let document = try await self.repository.request(parameters: .init(reference: reference))
+            return mapper.map(from: document)
+
         }
     }
 }

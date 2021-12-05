@@ -75,13 +75,8 @@ public class AuthManager: NSObject {
         .eraseToAnyPublisher()
     }
 
-    public func logout(completion: ((Result<Void, Error>) -> Void)?) {
-        do {
-            try self.authUI?.signOut()
-            completion?(.success(()))
-        } catch {
-            completion?(.failure(error))
-        }
+    public func logout() throws {
+        try self.authUI?.signOut()
     }
 
     private var currentUser: User? {
@@ -107,23 +102,21 @@ extension AuthManager: FUIAuthDelegate {
             return
         }
 
-        self.setUserCancellable = self.setUserUsecase.set(
-            id: user.uid,
-            createdAt: user.metadata.creationDate ?? Date(),
-            displayName: user.displayName,
-            photoURL: user.photoURL
-        )
-        .catch { [weak self] error -> Empty in
+        Task { [weak self] in
 
-            guard let self = self else { return Empty() }
-
-            self.loginFinishedSubject.send(.failure(error))
-            return Empty()
-        }
-        .sink { [weak self] in
             guard let self = self else { return }
 
-            self.loginFinishedSubject.send(.success(()))
+            do {
+                try await self.setUserUsecase.set(
+                    id: user.uid,
+                    createdAt: user.metadata.creationDate ?? Date(),
+                    displayName: user.displayName,
+                    photoURL: user.photoURL
+                )
+                self.loginFinishedSubject.send(.success(()))
+            } catch {
+                self.loginFinishedSubject.send(.failure(error))
+            }
         }
     }
 
@@ -131,22 +124,4 @@ extension AuthManager: FUIAuthDelegate {
 
 public enum AuthError: LocalizedError {
     case noUser
-}
-
-private extension Publisher where Output == Void, Failure == Error {
-    func handleLoginResult(
-        _ loginFinishedSubject: PassthroughSubject<Result<Void, Error>, Never>
-    ) -> AnyCancellable {
-        self.catch { error -> Empty in
-            if AuthManager.shared.isLoggedIn {
-                AuthManager.shared.logout(completion: nil)
-            }
-
-            loginFinishedSubject.send(.failure(error))
-            return Empty()
-        }
-        .sink { _ in
-            loginFinishedSubject.send(.success(()))
-        }
-    }
 }

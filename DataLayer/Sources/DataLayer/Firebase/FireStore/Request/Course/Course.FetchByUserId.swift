@@ -25,11 +25,8 @@ public extension FS.Request.Course {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<[FS.Document.Course], Error> {
-            self.entry.getDocuments(Response.Element.self)
+        public func request() async throws -> Response {
+            try await self.entry.getDocuments(Response.Element.self)
         }
     }
 }

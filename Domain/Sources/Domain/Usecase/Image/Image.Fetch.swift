@@ -3,7 +3,7 @@ import DataLayer
 
 protocol FetchImageUsecaseProtocol: PassthroughUsecaseProtocol {
     associatedtype Response
-    func fetch(id: String, destination: ImageDestination) -> AnyPublisher<Response, Error>
+    func fetch(id: String, destination: ImageDestination) async throws -> Response
 }
 
 public extension Domain.Usecase.Image {
@@ -12,13 +12,16 @@ public extension Domain.Usecase.Image {
 
 public extension Domain.Usecase.Image.Fetch {
     struct Header: FetchImageUsecaseProtocol {
-        public typealias Repository = Repositories.Storage.Fetch.Header
+        public typealias Repository = AnyRepository<Repositories.Storage.Fetch.Header.R>
         public typealias Mapper = Domain.Mapper.Image
 
         var repository: Repository
         var mapper: Mapper
 
-        public init(repository: Repository = .init(), mapper: Mapper = .init()) {
+        public init(
+            repository: Repository = AnyRepository(Repositories.Storage.Fetch.Header()),
+            mapper: Mapper = .init()
+        ) {
             self.repository = repository
             self.mapper = mapper
         }
@@ -26,27 +29,29 @@ public extension Domain.Usecase.Image.Fetch {
         public func fetch(
             id: String,
             destination: ImageDestination
-        ) -> AnyPublisher<Domain.Entity.Image, Error> {
-            self.repository.request(
+        ) async throws -> Domain.Entity.Image {
+            let image = try await self.repository.request(
                 parameters: .init(
                     documentId: id,
                     collectionType: destination.to,
                     directory: .header
                 )
             )
-            .map { mapper.map(from: $0) }
-            .eraseToAnyPublisher()
+            return mapper.map(from: image)
         }
     }
 
     struct Icon: FetchImageUsecaseProtocol {
-        public typealias Repository = Repositories.Storage.Fetch.Icon
+        public typealias Repository = AnyRepository<Repositories.Storage.Fetch.Icon.R>
         public typealias Mapper = Domain.Mapper.Image
 
         var repository: Repository
         var mapper: Mapper
 
-        public init(repository: Repository = .init(), mapper: Mapper = .init()) {
+        public init(
+            repository: Repository = AnyRepository(Repositories.Storage.Fetch.Icon()),
+            mapper: Mapper = .init()
+        ) {
             self.repository = repository
             self.mapper = mapper
         }
@@ -54,27 +59,29 @@ public extension Domain.Usecase.Image.Fetch {
         public func fetch(
             id: String,
             destination: ImageDestination
-        ) -> AnyPublisher<Domain.Entity.Image, Error> {
-            self.repository.request(
+        ) async throws -> Domain.Entity.Image {
+            let image = try await self.repository.request(
                 parameters: .init(
                     documentId: id,
                     collectionType: destination.to,
                     directory: .icon
                 )
             )
-            .map { mapper.map(from: $0) }
-            .eraseToAnyPublisher()
+            return mapper.map(from: image)
         }
     }
 
     struct Normal: FetchImageUsecaseProtocol {
-        public typealias Repository = Repositories.Storage.Fetch.Normal
+        public typealias Repository = AnyRepository<Repositories.Storage.Fetch.Normal.R>
         public typealias Mapper = Domain.Mapper.Image
 
         var repository: Repository
         var mapper: Mapper
 
-        public init(repository: Repository = .init(), mapper: Mapper = .init()) {
+        public init(
+            repository: Repository = AnyRepository(Repositories.Storage.Fetch.Normal()),
+            mapper: Mapper = .init()
+        ) {
             self.repository = repository
             self.mapper = mapper
         }
@@ -82,20 +89,15 @@ public extension Domain.Usecase.Image.Fetch {
         public func fetch(
             id: String,
             destination: ImageDestination
-        ) -> AnyPublisher<[Domain.Entity.Image], Error> {
-            self.repository.request(
+        ) async throws -> [Domain.Entity.Image] {
+            let images = try await self.repository.request(
                 parameters: .init(
                     documentId: id,
                     collectionType: destination.to,
                     directory: .normal
                 )
             )
-            .map { images in
-                images.map {
-                    mapper.map(from: $0)
-                }
-            }
-            .eraseToAnyPublisher()
+            return images.map { mapper.map(from: $0) }
         }
     }
 }

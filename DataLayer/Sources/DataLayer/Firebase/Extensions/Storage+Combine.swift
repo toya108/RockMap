@@ -1,158 +1,170 @@
-import Combine
 import FirebaseStorage
 
+extension Array where Element: StorageReference {
+    func getReferences() async throws -> [StorageReference] {
+
+        try await withThrowingTaskGroup(of: [StorageReference].self) { group in
+
+            for reference in self {
+                group.addTask {
+                    return try await reference.getReferences()
+                }
+            }
+
+            var references: [StorageReference] = []
+            for try await refs in group {
+                references.append(contentsOf: refs)
+            }
+            return references
+        }
+
+    }
+
+    func getImages() async throws -> [FireStorage.Image] {
+
+        try await withThrowingTaskGroup(of: FireStorage.Image.self) { group in
+
+            for reference in self {
+                group.addTask {
+                    return try await reference.getImage()
+                }
+            }
+
+            var images: [FireStorage.Image] = []
+            for try await image in group {
+                images.append(image)
+            }
+            return images
+        }
+
+    }
+}
+
 extension StorageReference {
-    func getReferences() -> AnyPublisher<[StorageReference], Error> {
-        Deferred {
-            Future<[StorageReference], Error> { [weak self] promise in
 
-                guard let self = self else { return }
+    func getReferences() async throws -> [StorageReference] {
+        try await withCheckedThrowingContinuation { [weak self] continuation in
 
-                self.listAll { result, error in
+            guard let self = self else { return }
 
-                    if let error = error {
-                        promise(.failure(error))
-                        return
-                    }
+            self.listAll { result, error in
 
-                    promise(.success(result.items))
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
                 }
-            }
 
-        }.eraseToAnyPublisher()
+                continuation.resume(returning: result.items)
+            }
+        }
+
     }
 
-    func getPrefixes() -> AnyPublisher<[StorageReference], Error> {
-        Deferred {
-            Future<[StorageReference], Error> { [weak self] promise in
+    func getPrefixes() async throws -> [StorageReference] {
+        try await withCheckedThrowingContinuation { [weak self] continuation in
 
-                guard let self = self else { return }
+            guard let self = self else { return }
 
-                self.listAll { result, error in
+            self.listAll { result, error in
 
-                    if let error = error {
-                        promise(.failure(error))
-                        return
-                    }
-
-                    promise(.success(result.prefixes))
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
                 }
-            }
 
-        }.eraseToAnyPublisher()
+                continuation.resume(returning: result.prefixes)
+            }
+        }
     }
 
-    func getReference() -> AnyPublisher<StorageReference, Error> {
-        Deferred {
-            Future<StorageReference, Error> { [weak self] promise in
+    func getReference() async throws -> StorageReference {
+        try await withCheckedThrowingContinuation { [weak self] continuation in
 
-                guard let self = self else { return }
+            guard let self = self else { return }
 
-                self.list(maxResults: 1) { result, error in
+            self.list(maxResults: 1) { result, error in
 
-                    if let error = error {
-                        promise(.failure(error))
-                        return
-                    }
-
-                    guard
-                        let item = result.items.first
-                    else {
-                        promise(.failure(FirestoreError.nilResultError))
-                        return
-                    }
-
-                    promise(.success(item))
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
                 }
-            }
 
-        }.eraseToAnyPublisher()
+                guard
+                    let item = result.items.first
+                else {
+                    continuation.resume(throwing: FirestoreError.nilResultError)
+                    return
+                }
+
+                continuation.resume(returning: item)
+            }
+        }
     }
+
 
     func putData(
         _ uploadData: Data,
         metadata: StorageMetadata = .init()
-    ) -> AnyPublisher<EmptyResponse, Error> {
+    ) async throws -> EmptyResponse {
+
         metadata.cacheControl = "no-cache"
 
-        var task: StorageUploadTask?
+        return try await withCheckedThrowingContinuation { [weak self] continuation in
 
-        return Deferred {
-            Future<EmptyResponse, Error> { [weak self] promise in
+            guard let self = self else { return }
 
-                guard let self = self else { return }
+            self.putData(uploadData, metadata: metadata) { _, error in
 
-                task = self.putData(uploadData, metadata: metadata) { _, error in
-
-                    if let error = error {
-                        promise(.failure(error))
-                        return
-                    }
-
-                    promise(.success(.init()))
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
                 }
+
+                continuation.resume(returning: .init())
             }
-            .handleEvents(receiveCancel: {
-                task?.cancel()
-            })
+            .resume()
         }
-        .eraseToAnyPublisher()
     }
 
-    func delete() -> AnyPublisher<EmptyResponse, Error> {
-        Deferred {
-            Future<EmptyResponse, Error> { [weak self] promise in
+    func delete() async throws -> EmptyResponse {
 
-                guard let self = self else { return }
+        try await withCheckedThrowingContinuation { [weak self] continuation in
 
-                self.delete { error in
+            guard let self = self else { return }
 
-                    if let error = error {
-                        promise(.failure(error))
-                        return
-                    }
+            self.delete { error in
 
-                    promise(.success(.init()))
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
                 }
+
+                continuation.resume(returning: .init())
             }
         }
-        .eraseToAnyPublisher()
     }
 
-    func getImage() -> AnyPublisher<FireStorage.Image, Error> {
-        Deferred {
-            Future<FireStorage.Image, Error> { [weak self] promise in
+    func getImage() async throws -> FireStorage.Image {
+        try await withCheckedThrowingContinuation { [weak self] continuation in
 
-                guard let self = self else { return }
+            guard let self = self else { return }
 
-                let fullPath = self.fullPath
+            let fullPath = self.fullPath
 
-                self.downloadURL { url, error in
+            self.downloadURL { url, error in
 
-                    if let error = error {
-                        promise(.failure(error))
-                        return
-                    }
-
-                    guard let url = url else {
-                        promise(.failure(FirestoreError.nilResultError))
-                        return
-                    }
-
-                    promise(.success(.init(fullPath: fullPath, url: url)))
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
                 }
+
+                guard let url = url else {
+                    continuation.resume(throwing: FirestoreError.nilResultError)
+                    return
+                }
+
+                continuation.resume(returning: .init(fullPath: fullPath, url: url))
             }
-
-        }.eraseToAnyPublisher()
-    }
-}
-
-extension Array where Element: StorageReference {
-    func getReferences() -> AnyPublisher<[StorageReference], Error> {
-        publisher
-            .flatMap { $0.getReferences() }
-            .collect()
-            .map { $0.flatMap { $0 } }
-            .eraseToAnyPublisher()
+        }
     }
 }

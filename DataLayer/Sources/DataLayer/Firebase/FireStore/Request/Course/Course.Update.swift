@@ -24,11 +24,8 @@ public extension FS.Request.Course {
             self.parameters = parameters
         }
 
-        public func reguest(
-            useTestData: Bool,
-            parameters: Parameters
-        ) -> AnyPublisher<EmptyResponse, Error> {
-            self.entry.updateData(parameters.course.dictionary)
+        public func request() async throws -> Response {
+            try await self.entry.updateData(parameters.course.dictionary)
         }
     }
 }

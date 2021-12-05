@@ -2,14 +2,17 @@ import Combine
 import DataLayer
 
 public extension Domain.Usecase.TotalClimbedNumber {
-    struct ListenByCourseId: PassthroughUsecaseProtocol {
+    struct ListenByCourseId: ListenableUsecaseProtocol {
         public typealias Repository = Repositories.TotalClimbedNumber.ListenByCourseId
         public typealias Mapper = Domain.Mapper.TotalClimbedNumber
 
         var repository: Repository
         var mapper: Mapper
 
-        public init(repository: Repository = .init(), mapper: Mapper = .init()) {
+        public init(
+            repository: Repository = Repositories.TotalClimbedNumber.ListenByCourseId(),
+            mapper: Mapper = .init()
+        ) {
             self.repository = repository
             self.mapper = mapper
         }
@@ -19,9 +22,12 @@ public extension Domain.Usecase.TotalClimbedNumber {
             courseId: String,
             parantPath: String
         ) -> AnyPublisher<Domain.Entity.TotalClimbedNumber, Error> {
-            self.repository.request(parameters: .init(parentPath: parantPath, courseId: courseId))
-                .map { mapper.map(from: $0) }
-                .eraseToAnyPublisher()
+            self.repository.request(
+                parameters: .init(
+                    parentPath: parantPath,
+                    courseId: courseId
+                )
+            ).map { mapper.map(from: $0) }.eraseToAnyPublisher()
         }
     }
 }

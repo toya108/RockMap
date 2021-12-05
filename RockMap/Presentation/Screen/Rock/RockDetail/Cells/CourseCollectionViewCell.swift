@@ -1,4 +1,3 @@
-import Combine
 import UIKit
 
 class CourseCollectionViewCell: UICollectionViewCell {
@@ -6,7 +5,6 @@ class CourseCollectionViewCell: UICollectionViewCell {
     @IBOutlet var courseImageView: UIImageView!
     @IBOutlet var userView: UserView!
 
-    private var bindings = Set<AnyCancellable>()
     private let fetchUserUsecase = Usecase.User.FetchById()
 
     override func awakeFromNib() {
@@ -27,22 +25,17 @@ class CourseCollectionViewCell: UICollectionViewCell {
         self.courseNameLabel.text = course.name + course.grade.name
         self.courseImageView.loadImage(url: course.headerUrl)
 
-        self.fetchUserUsecase.fetchUser(by: course.registeredUserId)
-            .catch { error -> Empty in
-                print(error)
-                return Empty()
-            }
-            .compactMap { $0 }
-            .sink { [weak self] user in
-
-                guard let self = self else { return }
-
+        Task {
+            do {
+                let user = try await self.fetchUserUsecase.fetchUser(by: course.registeredUserId)
                 self.userView.configure(
                     user: user,
                     registeredDate: course.createdAt,
                     parentVc: parentVc
                 )
+            } catch {
+                print(error)
             }
-            .store(in: &self.bindings)
+        }
     }
 }

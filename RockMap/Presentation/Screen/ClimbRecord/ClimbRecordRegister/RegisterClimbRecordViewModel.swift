@@ -53,27 +53,20 @@ class RegisterClimbRecordViewModel {
         let targetClimbedRecordType: Entity.ClimbRecord.ClimbedRecordType?
             = climbed.type == self.climbRecordType ? nil : self.climbRecordType
 
-        self.updateClimbRecordUsecase.update(
-            parentPath: climbed.parentPath,
-            id: climbed.id,
-            climbedDate: targetClimbedDate,
-            type: targetClimbedRecordType
-        )
-        .catch { [weak self] error -> Empty in
+        Task {
+            do {
+                try await self.updateClimbRecordUsecase.update(
+                    parentPath: climbed.parentPath,
+                    id: climbed.id,
+                    climbedDate: targetClimbedDate,
+                    type: targetClimbedRecordType
+                )
 
-            guard let self = self else { return Empty() }
-
-            self.loadingState = .failure(error)
-            print(error)
-            return Empty()
+                self.loadingState = .finish(content: ())
+            } catch {
+                self.loadingState = .failure(error)
+            }
         }
-        .sink { [weak self] in
-
-            guard let self = self else { return }
-
-            self.loadingState = .finish(content: ())
-        }
-        .store(in: &self.bindings)
     }
 
     func registerClimbRecord() {
@@ -95,23 +88,15 @@ class RegisterClimbRecordViewModel {
             updatedAt: nil,
             parentPath: AuthManager.shared.userPath,
             climbedDate: climbedDate,
-            type: .flash
+            type: climbRecordType
         )
-
-        self.setClimbRecordUsecase.set(climbRecord: climbRecord)
-            .catch { [weak self] error -> Empty in
-
-                guard let self = self else { return Empty() }
-
-                self.loadingState = .failure(error)
-                return Empty()
-            }
-            .sink { [weak self] _ in
-
-                guard let self = self else { return }
-
+        Task {
+            do {
+                try await self.setClimbRecordUsecase.set(climbRecord: climbRecord)
                 self.loadingState = .finish(content: ())
+            } catch {
+                self.loadingState = .failure(error)
             }
-            .store(in: &self.bindings)
+        }
     }
 }
