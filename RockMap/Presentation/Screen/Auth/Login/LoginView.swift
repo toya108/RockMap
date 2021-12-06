@@ -37,7 +37,7 @@ struct LoginView: View {
                     )
                     .cornerRadius(8)
                     .fullScreenCover(isPresented: $viewModel.isPresentedAuthView) {
-                        AuthView(coordinator: viewModel.authCoordinator)
+                        AuthView(coordinator: viewModel.authCoordinator).edgesIgnoringSafeArea(.all)
                     }
                     Button(
                         action: {
