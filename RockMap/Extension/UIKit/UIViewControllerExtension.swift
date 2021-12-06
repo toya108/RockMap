@@ -115,10 +115,7 @@ extension UIViewController {
                         return
                     }
 
-                    let vc = RockMapNavigationController(
-                        rootVC: authViewController,
-                        naviBarClass: RockMapNavigationBar.self
-                    )
+                    let vc = UINavigationController(rootViewController: authViewController)
                     vc.modalPresentationStyle = .fullScreen
                     vc.modalTransitionStyle = .crossDissolve
                     self.present(vc, animated: true)

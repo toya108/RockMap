@@ -98,10 +98,7 @@ struct RockRegisterRouter: RouterProtocol {
         }
         
         from.present(
-            RockMapNavigationController(
-                rootVC: locationSelectViewController,
-                naviBarClass: RockMapNavigationBar.self
-            ),
+            UINavigationController(rootViewController: locationSelectViewController),
             animated: true
         )
     }

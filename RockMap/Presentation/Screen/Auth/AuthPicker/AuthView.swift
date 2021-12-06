@@ -26,10 +26,7 @@ struct AuthView: UIViewControllerRepresentable {
             return UINavigationController()
         }
 
-        return RockMapNavigationController(
-            rootVC: authViewController,
-            naviBarClass: RockMapNavigationBar.self
-        )
+        return UINavigationController(rootViewController: authViewController)
     }
 
     func updateUIViewController(

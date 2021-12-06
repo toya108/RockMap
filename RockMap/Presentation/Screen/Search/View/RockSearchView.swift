@@ -2,14 +2,13 @@ import SwiftUI
 
 struct RockSearchView: UIViewControllerRepresentable {
 
-    typealias UIViewControllerType = RockMapNavigationController
+    typealias UIViewControllerType = UINavigationController
 
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<RockSearchView>
     ) -> RockSearchView.UIViewControllerType {
-        return RockMapNavigationController(
-            rootVC: RockSearchViewController.createInstance(viewModel: .init()),
-            naviBarClass: RockMapNavigationBar.self
+        return UINavigationController(
+            rootViewController: RockSearchViewController.createInstance(viewModel: .init())
         )
     }
 

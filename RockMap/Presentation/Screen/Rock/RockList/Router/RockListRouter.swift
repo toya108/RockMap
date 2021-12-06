@@ -42,9 +42,8 @@ struct RocklistRouter: RouterProtocol {
         rock: Entity.Rock
     ) {
         let viewModel = RockRegisterViewModel(registerType: .edit(rock))
-        let vc = RockMapNavigationController(
-            rootVC: RockRegisterViewController.createInstance(viewModel: viewModel),
-            naviBarClass: RockMapNoShadowNavigationBar.self
+        let vc = UINavigationController(
+            rootViewController: RockRegisterViewController.createInstance(viewModel: viewModel)
         )
         vc.isModalInPresentation = true
         from.present(vc, animated: true)

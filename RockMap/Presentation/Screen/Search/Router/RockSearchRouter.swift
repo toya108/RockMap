@@ -57,10 +57,7 @@ struct RockSeachRouter: RouterProtocol {
 
         let rockRegisterViewModel = RockRegisterViewModel(registerType: .create(location))
         let registerVc = RockRegisterViewController.createInstance(viewModel: rockRegisterViewModel)
-        let vc = RockMapNavigationController(
-            rootVC: registerVc,
-            naviBarClass: RockMapNoShadowNavigationBar.self
-        )
+        let vc = UINavigationController(rootViewController: registerVc)
         vc.isModalInPresentation = true
 
         from.present(vc, animated: true)

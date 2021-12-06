@@ -78,10 +78,7 @@ struct MyPageRouter: RouterProtocol {
     ) {
         let viewModel = EditProfileViewModel(user: user)
         let vc = EditProfileViewController.createInstance(viewModel: viewModel)
-        let nc = RockMapNavigationController(
-            rootVC: vc,
-            naviBarClass: RockMapNoShadowNavigationBar.self
-        )
+        let nc = UINavigationController(rootViewController: vc)
         nc.isModalInPresentation = true
         from.present(nc, animated: true)
     }
@@ -89,10 +86,9 @@ struct MyPageRouter: RouterProtocol {
     private func presentSettings(
         _ from: UIViewController
     ) {
-        let nc = RockMapNavigationController(
-            rootVC: SettingsViewController(),
-            naviBarClass: RockMapNoShadowNavigationBar.self
+        from.present(
+            UINavigationController(rootViewController: SettingsViewController()),
+            animated: true
         )
-        from.present(nc, animated: true)
     }
 }

@@ -29,14 +29,6 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
     }
 
     private func setupNavigationBar() {
-        guard
-            let rockMapNavigationBar = navigationController?.navigationBar as? RockMapNavigationBar
-        else {
-            return
-        }
-
-        rockMapNavigationBar.setup()
-
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationBar.prefersLargeTitles = false
 
