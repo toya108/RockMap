@@ -45,15 +45,14 @@ class RockLocationSelectViewController: UIViewController {
 
     private func setupNavigationBar() {
         navigationItem.title = "岩の位置を選択する"
-        navigationItem.setLeftBarButton(
-            .init(
-                image: UIImage.SystemImages.xmark,
-                style: .plain,
-                target: self,
-                action: #selector(self.didCancelButtonTapped)
-            ),
-            animated: true
+        let closeButton = UIBarButtonItem(
+            image: UIImage.SystemImages.xmark,
+            style: .plain,
+            target: self,
+            action: #selector(self.didCancelButtonTapped)
         )
+        closeButton.tintColor = .label
+        navigationItem.setLeftBarButton(closeButton, animated: true)
 
         let doneButton = UIBarButtonItem(
             title: "完了",

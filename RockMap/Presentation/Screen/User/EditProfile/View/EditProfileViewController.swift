@@ -44,27 +44,26 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
     private func setupNavigationBar() {
         navigationItem.title = "プロフィール編集"
 
-        navigationItem.setLeftBarButton(
-            .init(
-                image: UIImage.SystemImages.xmark,
-                primaryAction: .init { [weak self] _ in
+        let closeButton = UIBarButtonItem(
+            image: UIImage.SystemImages.xmark,
+            primaryAction: .init { [weak self] _ in
 
-                    guard let self = self else { return }
+                guard let self = self else { return }
 
-                    self.showAlert(
-                        title: "編集内容を破棄しますか？",
-                        actions: [
-                            .init(title: "破棄", style: .destructive) { _ in
-                                self.dismiss(animated: true)
-                            },
-                            .init(title: "キャンセル", style: .cancel)
-                        ],
-                        style: .actionSheet
-                    )
-                }
-            ),
-            animated: false
+                self.showAlert(
+                    title: "編集内容を破棄しますか？",
+                    actions: [
+                        .init(title: "破棄", style: .destructive) { _ in
+                            self.dismiss(animated: true)
+                        },
+                        .init(title: "キャンセル", style: .cancel)
+                    ],
+                    style: .actionSheet
+                )
+            }
         )
+        closeButton.tintColor = .label
+        navigationItem.setLeftBarButton(closeButton, animated: false)
 
         let saveButton = UIBarButtonItem(
             title: "保存",

@@ -46,10 +46,9 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
     private func setupNavigationBar() {
         switch self.viewModel.userKind {
-        case .mine, .guest:
-            navigationItem.title = "マイページ"
-            navigationItem.setRightBarButton(
-                .init(
+            case .mine, .guest:
+                navigationItem.title = "マイページ"
+                let settingsButton = UIBarButtonItem(
                     title: nil,
                     image: UIImage.SystemImages.gear,
                     primaryAction: .init { [weak self] _ in
@@ -59,12 +58,12 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
                         self.router.route(to: .settings, from: self)
                     },
                     menu: nil
-                ),
-                animated: true
-            )
+                )
+                settingsButton.tintColor = .label
+                navigationItem.setRightBarButton(settingsButton, animated: true)
 
-        case .other:
-            navigationItem.title = self.viewModel.output.fetchUserState.content?.name ?? ""
+            case .other:
+                navigationItem.title = self.viewModel.output.fetchUserState.content?.name ?? ""
         }
     }
 

@@ -46,18 +46,17 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
     private func setupNavigationBar() {
         navigationItem.title = "課題を\(self.viewModel.registerType.name)する"
 
-        navigationItem.setRightBarButton(
-            .init(
-                image: UIImage.SystemImages.xmark,
-                primaryAction: .init { [weak self] _ in
+        let closeButton = UIBarButtonItem(
+            image: UIImage.SystemImages.xmark,
+            primaryAction: .init { [weak self] _ in
 
-                    guard let self = self else { return }
+                guard let self = self else { return }
 
-                    self.router.route(to: .rockDetail, from: self)
-                }
-            ),
-            animated: false
+                self.router.route(to: .rockDetail, from: self)
+            }
         )
+        closeButton.tintColor = .label
+        navigationItem.setRightBarButton(closeButton, animated: false)
     }
 
     private func bindViewModelToView() {

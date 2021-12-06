@@ -44,18 +44,17 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
 
     private func setupNavigationBar() {
         navigationItem.title = "岩を\(self.viewModel.registerType.name)する"
-        navigationItem.setRightBarButton(
-            .init(
-                image: UIImage.SystemImages.xmark,
-                primaryAction: .init { [weak self] _ in
+        let closeButton = UIBarButtonItem(
+            image: UIImage.SystemImages.xmark,
+            primaryAction: .init { [weak self] _ in
 
-                    guard let self = self else { return }
+                guard let self = self else { return }
 
-                    self.router.route(to: .rockSearch, from: self)
-                }
-            ),
-            animated: true
+                self.router.route(to: .rockSearch, from: self)
+            }
         )
+        closeButton.tintColor = .label
+        navigationItem.setRightBarButton(closeButton, animated: true)
     }
 
     private func bindViewModelToView() {

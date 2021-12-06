@@ -25,20 +25,19 @@ class SettingsViewController: UIViewController, CompositionalColectionViewContro
 
     private func setupNavigationBar() {
         navigationItem.title = "設定"
-        navigationItem.setRightBarButton(
-            .init(
-                title: nil,
-                image: UIImage.SystemImages.xmark,
-                primaryAction: .init { [weak self] _ in
+        let closeButton = UIBarButtonItem(
+            title: nil,
+            image: UIImage.SystemImages.xmark,
+            primaryAction: .init { [weak self] _ in
 
-                    guard let self = self else { return }
+                guard let self = self else { return }
 
-                    self.dismiss(animated: true)
-                },
-                menu: nil
-            ),
-            animated: true
+                self.dismiss(animated: true)
+            },
+            menu: nil
         )
+        closeButton.tintColor = .label
+        navigationItem.setRightBarButton(closeButton, animated: true)
     }
 }
 
