@@ -85,7 +85,7 @@ final class RockSearchViewController: UIViewController {
     private func setupSearchBar() {
         self.searchBar.delegate = self
         self.searchBar.backgroundImage = UIImage()
-        self.searchBar.searchTextField.backgroundColor = .white
+        self.searchBar.searchTextField.backgroundColor = .tertiarySystemBackground
         self.searchBar.placeholder = "地名を入力"
         self.searchBar.addShadow()
     }
@@ -93,7 +93,7 @@ final class RockSearchViewController: UIViewController {
     private func setupLayout() {
         func setupTrackingButton() {
             self.trackingButton.tintColor = UIColor.Pallete.primaryGreen
-            self.trackingButton.backgroundColor = .white
+            self.trackingButton.backgroundColor = .tertiarySystemBackground
             self.trackingButton.layer.cornerRadius = 4
             self.trackingButton.addShadow()
 
@@ -113,6 +113,7 @@ final class RockSearchViewController: UIViewController {
         func setupAddressBaseView() {
             self.addressBaseView.addShadow()
             self.addressBaseView.layer.cornerRadius = 16
+            self.addressBaseView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             self.addressLabel.layer.cornerRadius = 8
         }
 
