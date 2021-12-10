@@ -88,7 +88,7 @@ class RockLocationSelectViewController: UIViewController {
         self.mapView.delegate = self
 
         self.trackingButton.tintColor = UIColor.Pallete.primaryGreen
-        self.trackingButton.backgroundColor = .white
+        self.trackingButton.backgroundColor = .tertiarySystemBackground
         self.trackingButton.layer.cornerRadius = 4
         self.trackingButton.layer.shadowRadius = Resources.Const.UI.Shadow.radius
         self.trackingButton.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity
