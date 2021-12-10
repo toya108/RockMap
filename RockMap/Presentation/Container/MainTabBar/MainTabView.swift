@@ -17,17 +17,17 @@ struct MainTabView: View {
 
     private func setupAppearance() {
         let tabItemAppearance = UITabBarItemAppearance()
-        tabItemAppearance.normal.iconColor = .white
-        tabItemAppearance.selected.iconColor = .white
-        tabItemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        tabItemAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        tabItemAppearance.normal.iconColor = .tertiarySystemBackground
+        tabItemAppearance.selected.iconColor = .tertiarySystemBackground
+        tabItemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.tertiarySystemBackground]
+        tabItemAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.tertiarySystemBackground]
 
         let appearance = UITabBarAppearance()
         appearance.stackedLayoutAppearance = tabItemAppearance
         appearance.inlineLayoutAppearance = tabItemAppearance
         appearance.compactInlineLayoutAppearance = tabItemAppearance
         appearance.backgroundColor = UIColor.Pallete.primaryGreen
-        appearance.selectionIndicatorTintColor = .white
+        appearance.selectionIndicatorTintColor = .tertiarySystemBackground
         UITabBar.appearance().scrollEdgeAppearance = appearance
         UITabBar.appearance().standardAppearance = appearance
     }
