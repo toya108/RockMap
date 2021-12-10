@@ -16,7 +16,7 @@ class DescCollectionViewCell: UICollectionViewCell {
     private func setupLayout() {
         addSubview(self.descLabel)
         self.descLabel.numberOfLines = 0
-        self.descLabel.textColor = .darkGray
+        self.descLabel.textColor = .label
         self.descLabel.font = UIFont.preferredFont(forTextStyle: .body)
         self.descLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
