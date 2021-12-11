@@ -37,10 +37,9 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
         configuration.selectionLimit = 10
         configuration.filter = .images
         self.pickerManager = PickerManager(
-            from: self,
+            delegate: self,
             configuration: configuration
         )
-        self.pickerManager.delegate = self
     }
 
     private func setupNavigationBar() {

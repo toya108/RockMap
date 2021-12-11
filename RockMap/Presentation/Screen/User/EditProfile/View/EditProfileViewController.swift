@@ -35,10 +35,9 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
         configuration.selectionLimit = 1
         configuration.filter = .images
         self.pickerManager = PickerManager(
-            from: self,
+            delegate: self,
             configuration: configuration
         )
-        self.pickerManager.delegate = self
     }
 
     private func setupNavigationBar() {

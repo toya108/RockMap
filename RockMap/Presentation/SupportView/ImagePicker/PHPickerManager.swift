@@ -1,23 +1,22 @@
 import Foundation
 import PhotosUI
 
-protocol PickerManagerDelegate: AnyObject {
+protocol PickerManagerDelegate: UIViewController {
     func beganResultHandling()
     func didReceivePicking(data: Data, imageType: Entity.Image.ImageType)
 }
 
 class PickerManager: NSObject {
-    weak var delegate: PickerManagerDelegate?
+    private weak var delegate: PickerManagerDelegate?
 
     private var imageType: Entity.Image.ImageType = .normal
-    private let from: UIViewController
     private var configuration: PHPickerConfiguration
 
     init(
-        from: UIViewController,
+        delegate: PickerManagerDelegate,
         configuration: PHPickerConfiguration
     ) {
-        self.from = from
+        self.delegate = delegate
         self.configuration = configuration
     }
 
@@ -26,7 +25,7 @@ class PickerManager: NSObject {
         self.configuration.selectionLimit = imageType.limit
         let vc = PHPickerViewController(configuration: configuration)
         vc.delegate = self
-        self.from.present(vc, animated: true)
+        self.delegate?.present(vc, animated: true)
     }
 
     func presentImagePicker(
@@ -37,7 +36,7 @@ class PickerManager: NSObject {
         let vc = UIImagePickerController()
         vc.delegate = self
         vc.sourceType = sourceType
-        self.from.present(vc, animated: true)
+        self.delegate?.present(vc, animated: true)
     }
 }
 
