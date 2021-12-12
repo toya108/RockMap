@@ -5,7 +5,6 @@ class ImageSelactCollectionViewCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        backgroundColor = .white
 
         self.uploadButton.layer.cornerRadius = 8
         self.uploadButton.titleLabel?.adjustsFontSizeToFitWidth = true
