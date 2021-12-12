@@ -29,7 +29,7 @@ class TitleCollectionViewCell: UICollectionViewCell {
         }
 
         self.iconImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.iconImageView.tintColor = .black
+        self.iconImageView.tintColor = .label
         self.stackView.addArrangedSubview(self.iconImageView)
         self.stackView.addArrangedSubview(self.titleLabel)
 
