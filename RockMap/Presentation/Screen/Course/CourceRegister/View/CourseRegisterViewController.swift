@@ -25,7 +25,7 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureCollectionView()
+        configureDefaultConfiguration()
         self.setupPickerManager()
         self.setupNavigationBar()
         self.bindViewModelToView()

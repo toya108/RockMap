@@ -24,7 +24,7 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureCollectionView()
+        configureDefaultConfiguration()
         self.setupPickerManager()
         self.setupNavigationBar()
         self.bindViewModelToView()

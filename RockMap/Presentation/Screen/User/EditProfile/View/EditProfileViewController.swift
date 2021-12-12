@@ -23,7 +23,7 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureCollectionView()
+        configureDefaultConfiguration()
         self.setupPickerManager()
         self.setupNavigationBar()
         self.bindViewModelToView()

@@ -11,7 +11,8 @@ class SettingsViewController: UIViewController, CompositionalColectionViewContro
         super.viewDidLoad()
 
         self.setupNavigationBar()
-        configureCollectionView(topInset: 16)
+        configureDefaultConfiguration()
+        collectionView.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
         self.configureSections()
     }
 
@@ -91,7 +92,7 @@ extension SettingsViewController {
         > { cell, _, item in
             var content = cell.defaultContentConfiguration()
             content.imageProperties.maximumSize = CGSize(width: 24, height: 24)
-            content.imageProperties.tintColor = .black
+            content.imageProperties.tintColor = .label
             content.image = item.iconImage
             content.text = item.title
             cell.contentConfiguration = content

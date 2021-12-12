@@ -22,7 +22,7 @@ class CourseConfirmViewController: UIViewController, CompositionalColectionViewC
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureCollectionView()
+        configureDefaultConfiguration()
         self.setupNavigationBar()
         self.bindViewModelToView()
         self.configureSections()

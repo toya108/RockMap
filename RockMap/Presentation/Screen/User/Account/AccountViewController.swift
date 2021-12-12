@@ -15,7 +15,8 @@ class AccountViewController: UIViewController, CompositionalColectionViewControl
 
         self.setupBindings()
         self.setupNavigationBar()
-        configureCollectionView(topInset: 16)
+        configureDefaultConfiguration()
+        collectionView.contentInset = .init(top: 16, left: 0, bottom: 16, right: 0)
         self.configureSections()
     }
 

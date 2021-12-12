@@ -22,7 +22,7 @@ class RockConfirmViewController: UIViewController, CompositionalColectionViewCon
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureCollectionView()
+        configureDefaultConfiguration()
         self.setupNavigationBar()
         self.bindViewModelToView()
         self.configureSections()

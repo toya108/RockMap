@@ -26,7 +26,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
         super.viewDidLoad()
 
         self.setupNavigationBar()
-        configureCollectionView()
+        configureDefaultConfiguration()
         self.configureSections()
         self.bindViewModelOutput()
         self.setupRefreshControl()

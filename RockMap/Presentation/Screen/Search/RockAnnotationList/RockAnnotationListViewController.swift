@@ -23,7 +23,7 @@ class RockAnnotationListViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureCollectionView()
+        configureDefaultConfiguration()
         self.setupSections()
     }
 
