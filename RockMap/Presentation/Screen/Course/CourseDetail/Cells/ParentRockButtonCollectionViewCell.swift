@@ -27,7 +27,7 @@ class ParentRockButtonCollectionViewCell: UICollectionViewCell {
             stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
         }
 
-        self.iconImageView.tintColor = .black
+        self.iconImageView.tintColor = .label
         self.iconImageView.translatesAutoresizingMaskIntoConstraints = false
         self.iconImageView.contentMode = .scaleAspectFit
         self.iconImageView.image = UIImage.AssetsImages.rockFill
@@ -38,7 +38,7 @@ class ParentRockButtonCollectionViewCell: UICollectionViewCell {
         }
 
         self.rockButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
-        self.rockButton.setTitleColor(.black, for: .normal)
+        self.rockButton.setTitleColor(.label, for: .normal)
         self.stackView.addArrangedSubview(self.rockButton)
     }
 
