@@ -12,7 +12,7 @@ class ListCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
 
         self.mainImageView.layer.cornerRadius = 8
-        self.iconImageView.tintColor = .black
+        self.iconImageView.tintColor = .label
     }
 
     func configure(
