@@ -10,7 +10,6 @@ class CourseCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        backgroundColor = .white
         layer.masksToBounds = false
         layer.shadowOpacity = 0.2
         layer.shadowRadius = 8
