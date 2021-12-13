@@ -29,37 +29,35 @@
                     </constraints>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </button>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="2tp-dw-B4e">
-                    <rect key="frame" x="52" y="0.0" width="362" height="40"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcS-Go-dxC">
-                            <rect key="frame" x="0.0" y="0.0" width="362" height="20"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVy-hc-h5s">
-                            <rect key="frame" x="0.0" y="20" width="362" height="20"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                            <color key="textColor" systemColor="secondaryLabelColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rcS-Go-dxC" userLabel="NameLabel">
+                    <rect key="frame" x="52" y="0.0" width="362" height="0.0"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVy-hc-h5s" userLabel="RegisteredDateLabel">
+                    <rect key="frame" x="52" y="4" width="362" height="36"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rcS-Go-dxC" secondAttribute="trailing" id="1TR-sA-hwi"/>
                 <constraint firstItem="hCE-gj-KCR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="IA9-Di-m0W"/>
                 <constraint firstAttribute="top" secondItem="hCE-gj-KCR" secondAttribute="top" id="IYr-Zf-Mr0"/>
-                <constraint firstItem="2tp-dw-B4e" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="fVx-bJ-r6I"/>
-                <constraint firstAttribute="bottom" secondItem="2tp-dw-B4e" secondAttribute="bottom" id="jgz-qJ-pVb"/>
-                <constraint firstAttribute="trailing" secondItem="2tp-dw-B4e" secondAttribute="trailing" id="oO2-sQ-J2U"/>
-                <constraint firstItem="2tp-dw-B4e" firstAttribute="leading" secondItem="hCE-gj-KCR" secondAttribute="trailing" constant="12" id="rYv-jz-djW"/>
+                <constraint firstItem="rcS-Go-dxC" firstAttribute="leading" secondItem="hCE-gj-KCR" secondAttribute="trailing" constant="12" id="LoA-qg-CrN"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="CVy-hc-h5s" secondAttribute="trailing" id="W7p-y2-eQb"/>
+                <constraint firstItem="CVy-hc-h5s" firstAttribute="leading" secondItem="rcS-Go-dxC" secondAttribute="leading" id="aLx-hA-KTK"/>
+                <constraint firstItem="hCE-gj-KCR" firstAttribute="bottom" secondItem="CVy-hc-h5s" secondAttribute="bottom" id="dMW-mh-NPd"/>
+                <constraint firstItem="hCE-gj-KCR" firstAttribute="top" secondItem="rcS-Go-dxC" secondAttribute="top" id="gbl-Hu-Vuh"/>
+                <constraint firstItem="CVy-hc-h5s" firstAttribute="top" secondItem="rcS-Go-dxC" secondAttribute="bottom" constant="4" id="hOC-aH-zmv"/>
                 <constraint firstItem="hCE-gj-KCR" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="xZN-Ni-PqZ"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="137.68115942028987" y="132.58928571428572"/>
+            <point key="canvasLocation" x="137.68115942028987" y="142.96875"/>
         </view>
     </objects>
     <resources>
