@@ -168,7 +168,7 @@ extension AccountViewController {
         > { cell, _, item in
             var content = UIListContentConfiguration.valueCell()
             content.imageProperties.maximumSize = CGSize(width: 24, height: 24)
-            content.imageProperties.tintColor = .black
+            content.imageProperties.tintColor = .label
             content.text = item.title
             if let secondaryText = item.secondaryText {
                 content.secondaryText = secondaryText
