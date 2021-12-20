@@ -136,15 +136,26 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
 }
 
 extension EditProfileViewController: PickerManagerDelegate {
-    func beganResultHandling() {
+    func startPicking() {
         showIndicatorView()
     }
 
-    func didReceivePicking(
+    func didReceive(
         data: Data,
         imageType: Entity.Image.ImageType
     ) {
         self.viewModel.input.setImageSubject.send((imageType, data))
+    }
+
+
+    func didReceive(error: Error) {
+        DispatchQueue.main.async {
+            self.showOKAlert(
+                title: "画像の取得に失敗しました。",
+                message: "reason: \(error.localizedDescription)"
+            )
+            self.hideIndicatorView()
+        }
     }
 }
 

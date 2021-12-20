@@ -277,12 +277,22 @@ extension RockRegisterViewController {
 }
 
 extension RockRegisterViewController: PickerManagerDelegate {
-    func beganResultHandling() {
+    func startPicking() {
         showIndicatorView()
     }
 
-    func didReceivePicking(data: Data, imageType: Entity.Image.ImageType) {
+    func didReceive(data: Data, imageType: Entity.Image.ImageType) {
         self.viewModel.input.setImageSubject.send((imageType, data: data))
+    }
+
+    func didReceive(error: Error) {
+        DispatchQueue.main.async {
+            self.showOKAlert(
+                title: "画像の取得に失敗しました。",
+                message: "reason: \(error.localizedDescription)"
+            )
+            self.hideIndicatorView()
+        }
     }
 }
 

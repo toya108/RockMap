@@ -2,8 +2,9 @@ import Foundation
 import PhotosUI
 
 protocol PickerManagerDelegate: UIViewController {
-    func beganResultHandling()
-    func didReceivePicking(data: Data, imageType: Entity.Image.ImageType)
+    func startPicking()
+    func didReceive(data: Data, imageType: Entity.Image.ImageType)
+    func didReceive(error: Error)
 }
 
 class PickerManager: NSObject {
@@ -49,16 +50,21 @@ extension PickerManager: PHPickerViewControllerDelegate {
 
         if results.isEmpty { return }
 
-        self.delegate?.beganResultHandling()
+        self.delegate?.startPicking()
 
         results.map(\.itemProvider).forEach {
             guard $0.canLoadObject(ofClass: UIImage.self) else { return }
 
             $0.loadObject(ofClass: UIImage.self) { [weak self] providerReading, error in
 
+                guard let self = self else { return }
+
+                if let error = error {
+                    self.delegate?.didReceive(error: error)
+                    return
+                }
+
                 guard
-                    case .none = error,
-                    let self = self,
                     let image = providerReading as? UIImage,
                     let resizedImage = self.resizeImage(image: image),
                     let data = resizedImage.jpegData(compressionQuality: 1)
@@ -66,7 +72,7 @@ extension PickerManager: PHPickerViewControllerDelegate {
                     return
                 }
 
-                self.delegate?.didReceivePicking(
+                self.delegate?.didReceive(
                     data: data,
                     imageType: self.imageType
                 )
@@ -115,8 +121,8 @@ extension PickerManager: UIImagePickerControllerDelegate & UINavigationControlle
             return
         }
 
-        self.delegate?.beganResultHandling()
+        self.delegate?.startPicking()
 
-        self.delegate?.didReceivePicking(data: data, imageType: self.imageType)
+        self.delegate?.didReceive(data: data, imageType: self.imageType)
     }
 }
