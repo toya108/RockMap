@@ -78,7 +78,6 @@ extension CourseConfirmViewController {
             guard let self = self else { return }
 
             supplementaryView.setSideInset(0)
-            supplementaryView.backgroundColor = .white
             supplementaryView.label.text = self.snapShot.sectionIdentifiers[indexPath.section]
                 .headerTitle
         }
