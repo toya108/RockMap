@@ -29,7 +29,7 @@ extension Entity.User.SocialLinkType {
             return UIColor.Pallete.instagram
 
         case .other:
-            return .black
+            return .label
         }
     }
 }
