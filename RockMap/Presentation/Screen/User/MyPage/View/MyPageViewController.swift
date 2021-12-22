@@ -27,6 +27,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
 
         self.setupNavigationBar()
         configureDefaultConfiguration()
+        self.collectionView.backgroundColor = .systemBackground
         self.configureSections()
         self.bindViewModelOutput()
         self.setupRefreshControl()
