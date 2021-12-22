@@ -232,7 +232,7 @@ extension MyPageViewController {
         .init { cell, _, kind in
             var content = cell.defaultContentConfiguration()
             content.imageProperties.maximumSize = CGSize(width: 24, height: 24)
-            content.imageProperties.tintColor = .black
+            content.imageProperties.tintColor = .label
             content.image = kind.iconImage
             content.text = kind.cellTitle
             cell.contentConfiguration = content
