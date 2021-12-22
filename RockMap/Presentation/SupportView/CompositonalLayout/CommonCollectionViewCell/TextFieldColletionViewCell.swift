@@ -34,7 +34,7 @@ class TextFieldColletionViewCell: UICollectionViewCell {
         }
 
         self.borderView.translatesAutoresizingMaskIntoConstraints = false
-        self.borderView.backgroundColor = .lightGray
+        self.borderView.backgroundColor = .secondaryLabel
         NSLayoutConstraint.activate([
             self.borderView.heightAnchor.constraint(equalToConstant: 0.5)
         ])
