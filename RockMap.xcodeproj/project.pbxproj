@@ -35,6 +35,7 @@
 		9E0D09352566B31200D3075F /* RockDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D09342566B31200D3075F /* RockDetailViewModel.swift */; };
 		9E1056E1270B31C7007254DA /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 9E1056E0270B31C7007254DA /* SDWebImage */; };
 		9E11A7DA26272ABA006C925A /* NoImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E11A7D926272ABA006C925A /* NoImageCollectionViewCell.swift */; };
+		9E1287E2277372B200651D89 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1287E1277372B200651D89 /* SettingsView.swift */; };
 		9E171174263305B900D35BFE /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E171172263305B900D35BFE /* ListCollectionViewCell.swift */; };
 		9E171175263305B900D35BFE /* ListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E171173263305B900D35BFE /* ListCollectionViewCell.xib */; };
 		9E21C389264D5F4C003B02E7 /* IconTextFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E21C388264D5F4C003B02E7 /* IconTextFieldCollectionViewCell.swift */; };
@@ -267,6 +268,7 @@
 		9E0C9C2726D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enitty.User.SocialLinkType.Icon.swift; sourceTree = "<group>"; };
 		9E0D09342566B31200D3075F /* RockDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewModel.swift; sourceTree = "<group>"; };
 		9E11A7D926272ABA006C925A /* NoImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		9E1287E1277372B200651D89 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9E171172263305B900D35BFE /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E171173263305B900D35BFE /* ListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E21C388264D5F4C003B02E7 /* IconTextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1312,6 +1314,7 @@
 			children = (
 				9EA6B050266524CA00DAA888 /* SettingsKind.swift */,
 				9EA6B052266524E800DAA888 /* SettingsViewController.swift */,
+				9E1287E1277372B200651D89 /* SettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1849,6 +1852,7 @@
 				9EBD5A1525F7C998009383F6 /* UICollectionViewCellExtension.swift in Sources */,
 				9E26400525B5C0300088DAFB /* RockSearchViewModel.swift in Sources */,
 				9E810722262DA3640025359C /* MyPageLayout.swift in Sources */,
+				9E1287E2277372B200651D89 /* SettingsView.swift in Sources */,
 				9E30EFF32643B33A0054C7C4 /* RockListDatasource.swift in Sources */,
 				9EEAEDF0260385BA00F5FE19 /* ValueCollectionViewCell.swift in Sources */,
 				9EF8E2B125EF6B8F00185A3D /* CourseConfirmViewModel.swift in Sources */,
