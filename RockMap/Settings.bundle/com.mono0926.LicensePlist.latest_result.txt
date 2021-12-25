@@ -54,7 +54,7 @@ name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.4.2
 
 name: swift-protobuf, nameSpecified: SwiftProtobuf, owner: apple, version: 1.18.0
 
-name: SwiftLint, nameSpecified: SwiftLint, owner: realm, version: 0.45.0
+name: SwiftLint, nameSpecified: SwiftLint, owner: realm, version: 0.45.1
 
 name: SwiftyTextTable, nameSpecified: SwiftyTextTable, owner: scottrhoyt, version: 0.9.0
 
@@ -66,4 +66,4 @@ name: Yams, nameSpecified: Yams, owner: jpsim, version: 4.0.6
 
 add-version-numbers: false
 
-LicensePlist Version: 3.14.2
+LicensePlist Version: 3.16.0
