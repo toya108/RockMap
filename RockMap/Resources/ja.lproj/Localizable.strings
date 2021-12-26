@@ -21,3 +21,9 @@
 // MARK: - Tab
 "rock_search" = "岩を探す";
 "mypage" = "マイページ";
+
+// MARK: - Settings
+"account" = "アカウント";
+"about_this_app" = "このアプリについて";
+"review" = "レビュー";
+"settings" = "設定";

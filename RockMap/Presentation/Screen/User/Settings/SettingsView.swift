@@ -9,7 +9,7 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("アカウント")) {
+                Section(header: Text("account")) {
                     NavigationLink(
                         destination: {
                             AccountView()
@@ -17,27 +17,27 @@ struct SettingsView: View {
                         label: {
                             HStack {
                                 Image(uiImage: UIImage.SystemImages.personCircle)
-                                Text("アカウント")
+                                Text("account")
                             }
                         }
                     )
                 }
-                Section(header: Text("このアプリについて")) {
+                Section(header: Text("about_this_app")) {
                     HStack {
                         Image(uiImage: UIImage.SystemImages.checkmarkShield)
-                        Text("プライバシーポリシー").onTapGesture {
+                        Text("privacy_policy").onTapGesture {
                             shouldShowPrivacyPolicy.toggle()
                         }
                     }
                     HStack {
                         Image(uiImage: UIImage.SystemImages.docPlaintext)
-                        Text("利用規約").onTapGesture {
+                        Text("terms").onTapGesture {
                             shouldShowPrivacyPolicy.toggle()
                         }
                     }
                     HStack {
                         Image(uiImage: UIImage.SystemImages.starCircle)
-                        Text("レビュー").onTapGesture {
+                        Text("review").onTapGesture {
                             guard
                                 let scene = UIApplication.shared.connectedScenes.first(
                                     where: { $0.activationState == .foregroundActive }
@@ -51,7 +51,7 @@ struct SettingsView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("設定")
+            .navigationTitle("settings")
         }
         .sheet(isPresented: $shouldShowPrivacyPolicy) {
             SafariView(url: Resources.Const.Url.privacyPolicy)

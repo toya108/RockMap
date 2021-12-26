@@ -22,3 +22,8 @@
 "rock_search" = "Search Rock";
 "mypage" = "MyPage";
 
+// MARK: - Settings
+"account" = "Account";
+"about_this_app" = "About this app";
+"review" = "Review";
+"settings" = "Settings";
