@@ -193,6 +193,7 @@
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
 		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
 		9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */; };
+		9ED51EC7277849F9003EB220 /* EntireTappableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED51EC6277849F9003EB220 /* EntireTappableRowView.swift */; };
 		9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED972992596471C0069FB94 /* ArrayExtension.swift */; };
 		9EDEFE8D2700019C00E2868D /* UIControl+UIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDEFE8C2700019C00E2868D /* UIControl+UIAction.swift */; };
 		9EE25B8F25C99C8E0050326D /* RockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */; };
@@ -430,6 +431,7 @@
 		9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradeSelectingCollectionViewCell.xib; sourceTree = "<group>"; };
 		9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomImagePresentableImageView.swift; sourceTree = "<group>"; };
+		9ED51EC6277849F9003EB220 /* EntireTappableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntireTappableRowView.swift; sourceTree = "<group>"; };
 		9ED972992596471C0069FB94 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		9EDEFE8C2700019C00E2868D /* UIControl+UIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+UIAction.swift"; sourceTree = "<group>"; };
 		9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewController.swift; sourceTree = "<group>"; };
@@ -1172,6 +1174,7 @@
 		9E98D53D2552F88B00EC5AC1 /* SupportView */ = {
 			isa = PBXGroup;
 			children = (
+				9ED51EC5277849EB003EB220 /* SwiftUI */,
 				9E6D9175261AEB8D006E2297 /* ViewController */,
 				9E7812A22619AF6800CAC539 /* View */,
 				9E6C40CE2614D0BD00F010BE /* Indicator */,
@@ -1437,6 +1440,14 @@
 				9E479D2526C29DC3003EFCB5 /* DomainAccesser.swift */,
 			);
 			path = Domain;
+			sourceTree = "<group>";
+		};
+		9ED51EC5277849EB003EB220 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				9ED51EC6277849F9003EB220 /* EntireTappableRowView.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		9EE9D0E02614DD2000570097 /* View */ = {
@@ -1930,6 +1941,7 @@
 				9E94C7C425E2BAAE00276333 /* SectionBackgroundDecorationView.swift in Sources */,
 				9E4B45382706906A005CAB32 /* LoginView.swift in Sources */,
 				9EE25B8F25C99C8E0050326D /* RockDetailViewController.swift in Sources */,
+				9ED51EC7277849F9003EB220 /* EntireTappableRowView.swift in Sources */,
 				9E11A7DA26272ABA006C925A /* NoImageCollectionViewCell.swift in Sources */,
 				9E6CF41C25CF10570098389E /* TitleSupplementaryView.swift in Sources */,
 				9E98D51B2552907500EC5AC1 /* UIViewControllerExtension.swift in Sources */,
