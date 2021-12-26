@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 
 struct MyPageRouter: RouterProtocol {
     typealias Destination = DestinationType
@@ -87,7 +88,7 @@ struct MyPageRouter: RouterProtocol {
         _ from: UIViewController
     ) {
         from.present(
-            UINavigationController(rootViewController: SettingsViewController()),
+            UIHostingController(rootView: SettingsView()),
             animated: true
         )
     }
