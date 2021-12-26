@@ -161,7 +161,6 @@
 		9EA32A4E25FA77F700FB0C75 /* RockConfirmKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA32A4D25FA77F700FB0C75 /* RockConfirmKind.swift */; };
 		9EA58D16263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA58D15263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift */; };
 		9EA6B04D26651A2300DAA888 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9EA6B04C26651A2300DAA888 /* Settings.bundle */; };
-		9EA6B051266524CA00DAA888 /* SettingsKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6B050266524CA00DAA888 /* SettingsKind.swift */; };
 		9EA6B05C26653E7A00DAA888 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6B05B26653E7A00DAA888 /* AccountViewController.swift */; };
 		9EA6B05E26653E8500DAA888 /* AccountKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6B05D26653E8500DAA888 /* AccountKind.swift */; };
 		9EA88DB6269189110036D6C1 /* RemoteConfigListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA88DB5269189110036D6C1 /* RemoteConfigListener.swift */; };
@@ -397,7 +396,6 @@
 		9EA32A4D25FA77F700FB0C75 /* RockConfirmKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmKind.swift; sourceTree = "<group>"; };
 		9EA58D15263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EA6B04C26651A2300DAA888 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		9EA6B050266524CA00DAA888 /* SettingsKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsKind.swift; sourceTree = "<group>"; };
 		9EA6B05B26653E7A00DAA888 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		9EA6B05D26653E8500DAA888 /* AccountKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountKind.swift; sourceTree = "<group>"; };
 		9EA88DB5269189110036D6C1 /* RemoteConfigListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigListener.swift; sourceTree = "<group>"; };
@@ -1310,7 +1308,6 @@
 		9EA6B04E26651CDC00DAA888 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				9EA6B050266524CA00DAA888 /* SettingsKind.swift */,
 				9E1287E1277372B200651D89 /* SettingsView.swift */,
 			);
 			path = Settings;
@@ -1911,7 +1908,6 @@
 				9E8A145C2707509F00903D38 /* SafariView.swift in Sources */,
 				9E5CEFD025277B25001C95AA /* RockSearchViewController.swift in Sources */,
 				9E8723D3256C037000735C65 /* RockConfirmViewModel.swift in Sources */,
-				9EA6B051266524CA00DAA888 /* SettingsKind.swift in Sources */,
 				9EECEBB7265FBABC0057EE11 /* MyCLimbRecordListDatasource.swift in Sources */,
 				9E9845D125D4F2FE00B03C4E /* CourseRegisterViewModel.swift in Sources */,
 				9E39B201261472E00005F6E1 /* RockRegisterRouter.swift in Sources */,
