@@ -15,36 +15,38 @@ struct SettingsView: View {
                         label: {
                             HStack {
                                 Image(uiImage: UIImage.SystemImages.personCircle)
+                                    .renderingMode(.template)
+                                    .foregroundColor(Color(uiColor: .label))
                                 Text("account")
                             }
                         }
                     )
                 }
                 Section(header: Text("about_this_app")) {
-                    HStack {
+                    EntireTappableRowView {
                         Image(uiImage: UIImage.SystemImages.checkmarkShield)
+                            .renderingMode(.template)
+                            .foregroundColor(Color(uiColor: .label))
                         Text("privacy_policy")
-                        Spacer()
                     }
-                    .contentShape(Rectangle())
                     .onTapGesture {
                         shouldShowPrivacyPolicy.toggle()
                     }
-                    HStack {
+                    EntireTappableRowView {
                         Image(uiImage: UIImage.SystemImages.docPlaintext)
+                            .renderingMode(.template)
+                            .foregroundColor(Color(uiColor: .label))
                         Text("terms")
-                        Spacer()
                     }
-                    .contentShape(Rectangle())
                     .onTapGesture {
                         shouldShowPrivacyPolicy.toggle()
                     }
-                    HStack {
+                    EntireTappableRowView {
                         Image(uiImage: UIImage.SystemImages.starCircle)
+                            .renderingMode(.template)
+                            .foregroundColor(Color(uiColor: .label))
                         Text("review")
-                        Spacer()
                     }
-                    .contentShape(Rectangle())
                     .onTapGesture {
                         showStoreReview()
                     }
