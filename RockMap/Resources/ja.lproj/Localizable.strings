@@ -2,6 +2,9 @@
 "ok" = "OK";
 "yes" = "はい";
 "cancel" = "キャンセル";
+"login" = "ログイン";
+"logout" = "ログアウト";
+
 
 // MARK: - Auth
 "rockmap" = "RockMap";
@@ -27,3 +30,13 @@
 "about_this_app" = "このアプリについて";
 "review" = "レビュー";
 "settings" = "設定";
+
+// MARK: - Account
+"manage_account" = "アカウント管理";
+"id" = "ID";
+"how_to_login" = "ログイン方法";
+"user_information" = "ユーザー情報";
+"delete_account" = "アカウント削除";
+"would_you_like_to_delete_your_account" = "アカウントを削除しますか？";
+"delete_account_alert_message" = "アカウントを削除しても登録した岩と課題は無くなりません。";
+"account_deleting_failed" = "アカウントの削除に失敗しました。";

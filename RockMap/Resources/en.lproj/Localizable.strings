@@ -2,6 +2,8 @@
 "ok" = "OK";
 "yes" = "Yes";
 "cancel" = "Cancel";
+"login" = "Login";
+"logout" = "Logout";
 
 // MARK: - Auth
 "rockmap" = "RockMap";
@@ -27,3 +29,13 @@
 "about_this_app" = "About this app";
 "review" = "Review";
 "settings" = "Settings";
+
+// MARK: - Account
+"manage_account" = "Account Management";
+"id" = "ID";
+"how_to_login" = "How to login";
+"user_information" = "User Infomation";
+"delete_account" = "Delete Account";
+"would_you_like_to_delete_your_account" = "Would you like to delete your account?";
+"delete_account_alert_message" = "If you delete your account, registered rocks and courses are not lost.";
+"account_deleting_failed" = "Account Deleting Failed";
