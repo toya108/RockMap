@@ -162,7 +162,6 @@
 		9EA58D16263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA58D15263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift */; };
 		9EA6B04D26651A2300DAA888 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9EA6B04C26651A2300DAA888 /* Settings.bundle */; };
 		9EA6B051266524CA00DAA888 /* SettingsKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6B050266524CA00DAA888 /* SettingsKind.swift */; };
-		9EA6B053266524E800DAA888 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6B052266524E800DAA888 /* SettingsViewController.swift */; };
 		9EA6B05C26653E7A00DAA888 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6B05B26653E7A00DAA888 /* AccountViewController.swift */; };
 		9EA6B05E26653E8500DAA888 /* AccountKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6B05D26653E8500DAA888 /* AccountKind.swift */; };
 		9EA88DB6269189110036D6C1 /* RemoteConfigListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA88DB5269189110036D6C1 /* RemoteConfigListener.swift */; };
@@ -399,7 +398,6 @@
 		9EA58D15263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EA6B04C26651A2300DAA888 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		9EA6B050266524CA00DAA888 /* SettingsKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsKind.swift; sourceTree = "<group>"; };
-		9EA6B052266524E800DAA888 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9EA6B05B26653E7A00DAA888 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		9EA6B05D26653E8500DAA888 /* AccountKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountKind.swift; sourceTree = "<group>"; };
 		9EA88DB5269189110036D6C1 /* RemoteConfigListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigListener.swift; sourceTree = "<group>"; };
@@ -1313,7 +1311,6 @@
 			isa = PBXGroup;
 			children = (
 				9EA6B050266524CA00DAA888 /* SettingsKind.swift */,
-				9EA6B052266524E800DAA888 /* SettingsViewController.swift */,
 				9E1287E1277372B200651D89 /* SettingsView.swift */,
 			);
 			path = Settings;
@@ -1883,7 +1880,6 @@
 				9EC3A6C92604D75C001FBCA4 /* CourseDetailLayout.swift in Sources */,
 				9E78129126199B1500CAC539 /* UserView.swift in Sources */,
 				9E08AC9C2573D36A00D69927 /* UI.swift in Sources */,
-				9EA6B053266524E800DAA888 /* SettingsViewController.swift in Sources */,
 				9E5DD1C025C84DA500E38620 /* UIImageViewExtension.swift in Sources */,
 				9EFE2B2C2694AF4B002F4923 /* CrudableImage.swift in Sources */,
 				9EA88DB82691D5900036D6C1 /* ForceUpdateAlertManager.swift in Sources */,
