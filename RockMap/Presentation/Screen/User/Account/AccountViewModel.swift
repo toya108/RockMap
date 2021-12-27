@@ -28,7 +28,7 @@ class AccountViewModel: ObservableObject {
         }
     }
 
-    func deleteAccount() {
+    @MainActor func deleteAccount() {
         Task {
             do {
                 try await self.deleteUserUsecase.delete(id: authAccessor.uid)
