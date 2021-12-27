@@ -5,13 +5,16 @@ struct SettingsView: View {
 
     @State private var shouldShowPrivacyPolicy = false
     @State private var shouldShowTerm = false
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         NavigationView {
             List {
                 Section(header: Text("account")) {
                     NavigationLink(
-                        destination: AccountView(),
+                        destination: AccountView {
+                            dismiss()
+                        },
                         label: {
                             HStack {
                                 Image(uiImage: UIImage.SystemImages.personCircle)

@@ -4,6 +4,12 @@ import Resolver
 struct AccountView: View {
 
     @StateObject var viewModel: AccountViewModel = Resolver.resolve()
+    @Environment(\.dismiss) var dismiss
+    let dismissParent: () -> Void
+
+    init(dismissParent: @escaping () -> Void) {
+        self.dismissParent = dismissParent
+    }
 
     var body: some View {
         NavigationView {
@@ -45,9 +51,12 @@ struct AccountView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("account")
             .onReceive(viewModel.$shouldChangeRootToLogin) {
-                if $0 {
-                    AppStore.shared.rootViewType = .login
+                guard $0 else {
+                    return
                 }
+
+                AppStore.shared.rootViewType = .login
+                dismissParent()
             }
             .alert(
                 "would_you_like_to_delete_your_account",
@@ -106,6 +115,6 @@ struct AccountView: View {
 
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
-        AccountView()
+        AccountView {}
     }
 }
