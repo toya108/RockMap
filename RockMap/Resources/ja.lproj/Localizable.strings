@@ -40,3 +40,5 @@
 "would_you_like_to_delete_your_account" = "アカウントを削除しますか？";
 "delete_account_alert_message" = "アカウントを削除しても登録した岩と課題は無くなりません。";
 "account_deleting_failed" = "アカウントの削除に失敗しました。";
+"logout_alert_message" = "ログアウトするとアプリの最初の画面に戻ります。";
+

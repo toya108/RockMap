@@ -39,3 +39,4 @@
 "would_you_like_to_delete_your_account" = "Would you like to delete your account?";
 "delete_account_alert_message" = "If you delete your account, registered rocks and courses are not lost.";
 "account_deleting_failed" = "Account Deleting Failed";
+"logout_alert_message" = "You return the firest screen after logouting.";
