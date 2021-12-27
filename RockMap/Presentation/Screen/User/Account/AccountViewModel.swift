@@ -17,7 +17,6 @@ class AccountViewModel: ObservableObject {
     @Injected var authAccessor: AuthAccessorProtocol
     @Injected var authCoordinator: AuthCoordinatorProtocol
     @Injected private var deleteUserUsecase: DeleteUserUsecaseProtocol
-    private var loginFinishedCancellable: Cancellable?
 
     func logout() {
         do {
