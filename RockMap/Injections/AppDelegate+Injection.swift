@@ -9,5 +9,6 @@ extension Resolver: ResolverRegistering {
 
     static private func registerRockMapServices() {
         register { LoginViewModel() }
+        register { AccountViewModel() }
     }
 }
