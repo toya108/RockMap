@@ -1,6 +1,7 @@
 import Foundation
 import PhotosUI
 
+// swiftlint:disable class_delegate_protocol
 protocol PickerManagerDelegate: UIViewController {
     func startPicking()
     func didReceive(data: Data, imageType: Entity.Image.ImageType)
