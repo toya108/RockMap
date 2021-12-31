@@ -17,7 +17,7 @@ enum LocationSelectButtonState {
     var backGroundColor: UIColor {
         switch self {
         case .standby:
-            return .white
+            return .tertiarySystemBackground
 
         case .selecting:
             return UIColor.Pallete.primaryGreen
@@ -30,7 +30,7 @@ enum LocationSelectButtonState {
             return UIColor.Pallete.primaryGreen
 
         case .selecting:
-            return .white
+            return .tertiarySystemBackground
         }
     }
 }

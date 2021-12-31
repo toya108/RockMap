@@ -10,6 +10,7 @@ public extension Resolver {
     private static func _registerDomainServices() {
         register { Domain.Usecase.User.Set() as SetUserUsecaseProtocol }
         register { Domain.Mapper.User() }
+        register { Domain.Usecase.User.Delete() as DeleteUserUsecaseProtocol }
     }
 }
 

@@ -15,7 +15,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/realm/SwiftLint",
-            from: .init("0.44.0")
+            from: .init("0.45.1")
         )
     ],
     targets: [

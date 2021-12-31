@@ -23,7 +23,7 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureCollectionView()
+        configureDefaultConfiguration()
         self.setupPickerManager()
         self.setupNavigationBar()
         self.bindViewModelToView()
@@ -35,36 +35,34 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
         configuration.selectionLimit = 1
         configuration.filter = .images
         self.pickerManager = PickerManager(
-            from: self,
+            delegate: self,
             configuration: configuration
         )
-        self.pickerManager.delegate = self
     }
 
     private func setupNavigationBar() {
         navigationItem.title = "プロフィール編集"
 
-        navigationItem.setLeftBarButton(
-            .init(
-                image: UIImage.SystemImages.xmark,
-                primaryAction: .init { [weak self] _ in
+        let closeButton = UIBarButtonItem(
+            image: UIImage.SystemImages.xmark,
+            primaryAction: .init { [weak self] _ in
 
-                    guard let self = self else { return }
+                guard let self = self else { return }
 
-                    self.showAlert(
-                        title: "編集内容を破棄しますか？",
-                        actions: [
-                            .init(title: "破棄", style: .destructive) { _ in
-                                self.dismiss(animated: true)
-                            },
-                            .init(title: "キャンセル", style: .cancel)
-                        ],
-                        style: .actionSheet
-                    )
-                }
-            ),
-            animated: false
+                self.showAlert(
+                    title: "編集内容を破棄しますか？",
+                    actions: [
+                        .init(title: "破棄", style: .destructive) { _ in
+                            self.dismiss(animated: true)
+                        },
+                        .init(title: "キャンセル", style: .cancel)
+                    ],
+                    style: .actionSheet
+                )
+            }
         )
+        closeButton.tintColor = .label
+        navigationItem.setLeftBarButton(closeButton, animated: false)
 
         let saveButton = UIBarButtonItem(
             title: "保存",
@@ -138,15 +136,26 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
 }
 
 extension EditProfileViewController: PickerManagerDelegate {
-    func beganResultHandling() {
+    func startPicking() {
         showIndicatorView()
     }
 
-    func didReceivePicking(
+    func didReceive(
         data: Data,
         imageType: Entity.Image.ImageType
     ) {
         self.viewModel.input.setImageSubject.send((imageType, data))
+    }
+
+
+    func didReceive(error: Error) {
+        DispatchQueue.main.async {
+            self.showOKAlert(
+                title: "画像の取得に失敗しました。",
+                message: "reason: \(error.localizedDescription)"
+            )
+            self.hideIndicatorView()
+        }
     }
 }
 

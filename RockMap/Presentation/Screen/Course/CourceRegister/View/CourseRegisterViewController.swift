@@ -25,7 +25,7 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        configureCollectionView()
+        configureDefaultConfiguration()
         self.setupPickerManager()
         self.setupNavigationBar()
         self.bindViewModelToView()
@@ -37,27 +37,25 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
         configuration.selectionLimit = 10
         configuration.filter = .images
         self.pickerManager = PickerManager(
-            from: self,
+            delegate: self,
             configuration: configuration
         )
-        self.pickerManager.delegate = self
     }
 
     private func setupNavigationBar() {
         navigationItem.title = "課題を\(self.viewModel.registerType.name)する"
 
-        navigationItem.setRightBarButton(
-            .init(
-                image: UIImage.SystemImages.xmark,
-                primaryAction: .init { [weak self] _ in
+        let closeButton = UIBarButtonItem(
+            image: UIImage.SystemImages.xmark,
+            primaryAction: .init { [weak self] _ in
 
-                    guard let self = self else { return }
+                guard let self = self else { return }
 
-                    self.router.route(to: .rockDetail, from: self)
-                }
-            ),
-            animated: false
+                self.router.route(to: .rockDetail, from: self)
+            }
         )
+        closeButton.tintColor = .label
+        navigationItem.setRightBarButton(closeButton, animated: false)
     }
 
     private func bindViewModelToView() {
@@ -124,15 +122,25 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
 }
 
 extension CourseRegisterViewController: PickerManagerDelegate {
-    func beganResultHandling() {
+    func startPicking() {
         showIndicatorView()
     }
 
-    func didReceivePicking(
+    func didReceive(
         data: Data,
         imageType: Entity.Image.ImageType
     ) {
         self.viewModel.input.setImageSubject.send((data, imageType))
+    }
+
+    func didReceive(error: Error) {
+        DispatchQueue.main.async {
+            self.showOKAlert(
+                title: "画像の取得に失敗しました。",
+                message: "reason: \(error.localizedDescription)"
+            )
+            self.hideIndicatorView()
+        }
     }
 }
 

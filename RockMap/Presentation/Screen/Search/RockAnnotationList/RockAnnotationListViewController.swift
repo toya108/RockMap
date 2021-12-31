@@ -23,8 +23,7 @@ class RockAnnotationListViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemGroupedBackground
-        configureCollectionView()
+        configureDefaultConfiguration()
         self.setupSections()
     }
 

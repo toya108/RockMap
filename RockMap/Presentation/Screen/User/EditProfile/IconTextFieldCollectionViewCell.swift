@@ -16,7 +16,7 @@ class IconTextFieldCollectionViewCell: UICollectionViewCell {
     }
 
     private func setupLayout() {
-        self.iconImageView.tintColor = .gray
+        self.iconImageView.tintColor = .systemGray
 
         contentView.addSubview(self.stackView)
         self.stackView.spacing = 8

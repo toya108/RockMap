@@ -3,16 +3,15 @@ import Auth
 
 struct MyPageView: UIViewControllerRepresentable {
 
-    typealias UIViewControllerType = RockMapNavigationController
+    typealias UIViewControllerType = UINavigationController
 
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<MyPageView>
     ) -> MyPageView.UIViewControllerType {
-        return RockMapNavigationController(
-            rootVC: MyPageViewController.createInstance(
+        return UINavigationController(
+            rootViewController: MyPageViewController.createInstance(
                 viewModel: .init(userKind: AuthManager.shared.isLoggedIn ? .mine : .guest)
-            ),
-            naviBarClass: RockMapNavigationBar.self
+            )
         )
     }
 

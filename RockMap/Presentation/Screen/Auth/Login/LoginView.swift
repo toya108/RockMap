@@ -28,7 +28,7 @@ struct LoginView: View {
                             viewModel.loginIfNeeded()
                         },
                         label: {
-                            Text("login")
+                            Text("login_en")
                                 .font(.system(size: 20, weight: .heavy, design: .default))
                                 .padding(8)
                                 .foregroundColor(Color(uiColor: .white))
@@ -37,7 +37,7 @@ struct LoginView: View {
                     )
                     .cornerRadius(8)
                     .fullScreenCover(isPresented: $viewModel.isPresentedAuthView) {
-                        AuthView(coordinator: viewModel.authCoordinator)
+                        AuthView(coordinator: viewModel.authCoordinator).edgesIgnoringSafeArea(.all)
                     }
                     Button(
                         action: {

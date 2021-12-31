@@ -20,6 +20,7 @@ enum TabKind: CaseIterable {
                     TabKind.myPage.makeStack(selection: selection)
                 }
                 .tag(TabKind.myPage)
+                .edgesIgnoringSafeArea(.all)
         }
     }
 

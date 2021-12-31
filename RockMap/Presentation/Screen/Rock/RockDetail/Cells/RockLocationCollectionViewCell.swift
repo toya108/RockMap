@@ -52,7 +52,7 @@ class RockLocationCollectionViewCell: UICollectionViewCell {
 
         self.stackView.addArrangedSubview(self.addressLabel)
         self.addressLabel.numberOfLines = 0
-        self.addressLabel.textColor = .darkGray
+        self.addressLabel.textColor = .label
         self.addressLabel.font = UIFont.preferredFont(forTextStyle: .body)
 
         self.stackView.addArrangedSubview(self.mapView)
@@ -64,7 +64,7 @@ class RockLocationCollectionViewCell: UICollectionViewCell {
         self.mapView.layer.cornerRadius = 8
 
         self.trackingButton.tintColor = UIColor.Pallete.primaryGreen
-        self.trackingButton.backgroundColor = .white
+        self.trackingButton.backgroundColor = .tertiarySystemBackground
         self.trackingButton.layer.cornerRadius = 4
         self.trackingButton.layer.shadowRadius = Resources.Const.UI.Shadow.radius
         self.trackingButton.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity

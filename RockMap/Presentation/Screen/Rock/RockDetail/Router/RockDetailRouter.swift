@@ -58,9 +58,8 @@ struct RockDetailRouter: RouterProtocol {
             )
         )
 
-        let vc = RockMapNavigationController(
-            rootVC: CourseRegisterViewController.createInstance(viewModel: courseRegisterViewModel),
-            naviBarClass: RockMapNoShadowNavigationBar.self
+        let vc = UINavigationController(
+            rootViewController: CourseRegisterViewController.createInstance(viewModel: courseRegisterViewModel)
         )
         vc.isModalInPresentation = true
         from.present(vc, animated: true)

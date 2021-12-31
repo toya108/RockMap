@@ -45,15 +45,14 @@ class RockLocationSelectViewController: UIViewController {
 
     private func setupNavigationBar() {
         navigationItem.title = "岩の位置を選択する"
-        navigationItem.setLeftBarButton(
-            .init(
-                image: UIImage.SystemImages.xmark,
-                style: .plain,
-                target: self,
-                action: #selector(self.didCancelButtonTapped)
-            ),
-            animated: true
+        let closeButton = UIBarButtonItem(
+            image: UIImage.SystemImages.xmark,
+            style: .plain,
+            target: self,
+            action: #selector(self.didCancelButtonTapped)
         )
+        closeButton.tintColor = .label
+        navigationItem.setLeftBarButton(closeButton, animated: true)
 
         let doneButton = UIBarButtonItem(
             title: "完了",
@@ -89,7 +88,7 @@ class RockLocationSelectViewController: UIViewController {
         self.mapView.delegate = self
 
         self.trackingButton.tintColor = UIColor.Pallete.primaryGreen
-        self.trackingButton.backgroundColor = .white
+        self.trackingButton.backgroundColor = .tertiarySystemBackground
         self.trackingButton.layer.cornerRadius = 4
         self.trackingButton.layer.shadowRadius = Resources.Const.UI.Shadow.radius
         self.trackingButton.layer.shadowOpacity = Resources.Const.UI.Shadow.opacity

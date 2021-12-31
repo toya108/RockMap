@@ -19,8 +19,6 @@
 		9E081FFB270FF9D3003F0AD8 /* Resolver in Frameworks */ = {isa = PBXBuildFile; productRef = 9E081FFA270FF9D3003F0AD8 /* Resolver */; };
 		9E081FFF27101727003F0AD8 /* Resolver+XCTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E081FFE27101727003F0AD8 /* Resolver+XCTest.swift */; };
 		9E0820292712AB67003F0AD8 /* AppDelegate+Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E081FFC270FFAA3003F0AD8 /* AppDelegate+Injection.swift */; };
-		9E08AC7C2572A84100D69927 /* RockMapNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08AC7B2572A84100D69927 /* RockMapNavigationController.swift */; };
-		9E08AC812572A8AA00D69927 /* RockMapNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08AC802572A8AA00D69927 /* RockMapNavigationBar.swift */; };
 		9E08AC9C2573D36A00D69927 /* UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E08AC9B2573D36A00D69927 /* UI.swift */; };
 		9E0A9F192550519F007B9A90 /* RockRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */; };
 		9E0A9F1E2551006E007B9A90 /* UITextView+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A9F1D2551006E007B9A90 /* UITextView+Combine.swift */; };
@@ -37,6 +35,7 @@
 		9E0D09352566B31200D3075F /* RockDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0D09342566B31200D3075F /* RockDetailViewModel.swift */; };
 		9E1056E1270B31C7007254DA /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 9E1056E0270B31C7007254DA /* SDWebImage */; };
 		9E11A7DA26272ABA006C925A /* NoImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E11A7D926272ABA006C925A /* NoImageCollectionViewCell.swift */; };
+		9E1287E2277372B200651D89 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1287E1277372B200651D89 /* SettingsView.swift */; };
 		9E171174263305B900D35BFE /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E171172263305B900D35BFE /* ListCollectionViewCell.swift */; };
 		9E171175263305B900D35BFE /* ListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E171173263305B900D35BFE /* ListCollectionViewCell.xib */; };
 		9E21C389264D5F4C003B02E7 /* IconTextFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E21C388264D5F4C003B02E7 /* IconTextFieldCollectionViewCell.swift */; };
@@ -71,6 +70,8 @@
 		9E493DDB26B98EA300DCA210 /* Domain in Frameworks */ = {isa = PBXBuildFile; productRef = 9E493DDA26B98EA300DCA210 /* Domain */; };
 		9E493DE126B994BB00DCA210 /* DataLayer in Frameworks */ = {isa = PBXBuildFile; productRef = 9E493DE026B994BB00DCA210 /* DataLayer */; };
 		9E4B45382706906A005CAB32 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4B45372706906A005CAB32 /* LoginView.swift */; };
+		9E4FC4042774CAB600E3C434 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4FC4032774CAB600E3C434 /* AccountView.swift */; };
+		9E4FC4152775A9DC00E3C434 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4FC4142775A9DC00E3C434 /* AccountViewModel.swift */; };
 		9E5C5E372555144000D00087 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5C5E362555144000D00087 /* Images.swift */; };
 		9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCB25277B25001C95AA /* AppDelegate.swift */; };
 		9E5CEFD025277B25001C95AA /* RockSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCF25277B25001C95AA /* RockSearchViewController.swift */; };
@@ -162,10 +163,6 @@
 		9EA32A4E25FA77F700FB0C75 /* RockConfirmKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA32A4D25FA77F700FB0C75 /* RockConfirmKind.swift */; };
 		9EA58D16263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA58D15263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift */; };
 		9EA6B04D26651A2300DAA888 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9EA6B04C26651A2300DAA888 /* Settings.bundle */; };
-		9EA6B051266524CA00DAA888 /* SettingsKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6B050266524CA00DAA888 /* SettingsKind.swift */; };
-		9EA6B053266524E800DAA888 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6B052266524E800DAA888 /* SettingsViewController.swift */; };
-		9EA6B05C26653E7A00DAA888 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6B05B26653E7A00DAA888 /* AccountViewController.swift */; };
-		9EA6B05E26653E8500DAA888 /* AccountKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6B05D26653E8500DAA888 /* AccountKind.swift */; };
 		9EA88DB6269189110036D6C1 /* RemoteConfigListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA88DB5269189110036D6C1 /* RemoteConfigListener.swift */; };
 		9EA88DB82691D5900036D6C1 /* ForceUpdateAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA88DB72691D5900036D6C1 /* ForceUpdateAlertManager.swift */; };
 		9EA88DBA2691D7B00036D6C1 /* ForceUpdateAlertManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA88DB92691D7B00036D6C1 /* ForceUpdateAlertManagerTests.swift */; };
@@ -196,6 +193,7 @@
 		9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */; };
 		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
 		9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */; };
+		9ED51EC7277849F9003EB220 /* EntireTappableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED51EC6277849F9003EB220 /* EntireTappableRowView.swift */; };
 		9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED972992596471C0069FB94 /* ArrayExtension.swift */; };
 		9EDEFE8D2700019C00E2868D /* UIControl+UIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDEFE8C2700019C00E2868D /* UIControl+UIAction.swift */; };
 		9EE25B8F25C99C8E0050326D /* RockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */; };
@@ -254,8 +252,6 @@
 		9E081FF7270FEA35003F0AD8 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		9E081FFC270FFAA3003F0AD8 /* AppDelegate+Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Injection.swift"; sourceTree = "<group>"; };
 		9E081FFE27101727003F0AD8 /* Resolver+XCTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resolver+XCTest.swift"; sourceTree = "<group>"; };
-		9E08AC7B2572A84100D69927 /* RockMapNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockMapNavigationController.swift; sourceTree = "<group>"; };
-		9E08AC802572A8AA00D69927 /* RockMapNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockMapNavigationBar.swift; sourceTree = "<group>"; };
 		9E08AC9B2573D36A00D69927 /* UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
 		9E0A9F182550519F007B9A90 /* RockRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockRegisterViewModel.swift; sourceTree = "<group>"; };
 		9E0A9F1D2551006E007B9A90 /* UITextView+Combine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Combine.swift"; sourceTree = "<group>"; };
@@ -271,6 +267,7 @@
 		9E0C9C2726D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enitty.User.SocialLinkType.Icon.swift; sourceTree = "<group>"; };
 		9E0D09342566B31200D3075F /* RockDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewModel.swift; sourceTree = "<group>"; };
 		9E11A7D926272ABA006C925A /* NoImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		9E1287E1277372B200651D89 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9E171172263305B900D35BFE /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E171173263305B900D35BFE /* ListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E21C388264D5F4C003B02E7 /* IconTextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -307,6 +304,8 @@
 		9E493DDF26B9949E00DCA210 /* DataLayer */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DataLayer; sourceTree = "<group>"; };
 		9E4A49212715BEB800DA5502 /* RockMap.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = RockMap.xctestplan; sourceTree = "<group>"; };
 		9E4B45372706906A005CAB32 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		9E4FC4032774CAB600E3C434 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		9E4FC4142775A9DC00E3C434 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		9E5C5E362555144000D00087 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		9E5CEFC825277B25001C95AA /* RockMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RockMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5CEFCB25277B25001C95AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -400,10 +399,6 @@
 		9EA32A4D25FA77F700FB0C75 /* RockConfirmKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmKind.swift; sourceTree = "<group>"; };
 		9EA58D15263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EA6B04C26651A2300DAA888 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		9EA6B050266524CA00DAA888 /* SettingsKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsKind.swift; sourceTree = "<group>"; };
-		9EA6B052266524E800DAA888 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		9EA6B05B26653E7A00DAA888 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
-		9EA6B05D26653E8500DAA888 /* AccountKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountKind.swift; sourceTree = "<group>"; };
 		9EA88DB5269189110036D6C1 /* RemoteConfigListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigListener.swift; sourceTree = "<group>"; };
 		9EA88DB72691D5900036D6C1 /* ForceUpdateAlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceUpdateAlertManager.swift; sourceTree = "<group>"; };
 		9EA88DB92691D7B00036D6C1 /* ForceUpdateAlertManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceUpdateAlertManagerTests.swift; sourceTree = "<group>"; };
@@ -436,6 +431,7 @@
 		9EC8AC8825D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeSelectingCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradeSelectingCollectionViewCell.xib; sourceTree = "<group>"; };
 		9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomImagePresentableImageView.swift; sourceTree = "<group>"; };
+		9ED51EC6277849F9003EB220 /* EntireTappableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntireTappableRowView.swift; sourceTree = "<group>"; };
 		9ED972992596471C0069FB94 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		9EDEFE8C2700019C00E2868D /* UIControl+UIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+UIAction.swift"; sourceTree = "<group>"; };
 		9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewController.swift; sourceTree = "<group>"; };
@@ -1178,12 +1174,12 @@
 		9E98D53D2552F88B00EC5AC1 /* SupportView */ = {
 			isa = PBXGroup;
 			children = (
+				9ED51EC5277849EB003EB220 /* SwiftUI */,
 				9E6D9175261AEB8D006E2297 /* ViewController */,
 				9E7812A22619AF6800CAC539 /* View */,
 				9E6C40CE2614D0BD00F010BE /* Indicator */,
 				9E427D3125F12E1B00ED7DBE /* Dialog */,
 				9E902B0625F0CE9400006624 /* CompositonalLayout */,
-				9EEB0AF125F0C25F00A86C92 /* Navigation */,
 				9EF71FCC2611A81F00D5B375 /* ImagePicker */,
 				9EEB0AF025F0C24700A86C92 /* ScrollView */,
 			);
@@ -1315,8 +1311,7 @@
 		9EA6B04E26651CDC00DAA888 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				9EA6B050266524CA00DAA888 /* SettingsKind.swift */,
-				9EA6B052266524E800DAA888 /* SettingsViewController.swift */,
+				9E1287E1277372B200651D89 /* SettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1324,8 +1319,8 @@
 		9EA6B05A26653D6800DAA888 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				9EA6B05B26653E7A00DAA888 /* AccountViewController.swift */,
-				9EA6B05D26653E8500DAA888 /* AccountKind.swift */,
+				9E4FC4032774CAB600E3C434 /* AccountView.swift */,
+				9E4FC4142775A9DC00E3C434 /* AccountViewModel.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1447,6 +1442,14 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		9ED51EC5277849EB003EB220 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				9ED51EC6277849F9003EB220 /* EntireTappableRowView.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
 		9EE9D0E02614DD2000570097 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1490,15 +1493,6 @@
 				9E98D53F2552F8AB00EC5AC1 /* TouchableScrollView.swift */,
 			);
 			path = ScrollView;
-			sourceTree = "<group>";
-		};
-		9EEB0AF125F0C25F00A86C92 /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-				9E08AC7B2572A84100D69927 /* RockMapNavigationController.swift */,
-				9E08AC802572A8AA00D69927 /* RockMapNavigationBar.swift */,
-			);
-			path = Navigation;
 			sourceTree = "<group>";
 		};
 		9EEB0AF225F0C26D00A86C92 /* CommonCollectionViewCell */ = {
@@ -1838,7 +1832,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E08AC812572A8AA00D69927 /* RockMapNavigationBar.swift in Sources */,
 				9E9E632A262EB1FF0096340C /* ViewModelProtocol.swift in Sources */,
 				9E30EFF52643B3840054C7C4 /* RockListViewModel.swift in Sources */,
 				9EECEBAF265FBA6C0057EE11 /* MyClimbRecordListViewController.swift in Sources */,
@@ -1860,10 +1853,10 @@
 				9E845ADA25ADEA6A00EC3BE6 /* Resouces.swift in Sources */,
 				9E9845E225D4FA5300B03C4E /* CourseRegisterKind.swift in Sources */,
 				9EB00BD42629770200379182 /* CompositionalColectionViewControllerProtocol.swift in Sources */,
-				9EA6B05C26653E7A00DAA888 /* AccountViewController.swift in Sources */,
 				9EBD5A1525F7C998009383F6 /* UICollectionViewCellExtension.swift in Sources */,
 				9E26400525B5C0300088DAFB /* RockSearchViewModel.swift in Sources */,
 				9E810722262DA3640025359C /* MyPageLayout.swift in Sources */,
+				9E1287E2277372B200651D89 /* SettingsView.swift in Sources */,
 				9E30EFF32643B33A0054C7C4 /* RockListDatasource.swift in Sources */,
 				9EEAEDF0260385BA00F5FE19 /* ValueCollectionViewCell.swift in Sources */,
 				9EF8E2B125EF6B8F00185A3D /* CourseConfirmViewModel.swift in Sources */,
@@ -1892,9 +1885,9 @@
 				9EA32A4425FA77DF00FB0C75 /* RockConfirmDatasource.swift in Sources */,
 				9E902B2525F0DC5300006624 /* LabelCollectionViewCell.swift in Sources */,
 				9EC3A6C92604D75C001FBCA4 /* CourseDetailLayout.swift in Sources */,
+				9E4FC4042774CAB600E3C434 /* AccountView.swift in Sources */,
 				9E78129126199B1500CAC539 /* UserView.swift in Sources */,
 				9E08AC9C2573D36A00D69927 /* UI.swift in Sources */,
-				9EA6B053266524E800DAA888 /* SettingsViewController.swift in Sources */,
 				9E5DD1C025C84DA500E38620 /* UIImageViewExtension.swift in Sources */,
 				9EFE2B2C2694AF4B002F4923 /* CrudableImage.swift in Sources */,
 				9EA88DB82691D5900036D6C1 /* ForceUpdateAlertManager.swift in Sources */,
@@ -1904,6 +1897,7 @@
 				9E30EFEF2643B2B40054C7C4 /* RockListKind.swift in Sources */,
 				9E7812FD261A069700CAC539 /* ClimbRecordTableViewCell.swift in Sources */,
 				9EB87ED12632C8FA0042EA9C /* CourseListViewController.swift in Sources */,
+				9E4FC4152775A9DC00E3C434 /* AccountViewModel.swift in Sources */,
 				9E9E6377262EFE150096340C /* LoadingState.swift in Sources */,
 				9E30EFF72643B3900054C7C4 /* RockListRouter.swift in Sources */,
 				9EE9D0E42614DD5C00570097 /* CourseConfirmRouter.swift in Sources */,
@@ -1926,7 +1920,6 @@
 				9E8A145C2707509F00903D38 /* SafariView.swift in Sources */,
 				9E5CEFD025277B25001C95AA /* RockSearchViewController.swift in Sources */,
 				9E8723D3256C037000735C65 /* RockConfirmViewModel.swift in Sources */,
-				9EA6B051266524CA00DAA888 /* SettingsKind.swift in Sources */,
 				9EECEBB7265FBABC0057EE11 /* MyCLimbRecordListDatasource.swift in Sources */,
 				9E9845D125D4F2FE00B03C4E /* CourseRegisterViewModel.swift in Sources */,
 				9E39B201261472E00005F6E1 /* RockRegisterRouter.swift in Sources */,
@@ -1949,6 +1942,7 @@
 				9E94C7C425E2BAAE00276333 /* SectionBackgroundDecorationView.swift in Sources */,
 				9E4B45382706906A005CAB32 /* LoginView.swift in Sources */,
 				9EE25B8F25C99C8E0050326D /* RockDetailViewController.swift in Sources */,
+				9ED51EC7277849F9003EB220 /* EntireTappableRowView.swift in Sources */,
 				9E11A7DA26272ABA006C925A /* NoImageCollectionViewCell.swift in Sources */,
 				9E6CF41C25CF10570098389E /* TitleSupplementaryView.swift in Sources */,
 				9E98D51B2552907500EC5AC1 /* UIViewControllerExtension.swift in Sources */,
@@ -1988,12 +1982,10 @@
 				9E45A3AC270C566400582AEB /* TabKind.swift in Sources */,
 				9EB87ED92632CC050042EA9C /* CourseListViewModel.swift in Sources */,
 				9E7ABF0E262593570028DB19 /* UISegmentedControl+Combine.swift in Sources */,
-				9E08AC7C2572A84100D69927 /* RockMapNavigationController.swift in Sources */,
 				9E5DD1D725C9857A00E38620 /* UIViewExtension.swift in Sources */,
 				9E83EEBB25FB4D00002392AA /* IconCollectionViewCell.swift in Sources */,
 				9E06F963264976A100731352 /* EditProfileDatasource.swift in Sources */,
 				9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */,
-				9EA6B05E26653E8500DAA888 /* AccountKind.swift in Sources */,
 				9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */,
 				9EA32A4925FA77EE00FB0C75 /* RockConfirmLayout.swift in Sources */,
 				9EA32A4E25FA77F700FB0C75 /* RockConfirmKind.swift in Sources */,

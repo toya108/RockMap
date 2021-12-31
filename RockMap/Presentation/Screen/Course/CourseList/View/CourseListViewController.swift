@@ -23,16 +23,11 @@ class CourseListViewController: UIViewController, CompositionalColectionViewCont
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.setupSubViews()
         self.setupNavigationBar()
         self.setupEmptyView()
-        configureCollectionView(topInset: 16)
+        configureDefaultConfiguration()
         self.setupSections()
         self.setupViewModelOutput()
-    }
-
-    private func setupSubViews() {
-        view.backgroundColor = .systemGroupedBackground
     }
 
     private func setupNavigationBar() {

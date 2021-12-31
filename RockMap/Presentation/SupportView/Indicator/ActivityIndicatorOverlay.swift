@@ -33,7 +33,7 @@ extension UIViewController {
 extension UIView {
     private var activityIndicatorView: UIActivityIndicatorView {
         let indicator = UIActivityIndicatorView()
-        indicator.color = .systemGroupedBackground
+        indicator.color = .white
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.tag = activityIndicatorViewTag
         return indicator
@@ -43,7 +43,7 @@ extension UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .black
-        view.alpha = 0.4
+        view.alpha = 0.5
         view.tag = overlayViewTag
         return view
     }
@@ -80,11 +80,12 @@ extension UIView {
             animations: {
                 overlayView.alpha = 0.0
                 activityIndicator.stopAnimating()
+            },
+            completion: { _ in
+                activityIndicator.removeFromSuperview()
+                overlayView.removeFromSuperview()
             }
-        ) { _ in
-            activityIndicator.removeFromSuperview()
-            overlayView.removeFromSuperview()
-        }
+        )
     }
 
     private func isDisplayingActivityIndicatorOverlay() -> Bool {

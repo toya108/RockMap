@@ -1,23 +1,24 @@
 import Foundation
 import PhotosUI
 
-protocol PickerManagerDelegate: AnyObject {
-    func beganResultHandling()
-    func didReceivePicking(data: Data, imageType: Entity.Image.ImageType)
+// swiftlint:disable class_delegate_protocol
+protocol PickerManagerDelegate: UIViewController {
+    func startPicking()
+    func didReceive(data: Data, imageType: Entity.Image.ImageType)
+    func didReceive(error: Error)
 }
 
 class PickerManager: NSObject {
-    weak var delegate: PickerManagerDelegate?
+    private weak var delegate: PickerManagerDelegate?
 
     private var imageType: Entity.Image.ImageType = .normal
-    private let from: UIViewController
     private var configuration: PHPickerConfiguration
 
     init(
-        from: UIViewController,
+        delegate: PickerManagerDelegate,
         configuration: PHPickerConfiguration
     ) {
-        self.from = from
+        self.delegate = delegate
         self.configuration = configuration
     }
 
@@ -26,7 +27,7 @@ class PickerManager: NSObject {
         self.configuration.selectionLimit = imageType.limit
         let vc = PHPickerViewController(configuration: configuration)
         vc.delegate = self
-        self.from.present(vc, animated: true)
+        self.delegate?.present(vc, animated: true)
     }
 
     func presentImagePicker(
@@ -37,7 +38,7 @@ class PickerManager: NSObject {
         let vc = UIImagePickerController()
         vc.delegate = self
         vc.sourceType = sourceType
-        self.from.present(vc, animated: true)
+        self.delegate?.present(vc, animated: true)
     }
 }
 
@@ -50,16 +51,21 @@ extension PickerManager: PHPickerViewControllerDelegate {
 
         if results.isEmpty { return }
 
-        self.delegate?.beganResultHandling()
+        self.delegate?.startPicking()
 
         results.map(\.itemProvider).forEach {
             guard $0.canLoadObject(ofClass: UIImage.self) else { return }
 
             $0.loadObject(ofClass: UIImage.self) { [weak self] providerReading, error in
 
+                guard let self = self else { return }
+
+                if let error = error {
+                    self.delegate?.didReceive(error: error)
+                    return
+                }
+
                 guard
-                    case .none = error,
-                    let self = self,
                     let image = providerReading as? UIImage,
                     let resizedImage = self.resizeImage(image: image),
                     let data = resizedImage.jpegData(compressionQuality: 1)
@@ -67,7 +73,7 @@ extension PickerManager: PHPickerViewControllerDelegate {
                     return
                 }
 
-                self.delegate?.didReceivePicking(
+                self.delegate?.didReceive(
                     data: data,
                     imageType: self.imageType
                 )
@@ -116,8 +122,8 @@ extension PickerManager: UIImagePickerControllerDelegate & UINavigationControlle
             return
         }
 
-        self.delegate?.beganResultHandling()
+        self.delegate?.startPicking()
 
-        self.delegate?.didReceivePicking(data: data, imageType: self.imageType)
+        self.delegate?.didReceive(data: data, imageType: self.imageType)
     }
 }

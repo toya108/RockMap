@@ -2,12 +2,14 @@
 "ok" = "OK";
 "yes" = "Yes";
 "cancel" = "Cancel";
+"login" = "Login";
+"logout" = "Logout";
 
 // MARK: - Auth
 "rockmap" = "RockMap";
 "text_hello" = "Hello Climbers!\nLet's share rocks & courses!";
 "text_rockmap_description" = "RockMap is a map app for climbers.\nLet's share the information about rocks and courses!";
-"login" = "Login";
+"login_en" = "Login";
 "guest_login" = "Guest Login";
 "privacy_policy" = "Privacy Policy";
 "terms" = "Terms";
@@ -22,3 +24,19 @@
 "rock_search" = "Search Rock";
 "mypage" = "MyPage";
 
+// MARK: - Settings
+"account" = "Account";
+"about_this_app" = "About this app";
+"review" = "Review";
+"settings" = "Settings";
+
+// MARK: - Account
+"manage_account" = "Account Management";
+"id" = "ID";
+"how_to_login" = "How to login";
+"user_information" = "User Infomation";
+"delete_account" = "Delete Account";
+"would_you_like_to_delete_your_account" = "Would you like to delete your account?";
+"delete_account_alert_message" = "If you delete your account, registered rocks and courses are not lost.";
+"account_deleting_failed" = "Account Deleting Failed";
+"logout_alert_message" = "You return the firest screen after logouting.";

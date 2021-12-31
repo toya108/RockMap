@@ -31,7 +31,7 @@ extension MyPageViewController {
                                 .layoutMargins
                                 .right
                         )
-                    let height = collectionViewWidth * 3 / 4
+                    let height = collectionViewWidth * 9 / 16
                     let group = NSCollectionLayoutGroup.horizontal(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
@@ -47,7 +47,7 @@ extension MyPageViewController {
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),
-                            heightDimension: .estimated(64)
+                            heightDimension: .absolute(40)
                         )
                     )
                     let group = NSCollectionLayoutGroup.horizontal(

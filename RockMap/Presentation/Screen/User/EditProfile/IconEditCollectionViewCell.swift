@@ -58,7 +58,7 @@ class IconEditCollectionViewCell: UICollectionViewCell {
         self.editButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
 
         self.deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        self.deleteButton.backgroundColor = .darkGray
+        self.deleteButton.backgroundColor = .systemGray
         self.deleteButton.setTitle(" リセット ", for: .normal)
         self.deleteButton.layer.cornerRadius = 8
         self.deleteButton.tintColor = .white

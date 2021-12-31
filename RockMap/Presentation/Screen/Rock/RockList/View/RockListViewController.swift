@@ -23,17 +23,12 @@ class RockListViewController: UIViewController, CompositionalColectionViewContro
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.setupSubViews()
         self.setupNavigationBar()
         self.setupEmptyView()
-        configureCollectionView(topInset: 16)
+        configureDefaultConfiguration()
         self.setupSections()
         self.setupViewModelOutput()
         self.setupNotification()
-    }
-
-    private func setupSubViews() {
-        view.backgroundColor = .systemGroupedBackground
     }
 
     private func setupNavigationBar() {

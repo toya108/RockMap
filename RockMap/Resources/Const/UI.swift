@@ -11,7 +11,7 @@ extension Resources.Const.UI {
 
     struct Shadow {
         static let radius: CGFloat = 8
-        static let color = UIColor.gray.cgColor
+        static let color = UIColor.label.cgColor
         static let opacity: Float = 0.5
     }
 }

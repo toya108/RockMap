@@ -21,16 +21,11 @@ class MyClimbedListViewController: UIViewController, CompositionalColectionViewC
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.setupSubViews()
         self.setupNavigationBar()
         self.setupEmptyView()
-        configureCollectionView()
+        configureDefaultConfiguration()
         self.setupSections()
         self.setupViewModelOutput()
-    }
-
-    private func setupSubViews() {
-        view.backgroundColor = .systemGroupedBackground
     }
 
     private func setupNavigationBar() {

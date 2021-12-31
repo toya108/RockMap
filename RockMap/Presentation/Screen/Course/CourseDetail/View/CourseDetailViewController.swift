@@ -22,22 +22,9 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.setupNavigationBar()
-        self.configureCollectionView()
+        self.configureDefaultConfiguration()
         self.bindViewToViewModel()
         self.configureSections()
-    }
-
-    private func setupNavigationBar() {
-        guard
-            let rockMapNavigationBar = navigationController?.navigationBar as? RockMapNavigationBar
-        else {
-            return
-        }
-
-        rockMapNavigationBar.setup()
-        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.prefersLargeTitles = false
     }
 
     private func bindViewToViewModel() {
