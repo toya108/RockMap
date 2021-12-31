@@ -13,7 +13,7 @@ struct AccountView: View {
     var body: some View {
         NavigationView {
             List {
-                Section(header: Text("manage_account")) {
+                Section(header: Text("user_information")) {
                     HStack {
                         Text("id")
                         Spacer()
@@ -25,7 +25,7 @@ struct AccountView: View {
                         Text(viewModel.authAccessor.providerID)
                     }
                 }
-                Section(header: Text("user_information")) {
+                Section(header: Text("manage_account")) {
                     EntireTappableRowView {
                         Text(viewModel.authAccessor.isLoggedIn ? "logout" : "login")
                     }
