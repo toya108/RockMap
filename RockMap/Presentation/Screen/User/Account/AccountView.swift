@@ -34,6 +34,7 @@ struct AccountView: View {
                             viewModel.isPresentedLogoutAlert = true
                         } else {
                             AppStore.shared.rootViewType = .login
+                            dismissParent()
                         }
                     }
 
