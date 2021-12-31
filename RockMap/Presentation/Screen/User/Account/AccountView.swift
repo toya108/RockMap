@@ -4,7 +4,6 @@ import Resolver
 struct AccountView: View {
 
     @StateObject var viewModel: AccountViewModel = Resolver.resolve()
-    @Environment(\.dismiss) var dismiss
     let dismissParent: () -> Void
 
     init(dismissParent: @escaping () -> Void) {
