@@ -28,7 +28,7 @@ struct LoginView: View {
                             viewModel.loginIfNeeded()
                         },
                         label: {
-                            Text("login")
+                            Text("login_en")
                                 .font(.system(size: 20, weight: .heavy, design: .default))
                                 .padding(8)
                                 .foregroundColor(Color(uiColor: .white))
