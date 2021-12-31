@@ -163,8 +163,6 @@
 		9EA32A4E25FA77F700FB0C75 /* RockConfirmKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA32A4D25FA77F700FB0C75 /* RockConfirmKind.swift */; };
 		9EA58D16263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA58D15263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift */; };
 		9EA6B04D26651A2300DAA888 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9EA6B04C26651A2300DAA888 /* Settings.bundle */; };
-		9EA6B05C26653E7A00DAA888 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6B05B26653E7A00DAA888 /* AccountViewController.swift */; };
-		9EA6B05E26653E8500DAA888 /* AccountKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6B05D26653E8500DAA888 /* AccountKind.swift */; };
 		9EA88DB6269189110036D6C1 /* RemoteConfigListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA88DB5269189110036D6C1 /* RemoteConfigListener.swift */; };
 		9EA88DB82691D5900036D6C1 /* ForceUpdateAlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA88DB72691D5900036D6C1 /* ForceUpdateAlertManager.swift */; };
 		9EA88DBA2691D7B00036D6C1 /* ForceUpdateAlertManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA88DB92691D7B00036D6C1 /* ForceUpdateAlertManagerTests.swift */; };
@@ -401,8 +399,6 @@
 		9EA32A4D25FA77F700FB0C75 /* RockConfirmKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockConfirmKind.swift; sourceTree = "<group>"; };
 		9EA58D15263865E700BC79C5 /* AnnotationHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EA6B04C26651A2300DAA888 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		9EA6B05B26653E7A00DAA888 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
-		9EA6B05D26653E8500DAA888 /* AccountKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountKind.swift; sourceTree = "<group>"; };
 		9EA88DB5269189110036D6C1 /* RemoteConfigListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteConfigListener.swift; sourceTree = "<group>"; };
 		9EA88DB72691D5900036D6C1 /* ForceUpdateAlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceUpdateAlertManager.swift; sourceTree = "<group>"; };
 		9EA88DB92691D7B00036D6C1 /* ForceUpdateAlertManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceUpdateAlertManagerTests.swift; sourceTree = "<group>"; };
@@ -1323,8 +1319,6 @@
 		9EA6B05A26653D6800DAA888 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				9EA6B05B26653E7A00DAA888 /* AccountViewController.swift */,
-				9EA6B05D26653E8500DAA888 /* AccountKind.swift */,
 				9E4FC4032774CAB600E3C434 /* AccountView.swift */,
 				9E4FC4142775A9DC00E3C434 /* AccountViewModel.swift */,
 			);
@@ -1859,7 +1853,6 @@
 				9E845ADA25ADEA6A00EC3BE6 /* Resouces.swift in Sources */,
 				9E9845E225D4FA5300B03C4E /* CourseRegisterKind.swift in Sources */,
 				9EB00BD42629770200379182 /* CompositionalColectionViewControllerProtocol.swift in Sources */,
-				9EA6B05C26653E7A00DAA888 /* AccountViewController.swift in Sources */,
 				9EBD5A1525F7C998009383F6 /* UICollectionViewCellExtension.swift in Sources */,
 				9E26400525B5C0300088DAFB /* RockSearchViewModel.swift in Sources */,
 				9E810722262DA3640025359C /* MyPageLayout.swift in Sources */,
@@ -1993,7 +1986,6 @@
 				9E83EEBB25FB4D00002392AA /* IconCollectionViewCell.swift in Sources */,
 				9E06F963264976A100731352 /* EditProfileDatasource.swift in Sources */,
 				9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */,
-				9EA6B05E26653E8500DAA888 /* AccountKind.swift in Sources */,
 				9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */,
 				9EA32A4925FA77EE00FB0C75 /* RockConfirmLayout.swift in Sources */,
 				9EA32A4E25FA77F700FB0C75 /* RockConfirmKind.swift in Sources */,
