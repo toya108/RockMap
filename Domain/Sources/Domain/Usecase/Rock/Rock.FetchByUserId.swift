@@ -2,12 +2,12 @@ import Combine
 import DataLayer
 
 public extension Domain.Usecase.Rock {
-    struct FetchByUserId: PassthroughUsecaseProtocol {
+    struct FetchByUserId: FetchUserUsecaseProtocol, PassthroughUsecaseProtocol {
         public typealias Repository = AnyRepository<Repositories.Rock.FetchByUserId.R>
         public typealias Mapper = Domain.Mapper.Rock
 
-        var repository: Repository
-        var mapper: Mapper
+        let repository: Repository
+        let mapper: Mapper
 
         public init(
             repository: Repository = AnyRepository(Repositories.Rock.FetchByUserId()),
@@ -24,4 +24,8 @@ public extension Domain.Usecase.Rock {
             return documents.map { mapper.map(from: $0) }
         }
     }
+}
+
+public protocol FetchUserUsecaseProtocol {
+    func fetch(by userId: String) async throws -> [Domain.Entity.Rock]
 }
