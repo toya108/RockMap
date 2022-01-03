@@ -2,6 +2,7 @@ import Foundation
 
 public extension Domain.Entity {
     struct Image: AnyEntity {
+        public let id = UUID().uuidString
         public let url: URL?
         public let fullPath: String?
 
