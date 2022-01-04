@@ -1,9 +1,8 @@
 import SwiftUI
-import Resolver
 
 struct RockListView: View {
 
-    @StateObject private var viewModel: RockListViewModelV2 = Resolver.resolve()
+    @StateObject var viewModel: RockListViewModelV2
 
     var body: some View {
         NavigationView {
@@ -28,6 +27,6 @@ struct RockListView: View {
 
 struct RockListView_Previews: PreviewProvider {
     static var previews: some View {
-        RockListView()
+        RockListView(viewModel: .init(userId: "aaa"))
     }
 }

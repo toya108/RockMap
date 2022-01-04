@@ -62,8 +62,9 @@ struct MyPageRouter: RouterProtocol {
     }
 
     private func pushRockList(_ from: UIViewController) {
-        let viewModel = RockListViewModel(userId: viewModel.userKind.userId)
-        let vc = RockListViewController.createInstance(viewModel: viewModel)
+        let vc = UIHostingController(
+            rootView: RockListView(viewModel: .init(userId: viewModel.userKind.userId))
+        )
         from.navigationController?.pushViewController(vc, animated: true)
     }
 
