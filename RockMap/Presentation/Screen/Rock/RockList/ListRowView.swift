@@ -32,28 +32,40 @@ struct ListRowView: View {
     }
 
     var body: some View {
-        HStack {
-            AsyncImage(url: imageURL)
-                .aspectRatio(.init(width: 96, height: 96), contentMode: .fill)
-                .cornerRadius(8)
-            VStack {
+        HStack(spacing: 12) {
+            AsyncImage(
+                url: imageURL,
+                content: { image in
+                    image.resizable().scaledToFill()
+                },
+                placeholder: {
+                    ProgressView()
+                }
+            )
+            .frame(width: 80, height: 80, alignment: .center)
+            .cornerRadius(8)
+
+            VStack(alignment: .leading) {
                 HStack {
                     Image(uiImage: iconImage)
-                    Text(title)
+                        .resizable()
+                        .frame(width: 24, height: 24, alignment: .center)
+                    Text(title).fontWeight(.semibold).lineLimit(1)
                 }
                 HStack {
-                    Text(firstLabel)
-                    Text(firstText)
+                    Text(firstLabel).font(.caption).fontWeight(.semibold)
+                    Text(firstText).font(.caption).lineLimit(1)
                 }
                 HStack {
-                    Text(secondLabel)
-                    Text(secondText)
+                    Text(secondLabel).font(.caption).fontWeight(.semibold)
+                    Text(secondText).font(.caption).lineLimit(1)
                 }
                 if let thirdText = thirdText {
-                    Text(thirdText)
+                    Text(thirdText).font(.caption).lineLimit(1)
                 }
             }
         }
+        .padding(8)
     }
 }
 
