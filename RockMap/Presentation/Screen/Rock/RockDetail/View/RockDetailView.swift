@@ -2,17 +2,15 @@ import SwiftUI
 
 struct RockDetailView: UIViewControllerRepresentable {
 
-    typealias UIViewControllerType = UINavigationController
+    typealias UIViewControllerType = RockDetailViewController
 
     let rock: Entity.Rock
 
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<RockDetailView>
     ) -> RockDetailView.UIViewControllerType {
-        return UINavigationController(
-            rootViewController: RockDetailViewController.createInstance(
-                viewModel: .init(rock: rock)
-            )
+        RockDetailViewController.createInstance(
+            viewModel: .init(rock: rock)
         )
     }
 
