@@ -2,7 +2,7 @@ import Combine
 import DataLayer
 
 public extension Domain.Usecase.Rock {
-    struct FetchByUserId: FetchUserUsecaseProtocol, PassthroughUsecaseProtocol {
+    struct FetchByUserId: FetchRockUsecaseProtocol, PassthroughUsecaseProtocol {
         public typealias Repository = AnyRepository<Repositories.Rock.FetchByUserId.R>
         public typealias Mapper = Domain.Mapper.Rock
 
@@ -26,6 +26,6 @@ public extension Domain.Usecase.Rock {
     }
 }
 
-public protocol FetchUserUsecaseProtocol {
+public protocol FetchRockUsecaseProtocol {
     func fetch(by userId: String) async throws -> [Domain.Entity.Rock]
 }
