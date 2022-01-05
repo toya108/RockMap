@@ -1,6 +1,8 @@
 import Combine
 import Resolver
 import Auth
+import Domain
+import Foundation
 
 class RockListViewModelV2: ObservableObject {
 
@@ -8,15 +10,14 @@ class RockListViewModelV2: ObservableObject {
     @Published var isEmpty = false
     @Published var deleteState: LoadingState<Void> = .stanby
 
-    @Injected private var fetchRocksUsecase: Usecase.Rock.FetchByUserId
-    @Injected private var delteRockUsecase: Usecase.Rock.Delete
+    @Injected private var fetchRocksUsecase: FetchRockUsecaseProtocol
+    @Injected private var delteRockUsecase: DeleteRockUsecaseProtocol
     @Injected private var authAccessor: AuthAccessorProtocol
 
     private let userId: String
 
     init(userId: String) {
         self.userId = userId
-        fetchRockList()
     }
 
     private func bindOutput() {
@@ -25,7 +26,17 @@ class RockListViewModelV2: ObservableObject {
             .assign(to: &self.$isEmpty)
     }
 
-    func delete(rock: Entity.Rock) {
+    @MainActor func delete(indexSet: IndexSet) {
+
+        guard
+            let index = indexSet.first,
+            rocks.indices.contains(index)
+        else {
+            return
+        }
+
+        let rock = rocks[index]
+
         self.deleteState = .loading
 
         Task {
@@ -48,7 +59,7 @@ class RockListViewModelV2: ObservableObject {
         }
     }
 
-    func fetchRockList() {
+    @MainActor func fetchRockList() {
         Task {
             let rocks = try await self.fetchRocksUsecase.fetch(by: self.userId)
             self.rocks = rocks.sorted { $0.createdAt > $1.createdAt }

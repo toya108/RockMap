@@ -3,25 +3,40 @@ import SwiftUI
 struct RockListView: View {
 
     @StateObject var viewModel: RockListViewModelV2
+    @Environment(\.editMode) var editMode
 
     var body: some View {
-        NavigationView {
-            List(viewModel.rocks) {
-                ListRowView(
-                    imageURL: $0.headerUrl,
-                    iconImage: UIImage.AssetsImages.rockFill,
-                    title: $0.name,
-                    firstLabel: "登録日",
-                    firstText: $0.createdAt.string(dateStyle: .medium),
-                    secondLabel: "住所",
-                    secondText: $0.address,
-                    thirdText: $0.desc
+        List {
+            ForEach(viewModel.rocks) { rock in
+                NavigationLink(
+                    destination: RockDetailView(rock: rock),
+                    label: {
+                        ListRowView(
+                            imageURL: rock.headerUrl,
+                            iconImage: UIImage.AssetsImages.rockFill,
+                            title: rock.name,
+                            firstLabel: "登録日",
+                            firstText: rock.createdAt.string(dateStyle: .medium),
+                            secondLabel: "住所",
+                            secondText: rock.address,
+                            thirdText: rock.desc
+                        )
+                    }
                 )
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("登録した岩一覧")
+            .onDelete {
+                viewModel.delete(indexSet: $0)
+            }
+            .swipeActions {
+                
+            }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear {
+            viewModel.fetchRockList()
+        }
+        .toolbar {
+            EditButton()
+        }
     }
 }
 
