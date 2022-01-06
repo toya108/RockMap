@@ -3,7 +3,6 @@ import SwiftUI
 struct RockListView: View {
 
     @StateObject var viewModel: RockListViewModelV2
-    @Environment(\.editMode) var editMode
 
     var body: some View {
         List {
@@ -23,19 +22,25 @@ struct RockListView: View {
                         )
                     }
                 )
-            }
-            .onDelete {
-                viewModel.delete(indexSet: $0)
-            }
-            .swipeActions {
-                
+                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                    Button("削除", role: .destructive) {
+                        viewModel.delete(rock: rock)
+                    }
+                    Button("編集") {
+                        if let index = viewModel.rocks.firstIndex(of: rock) {
+                            viewModel.editingRockIndex = index
+                        }
+                        viewModel.shouldShowRockRegister = true
+                    }
+                }
             }
         }
         .onAppear {
             viewModel.fetchRockList()
         }
-        .toolbar {
-            EditButton()
+        .sheet(isPresented: $viewModel.shouldShowRockRegister) {
+            RockRegisterView(registerType: .edit(viewModel.rocks[viewModel.editingRockIndex]))
+                .interactiveDismissDisabled(true)
         }
     }
 }
