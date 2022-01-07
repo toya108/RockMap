@@ -9,8 +9,10 @@ class RockListViewModelV2: ObservableObject {
     @Published var rocks: [Entity.Rock] = []
     @Published var isEmpty = false
     @Published var deleteState: LoadingState<Void> = .stanby
-    @Published var shouldShowRockRegister = false
-    var editingRockIndex: Int = -1
+    @Published var isPresentedRockRegister = false
+    @Published var isPresentedDeleteRockAlert = false
+    @Published var isPresentedDeleteFailureAlert = false
+    var editingRock: Entity.Rock?
 
     @Injected private var fetchRocksUsecase: FetchRockUsecaseProtocol
     @Injected private var delteRockUsecase: DeleteRockUsecaseProtocol
@@ -28,7 +30,19 @@ class RockListViewModelV2: ObservableObject {
             .assign(to: &self.$isEmpty)
     }
 
-    @MainActor func delete(rock: Entity.Rock) {
+    var deleteError: Error? {
+        guard case .failure(let error) = deleteState else {
+            return nil
+        }
+
+        return error
+    }
+
+    @MainActor func delete() {
+
+        guard let rock = editingRock else {
+            return
+        }
 
         self.deleteState = .loading
 
