@@ -21,16 +21,16 @@ struct RockListView: View {
                     )
                 }
             )
-                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                    Button("削除", role: .destructive) {
-                        viewModel.editingRock = rock
-                        viewModel.isPresentedDeleteRockAlert = true
-                    }
-                    Button("編集") {
-                        viewModel.editingRock = rock
-                        viewModel.isPresentedRockRegister = true
-                    }
+            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                Button("削除", role: .destructive) {
+                    viewModel.editingRock = rock
+                    viewModel.isPresentedDeleteRockAlert = true
                 }
+                Button("編集") {
+                    viewModel.editingRock = rock
+                    viewModel.isPresentedRockRegister = true
+                }
+            }
         }
         .onAppear {
             viewModel.fetchRockList()
