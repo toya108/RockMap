@@ -2,25 +2,24 @@ import SwiftUI
 
 struct RockListView: View {
 
-    @StateObject var viewModel: RockListViewModelV2
+    @StateObject var viewModel: RockListViewModel
 
     var body: some View {
         List(viewModel.rocks) { rock in
             NavigationLink(
-                destination: RockDetailView(rock: rock),
-                label: {
-                    ListRowView(
-                        imageURL: rock.headerUrl,
-                        iconImage: UIImage.AssetsImages.rockFill,
-                        title: rock.name,
-                        firstLabel: "登録日",
-                        firstText: rock.createdAt.string(dateStyle: .medium),
-                        secondLabel: "住所",
-                        secondText: rock.address,
-                        thirdText: rock.desc
-                    )
-                }
-            )
+                destination: RockDetailView(rock: rock)
+            ) {
+                ListRowView(
+                    imageURL: rock.headerUrl,
+                    iconImage: UIImage.AssetsImages.rockFill,
+                    title: rock.name,
+                    firstLabel: "登録日",
+                    firstText: rock.createdAt.string(dateStyle: .medium),
+                    secondLabel: "住所",
+                    secondText: rock.address,
+                    thirdText: rock.desc
+                )
+            }
             .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                 Button("削除", role: .destructive) {
                     viewModel.editingRock = rock

@@ -4,7 +4,7 @@ import Auth
 import Domain
 import Foundation
 
-class RockListViewModelV2: ObservableObject {
+class RockListViewModel: ObservableObject {
 
     @Published var rocks: [Entity.Rock] = []
     @Published var isEmpty = false
