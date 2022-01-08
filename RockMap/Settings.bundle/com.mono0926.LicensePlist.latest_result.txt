@@ -12,7 +12,7 @@ name: firebase-ios-sdk, nameSpecified: Firebase, owner: firebase, version: 8.8.1
 
 name: FirebaseUI-iOS, nameSpecified: FirebaseUI, owner: firebase, version: 12.1.0
 
-name: FloatingPanel, nameSpecified: FloatingPanel, owner: scenee, version: 2.5.0
+name: FloatingPanel, nameSpecified: FloatingPanel, owner: scenee, version: 2.5.1
 
 name: GoogleAppMeasurement, nameSpecified: GoogleAppMeasurement, owner: google, version: 8.8.0
 
@@ -42,7 +42,7 @@ name: promises, nameSpecified: Promises, owner: google, version: 2.0.0
 
 name: Resolver, nameSpecified: Resolver, owner: hmlongco, version: 1.5.0
 
-name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.12.1
+name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.12.2
 
 name: SourceKitten, nameSpecified: SourceKitten, owner: jpsim, version: 0.31.1
 
