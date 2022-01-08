@@ -44,6 +44,8 @@ name: Resolver, nameSpecified: Resolver, owner: hmlongco, version: 1.5.0
 
 name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.12.2
 
+name: SkeletonUI, nameSpecified: SkeletonUI, owner: CSolanaM, version: 1.0.7
+
 name: SourceKitten, nameSpecified: SourceKitten, owner: jpsim, version: 0.31.1
 
 name: swift-argument-parser, nameSpecified: swift-argument-parser, owner: apple, version: 1.0.1
@@ -53,6 +55,8 @@ name: swift-html-entities, nameSpecified: HTMLEntities, owner: Kitura, version: 
 name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.4.2
 
 name: swift-protobuf, nameSpecified: SwiftProtobuf, owner: apple, version: 1.18.0
+
+name: swift-snapshot-testing, nameSpecified: SnapshotTesting, owner: pointfreeco, version: 1.9.0
 
 name: SwiftLint, nameSpecified: SwiftLint, owner: realm, version: 0.45.1
 

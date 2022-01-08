@@ -45,6 +45,7 @@
 		9E2BD65125DD55B00011B020 /* TextViewCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2BD65025DD55B00011B020 /* TextViewCollectionViewCell.xib */; };
 		9E2BD68625DD6DA90011B020 /* ImageSelactCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2BD68425DD6DA90011B020 /* ImageSelactCollectionViewCell.swift */; };
 		9E2BD68725DD6DA90011B020 /* ImageSelactCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2BD68525DD6DA90011B020 /* ImageSelactCollectionViewCell.xib */; };
+		9E2C893B278934C600CE52B1 /* SkeletonUI in Frameworks */ = {isa = PBXBuildFile; productRef = 9E2C893A278934C600CE52B1 /* SkeletonUI */; };
 		9E2D0F1725D6E4B100652171 /* TextFieldColletionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D0F1625D6E4B100652171 /* TextFieldColletionViewCell.swift */; };
 		9E2DA73425F91472008F339E /* RockRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2DA73325F91472008F339E /* RockRegisterViewController.swift */; };
 		9E2DA74225F915CC008F339E /* RockRegisterDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2DA74125F915CC008F339E /* RockRegisterDatasource.swift */; };
@@ -475,6 +476,7 @@
 				9E64FD0326B59A82005984F6 /* FirebaseCrashlytics in Frameworks */,
 				9E64FCFD26B59A82005984F6 /* FirebaseAnalytics in Frameworks */,
 				9E1056E1270B31C7007254DA /* SDWebImage in Frameworks */,
+				9E2C893B278934C600CE52B1 /* SkeletonUI in Frameworks */,
 				9E64FD0526B59A82005984F6 /* FirebaseFirestore in Frameworks */,
 				9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */,
 			);
@@ -1584,6 +1586,7 @@
 				9E1056E0270B31C7007254DA /* SDWebImage */,
 				9E081FFA270FF9D3003F0AD8 /* Resolver */,
 				9E737A542726FB8C008EC9E1 /* FloatingPanel */,
+				9E2C893A278934C600CE52B1 /* SkeletonUI */,
 			);
 			productName = RockMap;
 			productReference = 9E5CEFC825277B25001C95AA /* RockMap.app */;
@@ -1662,6 +1665,7 @@
 				9E1056DF270B31C7007254DA /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				9E081FF9270FF9D3003F0AD8 /* XCRemoteSwiftPackageReference "Resolver" */,
 				9E737A532726FB8C008EC9E1 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
+				9E2C8939278934C600CE52B1 /* XCRemoteSwiftPackageReference "SkeletonUI" */,
 			);
 			productRefGroup = 9E5CEFC925277B25001C95AA /* Products */;
 			projectDirPath = "";
@@ -2347,6 +2351,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		9E2C8939278934C600CE52B1 /* XCRemoteSwiftPackageReference "SkeletonUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CSolanaM/SkeletonUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.7;
+			};
+		};
 		9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -2375,6 +2387,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9E1056DF270B31C7007254DA /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		9E2C893A278934C600CE52B1 /* SkeletonUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E2C8939278934C600CE52B1 /* XCRemoteSwiftPackageReference "SkeletonUI" */;
+			productName = SkeletonUI;
 		};
 		9E493DDA26B98EA300DCA210 /* Domain */ = {
 			isa = XCSwiftPackageProductDependency;
