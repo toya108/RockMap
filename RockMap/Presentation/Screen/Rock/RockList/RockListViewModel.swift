@@ -8,11 +8,12 @@ class RockListViewModel: ObservableObject {
 
     @Published var rocks: [Entity.Rock] = []
     @Published var isEmpty = false
-    @Published var deleteState: LoadingState<Void> = .stanby
     @Published var isPresentedRockRegister = false
     @Published var isPresentedDeleteRockAlert = false
     @Published var isPresentedDeleteFailureAlert = false
+    @Published var isLoading = false
     var editingRock: Entity.Rock?
+    var deleteError: Error?
 
     @Injected private var fetchRocksUsecase: FetchRockUsecaseProtocol
     @Injected private var delteRockUsecase: DeleteRockUsecaseProtocol
@@ -30,21 +31,13 @@ class RockListViewModel: ObservableObject {
             .assign(to: &self.$isEmpty)
     }
 
-    var deleteError: Error? {
-        guard case .failure(let error) = deleteState else {
-            return nil
-        }
-
-        return error
-    }
-
     @MainActor func delete() {
 
         guard let rock = editingRock else {
             return
         }
 
-        self.deleteState = .loading
+        self.isLoading = true
 
         Task {
             do {
@@ -59,17 +52,20 @@ class RockListViewModel: ObservableObject {
                     return
                 }
                 self.rocks.remove(at: index)
-                self.deleteState = .finish(content: ())
+                self.isLoading = false
             } catch {
-                self.deleteState = .failure(error)
+                self.deleteError = error
             }
         }
     }
 
     @MainActor func fetchRockList() {
+        self.isLoading = true
+
         Task {
             let rocks = try await self.fetchRocksUsecase.fetch(by: self.userId)
             self.rocks = rocks.sorted { $0.createdAt > $1.createdAt }
+            self.isLoading = false
         }
     }
 }
