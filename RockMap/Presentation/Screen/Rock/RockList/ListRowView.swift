@@ -5,9 +5,9 @@ struct ListRowView: View {
     private let imageURL: URL?
     private let iconImage: UIImage
     private let title: String
-    private let firstLabel: String
+    private let firstLabel: LocalizedStringKey
     private let firstText: String
-    private let secondLabel: String
+    private let secondLabel: LocalizedStringKey
     private let secondText: String
     private let thirdText: String?
 
@@ -15,9 +15,9 @@ struct ListRowView: View {
         imageURL: URL?,
         iconImage: UIImage,
         title: String,
-        firstLabel: String,
+        firstLabel: LocalizedStringKey,
         firstText: String,
-        secondLabel: String,
+        secondLabel: LocalizedStringKey,
         secondText: String,
         thirdText: String?
     ) {

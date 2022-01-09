@@ -10,7 +10,7 @@ struct RockListView: View {
             ZStack {
                 Color(uiColor: .systemGroupedBackground)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                Text("まだ登録した岩はありません。")
+                Text("text_no_rock_registerd_yet")
             }
             .onAppear {
                 viewModel.fetchRockList()
@@ -29,19 +29,19 @@ struct RockListView: View {
                         imageURL: rock.headerUrl,
                         iconImage: UIImage.AssetsImages.rockFill,
                         title: rock.name,
-                        firstLabel: "登録日",
+                        firstLabel: .init("registered_date"),
                         firstText: rock.createdAt.string(dateStyle: .medium),
-                        secondLabel: "住所",
+                        secondLabel: .init("address"),
                         secondText: rock.address,
                         thirdText: rock.desc
                     )
                 }
                 .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                    Button("削除", role: .destructive) {
+                    Button("delete", role: .destructive) {
                         viewModel.editingRock = rock
                         viewModel.isPresentedDeleteRockAlert = true
                     }
-                    Button("編集") {
+                    Button("edit") {
                         viewModel.editingRock = rock
                         viewModel.isPresentedRockRegister = true
                     }
@@ -56,10 +56,10 @@ struct RockListView: View {
                 viewModel.fetchRockList()
             }
             .alert(
-                "岩を削除しますか？",
+                "text_delete_rock_title",
                 isPresented: $viewModel.isPresentedDeleteRockAlert,
                 actions: {
-                    Button("削除", role: .destructive) {
+                    Button("delete", role: .destructive) {
                         viewModel.delete()
                     }
                     Button("cancel", role: .cancel) {
@@ -67,11 +67,11 @@ struct RockListView: View {
                     }
                 },
                 message: {
-                    Text("一度削除すると復元できません。")
+                    Text("text_delete_rock_message")
                 }
             )
             .alert(
-                "削除に失敗しました",
+                "text_delete_rock_failure_title",
                 isPresented: $viewModel.isPresentedDeleteFailureAlert,
                 actions: {
                     Button("yes") {}
