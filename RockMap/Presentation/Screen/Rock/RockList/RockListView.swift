@@ -47,6 +47,9 @@ struct RockListView: View {
                     }
                 }
             }
+            .refreshable {
+                viewModel.fetchRockList()
+            }
             .onReceive(
                 NotificationCenter.default.publisher(for: .didRockRegisterFinished)
             ) { _ in
