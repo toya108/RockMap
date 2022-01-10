@@ -23,6 +23,14 @@ enum LoadingState<T>: Equatable {
         return content
     }
 
+    var isLoading: Bool {
+        if case .loading = self {
+            return true
+        } else {
+            return false
+        }
+    }
+
     var isFinished: Bool {
         if case .finish = self {
             return true

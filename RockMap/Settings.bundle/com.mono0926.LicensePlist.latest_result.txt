@@ -12,7 +12,7 @@ name: firebase-ios-sdk, nameSpecified: Firebase, owner: firebase, version: 8.8.1
 
 name: FirebaseUI-iOS, nameSpecified: FirebaseUI, owner: firebase, version: 12.1.0
 
-name: FloatingPanel, nameSpecified: FloatingPanel, owner: scenee, version: 2.5.0
+name: FloatingPanel, nameSpecified: FloatingPanel, owner: scenee, version: 2.5.1
 
 name: GoogleAppMeasurement, nameSpecified: GoogleAppMeasurement, owner: google, version: 8.8.0
 
@@ -42,7 +42,9 @@ name: promises, nameSpecified: Promises, owner: google, version: 2.0.0
 
 name: Resolver, nameSpecified: Resolver, owner: hmlongco, version: 1.5.0
 
-name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.12.1
+name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.12.2
+
+name: SkeletonUI, nameSpecified: SkeletonUI, owner: CSolanaM, version: 1.0.7
 
 name: SourceKitten, nameSpecified: SourceKitten, owner: jpsim, version: 0.31.1
 
@@ -53,6 +55,8 @@ name: swift-html-entities, nameSpecified: HTMLEntities, owner: Kitura, version: 
 name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.4.2
 
 name: swift-protobuf, nameSpecified: SwiftProtobuf, owner: apple, version: 1.18.0
+
+name: swift-snapshot-testing, nameSpecified: SnapshotTesting, owner: pointfreeco, version: 1.9.0
 
 name: SwiftLint, nameSpecified: SwiftLint, owner: realm, version: 0.45.1
 

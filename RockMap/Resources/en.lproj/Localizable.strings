@@ -4,6 +4,8 @@
 "cancel" = "Cancel";
 "login" = "Login";
 "logout" = "Logout";
+"edit" = "Edit";
+"delete" = "Delete";
 
 // MARK: - Auth
 "rockmap" = "RockMap";
@@ -23,6 +25,14 @@
 // MARK: - Tab
 "rock_search" = "Search Rock";
 "mypage" = "MyPage";
+
+// MARK: - RockList
+"text_no_rock_registerd_yet" = "There are no rocks registered by you yet.";
+"registered_date" = "Registered Date";
+"address" = "Address";
+"text_delete_rock_title" = "Do you want to delete the rock?";
+"text_delete_rock_message" = "Once deleted, it cannot be restored.";
+"text_delete_rock_failure_title" = "Failed to delete";
 
 // MARK: - Settings
 "account" = "Account";
