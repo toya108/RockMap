@@ -2,7 +2,7 @@ import Combine
 import DataLayer
 
 public extension Domain.Usecase.Course {
-    struct FetchByUserId: PassthroughUsecaseProtocol {
+    struct FetchByUserId: PassthroughUsecaseProtocol, FetchCourseUsecaseProtocol {
         public typealias Repository = AnyRepository<Repositories.Course.FetchByUserId.R>
         public typealias Mapper = Domain.Mapper.Course
 
@@ -24,4 +24,8 @@ public extension Domain.Usecase.Course {
             return documents.map { mapper.map(from: $0) }
         }
     }
+}
+
+public protocol FetchCourseUsecaseProtocol {
+    func fetch(by userId: String) async throws -> [Domain.Entity.Course]
 }
