@@ -41,6 +41,7 @@
 		9E1F494E2785DE5D00855DE6 /* RockDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1F494D2785DE5D00855DE6 /* RockDetailView.swift */; };
 		9E1F49502785EE7800855DE6 /* RockRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1F494F2785EE7800855DE6 /* RockRegisterView.swift */; };
 		9E21C389264D5F4C003B02E7 /* IconTextFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E21C388264D5F4C003B02E7 /* IconTextFieldCollectionViewCell.swift */; };
+		9E21D71F278D9F41008D8AF2 /* CourseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E21D71E278D9F41008D8AF2 /* CourseListView.swift */; };
 		9E21D721278D9F84008D8AF2 /* CourseListViewModelV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E21D720278D9F84008D8AF2 /* CourseListViewModelV2.swift */; };
 		9E21D726278DA55B008D8AF2 /* CourseRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E21D725278DA55B008D8AF2 /* CourseRegisterView.swift */; };
 		9E21D728278DA683008D8AF2 /* CourseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E21D727278DA683008D8AF2 /* CourseDetailView.swift */; };
@@ -276,6 +277,7 @@
 		9E1F494D2785DE5D00855DE6 /* RockDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailView.swift; sourceTree = "<group>"; };
 		9E1F494F2785EE7800855DE6 /* RockRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockRegisterView.swift; sourceTree = "<group>"; };
 		9E21C388264D5F4C003B02E7 /* IconTextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconTextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
+		9E21D71E278D9F41008D8AF2 /* CourseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListView.swift; sourceTree = "<group>"; };
 		9E21D720278D9F84008D8AF2 /* CourseListViewModelV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListViewModelV2.swift; sourceTree = "<group>"; };
 		9E21D725278DA55B008D8AF2 /* CourseRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRegisterView.swift; sourceTree = "<group>"; };
 		9E21D727278DA683008D8AF2 /* CourseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailView.swift; sourceTree = "<group>"; };
@@ -1216,6 +1218,7 @@
 				9E9974FD26422B1F00E8562B /* CourseListDatasource.swift */,
 				9E9974FF26422B6000E8562B /* CourseListLayout.swift */,
 				9E9974FB26422A8500E8562B /* CourseListKind.swift */,
+				9E21D71E278D9F41008D8AF2 /* CourseListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1956,6 +1959,7 @@
 				9E06F965264976AE00731352 /* EditProfileKind.swift in Sources */,
 				9EECEBB9265FBAD30057EE11 /* MyClimbRecordListLayout.swift in Sources */,
 				9E2DA74225F915CC008F339E /* RockRegisterDatasource.swift in Sources */,
+				9E21D71F278D9F41008D8AF2 /* CourseListView.swift in Sources */,
 				9EEADA1C255AD39100F20228 /* PlaceHolderTextView.swift in Sources */,
 				9E82FB2B2704AE37002972BD /* RockMapApp.swift in Sources */,
 				9E0BE38426058FFE00576869 /* CompleteButtonCollectionViewCell.swift in Sources */,
