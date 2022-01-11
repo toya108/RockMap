@@ -69,8 +69,9 @@ struct MyPageRouter: RouterProtocol {
     }
 
     private func pushCourseList(_ from: UIViewController) {
-        let viewModel = CourseListViewModel(userId: viewModel.userKind.userId)
-        let vc = CourseListViewController.createInstance(viewModel: viewModel)
+        let vc = UIHostingController(
+            rootView: CourseListView(viewModel: .init(userId: viewModel.userKind.userId))
+        )
         from.navigationController?.pushViewController(vc, animated: true)
     }
 
