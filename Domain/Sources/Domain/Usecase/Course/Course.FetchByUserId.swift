@@ -6,8 +6,8 @@ public extension Domain.Usecase.Course {
         public typealias Repository = AnyRepository<Repositories.Course.FetchByUserId.R>
         public typealias Mapper = Domain.Mapper.Course
 
-        var repository: Repository
-        var mapper: Mapper
+        let repository: Repository
+        let mapper: Mapper
 
         public init(
             repository: Repository = AnyRepository(Repositories.Course.FetchByUserId()),
