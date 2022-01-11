@@ -71,7 +71,7 @@ struct RockListView: View {
                 }
             )
             .alert(
-                "text_delete_rock_failure_title",
+                "text_delete_failure_title",
                 isPresented: $viewModel.isPresentedDeleteFailureAlert,
                 actions: {
                     Button("yes") {}

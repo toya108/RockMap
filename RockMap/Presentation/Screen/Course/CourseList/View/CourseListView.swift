@@ -10,7 +10,7 @@ struct CourseListView: View {
             ZStack {
                 Color(uiColor: .systemGroupedBackground)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                Text("text_no_rock_registerd_yet")
+                Text("text_no_course_registerd_yet")
             }
             .onAppear {
                 viewModel.fetchCourses()
@@ -31,7 +31,7 @@ struct CourseListView: View {
                         title: course.name,
                         firstLabel: .init("registered_date"),
                         firstText: course.createdAt.string(dateStyle: .medium),
-                        secondLabel: .init("グレード"),
+                        secondLabel: .init("grade"),
                         secondText: course.grade.name,
                         thirdText: course.desc
                     )
@@ -56,7 +56,7 @@ struct CourseListView: View {
                 viewModel.fetchCourses()
             }
             .alert(
-                "text_delete_rock_title",
+                "text_delete_course_title",
                 isPresented: $viewModel.isPresentedDeleteCourseAlert,
                 actions: {
                     Button("delete", role: .destructive) {
@@ -67,11 +67,11 @@ struct CourseListView: View {
                     }
                 },
                 message: {
-                    Text("text_delete_rock_message")
+                    Text("text_delete_course_message")
                 }
             )
             .alert(
-                "text_delete_rock_failure_title",
+                "text_delete_failure_title",
                 isPresented: $viewModel.isPresentedDeleteFailureAlert,
                 actions: {
                     Button("yes") {}

@@ -6,6 +6,8 @@
 "logout" = "ログアウト";
 "edit" = "編集";
 "delete" = "削除";
+"registered_date" = "登録日";
+"text_delete_failure_title" = "削除に失敗しました";
 
 // MARK: - Auth
 "rockmap" = "RockMap";
@@ -28,11 +30,15 @@
 
 // MARK: - RockList
 "text_no_rock_registerd_yet" = "まだ登録した岩はありません。";
-"registered_date" = "登録日";
 "address" = "住所";
 "text_delete_rock_title" = "岩を削除しますか？";
 "text_delete_rock_message" = "一度削除すると復元できません。";
-"text_delete_rock_failure_title" = "削除に失敗しました";
+
+// MARK: - CourseList
+"text_no_course_registerd_yet" = "まだ登録した課題はありません。";
+"grade" = "グレード";
+"text_delete_course_title" = "課題を削除しますか？";
+"text_delete_course_message" = "一度削除すると復元できません。";
 
 // MARK: - Settings
 "account" = "アカウント";
