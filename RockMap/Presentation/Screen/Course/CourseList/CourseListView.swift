@@ -3,7 +3,7 @@ import SkeletonUI
 
 struct CourseListView: View {
 
-    @StateObject var viewModel: CourseListViewModelV2
+    @StateObject var viewModel: CourseListViewModel
 
     var body: some View {
         if viewModel.courses.isEmpty {
