@@ -37,6 +37,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
         case let .edit(rock):
             self.input.rockNameSubject.send(rock.name)
             self.input.rockDescSubject.send(rock.desc)
+            self.input.rockEreaSubject.send(rock.erea)
             let location = LocationManager.LocationStructure(
                 location: .init(
                     latitude: rock.location.latitude,
@@ -65,6 +66,11 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             .removeDuplicates()
             .compactMap { $0 }
             .assign(to: &self.output.$rockDesc)
+
+        self.input.rockEreaSubject
+            .removeDuplicates()
+            .compactMap { $0 }
+            .assign(to: &self.output.$erea)
 
         self.input.locationSubject
             .removeDuplicates()
@@ -249,6 +255,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
                 createdAt: Date(),
                 parentPath: AuthManager.shared.userPath,
                 name: self.output.rockName,
+                erea: self.output.erea,
                 address: self.output.rockLocation.address,
                 prefecture: self.output.rockLocation.prefecture,
                 location: .init(
@@ -298,6 +305,7 @@ extension RockRegisterViewModel {
     struct Input {
         let rockNameSubject = PassthroughSubject<String?, Never>()
         let rockDescSubject = PassthroughSubject<String?, Never>()
+        let rockEreaSubject = PassthroughSubject<String?, Never>()
         let locationSubject = PassthroughSubject<LocationManager.LocationStructure, Never>()
         let selectSeasonSubject = PassthroughSubject<Entity.Rock.Season, Never>()
         let lithologySubject = PassthroughSubject<Entity.Rock.Lithology, Never>()
@@ -309,6 +317,7 @@ extension RockRegisterViewModel {
         @Published var rockName = ""
         @Published var rockLocation = LocationManager.LocationStructure()
         @Published var rockDesc = ""
+        @Published var erea = ""
         @Published var seasons: Set<Entity.Rock.Season> = []
         @Published var lithology: Entity.Rock.Lithology = .unKnown
         @Published var header: CrudableImage = .init(imageType: .header)

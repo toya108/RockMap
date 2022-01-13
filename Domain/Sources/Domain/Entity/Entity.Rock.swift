@@ -7,6 +7,7 @@ public extension Domain.Entity {
         public var updatedAt: Date?
         public var parentPath: String
         public var name: String
+        public var erea: String?
         public var address: String
         public var prefecture: String
         public var location: GeoPoint
@@ -23,6 +24,7 @@ public extension Domain.Entity {
             updatedAt: Date? = nil,
             parentPath: String,
             name: String,
+            erea: String?,
             address: String,
             prefecture: String,
             location: Domain.Entity.GeoPoint,
@@ -38,6 +40,7 @@ public extension Domain.Entity {
             self.updatedAt = updatedAt
             self.parentPath = parentPath
             self.name = name
+            self.erea = erea
             self.address = address
             self.prefecture = prefecture
             self.location = location

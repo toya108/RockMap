@@ -48,6 +48,7 @@ class RockConfirmViewController: UIViewController, CompositionalColectionViewCon
         self.snapShot.appendSections(SectionLayoutKind.allCases)
         self.snapShot.appendItems([.name(self.viewModel.rockEntity.name)], toSection: .name)
         self.snapShot.appendItems([.desc(self.viewModel.rockEntity.desc)], toSection: .desc)
+        self.snapShot.appendItems([.erea(self.viewModel.rockEntity.erea ?? "なし")], toSection: .erea)
         self.snapShot.appendItems([.season(self.viewModel.rockEntity.seasons)], toSection: .season)
         self.snapShot.appendItems(
             [.lithology(self.viewModel.rockEntity.lithology)],

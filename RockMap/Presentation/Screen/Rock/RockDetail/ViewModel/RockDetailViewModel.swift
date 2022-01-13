@@ -9,6 +9,7 @@ final class RockDetailViewModel: ViewModelProtocol {
     @Published var rockDesc = ""
     @Published var seasons: Set<Entity.Rock.Season> = []
     @Published var lithology: Entity.Rock.Lithology = .unKnown
+    @Published var erea: String = ""
     @Published var rockLocation = LocationManager.LocationStructure()
     @Published var headerImage: URL?
     @Published var images: [URL] = []
@@ -45,6 +46,7 @@ final class RockDetailViewModel: ViewModelProtocol {
         )
         self.seasons = rock.seasons
         self.lithology = rock.lithology
+        self.erea = rock.erea ?? "未登録"
         self.headerImage = rock.headerUrl
         self.images = rock.imageUrls
         self.fetchCourses()
