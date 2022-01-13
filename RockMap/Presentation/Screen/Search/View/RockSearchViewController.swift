@@ -147,23 +147,18 @@ final class RockSearchViewController: UIViewController {
         self.viewModel.$rockDocuments
             .dropFirst()
             .removeDuplicates()
+            .map { rocks in
+                rocks.map { RockAnnotation(rock: $0) }
+            }
             .receive(on: RunLoop.main)
-            .sink { [weak self] documents in
+            .sink { [weak self] annotations in
 
                 guard let self = self else { return }
 
                 self.mapView.removeAnnotations(self.mapView.annotations)
 
-                documents.forEach {
-                    let annotation = RockAnnotation(
-                        coordinate: .init(
-                            latitude: $0.location.latitude,
-                            longitude: $0.location.longitude
-                        ),
-                        rock: $0,
-                        title: $0.name
-                    )
-                    self.mapView.addAnnotation(annotation)
+                annotations.forEach {
+                    self.mapView.addAnnotation($0)
                 }
             }
             .store(in: &self.bindings)
