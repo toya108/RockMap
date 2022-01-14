@@ -45,7 +45,7 @@ struct ListRowView: View {
             .frame(width: 80, height: 80, alignment: .center)
             .cornerRadius(8)
 
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 4) {
                 HStack {
                     Image(uiImage: iconImage)
                         .resizable()
@@ -65,7 +65,7 @@ struct ListRowView: View {
                 }
             }
         }
-        .padding(8)
+        .padding(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
     }
 }
 
