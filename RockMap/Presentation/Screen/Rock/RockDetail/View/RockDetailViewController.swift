@@ -29,9 +29,6 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
     }
 
     private func setupNavigationBar() {
-        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.prefersLargeTitles = false
-
         let courseCreationButton = UIButton(
             type: .system,
             primaryAction: .init { [weak self] _ in
