@@ -2,18 +2,25 @@ import SwiftUI
 
 enum TabKind: CaseIterable {
 
+    case home
     case rockSearch
     case myPage
 
     @ViewBuilder
     func makeTab(selection: TabKind) -> some View {
         switch self {
+            case .home:
+                HomeView(viewModel: .init()).tabItem {
+                    TabKind.home.makeStack(selection: selection)
+                }
+                .tag(TabKind.home)
+
             case .rockSearch:
                 RockSearchView().tabItem {
                     TabKind.rockSearch.makeStack(selection: selection)
                 }
-                .edgesIgnoringSafeArea(.all)
                 .tag(TabKind.rockSearch)
+                .edgesIgnoringSafeArea(.all)
 
             case .myPage:
                 MyPageView().tabItem {
@@ -43,6 +50,9 @@ enum TabKind: CaseIterable {
 
     private var titleKey: LocalizedStringKey {
         switch self {
+            case .home:
+                return .init("Home")
+
             case .rockSearch:
                 return .init("rock_search")
 
@@ -53,6 +63,9 @@ enum TabKind: CaseIterable {
 
     private var normalImage: UIImage {
         switch self {
+            case .home:
+                return UIImage.SystemImages.house
+
             case .rockSearch:
                 return UIImage.SystemImages.map
 
@@ -63,6 +76,9 @@ enum TabKind: CaseIterable {
 
     private var selectedImage: UIImage {
         switch self {
+            case.home:
+                return UIImage.SystemImages.houseFill
+
             case .rockSearch:
                 return UIImage.SystemImages.mapFill
 

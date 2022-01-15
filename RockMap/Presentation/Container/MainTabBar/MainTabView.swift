@@ -2,7 +2,7 @@ import SwiftUI
 
 struct MainTabView: View {
 
-    @State private var selection: TabKind = .rockSearch
+    @State private var selection: TabKind = .home
 
     var body: some View {
         TabView(selection: $selection) {

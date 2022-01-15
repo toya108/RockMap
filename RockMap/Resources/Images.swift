@@ -3,6 +3,8 @@
 import UIKit
 extension UIImage {
     struct SystemImages {
+        static let house = UIImage(systemName: "house")!
+        static let houseFill = UIImage(systemName: "house.fill")!
         static let folderFill = UIImage(systemName: "folder.fill")!
         static let cameraFill = UIImage(systemName: "camera.fill")!
         static let personCircle = UIImage(systemName: "person.circle")!
