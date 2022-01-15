@@ -2,6 +2,7 @@ import Combine
 import MapKit
 import UIKit
 import FloatingPanel
+import SwiftUI
 
 final class RockSearchViewController: UIViewController {
     private var viewModel: RockSearchViewModel!
@@ -286,10 +287,9 @@ final class RockSearchViewController: UIViewController {
     }
 
     private func addFloatingPanel(rocks: [Entity.Rock]) {
-        let contentVC = RockAnnotationListViewController.createInstance(rocks: rocks)
-        contentVC.delegate = self
+        let contentVC = UIHostingController(rootView: RockAnnotationListView(rocks: rocks))
+        contentVC.rootView.delegate = self
         floatingPanelVc.set(contentViewController: contentVC)
-        floatingPanelVc.track(scrollView: contentVC.collectionView)
         floatingPanelVc.addPanel(toParent: self, animated: true)
     }
 
@@ -434,6 +434,7 @@ extension RockSearchViewController: MKMapViewDelegate {
 
 extension RockSearchViewController: RockAnnotationTableViewDelegate {
     func didSelectRockAnnotaitonCell(rock: Entity.Rock) {
+        floatingPanelVc.removeFromParent()
         self.router.route(to: .rockDetail(rock), from: self)
     }
 }
@@ -476,14 +477,14 @@ class RockSearchFloatingPanelLayout: FloatingPanelLayout {
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .half
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
-        return [
+        [
             .full: FloatingPanelLayoutAnchor(
                 absoluteInset: 16.0,
                 edge: .top,
                 referenceGuide: .safeArea
             ),
             .half: FloatingPanelLayoutAnchor(
-                fractionalInset: 0.4,
+                fractionalInset: 0.3,
                 edge: .bottom,
                 referenceGuide: .safeArea
             ),
