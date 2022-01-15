@@ -82,7 +82,7 @@ final class RockMapperTests: XCTestCase {
         XCTAssertEqual(document.location, .init(latitude: 35.810537, longitude: 139.473032))
         XCTAssertEqual(document.seasons, Set(["summer"]))
         XCTAssertEqual(document.lithology, "chert")
-        XCTAssertEqual(document.lithology, "御岳")
+        XCTAssertEqual(document.erea, "御岳")
         XCTAssertEqual(document.desc, "rockrockrock")
         XCTAssertEqual(document.registeredUserId, userId)
         XCTAssertEqual(document.headerUrl, dummyURL)
