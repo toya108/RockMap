@@ -1,11 +1,15 @@
 import SwiftUI
 
+protocol RockAnnotationListViewDelegate: AnyObject {
+    func didSelectRow(rock: Entity.Rock)
+}
+
 struct RockAnnotationListView: View {
 
     @State private var rocks: [Entity.Rock]
 
     // swiftlint:disable weak_delegate
-    var delegate: RockAnnotationTableViewDelegate?
+    var delegate: RockAnnotationListViewDelegate?
 
     init(rocks: [Entity.Rock]) {
         self.rocks = rocks
@@ -24,7 +28,7 @@ struct RockAnnotationListView: View {
                 thirdText: rock.desc
             )
             .onTapGesture {
-                delegate?.didSelectRockAnnotaitonCell(rock: rock)
+                delegate?.didSelectRow(rock: rock)
             }
         }
     }

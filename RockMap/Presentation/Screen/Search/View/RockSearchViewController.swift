@@ -432,8 +432,8 @@ extension RockSearchViewController: MKMapViewDelegate {
     }
 }
 
-extension RockSearchViewController: RockAnnotationTableViewDelegate {
-    func didSelectRockAnnotaitonCell(rock: Entity.Rock) {
+extension RockSearchViewController: RockAnnotationListViewDelegate {
+    func didSelectRow(rock: Entity.Rock) {
         floatingPanelVc.removeFromParent()
         self.router.route(to: .rockDetail(rock), from: self)
     }
