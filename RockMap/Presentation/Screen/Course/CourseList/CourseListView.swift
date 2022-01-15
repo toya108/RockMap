@@ -1,19 +1,19 @@
 import SwiftUI
 import SkeletonUI
 
-struct RockListView: View {
+struct CourseListView: View {
 
-    @StateObject var viewModel: RockListViewModel
+    @StateObject var viewModel: CourseListViewModel
 
     var body: some View {
-        if viewModel.rocks.isEmpty {
+        if viewModel.courses.isEmpty {
             ZStack {
                 Color(uiColor: .systemGroupedBackground)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                Text("text_no_rock_registerd_yet")
+                Text("text_no_course_registerd_yet")
             }
             .onAppear {
-                viewModel.fetchRockList()
+                viewModel.fetchCourses()
             }
         } else if viewModel.isLoading {
             Color.clear.skeleton(with: true)
@@ -21,53 +21,53 @@ struct RockListView: View {
                 .multiline(lines: 8, spacing: 4)
                 .padding()
         } else {
-            List(viewModel.rocks) { rock in
+            List(viewModel.courses) { course in
                 NavigationLink(
-                    destination: RockDetailView(rock: rock)
+                    destination: CourseDetailView(course: course)
                 ) {
                     ListRowView(
-                        imageURL: rock.headerUrl,
+                        imageURL: course.headerUrl,
                         iconImage: UIImage.AssetsImages.rockFill,
-                        title: rock.name,
+                        title: course.name,
                         firstLabel: .init("registered_date"),
-                        firstText: rock.createdAt.string(dateStyle: .medium),
-                        secondLabel: .init("address"),
-                        secondText: rock.address,
-                        thirdText: rock.desc
+                        firstText: course.createdAt.string(dateStyle: .medium),
+                        secondLabel: .init("grade"),
+                        secondText: course.grade.name,
+                        thirdText: course.desc
                     )
                 }
                 .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                     Button("delete", role: .destructive) {
-                        viewModel.editingRock = rock
-                        viewModel.isPresentedDeleteRockAlert = true
+                        viewModel.editingCourse = course
+                        viewModel.isPresentedDeleteCourseAlert = true
                     }
                     Button("edit") {
-                        viewModel.editingRock = rock
-                        viewModel.isPresentedRockRegister = true
+                        viewModel.editingCourse = course
+                        viewModel.isPresentedCourseRegister = true
                     }
                 }
             }
             .refreshable {
-                viewModel.fetchRockList()
+                viewModel.fetchCourses()
             }
             .onReceive(
-                NotificationCenter.default.publisher(for: .didRockRegisterFinished)
+                NotificationCenter.default.publisher(for: .didCourseRegisterFinished)
             ) { _ in
-                viewModel.fetchRockList()
+                viewModel.fetchCourses()
             }
             .alert(
-                "text_delete_rock_title",
-                isPresented: $viewModel.isPresentedDeleteRockAlert,
+                "text_delete_course_title",
+                isPresented: $viewModel.isPresentedDeleteCourseAlert,
                 actions: {
                     Button("delete", role: .destructive) {
                         viewModel.delete()
                     }
                     Button("cancel", role: .cancel) {
-                        viewModel.isPresentedDeleteRockAlert = false
+                        viewModel.isPresentedDeleteCourseAlert = false
                     }
                 },
                 message: {
-                    Text("text_delete_rock_message")
+                    Text("text_delete_course_message")
                 }
             )
             .alert(
@@ -80,17 +80,17 @@ struct RockListView: View {
                     Text(viewModel.deleteError?.localizedDescription ?? "")
                 }
             )
-            .sheet(isPresented: $viewModel.isPresentedRockRegister) {
-                if let rock = viewModel.editingRock {
-                    RockRegisterView(registerType: .edit(rock)).interactiveDismissDisabled(true)
+            .sheet(isPresented: $viewModel.isPresentedCourseRegister) {
+                if let rock = viewModel.editingCourse {
+                    CourseRegisterView(registerType: .edit(rock)).interactiveDismissDisabled(true)
                 }
             }
         }
     }
 }
 
-struct RockListView_Previews: PreviewProvider {
+struct CourseListView_Previews: PreviewProvider {
     static var previews: some View {
-        RockListView(viewModel: .init(userId: "aaa"))
+        CourseListView(viewModel: .init(userId: "aaa"))
     }
 }

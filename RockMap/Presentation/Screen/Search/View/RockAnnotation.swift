@@ -5,13 +5,12 @@ class RockAnnotation: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
     var title: String?
 
-    init(
-        coordinate: CLLocationCoordinate2D,
-        rock: Entity.Rock,
-        title: String
-    ) {
+    init(rock: Entity.Rock) {
         self.rock = rock
-        self.coordinate = coordinate
-        self.title = title
+        self.coordinate = .init(
+            latitude: rock.location.latitude,
+            longitude: rock.location.longitude
+        )
+        self.title = rock.name
     }
 }

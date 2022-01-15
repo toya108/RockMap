@@ -4,6 +4,7 @@ extension RockConfirmViewController {
     enum SectionLayoutKind: CaseIterable {
         case name
         case desc
+        case erea
         case season
         case lithology
         case location
@@ -25,6 +26,9 @@ extension RockConfirmViewController {
             case .lithology:
                 return "岩質"
 
+            case .erea:
+                return "エリア"
+
             case .location:
                 return "住所"
 
@@ -41,7 +45,7 @@ extension RockConfirmViewController {
 
         var headerIdentifer: String {
             switch self {
-            case .name, .desc, .season, .lithology, .location, .header, .images:
+            case .name, .desc, .season, .lithology, .erea, .location, .header, .images:
                 return TitleSupplementaryView.className
 
             default:
@@ -55,6 +59,7 @@ extension RockConfirmViewController {
         case desc(String)
         case season(Set<Entity.Rock.Season>)
         case lithology(Entity.Rock.Lithology)
+        case erea(String)
         case location(LocationManager.LocationStructure)
         case header(CrudableImage)
         case images(CrudableImage)

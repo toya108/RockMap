@@ -10,6 +10,7 @@ extension RockRegisterViewController {
         let deletabelImageCellRegistration = createDeletabelImageCell()
         let seasonCellRegistration = createSeasonCell()
         let lithologyCellRegistration = createLithologyCell()
+        let ereaCellRegistration = createEreaCell()
         let confirmationButtonCellRegistration = createConfirmationButtonCell()
         let errorLabelCellRegistration = createErrorLabelCell()
 
@@ -31,6 +32,14 @@ extension RockRegisterViewController {
                     for: indexPath,
                     item: Dummy()
                 )
+
+            case .erea:
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: ereaCellRegistration,
+                    for: indexPath,
+                    item: Dummy()
+                )
+
             case let .location(locationStructure):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: locationCellRegistration,
@@ -266,6 +275,28 @@ extension RockRegisterViewController {
                 },
                 for: .valueChanged
             )
+        }
+    }
+
+    private func createEreaCell() -> UICollectionView.CellRegistration<
+        TextFieldColletionViewCell,
+        Dummy
+    > {
+        .init { [weak self] cell, _, _ in
+
+            guard let self = self else { return }
+
+            cell.textField.text = self.viewModel.output.erea
+            cell.configurePlaceholder("御岳、瑞牆、小川山など")
+            cell.textField.delegate = self
+            cell.textField.textDidChangedPublisher
+                .sink { [weak self] text in
+
+                    guard let self = self else { return }
+
+                    self.viewModel.input.rockEreaSubject.send(text)
+                }
+                .store(in: &self.bindings)
         }
     }
 

@@ -14,7 +14,6 @@ class RockSearchViewModel: ViewModelProtocol {
 
     init() {
         self.setupBindings()
-        self.fetchRockList()
     }
 
     private func setupBindings() {

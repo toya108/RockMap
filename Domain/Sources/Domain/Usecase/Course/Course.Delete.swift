@@ -3,7 +3,7 @@ import DataLayer
 import Foundation
 
 public extension Domain.Usecase.Course {
-    struct Delete: PassthroughUsecaseProtocol {
+    struct Delete: PassthroughUsecaseProtocol, DeleteCourseUsecaseProtocol {
         public typealias Repository = AnyRepository<Repositories.Course.Delete.R>
         public typealias Mapper = Domain.Mapper.Course
 
@@ -24,4 +24,8 @@ public extension Domain.Usecase.Course {
             )
         }
     }
+}
+
+public protocol DeleteCourseUsecaseProtocol {
+    func delete(id: String, parentPath: String) async throws
 }

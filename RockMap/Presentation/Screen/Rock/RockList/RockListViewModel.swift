@@ -16,7 +16,7 @@ class RockListViewModel: ObservableObject {
     var deleteError: Error?
 
     @Injected private var fetchRocksUsecase: FetchRockUsecaseProtocol
-    @Injected private var delteRockUsecase: DeleteRockUsecaseProtocol
+    @Injected private var deleteRockUsecase: DeleteRockUsecaseProtocol
     @Injected private var authAccessor: AuthAccessorProtocol
 
     private let userId: String
@@ -41,7 +41,7 @@ class RockListViewModel: ObservableObject {
 
         Task {
             do {
-                try await self.delteRockUsecase.delete(
+                try await self.deleteRockUsecase.delete(
                     id: rock.id,
                     parentPath: rock.parentPath
                 )

@@ -2,6 +2,7 @@ import Combine
 import MapKit
 import UIKit
 import FloatingPanel
+import SwiftUI
 
 final class RockSearchViewController: UIViewController {
     private var viewModel: RockSearchViewModel!
@@ -147,23 +148,18 @@ final class RockSearchViewController: UIViewController {
         self.viewModel.$rockDocuments
             .dropFirst()
             .removeDuplicates()
+            .map { rocks in
+                rocks.map { RockAnnotation(rock: $0) }
+            }
             .receive(on: RunLoop.main)
-            .sink { [weak self] documents in
+            .sink { [weak self] annotations in
 
                 guard let self = self else { return }
 
                 self.mapView.removeAnnotations(self.mapView.annotations)
 
-                documents.forEach {
-                    let annotation = RockAnnotation(
-                        coordinate: .init(
-                            latitude: $0.location.latitude,
-                            longitude: $0.location.longitude
-                        ),
-                        rock: $0,
-                        title: $0.name
-                    )
-                    self.mapView.addAnnotation(annotation)
+                annotations.forEach {
+                    self.mapView.addAnnotation($0)
                 }
             }
             .store(in: &self.bindings)
@@ -291,10 +287,9 @@ final class RockSearchViewController: UIViewController {
     }
 
     private func addFloatingPanel(rocks: [Entity.Rock]) {
-        let contentVC = RockAnnotationListViewController.createInstance(rocks: rocks)
-        contentVC.delegate = self
+        let contentVC = UIHostingController(rootView: RockAnnotationListView(rocks: rocks))
+        contentVC.rootView.delegate = self
         floatingPanelVc.set(contentViewController: contentVC)
-        floatingPanelVc.track(scrollView: contentVC.collectionView)
         floatingPanelVc.addPanel(toParent: self, animated: true)
     }
 
@@ -437,8 +432,9 @@ extension RockSearchViewController: MKMapViewDelegate {
     }
 }
 
-extension RockSearchViewController: RockAnnotationTableViewDelegate {
-    func didSelectRockAnnotaitonCell(rock: Entity.Rock) {
+extension RockSearchViewController: RockAnnotationListViewDelegate {
+    func didSelectRow(rock: Entity.Rock) {
+        floatingPanelVc.removeFromParent()
         self.router.route(to: .rockDetail(rock), from: self)
     }
 }
@@ -481,14 +477,14 @@ class RockSearchFloatingPanelLayout: FloatingPanelLayout {
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .half
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
-        return [
+        [
             .full: FloatingPanelLayoutAnchor(
                 absoluteInset: 16.0,
                 edge: .top,
                 referenceGuide: .safeArea
             ),
             .half: FloatingPanelLayoutAnchor(
-                fractionalInset: 0.4,
+                fractionalInset: 0.3,
                 edge: .bottom,
                 referenceGuide: .safeArea
             ),

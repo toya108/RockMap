@@ -6,6 +6,8 @@
 "logout" = "Logout";
 "edit" = "Edit";
 "delete" = "Delete";
+"registered_date" = "Registered Date";
+"text_delete_failure_title" = "Failed to delete";
 
 // MARK: - Auth
 "rockmap" = "RockMap";
@@ -28,11 +30,15 @@
 
 // MARK: - RockList
 "text_no_rock_registerd_yet" = "There are no rocks registered by you yet.";
-"registered_date" = "Registered Date";
 "address" = "Address";
 "text_delete_rock_title" = "Do you want to delete the rock?";
 "text_delete_rock_message" = "Once deleted, it cannot be restored.";
-"text_delete_rock_failure_title" = "Failed to delete";
+
+// MARK: - CourseList
+"text_no_course_registerd_yet" = "There are no rocks registered by you yet.";
+"grade" = "Grade";
+"text_delete_course_title" = "Do you want to delete the rock?";
+"text_delete_course_message" = "Once deleted, it cannot be restored.";
 
 // MARK: - Settings
 "account" = "Account";

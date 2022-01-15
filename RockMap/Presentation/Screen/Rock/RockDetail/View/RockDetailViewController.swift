@@ -29,9 +29,6 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
     }
 
     private func setupNavigationBar() {
-        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.prefersLargeTitles = false
-
         let courseCreationButton = UIButton(
             type: .system,
             primaryAction: .init { [weak self] _ in
@@ -142,6 +139,17 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
                 guard let self = self else { return }
 
                 self.snapShot.appendItems([.lithology(lithology)], toSection: .info)
+                self.datasource.apply(self.snapShot)
+            }
+            .store(in: &self.bindings)
+
+        self.viewModel.$erea
+            .receive(on: RunLoop.main)
+            .sink { [weak self] erea in
+
+                guard let self = self else { return }
+
+                self.snapShot.appendItems([.erea(erea)], toSection: .info)
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &self.bindings)
