@@ -46,6 +46,7 @@ final class DocumentProtocolTests: XCTestCase {
             location: .init(latitude: 0.0, longitude: 0.0),
             seasons: [],
             lithology: "chert",
+            erea: "御岳",
             desc: "aaa",
             registeredUserId: self.userDocument.id,
             headerUrl: nil,
