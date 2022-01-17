@@ -1,5 +1,6 @@
 import DataLayer
 import Foundation
+import Utilities
 
 public extension Domain.Mapper {
     struct Rock: MapperProtocol {
@@ -49,7 +50,11 @@ public extension Domain.Mapper {
                 desc: other.desc,
                 registeredUserId: other.registeredUserId,
                 headerUrl: other.headerUrl,
-                imageUrls: other.imageUrls
+                imageUrls: other.imageUrls,
+                tokenMap: NGramGenerator.makeNGram(input: other.name, n: 2)
+                    .reduce(into: [String: Bool]()) {
+                        $0[$1] = true
+                    }
             )
         }
     }

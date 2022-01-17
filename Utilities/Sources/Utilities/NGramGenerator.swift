@@ -1,6 +1,6 @@
 import Foundation
 
-struct NGramGenerator {
+public struct NGramGenerator {
 
     public static func makeNGram(input: String, n: Int) -> [String] {
         let words = Array(input).map { String($0) }
