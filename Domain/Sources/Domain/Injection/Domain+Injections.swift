@@ -12,10 +12,10 @@ public extension Resolver {
         register { Domain.Mapper.User() }
         register { Domain.Usecase.User.Delete() as DeleteUserUsecaseProtocol }
         register { Domain.Usecase.Rock.FetchByUserId() as FetchRockUsecaseProtocol }
+        register { Domain.Usecase.Rock.Search() as SearchRockUsecaseProtocol }
         register { Domain.Usecase.Rock.Delete() as DeleteRockUsecaseProtocol }
         register { Domain.Usecase.Course.FetchByUserId() as FetchCourseUsecaseProtocol }
         register { Domain.Usecase.Course.Delete() as DeleteCourseUsecaseProtocol }
-
     }
 }
 
