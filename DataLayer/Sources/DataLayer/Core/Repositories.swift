@@ -39,6 +39,10 @@ public struct Repositories {
             public typealias R = FS.Request.Rock.Set
             public init() {}
         }
+        public struct Search: RepositoryProtocol, Initializable {
+            public typealias R = FS.Request.Rock.Search
+            public init() {}
+        }
         public struct Update: RepositoryProtocol, Initializable {
             public typealias R = FS.Request.Rock.Update
             public init() {}
