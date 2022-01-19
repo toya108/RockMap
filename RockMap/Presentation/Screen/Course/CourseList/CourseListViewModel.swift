@@ -52,6 +52,8 @@ class CourseListViewModel: ObservableObject {
                 self.isLoading = false
             } catch {
                 self.deleteError = error
+                self.isLoading = false
+                self.isPresentedDeleteFailureAlert = true
             }
         }
     }
