@@ -6,7 +6,7 @@ public extension FS.Request.Course {
         public typealias Entry = FSQuery
 
         public typealias Collection = FS.Collection.Courses
-        public typealias Response = [FS.Document.Course]
+        public typealias Response = FS.Document.Course
         public struct Parameters: Codable {
             let rockId: String
 
@@ -18,7 +18,10 @@ public extension FS.Request.Course {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var entry: Entry {
-            Collection.group.whereField("parentRockId", in: [self.parameters.rockId])
+            FS.Collection.Rocks.collection.whereField(
+                "parentRockId",
+                isEqualTo: self.parameters.rockId
+            )
         }
 
         public init(parameters: Parameters) {
@@ -26,7 +29,7 @@ public extension FS.Request.Course {
         }
 
         public func request() async throws -> Response {
-            try await self.entry.getDocuments(Response.Element.self)
+            try await self.entry.getDocument(Response.self)
         }
     }
 }

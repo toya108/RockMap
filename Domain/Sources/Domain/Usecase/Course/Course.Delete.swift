@@ -7,8 +7,8 @@ public extension Domain.Usecase.Course {
         public typealias Repository = AnyRepository<Repositories.Course.Delete.R>
         public typealias Mapper = Domain.Mapper.Course
 
-        var repository: Repository
-        var mapper: Mapper
+        let repository: Repository
+        let mapper: Mapper
 
         public init(
             repository: Repository = AnyRepository(Repositories.Course.Delete()),
@@ -18,14 +18,14 @@ public extension Domain.Usecase.Course {
             self.mapper = mapper
         }
 
-        public func delete(id: String, parentPath: String) async throws {
+        public func delete(id: String) async throws {
             try await self.repository.request(
-                parameters: .init(id: id, parentPath: parentPath)
+                parameters: .init(id: id)
             )
         }
     }
 }
 
 public protocol DeleteCourseUsecaseProtocol {
-    func delete(id: String, parentPath: String) async throws
+    func delete(id: String) async throws
 }

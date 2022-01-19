@@ -41,10 +41,7 @@ class CourseListViewModel: ObservableObject {
 
         Task {
             do {
-                try await self.deleteCourseUsecase.delete(
-                    id: course.id,
-                    parentPath: course.parentPath
-                )
+                try await self.deleteCourseUsecase.delete(id: course.id)
 
                 guard
                     let index = self.courses.firstIndex(of: course)
