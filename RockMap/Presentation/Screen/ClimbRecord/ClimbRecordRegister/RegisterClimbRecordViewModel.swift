@@ -56,7 +56,6 @@ class RegisterClimbRecordViewModel {
         Task {
             do {
                 try await self.updateClimbRecordUsecase.update(
-                    parentPath: climbed.parentPath,
                     id: climbed.id,
                     climbedDate: targetClimbedDate,
                     type: targetClimbedRecordType

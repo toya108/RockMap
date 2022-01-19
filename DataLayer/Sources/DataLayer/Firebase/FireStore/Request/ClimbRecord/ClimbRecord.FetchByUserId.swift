@@ -18,7 +18,10 @@ public extension FS.Request.ClimbRecord {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var entry: Entry {
-            Collection.group.whereField("registeredUserId", in: [self.parameters.userId])
+            Collection.collection.whereField(
+                "registeredUserId",
+                isEqualTo: self.parameters.userId
+            )
         }
 
         public init(parameters: Parameters) {
