@@ -18,7 +18,7 @@ public extension FS.Request.Course {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var entry: Entry {
-            FS.Collection.Rocks.collection.whereField(
+            FS.Collection.Courses.collection.whereField(
                 "parentRockId",
                 isEqualTo: self.parameters.rockId
             )
