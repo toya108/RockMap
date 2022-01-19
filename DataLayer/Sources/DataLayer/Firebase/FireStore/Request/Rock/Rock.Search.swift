@@ -18,21 +18,23 @@ public extension FS.Request.Rock {
 
         public var parameters: Parameters
         public var testDataPath: URL?
-        public var entry: Entry { Collection.group }
+        public var entry: Entry {
+            let searchTextMap = NGramGenerator.makeNGram(input: parameters.text, n: 2)
+            var query = Collection.collection.limit(to: 20)
+
+            searchTextMap.forEach { token in
+                query = query.whereField("tokenMap.\(token)", isEqualTo: true)
+            }
+
+            return query
+        }
 
         public init(parameters: Parameters) {
             self.parameters = parameters
         }
 
         public func request() async throws -> Response {
-            let searchTextMap = NGramGenerator.makeNGram(input: parameters.text, n: 2)
-            var query = entry.limit(to: 20)
-
-            searchTextMap.forEach { token in
-                query = query.whereField("tokenMap.\(token)", isEqualTo: true)
-            }
-
-            return try await query.getDocuments(Response.Element.self)
+            try await entry.getDocuments(Response.Element.self)
         }
     }
 }

@@ -18,7 +18,7 @@ public extension FS.Request.Rock {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var entry: Entry {
-            Collection.group.whereField("id", in: [self.parameters.id])
+            Collection.collection.whereField("id", isEqualTo: self.parameters.id)
         }
 
         public init(parameters: Parameters) {

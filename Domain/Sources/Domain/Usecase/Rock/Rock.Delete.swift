@@ -18,14 +18,14 @@ public extension Domain.Usecase.Rock {
             self.mapper = mapper
         }
 
-        public func delete(id: String, parentPath: String) async throws {
+        public func delete(id: String) async throws {
             try await self.repository.request(
-                parameters: .init(id: id, parentPath: parentPath)
+                parameters: .init(id: id)
             )
         }
     }
 }
 
 public protocol DeleteRockUsecaseProtocol {
-    func delete(id: String, parentPath: String) async throws
+    func delete(id: String) async throws
 }

@@ -41,10 +41,7 @@ class RockListViewModel: ObservableObject {
 
         Task {
             do {
-                try await self.deleteRockUsecase.delete(
-                    id: rock.id,
-                    parentPath: rock.parentPath
-                )
+                try await self.deleteRockUsecase.delete(id: rock.id)
 
                 guard
                     let index = self.rocks.firstIndex(of: rock)
