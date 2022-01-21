@@ -43,24 +43,14 @@ extension Array where Element: StorageReference {
 extension StorageReference {
 
     func getReferences() async throws -> [StorageReference] {
-        try await withCheckedThrowingContinuation { [weak self] continuation in
-
-            guard let self = self else { return }
-
-            self.listAll { result, error in
-
-                if let error = error {
-                    continuation.resume(throwing: error)
-                    return
-                }
-
-                continuation.resume(returning: result.items)
-            }
-        }
-
+        try await getResult().items
     }
 
     func getPrefixes() async throws -> [StorageReference] {
+        try await getResult().prefixes
+    }
+
+    func getResult() async throws -> StorageListResult {
         try await withCheckedThrowingContinuation { [weak self] continuation in
 
             guard let self = self else { return }
@@ -72,7 +62,7 @@ extension StorageReference {
                     return
                 }
 
-                continuation.resume(returning: result.prefixes)
+                continuation.resume(returning: result)
             }
         }
     }
