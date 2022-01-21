@@ -64,11 +64,7 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
 
     private func setupOutput() {
         self.listenTotalClimbedNumberUsecase
-            .listen(
-                useTestData: false,
-                courseId: self.course.id,
-                parantPath: self.course.parentPath
-            )
+            .listen(courseId: self.course.id)
             .catch { error -> Empty in
                 print(error)
                 return Empty()

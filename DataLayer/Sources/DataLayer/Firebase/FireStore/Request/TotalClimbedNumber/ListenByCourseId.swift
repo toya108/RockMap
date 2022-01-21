@@ -8,25 +8,22 @@ public extension FS.Request.TotalClimbedNumber {
         public typealias Collection = FS.Collection.TotalClimbedNumber
         public typealias Response = FS.Document.TotalClimbedNumber
         public struct Parameters: Codable {
-            let parentPath: String
             let courseId: String
 
-            public init(parentPath: String, courseId: String) {
-                self.parentPath = parentPath
+            public init(courseId: String) {
                 self.courseId = courseId
             }
         }
 
         public var parameters: Parameters
         public var testDataPath: URL?
-        public var path: String {
-            self.parameters.parentPath
-            FS.Collection.Courses.name
-            self.parameters.courseId
-        }
+        public var path: String { "" }
 
         public var entry: Entry {
-            FirestoreManager.db.document(self.path).collection(Collection.name)
+            FS.Collection.Courses
+                .collection
+                .document(parameters.courseId)
+                .collection(Collection.name)
         }
 
         public init(parameters: Parameters) {

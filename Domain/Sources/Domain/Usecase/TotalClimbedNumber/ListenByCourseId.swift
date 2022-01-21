@@ -6,8 +6,8 @@ public extension Domain.Usecase.TotalClimbedNumber {
         public typealias Repository = Repositories.TotalClimbedNumber.ListenByCourseId
         public typealias Mapper = Domain.Mapper.TotalClimbedNumber
 
-        var repository: Repository
-        var mapper: Mapper
+        let repository: Repository
+        let mapper: Mapper
 
         public init(
             repository: Repository = Repositories.TotalClimbedNumber.ListenByCourseId(),
@@ -18,16 +18,13 @@ public extension Domain.Usecase.TotalClimbedNumber {
         }
 
         public func listen(
-            useTestData: Bool,
-            courseId: String,
-            parantPath: String
+            courseId: String
         ) -> AnyPublisher<Domain.Entity.TotalClimbedNumber, Error> {
             self.repository.request(
-                parameters: .init(
-                    parentPath: parantPath,
-                    courseId: courseId
-                )
-            ).map { mapper.map(from: $0) }.eraseToAnyPublisher()
+                parameters: .init(courseId: courseId)
+            )
+            .map { mapper.map(from: $0) }
+            .eraseToAnyPublisher()
         }
     }
 }
