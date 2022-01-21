@@ -20,10 +20,9 @@ public extension Domain.Usecase.Rock {
 
         public func update(rock: Domain.Entity.Rock) async throws {
             let document = self.mapper.reverse(to: rock)
-            _ = try await self.repository.request(
+            try await self.repository.request(
                 parameters: .init(rock: document)
             )
-            return ()
         }
     }
 }
