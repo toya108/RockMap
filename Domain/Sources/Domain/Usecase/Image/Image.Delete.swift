@@ -15,7 +15,7 @@ public extension Domain.Usecase.Image {
 
         public func delete(path: String) async throws {
             try await self.repository.request(
-                parameters: .init(path: path)
+                parameters: .init(entry: .file(path: path))
             )
         }
     }

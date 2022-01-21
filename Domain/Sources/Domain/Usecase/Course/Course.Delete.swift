@@ -3,24 +3,25 @@ import DataLayer
 import Foundation
 
 public extension Domain.Usecase.Course {
-    struct Delete: PassthroughUsecaseProtocol, DeleteCourseUsecaseProtocol {
-        public typealias Repository = AnyRepository<Repositories.Course.Delete.R>
-        public typealias Mapper = Domain.Mapper.Course
+    struct Delete: DeleteCourseUsecaseProtocol {
 
-        let repository: Repository
-        let mapper: Mapper
+        let deleteCourseRepository: AnyRepository<Repositories.Course.Delete.R>
+        let deleteStorageRepository: AnyRepository<Repositories.Storage.Delete.R>
 
         public init(
-            repository: Repository = AnyRepository(Repositories.Course.Delete()),
-            mapper: Mapper = .init()
+            deleteCourseRepository: AnyRepository<Repositories.Course.Delete.R> = AnyRepository(Repositories.Course.Delete()),
+            deleteStorageRepository: AnyRepository<Repositories.Storage.Delete.R> = AnyRepository(Repositories.Storage.Delete())
         ) {
-            self.repository = repository
-            self.mapper = mapper
+            self.deleteCourseRepository = deleteCourseRepository
+            self.deleteStorageRepository = deleteStorageRepository
         }
 
         public func delete(id: String) async throws {
-            try await self.repository.request(
+            try await self.deleteCourseRepository.request(
                 parameters: .init(id: id)
+            )
+            try await self.deleteStorageRepository.request(
+                parameters: .init(entry: .directory(path: FS.Collection.Courses.name + "/" + id))
             )
         }
     }

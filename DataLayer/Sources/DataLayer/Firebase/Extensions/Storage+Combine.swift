@@ -116,7 +116,23 @@ extension StorageReference {
         }
     }
 
-    func delete() async throws -> EmptyResponse {
+    func deleteDirectory() async throws -> EmptyResponse {
+        let result = try await self.getResult()
+
+        if !result.prefixes.isEmpty {
+            for reference in result.prefixes {
+                _ = try await reference.deleteDirectory()
+            }
+        } else if !result.items.isEmpty {
+            for reference in result.items {
+                _ = try await reference.deleteStorage()
+            }
+        }
+
+        return .init()
+    }
+
+    func deleteStorage() async throws -> EmptyResponse {
 
         try await withCheckedThrowingContinuation { [weak self] continuation in
 
