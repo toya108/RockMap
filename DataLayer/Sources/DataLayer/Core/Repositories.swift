@@ -74,6 +74,10 @@ public struct Repositories {
             public typealias R = FS.Request.Course.Delete
             public init() {}
         }
+        public struct Search: RepositoryProtocol, Initializable {
+            public typealias R = FS.Request.Course.Search
+            public init() {}
+        }
     }
 
     public struct ClimbRecord {
