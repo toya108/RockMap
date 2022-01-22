@@ -50,12 +50,11 @@ final class DocumentProtocolTests: XCTestCase {
             desc: "aaa",
             registeredUserId: self.userDocument.id,
             headerUrl: nil,
-            imageUrls: []
+            imageUrls: [],
+            tokenMap: ["aa": true]
         )
 
         let expectPath = [
-            FS.Collection.Users.name,
-            self.userDocument.id,
             FS.Collection.Rocks.name,
             rockDocument.id
         ].joined(separator: "/")
@@ -83,8 +82,6 @@ final class DocumentProtocolTests: XCTestCase {
             imageUrls: []
         )
         let expectPath = [
-            FS.Collection.Users.name,
-            self.userDocument.id,
             FS.Collection.Courses.name,
             courseDocument.id
         ].joined(separator: "/")
@@ -111,8 +108,6 @@ final class DocumentProtocolTests: XCTestCase {
             type: "flash"
         )
         let expectPath = [
-            FS.Collection.Users.name,
-            self.userDocument.id,
             FS.Collection.ClimbRecord.name,
             climbRecordDocument.id
         ].joined(separator: "/")

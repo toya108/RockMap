@@ -29,7 +29,11 @@ final class RockMapperTests: XCTestCase {
             desc: "rockrockrock",
             registeredUserId: userId,
             headerUrl: dummyURL,
-            imageUrls: [dummyURL]
+            imageUrls: [dummyURL],
+            tokenMap: [
+                "日陰": true,
+                "陰岩": true
+            ]
         )
 
         let entity = mapper.map(from: document)
