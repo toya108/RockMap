@@ -25,7 +25,8 @@
 "text_aleady_logged_in_with%@" = "You are already logged in as a user here.\n%@";
 
 // MARK: - Tab
-"rock_search" = "Search Rock";
+"search" = "Search";
+"map" = "Map";
 "mypage" = "MyPage";
 
 // MARK: - RockList

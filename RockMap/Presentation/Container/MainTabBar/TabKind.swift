@@ -2,24 +2,24 @@ import SwiftUI
 
 enum TabKind: CaseIterable {
 
-    case home
-    case rockSearch
+    case search
+    case map
     case myPage
 
     @ViewBuilder
     func makeTab(selection: TabKind) -> some View {
         switch self {
-            case .home:
+            case .search:
                 HomeView(viewModel: .init()).tabItem {
-                    TabKind.home.makeStack(selection: selection)
+                    TabKind.search.makeStack(selection: selection)
                 }
-                .tag(TabKind.home)
+                .tag(TabKind.search)
 
-            case .rockSearch:
+            case .map:
                 RockSearchView().tabItem {
-                    TabKind.rockSearch.makeStack(selection: selection)
+                    TabKind.map.makeStack(selection: selection)
                 }
-                .tag(TabKind.rockSearch)
+                .tag(TabKind.map)
                 .edgesIgnoringSafeArea(.all)
 
             case .myPage:
@@ -50,11 +50,11 @@ enum TabKind: CaseIterable {
 
     private var titleKey: LocalizedStringKey {
         switch self {
-            case .home:
-                return .init("Home")
+            case .search:
+                return .init("search")
 
-            case .rockSearch:
-                return .init("rock_search")
+            case .map:
+                return .init("map")
 
             case .myPage:
                 return .init("mypage")
@@ -63,11 +63,11 @@ enum TabKind: CaseIterable {
 
     private var normalImage: UIImage {
         switch self {
-            case .home:
-                return UIImage.SystemImages.house
+            case .search:
+                return UIImage.SystemImages.magnifyingglassCircle
 
-            case .rockSearch:
-                return UIImage.SystemImages.map
+            case .map:
+                return UIImage.SystemImages.mapCircle
 
             case .myPage:
                 return UIImage.SystemImages.personCircle
@@ -76,11 +76,11 @@ enum TabKind: CaseIterable {
 
     private var selectedImage: UIImage {
         switch self {
-            case.home:
-                return UIImage.SystemImages.houseFill
+            case.search:
+                return UIImage.SystemImages.magnifyingglassCircleFill
 
-            case .rockSearch:
-                return UIImage.SystemImages.mapFill
+            case .map:
+                return UIImage.SystemImages.mapCircleFill
 
             case .myPage:
                 return UIImage.SystemImages.personCircleFill

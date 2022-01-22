@@ -25,7 +25,8 @@
 "text_aleady_logged_in_with%@" = "既にこちらのユーザーとしてログインしています。\n%@";
 
 // MARK: - Tab
-"rock_search" = "岩を探す";
+"search" = "探す";
+"map" = "地図";
 "mypage" = "マイページ";
 
 // MARK: - RockList

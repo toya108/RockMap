@@ -3,18 +3,16 @@
 import UIKit
 extension UIImage {
     struct SystemImages {
-        static let house = UIImage(systemName: "house")!
-        static let houseFill = UIImage(systemName: "house.fill")!
+        static let magnifyingglassCircle = UIImage(systemName: "magnifyingglass.circle")!
+        static let magnifyingglassCircleFill = UIImage(systemName: "magnifyingglass.circle.fill")!
         static let folderFill = UIImage(systemName: "folder.fill")!
         static let cameraFill = UIImage(systemName: "camera.fill")!
         static let personCircle = UIImage(systemName: "person.circle")!
         static let personCircleFill = UIImage(systemName: "person.circle.fill")!
         static let pencilCircle = UIImage(systemName: "pencil.circle")!
         static let pencilCircleFill = UIImage(systemName: "pencil.circle.fill")!
-        static let map = UIImage(systemName: "map")!
-        static let mappinCircleFill = UIImage(systemName: "mappin.circle.fill")!
-        static let mappinCircle = UIImage(systemName: "mappin.circle")!
-        static let mapFill = UIImage(systemName: "map.fill")!
+        static let mapCircle = UIImage(systemName: "map.circle")!
+        static let mapCircleFill = UIImage(systemName: "map.circle.fill")!
         static let mappinAndEllipse = UIImage(systemName: "mappin.and.ellipse")!
         static let xmarkCircleFill = UIImage(systemName: "xmark.circle.fill")
         static let flagCircle = UIImage(systemName: "flag.circle")!
