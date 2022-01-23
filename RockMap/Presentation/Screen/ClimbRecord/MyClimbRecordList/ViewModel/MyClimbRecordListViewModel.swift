@@ -15,7 +15,7 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
     @Published private var climbRecordList: [Entity.ClimbRecord] = []
     private var bindings = Set<AnyCancellable>()
     private let fetchClimbRecordUsecase = Usecase.ClimbRecord.FetchByUserId()
-    private let fetchCourseUsecase = Usecase.Course.FetchByReference()
+    private let fetchCourseUsecase = Usecase.Course.FetchById()
 
     init() {
         self.bindOutput()
@@ -54,7 +54,7 @@ class MyClimbedListViewModel: MyClimbedListViewModelProtocol {
                 group.addTask {
                     .init(
                         course: try await self.fetchCourseUsecase.fetch(
-                            by: climbRecord.parentCourseReference
+                            by: climbRecord.parentCourseId
                         ),
                         climbed: climbRecord
                     )

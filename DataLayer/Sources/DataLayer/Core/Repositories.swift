@@ -58,8 +58,8 @@ public struct Repositories {
             public typealias R = FS.Request.Course.FetchByRockId
             public init() {}
         }
-        public struct FetchByReference: RepositoryProtocol, Initializable {
-            public typealias R = FS.Request.Course.FetchByReference
+        public struct FetchById: RepositoryProtocol, Initializable {
+            public typealias R = FS.Request.Course.FetchById
             public init() {}
         }
         public struct Set: RepositoryProtocol, Initializable {

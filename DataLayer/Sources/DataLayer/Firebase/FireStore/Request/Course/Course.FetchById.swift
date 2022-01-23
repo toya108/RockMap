@@ -2,24 +2,23 @@ import Combine
 import Foundation
 
 public extension FS.Request.Course {
-    struct FetchByReference: FirestoreRequestProtocol {
-        public typealias Entry = FSDocument
+    struct FetchById: FirestoreRequestProtocol {
+        public typealias Entry = FSQuery
 
         public typealias Collection = FS.Collection.Courses
         public typealias Response = FS.Document.Course
         public struct Parameters: Codable {
-            let reference: String
+            let id: String
 
-            public init(reference: String) {
-                self.reference = reference
+            public init(id: String) {
+                self.id = id
             }
         }
 
         public var parameters: Parameters
         public var testDataPath: URL?
-        public var path: String { "" }
         public var entry: Entry {
-            FirestoreManager.db.document(self.parameters.reference)
+            Collection.collection.whereField("id", isEqualTo: self.parameters.id)
         }
 
         public init(parameters: Parameters) {
@@ -27,7 +26,7 @@ public extension FS.Request.Course {
         }
 
         public func request() async throws -> Response {
-            try await self.entry.getDocument()
+            try await self.entry.getDocument(Response.self)
         }
     }
 }
