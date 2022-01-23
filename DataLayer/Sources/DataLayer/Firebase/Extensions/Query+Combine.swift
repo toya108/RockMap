@@ -2,39 +2,6 @@ import Combine
 import FirebaseFirestore
 
 extension FSQuery {
-    func getDocuments<T: DocumentProtocol>(
-        _ type: T.Type
-    ) -> AnyPublisher<[T], Error> {
-        Deferred {
-            Future<[T], Error> { [weak self] promise in
-
-                guard let self = self else { return }
-
-                self.getDocuments { snapshot, error in
-
-                    if let error = error {
-                        promise(.failure(error))
-                        return
-                    }
-
-                    guard
-                        let snapshot = snapshot
-                    else {
-                        promise(.failure(FirestoreError.nilResultError))
-                        return
-                    }
-
-                    let docs = snapshot.documents.compactMap {
-                        T.initialize(json: $0.data())
-                    }
-                    promise(.success(docs))
-                }
-            }
-        }.eraseToAnyPublisher()
-    }
-}
-
-extension FSQuery {
     struct Publisher: Combine.Publisher {
         typealias Output = QuerySnapshot
         typealias Failure = Error
