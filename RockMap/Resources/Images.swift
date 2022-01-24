@@ -3,6 +3,7 @@
 import UIKit
 extension UIImage {
     struct SystemImages {
+        static let sliderHorizontal3 = UIImage(systemName: "slider.horizontal.3")!
         static let magnifyingglassCircle = UIImage(systemName: "magnifyingglass.circle")!
         static let magnifyingglassCircleFill = UIImage(systemName: "magnifyingglass.circle.fill")!
         static let folderFill = UIImage(systemName: "folder.fill")!
