@@ -4,6 +4,7 @@ import Resolver
 
 actor HomeViewModel: ObservableObject {
     @Published nonisolated var searchText = ""
+    @Published nonisolated var selectedCategory: CategoryKind = .rock
 
     @Injected private var searchRockUseCase: SearchRockUsecaseProtocol
 
@@ -29,5 +30,24 @@ actor HomeViewModel: ObservableObject {
     func searchRock() async {
         let a = try? await searchRockUseCase.search(text: searchText)
         print(a)
+    }
+}
+
+enum CategoryKind: String, CaseIterable, Identifiable {
+    case rock
+    case course
+    case user
+
+    var id: String { self.rawValue }
+
+    var name: String {
+        switch self {
+            case .rock:
+                return "rock"
+            case .course:
+                return "course"
+            case .user:
+                return "user"
+        }
     }
 }

@@ -1,17 +1,28 @@
 import SwiftUI
 
 struct HomeView: View {
-
     @StateObject var viewModel: HomeViewModel
+    @FocusState var isFocusedSearchField: Bool
 
     var body: some View {
         NavigationView {
-            VStack {
-                SearchView(searchText: $viewModel.searchText) {
+            VStack(spacing: 8) {
+                SearchView(
+                    searchText: $viewModel.searchText,
+                    isFocusedSearchField: _isFocusedSearchField
+                ) {
                     viewModel.resetSearchText()
                 }
-                Spacer()
+                if isFocusedSearchField && viewModel.searchText.isEmpty {
+                    SearchHistoryView()
+                    Spacer()
+                } else if isFocusedSearchField {
+                    Spacer()
+                } else {
+                    CategoryListView(selectedCategory: $viewModel.selectedCategory)
+                }
             }
+            .padding()
             .navigationBarHidden(true)
         }
         .onAppear {
