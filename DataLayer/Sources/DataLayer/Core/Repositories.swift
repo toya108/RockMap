@@ -78,6 +78,10 @@ public struct Repositories {
             public typealias R = FS.Request.Course.Search
             public init() {}
         }
+        public struct FetchList: RepositoryProtocol, Initializable {
+            public typealias R = FS.Request.Course.FetchList
+            public init() {}
+        }
     }
 
     public struct ClimbRecord {
