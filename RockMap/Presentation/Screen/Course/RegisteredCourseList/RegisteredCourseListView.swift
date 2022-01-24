@@ -1,9 +1,9 @@
 import SwiftUI
 import SkeletonUI
 
-struct CourseListView: View {
+struct RegisteredCourseListView: View {
 
-    @StateObject var viewModel: CourseListViewModel
+    @StateObject var viewModel: RegisteredCourseListViewModel
 
     var body: some View {
         if viewModel.courses.isEmpty {
@@ -91,6 +91,6 @@ struct CourseListView: View {
 
 struct CourseListView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseListView(viewModel: .init(userId: "aaa"))
+        RegisteredCourseListView(viewModel: .init(userId: "aaa"))
     }
 }

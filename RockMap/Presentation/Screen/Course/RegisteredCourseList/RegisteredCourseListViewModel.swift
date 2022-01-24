@@ -4,7 +4,7 @@ import Auth
 import Domain
 import Foundation
 
-class CourseListViewModel: ObservableObject {
+class RegisteredCourseListViewModel: ObservableObject {
 
     @Published var courses: [Entity.Course] = []
     @Published var isEmpty = false

@@ -1,9 +1,9 @@
 import SwiftUI
 import SkeletonUI
 
-struct RockListView: View {
+struct RegisteredRockListView: View {
 
-    @StateObject var viewModel: RockListViewModel
+    @StateObject var viewModel: RegisteredRockListViewModel
 
     var body: some View {
         if viewModel.rocks.isEmpty {
@@ -91,6 +91,6 @@ struct RockListView: View {
 
 struct RockListView_Previews: PreviewProvider {
     static var previews: some View {
-        RockListView(viewModel: .init(userId: "aaa"))
+        RegisteredRockListView(viewModel: .init(userId: "aaa"))
     }
 }
