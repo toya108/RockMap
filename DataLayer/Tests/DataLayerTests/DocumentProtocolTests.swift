@@ -79,7 +79,8 @@ final class DocumentProtocolTests: XCTestCase {
             parentRockId: UUID().uuidString,
             registeredUserId: self.userDocument.id,
             headerUrl: nil,
-            imageUrls: []
+            imageUrls: [],
+            tokenMap: ["aa": true]
         )
         let expectPath = [
             FS.Collection.Courses.name,

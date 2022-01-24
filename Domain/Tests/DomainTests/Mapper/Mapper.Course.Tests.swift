@@ -28,7 +28,11 @@ final class CourseMapperTests: XCTestCase {
             parentRockId: rockId,
             registeredUserId: userId,
             headerUrl: dummyURL,
-            imageUrls: [dummyURL]
+            imageUrls: [dummyURL],
+            tokenMap: [
+                "峰の": true,
+                "の夕": true
+            ]
         )
 
         let entity = mapper.map(from: document)
