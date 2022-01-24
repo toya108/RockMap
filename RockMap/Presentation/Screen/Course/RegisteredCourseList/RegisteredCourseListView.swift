@@ -89,7 +89,7 @@ struct RegisteredCourseListView: View {
     }
 }
 
-struct CourseListView_Previews: PreviewProvider {
+struct RegisteredCourseListView_Previews: PreviewProvider {
     static var previews: some View {
         RegisteredCourseListView(viewModel: .init(userId: "aaa"))
     }

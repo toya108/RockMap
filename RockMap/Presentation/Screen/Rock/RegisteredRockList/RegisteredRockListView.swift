@@ -89,7 +89,7 @@ struct RegisteredRockListView: View {
     }
 }
 
-struct RockListView_Previews: PreviewProvider {
+struct RegisteredRockListView_Previews: PreviewProvider {
     static var previews: some View {
         RegisteredRockListView(viewModel: .init(userId: "aaa"))
     }
