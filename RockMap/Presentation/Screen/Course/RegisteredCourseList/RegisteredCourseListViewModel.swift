@@ -17,7 +17,6 @@ class RegisteredCourseListViewModel: ObservableObject {
 
     @Injected private var fetchCoursesUseCase: FetchCourseUsecaseProtocol
     @Injected private var deleteCourseUsecase: DeleteCourseUsecaseProtocol
-    @Injected private var authAccessor: AuthAccessorProtocol
 
     private let userId: String
 
