@@ -16,6 +16,7 @@ public extension Resolver {
         register { Domain.Usecase.Rock.Delete() as DeleteRockUsecaseProtocol }
         register { Domain.Usecase.Course.FetchByUserId() as FetchCourseUsecaseProtocol }
         register { Domain.Usecase.Course.Delete() as DeleteCourseUsecaseProtocol }
+        register { Domain.Usecase.Course.FetchList() as FetchCourseListUsecaseProtocol }
     }
 }
 
