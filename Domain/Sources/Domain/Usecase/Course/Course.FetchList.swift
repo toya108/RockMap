@@ -2,7 +2,7 @@ import DataLayer
 import Foundation
 
 public extension Domain.Usecase.Course {
-    struct FetchList:FetchCourseListUsecaseProtocol, PassthroughUsecaseProtocol {
+    struct FetchList: FetchCourseListUsecaseProtocol, PassthroughUsecaseProtocol {
         public typealias Repository = AnyRepository<Repositories.Course.FetchList.R>
         public typealias Mapper = Domain.Mapper.Course
 
