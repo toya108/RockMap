@@ -21,7 +21,7 @@ struct CourseListView: View {
 
             case .finish:
                 if viewModel.courses.isEmpty {
-                    EmptyView(text: .init("text_no_course_registerd_yet"))
+                    EmptyView(text: .init("text_no_course"))
                         .refreshable {
                             refresh()
                         }

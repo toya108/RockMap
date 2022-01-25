@@ -29,17 +29,20 @@
 "map" = "Map";
 "mypage" = "MyPage";
 
-// MARK: - RockList
+// MARK: - RegisterdRockList
 "text_no_rock_registerd_yet" = "There are no rocks registered by you yet.";
 "address" = "Address";
 "text_delete_rock_title" = "Do you want to delete the rock?";
 "text_delete_rock_message" = "Once deleted, it cannot be restored.";
 
-// MARK: - CourseList
-"text_no_course_registerd_yet" = "There are no rocks registered by you yet.";
+// MARK: - RegisterdCourseList
+"text_no_course_registerd_yet" = "There are no courses registered by you yet.";
 "grade" = "Grade";
-"text_delete_course_title" = "Do you want to delete the rock?";
+"text_delete_course_title" = "Do you want to delete the course?";
 "text_delete_course_message" = "Once deleted, it cannot be restored.";
+
+// MARK: - CourseList
+"text_no_course" = "No Courses";
 
 // MARK: - Settings
 "account" = "Account";
