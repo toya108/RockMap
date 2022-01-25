@@ -80,7 +80,7 @@ extension CourseDetailViewController {
         guard let self = self else { return }
 
         switch state {
-        case .stanby, .failure, .loading:
+        case .standby, .failure, .loading:
             break
 
         case .finish:
@@ -94,7 +94,7 @@ extension CourseDetailViewController {
         guard let self = self else { return }
 
         switch state {
-        case .stanby, .failure, .loading:
+        case .standby, .failure, .loading:
             break
 
         case .finish:

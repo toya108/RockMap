@@ -230,7 +230,7 @@ extension EditProfileViewController {
         guard let self = self else { return }
 
         switch state {
-            case .stanby:
+            case .standby:
                 self.hideIndicatorView()
 
             case .loading:
@@ -260,7 +260,7 @@ extension EditProfileViewController {
         guard let self = self else { return }
 
         switch state {
-            case .stanby:
+            case .standby:
                 break
 
             case .loading:

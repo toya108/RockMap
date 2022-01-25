@@ -79,8 +79,8 @@ extension CourseDetailViewModel {
     }
 
     final class Output {
-        @Published var fetchParentRockState: LoadingState<Entity.Rock> = .stanby
-        @Published var fetchRegisteredUserState: LoadingState<Entity.User> = .stanby
+        @Published var fetchParentRockState: LoadingState<Entity.Rock> = .standby
+        @Published var fetchRegisteredUserState: LoadingState<Entity.User> = .standby
         @Published var totalClimbedNumber: Entity.TotalClimbedNumber = .init(flash: 0, redPoint: 0)
     }
 }

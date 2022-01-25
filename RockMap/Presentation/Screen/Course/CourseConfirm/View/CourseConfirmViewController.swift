@@ -74,7 +74,7 @@ extension CourseConfirmViewController {
         guard let self = self else { return }
 
         switch state {
-            case .stanby: break
+            case .standby: break
 
             case .loading:
                 self.showIndicatorView()
@@ -96,7 +96,7 @@ extension CourseConfirmViewController {
         guard let self = self else { return }
 
         switch state {
-            case .stanby: break
+            case .standby: break
 
             case .loading:
                 self.showIndicatorView()

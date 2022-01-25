@@ -140,7 +140,7 @@ extension RockConfirmViewModel {
     }
 
     final class Output {
-        @Published var imageUploadState: LoadingState<Void> = .stanby
-        @Published var rockUploadState: LoadingState<Void> = .stanby
+        @Published var imageUploadState: LoadingState<Void> = .standby
+        @Published var rockUploadState: LoadingState<Void> = .standby
     }
 }

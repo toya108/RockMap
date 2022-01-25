@@ -6,7 +6,7 @@ import Foundation
 
 class RegisteredCourseListViewModel: ObservableObject {
 
-    @Published var viewState: LoadableViewState = .stanby
+    @Published var viewState: LoadableViewState = .standby
 
     @Published var courses: [Entity.Course] = []
     @Published var isPresentedCourseRegister = false

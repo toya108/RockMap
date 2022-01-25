@@ -143,7 +143,7 @@ extension MyPageViewModel {
 
     final class Output {
         @Published var isGuest = false
-        @Published var fetchUserState: LoadingState<Entity.User> = .stanby
+        @Published var fetchUserState: LoadingState<Entity.User> = .standby
         @Published var climbedList: [Entity.ClimbRecord] = []
         @Published var recentClimbedCourses: [Entity.Course] = []
     }

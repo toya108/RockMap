@@ -1,7 +1,7 @@
 enum LoadingState<T>: Equatable {
     static func == (lhs: LoadingState, rhs: LoadingState) -> Bool {
         switch (lhs, rhs) {
-        case (.stanby, .stanby), (.loading, .loading), (.finish, .finish), (.failure, failure):
+        case (.standby, .standby), (.loading, .loading), (.finish, .finish), (.failure, failure):
             return true
 
         default:
@@ -9,7 +9,7 @@ enum LoadingState<T>: Equatable {
         }
     }
 
-    case stanby
+    case standby
     case loading
     case finish(content: T)
     case failure(Error?)

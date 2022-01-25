@@ -218,7 +218,7 @@ extension EditProfileViewModel {
 
         @Published var nameValidationResult: ValidationResult = .none
 
-        @Published var imageUploadState: LoadingState<Void> = .stanby
-        @Published var userUploadState: LoadingState<Void> = .stanby
+        @Published var imageUploadState: LoadingState<Void> = .standby
+        @Published var userUploadState: LoadingState<Void> = .standby
     }
 }

@@ -7,7 +7,7 @@ import Collections
 actor CourseListViewModel: ObservableObject {
 
     @Published nonisolated var courses: OrderedSet<Entity.Course> = []
-    @Published nonisolated var viewState: LoadableViewState = .stanby
+    @Published nonisolated var viewState: LoadableViewState = .standby
 
     private var page: Int = 0
     

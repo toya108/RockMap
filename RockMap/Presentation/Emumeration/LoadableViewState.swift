@@ -1,5 +1,5 @@
 enum LoadableViewState {
-    case stanby
+    case standby
     case loading
     case finish
     case failure(Error?)

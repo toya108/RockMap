@@ -6,7 +6,7 @@ struct CourseListView: View {
 
     var body: some View {
         switch viewModel.viewState {
-            case .stanby:
+            case .standby:
                 Color.clear.onAppear {
                     Task {
                         await viewModel.load()

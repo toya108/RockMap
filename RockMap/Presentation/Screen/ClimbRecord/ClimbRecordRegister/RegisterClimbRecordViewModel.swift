@@ -14,7 +14,7 @@ class RegisterClimbRecordViewModel {
 
     @Published var climbedDate: Date?
     @Published var climbRecordType: Entity.ClimbRecord.ClimbedRecordType = .flash
-    @Published private(set) var loadingState: LoadingState<Void> = .stanby
+    @Published private(set) var loadingState: LoadingState<Void> = .standby
 
     private var bindings = Set<AnyCancellable>()
 
