@@ -43,6 +43,7 @@
 
 // MARK: - CourseList
 "text_no_course" = "No Courses";
+"text_fetch_course_failed" = "Failed to retrieve courses";
 
 // MARK: - Settings
 "account" = "Account";

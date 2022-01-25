@@ -16,8 +16,11 @@ struct CourseListView: View {
             case .loading:
                 ListSkeltonView()
 
-            case .failure(let error):
-                Color.clear
+            case .failure:
+                EmptyView(text: .init("text_fetch_course_failed"))
+                    .refreshable {
+                        refresh()
+                    }
 
             case .finish:
                 if viewModel.courses.isEmpty {
