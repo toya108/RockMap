@@ -4,6 +4,10 @@ public struct Repositories {
             public typealias R = FS.Request.User.FetchById
             public init() {}
         }
+        public struct FetchList: RepositoryProtocol, Initializable {
+            public typealias R = FS.Request.User.FetchList
+            public init() {}
+        }
         public struct Update: RepositoryProtocol, Initializable {
             public typealias R = FS.Request.User.Update
             public init() {}
