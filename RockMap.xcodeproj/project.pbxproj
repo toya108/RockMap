@@ -111,6 +111,7 @@
 		9E6D916B261AEB71006E2297 /* ZoomImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6D916A261AEB71006E2297 /* ZoomImageViewController.swift */; };
 		9E6D9171261AEB82006E2297 /* ZoomImageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E6D9170261AEB82006E2297 /* ZoomImageViewController.storyboard */; };
 		9E737A552726FB8C008EC9E1 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 9E737A542726FB8C008EC9E1 /* FloatingPanel */; };
+		9E768FEE279FE24F00E66739 /* LoadableViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E768FED279FE24F00E66739 /* LoadableViewState.swift */; };
 		9E7812832619933200CAC539 /* ClimbedUserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7812822619933200CAC539 /* ClimbedUserListViewController.swift */; };
 		9E78129126199B1500CAC539 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E78129026199B1500CAC539 /* UserView.swift */; };
 		9E78129E26199DA700CAC539 /* UserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E78129D26199DA700CAC539 /* UserView.xib */; };
@@ -348,6 +349,7 @@
 		9E6CF42625CFF16A0098389E /* RockLocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockLocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E6D916A261AEB71006E2297 /* ZoomImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomImageViewController.swift; sourceTree = "<group>"; };
 		9E6D9170261AEB82006E2297 /* ZoomImageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ZoomImageViewController.storyboard; sourceTree = "<group>"; };
+		9E768FED279FE24F00E66739 /* LoadableViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableViewState.swift; sourceTree = "<group>"; };
 		9E7812822619933200CAC539 /* ClimbedUserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbedUserListViewController.swift; sourceTree = "<group>"; };
 		9E78129026199B1500CAC539 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		9E78129D26199DA700CAC539 /* UserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserView.xib; sourceTree = "<group>"; };
@@ -1285,6 +1287,7 @@
 			isa = PBXGroup;
 			children = (
 				9E9E6376262EFE150096340C /* LoadingState.swift */,
+				9E768FED279FE24F00E66739 /* LoadableViewState.swift */,
 			);
 			path = Emumeration;
 			sourceTree = "<group>";
@@ -1864,6 +1867,7 @@
 				9E7ABF09262590450028DB19 /* CombineControl.swift in Sources */,
 				9E06F9612649769200731352 /* EditProfileLayout.swift in Sources */,
 				9E21D721278D9F84008D8AF2 /* RegisteredCourseListViewModel.swift in Sources */,
+				9E768FEE279FE24F00E66739 /* LoadableViewState.swift in Sources */,
 				9EC3A6C42604D74F001FBCA4 /* CourseDetailKind.swift in Sources */,
 				9E9E631D262EB1240096340C /* MyPageRouter.swift in Sources */,
 				9EECEBB5265FBAAC0057EE11 /* MyClimbRecordListKind.swift in Sources */,
