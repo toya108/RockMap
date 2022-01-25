@@ -24,7 +24,9 @@ struct HomeView: View {
             }
             .padding()
             .navigationBarHidden(true)
+            .navigationBarTitleDisplayMode(.inline)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
             Task {
                 await viewModel.setupBindings()
