@@ -35,6 +35,10 @@
 "text_delete_rock_title" = "岩を削除しますか？";
 "text_delete_rock_message" = "一度削除すると復元できません。";
 
+// MARK: - RockList
+"text_no_rock" = "岩が見つかりませんでした。";
+"text_fetch_rock_failed" = "岩の取得に失敗しました。";
+
 // MARK: - RegisterdCourseList
 "text_no_course_registerd_yet" = "まだ登録した課題はありません。";
 "grade" = "グレード";

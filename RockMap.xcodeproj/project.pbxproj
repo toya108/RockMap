@@ -116,6 +116,8 @@
 		9E737A552726FB8C008EC9E1 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 9E737A542726FB8C008EC9E1 /* FloatingPanel */; };
 		9E768FE8279FD86100E66739 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E768FE7279FD86100E66739 /* EmptyView.swift */; };
 		9E768FEE279FE24F00E66739 /* LoadableViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E768FED279FE24F00E66739 /* LoadableViewState.swift */; };
+		9E768FF127A05AC300E66739 /* RockListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E768FF027A05AC300E66739 /* RockListView.swift */; };
+		9E768FF327A05ACF00E66739 /* RockListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E768FF227A05ACF00E66739 /* RockListViewModel.swift */; };
 		9E7812832619933200CAC539 /* ClimbedUserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7812822619933200CAC539 /* ClimbedUserListViewController.swift */; };
 		9E78129126199B1500CAC539 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E78129026199B1500CAC539 /* UserView.swift */; };
 		9E78129E26199DA700CAC539 /* UserView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E78129D26199DA700CAC539 /* UserView.xib */; };
@@ -357,6 +359,8 @@
 		9E6D9170261AEB82006E2297 /* ZoomImageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ZoomImageViewController.storyboard; sourceTree = "<group>"; };
 		9E768FE7279FD86100E66739 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		9E768FED279FE24F00E66739 /* LoadableViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadableViewState.swift; sourceTree = "<group>"; };
+		9E768FF027A05AC300E66739 /* RockListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockListView.swift; sourceTree = "<group>"; };
+		9E768FF227A05ACF00E66739 /* RockListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockListViewModel.swift; sourceTree = "<group>"; };
 		9E7812822619933200CAC539 /* ClimbedUserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClimbedUserListViewController.swift; sourceTree = "<group>"; };
 		9E78129026199B1500CAC539 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		9E78129D26199DA700CAC539 /* UserView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserView.xib; sourceTree = "<group>"; };
@@ -949,6 +953,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		9E768FEF27A0585200E66739 /* RockList */ = {
+			isa = PBXGroup;
+			children = (
+				9E768FF027A05AC300E66739 /* RockListView.swift */,
+				9E768FF227A05ACF00E66739 /* RockListViewModel.swift */,
+			);
+			path = RockList;
+			sourceTree = "<group>";
+		};
 		9E78124826198C9C00CAC539 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1055,6 +1068,7 @@
 		9E80E908265D3945000D33F6 /* Rock */ = {
 			isa = PBXGroup;
 			children = (
+				9E768FEF27A0585200E66739 /* RockList */,
 				9E9975012642303D00E8562B /* RegisteredRockList */,
 				9EEADA17255AD1DD00F20228 /* LocationSelect */,
 				9E8723CE256BFEF700735C65 /* RockConfirm */,
@@ -1970,6 +1984,7 @@
 				9E0A9F1E2551006E007B9A90 /* UITextView+Combine.swift in Sources */,
 				9E6C40D02614D0DA00F010BE /* ActivityIndicatorOverlay.swift in Sources */,
 				9E06F967264976BC00731352 /* EditProfileViewModel.swift in Sources */,
+				9E768FF127A05AC300E66739 /* RockListView.swift in Sources */,
 				9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */,
 				9E06F965264976AE00731352 /* EditProfileKind.swift in Sources */,
 				9EECEBB9265FBAD30057EE11 /* MyClimbRecordListLayout.swift in Sources */,
@@ -1996,6 +2011,7 @@
 				9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */,
 				9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */,
 				9EA32A4925FA77EE00FB0C75 /* RockConfirmLayout.swift in Sources */,
+				9E768FF327A05ACF00E66739 /* RockListViewModel.swift in Sources */,
 				9EA32A4E25FA77F700FB0C75 /* RockConfirmKind.swift in Sources */,
 				9E81072F262DA37F0025359C /* MyPageDatasourse.swift in Sources */,
 				9E8A14742709F95700903D38 /* AuthView.swift in Sources */,

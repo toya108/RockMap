@@ -4,21 +4,21 @@ import Resolver
 import Domain
 import Collections
 
-actor CourseListViewModel: ObservableObject {
+actor RockListViewModel: ObservableObject {
 
-    @Published nonisolated var courses: OrderedSet<Entity.Course> = []
+    @Published nonisolated var rocks: OrderedSet<Entity.Rock> = []
     @Published nonisolated var viewState: LoadableViewState = .standby
 
     private var page: Int = 0
-    
-    @Injected private var fetchCouseListUsecase: FetchCourseListUsecaseProtocol
+
+    @Injected private var fetchRockListUsecase: FetchRockListUsecaseProtocol
 
     @MainActor func load() async {
         self.viewState = .loading
 
         do {
-            let courses = try await fetchCouseListUsecase.fetch(startAt: startAt)
-            self.courses.append(contentsOf: courses)
+            let rocks = try await fetchRockListUsecase.fetch(startAt: startAt)
+            self.rocks.append(contentsOf: rocks)
             self.viewState = .finish
         } catch {
             self.viewState = .failure(error)
@@ -35,17 +35,17 @@ actor CourseListViewModel: ObservableObject {
         await self.load()
     }
 
-    func shouldAdditionalLoad(course: Entity.Course) async -> Bool {
-        guard let index = courses.firstIndex(of: course) else {
+    func shouldAdditionalLoad(rock: Entity.Rock) async -> Bool {
+        guard let index = rocks.firstIndex(of: rock) else {
             return false
         }
-        return course.id == courses.last?.id
+        return rock.id == rocks.last?.id
         && (Double(index) / 20.0) == 0.0
         && index != 0
     }
 
     private var startAt: Date {
-        if let last = courses.last {
+        if let last = rocks.last {
             return last.createdAt
         } else {
             return Date()

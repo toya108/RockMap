@@ -35,6 +35,10 @@
 "text_delete_rock_title" = "Do you want to delete the rock?";
 "text_delete_rock_message" = "Once deleted, it cannot be restored.";
 
+// MARK: - RockList
+"text_no_rock" = "No Rocks";
+"text_fetch_rock_failed" = "Failed to retrieve rocks";
+
 // MARK: - RegisterdCourseList
 "text_no_course_registerd_yet" = "There are no courses registered by you yet.";
 "grade" = "Grade";

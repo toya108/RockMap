@@ -22,7 +22,7 @@ enum CategoryKind: String, CaseIterable, Identifiable {
     var view: some View {
         switch self {
             case .rock:
-                Text("rock")
+                RockListView(viewModel: .init())
 
             case .course:
                 CourseListView(viewModel: .init())
