@@ -6,14 +6,13 @@ import Foundation
 
 class RegisteredCourseListViewModel: ObservableObject {
 
+    @Published var viewState: LoadableViewState = .stanby
+
     @Published var courses: [Entity.Course] = []
-    @Published var isEmpty = false
     @Published var isPresentedCourseRegister = false
     @Published var isPresentedDeleteCourseAlert = false
     @Published var isPresentedDeleteFailureAlert = false
-    @Published var isLoading = false
     var editingCourse: Entity.Course?
-    var deleteError: Error?
 
     @Injected private var fetchCoursesUseCase: FetchCourseUsecaseProtocol
     @Injected private var deleteCourseUsecase: DeleteCourseUsecaseProtocol
@@ -24,19 +23,13 @@ class RegisteredCourseListViewModel: ObservableObject {
         self.userId = userId
     }
 
-    private func bindOutput() {
-        self.$courses
-            .map(\.isEmpty)
-            .assign(to: &self.$isEmpty)
-    }
-
     @MainActor func delete() {
 
         guard let course = editingCourse else {
             return
         }
 
-        self.isLoading = true
+        self.viewState = .loading
 
         Task {
             do {
@@ -48,25 +41,24 @@ class RegisteredCourseListViewModel: ObservableObject {
                     return
                 }
                 self.courses.remove(at: index)
-                self.isLoading = false
+                self.viewState = .finish
             } catch {
-                self.deleteError = error
-                self.isLoading = false
+                self.viewState = .failure(error)
                 self.isPresentedDeleteFailureAlert = true
             }
         }
     }
 
     @MainActor func fetchCourses() {
-        self.isLoading = true
+        self.viewState = .loading
 
         Task {
             do {
                 let courses = try await self.fetchCoursesUseCase.fetch(by: self.userId)
                 self.courses = courses.sorted { $0.createdAt > $1.createdAt }
-                self.isLoading = false
+                self.viewState = .finish
             } catch {
-                print(error)
+                self.viewState = .failure(error)
             }
         }
     }
