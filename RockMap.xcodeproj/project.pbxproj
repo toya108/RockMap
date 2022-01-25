@@ -80,6 +80,7 @@
 		9E52EFFC279EDEDB00CDFDBC /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E52EFFB279EDEDB00CDFDBC /* CategoryListView.swift */; };
 		9E52EFFF279F063400CDFDBC /* CourseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E52EFFE279F063400CDFDBC /* CourseListView.swift */; };
 		9E52F001279F064500CDFDBC /* CouseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E52F000279F064500CDFDBC /* CouseListViewModel.swift */; };
+		9E52F003279F108C00CDFDBC /* CategoryKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E52F002279F108C00CDFDBC /* CategoryKind.swift */; };
 		9E5C5E372555144000D00087 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5C5E362555144000D00087 /* Images.swift */; };
 		9E5CEFCC25277B25001C95AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCB25277B25001C95AA /* AppDelegate.swift */; };
 		9E5CEFD025277B25001C95AA /* RockSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5CEFCF25277B25001C95AA /* RockSearchViewController.swift */; };
@@ -321,6 +322,7 @@
 		9E52EFFB279EDEDB00CDFDBC /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
 		9E52EFFE279F063400CDFDBC /* CourseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListView.swift; sourceTree = "<group>"; };
 		9E52F000279F064500CDFDBC /* CouseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouseListViewModel.swift; sourceTree = "<group>"; };
+		9E52F002279F108C00CDFDBC /* CategoryKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryKind.swift; sourceTree = "<group>"; };
 		9E5C5E362555144000D00087 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		9E5CEFC825277B25001C95AA /* RockMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RockMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5CEFCB25277B25001C95AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1183,6 +1185,7 @@
 				9E52EFF7279EAAEE00CDFDBC /* SearchView.swift */,
 				9E52EFF9279EC2F100CDFDBC /* SearchHistoryView.swift */,
 				9E52EFFB279EDEDB00CDFDBC /* CategoryListView.swift */,
+				9E52F002279F108C00CDFDBC /* CategoryKind.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1977,6 +1980,7 @@
 				9E83EEC625FCA856002392AA /* SegmentedControllCollectionViewCell.swift in Sources */,
 				9E0820292712AB67003F0AD8 /* AppDelegate+Injection.swift in Sources */,
 				9E0BE4552608C42D00576869 /* RegisterClimbRecordBottomSheetViewController.swift in Sources */,
+				9E52F003279F108C00CDFDBC /* CategoryKind.swift in Sources */,
 				9EB00BB226295BCD00379182 /* UITextField+Combine.swift in Sources */,
 				9E52EFFA279EC2F100CDFDBC /* SearchHistoryView.swift in Sources */,
 				9E45A3AC270C566400582AEB /* TabKind.swift in Sources */,

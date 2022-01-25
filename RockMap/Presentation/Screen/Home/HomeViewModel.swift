@@ -32,22 +32,3 @@ actor HomeViewModel: ObservableObject {
         print(a)
     }
 }
-
-enum CategoryKind: String, CaseIterable, Identifiable {
-    case rock
-    case course
-    case user
-
-    var id: String { self.rawValue }
-
-    var name: String {
-        switch self {
-            case .rock:
-                return "rock"
-            case .course:
-                return "course"
-            case .user:
-                return "user"
-        }
-    }
-}
