@@ -17,9 +17,9 @@ public extension Domain.Usecase.Course {
             self.mapper = mapper
         }
 
-        public func fetch(page: Int) async throws -> [Domain.Entity.Course] {
+        public func fetch(startAt: Date) async throws -> [Domain.Entity.Course] {
             let documents = try await self.repository.request(
-                parameters: .init(page: page)
+                parameters: .init(startAt: startAt)
             )
 
             return documents.map { mapper.map(from: $0) }
@@ -28,5 +28,5 @@ public extension Domain.Usecase.Course {
 }
 
 public protocol FetchCourseListUsecaseProtocol {
-    func fetch(page: Int) async throws -> [Domain.Entity.Course]
+    func fetch(startAt: Date) async throws -> [Domain.Entity.Course]
 }

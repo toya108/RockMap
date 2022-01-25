@@ -1,4 +1,5 @@
 import Combine
+import Foundation
 import Resolver
 import Domain
 import Collections
@@ -16,7 +17,7 @@ actor CourseListViewModel: ObservableObject {
         self.viewState = .loading
 
         do {
-            let courses = try await fetchCouseListUsecase.fetch(page: page)
+            let courses = try await fetchCouseListUsecase.fetch(startAt: startAt)
             self.courses.append(contentsOf: courses)
             self.viewState = .finish
         } catch {
@@ -41,5 +42,13 @@ actor CourseListViewModel: ObservableObject {
         return course.id == courses.last?.id
         && (index / 20) == 0
         && index != 0
+    }
+
+    private var startAt: Date {
+        if let last = courses.last {
+            return last.createdAt
+        } else {
+            return Date()
+        }
     }
 }

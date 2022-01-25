@@ -9,11 +9,11 @@ public extension FS.Request.Course {
         public typealias Response = [FS.Document.Course]
         public struct Parameters: Codable {
             let limit: Int
-            let page: Int
+            let startAt: Date
 
-            public init(limit: Int = 20, page: Int) {
+            public init(limit: Int = 20, startAt: Date) {
                 self.limit = limit
-                self.page = page
+                self.startAt = startAt
             }
         }
 
@@ -22,7 +22,8 @@ public extension FS.Request.Course {
         public var entry: Entry {
             Collection.collection
                 .limit(to: parameters.limit)
-                .start(at: [parameters.limit * parameters.page])
+                .order(by: "createdAt", descending: true)
+                .start(at: [parameters.startAt])
         }
 
         public init(parameters: Parameters) {
