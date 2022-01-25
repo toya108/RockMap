@@ -47,6 +47,10 @@ public struct Repositories {
             public typealias R = FS.Request.Rock.Update
             public init() {}
         }
+        public struct FetchList: RepositoryProtocol, Initializable {
+            public typealias R = FS.Request.Rock.FetchList
+            public init() {}
+        }
     }
 
     public struct Course {
