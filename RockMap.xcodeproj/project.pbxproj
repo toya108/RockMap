@@ -487,6 +487,7 @@
 				9E64FCFD26B59A82005984F6 /* FirebaseAnalytics in Frameworks */,
 				9E1056E1270B31C7007254DA /* SDWebImage in Frameworks */,
 				9E2C893B278934C600CE52B1 /* SkeletonUI in Frameworks */,
+				9E60BC96279F9BE3007765AA /* Collections in Frameworks */,
 				9E64FD0526B59A82005984F6 /* FirebaseFirestore in Frameworks */,
 				9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */,
 			);
@@ -1594,6 +1595,7 @@
 				9E081FFA270FF9D3003F0AD8 /* Resolver */,
 				9E737A542726FB8C008EC9E1 /* FloatingPanel */,
 				9E2C893A278934C600CE52B1 /* SkeletonUI */,
+				9E60BC95279F9BE3007765AA /* Collections */,
 			);
 			productName = RockMap;
 			productReference = 9E5CEFC825277B25001C95AA /* RockMap.app */;
@@ -1673,6 +1675,7 @@
 				9E081FF9270FF9D3003F0AD8 /* XCRemoteSwiftPackageReference "Resolver" */,
 				9E737A532726FB8C008EC9E1 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
 				9E2C8939278934C600CE52B1 /* XCRemoteSwiftPackageReference "SkeletonUI" */,
+				9E60BC94279F9BE3007765AA /* XCRemoteSwiftPackageReference "swift-collections" */,
 			);
 			productRefGroup = 9E5CEFC925277B25001C95AA /* Products */;
 			projectDirPath = "";
@@ -2371,6 +2374,14 @@
 				minimumVersion = 1.0.7;
 			};
 		};
+		9E60BC94279F9BE3007765AA /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.3;
+			};
+		};
 		9E64FCFB26B59A82005984F6 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -2412,6 +2423,11 @@
 		9E493DE026B994BB00DCA210 /* DataLayer */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DataLayer;
+		};
+		9E60BC95279F9BE3007765AA /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9E60BC94279F9BE3007765AA /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
 		};
 		9E64FCFC26B59A82005984F6 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

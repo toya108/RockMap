@@ -50,6 +50,8 @@ name: SourceKitten, nameSpecified: SourceKitten, owner: jpsim, version: 0.31.1
 
 name: swift-argument-parser, nameSpecified: swift-argument-parser, owner: apple, version: 1.0.1
 
+name: swift-collections, nameSpecified: swift-collections, owner: apple, version: 0.0.7
+
 name: swift-html-entities, nameSpecified: HTMLEntities, owner: Kitura, version: 3.0.200
 
 name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.4.2
