@@ -93,6 +93,8 @@
 		9E5DD1C025C84DA500E38620 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5DD1BF25C84DA500E38620 /* UIImageViewExtension.swift */; };
 		9E5DD1D725C9857A00E38620 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5DD1D625C9857A00E38620 /* UIViewExtension.swift */; };
 		9E5E690726D9D0BE00414C60 /* Entity.Rock.Season.Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5E690626D9D0BE00414C60 /* Entity.Rock.Season.Icon.swift */; };
+		9E60BC96279F9BE3007765AA /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 9E60BC95279F9BE3007765AA /* Collections */; };
+		9E60BC9C279FA422007765AA /* ListSkeltonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E60BC9B279FA422007765AA /* ListSkeltonView.swift */; };
 		9E60D4C2262F0D8200B116C2 /* SocialLinkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E60D4C1262F0D8200B116C2 /* SocialLinkCollectionViewCell.swift */; };
 		9E60DCB52557148A000CF2E8 /* RockLocationSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E60DCB42557148A000CF2E8 /* RockLocationSelectViewController.swift */; };
 		9E60DCBA255714A1000CF2E8 /* RockLocationSelectViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E60DCB9255714A1000CF2E8 /* RockLocationSelectViewController.storyboard */; };
@@ -338,6 +340,7 @@
 		9E5DD1BF25C84DA500E38620 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		9E5DD1D625C9857A00E38620 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		9E5E690626D9D0BE00414C60 /* Entity.Rock.Season.Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Rock.Season.Icon.swift; sourceTree = "<group>"; };
+		9E60BC9B279FA422007765AA /* ListSkeltonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSkeltonView.swift; sourceTree = "<group>"; };
 		9E60D4C1262F0D8200B116C2 /* SocialLinkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialLinkCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E60DCB42557148A000CF2E8 /* RockLocationSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockLocationSelectViewController.swift; sourceTree = "<group>"; };
 		9E60DCB9255714A1000CF2E8 /* RockLocationSelectViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RockLocationSelectViewController.storyboard; sourceTree = "<group>"; };
@@ -1432,6 +1435,7 @@
 			children = (
 				9E8D62A02781171F007DE389 /* ListRowView.swift */,
 				9ED51EC6277849F9003EB220 /* EntireTappableRowView.swift */,
+				9E60BC9B279FA422007765AA /* ListSkeltonView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -1995,6 +1999,7 @@
 				9E0C9C2826D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift in Sources */,
 				9E2D0F1725D6E4B100652171 /* TextFieldColletionViewCell.swift in Sources */,
 				9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */,
+				9E60BC9C279FA422007765AA /* ListSkeltonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
