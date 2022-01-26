@@ -9,6 +9,11 @@
 "registered_date" = "登録日";
 "text_delete_failure_title" = "削除に失敗しました";
 
+// MARK: - CategoryList
+"rock" = "岩";
+"course" = "課題";
+"user" = "ユーザー";
+
 // MARK: - Auth
 "rockmap" = "RockMap";
 "text_hello" = "Hello Climbers!\nLet's share rocks & courses!";

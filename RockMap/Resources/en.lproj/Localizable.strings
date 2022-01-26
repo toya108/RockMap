@@ -9,6 +9,11 @@
 "registered_date" = "Registered Date";
 "text_delete_failure_title" = "Failed to delete";
 
+// MARK: - CategoryList
+"rock" = "Rock";
+"course" = "Course";
+"user" = "User";
+
 // MARK: - Auth
 "rockmap" = "RockMap";
 "text_hello" = "Hello Climbers!\nLet's share rocks & courses!";

@@ -8,6 +8,7 @@ extension UIImage {
         static let magnifyingglassCircleFill = UIImage(systemName: "magnifyingglass.circle.fill")!
         static let folderFill = UIImage(systemName: "folder.fill")!
         static let cameraFill = UIImage(systemName: "camera.fill")!
+        static let personFill = UIImage(systemName: "person.fill")!
         static let personCircle = UIImage(systemName: "person.circle")!
         static let personCircleFill = UIImage(systemName: "person.circle.fill")!
         static let pencilCircle = UIImage(systemName: "pencil.circle")!
@@ -18,6 +19,7 @@ extension UIImage {
         static let xmarkCircleFill = UIImage(systemName: "xmark.circle.fill")
         static let flagCircle = UIImage(systemName: "flag.circle")!
         static let flagCircleFill = UIImage(systemName: "flag.circle.fill")!
+        static let flagFill = UIImage(systemName: "flag.fill")!
         static let plusCircleFill = UIImage(systemName: "plus.circle.fill")!
         static let plus = UIImage(systemName: "plus")!
         static let xmark = UIImage(systemName: "xmark")!
@@ -34,6 +36,7 @@ extension UIImage {
         static let checkmarkShield = UIImage(systemName: "checkmark.shield")!
         static let starCircle = UIImage(systemName: "star.circle")!
         static let arrowUpLeftSquare = UIImage(systemName: "arrow.up.left.square")!
+        static let chevronCompactLeft = UIImage(systemName: "chevron.compact.left")!
     }
 
     struct AssetsImages {
