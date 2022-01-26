@@ -7,14 +7,36 @@ enum CategoryKind: String, CaseIterable, Identifiable {
 
     var id: String { self.rawValue }
 
-    var name: String {
+    var name: LocalizedStringKey {
         switch self {
             case .rock:
-                return "rock"
+                return .init("rock")
+
             case .course:
-                return "course"
+                return .init("course")
+
             case .user:
-                return "user"
+                return .init("user")
+        }
+    }
+
+    @ViewBuilder
+    var icon: some View {
+        switch self {
+            case .rock:
+                Image(uiImage: UIImage.AssetsImages.rockFill)
+                    .resizable()
+                    .frame(width: 24, height: 24)
+
+            case .course:
+                Image(uiImage: UIImage.SystemImages.flagFill.withRenderingMode(.alwaysTemplate))
+                    .resizable()
+                    .frame(width: 16, height: 16)
+
+            case .user:
+                Image(uiImage: UIImage.SystemImages.personFill.withRenderingMode(.alwaysTemplate))
+                    .resizable()
+                    .frame(width: 16, height: 16)
         }
     }
 
