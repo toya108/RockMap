@@ -17,12 +17,6 @@ struct CategoryListView: View {
                 .tabViewStyle(PageTabViewStyle())
             }
         }
-        .onAppear {
-            UISegmentedControl.appearance().selectedSegmentTintColor = UIColor.Pallete.primaryGreen
-            UISegmentedControl.appearance().setTitleTextAttributes(
-                [.foregroundColor: UIColor.white], for: .selected
-            )
-        }
     }
 }
 
