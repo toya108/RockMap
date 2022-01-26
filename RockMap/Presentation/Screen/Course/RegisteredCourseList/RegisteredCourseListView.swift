@@ -38,16 +38,7 @@ struct RegisteredCourseListView: View {
                         NavigationLink(
                             destination: CourseDetailView(course: course)
                         ) {
-                            ListRowView(
-                                imageURL: course.headerUrl,
-                                iconImage: UIImage.AssetsImages.rockFill,
-                                title: course.name,
-                                firstLabel: .init("registered_date"),
-                                firstText: course.createdAt.string(dateStyle: .medium),
-                                secondLabel: .init("grade"),
-                                secondText: course.grade.name,
-                                thirdText: course.desc
-                            )
+                            ListRowView(course: course)
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                             Button("delete", role: .destructive) {

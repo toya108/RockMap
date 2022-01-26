@@ -17,19 +17,10 @@ struct RockAnnotationListView: View {
 
     var body: some View {
         List(rocks) { rock in
-            ListRowView(
-                imageURL: rock.headerUrl,
-                iconImage: UIImage.AssetsImages.rockFill,
-                title: rock.name,
-                firstLabel: .init("registered_date"),
-                firstText: rock.createdAt.string(dateStyle: .medium),
-                secondLabel: .init("address"),
-                secondText: rock.address,
-                thirdText: rock.desc
-            )
-            .onTapGesture {
-                delegate?.didSelectRow(rock: rock)
-            }
+            ListRowView(rock: rock)
+                .onTapGesture {
+                    delegate?.didSelectRow(rock: rock)
+                }
         }
     }
 }

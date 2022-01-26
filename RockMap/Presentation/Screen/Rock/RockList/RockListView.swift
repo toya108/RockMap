@@ -34,19 +34,10 @@ struct RockListView: View {
                         NavigationLink(
                             destination: RockDetailView(rock: rock)
                         ) {
-                            ListRowView(
-                                imageURL: rock.headerUrl,
-                                iconImage: UIImage.AssetsImages.rockFill,
-                                title: rock.name,
-                                firstLabel: .init("registered_date"),
-                                firstText: rock.createdAt.string(dateStyle: .medium),
-                                secondLabel: .init("address"),
-                                secondText: rock.address,
-                                thirdText: rock.desc
-                            )
-                            .onAppear {
-                                additionalLoadIfNeeded(rock: rock)
-                            }
+                            ListRowView(rock: rock)
+                                .onAppear {
+                                    additionalLoadIfNeeded(rock: rock)
+                                }
                         }
                     }
                     .listStyle(.plain)

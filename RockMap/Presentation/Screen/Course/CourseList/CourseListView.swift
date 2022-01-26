@@ -34,19 +34,10 @@ struct CourseListView: View {
                         NavigationLink(
                             destination: CourseDetailView(course: course)
                         ) {
-                            ListRowView(
-                                imageURL: course.headerUrl,
-                                iconImage: UIImage.AssetsImages.rockFill,
-                                title: course.name,
-                                firstLabel: .init("registered_date"),
-                                firstText: course.createdAt.string(dateStyle: .medium),
-                                secondLabel: .init("grade"),
-                                secondText: course.grade.name,
-                                thirdText: course.desc
-                            )
-                            .onAppear {
-                                additionalLoadIfNeeded(course: course)
-                            }
+                            ListRowView(course: course)
+                                .onAppear {
+                                    additionalLoadIfNeeded(course: course)
+                                }
                         }
                     }
                     .listStyle(.plain)
