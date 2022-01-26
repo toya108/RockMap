@@ -29,7 +29,8 @@ enum CategoryKind: String, CaseIterable, Identifiable {
                     .frame(width: 24, height: 24)
 
             case .course:
-                Image(uiImage: UIImage.SystemImages.flagFill.withRenderingMode(.alwaysTemplate))
+                let docPlaintextFill = UIImage.SystemImages.docPlaintextFill
+                Image(uiImage: docPlaintextFill.withRenderingMode(.alwaysTemplate))
                     .resizable()
                     .frame(width: 16, height: 16)
 

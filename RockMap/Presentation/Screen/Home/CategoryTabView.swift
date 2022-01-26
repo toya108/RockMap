@@ -20,7 +20,9 @@ struct CategoryTabView: View {
                 ForEach(CategoryKind.allCases) { category in
                     Button(
                         action: {
-                            selectedCategory = category
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                selectedCategory = category
+                            }
                         },
                         label: {
                             HStack {
