@@ -7,12 +7,8 @@ struct CategoryListView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                Picker("", selection: $selectedCategory) {
-                    ForEach(CategoryKind.allCases) {
-                        Text($0.name).tag($0)
-                    }
-                }
-                .pickerStyle(.segmented)
+                CategoryTabView(selectedCategory: $selectedCategory)
+                    .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 TabView(selection: $selectedCategory) {
                     ForEach(CategoryKind.allCases) {
                         $0.view.tag($0).frame(width: geometry.size.width)
