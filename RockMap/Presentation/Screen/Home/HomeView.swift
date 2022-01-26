@@ -10,9 +10,8 @@ struct HomeView: View {
                 SearchView(
                     searchText: $viewModel.searchText,
                     isFocusedSearchField: _isFocusedSearchField
-                ) {
-                    viewModel.resetSearchText()
-                }
+                )
+                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 if isFocusedSearchField && viewModel.searchText.isEmpty {
                     SearchHistoryView()
                     Spacer()
@@ -22,7 +21,6 @@ struct HomeView: View {
                     CategoryListView(selectedCategory: $viewModel.selectedCategory)
                 }
             }
-            .padding()
             .navigationBarHidden(true)
             .navigationBarTitleDisplayMode(.inline)
         }
