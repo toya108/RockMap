@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Rock Search View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="KMi-3r-Iol">
             <objects>
-                <viewController id="i5d-oh-wSZ" customClass="RockSearchViewController" customModule="RockMap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="i5d-oh-wSZ" customClass="MapViewController" customModule="RockMap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zpy-Qi-fxf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -16,7 +16,7 @@ enum TabKind: CaseIterable {
                 .tag(TabKind.search)
 
             case .map:
-                RockSearchView().tabItem {
+                MapView().tabItem {
                     TabKind.map.makeStack(selection: selection)
                 }
                 .tag(TabKind.map)

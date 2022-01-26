@@ -2,9 +2,9 @@ import Auth
 import CoreLocation
 import UIKit
 
-struct RockSeachRouter: RouterProtocol {
+struct MapRouter: RouterProtocol {
     typealias Destination = DestinationType
-    typealias ViewModel = RockSearchViewModel
+    typealias ViewModel = MapViewModel
 
     enum DestinationType: DestinationProtocol {
         case rockDetail(Entity.Rock)

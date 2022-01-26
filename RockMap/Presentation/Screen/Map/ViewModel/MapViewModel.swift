@@ -1,7 +1,7 @@
 import Combine
 import CoreLocation
 
-class RockSearchViewModel: ViewModelProtocol {
+class MapViewModel: ViewModelProtocol {
     @Published private(set) var rockDocuments: [Entity.Rock] = []
     @Published private(set) var error: Error?
     @Published var location: CLLocation?

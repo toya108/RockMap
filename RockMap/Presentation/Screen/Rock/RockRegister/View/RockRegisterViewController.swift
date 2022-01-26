@@ -49,7 +49,7 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
 
                 guard let self = self else { return }
 
-                self.router.route(to: .rockSearch, from: self)
+                self.router.route(to: .map, from: self)
             }
         )
         closeButton.tintColor = .label

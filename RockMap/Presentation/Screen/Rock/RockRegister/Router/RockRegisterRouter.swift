@@ -6,7 +6,7 @@ struct RockRegisterRouter: RouterProtocol {
 
     enum DestinationType: DestinationProtocol {
         case rockConfirm
-        case rockSearch
+        case map
         case locationSelect
     }
 
@@ -24,8 +24,8 @@ struct RockRegisterRouter: RouterProtocol {
         case .rockConfirm:
             self.pushRockConfirm(from)
 
-        case .rockSearch:
-            self.dismissToRockSearch(from)
+        case .map:
+            self.dismissToMap(from)
 
         case .locationSelect:
             self.presentLocationSelect(from)
@@ -55,7 +55,7 @@ struct RockRegisterRouter: RouterProtocol {
         )
     }
 
-    private func dismissToRockSearch(_ from: UIViewController) {
+    private func dismissToMap(_ from: UIViewController) {
         from.showAlert(
             title: "編集内容を破棄しますか？",
             actions: [

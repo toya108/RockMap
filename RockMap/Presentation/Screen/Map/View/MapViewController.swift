@@ -4,9 +4,9 @@ import UIKit
 import FloatingPanel
 import SwiftUI
 
-final class RockSearchViewController: UIViewController {
-    private var viewModel: RockSearchViewModel!
-    private var router: RockSeachRouter!
+final class MapViewController: UIViewController {
+    private var viewModel: MapViewModel!
+    private var router: MapRouter!
     private var bindings = Set<AnyCancellable>()
 
     @IBOutlet var mapView: MKMapView!
@@ -31,10 +31,10 @@ final class RockSearchViewController: UIViewController {
         }
     }
 
-    static func createInstance(viewModel: RockSearchViewModel) -> RockSearchViewController {
-        let storyboard = UIStoryboard(name: RockSearchViewController.className, bundle: nil)
+    static func createInstance(viewModel: MapViewModel) -> MapViewController {
+        let storyboard = UIStoryboard(name: MapViewController.className, bundle: nil)
 
-        let instance = storyboard.instantiateInitialViewController() as! RockSearchViewController
+        let instance = storyboard.instantiateInitialViewController() as! MapViewController
         instance.router = .init(viewModel: viewModel)
         instance.viewModel = viewModel
         return instance
@@ -295,7 +295,7 @@ final class RockSearchViewController: UIViewController {
 
 }
 
-extension RockSearchViewController: MKMapViewDelegate {
+extension MapViewController: MKMapViewDelegate {
     func mapView(
         _ mapView: MKMapView,
         viewFor annotation: MKAnnotation
@@ -432,14 +432,14 @@ extension RockSearchViewController: MKMapViewDelegate {
     }
 }
 
-extension RockSearchViewController: RockAnnotationListViewDelegate {
+extension MapViewController: RockAnnotationListViewDelegate {
     func didSelectRow(rock: Entity.Rock) {
         floatingPanelVc.removeFromParent()
         self.router.route(to: .rockDetail(rock), from: self)
     }
 }
 
-extension RockSearchViewController: UISearchBarDelegate {
+extension MapViewController: UISearchBarDelegate {
     func searchBar(
         _ searchBar: UISearchBar,
         textDidChange searchText: String
@@ -462,18 +462,18 @@ extension RockSearchViewController: UISearchBarDelegate {
     }
 }
 
-extension RockSearchViewController: FloatingPanelControllerDelegate {
+extension MapViewController: FloatingPanelControllerDelegate {
 
     func floatingPanel(
         _ fpc: FloatingPanelController,
         layoutFor newCollection: UITraitCollection
     ) -> FloatingPanelLayout {
-        return RockSearchFloatingPanelLayout()
+        return MapFloatingPanelLayout()
     }
 
 }
 
-class RockSearchFloatingPanelLayout: FloatingPanelLayout {
+class MapFloatingPanelLayout: FloatingPanelLayout {
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .half
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
