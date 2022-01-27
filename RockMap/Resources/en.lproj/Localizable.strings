@@ -54,6 +54,10 @@
 "text_no_course" = "No Courses";
 "text_fetch_course_failed" = "Failed to retrieve courses";
 
+// MARK: - UserList
+"text_no_user" = "No Users";
+"text_fetch_user_failed" = "Failed to retrieve users";
+
 // MARK: - Settings
 "account" = "Account";
 "about_this_app" = "About this app";

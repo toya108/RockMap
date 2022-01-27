@@ -54,6 +54,10 @@
 "text_no_course" = "課題が見つかりませんでした。";
 "text_fetch_course_failed" = "課題の取得に失敗しました。";
 
+// MARK: - UserList
+"text_no_user" = "ユーザーが見つかりませんでした。";
+"text_fetch_user_failed" = "ユーザーの取得に失敗しました。";
+
 // MARK: - Settings
 "account" = "アカウント";
 "about_this_app" = "このアプリについて";
