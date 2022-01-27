@@ -51,7 +51,7 @@ enum CategoryKind: String, CaseIterable, Identifiable {
                 CourseListView(viewModel: .init())
                 
             case .user:
-                Text("user")
+                UserListView(viewModel: .init())
         }
     }
 }

@@ -3,15 +3,19 @@ import Auth
 
 struct MyPageView: UIViewControllerRepresentable {
 
-    typealias UIViewControllerType = UINavigationController
+    typealias UIViewControllerType = MyPageViewController
+
+    let userKind: MyPageViewModel.UserKind
+
+    init(userKind: MyPageViewModel.UserKind) {
+        self.userKind = userKind
+    }
 
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<MyPageView>
     ) -> MyPageView.UIViewControllerType {
-        return UINavigationController(
-            rootViewController: MyPageViewController.createInstance(
-                viewModel: .init(userKind: AuthManager.shared.isLoggedIn ? .mine : .guest)
-            )
+        MyPageViewController.createInstance(
+            viewModel: .init(userKind: userKind)
         )
     }
 

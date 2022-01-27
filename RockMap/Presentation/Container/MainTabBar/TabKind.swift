@@ -7,33 +7,7 @@ enum TabKind: CaseIterable {
     case myPage
 
     @ViewBuilder
-    func makeTab(selection: TabKind) -> some View {
-        switch self {
-            case .search:
-                HomeView(viewModel: .init()).tabItem {
-                    TabKind.search.makeStack(selection: selection)
-                }
-                .tag(TabKind.search)
-
-            case .map:
-                MapView().tabItem {
-                    TabKind.map.makeStack(selection: selection)
-                }
-                .tag(TabKind.map)
-                .edgesIgnoringSafeArea(.all)
-
-            case .myPage:
-                MyPageView().tabItem {
-                    TabKind.myPage.makeStack(selection: selection)
-                }
-                .tag(TabKind.myPage)
-                .edgesIgnoringSafeArea(.all)
-        }
-    }
-
-
-    @ViewBuilder
-    private func makeStack(selection: TabKind) -> some View {
+    func makeStack(selection: TabKind) -> some View {
         VStack {
             self.makeImage(selection: selection)
             Text(titleKey)

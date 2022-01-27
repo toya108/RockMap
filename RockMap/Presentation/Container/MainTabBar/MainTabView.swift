@@ -1,13 +1,42 @@
 import SwiftUI
+import Auth
 
 struct MainTabView: View {
 
     @State private var selection: TabKind = .search
+    let authAccessor: AuthAccessorProtocol
+
+    init(authAccessor: AuthAccessorProtocol) {
+        self.authAccessor = authAccessor
+    }
 
     var body: some View {
         TabView(selection: $selection) {
             ForEach(TabKind.allCases) {
-                $0.makeTab(selection: selection)
+                switch $0 {
+                    case .search:
+                        HomeView(viewModel: .init()).tabItem {
+                            TabKind.search.makeStack(selection: selection)
+                        }
+                        .tag(TabKind.search)
+
+                    case .map:
+                        MapView().tabItem {
+                            TabKind.map.makeStack(selection: selection)
+                        }
+                        .tag(TabKind.map)
+                        .edgesIgnoringSafeArea(.all)
+
+                    case .myPage:
+                        let myPageViewController = MyPageViewController.createInstance(
+                            viewModel: .init(userKind: authAccessor.isLoggedIn ? .mine : .guest)
+                        )
+                        WrapInNavigationView(root: myPageViewController).tabItem {
+                            TabKind.myPage.makeStack(selection: selection)
+                        }
+                        .tag(TabKind.myPage)
+                        .edgesIgnoringSafeArea(.all)
+                }
             }
         }
         .onAppear {
@@ -35,6 +64,6 @@ struct MainTabView: View {
 
 struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
-        MainTabView()
+        MainTabView(authAccessor: AuthAccessor())
     }
 }
