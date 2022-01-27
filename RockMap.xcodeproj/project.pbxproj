@@ -210,6 +210,7 @@
 		9EC8AC8B25D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */; };
 		9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */; };
 		9ED51EC7277849F9003EB220 /* EntireTappableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED51EC6277849F9003EB220 /* EntireTappableRowView.swift */; };
+		9ED5905F27A2D51600BE6C8E /* SearchFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED5905E27A2D51600BE6C8E /* SearchFilterView.swift */; };
 		9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED972992596471C0069FB94 /* ArrayExtension.swift */; };
 		9EDEFE8D2700019C00E2868D /* UIControl+UIAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDEFE8C2700019C00E2868D /* UIControl+UIAction.swift */; };
 		9EE25B8F25C99C8E0050326D /* RockDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */; };
@@ -462,6 +463,7 @@
 		9EC8AC8925D8C863006A0AEE /* GradeSelectingCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradeSelectingCollectionViewCell.xib; sourceTree = "<group>"; };
 		9EC99FD6261B4869000A1DB3 /* ZoomImagePresentableImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomImagePresentableImageView.swift; sourceTree = "<group>"; };
 		9ED51EC6277849F9003EB220 /* EntireTappableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntireTappableRowView.swift; sourceTree = "<group>"; };
+		9ED5905E27A2D51600BE6C8E /* SearchFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterView.swift; sourceTree = "<group>"; };
 		9ED972992596471C0069FB94 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		9EDEFE8C2700019C00E2868D /* UIControl+UIAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+UIAction.swift"; sourceTree = "<group>"; };
 		9EE25B8E25C99C8E0050326D /* RockDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailViewController.swift; sourceTree = "<group>"; };
@@ -1209,6 +1211,7 @@
 				9E5066842795A79000DD6C37 /* SearchRootViewModel.swift */,
 				9E52EFF7279EAAEE00CDFDBC /* SearchView.swift */,
 				9E52EFF9279EC2F100CDFDBC /* SearchHistoryView.swift */,
+				9ED5905E27A2D51600BE6C8E /* SearchFilterView.swift */,
 				9E52EFFB279EDEDB00CDFDBC /* CategoryListView.swift */,
 				9E52F002279F108C00CDFDBC /* CategoryKind.swift */,
 				9E9B58B927A11CAE00B2BB12 /* CategoryTabView.swift */,
@@ -1957,6 +1960,7 @@
 				9EECEBB7265FBABC0057EE11 /* MyCLimbRecordListDatasource.swift in Sources */,
 				9E9845D125D4F2FE00B03C4E /* CourseRegisterViewModel.swift in Sources */,
 				9E39B201261472E00005F6E1 /* RockRegisterRouter.swift in Sources */,
+				9ED5905F27A2D51600BE6C8E /* SearchFilterView.swift in Sources */,
 				9E0BE37A2605006F00576869 /* LeadingRegisteredUserCollectionViewCell.swift in Sources */,
 				9E9B58BD27A1A9F900B2BB12 /* UserListView.swift in Sources */,
 				9E613ABC25CAF03D0040F6F2 /* HorizontalImageListCollectionViewCell.swift in Sources */,
