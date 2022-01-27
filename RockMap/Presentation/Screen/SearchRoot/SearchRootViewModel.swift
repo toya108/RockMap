@@ -2,7 +2,7 @@ import Combine
 import Domain
 import Resolver
 
-actor HomeViewModel: ObservableObject {
+actor SearchRootViewModel: ObservableObject {
     @Published nonisolated var searchText = ""
     @Published nonisolated var selectedCategory: CategoryKind = .rock
 

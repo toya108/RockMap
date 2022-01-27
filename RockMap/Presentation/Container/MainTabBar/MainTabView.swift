@@ -15,7 +15,7 @@ struct MainTabView: View {
             ForEach(TabKind.allCases) {
                 switch $0 {
                     case .search:
-                        HomeView(viewModel: .init()).tabItem {
+                        SearchRootView(viewModel: .init()).tabItem {
                             TabKind.search.makeStack(selection: selection)
                         }
                         .tag(TabKind.search)

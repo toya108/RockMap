@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct HomeView: View {
-    @StateObject var viewModel: HomeViewModel
+struct SearchRootView: View {
+    @StateObject var viewModel: SearchRootViewModel
     @FocusState var isFocusedSearchField: Bool
 
     var body: some View {
@@ -35,6 +35,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(viewModel: .init())
+        SearchRootView(viewModel: .init())
     }
 }
