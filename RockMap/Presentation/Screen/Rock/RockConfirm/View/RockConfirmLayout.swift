@@ -18,7 +18,7 @@ extension RockConfirmViewController {
                 )
 
                 switch sectionType {
-                case .name, .desc, .season, .lithology, .erea:
+                case .name, .desc, .season, .lithology, .area:
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),

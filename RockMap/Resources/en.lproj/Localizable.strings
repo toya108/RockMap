@@ -36,7 +36,7 @@
 
 // MARK: - RegisterdRockList
 "text_no_rock_registerd_yet" = "There are no rocks registered by you yet.";
-"address" = "Address";
+"area" = "Area";
 "text_delete_rock_title" = "Do you want to delete the rock?";
 "text_delete_rock_message" = "Once deleted, it cannot be restored.";
 

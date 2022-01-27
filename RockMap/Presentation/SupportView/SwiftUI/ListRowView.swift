@@ -41,8 +41,8 @@ struct ListRowView: View {
         self.title = rock.name
         self.firstLabel = .init("registered_date")
         self.firstText = rock.createdAt.string(dateStyle: .medium)
-        self.secondLabel = .init("address")
-        self.secondText = rock.address
+        self.secondLabel = .init("area")
+        self.secondText = rock.area ?? ""
         self.thirdText = rock.desc
     }
 

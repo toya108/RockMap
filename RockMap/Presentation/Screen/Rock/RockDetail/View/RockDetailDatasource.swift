@@ -103,14 +103,14 @@ extension RockDetailViewController {
                         )
                     )
 
-                case let .erea(erea):
+                case let .area(area):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: valueCellRegistration,
                         for: indexPath,
                         item: .init(
                             image: UIImage.AssetsImages.rockFill,
                             title: "エリア",
-                            subTitle: erea
+                            subTitle: area
                         )
                     )
 

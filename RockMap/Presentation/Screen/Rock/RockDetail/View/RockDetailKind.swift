@@ -51,7 +51,7 @@ extension RockDetailViewController {
         case desc(String)
         case season(Set<Entity.Rock.Season>)
         case lithology(Entity.Rock.Lithology)
-        case erea(String)
+        case area(String)
         case containGrade([Entity.Course.Grade: Int])
         case map(LocationManager.LocationStructure)
         case courses(Entity.Course)

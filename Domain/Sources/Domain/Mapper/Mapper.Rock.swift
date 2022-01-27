@@ -15,7 +15,7 @@ public extension Domain.Mapper {
                 updatedAt: other.updatedAt,
                 parentPath: other.parentPath,
                 name: other.name,
-                erea: other.erea,
+                area: other.area,
                 address: other.address,
                 prefecture: other.prefecture,
                 location: .init(
@@ -46,7 +46,7 @@ public extension Domain.Mapper {
                 ),
                 seasons: Set(other.seasons.map(\.rawValue)),
                 lithology: other.lithology.rawValue,
-                erea: other.erea,
+                area: other.area,
                 desc: other.desc,
                 registeredUserId: other.registeredUserId,
                 headerUrl: other.headerUrl,

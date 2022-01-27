@@ -36,7 +36,7 @@
 
 // MARK: - RegisterdRockList
 "text_no_rock_registerd_yet" = "まだ登録した岩はありません。";
-"address" = "住所";
+"area" = "エリア";
 "text_delete_rock_title" = "岩を削除しますか？";
 "text_delete_rock_message" = "一度削除すると復元できません。";
 

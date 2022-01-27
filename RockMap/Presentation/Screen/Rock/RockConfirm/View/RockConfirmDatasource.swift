@@ -69,11 +69,11 @@ extension RockConfirmViewController {
                     item: lithology.name
                 )
 
-            case let .erea(erea):
+            case let .area(area):
                 return collectionView.dequeueConfiguredReusableCell(
                     using: labelCellRegistration,
                     for: indexPath,
-                    item: erea
+                    item: area
                 )
             }
         }

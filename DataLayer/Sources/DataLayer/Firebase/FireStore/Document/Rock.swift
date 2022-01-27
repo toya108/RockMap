@@ -17,7 +17,7 @@ public extension FS.Document {
         public var location: GeoPoint
         public var seasons: Set<String>
         public var lithology: String
-        public var erea: String?
+        public var area: String?
         public var desc: String
         public var registeredUserId: String
         @ExplicitNull
@@ -36,7 +36,7 @@ public extension FS.Document {
             location: GeoPoint,
             seasons: Set<String>,
             lithology: String,
-            erea: String?,
+            area: String?,
             desc: String,
             registeredUserId: String,
             headerUrl: URL?,
@@ -53,7 +53,7 @@ public extension FS.Document {
             self.location = location
             self.seasons = seasons
             self.lithology = lithology
-            self.erea = erea
+            self.area = area
             self.desc = desc
             self.registeredUserId = registeredUserId
             self.headerUrl = headerUrl
