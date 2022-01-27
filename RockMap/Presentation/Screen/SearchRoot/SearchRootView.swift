@@ -8,6 +8,7 @@ struct SearchRootView: View {
         NavigationView {
             VStack(spacing: 8) {
                 SearchView(
+                    isPresentedSearchFilter: $viewModel.isPresentedSearchFilter,
                     searchText: $viewModel.searchText,
                     isFocusedSearchField: _isFocusedSearchField
                 )
@@ -29,6 +30,9 @@ struct SearchRootView: View {
             Task {
                 await viewModel.setupBindings()
             }
+        }
+        .sheet(isPresented: $viewModel.isPresentedSearchFilter) {
+            SearchFilterView()
         }
     }
 }

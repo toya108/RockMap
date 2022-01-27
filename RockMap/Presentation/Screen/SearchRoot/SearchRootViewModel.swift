@@ -5,6 +5,7 @@ import Resolver
 actor SearchRootViewModel: ObservableObject {
     @Published nonisolated var searchText = ""
     @Published nonisolated var selectedCategory: CategoryKind = .rock
+    @Published nonisolated var isPresentedSearchFilter = false
 
     @Injected private var searchRockUseCase: SearchRockUsecaseProtocol
 

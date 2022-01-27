@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SearchView: View {
 
+    @Binding var isPresentedSearchFilter: Bool
     @Binding var searchText: String
     @FocusState var isFocusedSearchField: Bool
     @State private var shouldShowBackButton: Bool = false
@@ -26,11 +27,11 @@ struct SearchView: View {
             )
             Button(
                 action: {
-
+                    isPresentedSearchFilter = true
                 },
                 label: {
                     Image(systemName: "slider.horizontal.3")
-                        .foregroundColor(.secondary)
+                        .foregroundColor(.primary)
                 }
             )
         }
