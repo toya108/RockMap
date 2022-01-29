@@ -1,8 +1,34 @@
 import SwiftUI
 
 struct SearchFilterView: View {
+
+    @Environment(\.dismiss) var dismiss
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            ZStack {
+                Color(.systemGroupedBackground)
+                Text("Hello, World!")
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("絞り込み")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("リセット") {
+
+                    }.foregroundColor(.primary)
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(
+                        action: { dismiss() },
+                        label: {
+                            Image(uiImage: UIImage.SystemImages.xmark.withRenderingMode(.alwaysTemplate))
+                        }
+                    ).foregroundColor(.primary)
+                }
+            }
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
