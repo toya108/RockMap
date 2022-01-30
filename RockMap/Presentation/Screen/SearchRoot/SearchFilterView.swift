@@ -2,6 +2,8 @@ import SwiftUI
 
 struct SearchFilterView: View {
 
+    @Binding var selectedCategory: CategoryKind
+    @StateObject var viewModel: SearchFilterViewModel
     @Environment(\.dismiss) var dismiss
 
     var body: some View {
@@ -34,6 +36,6 @@ struct SearchFilterView: View {
 
 struct SearchFilterView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchFilterView()
+        SearchFilterView(selectedCategory: .constant(.rock), viewModel: .init())
     }
 }

@@ -32,7 +32,10 @@ struct SearchRootView: View {
             }
         }
         .sheet(isPresented: $viewModel.isPresentedSearchFilter) {
-            SearchFilterView()
+            SearchFilterView(
+                selectedCategory: $viewModel.selectedCategory,
+                viewModel: .init()
+            )
         }
     }
 }
