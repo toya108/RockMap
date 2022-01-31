@@ -9,28 +9,26 @@ struct SearchRootView: View {
             VStack(spacing: 8) {
                 SearchView(
                     isPresentedSearchFilter: $viewModel.isPresentedSearchFilter,
-                    searchText: $viewModel.searchText,
+                    searchText: $viewModel.searchCondition.searchText,
                     isFocusedSearchField: _isFocusedSearchField
                 )
                 .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                if isFocusedSearchField && viewModel.searchText.isEmpty {
+
+                if isFocusedSearchField && viewModel.searchCondition.searchText.isEmpty {
                     SearchHistoryView()
                     Spacer()
-                } else if isFocusedSearchField {
-                    Spacer()
                 } else {
-                    CategoryListView(selectedCategory: $viewModel.selectedCategory)
+                    if viewModel.searchCondition.searchText.isEmpty {
+                        CategoryListView(selectedCategory: $viewModel.selectedCategory)
+                    } else {
+                        RockSearchView(viewModel: .init(), searchCondition: viewModel.searchCondition)
+                    }
                 }
             }
             .navigationBarHidden(true)
             .navigationBarTitleDisplayMode(.inline)
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .onAppear {
-            Task {
-                await viewModel.setupBindings()
-            }
-        }
         .sheet(isPresented: $viewModel.isPresentedSearchFilter) {
             SearchFilterView(
                 selectedCategory: $viewModel.selectedCategory,

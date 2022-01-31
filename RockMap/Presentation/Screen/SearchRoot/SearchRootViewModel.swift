@@ -3,33 +3,21 @@ import Domain
 import Resolver
 
 actor SearchRootViewModel: ObservableObject {
-    @Published nonisolated var searchText = ""
+    @Published nonisolated var searchCondition: SearchCondition = .init()
     @Published nonisolated var selectedCategory: CategoryKind = .rock
     @Published nonisolated var isPresentedSearchFilter = false
 
-    @Injected private var searchRockUseCase: SearchRockUsecaseProtocol
-
     private var cancellables = Set<AnyCancellable>()
 
-    func setupBindings() {
-        $searchText
-            .filter { !$0.isEmpty }
-            .removeDuplicates()
-            .asyncSink { [weak self] _ in
-
-                guard let self = self else { return }
-
-                await self.searchRock()
-            }
-            .store(in: &cancellables)
-    }
-
     @MainActor func resetSearchText() {
-        searchText = ""
+        searchCondition.searchText = ""
+    }
+}
+
+class SearchCondition: ObservableObject, Equatable {
+    static func == (lhs: SearchCondition, rhs: SearchCondition) -> Bool {
+        lhs.searchText == rhs.searchText
     }
 
-    func searchRock() async {
-        let a = try? await searchRockUseCase.search(text: searchText)
-        print(a)
-    }
+    @Published var searchText: String = ""
 }
