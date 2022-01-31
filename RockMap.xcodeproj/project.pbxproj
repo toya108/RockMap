@@ -153,6 +153,7 @@
 		9E902B2525F0DC5300006624 /* LabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E902B2425F0DC5300006624 /* LabelCollectionViewCell.swift */; };
 		9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9E9162EF26BF7DF10012D2B0 /* Utilities */; };
 		9E94C7C425E2BAAE00276333 /* SectionBackgroundDecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E94C7C325E2BAAE00276333 /* SectionBackgroundDecorationView.swift */; };
+		9E95A43127A6BB5F00A8E5A7 /* SearchFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E95A43027A6BB5F00A8E5A7 /* SearchFilterViewModel.swift */; };
 		9E9675B02792F1EF00997584 /* SearchRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9675AF2792F1EF00997584 /* SearchRootView.swift */; };
 		9E9845C125D4F27E00B03C4E /* CourseRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9845C025D4F27E00B03C4E /* CourseRegisterViewController.swift */; };
 		9E9845D125D4F2FE00B03C4E /* CourseRegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9845D025D4F2FE00B03C4E /* CourseRegisterViewModel.swift */; };
@@ -404,6 +405,7 @@
 		9E902B2425F0DC5300006624 /* LabelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E9162ED26BEB9D20012D2B0 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Utilities; sourceTree = "<group>"; };
 		9E94C7C325E2BAAE00276333 /* SectionBackgroundDecorationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionBackgroundDecorationView.swift; sourceTree = "<group>"; };
+		9E95A43027A6BB5F00A8E5A7 /* SearchFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterViewModel.swift; sourceTree = "<group>"; };
 		9E9675AF2792F1EF00997584 /* SearchRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRootView.swift; sourceTree = "<group>"; };
 		9E9845C025D4F27E00B03C4E /* CourseRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRegisterViewController.swift; sourceTree = "<group>"; };
 		9E9845D025D4F2FE00B03C4E /* CourseRegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRegisterViewModel.swift; sourceTree = "<group>"; };
@@ -1212,6 +1214,7 @@
 				9E52EFF7279EAAEE00CDFDBC /* SearchView.swift */,
 				9E52EFF9279EC2F100CDFDBC /* SearchHistoryView.swift */,
 				9ED5905E27A2D51600BE6C8E /* SearchFilterView.swift */,
+				9E95A43027A6BB5F00A8E5A7 /* SearchFilterViewModel.swift */,
 				9E52EFFB279EDEDB00CDFDBC /* CategoryListView.swift */,
 				9E52F002279F108C00CDFDBC /* CategoryKind.swift */,
 				9E9B58B927A11CAE00B2BB12 /* CategoryTabView.swift */,
@@ -2011,6 +2014,7 @@
 				9E6C40D02614D0DA00F010BE /* ActivityIndicatorOverlay.swift in Sources */,
 				9E06F967264976BC00731352 /* EditProfileViewModel.swift in Sources */,
 				9E768FF127A05AC300E66739 /* RockListView.swift in Sources */,
+				9E95A43127A6BB5F00A8E5A7 /* SearchFilterViewModel.swift in Sources */,
 				9E807CA8254CFD150091935F /* MyPageViewController.swift in Sources */,
 				9E9B58BF27A1AA1D00B2BB12 /* UserListViewModel.swift in Sources */,
 				9E06F965264976AE00731352 /* EditProfileKind.swift in Sources */,
