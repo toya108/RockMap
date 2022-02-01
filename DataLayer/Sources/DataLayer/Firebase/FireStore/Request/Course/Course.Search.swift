@@ -33,7 +33,9 @@ public extension FS.Request.Course {
         }
 
         public func request() async throws -> Response {
-            try await entry.getDocuments(Response.Element.self)
+            NGramGenerator.makeNGram(input: parameters.text, n: 2).isEmpty
+                ? []
+                : try await entry.getDocuments(Response.Element.self)
         }
     }
 }
