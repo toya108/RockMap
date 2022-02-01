@@ -19,7 +19,7 @@ struct SearchView: View {
                         Image(uiImage: chevronCompactLeft.withRenderingMode(.alwaysTemplate))
                             .foregroundColor(.primary)
                     }
-                )
+                ).frame(maxWidth: 20)
             }
             SearchTextField(
                 searchText: $searchText,
