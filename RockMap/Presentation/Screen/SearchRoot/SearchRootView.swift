@@ -18,14 +18,11 @@ struct SearchRootView: View {
                         SearchHistoryView()
                         Spacer()
                     }
-                    .opacity(isFocusedSearchField && viewModel.searchCondition.searchText.isEmpty ? 1 : 0)
+                    .opacity(shouldShowSearchHistory ? 1 : 0)
                     CategoryListView(selectedCategory: $viewModel.selectedCategory)
-                        .opacity(!isFocusedSearchField && viewModel.searchCondition.searchText.isEmpty ? 1 : 0)
-                    RockSearchView(
-                        viewModel: .init(),
-                        searchCondition: viewModel.searchCondition
-                    )
-                    .opacity(!isFocusedSearchField && viewModel.searchCondition.searchText.isEmpty ? 0 : 1)
+                        .opacity(shouldShowCategoryList ? 1 : 0)
+                    searchResultView
+                        .opacity(shouldShowCategoryList ? 0 : 1)
                 }
             }
             .navigationBarHidden(true)
@@ -37,6 +34,24 @@ struct SearchRootView: View {
                 selectedCategory: $viewModel.selectedCategory,
                 viewModel: .init()
             )
+        }
+    }
+
+    private var shouldShowSearchHistory: Bool {
+        isFocusedSearchField && viewModel.searchCondition.searchText.isEmpty
+    }
+
+    private var shouldShowCategoryList: Bool {
+        !isFocusedSearchField && viewModel.searchCondition.searchText.isEmpty
+    }
+
+    @ViewBuilder
+    private var searchResultView: some View {
+        switch viewModel.selectedCategory {
+            case .rock, .user:
+                RockSearchView(viewModel: .init(), searchCondition: viewModel.searchCondition)
+            case .course:
+                CourseSearchView(viewModel: .init(), searchCondition: viewModel.searchCondition)
         }
     }
 }
