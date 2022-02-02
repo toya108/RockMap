@@ -20,6 +20,10 @@ public struct Repositories {
             public typealias R = FS.Request.User.Set
             public init() {}
         }
+        public struct Search: RepositoryProtocol, Initializable {
+            public typealias R = FS.Request.User.Search
+            public init() {}
+        }
     }
 
     public struct Rock {
