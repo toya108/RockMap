@@ -38,6 +38,8 @@
 		9E1287E2277372B200651D89 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1287E1277372B200651D89 /* SettingsView.swift */; };
 		9E160FA627A99221004EB899 /* CourseSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E160FA527A99221004EB899 /* CourseSearchViewModel.swift */; };
 		9E160FA827A9922E004EB899 /* CourseSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E160FA727A9922E004EB899 /* CourseSearchView.swift */; };
+		9E160FAB27AA1BB5004EB899 /* UserSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E160FAA27AA1BB4004EB899 /* UserSearchView.swift */; };
+		9E160FAD27AA1BC4004EB899 /* UserSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E160FAC27AA1BC4004EB899 /* UserSearchViewModel.swift */; };
 		9E160FAF27AA26F5004EB899 /* UserRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E160FAE27AA26F5004EB899 /* UserRowView.swift */; };
 		9E171174263305B900D35BFE /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E171172263305B900D35BFE /* ListCollectionViewCell.swift */; };
 		9E171175263305B900D35BFE /* ListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E171173263305B900D35BFE /* ListCollectionViewCell.xib */; };
@@ -293,6 +295,8 @@
 		9E1287E1277372B200651D89 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9E160FA527A99221004EB899 /* CourseSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSearchViewModel.swift; sourceTree = "<group>"; };
 		9E160FA727A9922E004EB899 /* CourseSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSearchView.swift; sourceTree = "<group>"; };
+		9E160FAA27AA1BB4004EB899 /* UserSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchView.swift; sourceTree = "<group>"; };
+		9E160FAC27AA1BC4004EB899 /* UserSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchViewModel.swift; sourceTree = "<group>"; };
 		9E160FAE27AA26F5004EB899 /* UserRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRowView.swift; sourceTree = "<group>"; };
 		9E171172263305B900D35BFE /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E171173263305B900D35BFE /* ListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -662,6 +666,15 @@
 				9E160FA527A99221004EB899 /* CourseSearchViewModel.swift */,
 			);
 			path = CourseSearch;
+			sourceTree = "<group>";
+		};
+		9E160FA927AA1B9F004EB899 /* UserSearch */ = {
+			isa = PBXGroup;
+			children = (
+				9E160FAA27AA1BB4004EB899 /* UserSearchView.swift */,
+				9E160FAC27AA1BC4004EB899 /* UserSearchViewModel.swift */,
+			);
+			path = UserSearch;
 			sourceTree = "<group>";
 		};
 		9E2B112D25471F1800D7E56C /* Presentation */ = {
@@ -1126,6 +1139,7 @@
 		9E80E90A265D3DF1000D33F6 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				9E160FA927AA1B9F004EB899 /* UserSearch */,
 				9E9B58BB27A1A92500B2BB12 /* UserList */,
 				9EA6B05A26653D6800DAA888 /* Account */,
 				9EA6B04E26651CDC00DAA888 /* Settings */,
@@ -1936,6 +1950,7 @@
 				9E4415742661E44200D48D12 /* DateExtension.swift in Sources */,
 				9EF71FD62611ADC700D5B375 /* PHPickerManager.swift in Sources */,
 				9E82FAF12704AB39002972BD /* MapView.swift in Sources */,
+				9E160FAD27AA1BC4004EB899 /* UserSearchViewModel.swift in Sources */,
 				9E6CF42725CFF16A0098389E /* RockLocationCollectionViewCell.swift in Sources */,
 				9E21D726278DA55B008D8AF2 /* CourseRegisterView.swift in Sources */,
 				9E863704271B17E50095BE63 /* Notifications.swift in Sources */,
@@ -1957,6 +1972,7 @@
 				9EB7B1692614D747004C1E7D /* CourseRegisterRouter.swift in Sources */,
 				9EA32A4425FA77DF00FB0C75 /* RockConfirmDatasource.swift in Sources */,
 				9E902B2525F0DC5300006624 /* LabelCollectionViewCell.swift in Sources */,
+				9E160FAB27AA1BB5004EB899 /* UserSearchView.swift in Sources */,
 				9EC3A6C92604D75C001FBCA4 /* CourseDetailLayout.swift in Sources */,
 				9E52EFF8279EAAEE00CDFDBC /* SearchView.swift in Sources */,
 				9E4FC4042774CAB600E3C434 /* AccountView.swift in Sources */,

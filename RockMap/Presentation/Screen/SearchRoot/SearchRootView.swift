@@ -48,10 +48,12 @@ struct SearchRootView: View {
     @ViewBuilder
     private var searchResultView: some View {
         switch viewModel.selectedCategory {
-            case .rock, .user:
+            case .rock:
                 RockSearchView(viewModel: .init(), searchCondition: viewModel.searchCondition)
             case .course:
                 CourseSearchView(viewModel: .init(), searchCondition: viewModel.searchCondition)
+            case .user:
+                UserSearchView(viewModel: .init(), searchCondition: viewModel.searchCondition)
         }
     }
 }
