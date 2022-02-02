@@ -22,6 +22,7 @@ struct RockAnnotationListView: View {
                     delegate?.didSelectRow(rock: rock)
                 }
         }
+        .listStyle(.plain)
     }
 }
 
