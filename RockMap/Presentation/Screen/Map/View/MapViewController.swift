@@ -487,11 +487,6 @@ class MapFloatingPanelLayout: FloatingPanelLayout {
                 fractionalInset: 0.3,
                 edge: .bottom,
                 referenceGuide: .safeArea
-            ),
-            .tip: FloatingPanelLayoutAnchor(
-                absoluteInset: 44.0,
-                edge: .bottom,
-                referenceGuide: .safeArea
             )
         ]
     }
