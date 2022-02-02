@@ -24,7 +24,8 @@ final class DocumentProtocolTests: XCTestCase {
         socialLinks: [],
         introduction: nil,
         headerUrl: nil,
-        deleted: false
+        deleted: false,
+        tokenMap: [:]
     )
 
     func testUserReference() throws {
