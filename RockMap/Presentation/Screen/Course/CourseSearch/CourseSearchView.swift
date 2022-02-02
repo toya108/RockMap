@@ -30,10 +30,6 @@ struct CourseSearchView: View {
                 case .finish:
                     if viewModel.courses.isEmpty {
                         EmptyView(text: .init("text_no_course"))
-                            .refreshable {
-                                refresh()
-                            }
-
                     } else {
                         List(viewModel.courses) { course in
                             NavigationLink(
