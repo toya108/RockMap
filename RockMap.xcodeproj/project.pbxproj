@@ -38,6 +38,7 @@
 		9E1287E2277372B200651D89 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1287E1277372B200651D89 /* SettingsView.swift */; };
 		9E160FA627A99221004EB899 /* CourseSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E160FA527A99221004EB899 /* CourseSearchViewModel.swift */; };
 		9E160FA827A9922E004EB899 /* CourseSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E160FA727A9922E004EB899 /* CourseSearchView.swift */; };
+		9E160FAF27AA26F5004EB899 /* UserRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E160FAE27AA26F5004EB899 /* UserRowView.swift */; };
 		9E171174263305B900D35BFE /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E171172263305B900D35BFE /* ListCollectionViewCell.swift */; };
 		9E171175263305B900D35BFE /* ListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E171173263305B900D35BFE /* ListCollectionViewCell.xib */; };
 		9E1F494E2785DE5D00855DE6 /* RockDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1F494D2785DE5D00855DE6 /* RockDetailView.swift */; };
@@ -292,6 +293,7 @@
 		9E1287E1277372B200651D89 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		9E160FA527A99221004EB899 /* CourseSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSearchViewModel.swift; sourceTree = "<group>"; };
 		9E160FA727A9922E004EB899 /* CourseSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSearchView.swift; sourceTree = "<group>"; };
+		9E160FAE27AA26F5004EB899 /* UserRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRowView.swift; sourceTree = "<group>"; };
 		9E171172263305B900D35BFE /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E171173263305B900D35BFE /* ListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListCollectionViewCell.xib; sourceTree = "<group>"; };
 		9E1F494D2785DE5D00855DE6 /* RockDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockDetailView.swift; sourceTree = "<group>"; };
@@ -1510,6 +1512,7 @@
 				9E60BC9B279FA422007765AA /* ListSkeltonView.swift */,
 				9E768FE7279FD86100E66739 /* EmptyView.swift */,
 				9E9AD29727A2983C005614D7 /* WrapInNavigationView.swift */,
+				9E160FAE27AA26F5004EB899 /* UserRowView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -2085,6 +2088,7 @@
 				9E81072A262DA3700025359C /* MyPageKind.swift in Sources */,
 				9E0C9C2826D2AD2F00002A0D /* Enitty.User.SocialLinkType.Icon.swift in Sources */,
 				9E2D0F1725D6E4B100652171 /* TextFieldColletionViewCell.swift in Sources */,
+				9E160FAF27AA26F5004EB899 /* UserRowView.swift in Sources */,
 				9ED9729A2596471C0069FB94 /* ArrayExtension.swift in Sources */,
 				9E60BC9C279FA422007765AA /* ListSkeltonView.swift in Sources */,
 				9E9B58BA27A11CAE00B2BB12 /* CategoryTabView.swift in Sources */,
