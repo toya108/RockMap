@@ -12,17 +12,13 @@ struct SearchRootView: View {
                     searchText: $viewModel.searchCondition.searchText,
                     isFocusedSearchField: _isFocusedSearchField
                 ).padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-
+                CategoryTabView(selectedCategory: $viewModel.selectedCategory)
+                    .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 ZStack {
-                    VStack {
-                        SearchHistoryView()
-                        Spacer()
-                    }
-                    .opacity(shouldShowSearchHistory ? 1 : 0)
                     CategoryListView(selectedCategory: $viewModel.selectedCategory)
-                        .opacity(shouldShowCategoryList ? 1 : 0)
+                        .opacity(viewModel.searchCondition.searchText.isEmpty ? 1 : 0)
                     searchResultView
-                        .opacity(shouldShowCategoryList ? 0 : 1)
+                        .opacity(!viewModel.searchCondition.searchText.isEmpty ? 1 : 0)
                 }
             }
             .navigationBarHidden(true)
@@ -35,14 +31,6 @@ struct SearchRootView: View {
                 viewModel: .init()
             )
         }
-    }
-
-    private var shouldShowSearchHistory: Bool {
-        isFocusedSearchField && viewModel.searchCondition.searchText.isEmpty
-    }
-
-    private var shouldShowCategoryList: Bool {
-        !isFocusedSearchField && viewModel.searchCondition.searchText.isEmpty
     }
 
     @ViewBuilder

@@ -81,7 +81,6 @@
 		9E4FC4152775A9DC00E3C434 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4FC4142775A9DC00E3C434 /* AccountViewModel.swift */; };
 		9E5066852795A79000DD6C37 /* SearchRootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5066842795A79000DD6C37 /* SearchRootViewModel.swift */; };
 		9E52EFF8279EAAEE00CDFDBC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E52EFF7279EAAEE00CDFDBC /* SearchView.swift */; };
-		9E52EFFA279EC2F100CDFDBC /* SearchHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E52EFF9279EC2F100CDFDBC /* SearchHistoryView.swift */; };
 		9E52EFFC279EDEDB00CDFDBC /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E52EFFB279EDEDB00CDFDBC /* CategoryListView.swift */; };
 		9E52EFFF279F063400CDFDBC /* CourseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E52EFFE279F063400CDFDBC /* CourseListView.swift */; };
 		9E52F001279F064500CDFDBC /* CouseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E52F000279F064500CDFDBC /* CouseListViewModel.swift */; };
@@ -339,7 +338,6 @@
 		9E4FC4142775A9DC00E3C434 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		9E5066842795A79000DD6C37 /* SearchRootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRootViewModel.swift; sourceTree = "<group>"; };
 		9E52EFF7279EAAEE00CDFDBC /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
-		9E52EFF9279EC2F100CDFDBC /* SearchHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryView.swift; sourceTree = "<group>"; };
 		9E52EFFB279EDEDB00CDFDBC /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
 		9E52EFFE279F063400CDFDBC /* CourseListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseListView.swift; sourceTree = "<group>"; };
 		9E52F000279F064500CDFDBC /* CouseListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouseListViewModel.swift; sourceTree = "<group>"; };
@@ -1247,7 +1245,6 @@
 				9E9675AF2792F1EF00997584 /* SearchRootView.swift */,
 				9E5066842795A79000DD6C37 /* SearchRootViewModel.swift */,
 				9E52EFF7279EAAEE00CDFDBC /* SearchView.swift */,
-				9E52EFF9279EC2F100CDFDBC /* SearchHistoryView.swift */,
 				9ED5905E27A2D51600BE6C8E /* SearchFilterView.swift */,
 				9E95A43027A6BB5F00A8E5A7 /* SearchFilterViewModel.swift */,
 				9E52EFFB279EDEDB00CDFDBC /* CategoryListView.swift */,
@@ -2082,7 +2079,6 @@
 				9E0BE4552608C42D00576869 /* RegisterClimbRecordBottomSheetViewController.swift in Sources */,
 				9E52F003279F108C00CDFDBC /* CategoryKind.swift in Sources */,
 				9EB00BB226295BCD00379182 /* UITextField+Combine.swift in Sources */,
-				9E52EFFA279EC2F100CDFDBC /* SearchHistoryView.swift in Sources */,
 				9E45A3AC270C566400582AEB /* TabKind.swift in Sources */,
 				9E7ABF0E262593570028DB19 /* UISegmentedControl+Combine.swift in Sources */,
 				9E5DD1D725C9857A00E38620 /* UIViewExtension.swift in Sources */,

@@ -5,22 +5,9 @@ struct SearchView: View {
     @Binding var isPresentedSearchFilter: Bool
     @Binding var searchText: String
     @FocusState var isFocusedSearchField: Bool
-    @State private var shouldShowBackButton: Bool = false
 
     var body: some View {
         HStack {
-            if shouldShowBackButton {
-                Button(
-                    action: {
-                        isFocusedSearchField = false
-                    },
-                    label: {
-                        let chevronCompactLeft = UIImage.SystemImages.chevronCompactLeft
-                        Image(uiImage: chevronCompactLeft.withRenderingMode(.alwaysTemplate))
-                            .foregroundColor(.primary)
-                    }
-                ).frame(maxWidth: 20)
-            }
             SearchTextField(
                 searchText: $searchText,
                 isFocusedSearchField: _isFocusedSearchField
@@ -34,11 +21,6 @@ struct SearchView: View {
                         .foregroundColor(.primary)
                 }
             )
-        }
-        .onChange(of: isFocusedSearchField) { isFocused in
-            withAnimation(.linear(duration: 0.2)) {
-                shouldShowBackButton = isFocused
-            }
         }
     }
 }
