@@ -8,9 +8,25 @@ struct SearchFilterView: View {
 
     var body: some View {
         NavigationView {
-            ZStack {
-                Color(.systemGroupedBackground)
-                Text("Hello, World!")
+            List {
+                switch selectedCategory {
+                    case .rock:
+                        Picker("岩質", selection: $viewModel.lithology) {
+                            ForEach(Entity.Rock.Lithology.allCases) {
+                                Text($0.name).tag($0)
+                            }
+                        }
+                        // season
+                        // prefecture
+
+                    case .course:
+                        Text("aaa")
+                        // grade
+                        // shape
+
+                    case .user:
+                        Text("aaa")
+                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("絞り込み")

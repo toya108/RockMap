@@ -55,8 +55,10 @@ public extension Domain.Entity {
 }
 
 public extension Domain.Entity.Rock {
-    enum Season: String, CaseIterable, Codable {
+    enum Season: String, CaseIterable, Codable, Identifiable {
         case spring, summer, autumn, winter
+
+        public var id: String { self.rawValue }
 
         public var name: String {
             switch self {
@@ -75,8 +77,10 @@ public extension Domain.Entity.Rock {
         }
     }
 
-    enum Lithology: String, CaseIterable, Codable {
+    enum Lithology: String, CaseIterable, Codable, Identifiable {
         case unKnown, granite, andesite, chert, limestone, tuff, sandstone
+
+        public var id: String { self.rawValue }
 
         public var name: String {
             switch self {
