@@ -14,7 +14,7 @@ class SocialLinkCollectionViewCell: UICollectionViewCell {
     }
 
     private func setupLayout() {
-        self.socialLinkButton.setImage(UIImage.AssetsImages.instagram, for: .normal)
+        self.socialLinkButton.setImage(Resources.Images.Assets.instagram.uiImage, for: .normal)
 
         self.socialLinkButton.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(self.socialLinkButton)

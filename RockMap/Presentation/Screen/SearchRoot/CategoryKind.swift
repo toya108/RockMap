@@ -24,18 +24,18 @@ enum CategoryKind: String, CaseIterable, Identifiable {
     var icon: some View {
         switch self {
             case .rock:
-                Image(uiImage: UIImage.AssetsImages.rockFill)
+                Image(uiImage: Resources.Images.Assets.rockFill.uiImage)
                     .resizable()
                     .frame(width: 24, height: 24)
 
             case .course:
-                let docPlaintextFill = UIImage.SystemImages.docPlaintextFill
+                let docPlaintextFill = Resources.Images.System.docPlaintextFill.uiImage
                 Image(uiImage: docPlaintextFill.withRenderingMode(.alwaysTemplate))
                     .resizable()
                     .frame(width: 16, height: 16)
 
             case .user:
-                Image(uiImage: UIImage.SystemImages.personFill.withRenderingMode(.alwaysTemplate))
+                Image(uiImage: Resources.Images.System.personFill.uiImage)
                     .resizable()
                     .frame(width: 16, height: 16)
         }

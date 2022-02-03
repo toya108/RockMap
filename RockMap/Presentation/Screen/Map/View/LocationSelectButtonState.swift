@@ -7,10 +7,10 @@ enum LocationSelectButtonState {
     var image: UIImage {
         switch self {
         case .standby:
-            return UIImage.SystemImages.plus
+                return Resources.Images.System.plus.uiImage
 
         case .selecting:
-            return UIImage.SystemImages.handPointUpLeftFill
+                return Resources.Images.System.handPointUpLeftFill.uiImage
         }
     }
 

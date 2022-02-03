@@ -9,7 +9,7 @@ struct LoginView: View {
 
     var body: some View {
         VStack(spacing: 24) {
-            Image(uiImage: UIImage.AssetsImages.mountainBackGround)
+            Image(uiImage: Resources.Images.Assets.mountainBackGround.uiImage)
                 .frame(maxWidth: .infinity)
             VStack(alignment: .leading, spacing: 16) {
                 Text("RockMap")

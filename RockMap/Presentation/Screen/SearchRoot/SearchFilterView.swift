@@ -40,7 +40,7 @@ struct SearchFilterView: View {
                     Button(
                         action: { dismiss() },
                         label: {
-                            Image(uiImage: UIImage.SystemImages.xmark.withRenderingMode(.alwaysTemplate))
+                            Resources.Images.System.xmark.image
                         }
                     ).foregroundColor(.primary)
                 }

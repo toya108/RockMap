@@ -36,7 +36,7 @@ struct ListRowView: View {
 
     init(rock: Entity.Rock) {
         self.imageURL = rock.headerUrl
-        self.iconImage = UIImage.AssetsImages.rockFill
+        self.iconImage = Resources.Images.Assets.rockFill.uiImage
         self.iconSize = .init(width: 24, height: 24)
         self.title = rock.name
         self.firstLabel = .init("registered_date")
@@ -48,7 +48,7 @@ struct ListRowView: View {
 
     init(course: Entity.Course) {
         self.imageURL = course.headerUrl
-        self.iconImage = UIImage.SystemImages.docPlaintextFill
+        self.iconImage = Resources.Images.System.docPlaintextFill.uiImage
         self.iconSize = .init(width: 16, height: 16)
         self.title = course.name
         self.firstLabel = .init("registered_date")
@@ -100,7 +100,7 @@ struct ListRowView_Previews: PreviewProvider {
     static var previews: some View {
         ListRowView(
             imageURL: URL(string: "https://1.bp.blogspot.com/-7uiCs6dI4a0/YEGQA-8JOrI/AAAAAAABddA/qPFt2E8vDfQwPQsAYLvk4lowkwP-GN7VQCNcBGAsYHQ/s180-c/buranko_girl_smile.png")!,
-            iconImage: UIImage.AssetsImages.rockFill,
+            iconImage: Resources.Images.Assets.rockFill.uiImage,
             iconSize: .init(width: 24, height: 24),
             title: "サンプル岩",
             firstLabel: "登録日",

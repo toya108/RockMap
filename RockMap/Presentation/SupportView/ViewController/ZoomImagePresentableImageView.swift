@@ -29,7 +29,7 @@ class ZoomImagePresentableImageView: UIImageView {
     @objc private func presentZoomImageViewController() {
         root?.present(
             ZoomImageViewController.createInstance(
-                images: [self.image ?? UIImage.AssetsImages.noimage],
+                images: [self.image ?? Resources.Images.Assets.noimage.uiImage],
                 currentIndex: 0
             ),
             animated: true

@@ -3,33 +3,33 @@ import UIKit
 extension Entity.User.SocialLinkType {
     var icon: UIImage {
         switch self {
-        case .facebook:
-            return UIImage.AssetsImages.facebook
+            case .facebook:
+                return Resources.Images.Assets.facebook.uiImage
 
-        case .twitter:
-            return UIImage.AssetsImages.twitter
+            case .twitter:
+                return Resources.Images.Assets.twitter.uiImage
 
-        case .instagram:
-            return UIImage.AssetsImages.instagram
+            case .instagram:
+                return Resources.Images.Assets.instagram.uiImage
 
-        case .other:
-            return UIImage.AssetsImages.link
+            case .other:
+                return Resources.Images.Assets.link.uiImage
         }
     }
 
     var color: UIColor {
         switch self {
-        case .facebook:
-            return UIColor.Pallete.facebook
+            case .facebook:
+                return UIColor.Pallete.facebook
 
-        case .twitter:
-            return UIColor.Pallete.twitter
+            case .twitter:
+                return UIColor.Pallete.twitter
 
-        case .instagram:
-            return UIColor.Pallete.instagram
+            case .instagram:
+                return UIColor.Pallete.instagram
 
-        case .other:
-            return .label
+            case .other:
+                return .label
         }
     }
 }

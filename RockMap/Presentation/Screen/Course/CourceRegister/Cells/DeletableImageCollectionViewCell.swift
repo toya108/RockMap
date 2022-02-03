@@ -31,7 +31,7 @@ class DeletableImageCollectionViewCell: UICollectionViewCell {
         ])
 
         self.deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        self.deleteButton.setImage(UIImage.SystemImages.xmarkCircleFill, for: .normal)
+        self.deleteButton.setImage(Resources.Images.System.xmarkCircleFill.uiImage, for: .normal)
         self.deleteButton.tintColor = .white
         self.imageView.addSubview(self.deleteButton)
         NSLayoutConstraint.activate([

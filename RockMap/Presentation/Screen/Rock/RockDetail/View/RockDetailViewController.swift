@@ -41,7 +41,7 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
                 )
             }
         )
-        courseCreationButton.setImage(UIImage.SystemImages.plusCircleFill, for: .normal)
+        courseCreationButton.setImage(Resources.Images.System.plusCircleFill.uiImage, for: .normal)
         courseCreationButton.tintColor = UIColor.Pallete.primaryGreen
         navigationItem.setRightBarButton(
             .init(customView: courseCreationButton),

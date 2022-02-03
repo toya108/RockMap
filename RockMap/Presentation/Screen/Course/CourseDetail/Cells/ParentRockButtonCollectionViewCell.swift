@@ -30,7 +30,7 @@ class ParentRockButtonCollectionViewCell: UICollectionViewCell {
         self.iconImageView.tintColor = .label
         self.iconImageView.translatesAutoresizingMaskIntoConstraints = false
         self.iconImageView.contentMode = .scaleAspectFit
-        self.iconImageView.image = UIImage.AssetsImages.rockFill
+        self.iconImageView.image = Resources.Images.Assets.rockFill.uiImage
         self.stackView.addArrangedSubview(self.iconImageView)
         NSLayoutConstraint.build {
             iconImageView.heightAnchor.constraint(equalToConstant: 24)

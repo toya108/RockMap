@@ -51,7 +51,7 @@ class MyPageViewController: UIViewController, CompositionalColectionViewControll
                 navigationItem.title = "マイページ"
                 let settingsButton = UIBarButtonItem(
                     title: nil,
-                    image: UIImage.SystemImages.gear,
+                    image: Resources.Images.System.gear.uiImage,
                     primaryAction: .init { [weak self] _ in
 
                         guard let self = self else { return }

@@ -120,7 +120,7 @@ class ClimbedUserListViewController: UIViewController {
     ) -> UIAction {
         .init(
             title: "編集",
-            image: UIImage.SystemImages.squareAndPencil
+            image: Resources.Images.System.squareAndPencil.uiImage
         ) { [weak self] _ in
 
             guard let self = self else { return }
@@ -137,7 +137,7 @@ class ClimbedUserListViewController: UIViewController {
     ) -> UIAction {
         .init(
             title: "削除",
-            image: UIImage.SystemImages.trash,
+            image: Resources.Images.System.trash.uiImage,
             attributes: .destructive
         ) { [weak self] _ in
 

@@ -38,26 +38,26 @@ enum TabKind: CaseIterable {
     private var normalImage: UIImage {
         switch self {
             case .search:
-                return UIImage.SystemImages.magnifyingglassCircle
+                return Resources.Images.System.magnifyingglassCircle.uiImage
 
             case .map:
-                return UIImage.SystemImages.mapCircle
+                return Resources.Images.System.mapCircle.uiImage
 
             case .myPage:
-                return UIImage.SystemImages.personCircle
+                return Resources.Images.System.personCircle.uiImage
         }
     }
 
     private var selectedImage: UIImage {
         switch self {
             case.search:
-                return UIImage.SystemImages.magnifyingglassCircleFill
+                return Resources.Images.System.magnifyingglassCircleFill.uiImage
 
             case .map:
-                return UIImage.SystemImages.mapCircleFill
+                return Resources.Images.System.mapCircleFill.uiImage
 
             case .myPage:
-                return UIImage.SystemImages.personCircleFill
+                return Resources.Images.System.personCircleFill.uiImage
         }
     }
 }

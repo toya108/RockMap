@@ -330,7 +330,7 @@ extension RockRegisterViewController {
     ) {
         let photoLibraryAction = UIAction(
             title: "フォトライブラリ",
-            image: UIImage.SystemImages.folderFill
+            image: Resources.Images.System.folderFill.uiImage
         ) { [weak self] _ in
 
             guard let self = self else { return }
@@ -340,7 +340,7 @@ extension RockRegisterViewController {
 
         let cameraAction = UIAction(
             title: "写真を撮る",
-            image: UIImage.SystemImages.cameraFill
+            image: Resources.Images.System.cameraFill.uiImage
         ) { [weak self] _ in
 
             guard let self = self else { return }

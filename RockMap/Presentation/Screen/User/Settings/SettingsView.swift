@@ -17,7 +17,7 @@ struct SettingsView: View {
                         },
                         label: {
                             HStack {
-                                Image(uiImage: UIImage.SystemImages.personCircle)
+                                Image(uiImage: Resources.Images.System.personCircle.uiImage)
                                     .renderingMode(.template)
                                     .foregroundColor(Color(uiColor: .label))
                                 Text("account")
@@ -27,7 +27,7 @@ struct SettingsView: View {
                 }
                 Section(header: Text("about_this_app")) {
                     EntireTappableRowView {
-                        Image(uiImage: UIImage.SystemImages.checkmarkShield)
+                        Image(uiImage: Resources.Images.System.checkmarkShield.uiImage)
                             .renderingMode(.template)
                             .foregroundColor(Color(uiColor: .label))
                         Text("privacy_policy")
@@ -36,7 +36,7 @@ struct SettingsView: View {
                         shouldShowPrivacyPolicy.toggle()
                     }
                     EntireTappableRowView {
-                        Image(uiImage: UIImage.SystemImages.docPlaintext)
+                        Image(uiImage: Resources.Images.System.docPlaintext.uiImage)
                             .renderingMode(.template)
                             .foregroundColor(Color(uiColor: .label))
                         Text("terms")
@@ -45,7 +45,7 @@ struct SettingsView: View {
                         shouldShowPrivacyPolicy.toggle()
                     }
                     EntireTappableRowView {
-                        Image(uiImage: UIImage.SystemImages.starCircle)
+                        Image(uiImage: Resources.Images.System.starCircle.uiImage)
                             .renderingMode(.template)
                             .foregroundColor(Color(uiColor: .label))
                         Text("review")
