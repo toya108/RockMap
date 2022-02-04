@@ -13,11 +13,15 @@ struct SearchFilterView: View {
                     case .rock:
                         Picker("岩質", selection: $viewModel.lithology) {
                             ForEach(Entity.Rock.Lithology.allCases) {
-                                Text($0.name).tag($0)
+                                Text($0.name).tag($0 as Entity.Rock.Lithology?  )
                             }
                         }
-                        // season
-                        // prefecture
+                        SeasonRowView(selectedSeasons: $viewModel.seasons)
+                        Picker("都道府県", selection: $viewModel.prefecture) {
+                            ForEach(Resources.Prefecture.allCases) {
+                                Text($0.nameWithSuffix).tag($0 as Resources.Prefecture?)
+                            }
+                        }
 
                     case .course:
                         Text("aaa")
