@@ -170,6 +170,7 @@
 		9E98D5402552F8AB00EC5AC1 /* TouchableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D53F2552F8AB00EC5AC1 /* TouchableScrollView.swift */; };
 		9E98D549255300B900EC5AC1 /* ColorPallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E98D548255300B900EC5AC1 /* ColorPallet.swift */; };
 		9E99B15427AD518600D7FE3C /* SeasonRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99B15327AD518600D7FE3C /* SeasonRowView.swift */; };
+		9E99B15627AD535500D7FE3C /* Prefecture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E99B15527AD535500D7FE3C /* Prefecture.swift */; };
 		9E9AD29827A2983C005614D7 /* WrapInNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9AD29727A2983C005614D7 /* WrapInNavigationView.swift */; };
 		9E9B58BA27A11CAE00B2BB12 /* CategoryTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9B58B927A11CAE00B2BB12 /* CategoryTabView.swift */; };
 		9E9B58BD27A1A9F900B2BB12 /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9B58BC27A1A9F900B2BB12 /* UserListView.swift */; };
@@ -429,6 +430,7 @@
 		9E98D53F2552F8AB00EC5AC1 /* TouchableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableScrollView.swift; sourceTree = "<group>"; };
 		9E98D548255300B900EC5AC1 /* ColorPallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPallet.swift; sourceTree = "<group>"; };
 		9E99B15327AD518600D7FE3C /* SeasonRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonRowView.swift; sourceTree = "<group>"; };
+		9E99B15527AD535500D7FE3C /* Prefecture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prefecture.swift; sourceTree = "<group>"; };
 		9E9AD29727A2983C005614D7 /* WrapInNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapInNavigationView.swift; sourceTree = "<group>"; };
 		9E9B58B927A11CAE00B2BB12 /* CategoryTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTabView.swift; sourceTree = "<group>"; };
 		9E9B58BC27A1A9F900B2BB12 /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
@@ -1302,6 +1304,7 @@
 			children = (
 				9E845AD925ADEA6A00EC3BE6 /* Resouces.swift */,
 				9E98D548255300B900EC5AC1 /* ColorPallet.swift */,
+				9E99B15527AD535500D7FE3C /* Prefecture.swift */,
 				9E5C5E362555144000D00087 /* Images.swift */,
 				9E845AD425ADEA3300EC3BE6 /* Const */,
 				9E8A146E2708836E00903D38 /* Localizable.strings */,
@@ -1917,6 +1920,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E99B15627AD535500D7FE3C /* Prefecture.swift in Sources */,
 				9E9E632A262EB1FF0096340C /* ViewModelProtocol.swift in Sources */,
 				9EECEBAF265FBA6C0057EE11 /* MyClimbRecordListViewController.swift in Sources */,
 				9E44157626620FA800D48D12 /* DictionaryExtension.swift in Sources */,
