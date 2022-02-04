@@ -10,6 +10,7 @@ struct SearchRootView: View {
                 SearchView(
                     isPresentedSearchFilter: $viewModel.isPresentedSearchFilter,
                     searchText: $viewModel.searchCondition.searchText,
+                    disabledFilterButton: $viewModel.disabledFilterButton,
                     isFocusedSearchField: _isFocusedSearchField
                 ).padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 CategoryTabView(selectedCategory: $viewModel.selectedCategory)
@@ -25,6 +26,11 @@ struct SearchRootView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear {
+            Task {
+                await viewModel.setupBindings()
+            }
+        }
         .sheet(isPresented: $viewModel.isPresentedSearchFilter) {
             SearchFilterView(
                 selectedCategory: $viewModel.selectedCategory,

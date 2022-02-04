@@ -4,6 +4,7 @@ struct SearchView: View {
 
     @Binding var isPresentedSearchFilter: Bool
     @Binding var searchText: String
+    @Binding var disabledFilterButton: Bool
     @FocusState var isFocusedSearchField: Bool
 
     var body: some View {
@@ -12,15 +13,14 @@ struct SearchView: View {
                 searchText: $searchText,
                 isFocusedSearchField: _isFocusedSearchField
             )
-            Button(
-                action: {
-                    isPresentedSearchFilter = true
-                },
-                label: {
-                    Image(systemName: "slider.horizontal.3")
-                        .foregroundColor(.primary)
-                }
-            )
+            Button {
+                isPresentedSearchFilter = true
+            } label: {
+                Image(systemName: "slider.horizontal.3")
+                    .foregroundColor(.primary)
+                    .opacity(disabledFilterButton ? 0.5 : 1)
+            }
+            .disabled(disabledFilterButton)
         }
     }
 }
