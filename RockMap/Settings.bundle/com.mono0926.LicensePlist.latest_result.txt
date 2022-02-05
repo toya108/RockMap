@@ -42,7 +42,7 @@ name: promises, nameSpecified: Promises, owner: google, version: 2.0.0
 
 name: Resolver, nameSpecified: Resolver, owner: hmlongco, version: 1.5.0
 
-name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.12.2
+name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.12.3
 
 name: SkeletonUI, nameSpecified: SkeletonUI, owner: CSolanaM, version: 1.0.7
 
