@@ -31,6 +31,17 @@ struct SearchFilterView: View {
                     case .user:
                         Text("aaa")
                 }
+                HStack {
+                    Spacer()
+                    Button {
+
+                    } label: {
+                        Text("条件を適用").fontWeight(.semibold)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .foregroundColor(Color(uiColor: UIColor.Pallete.primaryGreen))
+                    Spacer()
+                }
             }
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("絞り込み")
