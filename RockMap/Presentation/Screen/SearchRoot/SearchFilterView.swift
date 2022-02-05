@@ -24,12 +24,15 @@ struct SearchFilterView: View {
                         }
 
                     case .course:
-                        Text("aaa")
-                        // grade
+                        Picker("グレード", selection: $viewModel.grade) {
+                            ForEach(Entity.Course.Grade.allCases) {
+                                Text($0.name).tag($0 as Entity.Course.Grade?)
+                            }
+                        }
                         // shape
 
                     case .user:
-                        Text("aaa")
+                        Color.clear
                 }
                 HStack {
                     Spacer()
