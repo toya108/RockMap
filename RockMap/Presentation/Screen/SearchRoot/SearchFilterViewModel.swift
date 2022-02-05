@@ -8,4 +8,13 @@ actor SearchFilterViewModel: ObservableObject {
 
     @Published nonisolated var grade: Entity.Course.Grade?
     @Published nonisolated var shapes: [Entity.Course.Shape] = []
+
+    @MainActor func reset() {
+        seasons = []
+        lithology = nil
+        prefecture = nil
+
+        grade = nil
+        shapes = []
+    }
 }

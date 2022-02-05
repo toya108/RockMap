@@ -51,8 +51,11 @@ struct SearchFilterView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("リセット") {
-
-                    }.foregroundColor(.primary)
+                        Task {
+                            await viewModel.reset()
+                        }
+                    }
+                    .foregroundColor(.primary)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(
