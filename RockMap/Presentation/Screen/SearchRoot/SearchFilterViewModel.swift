@@ -7,4 +7,5 @@ actor SearchFilterViewModel: ObservableObject {
     @Published nonisolated var prefecture: Resources.Prefecture?
 
     @Published nonisolated var grade: Entity.Course.Grade?
+    @Published nonisolated var shapes: [Entity.Course.Shape] = []
 }
