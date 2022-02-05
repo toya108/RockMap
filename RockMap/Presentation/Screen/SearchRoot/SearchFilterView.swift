@@ -3,6 +3,7 @@ import SwiftUI
 struct SearchFilterView: View {
 
     @Binding var selectedCategory: CategoryKind
+    @Binding var searchCondition: SearchCondition
     @StateObject var viewModel: SearchFilterViewModel
     @Environment(\.dismiss) var dismiss
 
@@ -37,7 +38,8 @@ struct SearchFilterView: View {
                 HStack {
                     Spacer()
                     Button {
-
+                        viewModel.set(searchCondition: searchCondition)
+                        dismiss()
                     } label: {
                         Text("条件を適用").fontWeight(.semibold)
                     }
@@ -66,11 +68,18 @@ struct SearchFilterView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear {
+            viewModel.update(searchCondition: searchCondition)
+        }
     }
 }
 
 struct SearchFilterView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchFilterView(selectedCategory: .constant(.rock), viewModel: .init())
+        SearchFilterView(
+            selectedCategory: .constant(.rock),
+            searchCondition: .constant(.init()),
+            viewModel: .init()
+        )
     }
 }

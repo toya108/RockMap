@@ -34,6 +34,7 @@ struct SearchRootView: View {
         .sheet(isPresented: $viewModel.isPresentedSearchFilter) {
             SearchFilterView(
                 selectedCategory: $viewModel.selectedCategory,
+                searchCondition: $viewModel.searchCondition,
                 viewModel: .init()
             )
         }

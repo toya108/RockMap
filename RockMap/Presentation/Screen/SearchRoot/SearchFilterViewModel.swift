@@ -1,13 +1,13 @@
 import Combine
 import Collections
 
-actor SearchFilterViewModel: ObservableObject {
-    @Published nonisolated var seasons: [Entity.Rock.Season] = []
-    @Published nonisolated var lithology: Entity.Rock.Lithology?
-    @Published nonisolated var prefecture: Resources.Prefecture?
+class SearchFilterViewModel: ObservableObject {
+    @Published var seasons: [Entity.Rock.Season] = []
+    @Published var lithology: Entity.Rock.Lithology?
+    @Published var prefecture: Resources.Prefecture?
 
-    @Published nonisolated var grade: Entity.Course.Grade?
-    @Published nonisolated var shapes: [Entity.Course.Shape] = []
+    @Published var grade: Entity.Course.Grade?
+    @Published var shapes: [Entity.Course.Shape] = []
 
     @MainActor func reset() {
         seasons = []
@@ -16,5 +16,22 @@ actor SearchFilterViewModel: ObservableObject {
 
         grade = nil
         shapes = []
+    }
+
+    func update(searchCondition: SearchCondition) {
+        self.lithology = searchCondition.lithology
+        self.seasons = searchCondition.seasons
+        self.prefecture = searchCondition.prefecture
+        self.grade = searchCondition.grade
+        self.shapes = searchCondition.shapes
+    }
+
+    func set(searchCondition: SearchCondition) {
+        searchCondition.lithology = lithology
+        searchCondition.seasons = seasons
+        searchCondition.prefecture = prefecture
+
+        searchCondition.grade = grade
+        searchCondition.shapes = shapes
     }
 }
