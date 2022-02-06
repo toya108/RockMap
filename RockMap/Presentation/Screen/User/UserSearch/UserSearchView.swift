@@ -3,7 +3,7 @@ import SwiftUI
 struct UserSearchView: View {
 
     @StateObject var viewModel: UserSearchViewModel
-    @ObservedObject var searchCondition: SearchCondition
+    @ObservedObject var searchRootViewModel: SearchRootViewModel
 
     var body: some View {
         ZStack {
@@ -11,7 +11,7 @@ struct UserSearchView: View {
                 .onAppear {
                     search()
                 }
-                .onChange(of: searchCondition.searchText) { _ in
+                .onChange(of: searchRootViewModel.searchCondition) { _ in
                     search()
                 }
             switch viewModel.viewState {
@@ -33,9 +33,7 @@ struct UserSearchView: View {
                         }
                         .listStyle(.plain)
                         .refreshable {
-                            Task {
-                                await viewModel.refresh(condition: searchCondition)
-                            }
+                            refresh()
                         }
                     }
             }
@@ -44,13 +42,22 @@ struct UserSearchView: View {
 
     private func search() {
         Task {
-            await viewModel.search(condition: searchCondition, isAdditional: false)
+            await viewModel.search(
+                condition: searchRootViewModel.searchCondition,
+                isAdditional: false
+            )
+        }
+    }
+
+    private func refresh() {
+        Task {
+            await viewModel.refresh(condition: searchRootViewModel.searchCondition)
         }
     }
 }
 
 struct UserSearchView_Previews: PreviewProvider {
     static var previews: some View {
-        UserSearchView(viewModel: .init(), searchCondition: .init())
+        UserSearchView(viewModel: .init(), searchRootViewModel: .init())
     }
 }

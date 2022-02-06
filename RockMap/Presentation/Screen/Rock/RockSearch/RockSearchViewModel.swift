@@ -20,7 +20,12 @@ actor RockSearchViewModel: ObservableObject {
         self.viewState = .loading
 
         do {
-            let rocks = try await searchRockListUsecase.search(text: condition.searchText)
+            let rocks = try await searchRockListUsecase.search(
+                text: condition.searchText,
+                lithology: condition.lithology,
+                seasons: condition.seasons,
+                prefecture: condition.prefecture?.nameWithSuffix
+            )
 
             if !isAdditional {
                 self.rocks.removeAll()

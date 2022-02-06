@@ -26,12 +26,14 @@ class SearchFilterViewModel: ObservableObject {
         self.shapes = searchCondition.shapes
     }
 
-    func set(searchCondition: SearchCondition) {
-        searchCondition.lithology = lithology
-        searchCondition.seasons = seasons
-        searchCondition.prefecture = prefecture
-
-        searchCondition.grade = grade
-        searchCondition.shapes = shapes
+    func makeSearchCondition(text: String) -> SearchCondition {
+        .init(
+            searchText: text,
+            seasons: seasons,
+            lithology: lithology,
+            prefecture: prefecture,
+            grade: grade,
+            shapes: shapes
+        )
     }
 }

@@ -3,7 +3,7 @@ import SwiftUI
 struct CourseSearchView: View {
 
     @StateObject var viewModel: CourseSearchViewModel
-    @ObservedObject var searchCondition: SearchCondition
+    @ObservedObject var searchRootViewModel: SearchRootViewModel
 
     var body: some View {
         ZStack {
@@ -11,7 +11,7 @@ struct CourseSearchView: View {
                 .onAppear {
                     search()
                 }
-                .onChange(of: searchCondition.searchText) { _ in
+                .onChange(of: searchRootViewModel.searchCondition) { _ in
                     search()
                 }
             switch viewModel.viewState {
@@ -52,7 +52,10 @@ struct CourseSearchView: View {
 
     private func search() {
         Task {
-            await viewModel.search(condition: searchCondition, isAdditional: false)
+            await viewModel.search(
+                condition: searchRootViewModel.searchCondition,
+                isAdditional: false
+            )
         }
     }
 
@@ -61,13 +64,13 @@ struct CourseSearchView: View {
             guard await viewModel.shouldAdditionalLoad(course: course) else {
                 return
             }
-            await viewModel.additionalLoad(condition: searchCondition)
+            await viewModel.additionalLoad(condition: searchRootViewModel.searchCondition)
         }
     }
 
     private func refresh() {
         Task {
-            await viewModel.refresh(condition: searchCondition)
+            await viewModel.refresh(condition: searchRootViewModel.searchCondition)
         }
     }
 
@@ -75,6 +78,6 @@ struct CourseSearchView: View {
 
 struct CourseSearchView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseSearchView(viewModel: .init(), searchCondition: .init())
+        CourseSearchView(viewModel: .init(), searchRootViewModel: .init())
     }
 }

@@ -38,7 +38,7 @@ struct SearchFilterView: View {
                 HStack {
                     Spacer()
                     Button {
-                        viewModel.set(searchCondition: searchCondition)
+                        searchCondition = viewModel.makeSearchCondition(text: searchCondition.searchText)
                         dismiss()
                     } label: {
                         Text("条件を適用").fontWeight(.semibold)

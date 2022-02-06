@@ -3,7 +3,7 @@ import SwiftUI
 struct RockSearchView: View {
 
     @StateObject var viewModel: RockSearchViewModel
-    @ObservedObject var searchCondition: SearchCondition
+    @ObservedObject var searchRootViewModel: SearchRootViewModel
 
     var body: some View {
         ZStack {
@@ -11,7 +11,7 @@ struct RockSearchView: View {
                 .onAppear {
                     search()
                 }
-                .onChange(of: searchCondition.searchText) { _ in
+                .onChange(of: searchRootViewModel.searchCondition) { _ in
                     search()
                 }
             switch viewModel.viewState {
@@ -56,7 +56,10 @@ struct RockSearchView: View {
 
     private func search() {
         Task {
-            await viewModel.search(condition: searchCondition, isAdditional: false)
+            await viewModel.search(
+                condition: searchRootViewModel.searchCondition,
+                isAdditional: false
+            )
         }
     }
 
@@ -65,13 +68,13 @@ struct RockSearchView: View {
             guard await viewModel.shouldAdditionalLoad(rock: rock) else {
                 return
             }
-            await viewModel.additionalLoad(condition: searchCondition)
+            await viewModel.additionalLoad(condition: searchRootViewModel.searchCondition)
         }
     }
 
     private func refresh() {
         Task {
-            await viewModel.refresh(condition: searchCondition)
+            await viewModel.refresh(condition: searchRootViewModel.searchCondition)
         }
     }
 
@@ -79,6 +82,6 @@ struct RockSearchView: View {
 
 struct RockSearchView_Previews: PreviewProvider {
     static var previews: some View {
-        RockSearchView(viewModel: .init(), searchCondition: .init())
+        RockSearchView(viewModel: .init(), searchRootViewModel: .init())
     }
 }
