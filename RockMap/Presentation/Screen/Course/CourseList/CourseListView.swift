@@ -18,16 +18,10 @@ struct CourseListView: View {
 
             case .failure:
                 EmptyView(text: .init("text_fetch_course_failed"))
-                    .refreshable {
-                        refresh()
-                    }
 
             case .finish:
                 if viewModel.courses.isEmpty {
                     EmptyView(text: .init("text_no_course"))
-                        .refreshable {
-                            refresh()
-                        }
 
                 } else {
                     List(viewModel.courses) { course in
@@ -42,7 +36,7 @@ struct CourseListView: View {
                     }
                     .listStyle(.plain)
                     .refreshable {
-                        refresh()
+                        load()
                     }
                 }
         }
@@ -60,12 +54,6 @@ struct CourseListView: View {
                 return
             }
             await viewModel.load()
-        }
-    }
-
-    private func refresh() {
-        Task {
-            await viewModel.refresh()
         }
     }
 

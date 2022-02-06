@@ -5,46 +5,41 @@ struct RockListView: View {
     @StateObject var viewModel: RockListViewModel
 
     var body: some View {
-        switch viewModel.viewState {
-            case .standby:
-                Color.clear.onAppear {
-                    Task {
-                        await viewModel.load()
-                    }
-                }
+        ZStack {
+            Color.clear.onAppear {
+                load()
+            }
+            switch viewModel.viewState {
+                case .standby:
+                    Color.clear
 
-            case .loading:
-                ListSkeltonView()
+                case .loading:
+                    ListSkeltonView()
 
-            case .failure:
-                EmptyView(text: .init("text_fetch_rock_failed"))
-                    .refreshable {
-                        refresh()
-                    }
+                case .failure:
+                    EmptyView(text: .init("text_fetch_rock_failed"))
 
-            case .finish:
-                if viewModel.rocks.isEmpty {
-                    EmptyView(text: .init("text_no_rock"))
+                case .finish:
+                    if viewModel.rocks.isEmpty {
+                        EmptyView(text: .init("text_no_rock"))
+
+                    } else {
+                        List(viewModel.rocks) { rock in
+                            NavigationLink(
+                                destination: RockDetailView(rock: rock)
+                            ) {
+                                ListRowView(rock: rock)
+                                    .onAppear {
+                                        additionalLoadIfNeeded(rock: rock)
+                                    }
+                            }
+                        }
+                        .listStyle(.plain)
                         .refreshable {
-                            refresh()
-                        }
-
-                } else {
-                    List(viewModel.rocks) { rock in
-                        NavigationLink(
-                            destination: RockDetailView(rock: rock)
-                        ) {
-                            ListRowView(rock: rock)
-                                .onAppear {
-                                    additionalLoadIfNeeded(rock: rock)
-                                }
+                            load()
                         }
                     }
-                    .listStyle(.plain)
-                    .refreshable {
-                        refresh()
-                    }
-                }
+            }
         }
     }
 
@@ -62,13 +57,6 @@ struct RockListView: View {
             await viewModel.load()
         }
     }
-
-    private func refresh() {
-        Task {
-            await viewModel.refresh()
-        }
-    }
-
 }
 
 struct RockListView_Previews: PreviewProvider {

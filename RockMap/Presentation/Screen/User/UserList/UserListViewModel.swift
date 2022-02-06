@@ -9,15 +9,18 @@ actor UserListViewModel: ObservableObject {
     @Published nonisolated var users: OrderedSet<Entity.User> = []
     @Published nonisolated var viewState: LoadableViewState = .standby
 
-    private var page: Int = 0
-
     @Injected private var fetchUserListUsecase: FetchUserListUsecaseProtocol
 
-    @MainActor func load() async {
+    @MainActor func load(isAdditional: Bool = false) async {
         self.viewState = .loading
 
         do {
-            let users = try await fetchUserListUsecase.fetch(startAt: startAt)
+            let users = try await fetchUserListUsecase.fetch(
+                startAt: isAdditional ? startAt : Date()
+            )
+            if !isAdditional {
+                self.users.removeAll()
+            }
             self.users.append(contentsOf: users)
             self.viewState = .finish
         } catch {
@@ -26,13 +29,7 @@ actor UserListViewModel: ObservableObject {
     }
 
     func additionalLoad() async {
-        self.page += 1
-        await self.load()
-    }
-
-    func refresh() async {
-        self.page = 0
-        await self.load()
+        await self.load(isAdditional: true)
     }
 
     func shouldAdditionalLoad(user: Entity.User) async -> Bool {

@@ -9,16 +9,21 @@ actor RockListViewModel: ObservableObject {
     @Published nonisolated var rocks: OrderedSet<Entity.Rock> = []
     @Published nonisolated var viewState: LoadableViewState = .standby
 
-    private var page: Int = 0
-
     @Injected private var fetchRockListUsecase: FetchRockListUsecaseProtocol
 
-    @MainActor func load() async {
+    @MainActor func load(isAdditional: Bool = false) async {
         self.viewState = .loading
 
         do {
-            let rocks = try await fetchRockListUsecase.fetch(startAt: startAt)
+            let rocks = try await fetchRockListUsecase.fetch(
+                startAt: isAdditional ? startAt : Date()
+            )
+
+            if !isAdditional {
+                self.rocks.removeAll()
+            }
             self.rocks.append(contentsOf: rocks)
+
             self.viewState = .finish
         } catch {
             self.viewState = .failure(error)
@@ -26,13 +31,7 @@ actor RockListViewModel: ObservableObject {
     }
 
     func additionalLoad() async {
-        self.page += 1
-        await self.load()
-    }
-
-    func refresh() async {
-        self.page = 0
-        await self.load()
+        await self.load(isAdditional: true)
     }
 
     func shouldAdditionalLoad(rock: Entity.Rock) async -> Bool {

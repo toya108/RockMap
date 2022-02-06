@@ -9,16 +9,21 @@ actor CourseListViewModel: ObservableObject {
     @Published nonisolated var courses: OrderedSet<Entity.Course> = []
     @Published nonisolated var viewState: LoadableViewState = .standby
 
-    private var page: Int = 0
-    
     @Injected private var fetchCouseListUsecase: FetchCourseListUsecaseProtocol
 
-    @MainActor func load() async {
+    @MainActor func load(isAdditional: Bool = false) async {
         self.viewState = .loading
 
         do {
-            let courses = try await fetchCouseListUsecase.fetch(startAt: startAt)
+            let courses = try await fetchCouseListUsecase.fetch(
+                startAt: isAdditional ? startAt : Date()
+            )
+
+            if !isAdditional {
+                self.courses.removeAll()
+            }
             self.courses.append(contentsOf: courses)
+
             self.viewState = .finish
         } catch {
             self.viewState = .failure(error)
@@ -26,13 +31,7 @@ actor CourseListViewModel: ObservableObject {
     }
 
     func additionalLoad() async {
-        self.page += 1
-        await self.load()
-    }
-
-    func refresh() async {
-        self.page = 0
-        await self.load()
+        await self.load(isAdditional: true)
     }
 
     func shouldAdditionalLoad(course: Entity.Course) async -> Bool {

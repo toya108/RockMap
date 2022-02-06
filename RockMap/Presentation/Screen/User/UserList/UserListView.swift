@@ -30,7 +30,7 @@ struct UserListView: View {
                     .listStyle(.plain)
                     .refreshable {
                         Task {
-                            await viewModel.refresh()
+                            await viewModel.load()
                         }
                     }
                 }
