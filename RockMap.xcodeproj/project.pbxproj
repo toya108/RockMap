@@ -1209,6 +1209,37 @@
 			path = Const;
 			sourceTree = "<group>";
 		};
+		9E85DAB327B02CFA00A7FD0F /* SearchFilter */ = {
+			isa = PBXGroup;
+			children = (
+				9ED5905E27A2D51600BE6C8E /* SearchFilterView.swift */,
+				9E95A43027A6BB5F00A8E5A7 /* SearchFilterViewModel.swift */,
+				9E99B15327AD518600D7FE3C /* SeasonRowView.swift */,
+				9E525DF727AE84CC003A91D0 /* ShapeRowView.swift */,
+			);
+			path = SearchFilter;
+			sourceTree = "<group>";
+		};
+		9E85DAB427B02D1900A7FD0F /* CategoryList */ = {
+			isa = PBXGroup;
+			children = (
+				9E52EFFB279EDEDB00CDFDBC /* CategoryListView.swift */,
+				9E52F002279F108C00CDFDBC /* CategoryKind.swift */,
+				9E9B58B927A11CAE00B2BB12 /* CategoryTabView.swift */,
+			);
+			path = CategoryList;
+			sourceTree = "<group>";
+		};
+		9E85DAB527B02D3000A7FD0F /* SearchRoot */ = {
+			isa = PBXGroup;
+			children = (
+				9E9675AF2792F1EF00997584 /* SearchRootView.swift */,
+				9E5066842795A79000DD6C37 /* SearchRootViewModel.swift */,
+				9E52EFF7279EAAEE00CDFDBC /* SearchView.swift */,
+			);
+			path = SearchRoot;
+			sourceTree = "<group>";
+		};
 		9E863702271B17D20095BE63 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -1245,21 +1276,14 @@
 			path = SupplementaryView;
 			sourceTree = "<group>";
 		};
-		9E9675AE2792F1DE00997584 /* SearchRoot */ = {
+		9E9675AE2792F1DE00997584 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				9E9675AF2792F1EF00997584 /* SearchRootView.swift */,
-				9E5066842795A79000DD6C37 /* SearchRootViewModel.swift */,
-				9E52EFF7279EAAEE00CDFDBC /* SearchView.swift */,
-				9ED5905E27A2D51600BE6C8E /* SearchFilterView.swift */,
-				9E95A43027A6BB5F00A8E5A7 /* SearchFilterViewModel.swift */,
-				9E99B15327AD518600D7FE3C /* SeasonRowView.swift */,
-				9E525DF727AE84CC003A91D0 /* ShapeRowView.swift */,
-				9E52EFFB279EDEDB00CDFDBC /* CategoryListView.swift */,
-				9E52F002279F108C00CDFDBC /* CategoryKind.swift */,
-				9E9B58B927A11CAE00B2BB12 /* CategoryTabView.swift */,
+				9E85DAB527B02D3000A7FD0F /* SearchRoot */,
+				9E85DAB427B02D1900A7FD0F /* CategoryList */,
+				9E85DAB327B02CFA00A7FD0F /* SearchFilter */,
 			);
-			path = SearchRoot;
+			path = Search;
 			sourceTree = "<group>";
 		};
 		9E9845BF25D4F22D00B03C4E /* CourceRegister */ = {
@@ -1472,7 +1496,7 @@
 		9EB7DB9C266FD43B003B0041 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
-				9E9675AE2792F1DE00997584 /* SearchRoot */,
+				9E9675AE2792F1DE00997584 /* Search */,
 				9E80E90A265D3DF1000D33F6 /* User */,
 				9E80E909265D3964000D33F6 /* Course */,
 				9E80E908265D3945000D33F6 /* Rock */,
