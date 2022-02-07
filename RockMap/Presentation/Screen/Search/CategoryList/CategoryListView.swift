@@ -8,7 +8,19 @@ struct CategoryListView: View {
         GeometryReader { geometry in
             TabView(selection: $selectedCategory) {
                 ForEach(CategoryKind.allCases) {
-                    $0.view.tag($0).frame(width: geometry.size.width)
+                    switch $0 {
+                        case .rock:
+                            RockListView(viewModel: .init())
+                                .tag($0).frame(width: geometry.size.width)
+
+                        case .course:
+                            CourseListView(viewModel: .init())
+                                .tag($0).frame(width: geometry.size.width)
+
+                        case .user:
+                            UserListView(viewModel: .init())
+                                .tag($0).frame(width: geometry.size.width)
+                    }
                 }
             }
             .tabViewStyle(PageTabViewStyle())

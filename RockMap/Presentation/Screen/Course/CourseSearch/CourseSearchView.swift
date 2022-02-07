@@ -23,9 +23,6 @@ struct CourseSearchView: View {
 
                 case .failure:
                     EmptyView(text: .init("text_fetch_course_failed"))
-                        .refreshable {
-                            refresh()
-                        }
 
                 case .finish:
                     if viewModel.courses.isEmpty {
@@ -43,7 +40,7 @@ struct CourseSearchView: View {
                         }
                         .listStyle(.plain)
                         .refreshable {
-                            refresh()
+                            search()
                         }
                     }
             }
@@ -67,13 +64,6 @@ struct CourseSearchView: View {
             await viewModel.additionalLoad(condition: searchRootViewModel.searchCondition)
         }
     }
-
-    private func refresh() {
-        Task {
-            await viewModel.refresh(condition: searchRootViewModel.searchCondition)
-        }
-    }
-
 }
 
 struct CourseSearchView_Previews: PreviewProvider {

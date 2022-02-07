@@ -23,16 +23,10 @@ struct RockSearchView: View {
 
                 case .failure:
                     EmptyView(text: .init("text_fetch_rock_failed"))
-                        .refreshable {
-                            refresh()
-                        }
 
                 case .finish:
                     if viewModel.rocks.isEmpty {
                         EmptyView(text: .init("text_no_rock"))
-                            .refreshable {
-                                refresh()
-                            }
 
                     } else {
                         List(viewModel.rocks) { rock in
@@ -47,7 +41,7 @@ struct RockSearchView: View {
                         }
                         .listStyle(.plain)
                         .refreshable {
-                            refresh()
+                            search()
                         }
                     }
             }
@@ -69,12 +63,6 @@ struct RockSearchView: View {
                 return
             }
             await viewModel.additionalLoad(condition: searchRootViewModel.searchCondition)
-        }
-    }
-
-    private func refresh() {
-        Task {
-            await viewModel.refresh(condition: searchRootViewModel.searchCondition)
         }
     }
 

@@ -9,8 +9,6 @@ actor RockSearchViewModel: ObservableObject {
     @Published nonisolated var rocks: OrderedSet<Entity.Rock> = []
     @Published nonisolated var viewState: LoadableViewState = .standby
 
-    private var page: Int = 0
-
     @Injected private var searchRockListUsecase: SearchRockUsecaseProtocol
 
     @MainActor func search(
@@ -39,13 +37,7 @@ actor RockSearchViewModel: ObservableObject {
     }
 
     func additionalLoad(condition: SearchCondition) async {
-        self.page += 1
         await self.search(condition: condition, isAdditional: true)
-    }
-
-    func refresh(condition: SearchCondition) async {
-        self.page = 0
-        await self.search(condition: condition, isAdditional: false)
     }
 
     func shouldAdditionalLoad(rock: Entity.Rock) async -> Bool {
@@ -55,13 +47,5 @@ actor RockSearchViewModel: ObservableObject {
         return rock.id == rocks.last?.id
         && (Double(index) / 20.0) == 0.0
         && index != 0
-    }
-
-    private var startAt: Date {
-        if let last = rocks.last {
-            return last.createdAt
-        } else {
-            return Date()
-        }
     }
 }

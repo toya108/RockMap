@@ -33,7 +33,7 @@ struct UserSearchView: View {
                         }
                         .listStyle(.plain)
                         .refreshable {
-                            refresh()
+                            search()()
                         }
                     }
             }
@@ -46,12 +46,6 @@ struct UserSearchView: View {
                 condition: searchRootViewModel.searchCondition,
                 isAdditional: false
             )
-        }
-    }
-
-    private func refresh() {
-        Task {
-            await viewModel.refresh(condition: searchRootViewModel.searchCondition)
         }
     }
 }

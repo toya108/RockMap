@@ -9,8 +9,6 @@ actor UserSearchViewModel: ObservableObject {
     @Published nonisolated var users: OrderedSet<Entity.User> = []
     @Published nonisolated var viewState: LoadableViewState = .standby
 
-    private var page: Int = 0
-
     @Injected private var searchUserUsecase: SearchUserUsecaseProtocol
 
     @MainActor func search(
@@ -34,12 +32,10 @@ actor UserSearchViewModel: ObservableObject {
     }
 
     func additionalLoad(condition: SearchCondition) async {
-        self.page += 1
         await self.search(condition: condition, isAdditional: true)
     }
 
     func refresh(condition: SearchCondition) async {
-        self.page = 0
         await self.search(condition: condition, isAdditional: false)
     }
 
@@ -50,13 +46,5 @@ actor UserSearchViewModel: ObservableObject {
         return user.id == users.last?.id
         && (Double(index) / 20.0) == 0.0
         && index != 0
-    }
-
-    private var startAt: Date {
-        if let last = users.last {
-            return last.createdAt
-        } else {
-            return Date()
-        }
     }
 }
