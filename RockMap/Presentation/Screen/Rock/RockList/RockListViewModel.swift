@@ -39,7 +39,7 @@ actor RockListViewModel: ObservableObject {
             return false
         }
         return rock.id == rocks.last?.id
-        && (Double(index) / 20.0) == 0.0
+        && Float(index).truncatingRemainder(dividingBy: 20.0) == 0.0
         && index != 0
     }
 
