@@ -7,7 +7,6 @@ class SearchFilterViewModel: ObservableObject {
     @Published var prefecture: Resources.Prefecture?
 
     @Published var grade: Entity.Course.Grade?
-    @Published var shapes: [Entity.Course.Shape] = []
 
     @MainActor func reset() {
         seasons = []
@@ -15,7 +14,6 @@ class SearchFilterViewModel: ObservableObject {
         prefecture = nil
 
         grade = nil
-        shapes = []
     }
 
     func update(searchCondition: SearchCondition) {
@@ -23,7 +21,6 @@ class SearchFilterViewModel: ObservableObject {
         self.seasons = searchCondition.seasons
         self.prefecture = searchCondition.prefecture
         self.grade = searchCondition.grade
-        self.shapes = searchCondition.shapes
     }
 
     func makeSearchCondition(text: String) -> SearchCondition {
@@ -32,8 +29,7 @@ class SearchFilterViewModel: ObservableObject {
             seasons: seasons,
             lithology: lithology,
             prefecture: prefecture,
-            grade: grade,
-            shapes: shapes
+            grade: grade
         )
     }
 }

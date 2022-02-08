@@ -30,7 +30,6 @@ struct SearchFilterView: View {
                                 Text($0.name).tag($0 as Entity.Course.Grade?)
                             }
                         }
-                        ShapeRowView(selectedShapes: $viewModel.shapes)
 
                     case .user:
                         Color.clear
