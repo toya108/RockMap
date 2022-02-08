@@ -38,6 +38,7 @@ extension Resources.Images {
         case starCircle
         case arrowUpLeftSquare
         case chevronCompactLeft
+        case magnifyingglass
 
         var name: String {
             switch self {
@@ -99,6 +100,8 @@ extension Resources.Images {
                     return "arrow.up.left.square"
                 case .chevronCompactLeft:
                     return "chevron.compact.left"
+                case .magnifyingglass:
+                    return "magnifyingglass"
             }
         }
 

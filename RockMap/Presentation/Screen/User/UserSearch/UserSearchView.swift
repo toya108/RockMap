@@ -33,7 +33,7 @@ struct UserSearchView: View {
                         }
                         .listStyle(.plain)
                         .refreshable {
-                            search()()
+                            search()
                         }
                     }
             }

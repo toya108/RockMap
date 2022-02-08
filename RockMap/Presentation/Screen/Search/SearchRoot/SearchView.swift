@@ -16,7 +16,7 @@ struct SearchView: View {
             Button {
                 isPresentedSearchFilter = true
             } label: {
-                Image(systemName: "slider.horizontal.3")
+                Resources.Images.System.sliderHorizontal3.image
                     .foregroundColor(.primary)
                     .opacity(disabledFilterButton ? 0.5 : 1)
             }
@@ -37,7 +37,7 @@ struct SearchTextField: View {
                     isFocusedSearchField = true
                 },
                 label: {
-                    Image(systemName: "magnifyingglass")
+                    Resources.Images.System.magnifyingglass.image
                 }
             )
             TextField("なんか", text: $searchText)
@@ -47,7 +47,7 @@ struct SearchTextField: View {
                     searchText = ""
                 },
                 label: {
-                    Image(systemName: "xmark.circle.fill")
+                    Resources.Images.System.xmarkCircleFill.image
                         .opacity(searchText.isEmpty ? 0 : 1)
                 }
             )
