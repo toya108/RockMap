@@ -17,9 +17,9 @@ public extension Domain.Usecase.Rock {
             self.mapper = mapper
         }
 
-        public func fetch(startAt: Date) async throws -> [Domain.Entity.Rock] {
+        public func fetch(startAt: Date, area: String) async throws -> [Domain.Entity.Rock] {
             let documents = try await self.repository.request(
-                parameters: .init(startAt: startAt)
+                parameters: .init(startAt: startAt, area: area)
             )
 
             return documents.map { mapper.map(from: $0) }
@@ -28,5 +28,5 @@ public extension Domain.Usecase.Rock {
 }
 
 public protocol FetchRockListUsecaseProtocol {
-    func fetch(startAt: Date) async throws -> [Domain.Entity.Rock]
+    func fetch(startAt: Date, area: String) async throws -> [Domain.Entity.Rock]
 }

@@ -9,20 +9,14 @@ public extension FS.Request.Rock {
         public typealias Response = [FS.Document.Rock]
         public struct Parameters: Codable {
             let text: String
-            let lithology: String
-            let seasons: [String]
-            let prefecture: String
+            let area: String
 
             public init(
                 text: String,
-                lithology: String,
-                seasons: [String],
-                prefecture: String
+                area: String
             ) {
                 self.text = text
-                self.lithology = lithology
-                self.seasons = seasons
-                self.prefecture = prefecture
+                self.area = area
             }
         }
 
@@ -32,16 +26,8 @@ public extension FS.Request.Rock {
             let searchTextMap = NGramGenerator.makeNGram(input: parameters.text, n: 2)
             var query = Collection.collection.limit(to: 20)
 
-            if !parameters.lithology.isEmpty {
-                query = query.whereField("lithology", isEqualTo: parameters.lithology)
-            }
-
-            if !parameters.seasons.isEmpty {
-                query = query.whereField("seasons", in: parameters.seasons)
-            }
-
-            if !parameters.prefecture.isEmpty {
-                query = query.whereField("prefecture", isEqualTo: parameters.prefecture)
+            if !parameters.area.isEmpty {
+                query = query.whereField("area", isEqualTo: parameters.area)
             }
 
             searchTextMap.forEach { token in

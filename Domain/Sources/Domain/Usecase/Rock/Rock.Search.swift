@@ -17,19 +17,9 @@ public extension Domain.Usecase.Rock {
             self.mapper = mapper
         }
 
-        public func search(
-            text: String,
-            lithology: Domain.Entity.Rock.Lithology? = nil,
-            seasons: [Domain.Entity.Rock.Season] = [],
-            prefecture: String? = nil
-        ) async throws -> [Domain.Entity.Rock] {
+        public func search(text: String, area: String) async throws -> [Domain.Entity.Rock] {
             let documents = try await self.repository.request(
-                parameters: .init(
-                    text: text,
-                    lithology: lithology?.rawValue ?? "",
-                    seasons: seasons.map(\.rawValue),
-                    prefecture: prefecture ?? ""
-                )
+                parameters: .init(text: text, area: area)
             )
 
             return documents.map { mapper.map(from: $0) }
@@ -38,10 +28,5 @@ public extension Domain.Usecase.Rock {
 }
 
 public protocol SearchRockUsecaseProtocol {
-    func search(
-        text: String,
-        lithology: Domain.Entity.Rock.Lithology?,
-        seasons: [Domain.Entity.Rock.Season],
-        prefecture: String?
-    ) async throws -> [Domain.Entity.Rock]
+    func search(text: String, area: String) async throws -> [Domain.Entity.Rock]
 }

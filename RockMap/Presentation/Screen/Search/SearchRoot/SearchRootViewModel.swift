@@ -26,19 +26,13 @@ actor SearchRootViewModel: ObservableObject {
 struct SearchCondition: Equatable {
     static func == (lhs: SearchCondition, rhs: SearchCondition) -> Bool {
         lhs.searchText == rhs.searchText &&
-        lhs.seasons == rhs.seasons &&
-        lhs.lithology == rhs.lithology &&
-        lhs.prefecture == rhs.prefecture &&
-        lhs.grade == rhs.grade &&
-        lhs.shapes == rhs.shapes
+        lhs.area == rhs.area &&
+        lhs.grade == rhs.grade
     }
 
     var searchText: String = ""
 
-    var seasons: [Entity.Rock.Season] = []
-    var lithology: Entity.Rock.Lithology?
-    var prefecture: Resources.Prefecture?
+    var area: String = ""
 
     var grade: Entity.Course.Grade?
-    var shapes: [Entity.Course.Shape] = []
 }

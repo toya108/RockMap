@@ -3,12 +3,17 @@ import SwiftUI
 struct RockListView: View {
 
     @StateObject var viewModel: RockListViewModel
+    @ObservedObject var searchRootViewModel: SearchRootViewModel
 
     var body: some View {
         ZStack {
-            Color.clear.onAppear {
-                load()
-            }
+            Color.clear
+                .onAppear {
+                    load()
+                }
+                .onChange(of: searchRootViewModel.searchCondition) { _ in
+                    load()
+                }
             switch viewModel.viewState {
                 case .standby:
                     Color.clear
@@ -45,7 +50,7 @@ struct RockListView: View {
 
     private func load() {
         Task {
-            await viewModel.load()
+            await viewModel.load(condition: searchRootViewModel.searchCondition)
         }
     }
 
@@ -54,13 +59,13 @@ struct RockListView: View {
             guard await viewModel.shouldAdditionalLoad(rock: rock) else {
                 return
             }
-            await viewModel.load()
+            await viewModel.additionalLoad(condition: searchRootViewModel.searchCondition)
         }
     }
 }
 
 struct RockListView_Previews: PreviewProvider {
     static var previews: some View {
-        RockListView(viewModel: .init())
+        RockListView(viewModel: .init(), searchRootViewModel: .init())
     }
 }

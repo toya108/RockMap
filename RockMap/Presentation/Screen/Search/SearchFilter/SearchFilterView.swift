@@ -4,6 +4,7 @@ struct SearchFilterView: View {
 
     @Binding var selectedCategory: CategoryKind
     @Binding var searchCondition: SearchCondition
+    @State private var area: String = ""
     @StateObject var viewModel: SearchFilterViewModel
     @Environment(\.dismiss) var dismiss
 
@@ -12,15 +13,11 @@ struct SearchFilterView: View {
             List {
                 switch selectedCategory {
                     case .rock:
-                        Picker("岩質", selection: $viewModel.lithology) {
-                            ForEach(Entity.Rock.Lithology.allCases) {
-                                Text($0.name).tag($0 as Entity.Rock.Lithology?  )
-                            }
-                        }
-                        Picker("都道府県", selection: $viewModel.prefecture) {
-                            ForEach(Resources.Prefecture.allCases) {
-                                Text($0.nameWithSuffix).tag($0 as Resources.Prefecture?)
-                            }
+                        Section("エリア") {
+                            TextField("御岳、瑞牆、小川山など", text: $viewModel.area)
+                                .onAppear {
+                                    viewModel.area = searchCondition.area
+                                }
                         }
 
                     case .course:
@@ -67,7 +64,7 @@ struct SearchFilterView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
-            viewModel.update(searchCondition: searchCondition)
+            viewModel.grade = searchCondition.grade
         }
     }
 }

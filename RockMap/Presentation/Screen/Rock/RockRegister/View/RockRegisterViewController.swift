@@ -125,7 +125,7 @@ extension RockRegisterViewController {
         self.datasource.apply(self.snapShot)
     }}
 
-    private var seasonsSink: (Set<Entity.Rock.Season>) -> Void {{ [weak self] seasons in
+    private var seasonsSink: ([Entity.Rock.Season]) -> Void {{ [weak self] seasons in
 
         guard let self = self else { return }
 

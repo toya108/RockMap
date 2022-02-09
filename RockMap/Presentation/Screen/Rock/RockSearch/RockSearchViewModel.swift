@@ -20,9 +20,7 @@ actor RockSearchViewModel: ObservableObject {
         do {
             let rocks = try await searchRockListUsecase.search(
                 text: condition.searchText,
-                lithology: condition.lithology,
-                seasons: condition.seasons,
-                prefecture: condition.prefecture?.nameWithSuffix
+                area: condition.area
             )
 
             if !isAdditional {

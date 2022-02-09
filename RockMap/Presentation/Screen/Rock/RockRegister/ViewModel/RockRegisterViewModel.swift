@@ -77,14 +77,14 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             .assign(to: &self.output.$rockLocation)
 
         self.input.selectSeasonSubject
-            .sink { [weak self] in
+            .sink { [weak self] season in
 
                 guard let self = self else { return }
 
-                if self.output.seasons.contains($0) {
-                    self.output.seasons.remove($0)
+                if self.output.seasons.contains(season) {
+                    self.output.seasons.removeAll { $0 == season  }
                 } else {
-                    self.output.seasons.insert($0)
+                    self.output.seasons.append(season)
                 }
             }
             .store(in: &self.bindings)
@@ -318,7 +318,7 @@ extension RockRegisterViewModel {
         @Published var rockLocation = LocationManager.LocationStructure()
         @Published var rockDesc = ""
         @Published var area = ""
-        @Published var seasons: Set<Entity.Rock.Season> = []
+        @Published var seasons: [Entity.Rock.Season] = []
         @Published var lithology: Entity.Rock.Lithology = .unKnown
         @Published var header: CrudableImage = .init(imageType: .header)
         @Published var images: [CrudableImage] = []

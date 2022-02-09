@@ -22,7 +22,7 @@ public extension Domain.Mapper {
                     latitude: other.location.latitude,
                     longitude: other.location.longitude
                 ),
-                seasons: Set(other.seasons.compactMap { .init(rawValue: $0) }),
+                seasons: other.seasons.compactMap { .init(rawValue: $0) },
                 lithology: .init(rawValue: other.lithology) ?? .unKnown,
                 desc: other.desc,
                 registeredUserId: other.registeredUserId,

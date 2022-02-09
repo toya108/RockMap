@@ -2,16 +2,19 @@ import SwiftUI
 
 struct CategoryListView: View {
 
-    @Binding var selectedCategory: CategoryKind
+    @ObservedObject var searchRootViewModel: SearchRootViewModel
 
     var body: some View {
         GeometryReader { geometry in
-            TabView(selection: $selectedCategory) {
+            TabView(selection: $searchRootViewModel.selectedCategory) {
                 ForEach(CategoryKind.allCases) {
                     switch $0 {
                         case .rock:
-                            RockListView(viewModel: .init())
-                                .tag($0).frame(width: geometry.size.width)
+                            RockListView(
+                                viewModel: .init(),
+                                searchRootViewModel: searchRootViewModel
+                            )
+                            .tag($0).frame(width: geometry.size.width)
 
                         case .course:
                             CourseListView(viewModel: .init())
@@ -30,6 +33,6 @@ struct CategoryListView: View {
 
 struct CategoryListView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryListView(selectedCategory: .constant(.rock))
+        CategoryListView(searchRootViewModel: .init())
     }
 }

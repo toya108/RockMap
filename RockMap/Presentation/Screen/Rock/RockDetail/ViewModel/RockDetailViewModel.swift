@@ -7,7 +7,7 @@ final class RockDetailViewModel: ViewModelProtocol {
     @Published var rockId = ""
     @Published var registeredUser: Entity.User?
     @Published var rockDesc = ""
-    @Published var seasons: Set<Entity.Rock.Season> = []
+    @Published var seasons: [Entity.Rock.Season] = []
     @Published var lithology: Entity.Rock.Lithology = .unKnown
     @Published var area: String = ""
     @Published var rockLocation = LocationManager.LocationStructure()

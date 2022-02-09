@@ -40,18 +40,4 @@ enum CategoryKind: String, CaseIterable, Identifiable {
                     .frame(width: 16, height: 16)
         }
     }
-
-    @ViewBuilder
-    var view: some View {
-        switch self {
-            case .rock:
-                RockListView(viewModel: .init())
-
-            case .course:
-                CourseListView(viewModel: .init())
-                
-            case .user:
-                UserListView(viewModel: .init())
-        }
-    }
 }

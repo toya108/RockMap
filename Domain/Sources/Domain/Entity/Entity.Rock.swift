@@ -11,7 +11,7 @@ public extension Domain.Entity {
         public var address: String
         public var prefecture: String
         public var location: GeoPoint
-        public var seasons: Set<Season>
+        public var seasons: [Season]
         public var lithology: Lithology
         public var desc: String
         public var registeredUserId: String
@@ -28,7 +28,7 @@ public extension Domain.Entity {
             address: String,
             prefecture: String,
             location: Domain.Entity.GeoPoint,
-            seasons: Set<Domain.Entity.Rock.Season>,
+            seasons: [Domain.Entity.Rock.Season],
             lithology: Domain.Entity.Rock.Lithology,
             desc: String,
             registeredUserId: String,
@@ -55,7 +55,7 @@ public extension Domain.Entity {
 }
 
 public extension Domain.Entity.Rock {
-    enum Season: String, CaseIterable, Codable, Identifiable {
+    enum Season: String, CaseIterable, Identifiable, Equatable {
         case spring, summer, autumn, winter
 
         public var id: String { self.rawValue }
@@ -77,7 +77,7 @@ public extension Domain.Entity.Rock {
         }
     }
 
-    enum Lithology: String, CaseIterable, Codable, Identifiable {
+    enum Lithology: String, CaseIterable, Identifiable {
         case unKnown, granite, andesite, chert, limestone, tuff, sandstone
 
         public var id: String { self.rawValue }

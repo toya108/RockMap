@@ -11,12 +11,15 @@ actor RockListViewModel: ObservableObject {
 
     @Injected private var fetchRockListUsecase: FetchRockListUsecaseProtocol
 
-    @MainActor func load(isAdditional: Bool = false) async {
+    @MainActor func load(
+        condition: SearchCondition,
+        isAdditional: Bool = false
+    ) async {
         self.viewState = .loading
 
         do {
             let rocks = try await fetchRockListUsecase.fetch(
-                startAt: isAdditional ? startAt : Date()
+                startAt: isAdditional ? startAt : Date(), area: condition.area
             )
 
             if !isAdditional {
@@ -30,8 +33,8 @@ actor RockListViewModel: ObservableObject {
         }
     }
 
-    func additionalLoad() async {
-        await self.load(isAdditional: true)
+    func additionalLoad(condition: SearchCondition) async {
+        await self.load(condition: condition, isAdditional: true)
     }
 
     func shouldAdditionalLoad(rock: Entity.Rock) async -> Bool {

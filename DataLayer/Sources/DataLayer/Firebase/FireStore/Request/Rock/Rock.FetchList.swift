@@ -10,20 +10,29 @@ public extension FS.Request.Rock {
         public struct Parameters: Codable {
             let limit: Int
             let startAt: Date
+            let area: String
 
-            public init(limit: Int = 20, startAt: Date) {
+            public init(limit: Int = 20, startAt: Date, area: String) {
                 self.limit = limit
                 self.startAt = startAt
+                self.area = area
             }
         }
 
         public var parameters: Parameters
         public var testDataPath: URL?
         public var entry: Entry {
-            Collection.collection
-                .limit(to: parameters.limit)
+            var query = Collection.collection.limit(to: parameters.limit)
+
+            if !parameters.area.isEmpty {
+                query = query.whereField("area", isEqualTo: parameters.area)
+            }
+
+            query = query
                 .order(by: "createdAt", descending: true)
                 .start(at: [parameters.startAt])
+
+            return query
         }
 
         public init(parameters: Parameters) {

@@ -57,7 +57,7 @@ extension RockConfirmViewController {
     enum ItemKind: Hashable {
         case name(String)
         case desc(String)
-        case season(Set<Entity.Rock.Season>)
+        case season([Entity.Rock.Season])
         case lithology(Entity.Rock.Lithology)
         case area(String)
         case location(LocationManager.LocationStructure)

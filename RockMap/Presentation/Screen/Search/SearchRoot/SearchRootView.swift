@@ -16,7 +16,7 @@ struct SearchRootView: View {
                 CategoryTabView(selectedCategory: $viewModel.selectedCategory)
                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 ZStack {
-                    CategoryListView(selectedCategory: $viewModel.selectedCategory)
+                    CategoryListView(searchRootViewModel: viewModel)
                         .opacity(viewModel.searchCondition.searchText.isEmpty ? 1 : 0)
                     searchResultView
                         .opacity(!viewModel.searchCondition.searchText.isEmpty ? 1 : 0)
