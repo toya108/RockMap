@@ -20,7 +20,6 @@ public extension Domain.Usecase.Course {
         public func fetch(by id: String) async throws -> Domain.Entity.Course {
             let document = try await self.repository.request(parameters: .init(id: id))
             return mapper.map(from: document)
-
         }
     }
 }
