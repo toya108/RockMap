@@ -17,9 +17,12 @@ public extension Domain.Usecase.Course {
             self.mapper = mapper
         }
 
-        public func fetch(startAt: Date) async throws -> [Domain.Entity.Course] {
+        public func fetch(
+            startAt: Date,
+            grade: Domain.Entity.Course.Grade?
+        ) async throws -> [Domain.Entity.Course] {
             let documents = try await self.repository.request(
-                parameters: .init(startAt: startAt)
+                parameters: .init(startAt: startAt, grade: grade?.rawValue ?? "")
             )
 
             return documents.map { mapper.map(from: $0) }
@@ -28,5 +31,8 @@ public extension Domain.Usecase.Course {
 }
 
 public protocol FetchCourseListUsecaseProtocol {
-    func fetch(startAt: Date) async throws -> [Domain.Entity.Course]
+    func fetch(
+        startAt: Date,
+        grade: Domain.Entity.Course.Grade?
+    ) async throws -> [Domain.Entity.Course]
 }

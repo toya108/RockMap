@@ -9,14 +9,17 @@ actor CourseListViewModel: ObservableObject {
     @Published nonisolated var courses: OrderedSet<Entity.Course> = []
     @Published nonisolated var viewState: LoadableViewState = .standby
 
-    @Injected private var fetchCouseListUsecase: FetchCourseListUsecaseProtocol
+    @Injected private var fetchCourseListUsecase: FetchCourseListUsecaseProtocol
 
-    @MainActor func load(isAdditional: Bool = false) async {
+    @MainActor func load(
+        condition: SearchCondition,
+        isAdditional: Bool = false
+    ) async {
         self.viewState = .loading
 
         do {
-            let courses = try await fetchCouseListUsecase.fetch(
-                startAt: isAdditional ? startAt : Date()
+            let courses = try await fetchCourseListUsecase.fetch(
+                startAt: isAdditional ? startAt : Date(), grade: condition.grade
             )
 
             if !isAdditional {
@@ -30,8 +33,8 @@ actor CourseListViewModel: ObservableObject {
         }
     }
 
-    func additionalLoad() async {
-        await self.load(isAdditional: true)
+    func additionalLoad(condition: SearchCondition) async {
+        await self.load(condition: condition, isAdditional: true)
     }
 
     func shouldAdditionalLoad(course: Entity.Course) async -> Bool {
@@ -39,7 +42,7 @@ actor CourseListViewModel: ObservableObject {
             return false
         }
         return course.id == courses.last?.id
-        && (Double(index) / 20.0) == 0.0
+        && Float(index).truncatingRemainder(dividingBy: 20.0) == 0.0
         && index != 0
     }
 

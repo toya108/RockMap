@@ -17,9 +17,12 @@ public extension Domain.Usecase.Course {
             self.mapper = mapper
         }
 
-        public func search(text: String) async throws -> [Domain.Entity.Course] {
+        public func search(
+            text: String,
+            grade: Domain.Entity.Course.Grade?
+        ) async throws -> [Domain.Entity.Course] {
             let documents = try await self.repository.request(
-                parameters: .init(text: text)
+                parameters: .init(text: text, grade: grade?.rawValue ?? "")
             )
 
             return documents.map { mapper.map(from: $0) }
@@ -28,5 +31,8 @@ public extension Domain.Usecase.Course {
 }
 
 public protocol SearchCourseUsecaseProtocol {
-    func search(text: String) async throws -> [Domain.Entity.Course]
+    func search(
+        text: String,
+        grade: Domain.Entity.Course.Grade?
+    ) async throws -> [Domain.Entity.Course]
 }

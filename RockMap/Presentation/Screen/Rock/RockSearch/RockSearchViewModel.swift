@@ -11,10 +11,7 @@ actor RockSearchViewModel: ObservableObject {
 
     @Injected private var searchRockListUsecase: SearchRockUsecaseProtocol
 
-    @MainActor func search(
-        condition: SearchCondition,
-        isAdditional: Bool
-    ) async {
+    @MainActor func search(condition: SearchCondition) async {
         self.viewState = .loading
 
         do {
@@ -23,27 +20,11 @@ actor RockSearchViewModel: ObservableObject {
                 area: condition.area
             )
 
-            if !isAdditional {
-                self.rocks.removeAll()
-            }
-
+            self.rocks.removeAll()
             self.rocks.append(contentsOf: rocks)
             self.viewState = .finish
         } catch {
             self.viewState = .failure(error)
         }
-    }
-
-    func additionalLoad(condition: SearchCondition) async {
-        await self.search(condition: condition, isAdditional: true)
-    }
-
-    func shouldAdditionalLoad(rock: Entity.Rock) async -> Bool {
-        guard let index = rocks.firstIndex(of: rock) else {
-            return false
-        }
-        return rock.id == rocks.last?.id
-        && (Double(index) / 20.0) == 0.0
-        && index != 0
     }
 }

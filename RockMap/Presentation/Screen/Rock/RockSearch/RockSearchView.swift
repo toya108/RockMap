@@ -34,9 +34,6 @@ struct RockSearchView: View {
                                 destination: RockDetailView(rock: rock)
                             ) {
                                 ListRowView(rock: rock)
-                                    .onAppear {
-                                        additionalLoadIfNeeded(rock: rock)
-                                    }
                             }
                         }
                         .listStyle(.plain)
@@ -50,22 +47,9 @@ struct RockSearchView: View {
 
     private func search() {
         Task {
-            await viewModel.search(
-                condition: searchRootViewModel.searchCondition,
-                isAdditional: false
-            )
+            await viewModel.search(condition: searchRootViewModel.searchCondition)
         }
     }
-
-    private func additionalLoadIfNeeded(rock: Entity.Rock) {
-        Task {
-            guard await viewModel.shouldAdditionalLoad(rock: rock) else {
-                return
-            }
-            await viewModel.additionalLoad(condition: searchRootViewModel.searchCondition)
-        }
-    }
-
 }
 
 struct RockSearchView_Previews: PreviewProvider {

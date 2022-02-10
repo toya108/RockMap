@@ -11,36 +11,20 @@ actor CourseSearchViewModel: ObservableObject {
 
     @Injected private var searchCourseListUsecase: SearchCourseUsecaseProtocol
 
-    @MainActor func search(
-        condition: SearchCondition,
-        isAdditional: Bool
-    ) async {
+    @MainActor func search(condition: SearchCondition) async {
         self.viewState = .loading
 
         do {
-            let courses = try await searchCourseListUsecase.search(text: condition.searchText)
+            let courses = try await searchCourseListUsecase.search(
+                text: condition.searchText,
+                grade: condition.grade
+            )
 
-            if !isAdditional {
-                self.courses.removeAll()
-            }
-
+            self.courses.removeAll()
             self.courses.append(contentsOf: courses)
             self.viewState = .finish
         } catch {
             self.viewState = .failure(error)
         }
-    }
-
-    func additionalLoad(condition: SearchCondition) async {
-        await self.search(condition: condition, isAdditional: true)
-    }
-
-    func shouldAdditionalLoad(course: Entity.Course) async -> Bool {
-        guard let index = courses.firstIndex(of: course) else {
-            return false
-        }
-        return course.id == courses.last?.id
-        && (Double(index) / 20.0) == 0.0
-        && index != 0
     }
 }

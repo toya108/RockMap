@@ -42,10 +42,7 @@ struct UserSearchView: View {
 
     private func search() {
         Task {
-            await viewModel.search(
-                condition: searchRootViewModel.searchCondition,
-                isAdditional: false
-            )
+            await viewModel.search(condition: searchRootViewModel.searchCondition)
         }
     }
 }

@@ -33,9 +33,6 @@ struct CourseSearchView: View {
                                 destination: CourseDetailView(course: course)
                             ) {
                                 ListRowView(course: course)
-                                    .onAppear {
-                                        additionalLoadIfNeeded(course: course)
-                                    }
                             }
                         }
                         .listStyle(.plain)
@@ -49,19 +46,7 @@ struct CourseSearchView: View {
 
     private func search() {
         Task {
-            await viewModel.search(
-                condition: searchRootViewModel.searchCondition,
-                isAdditional: false
-            )
-        }
-    }
-
-    private func additionalLoadIfNeeded(course: Entity.Course) {
-        Task {
-            guard await viewModel.shouldAdditionalLoad(course: course) else {
-                return
-            }
-            await viewModel.additionalLoad(condition: searchRootViewModel.searchCondition)
+            await viewModel.search(condition: searchRootViewModel.searchCondition)
         }
     }
 }

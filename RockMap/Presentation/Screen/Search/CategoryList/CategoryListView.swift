@@ -17,8 +17,11 @@ struct CategoryListView: View {
                             .tag($0).frame(width: geometry.size.width)
 
                         case .course:
-                            CourseListView(viewModel: .init())
-                                .tag($0).frame(width: geometry.size.width)
+                            CourseListView(
+                                viewModel: .init(),
+                                searchRootViewModel: searchRootViewModel
+                            )
+                            .tag($0).frame(width: geometry.size.width)
 
                         case .user:
                             UserListView(viewModel: .init())
