@@ -9,7 +9,6 @@ public extension Domain.Entity {
         public var parentCourseReference: String
         public var createdAt: Date
         public var updatedAt: Date?
-        public var parentPath: String
         public var climbedDate: Date
         public var type: ClimbedRecordType
 
@@ -20,7 +19,6 @@ public extension Domain.Entity {
             parentCourseReference: String,
             createdAt: Date,
             updatedAt: Date?,
-            parentPath: String,
             climbedDate: Date,
             type: Domain.Entity.ClimbRecord.ClimbedRecordType
         ) {
@@ -30,7 +28,6 @@ public extension Domain.Entity {
             self.parentCourseReference = parentCourseReference
             self.createdAt = createdAt
             self.updatedAt = updatedAt
-            self.parentPath = parentPath
             self.climbedDate = climbedDate
             self.type = type
         }

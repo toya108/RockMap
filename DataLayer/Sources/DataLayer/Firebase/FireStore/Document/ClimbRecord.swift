@@ -15,7 +15,7 @@ public extension FS.Document {
         public var createdAt: Date
         @ExplicitNull
         public var updatedAt: Date?
-        public var parentPath: String
+        public var parentPath: String = ""
         public var climbedDate: Date
         public var type: String
 
@@ -27,7 +27,6 @@ public extension FS.Document {
             totalNumberReference: FSDocument,
             createdAt: Date,
             updatedAt: Date?,
-            parentPath: String,
             climbedDate: Date,
             type: String
         ) {
@@ -38,7 +37,6 @@ public extension FS.Document {
             self.totalNumberReference = totalNumberReference
             self.createdAt = createdAt
             self.updatedAt = updatedAt
-            self.parentPath = parentPath
             self.climbedDate = climbedDate
             self.type = type
         }

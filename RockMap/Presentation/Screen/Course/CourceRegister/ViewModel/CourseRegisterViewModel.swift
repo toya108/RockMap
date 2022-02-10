@@ -190,7 +190,6 @@ class CourseRegisterViewModel: CourseRegisterViewModelProtocol {
         case let .create(rockHeader):
             return .init(
                 id: UUID().uuidString,
-                parentPath: AuthManager.shared.userPath,
                 createdAt: Date(),
                 updatedAt: nil,
                 name: self.output.courseName,
