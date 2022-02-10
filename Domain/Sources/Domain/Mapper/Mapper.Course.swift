@@ -11,7 +11,6 @@ public extension Domain.Mapper {
         public func map(from other: FS.Document.Course) -> Course {
             .init(
                 id: other.id,
-                parentPath: other.parentPath,
                 createdAt: other.createdAt,
                 updatedAt: other.updatedAt,
                 name: other.name,
@@ -29,7 +28,6 @@ public extension Domain.Mapper {
         public func reverse(to other: Domain.Entity.Course) -> FS.Document.Course {
             .init(
                 id: other.id,
-                parentPath: other.parentPath,
                 createdAt: other.createdAt,
                 updatedAt: other.updatedAt,
                 name: other.name,

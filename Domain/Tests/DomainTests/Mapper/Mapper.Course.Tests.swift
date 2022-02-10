@@ -17,7 +17,6 @@ final class CourseMapperTests: XCTestCase {
 
         let document = FS.Document.Course(
             id: courseId,
-            parentPath: "users/" + userId,
             createdAt: createdAt,
             updatedAt: updatedAt,
             name: "峰の夕",
@@ -40,7 +39,6 @@ final class CourseMapperTests: XCTestCase {
         XCTAssertEqual(entity.id, courseId)
         XCTAssertEqual(entity.createdAt, createdAt)
         XCTAssertEqual(entity.updatedAt, updatedAt)
-        XCTAssertEqual(entity.parentPath, "users/" + userId)
         XCTAssertEqual(entity.name, "峰の夕")
 
         XCTAssertEqual(entity.desc, "rockrockrock")
@@ -57,7 +55,6 @@ final class CourseMapperTests: XCTestCase {
 
         let entity = Domain.Entity.Course(
             id: courseId,
-            parentPath: "users/" + userId,
             createdAt: createdAt,
             updatedAt: updatedAt,
             name: "峰の夕",
@@ -76,7 +73,7 @@ final class CourseMapperTests: XCTestCase {
         XCTAssertEqual(document.id, courseId)
         XCTAssertEqual(document.createdAt, createdAt)
         XCTAssertEqual(document.updatedAt, updatedAt)
-        XCTAssertEqual(document.parentPath, "users/" + userId)
+        XCTAssertEqual(document.parentPath, "")
         XCTAssertEqual(document.name, "峰の夕")
         XCTAssertEqual(document.desc, "rockrockrock")
         XCTAssertEqual(document.grade, "q10")

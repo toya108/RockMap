@@ -58,6 +58,18 @@ struct ListRowView: View {
         self.thirdText = course.desc
     }
 
+    init(course: Entity.Course, record: Entity.ClimbRecord) {
+        self.imageURL = course.headerUrl
+        self.iconImage = Resources.Images.System.docPlaintextFill.uiImage
+        self.iconSize = .init(width: 16, height: 16)
+        self.title = course.name
+        self.firstLabel = .init("registered_date")
+        self.firstText = course.createdAt.string(dateStyle: .medium)
+        self.secondLabel = .init("grade")
+        self.secondText = course.grade.name
+        self.thirdText = course.desc
+    }
+
     var body: some View {
         HStack(spacing: 12) {
             AsyncImage(

@@ -85,7 +85,6 @@ class RegisterClimbRecordViewModel {
             parentCourseReference: ["courses", course.id].joined(separator: "/"),
             createdAt: Date(),
             updatedAt: nil,
-            parentPath: AuthManager.shared.userPath,
             climbedDate: climbedDate,
             type: climbRecordType
         )

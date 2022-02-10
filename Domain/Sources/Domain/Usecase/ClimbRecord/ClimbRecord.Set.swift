@@ -26,7 +26,6 @@ public extension Domain.Usecase.ClimbRecord {
                     parentCourseReference: climbRecord.parentCourseReference,
                     createdAt: climbRecord.createdAt,
                     updatedAt: climbRecord.updatedAt,
-                    parentPath: climbRecord.parentPath,
                     climbedDate: climbRecord.climbedDate,
                     type: climbRecord.type.rawValue
                 )

@@ -5,7 +5,6 @@ public extension Domain.Entity {
         public var id: String
         public var createdAt: Date
         public var updatedAt: Date?
-        public var parentPath: String
         public var name: String
         public var area: String?
         public var address: String
@@ -22,7 +21,6 @@ public extension Domain.Entity {
             id: String,
             createdAt: Date,
             updatedAt: Date? = nil,
-            parentPath: String,
             name: String,
             area: String?,
             address: String,
@@ -38,7 +36,6 @@ public extension Domain.Entity {
             self.id = id
             self.createdAt = createdAt
             self.updatedAt = updatedAt
-            self.parentPath = parentPath
             self.name = name
             self.area = area
             self.address = address

@@ -253,7 +253,6 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             return .init(
                 id: UUID().uuidString,
                 createdAt: Date(),
-                parentPath: AuthManager.shared.userPath,
                 name: self.output.rockName,
                 area: self.output.area,
                 address: self.output.rockLocation.address,

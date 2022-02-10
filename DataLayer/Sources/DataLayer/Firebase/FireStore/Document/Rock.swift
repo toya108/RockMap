@@ -10,7 +10,7 @@ public extension FS.Document {
         public var createdAt: Date
         @ExplicitNull
         public var updatedAt: Date?
-        public var parentPath: String
+        public var parentPath: String = ""
         public var name: String
         public var address: String
         public var prefecture: String
@@ -29,7 +29,6 @@ public extension FS.Document {
             id: String,
             createdAt: Date,
             updatedAt: Date?,
-            parentPath: String,
             name: String,
             address: String,
             prefecture: String,
@@ -46,7 +45,6 @@ public extension FS.Document {
             self.id = id
             self.createdAt = createdAt
             self.updatedAt = updatedAt
-            self.parentPath = parentPath
             self.name = name
             self.address = address
             self.prefecture = prefecture

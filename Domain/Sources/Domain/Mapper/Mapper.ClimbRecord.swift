@@ -15,7 +15,6 @@ public extension Domain.Mapper {
                 parentCourseReference: other.parentCourseReference.path,
                 createdAt: other.createdAt,
                 updatedAt: other.updatedAt,
-                parentPath: other.parentPath,
                 climbedDate: other.climbedDate,
                 type: .init(rawValue: other.type) ?? .flash
             )

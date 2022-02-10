@@ -6,7 +6,7 @@ public extension FS.Document {
         public var collection: CollectionProtocol.Type { FS.Collection.Courses.self }
 
         public var id: String
-        public var parentPath: String
+        public var parentPath: String = ""
         public var createdAt: Date
         @ExplicitNull
         public var updatedAt: Date?
@@ -24,7 +24,6 @@ public extension FS.Document {
 
         public init(
             id: String,
-            parentPath: String,
             createdAt: Date,
             updatedAt: Date?,
             name: String,
@@ -39,7 +38,6 @@ public extension FS.Document {
             tokenMap: [String: Bool]?
         ) {
             self.id = id
-            self.parentPath = parentPath
             self.createdAt = createdAt
             self.updatedAt = updatedAt
             self.name = name

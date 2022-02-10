@@ -1,5 +1,4 @@
 import SwiftUI
-import SkeletonUI
 
 struct RegisteredCourseListView: View {
 
@@ -51,6 +50,7 @@ struct RegisteredCourseListView: View {
                             }
                         }
                     }
+                    .listStyle(PlainListStyle())
                     .refreshable {
                         viewModel.fetchCourses()
                     }

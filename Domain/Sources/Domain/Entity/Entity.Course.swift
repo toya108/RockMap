@@ -3,7 +3,6 @@ import Foundation
 public extension Domain.Entity {
     struct Course: AnyEntity {
         public var id: String
-        public var parentPath: String
         public var createdAt = Date()
         public var updatedAt: Date?
         public var name: String
@@ -18,7 +17,6 @@ public extension Domain.Entity {
 
         public init(
             id: String,
-            parentPath: String,
             createdAt: Date,
             updatedAt: Date?,
             name: String,
@@ -32,7 +30,6 @@ public extension Domain.Entity {
             imageUrls: [URL]
         ) {
             self.id = id
-            self.parentPath = parentPath
             self.createdAt = createdAt
             self.updatedAt = updatedAt
             self.name = name
