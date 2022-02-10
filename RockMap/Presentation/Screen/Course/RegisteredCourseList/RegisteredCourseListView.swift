@@ -1,5 +1,4 @@
 import SwiftUI
-import SkeletonUI
 
 struct RegisteredCourseListView: View {
 
