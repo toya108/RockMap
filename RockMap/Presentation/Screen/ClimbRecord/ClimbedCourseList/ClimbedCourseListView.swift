@@ -25,11 +25,11 @@ struct ClimbedCourseListView: View {
                             viewModel.load()
                         }
                 } else {
-                    List(viewModel.climbCourses) { climbCourse in
+                    List(viewModel.climbCourses) { climbedCourse in
                         NavigationLink(
-                            destination: CourseDetailView(course: climbCourse.course)
+                            destination: CourseDetailView(course: climbedCourse.course)
                         ) {
-                            ListRowView(course: climbCourse.course, record: climbCourse.record)
+                            ListRowView(course: climbedCourse.course, record: climbedCourse.record)
                         }
                     }
                     .listStyle(PlainListStyle())
