@@ -7,11 +7,10 @@ import Foundation
 class RegisteredRockListViewModel: ObservableObject {
 
     @Published var rocks: [Entity.Rock] = []
-    @Published var isEmpty = false
     @Published var isPresentedRockRegister = false
     @Published var isPresentedDeleteRockAlert = false
     @Published var isPresentedDeleteFailureAlert = false
-    @Published var isLoading = false
+    @Published var viewState: LoadableViewState = .standby
     var editingRock: Entity.Rock?
     var deleteError: Error?
 
@@ -24,19 +23,13 @@ class RegisteredRockListViewModel: ObservableObject {
         self.userId = userId
     }
 
-    private func bindOutput() {
-        self.$rocks
-            .map(\.isEmpty)
-            .assign(to: &self.$isEmpty)
-    }
-
     @MainActor func delete() {
 
         guard let rock = editingRock else {
             return
         }
 
-        self.isLoading = true
+        self.viewState = .loading
 
         Task {
             do {
@@ -48,22 +41,22 @@ class RegisteredRockListViewModel: ObservableObject {
                     return
                 }
                 self.rocks.remove(at: index)
-                self.isLoading = false
+                self.viewState = .finish
             } catch {
                 self.deleteError = error
-                self.isLoading = false
+                self.viewState = .finish
                 self.isPresentedDeleteFailureAlert = true
             }
         }
     }
 
     @MainActor func fetchRockList() {
-        self.isLoading = true
+        self.viewState = .loading
 
         Task {
             let rocks = try await self.fetchRocksUsecase.fetch(by: self.userId)
             self.rocks = rocks.sorted { $0.createdAt > $1.createdAt }
-            self.isLoading = false
+            self.viewState = .finish
         }
     }
 }
