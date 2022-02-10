@@ -46,7 +46,7 @@ final class RockMapperTests: XCTestCase {
         XCTAssertEqual(entity.address, "東京都千代田区")
         XCTAssertEqual(entity.prefecture, "東京都")
         XCTAssertEqual(entity.location, .init(latitude: 35.810537, longitude: 139.473032))
-        XCTAssertEqual(entity.seasons, Set([.summer]))
+        XCTAssertEqual(entity.seasons, [.summer])
         XCTAssertEqual(entity.lithology, .chert)
         XCTAssertEqual(entity.area, "御岳")
         XCTAssertEqual(entity.desc, "rockrockrock")
@@ -66,7 +66,7 @@ final class RockMapperTests: XCTestCase {
             address: "東京都千代田区",
             prefecture: "東京都",
             location: .init(latitude: 35.810537, longitude: 139.473032),
-            seasons: Set([.summer]),
+            seasons: [.summer],
             lithology: .chert,
             desc: "rockrockrock",
             registeredUserId: userId,
