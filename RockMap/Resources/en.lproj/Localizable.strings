@@ -10,7 +10,14 @@
 "text_delete_failure_title" = "Failed to delete";
 
 // MARK: - Search
-"text_search_placeholder" = "Let's search by name.";
+"text_search_placeholder" = "Let's search by name";
+
+// MARK: - SearchFilter
+"area" = "Area";
+"text_area_placeholder" = "e.g. Mitake, Mizugaki";
+"apply" = "Apply";
+"filter" = "Filter";
+"reset" = "Reset";
 
 // MARK: - CategoryList
 "rock" = "Rock";

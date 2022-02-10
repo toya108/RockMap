@@ -10,7 +10,14 @@
 "text_delete_failure_title" = "削除に失敗しました";
 
 // MARK: - Search
-"text_search_placeholder" = "名前で検索する。";
+"text_search_placeholder" = "名前で検索";
+
+// MARK: - SearchFilter
+"area" = "エリア";
+"text_area_placeholder" = "御岳、瑞牆、小川山など";
+"apply" = "条件を適用";
+"filter" = "絞り込み";
+"reset" = "リセット";
 
 // MARK: - CategoryList
 "rock" = "岩";

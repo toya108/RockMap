@@ -13,15 +13,15 @@ struct SearchFilterView: View {
             List {
                 switch selectedCategory {
                     case .rock:
-                        Section("エリア") {
-                            TextField("御岳、瑞牆、小川山など", text: $viewModel.area)
+                        Section(LocalizedStringKey("area")) {
+                            TextField("text_area_placeholder", text: $viewModel.area)
                                 .onAppear {
                                     viewModel.area = searchCondition.area
                                 }
                         }
 
                     case .course:
-                        Picker("グレード", selection: $viewModel.grade) {
+                        Picker("grade", selection: $viewModel.grade) {
                             ForEach(Entity.Course.Grade.allCases) {
                                 Text($0.name).tag($0 as Entity.Course.Grade?)
                             }
@@ -36,7 +36,7 @@ struct SearchFilterView: View {
                         searchCondition = viewModel.makeSearchCondition(text: searchCondition.searchText)
                         dismiss()
                     } label: {
-                        Text("条件を適用").fontWeight(.semibold)
+                        Text("apply").fontWeight(.semibold)
                     }
                     .buttonStyle(PlainButtonStyle())
                     .foregroundColor(Color(uiColor: UIColor.Pallete.primaryGreen))
@@ -47,7 +47,7 @@ struct SearchFilterView: View {
             .navigationTitle("絞り込み")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("リセット") {
+                    Button("reset") {
                         viewModel.reset()
                     }
                     .foregroundColor(.primary)
