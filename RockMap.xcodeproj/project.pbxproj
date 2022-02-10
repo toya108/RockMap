@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9E016FBC252CD0C600C2B85C /* GoogleService-Info-dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E016FBB252CD0C600C2B85C /* GoogleService-Info-dev.plist */; };
 		9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */; };
 		9E04B1D0254BE7B30097DA8E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E04B1CF254BE7B30097DA8E /* LocationManager.swift */; };
 		9E06F95F2649767C00731352 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E06F95E2649767C00731352 /* EditProfileViewController.swift */; };
@@ -155,7 +154,6 @@
 		9E8D62A12781171F007DE389 /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8D62A02781171F007DE389 /* ListRowView.swift */; };
 		9E8D62A327811B2B007DE389 /* RegisteredRockListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8D62A227811B2B007DE389 /* RegisteredRockListViewModel.swift */; };
 		9E902B2525F0DC5300006624 /* LabelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E902B2425F0DC5300006624 /* LabelCollectionViewCell.swift */; };
-		9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9E9162EF26BF7DF10012D2B0 /* Utilities */; };
 		9E94190E27B507C20061EA39 /* ClimbedCourseListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E94190D27B507C20061EA39 /* ClimbedCourseListView.swift */; };
 		9E94191027B507D80061EA39 /* ClimbedCourseListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E94190F27B507D80061EA39 /* ClimbedCourseListViewModel.swift */; };
 		9E94C7C425E2BAAE00276333 /* SectionBackgroundDecorationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E94C7C325E2BAAE00276333 /* SectionBackgroundDecorationView.swift */; };
@@ -204,7 +202,6 @@
 		9EB6C3CD260FA7A000CDD607 /* RockAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB6C3CC260FA7A000CDD607 /* RockAnnotation.swift */; };
 		9EB7059526515855001FD2F6 /* IconEditCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB7059426515855001FD2F6 /* IconEditCollectionViewCell.swift */; };
 		9EB7B1692614D747004C1E7D /* CourseRegisterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB7B1682614D747004C1E7D /* CourseRegisterRouter.swift */; };
-		9EB7DB99266FC4F9003B0041 /* GoogleService-Info-release.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EB7DB98266FC4F9003B0041 /* GoogleService-Info-release.plist */; };
 		9EBD5A1525F7C998009383F6 /* UICollectionViewCellExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD5A1425F7C998009383F6 /* UICollectionViewCellExtension.swift */; };
 		9EC3A6B72604D5A8001FBCA4 /* CourseDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6B62604D5A8001FBCA4 /* CourseDetailViewController.swift */; };
 		9EC3A6BF2604D5F8001FBCA4 /* CourseDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC3A6BE2604D5F8001FBCA4 /* CourseDetailViewModel.swift */; };
@@ -230,6 +227,7 @@
 		9EEAEDF0260385BA00F5FE19 /* ValueCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEAEDEF260385BA00F5FE19 /* ValueCollectionViewCell.swift */; };
 		9EEAEDF52603876A00F5FE19 /* ValueCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EEAEDF42603876A00F5FE19 /* ValueCollectionViewCell.xib */; };
 		9EED75E22669269F00E46676 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED75E12669269F00E46676 /* URL.swift */; };
+		9EEFC71827B5758100D5363B /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9E9162EF26BF7DF10012D2B0 /* Utilities */; };
 		9EF16EC427048948003620E4 /* UIApplication+KeyWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF16EC327048948003620E4 /* UIApplication+KeyWindow.swift */; };
 		9EF71FD62611ADC700D5B375 /* PHPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF71FD52611ADC700D5B375 /* PHPickerManager.swift */; };
 		9EF74F86262297C100974EBA /* RegisterClimbRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF74F85262297C100974EBA /* RegisterClimbRecordViewModel.swift */; };
@@ -263,7 +261,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9E016FBB252CD0C600C2B85C /* GoogleService-Info-dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-dev.plist"; sourceTree = "<group>"; };
+		9E016FBB252CD0C600C2B85C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9E04B1AC254BA99C0097DA8E /* TextFieldValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldValidator.swift; sourceTree = "<group>"; };
 		9E04B1CF254BE7B30097DA8E /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9E06F95E2649767C00731352 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -460,7 +458,7 @@
 		9EB6C3CC260FA7A000CDD607 /* RockAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockAnnotation.swift; sourceTree = "<group>"; };
 		9EB7059426515855001FD2F6 /* IconEditCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconEditCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EB7B1682614D747004C1E7D /* CourseRegisterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseRegisterRouter.swift; sourceTree = "<group>"; };
-		9EB7DB98266FC4F9003B0041 /* GoogleService-Info-release.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-release.plist"; sourceTree = "<group>"; };
+		9EB7DB98266FC4F9003B0041 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9EBD5A1425F7C998009383F6 /* UICollectionViewCellExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewCellExtension.swift; sourceTree = "<group>"; };
 		9EC3A6B62604D5A8001FBCA4 /* CourseDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailViewController.swift; sourceTree = "<group>"; };
 		9EC3A6BE2604D5F8001FBCA4 /* CourseDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDetailViewModel.swift; sourceTree = "<group>"; };
@@ -521,8 +519,8 @@
 				9E1056E1270B31C7007254DA /* SDWebImage in Frameworks */,
 				9E2C893B278934C600CE52B1 /* SkeletonUI in Frameworks */,
 				9E60BC96279F9BE3007765AA /* Collections in Frameworks */,
+				9EEFC71827B5758100D5363B /* Utilities in Frameworks */,
 				9E64FD0526B59A82005984F6 /* FirebaseFirestore in Frameworks */,
-				9E9162F026BF7DF10012D2B0 /* Utilities in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +598,31 @@
 				9E04B1CF254BE7B30097DA8E /* LocationManager.swift */,
 			);
 			path = Location;
+			sourceTree = "<group>";
+		};
+		9E06CA5227B56BCE00747751 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				9E06CA5427B56BE700747751 /* Release */,
+				9E06CA5327B56BE000747751 /* Development */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		9E06CA5327B56BE000747751 /* Development */ = {
+			isa = PBXGroup;
+			children = (
+				9E016FBB252CD0C600C2B85C /* GoogleService-Info.plist */,
+			);
+			path = Development;
+			sourceTree = "<group>";
+		};
+		9E06CA5427B56BE700747751 /* Release */ = {
+			isa = PBXGroup;
+			children = (
+				9EB7DB98266FC4F9003B0041 /* GoogleService-Info.plist */,
+			);
+			path = Release;
 			sourceTree = "<group>";
 		};
 		9E06F95A2649762500731352 /* EditProfile */ = {
@@ -862,13 +885,12 @@
 				9E04B191254B28230097DA8E /* Model */,
 				9E98D5472553009100EC5AC1 /* Resources */,
 				9E0820272712A924003F0AD8 /* Injections */,
+				9E06CA5227B56BCE00747751 /* Firebase */,
 				9EA6B04C26651A2300DAA888 /* Settings.bundle */,
 				9E5CEFCB25277B25001C95AA /* AppDelegate.swift */,
 				9E82FB2A2704AE37002972BD /* RockMapApp.swift */,
 				9E5CEFD625277B26001C95AA /* LaunchScreen.storyboard */,
 				9E5CEFD925277B26001C95AA /* Info.plist */,
-				9EB7DB98266FC4F9003B0041 /* GoogleService-Info-release.plist */,
-				9E016FBB252CD0C600C2B85C /* GoogleService-Info-dev.plist */,
 				9EC7FFCE269BCDB500715F86 /* RockMap.entitlements */,
 				9EC7FFCD269BCC7900715F86 /* RockMapDebug.entitlements */,
 				9E4A49212715BEB800DA5502 /* RockMap.xctestplan */,
@@ -1668,7 +1690,7 @@
 				9E5CEFC425277B25001C95AA /* Sources */,
 				9E5CEFC525277B25001C95AA /* Frameworks */,
 				9E5CEFC625277B25001C95AA /* Resources */,
-				9EB7DB9A266FCAF3003B0041 /* Run Script */,
+				9E06CA5527B56D0600747751 /* Firebase Plist Selection */,
 				9E5C5E272554EFA600D00087 /* Crashlytics */,
 				9EC8D8B1270B431400A9D370 /* Update Licenses */,
 			);
@@ -1801,7 +1823,6 @@
 				9EEAEDF52603876A00F5FE19 /* ValueCollectionViewCell.xib in Resources */,
 				9E0BE37B2605006F00576869 /* LeadingRegisteredUserCollectionViewCell.xib in Resources */,
 				9E2BD65125DD55B00011B020 /* TextViewCollectionViewCell.xib in Resources */,
-				9E016FBC252CD0C600C2B85C /* GoogleService-Info-dev.plist in Resources */,
 				9E171175263305B900D35BFE /* ListCollectionViewCell.xib in Resources */,
 				9E6D9171261AEB82006E2297 /* ZoomImageViewController.storyboard in Resources */,
 				9E78129E26199DA700CAC539 /* UserView.xib in Resources */,
@@ -1813,7 +1834,6 @@
 				9E8A1470270887F300903D38 /* Localizable.strings in Resources */,
 				9E2BD68725DD6DA90011B020 /* ImageSelactCollectionViewCell.xib in Resources */,
 				9E9E6371262EF1730096340C /* UserCollectionViewCell.xib in Resources */,
-				9EB7DB99266FC4F9003B0041 /* GoogleService-Info-release.plist in Resources */,
 				9E7812FE261A069700CAC539 /* ClimbRecordTableViewCell.xib in Resources */,
 				9E2DA76025F91BA7008F339E /* LocationSelectCollectionViewCell.xib in Resources */,
 				9E5CEFD325277B25001C95AA /* MapViewController.storyboard in Resources */,
@@ -1837,6 +1857,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		9E06CA5527B56D0600747751 /* Firebase Plist Selection */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Firebase Plist Selection";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "INFO_PLIST=GoogleService-Info.plist\nDEVELOPMENT_INFO_PLIST=${PROJECT_DIR}/${TARGET_NAME}/Firebase/Development/${INFO_PLIST}\nRELEASE_INFO_PLIST=${PROJECT_DIR}/${TARGET_NAME}/Firebase/Release/${INFO_PLIST}\n\necho “Checking ${INFO_PLIST} in ${DEVELOPMENT_INFO_PLIST}”\n\nif [ ! -f $DEVELOPMENT_INFO_PLIST ] ; then\necho “Development GoogleService-Info.plist not found.”\nexit 1\nfi\n\necho “Checking ${INFO_PLIST} in ${RELEASE_INFO_PLIST}”\n\nif [ ! -f $RELEASE_INFO_PLIST ] ; then\necho “Release GoogleService-Info.plist not found.”\nexit 1\nfi\n\nPLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\n\necho “Copying ${INFO_PLIST} to final destination: ${PLIST_DESTINATION}”\n\nif [ “${CONFIGURATION}” == “Release” ] ; then\necho “Copied ${RELEASE_INFO_PLIST}.”\ncp ${RELEASE_INFO_PLIST} ${PLIST_DESTINATION}\nelse\necho “Copied ${DEVELOPMENT_INFO_PLIST}.”\ncp ${DEVELOPMENT_INFO_PLIST} ${PLIST_DESTINATION}\nfi\n";
+		};
 		9E0C9F3A2534A8F600F66F01 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -1872,24 +1910,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n";
-		};
-		9EB7DB9A266FCAF3003B0041 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "PATH_TO_GOOGLE_PLISTS=\"${PROJECT_DIR}/RockMap\"\n\ncase \"${CONFIGURATION}\" in\n\n   \"Debug\" )\n        cp -r \"$PATH_TO_GOOGLE_PLISTS/GoogleService-Info-dev.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\" ;;\n   \"Release\" )\n        cp -r \"$PATH_TO_GOOGLE_PLISTS/GoogleService-Info-release.plist\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app/GoogleService-Info.plist\" ;;\n    *)\n        ;;\nesac\n";
 		};
 		9EC8D8B1270B431400A9D370 /* Update Licenses */ = {
 			isa = PBXShellScriptBuildPhase;
