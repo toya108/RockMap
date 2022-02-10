@@ -51,6 +51,7 @@ struct RegisteredCourseListView: View {
                             }
                         }
                     }
+                    .listStyle(PlainListStyle())
                     .refreshable {
                         viewModel.fetchCourses()
                     }
