@@ -40,7 +40,7 @@ struct SearchTextField: View {
                     Resources.Images.System.magnifyingglass.image
                 }
             )
-            TextField("なんか", text: $searchText)
+            TextField("text_search_placeholder", text: $searchText)
                 .focused($isFocusedSearchField)
             Button(
                 action: {

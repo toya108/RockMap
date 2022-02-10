@@ -9,6 +9,9 @@
 "registered_date" = "登録日";
 "text_delete_failure_title" = "削除に失敗しました";
 
+// MARK: - Search
+"text_search_placeholder" = "名前で検索する。";
+
 // MARK: - CategoryList
 "rock" = "岩";
 "course" = "課題";

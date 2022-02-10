@@ -9,6 +9,9 @@
 "registered_date" = "Registered Date";
 "text_delete_failure_title" = "Failed to delete";
 
+// MARK: - Search
+"text_search_placeholder" = "Let's search by name.";
+
 // MARK: - CategoryList
 "rock" = "Rock";
 "course" = "Course";
