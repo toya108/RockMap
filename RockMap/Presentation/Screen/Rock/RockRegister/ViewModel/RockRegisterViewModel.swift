@@ -37,7 +37,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
         case let .edit(rock):
             self.input.rockNameSubject.send(rock.name)
             self.input.rockDescSubject.send(rock.desc)
-            self.input.rockEreaSubject.send(rock.erea)
+            self.input.rockAreaSubject.send(rock.area)
             let location = LocationManager.LocationStructure(
                 location: .init(
                     latitude: rock.location.latitude,
@@ -67,24 +67,24 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
             .compactMap { $0 }
             .assign(to: &self.output.$rockDesc)
 
-        self.input.rockEreaSubject
+        self.input.rockAreaSubject
             .removeDuplicates()
             .compactMap { $0 }
-            .assign(to: &self.output.$erea)
+            .assign(to: &self.output.$area)
 
         self.input.locationSubject
             .removeDuplicates()
             .assign(to: &self.output.$rockLocation)
 
         self.input.selectSeasonSubject
-            .sink { [weak self] in
+            .sink { [weak self] season in
 
                 guard let self = self else { return }
 
-                if self.output.seasons.contains($0) {
-                    self.output.seasons.remove($0)
+                if self.output.seasons.contains(season) {
+                    self.output.seasons.removeAll { $0 == season  }
                 } else {
-                    self.output.seasons.insert($0)
+                    self.output.seasons.append(season)
                 }
             }
             .store(in: &self.bindings)
@@ -255,7 +255,7 @@ final class RockRegisterViewModel: RockRegisterViewModelProtocol {
                 createdAt: Date(),
                 parentPath: AuthManager.shared.userPath,
                 name: self.output.rockName,
-                erea: self.output.erea,
+                area: self.output.area,
                 address: self.output.rockLocation.address,
                 prefecture: self.output.rockLocation.prefecture,
                 location: .init(
@@ -305,7 +305,7 @@ extension RockRegisterViewModel {
     struct Input {
         let rockNameSubject = PassthroughSubject<String?, Never>()
         let rockDescSubject = PassthroughSubject<String?, Never>()
-        let rockEreaSubject = PassthroughSubject<String?, Never>()
+        let rockAreaSubject = PassthroughSubject<String?, Never>()
         let locationSubject = PassthroughSubject<LocationManager.LocationStructure, Never>()
         let selectSeasonSubject = PassthroughSubject<Entity.Rock.Season, Never>()
         let lithologySubject = PassthroughSubject<Entity.Rock.Lithology, Never>()
@@ -317,8 +317,8 @@ extension RockRegisterViewModel {
         @Published var rockName = ""
         @Published var rockLocation = LocationManager.LocationStructure()
         @Published var rockDesc = ""
-        @Published var erea = ""
-        @Published var seasons: Set<Entity.Rock.Season> = []
+        @Published var area = ""
+        @Published var seasons: [Entity.Rock.Season] = []
         @Published var lithology: Entity.Rock.Lithology = .unKnown
         @Published var header: CrudableImage = .init(imageType: .header)
         @Published var images: [CrudableImage] = []

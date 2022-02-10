@@ -149,7 +149,7 @@ class RegisterClimbRecordBottomSheetViewController: UIViewController {
                 guard let self = self else { return }
 
                 switch $0 {
-                case .stanby:
+                case .standby:
                     break
 
                 case .loading:

@@ -61,7 +61,7 @@ extension RockDetailViewController {
                         using: valueCellRegistration,
                         for: indexPath,
                         item: .init(
-                            image: UIImage.SystemImages.docPlaintextFill,
+                            image: Resources.Images.System.docPlaintextFill.uiImage,
                             title: "課題数",
                             subTitle: self.viewModel.makeGradeNumberStrings(dic: grades)
                         )
@@ -86,7 +86,7 @@ extension RockDetailViewController {
                         using: valueCellRegistration,
                         for: indexPath,
                         item: .init(
-                            image: UIImage.SystemImages.leafFill,
+                            image: Resources.Images.System.leafFill.uiImage,
                             title: "シーズン",
                             subTitle: seasons.map(\.name).joined(separator: "/")
                         )
@@ -97,20 +97,20 @@ extension RockDetailViewController {
                         using: valueCellRegistration,
                         for: indexPath,
                         item: .init(
-                            image: UIImage.AssetsImages.rockFill,
+                            image: Resources.Images.Assets.rockFill.uiImage,
                             title: "岩質",
                             subTitle: lithology.name
                         )
                     )
 
-                case let .erea(erea):
+                case let .area(area):
                     return collectionView.dequeueConfiguredReusableCell(
                         using: valueCellRegistration,
                         for: indexPath,
                         item: .init(
-                            image: UIImage.AssetsImages.rockFill,
+                            image: Resources.Images.Assets.rockFill.uiImage,
                             title: "エリア",
-                            subTitle: erea
+                            subTitle: area
                         )
                     )
 
@@ -183,7 +183,7 @@ extension RockDetailViewController {
         String
     > {
         .init { cell, _, title in
-            cell.configure(icon: UIImage.AssetsImages.rockFill, title: title)
+            cell.configure(icon: Resources.Images.Assets.rockFill.uiImage, title: title)
         }
     }
 

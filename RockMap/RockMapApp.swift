@@ -19,6 +19,7 @@ struct RockMapApp: App {
 final class AppStore: ObservableObject {
 
     static let shared: AppStore = AppStore()
+    let authAccessor: AuthAccessorProtocol = AuthAccessor()
 
     private init() {
         rootViewType = AuthAccessor().isLoggedIn ? .main : .login
@@ -35,7 +36,7 @@ final class AppStore: ObservableObject {
     var rootView: some View {
         switch rootViewType {
             case .main:
-                MainTabView()
+                MainTabView(authAccessor: authAccessor)
 
             case .login:
                 LoginView()

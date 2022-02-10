@@ -7,8 +7,8 @@ public extension Domain.Usecase.ClimbRecord {
         public typealias Repository = AnyRepository<Repositories.ClimbRecord.Update.R>
         public typealias Mapper = Domain.Mapper.ClimbRecord
 
-        var repository: Repository
-        var mapper: Mapper
+        let repository: Repository
+        let mapper: Mapper
 
         public init(
             repository: Repository = AnyRepository(Repositories.ClimbRecord.Update()),
@@ -19,14 +19,12 @@ public extension Domain.Usecase.ClimbRecord {
         }
 
         public func update(
-            parentPath: String,
             id: String,
             climbedDate: Date?,
             type: Domain.Entity.ClimbRecord.ClimbedRecordType?
         ) async throws {
             try await self.repository.request(
                 parameters: .init(
-                    parentPath: parentPath,
                     id: id,
                     climbedDate: climbedDate,
                     type: type?.rawValue

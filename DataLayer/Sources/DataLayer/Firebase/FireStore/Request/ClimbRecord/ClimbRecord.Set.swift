@@ -43,13 +43,9 @@ public extension FS.Request.ClimbRecord {
 
         public var parameters: Parameters
         public var testDataPath: URL?
-        public var path: String {
-            self.parameters.parentPath
-            Collection.name
-            self.parameters.id
-        }
+        public var path: String { "" }
 
-        public var entry: Entry { FirestoreManager.db.document(self.path) }
+        public var entry: Entry { Collection.collection.document(self.parameters.id) }
 
         public init(parameters: Parameters) {
             self.parameters = parameters

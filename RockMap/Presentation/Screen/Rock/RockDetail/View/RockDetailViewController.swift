@@ -41,7 +41,7 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
                 )
             }
         )
-        courseCreationButton.setImage(UIImage.SystemImages.plusCircleFill, for: .normal)
+        courseCreationButton.setImage(Resources.Images.System.plusCircleFill.uiImage, for: .normal)
         courseCreationButton.tintColor = UIColor.Pallete.primaryGreen
         navigationItem.setRightBarButton(
             .init(customView: courseCreationButton),
@@ -143,13 +143,13 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
             }
             .store(in: &self.bindings)
 
-        self.viewModel.$erea
+        self.viewModel.$area
             .receive(on: RunLoop.main)
-            .sink { [weak self] erea in
+            .sink { [weak self] area in
 
                 guard let self = self else { return }
 
-                self.snapShot.appendItems([.erea(erea)], toSection: .info)
+                self.snapShot.appendItems([.area(area)], toSection: .info)
                 self.datasource.apply(self.snapShot)
             }
             .store(in: &self.bindings)

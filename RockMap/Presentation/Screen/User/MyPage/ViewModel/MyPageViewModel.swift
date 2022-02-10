@@ -15,7 +15,7 @@ class MyPageViewModel: MyPageViewModelProtocol {
     private var bindings = Set<AnyCancellable>()
     private let fetchUserUsecase = Usecase.User.FetchById()
     private let fetchClimbRecordsUsecase = Usecase.ClimbRecord.FetchByUserId()
-    private let fetchCourseUsecase = Usecase.Course.FetchByReference()
+    private let fetchCourseUsecase = Usecase.Course.FetchById()
 
     init(userKind: UserKind) {
         self.userKind = userKind
@@ -53,14 +53,14 @@ class MyPageViewModel: MyPageViewModelProtocol {
             .assign(to: &self.output.$climbedList)
 
         self.output.$climbedList
-            .map { $0.map(\.parentCourseReference).unique.prefix(5) }
-            .flatMap { references in
-                references.publisher.asyncMap(
-                    transform: { [weak self] ref in
+            .map { $0.map(\.parentCourseId).unique.prefix(5) }
+            .flatMap { ids in
+                ids.publisher.asyncMap(
+                    transform: { [weak self] id in
 
                         guard let self = self else { throw MemoryError.noneSelf }
 
-                        return try await self.fetchCourseUsecase.fetch(by: ref)
+                        return try await self.fetchCourseUsecase.fetch(by: id)
                     },
                     errorCompletion: {
                         print($0)
@@ -143,7 +143,7 @@ extension MyPageViewModel {
 
     final class Output {
         @Published var isGuest = false
-        @Published var fetchUserState: LoadingState<Entity.User> = .stanby
+        @Published var fetchUserState: LoadingState<Entity.User> = .standby
         @Published var climbedList: [Entity.ClimbRecord] = []
         @Published var recentClimbedCourses: [Entity.Course] = []
     }

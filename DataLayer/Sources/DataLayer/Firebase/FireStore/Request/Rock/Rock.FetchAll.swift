@@ -12,7 +12,7 @@ public extension FS.Request.Rock {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var entry: Entry {
-            Collection.group
+            Collection.collection
         }
 
         public init(parameters: Parameters) {

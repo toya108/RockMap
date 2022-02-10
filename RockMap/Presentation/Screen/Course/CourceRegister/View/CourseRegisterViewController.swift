@@ -46,7 +46,7 @@ class CourseRegisterViewController: UIViewController, CompositionalColectionView
         navigationItem.title = "課題を\(self.viewModel.registerType.name)する"
 
         let closeButton = UIBarButtonItem(
-            image: UIImage.SystemImages.xmark,
+            image: Resources.Images.System.xmark.uiImage,
             primaryAction: .init { [weak self] _ in
 
                 guard let self = self else { return }

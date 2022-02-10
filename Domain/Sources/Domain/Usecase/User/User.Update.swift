@@ -6,8 +6,8 @@ public extension Domain.Usecase.User {
         public typealias Repository = AnyRepository<Repositories.User.Update.R>
         public typealias Mapper = Domain.Mapper.User
 
-        var repository: Repository
-        var mapper: Mapper
+        let repository: Repository
+        let mapper: Mapper
 
         public init(
             repository: Repository = AnyRepository(Repositories.User.Update()),
@@ -18,10 +18,9 @@ public extension Domain.Usecase.User {
         }
 
         public func update(user: Domain.Entity.User) async throws {
-            _ = try await self.repository.request(
+            try await self.repository.request(
                 parameters: .init(user: self.mapper.reverse(to: user))
             )
-            return ()
         }
     }
 }

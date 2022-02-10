@@ -9,7 +9,7 @@ extension RockRegisterViewController {
 
                 let sectionType = SectionLayoutKind.allCases[sectionNumber]
                 switch sectionType {
-                    case .name, .erea:
+                    case .name, .area:
                     let item = NSCollectionLayoutItem(
                         layoutSize: .init(
                             widthDimension: .fractionalWidth(1),

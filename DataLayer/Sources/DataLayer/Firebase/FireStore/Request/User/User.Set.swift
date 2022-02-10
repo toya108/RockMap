@@ -8,21 +8,10 @@ public extension FS.Request.User {
         public typealias Collection = FS.Collection.Users
         public typealias Response = EmptyResponse
         public struct Parameters: Codable {
-            let id: String
-            let createdAt: Date
-            let displayName: String?
-            let photoURL: URL?
+            let user: FS.Document.User
 
-            public init(
-                id: String,
-                createdAt: Date,
-                displayName: String?,
-                photoURL: URL?
-            ) {
-                self.id = id
-                self.createdAt = createdAt
-                self.displayName = displayName
-                self.photoURL = photoURL
+            public init(user: FS.Document.User) {
+                self.user = user
             }
         }
 
@@ -39,20 +28,9 @@ public extension FS.Request.User {
         }
 
         public func request() async throws -> Response {
-            let userDocument = FS.Document.User(
-                id: parameters.id,
-                createdAt: parameters.createdAt,
-                updatedAt: nil,
-                name: parameters.displayName ?? "-",
-                photoURL: parameters.photoURL,
-                socialLinks: [],
-                introduction: nil,
-                headerUrl: nil
-            )
-
-            let exists = try await userDocument.reference.exists()
-
-            return try await setUserDocument(exists: exists, document: userDocument)
+            let user = parameters.user
+            let exists = try await user.reference.exists()
+            return try await setUserDocument(exists: exists, document: user)
         }
 
         private func setUserDocument(

@@ -23,7 +23,8 @@ final class UserMapperTests: XCTestCase {
             ],
             introduction: "hello",
             headerUrl: dummyURL,
-            deleted: false
+            deleted: false,
+            tokenMap: [:]
         )
 
         let entity = mapper.map(from: document)
@@ -55,7 +56,12 @@ final class UserMapperTests: XCTestCase {
             ],
             introduction: "hello",
             headerUrl: dummyURL,
-            deleted: false
+            deleted: false,
+            tokenMap: [
+                "ta": true,
+                "ar": true,
+                "ro": true
+            ]
         )
 
         XCTAssertEqual(mapper.map(from: document).socialLinks.first!.linkType, .twitter)

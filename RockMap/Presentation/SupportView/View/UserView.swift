@@ -45,7 +45,7 @@ class UserView: UIView {
         if user.deleted {
             self.registeredDateLabel.isHidden = true
             self.userNameLabel.text = "退会済みユーザー"
-            self.iconButton.setImage(UIImage.AssetsImages.noimage, for: .normal)
+            self.iconButton.setImage(Resources.Images.Assets.noimage.uiImage, for: .normal)
             return
         }
 
@@ -54,7 +54,7 @@ class UserView: UIView {
         if let photoURL = user.photoURL {
             self.iconButton.loadImage(url: photoURL)
         } else {
-            self.iconButton.setImage(UIImage.AssetsImages.noimage, for: .normal)
+            self.iconButton.setImage(Resources.Images.Assets.noimage.uiImage, for: .normal)
         }
 
         if let registeredDate = registeredDate {

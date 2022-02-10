@@ -1,1 +1,1 @@
-typealias AnyEntity = Hashable & Identifiable
+typealias AnyEntity = Hashable & Identifiable & Equatable

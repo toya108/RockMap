@@ -44,7 +44,7 @@ class EditProfileViewController: UIViewController, CompositionalColectionViewCon
         navigationItem.title = "プロフィール編集"
 
         let closeButton = UIBarButtonItem(
-            image: UIImage.SystemImages.xmark,
+            image: Resources.Images.System.xmark.uiImage,
             primaryAction: .init { [weak self] _ in
 
                 guard let self = self else { return }
@@ -230,7 +230,7 @@ extension EditProfileViewController {
         guard let self = self else { return }
 
         switch state {
-            case .stanby:
+            case .standby:
                 self.hideIndicatorView()
 
             case .loading:
@@ -260,7 +260,7 @@ extension EditProfileViewController {
         guard let self = self else { return }
 
         switch state {
-            case .stanby:
+            case .standby:
                 break
 
             case .loading:

@@ -10,7 +10,7 @@ extension RockRegisterViewController {
         let deletabelImageCellRegistration = createDeletabelImageCell()
         let seasonCellRegistration = createSeasonCell()
         let lithologyCellRegistration = createLithologyCell()
-        let ereaCellRegistration = createEreaCell()
+        let areaCellRegistration = createareaCell()
         let confirmationButtonCellRegistration = createConfirmationButtonCell()
         let errorLabelCellRegistration = createErrorLabelCell()
 
@@ -33,9 +33,9 @@ extension RockRegisterViewController {
                     item: Dummy()
                 )
 
-            case .erea:
+            case .area:
                 return collectionView.dequeueConfiguredReusableCell(
-                    using: ereaCellRegistration,
+                    using: areaCellRegistration,
                     for: indexPath,
                     item: Dummy()
                 )
@@ -278,7 +278,7 @@ extension RockRegisterViewController {
         }
     }
 
-    private func createEreaCell() -> UICollectionView.CellRegistration<
+    private func createareaCell() -> UICollectionView.CellRegistration<
         TextFieldColletionViewCell,
         Dummy
     > {
@@ -286,7 +286,7 @@ extension RockRegisterViewController {
 
             guard let self = self else { return }
 
-            cell.textField.text = self.viewModel.output.erea
+            cell.textField.text = self.viewModel.output.area
             cell.configurePlaceholder("御岳、瑞牆、小川山など")
             cell.textField.delegate = self
             cell.textField.textDidChangedPublisher
@@ -294,7 +294,7 @@ extension RockRegisterViewController {
 
                     guard let self = self else { return }
 
-                    self.viewModel.input.rockEreaSubject.send(text)
+                    self.viewModel.input.rockAreaSubject.send(text)
                 }
                 .store(in: &self.bindings)
         }
@@ -330,7 +330,7 @@ extension RockRegisterViewController {
     ) {
         let photoLibraryAction = UIAction(
             title: "フォトライブラリ",
-            image: UIImage.SystemImages.folderFill
+            image: Resources.Images.System.folderFill.uiImage
         ) { [weak self] _ in
 
             guard let self = self else { return }
@@ -340,7 +340,7 @@ extension RockRegisterViewController {
 
         let cameraAction = UIAction(
             title: "写真を撮る",
-            image: UIImage.SystemImages.cameraFill
+            image: Resources.Images.System.cameraFill.uiImage
         ) { [weak self] _ in
 
             guard let self = self else { return }

@@ -64,11 +64,7 @@ final class CourseDetailViewModel: CourseDetailViewModelProtocol {
 
     private func setupOutput() {
         self.listenTotalClimbedNumberUsecase
-            .listen(
-                useTestData: false,
-                courseId: self.course.id,
-                parantPath: self.course.parentPath
-            )
+            .listen(courseId: self.course.id)
             .catch { error -> Empty in
                 print(error)
                 return Empty()
@@ -83,8 +79,8 @@ extension CourseDetailViewModel {
     }
 
     final class Output {
-        @Published var fetchParentRockState: LoadingState<Entity.Rock> = .stanby
-        @Published var fetchRegisteredUserState: LoadingState<Entity.User> = .stanby
+        @Published var fetchParentRockState: LoadingState<Entity.Rock> = .standby
+        @Published var fetchRegisteredUserState: LoadingState<Entity.User> = .standby
         @Published var totalClimbedNumber: Entity.TotalClimbedNumber = .init(flash: 0, redPoint: 0)
     }
 }

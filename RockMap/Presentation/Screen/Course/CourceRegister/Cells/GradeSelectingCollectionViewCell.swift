@@ -8,7 +8,7 @@ class GradeSelectingCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
 
         var configuration = UIButton.Configuration.plain()
-        configuration.image = UIImage.SystemImages.arrowUpLeftSquare
+        configuration.image = Resources.Images.System.arrowUpLeftSquare.uiImage
         configuration.contentInsets = .init(top: 4, leading: 4, bottom: 4, trailing: 4)
         gradeSelectButton.configuration = configuration
     }

@@ -2,31 +2,12 @@ import SwiftUI
 
 enum TabKind: CaseIterable {
 
-    case rockSearch
+    case search
+    case map
     case myPage
 
     @ViewBuilder
-    func makeTab(selection: TabKind) -> some View {
-        switch self {
-            case .rockSearch:
-                RockSearchView().tabItem {
-                    TabKind.rockSearch.makeStack(selection: selection)
-                }
-                .edgesIgnoringSafeArea(.all)
-                .tag(TabKind.rockSearch)
-
-            case .myPage:
-                MyPageView().tabItem {
-                    TabKind.myPage.makeStack(selection: selection)
-                }
-                .tag(TabKind.myPage)
-                .edgesIgnoringSafeArea(.all)
-        }
-    }
-
-
-    @ViewBuilder
-    private func makeStack(selection: TabKind) -> some View {
+    func makeStack(selection: TabKind) -> some View {
         VStack {
             self.makeImage(selection: selection)
             Text(titleKey)
@@ -43,8 +24,11 @@ enum TabKind: CaseIterable {
 
     private var titleKey: LocalizedStringKey {
         switch self {
-            case .rockSearch:
-                return .init("rock_search")
+            case .search:
+                return .init("search")
+
+            case .map:
+                return .init("map")
 
             case .myPage:
                 return .init("mypage")
@@ -53,21 +37,27 @@ enum TabKind: CaseIterable {
 
     private var normalImage: UIImage {
         switch self {
-            case .rockSearch:
-                return UIImage.SystemImages.map
+            case .search:
+                return Resources.Images.System.magnifyingglassCircle.uiImage
+
+            case .map:
+                return Resources.Images.System.mapCircle.uiImage
 
             case .myPage:
-                return UIImage.SystemImages.personCircle
+                return Resources.Images.System.personCircle.uiImage
         }
     }
 
     private var selectedImage: UIImage {
         switch self {
-            case .rockSearch:
-                return UIImage.SystemImages.mapFill
+            case.search:
+                return Resources.Images.System.magnifyingglassCircleFill.uiImage
+
+            case .map:
+                return Resources.Images.System.mapCircleFill.uiImage
 
             case .myPage:
-                return UIImage.SystemImages.personCircleFill
+                return Resources.Images.System.personCircleFill.uiImage
         }
     }
 }

@@ -4,6 +4,10 @@ public struct Repositories {
             public typealias R = FS.Request.User.FetchById
             public init() {}
         }
+        public struct FetchList: RepositoryProtocol, Initializable {
+            public typealias R = FS.Request.User.FetchList
+            public init() {}
+        }
         public struct Update: RepositoryProtocol, Initializable {
             public typealias R = FS.Request.User.Update
             public init() {}
@@ -14,6 +18,10 @@ public struct Repositories {
         }
         public struct Set: RepositoryProtocol, Initializable {
             public typealias R = FS.Request.User.Set
+            public init() {}
+        }
+        public struct Search: RepositoryProtocol, Initializable {
+            public typealias R = FS.Request.User.Search
             public init() {}
         }
     }
@@ -39,8 +47,16 @@ public struct Repositories {
             public typealias R = FS.Request.Rock.Set
             public init() {}
         }
+        public struct Search: RepositoryProtocol, Initializable {
+            public typealias R = FS.Request.Rock.Search
+            public init() {}
+        }
         public struct Update: RepositoryProtocol, Initializable {
             public typealias R = FS.Request.Rock.Update
+            public init() {}
+        }
+        public struct FetchList: RepositoryProtocol, Initializable {
+            public typealias R = FS.Request.Rock.FetchList
             public init() {}
         }
     }
@@ -54,8 +70,8 @@ public struct Repositories {
             public typealias R = FS.Request.Course.FetchByRockId
             public init() {}
         }
-        public struct FetchByReference: RepositoryProtocol, Initializable {
-            public typealias R = FS.Request.Course.FetchByReference
+        public struct FetchById: RepositoryProtocol, Initializable {
+            public typealias R = FS.Request.Course.FetchById
             public init() {}
         }
         public struct Set: RepositoryProtocol, Initializable {
@@ -68,6 +84,14 @@ public struct Repositories {
         }
         public struct Delete: RepositoryProtocol, Initializable {
             public typealias R = FS.Request.Course.Delete
+            public init() {}
+        }
+        public struct Search: RepositoryProtocol, Initializable {
+            public typealias R = FS.Request.Course.Search
+            public init() {}
+        }
+        public struct FetchList: RepositoryProtocol, Initializable {
+            public typealias R = FS.Request.Course.FetchList
             public init() {}
         }
     }

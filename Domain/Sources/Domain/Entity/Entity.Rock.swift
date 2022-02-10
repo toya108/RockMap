@@ -7,11 +7,11 @@ public extension Domain.Entity {
         public var updatedAt: Date?
         public var parentPath: String
         public var name: String
-        public var erea: String?
+        public var area: String?
         public var address: String
         public var prefecture: String
         public var location: GeoPoint
-        public var seasons: Set<Season>
+        public var seasons: [Season]
         public var lithology: Lithology
         public var desc: String
         public var registeredUserId: String
@@ -24,11 +24,11 @@ public extension Domain.Entity {
             updatedAt: Date? = nil,
             parentPath: String,
             name: String,
-            erea: String?,
+            area: String?,
             address: String,
             prefecture: String,
             location: Domain.Entity.GeoPoint,
-            seasons: Set<Domain.Entity.Rock.Season>,
+            seasons: [Domain.Entity.Rock.Season],
             lithology: Domain.Entity.Rock.Lithology,
             desc: String,
             registeredUserId: String,
@@ -40,7 +40,7 @@ public extension Domain.Entity {
             self.updatedAt = updatedAt
             self.parentPath = parentPath
             self.name = name
-            self.erea = erea
+            self.area = area
             self.address = address
             self.prefecture = prefecture
             self.location = location
@@ -55,8 +55,10 @@ public extension Domain.Entity {
 }
 
 public extension Domain.Entity.Rock {
-    enum Season: String, CaseIterable, Codable {
+    enum Season: String, CaseIterable, Identifiable, Equatable {
         case spring, summer, autumn, winter
+
+        public var id: String { self.rawValue }
 
         public var name: String {
             switch self {
@@ -75,8 +77,10 @@ public extension Domain.Entity.Rock {
         }
     }
 
-    enum Lithology: String, CaseIterable, Codable {
+    enum Lithology: String, CaseIterable, Identifiable {
         case unKnown, granite, andesite, chert, limestone, tuff, sandstone
+
+        public var id: String { self.rawValue }
 
         public var name: String {
             switch self {

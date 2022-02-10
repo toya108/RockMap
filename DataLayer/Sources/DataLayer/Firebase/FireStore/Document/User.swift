@@ -15,6 +15,7 @@ public extension FS.Document {
         @ExplicitNull public var introduction: String?
         @ExplicitNull public var headerUrl: URL?
         public var deleted: Bool = false
+        public var tokenMap: [String: Bool]?
 
         public struct SocialLink: Hashable, Codable {
             public let linkType: String
@@ -38,7 +39,8 @@ public extension FS.Document {
             socialLinks: [FS.Document.User.SocialLink],
             introduction: String?,
             headerUrl: URL?,
-            deleted: Bool = false
+            deleted: Bool = false,
+            tokenMap: [String: Bool]?
         ) {
             self.id = id
             self.createdAt = createdAt
@@ -49,6 +51,7 @@ public extension FS.Document {
             self.introduction = introduction
             self.headerUrl = headerUrl
             self.deleted = deleted
+            self.tokenMap = tokenMap
         }
     }
 }

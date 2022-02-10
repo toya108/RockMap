@@ -1,96 +1,71 @@
 import SwiftUI
-import SkeletonUI
 
 struct RockListView: View {
 
     @StateObject var viewModel: RockListViewModel
+    @ObservedObject var searchRootViewModel: SearchRootViewModel
 
     var body: some View {
-        if viewModel.rocks.isEmpty {
-            ZStack {
-                Color(uiColor: .systemGroupedBackground)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                Text("text_no_rock_registerd_yet")
-            }
-            .onAppear {
-                viewModel.fetchRockList()
-            }
-        } else if viewModel.isLoading {
-            Color.clear.skeleton(with: true)
-                .shape(type: .rectangle)
-                .multiline(lines: 8, spacing: 4)
-                .padding()
-        } else {
-            List(viewModel.rocks) { rock in
-                NavigationLink(
-                    destination: RockDetailView(rock: rock)
-                ) {
-                    ListRowView(
-                        imageURL: rock.headerUrl,
-                        iconImage: UIImage.AssetsImages.rockFill,
-                        title: rock.name,
-                        firstLabel: .init("registered_date"),
-                        firstText: rock.createdAt.string(dateStyle: .medium),
-                        secondLabel: .init("address"),
-                        secondText: rock.address,
-                        thirdText: rock.desc
-                    )
+        ZStack {
+            Color.clear
+                .onAppear {
+                    load()
                 }
-                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                    Button("delete", role: .destructive) {
-                        viewModel.editingRock = rock
-                        viewModel.isPresentedDeleteRockAlert = true
+                .onChange(of: searchRootViewModel.searchCondition) { _ in
+                    load()
+                }
+            switch viewModel.viewState {
+                case .standby:
+                    Color.clear
+
+                case .loading:
+                    ListSkeltonView()
+
+                case .failure:
+                    EmptyView(text: .init("text_fetch_rock_failed"))
+
+                case .finish:
+                    if viewModel.rocks.isEmpty {
+                        EmptyView(text: .init("text_no_rock"))
+
+                    } else {
+                        List(viewModel.rocks) { rock in
+                            NavigationLink(
+                                destination: RockDetailView(rock: rock)
+                            ) {
+                                ListRowView(rock: rock)
+                                    .onAppear {
+                                        additionalLoadIfNeeded(rock: rock)
+                                    }
+                            }
+                        }
+                        .listStyle(.plain)
+                        .refreshable {
+                            load()
+                        }
                     }
-                    Button("edit") {
-                        viewModel.editingRock = rock
-                        viewModel.isPresentedRockRegister = true
-                    }
-                }
             }
-            .refreshable {
-                viewModel.fetchRockList()
+        }
+    }
+
+    private func load() {
+        Task {
+            await viewModel.load(condition: searchRootViewModel.searchCondition)
+        }
+    }
+
+    private func additionalLoadIfNeeded(rock: Entity.Rock) {
+        Task {
+            guard await viewModel.shouldAdditionalLoad(rock: rock) else {
+                return
             }
-            .onReceive(
-                NotificationCenter.default.publisher(for: .didRockRegisterFinished)
-            ) { _ in
-                viewModel.fetchRockList()
-            }
-            .alert(
-                "text_delete_rock_title",
-                isPresented: $viewModel.isPresentedDeleteRockAlert,
-                actions: {
-                    Button("delete", role: .destructive) {
-                        viewModel.delete()
-                    }
-                    Button("cancel", role: .cancel) {
-                        viewModel.isPresentedDeleteRockAlert = false
-                    }
-                },
-                message: {
-                    Text("text_delete_rock_message")
-                }
-            )
-            .alert(
-                "text_delete_failure_title",
-                isPresented: $viewModel.isPresentedDeleteFailureAlert,
-                actions: {
-                    Button("yes") {}
-                },
-                message: {
-                    Text(viewModel.deleteError?.localizedDescription ?? "")
-                }
-            )
-            .sheet(isPresented: $viewModel.isPresentedRockRegister) {
-                if let rock = viewModel.editingRock {
-                    RockRegisterView(registerType: .edit(rock)).interactiveDismissDisabled(true)
-                }
-            }
+            await viewModel.additionalLoad(condition: searchRootViewModel.searchCondition)
         }
     }
 }
 
 struct RockListView_Previews: PreviewProvider {
     static var previews: some View {
-        RockListView(viewModel: .init(userId: "aaa"))
+        RockListView(viewModel: .init(), searchRootViewModel: .init())
     }
 }

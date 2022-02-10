@@ -1,96 +1,73 @@
 import SwiftUI
-import SkeletonUI
 
 struct CourseListView: View {
 
     @StateObject var viewModel: CourseListViewModel
+    @ObservedObject var searchRootViewModel: SearchRootViewModel
 
     var body: some View {
-        if viewModel.courses.isEmpty {
-            ZStack {
-                Color(uiColor: .systemGroupedBackground)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                Text("text_no_course_registerd_yet")
-            }
-            .onAppear {
-                viewModel.fetchCourses()
-            }
-        } else if viewModel.isLoading {
-            Color.clear.skeleton(with: true)
-                .shape(type: .rectangle)
-                .multiline(lines: 8, spacing: 4)
-                .padding()
-        } else {
-            List(viewModel.courses) { course in
-                NavigationLink(
-                    destination: CourseDetailView(course: course)
-                ) {
-                    ListRowView(
-                        imageURL: course.headerUrl,
-                        iconImage: UIImage.AssetsImages.rockFill,
-                        title: course.name,
-                        firstLabel: .init("registered_date"),
-                        firstText: course.createdAt.string(dateStyle: .medium),
-                        secondLabel: .init("grade"),
-                        secondText: course.grade.name,
-                        thirdText: course.desc
-                    )
+        ZStack {
+            Color.clear
+                .onAppear {
+                    load()
                 }
-                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                    Button("delete", role: .destructive) {
-                        viewModel.editingCourse = course
-                        viewModel.isPresentedDeleteCourseAlert = true
+                .onChange(of: searchRootViewModel.searchCondition) { _ in
+                    load()
+                }
+
+            switch viewModel.viewState {
+                case .standby:
+                    Color.clear
+
+                case .loading:
+                    ListSkeltonView()
+
+                case .failure:
+                    EmptyView(text: .init("text_fetch_course_failed"))
+
+                case .finish:
+                    if viewModel.courses.isEmpty {
+                        EmptyView(text: .init("text_no_course"))
+
+                    } else {
+                        List(viewModel.courses) { course in
+                            NavigationLink(
+                                destination: CourseDetailView(course: course)
+                            ) {
+                                ListRowView(course: course)
+                                    .onAppear {
+                                        additionalLoadIfNeeded(course: course)
+                                    }
+                            }
+                        }
+                        .listStyle(.plain)
+                        .refreshable {
+                            load()
+                        }
                     }
-                    Button("edit") {
-                        viewModel.editingCourse = course
-                        viewModel.isPresentedCourseRegister = true
-                    }
-                }
-            }
-            .refreshable {
-                viewModel.fetchCourses()
-            }
-            .onReceive(
-                NotificationCenter.default.publisher(for: .didCourseRegisterFinished)
-            ) { _ in
-                viewModel.fetchCourses()
-            }
-            .alert(
-                "text_delete_course_title",
-                isPresented: $viewModel.isPresentedDeleteCourseAlert,
-                actions: {
-                    Button("delete", role: .destructive) {
-                        viewModel.delete()
-                    }
-                    Button("cancel", role: .cancel) {
-                        viewModel.isPresentedDeleteCourseAlert = false
-                    }
-                },
-                message: {
-                    Text("text_delete_course_message")
-                }
-            )
-            .alert(
-                "text_delete_failure_title",
-                isPresented: $viewModel.isPresentedDeleteFailureAlert,
-                actions: {
-                    Button("yes") {}
-                },
-                message: {
-                    Text(viewModel.deleteError?.localizedDescription ?? "")
-                }
-            )
-            .sheet(isPresented: $viewModel.isPresentedCourseRegister) {
-                if let rock = viewModel.editingCourse {
-                    CourseRegisterView(registerType: .edit(rock)).interactiveDismissDisabled(true)
-                }
             }
         }
     }
+
+    private func load() {
+        Task {
+            await viewModel.load(condition: searchRootViewModel.searchCondition)
+        }
+    }
+
+    private func additionalLoadIfNeeded(course: Entity.Course) {
+        Task {
+            guard await viewModel.shouldAdditionalLoad(course: course) else {
+                return
+            }
+            await viewModel.additionalLoad(condition: searchRootViewModel.searchCondition)
+        }
+    }
+
 }
 
 struct CourseListView_Previews: PreviewProvider {
     static var previews: some View {
-        CourseListView(viewModel: .init(userId: "aaa"))
+        CourseListView(viewModel: .init(), searchRootViewModel: .init())
     }
 }

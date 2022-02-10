@@ -63,14 +63,14 @@ struct MyPageRouter: RouterProtocol {
 
     private func pushRockList(_ from: UIViewController) {
         let vc = UIHostingController(
-            rootView: RockListView(viewModel: .init(userId: viewModel.userKind.userId))
+            rootView: RegisteredRockListView(viewModel: .init(userId: viewModel.userKind.userId))
         )
         from.navigationController?.pushViewController(vc, animated: true)
     }
 
     private func pushCourseList(_ from: UIViewController) {
         let vc = UIHostingController(
-            rootView: CourseListView(viewModel: .init(userId: viewModel.userKind.userId))
+            rootView: RegisteredCourseListView(viewModel: .init(userId: viewModel.userKind.userId))
         )
         from.navigationController?.pushViewController(vc, animated: true)
     }

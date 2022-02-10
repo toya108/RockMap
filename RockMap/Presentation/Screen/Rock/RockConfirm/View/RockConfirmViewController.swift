@@ -48,7 +48,7 @@ class RockConfirmViewController: UIViewController, CompositionalColectionViewCon
         self.snapShot.appendSections(SectionLayoutKind.allCases)
         self.snapShot.appendItems([.name(self.viewModel.rockEntity.name)], toSection: .name)
         self.snapShot.appendItems([.desc(self.viewModel.rockEntity.desc)], toSection: .desc)
-        self.snapShot.appendItems([.erea(self.viewModel.rockEntity.erea ?? "なし")], toSection: .erea)
+        self.snapShot.appendItems([.area(self.viewModel.rockEntity.area ?? "なし")], toSection: .area)
         self.snapShot.appendItems([.season(self.viewModel.rockEntity.seasons)], toSection: .season)
         self.snapShot.appendItems(
             [.lithology(self.viewModel.rockEntity.lithology)],
@@ -80,7 +80,7 @@ extension RockConfirmViewController {
         guard let self = self else { return }
 
         switch state {
-        case .stanby: break
+        case .standby: break
 
         case .loading:
             self.showIndicatorView()
@@ -102,7 +102,7 @@ extension RockConfirmViewController {
         guard let self = self else { return }
 
         switch state {
-        case .stanby: break
+        case .standby: break
 
         case .loading:
             self.showIndicatorView()

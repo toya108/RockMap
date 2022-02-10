@@ -44,12 +44,12 @@ class RockRegisterViewController: UIViewController, CompositionalColectionViewCo
     private func setupNavigationBar() {
         navigationItem.title = "岩を\(self.viewModel.registerType.name)する"
         let closeButton = UIBarButtonItem(
-            image: UIImage.SystemImages.xmark,
+            image: Resources.Images.System.xmark.uiImage,
             primaryAction: .init { [weak self] _ in
 
                 guard let self = self else { return }
 
-                self.router.route(to: .rockSearch, from: self)
+                self.router.route(to: .map, from: self)
             }
         )
         closeButton.tintColor = .label
@@ -125,7 +125,7 @@ extension RockRegisterViewController {
         self.datasource.apply(self.snapShot)
     }}
 
-    private var seasonsSink: (Set<Entity.Rock.Season>) -> Void {{ [weak self] seasons in
+    private var seasonsSink: ([Entity.Rock.Season]) -> Void {{ [weak self] seasons in
 
         guard let self = self else { return }
 

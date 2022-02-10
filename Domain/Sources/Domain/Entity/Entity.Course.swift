@@ -49,8 +49,10 @@ public extension Domain.Entity {
 }
 
 public extension Domain.Entity.Course {
-    enum Grade: String, CaseIterable {
+    enum Grade: String, CaseIterable, Identifiable {
         case d5, d4, d3, d2, d1, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10
+
+        public var id: String { self.rawValue }
 
         public var name: String {
             switch self {
@@ -102,8 +104,10 @@ public extension Domain.Entity.Course {
         }
     }
 
-    enum Shape: String, CaseIterable {
+    enum Shape: String, CaseIterable, Identifiable {
         case roof, slab, face, overhang, kante, lip
+
+        public var id: String { self.rawValue }
 
         public var name: String {
             switch self {

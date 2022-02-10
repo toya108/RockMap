@@ -9,6 +9,21 @@
 "registered_date" = "登録日";
 "text_delete_failure_title" = "削除に失敗しました";
 
+// MARK: - Search
+"text_search_placeholder" = "名前で検索";
+
+// MARK: - SearchFilter
+"area" = "エリア";
+"text_area_placeholder" = "御岳、瑞牆、小川山など";
+"apply" = "条件を適用";
+"filter" = "絞り込み";
+"reset" = "リセット";
+
+// MARK: - CategoryList
+"rock" = "岩";
+"course" = "課題";
+"user" = "ユーザー";
+
 // MARK: - Auth
 "rockmap" = "RockMap";
 "text_hello" = "Hello Climbers!\nLet's share rocks & courses!";
@@ -25,20 +40,33 @@
 "text_aleady_logged_in_with%@" = "既にこちらのユーザーとしてログインしています。\n%@";
 
 // MARK: - Tab
-"rock_search" = "岩を探す";
+"search" = "探す";
+"map" = "地図";
 "mypage" = "マイページ";
 
-// MARK: - RockList
+// MARK: - RegisterdRockList
 "text_no_rock_registerd_yet" = "まだ登録した岩はありません。";
-"address" = "住所";
+"area" = "エリア";
 "text_delete_rock_title" = "岩を削除しますか？";
 "text_delete_rock_message" = "一度削除すると復元できません。";
 
-// MARK: - CourseList
+// MARK: - RockList
+"text_no_rock" = "岩が見つかりませんでした。";
+"text_fetch_rock_failed" = "岩の取得に失敗しました。";
+
+// MARK: - RegisterdCourseList
 "text_no_course_registerd_yet" = "まだ登録した課題はありません。";
 "grade" = "グレード";
 "text_delete_course_title" = "課題を削除しますか？";
 "text_delete_course_message" = "一度削除すると復元できません。";
+
+// MARK: - CourseList
+"text_no_course" = "課題が見つかりませんでした。";
+"text_fetch_course_failed" = "課題の取得に失敗しました。";
+
+// MARK: - UserList
+"text_no_user" = "ユーザーが見つかりませんでした。";
+"text_fetch_user_failed" = "ユーザーの取得に失敗しました。";
 
 // MARK: - Settings
 "account" = "アカウント";

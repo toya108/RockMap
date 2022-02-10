@@ -55,7 +55,7 @@ class CourseDetailViewController: UIViewController, CompositionalColectionViewCo
             self.snapShot.appendItems([.headerImage(url)], toSection: .headerImage)
         }
         let valueCellData = ValueCollectionViewCell.ValueCellStructure(
-            image: UIImage.SystemImages.triangleLefthalfFill,
+            image: Resources.Images.System.triangleLefthalfFill.uiImage,
             title: "形状",
             subTitle: self.viewModel.course.shape.map(\.name).joined(separator: "/")
         )
@@ -80,7 +80,7 @@ extension CourseDetailViewController {
         guard let self = self else { return }
 
         switch state {
-        case .stanby, .failure, .loading:
+        case .standby, .failure, .loading:
             break
 
         case .finish:
@@ -94,7 +94,7 @@ extension CourseDetailViewController {
         guard let self = self else { return }
 
         switch state {
-        case .stanby, .failure, .loading:
+        case .standby, .failure, .loading:
             break
 
         case .finish:

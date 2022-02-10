@@ -3,29 +3,29 @@ import DataLayer
 import Foundation
 
 public extension Domain.Usecase.Rock {
-    struct Delete: DeleteRockUsecaseProtocol, PassthroughUsecaseProtocol {
-        public typealias Repository = AnyRepository<Repositories.Rock.Delete.R>
-        public typealias Mapper = Domain.Mapper.Rock
-
-        let repository: Repository
-        let mapper: Mapper
+    struct Delete: DeleteRockUsecaseProtocol {
+        let deleteRockRepository: AnyRepository<Repositories.Rock.Delete.R>
+        let deleteStorageRepository: AnyRepository<Repositories.Storage.Delete.R>
 
         public init(
-            repository: Repository = AnyRepository(Repositories.Rock.Delete()),
-            mapper: Mapper = .init()
+            deleteRockRepository: AnyRepository<Repositories.Rock.Delete.R> = AnyRepository(Repositories.Rock.Delete()),
+            deleteStorageRepository: AnyRepository<Repositories.Storage.Delete.R> = AnyRepository(Repositories.Storage.Delete())
         ) {
-            self.repository = repository
-            self.mapper = mapper
+            self.deleteRockRepository = deleteRockRepository
+            self.deleteStorageRepository = deleteStorageRepository
         }
 
-        public func delete(id: String, parentPath: String) async throws {
-            try await self.repository.request(
-                parameters: .init(id: id, parentPath: parentPath)
+        public func delete(id: String) async throws {
+            try await self.deleteRockRepository.request(
+                parameters: .init(id: id)
+            )
+            try await self.deleteStorageRepository.request(
+                parameters: .init(entry: .directory(path: FS.Collection.Rocks.name + "/" + id))
             )
         }
     }
 }
 
 public protocol DeleteRockUsecaseProtocol {
-    func delete(id: String, parentPath: String) async throws
+    func delete(id: String) async throws
 }

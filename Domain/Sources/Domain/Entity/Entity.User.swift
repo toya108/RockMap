@@ -12,6 +12,28 @@ public extension Domain.Entity {
         public var headerUrl: URL?
         public var deleted: Bool = false
 
+        public init(
+            id: String,
+            createdAt: Date,
+            updatedAt: Date? = nil,
+            name: String,
+            photoURL: URL? = nil,
+            socialLinks: [Domain.Entity.User.SocialLink] = [],
+            introduction: String? = nil,
+            headerUrl: URL? = nil,
+            deleted: Bool = false
+        ) {
+            self.id = id
+            self.createdAt = createdAt
+            self.updatedAt = updatedAt
+            self.name = name
+            self.photoURL = photoURL
+            self.socialLinks = socialLinks
+            self.introduction = introduction
+            self.headerUrl = headerUrl
+            self.deleted = deleted
+        }
+
         public struct SocialLink: Hashable {
             public let linkType: SocialLinkType
             public var link: String
@@ -70,6 +92,12 @@ public extension Domain.Entity {
                 }
             }
         }
+    }
+}
+
+public extension Domain.Entity.User {
+    static var dummy: Self {
+        .init(id: UUID().uuidString, createdAt: Date(), name: "")
     }
 }
 

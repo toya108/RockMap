@@ -46,7 +46,7 @@ class RockLocationSelectViewController: UIViewController {
     private func setupNavigationBar() {
         navigationItem.title = "岩の位置を選択する"
         let closeButton = UIBarButtonItem(
-            image: UIImage.SystemImages.xmark,
+            image: Resources.Images.System.xmark.uiImage,
             style: .plain,
             target: self,
             action: #selector(self.didCancelButtonTapped)

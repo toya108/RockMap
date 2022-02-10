@@ -9,24 +9,17 @@ public extension FS.Request.ClimbRecord {
         public typealias Collection = FS.Collection.ClimbRecord
         public typealias Response = EmptyResponse
         public struct Parameters: Codable {
-            public var parentPath: String
             public var id: String
 
-            public init(parentPath: String, id: String) {
-                self.parentPath = parentPath
+            public init(id: String) {
                 self.id = id
             }
         }
 
         public var parameters: Parameters
         public var testDataPath: URL?
-        public var path: String {
-            self.parameters.parentPath
-            Collection.name
-            self.parameters.id
-        }
-
-        public var entry: Entry { FirestoreManager.db.document(self.path) }
+        public var entry: Entry { Collection.collection.document(parameters.id) }
+        public var path: String { "" }
 
         public init(parameters: Parameters) {
             self.parameters = parameters

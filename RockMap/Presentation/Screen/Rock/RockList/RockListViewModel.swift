@@ -1,71 +1,56 @@
 import Combine
-import Resolver
-import Auth
-import Domain
 import Foundation
+import Resolver
+import Domain
+import Collections
 
-class RockListViewModel: ObservableObject {
+actor RockListViewModel: ObservableObject {
 
-    @Published var rocks: [Entity.Rock] = []
-    @Published var isEmpty = false
-    @Published var isPresentedRockRegister = false
-    @Published var isPresentedDeleteRockAlert = false
-    @Published var isPresentedDeleteFailureAlert = false
-    @Published var isLoading = false
-    var editingRock: Entity.Rock?
-    var deleteError: Error?
+    @Published nonisolated var rocks: OrderedSet<Entity.Rock> = []
+    @Published nonisolated var viewState: LoadableViewState = .standby
 
-    @Injected private var fetchRocksUsecase: FetchRockUsecaseProtocol
-    @Injected private var deleteRockUsecase: DeleteRockUsecaseProtocol
-    @Injected private var authAccessor: AuthAccessorProtocol
+    @Injected private var fetchRockListUsecase: FetchRockListUsecaseProtocol
 
-    private let userId: String
+    @MainActor func load(
+        condition: SearchCondition,
+        isAdditional: Bool = false
+    ) async {
+        self.viewState = .loading
 
-    init(userId: String) {
-        self.userId = userId
-    }
+        do {
+            let rocks = try await fetchRockListUsecase.fetch(
+                startAt: isAdditional ? startAt : Date(), area: condition.area
+            )
 
-    private func bindOutput() {
-        self.$rocks
-            .map(\.isEmpty)
-            .assign(to: &self.$isEmpty)
-    }
-
-    @MainActor func delete() {
-
-        guard let rock = editingRock else {
-            return
-        }
-
-        self.isLoading = true
-
-        Task {
-            do {
-                try await self.deleteRockUsecase.delete(
-                    id: rock.id,
-                    parentPath: rock.parentPath
-                )
-
-                guard
-                    let index = self.rocks.firstIndex(of: rock)
-                else {
-                    return
-                }
-                self.rocks.remove(at: index)
-                self.isLoading = false
-            } catch {
-                self.deleteError = error
+            if !isAdditional {
+                self.rocks.removeAll()
             }
+            self.rocks.append(contentsOf: rocks)
+
+            self.viewState = .finish
+        } catch {
+            self.viewState = .failure(error)
         }
     }
 
-    @MainActor func fetchRockList() {
-        self.isLoading = true
+    func additionalLoad(condition: SearchCondition) async {
+        await self.load(condition: condition, isAdditional: true)
+    }
 
-        Task {
-            let rocks = try await self.fetchRocksUsecase.fetch(by: self.userId)
-            self.rocks = rocks.sorted { $0.createdAt > $1.createdAt }
-            self.isLoading = false
+    func shouldAdditionalLoad(rock: Entity.Rock) async -> Bool {
+        guard let index = rocks.firstIndex(of: rock) else {
+            return false
+        }
+        return rock.id == rocks.last?.id
+        && Float(index).truncatingRemainder(dividingBy: 20.0) == 0.0
+        && index != 0
+    }
+
+    private var startAt: Date {
+        if let last = rocks.last {
+            return last.createdAt
+        } else {
+            return Date()
         }
     }
 }

@@ -20,7 +20,7 @@ extension UIImageView {
             }
 
             print(error.localizedDescription)
-            self.image = UIImage.AssetsImages.noimage
+            self.image = Resources.Images.Assets.noimage.uiImage
         }
     }
 }
@@ -44,7 +44,7 @@ extension UIButton {
             }
 
             print(error.localizedDescription)
-            self.setImage(UIImage.AssetsImages.noimage, for: .normal)
+            self.setImage(Resources.Images.Assets.noimage.uiImage, for: .normal)
         }
     }
 }

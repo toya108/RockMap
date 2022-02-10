@@ -102,17 +102,15 @@ extension AuthManager: FUIAuthDelegate {
             return
         }
 
-        Task { [weak self] in
-
-            guard let self = self else { return }
-
+        Task {
             do {
-                try await self.setUserUsecase.set(
+                let entity = Entity.User(
                     id: user.uid,
                     createdAt: user.metadata.creationDate ?? Date(),
-                    displayName: user.displayName,
+                    name: user.displayName ?? "-",
                     photoURL: user.photoURL
                 )
+                try await self.setUserUsecase.set(user: entity)
                 self.loginFinishedSubject.send(.success(()))
             } catch {
                 self.loginFinishedSubject.send(.failure(error))

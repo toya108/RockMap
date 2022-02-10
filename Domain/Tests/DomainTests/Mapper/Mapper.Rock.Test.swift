@@ -25,11 +25,15 @@ final class RockMapperTests: XCTestCase {
             location: .init(latitude: 35.810537, longitude: 139.473032),
             seasons: Set(["summer"]),
             lithology: "chert",
-            erea: "御岳",
+            area: "御岳",
             desc: "rockrockrock",
             registeredUserId: userId,
             headerUrl: dummyURL,
-            imageUrls: [dummyURL]
+            imageUrls: [dummyURL],
+            tokenMap: [
+                "日陰": true,
+                "陰岩": true
+            ]
         )
 
         let entity = mapper.map(from: document)
@@ -42,9 +46,9 @@ final class RockMapperTests: XCTestCase {
         XCTAssertEqual(entity.address, "東京都千代田区")
         XCTAssertEqual(entity.prefecture, "東京都")
         XCTAssertEqual(entity.location, .init(latitude: 35.810537, longitude: 139.473032))
-        XCTAssertEqual(entity.seasons, Set([.summer]))
+        XCTAssertEqual(entity.seasons, [.summer])
         XCTAssertEqual(entity.lithology, .chert)
-        XCTAssertEqual(entity.erea, "御岳")
+        XCTAssertEqual(entity.area, "御岳")
         XCTAssertEqual(entity.desc, "rockrockrock")
         XCTAssertEqual(entity.registeredUserId, userId)
         XCTAssertEqual(entity.headerUrl, dummyURL)
@@ -58,11 +62,11 @@ final class RockMapperTests: XCTestCase {
             updatedAt: updatedAt,
             parentPath: "users/" + userId,
             name: "日陰岩",
-            erea: "御岳",
+            area: "御岳",
             address: "東京都千代田区",
             prefecture: "東京都",
             location: .init(latitude: 35.810537, longitude: 139.473032),
-            seasons: Set([.summer]),
+            seasons: [.summer],
             lithology: .chert,
             desc: "rockrockrock",
             registeredUserId: userId,
@@ -82,7 +86,7 @@ final class RockMapperTests: XCTestCase {
         XCTAssertEqual(document.location, .init(latitude: 35.810537, longitude: 139.473032))
         XCTAssertEqual(document.seasons, Set(["summer"]))
         XCTAssertEqual(document.lithology, "chert")
-        XCTAssertEqual(document.erea, "御岳")
+        XCTAssertEqual(document.area, "御岳")
         XCTAssertEqual(document.desc, "rockrockrock")
         XCTAssertEqual(document.registeredUserId, userId)
         XCTAssertEqual(document.headerUrl, dummyURL)

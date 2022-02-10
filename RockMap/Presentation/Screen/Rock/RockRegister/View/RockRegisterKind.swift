@@ -5,7 +5,7 @@ extension RockRegisterViewController {
     enum SectionLayoutKind: CaseIterable {
         case name
         case desc
-        case erea
+        case area
         case location
         case season
         case lithology
@@ -30,7 +30,7 @@ extension RockRegisterViewController {
             case .lithology:
                 return "岩質"
 
-            case .erea:
+            case .area:
                 return "エリア"
 
             case .header:
@@ -46,7 +46,7 @@ extension RockRegisterViewController {
 
         var headerIdentifer: String {
             switch self {
-            case .name, .desc, .location, .season, .lithology, .erea, .images, .header:
+            case .name, .desc, .location, .season, .lithology, .area, .images, .header:
                 return TitleSupplementaryView.className
 
             default:
@@ -62,8 +62,8 @@ extension RockRegisterViewController {
             case .desc:
                 return [.desc]
 
-            case .erea:
-                return [.erea]
+            case .area:
+                return [.area]
 
             case .header:
                 return [.noImage(.header)]
@@ -83,7 +83,7 @@ extension RockRegisterViewController {
     enum ItemKind: Hashable {
         case name
         case desc
-        case erea
+        case area
         case location(LocationManager.LocationStructure)
         case season(season: Entity.Rock.Season, isSelecting: Bool)
         case lithology(Entity.Rock.Lithology)

@@ -9,6 +9,21 @@
 "registered_date" = "Registered Date";
 "text_delete_failure_title" = "Failed to delete";
 
+// MARK: - Search
+"text_search_placeholder" = "Let's search by name";
+
+// MARK: - SearchFilter
+"area" = "Area";
+"text_area_placeholder" = "e.g. Mitake, Mizugaki";
+"apply" = "Apply";
+"filter" = "Filter";
+"reset" = "Reset";
+
+// MARK: - CategoryList
+"rock" = "Rock";
+"course" = "Course";
+"user" = "User";
+
 // MARK: - Auth
 "rockmap" = "RockMap";
 "text_hello" = "Hello Climbers!\nLet's share rocks & courses!";
@@ -25,20 +40,33 @@
 "text_aleady_logged_in_with%@" = "You are already logged in as a user here.\n%@";
 
 // MARK: - Tab
-"rock_search" = "Search Rock";
+"search" = "Search";
+"map" = "Map";
 "mypage" = "MyPage";
 
-// MARK: - RockList
+// MARK: - RegisterdRockList
 "text_no_rock_registerd_yet" = "There are no rocks registered by you yet.";
-"address" = "Address";
+"area" = "Area";
 "text_delete_rock_title" = "Do you want to delete the rock?";
 "text_delete_rock_message" = "Once deleted, it cannot be restored.";
 
-// MARK: - CourseList
-"text_no_course_registerd_yet" = "There are no rocks registered by you yet.";
+// MARK: - RockList
+"text_no_rock" = "No Rocks";
+"text_fetch_rock_failed" = "Failed to retrieve rocks";
+
+// MARK: - RegisterdCourseList
+"text_no_course_registerd_yet" = "There are no courses registered by you yet.";
 "grade" = "Grade";
-"text_delete_course_title" = "Do you want to delete the rock?";
+"text_delete_course_title" = "Do you want to delete the course?";
 "text_delete_course_message" = "Once deleted, it cannot be restored.";
+
+// MARK: - CourseList
+"text_no_course" = "No Courses";
+"text_fetch_course_failed" = "Failed to retrieve courses";
+
+// MARK: - UserList
+"text_no_user" = "No Users";
+"text_fetch_user_failed" = "Failed to retrieve users";
 
 // MARK: - Settings
 "account" = "Account";

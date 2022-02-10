@@ -8,6 +8,9 @@ public protocol CollectionProtocol {
 
 public extension CollectionProtocol {
     static var isRoot: Bool { false }
+    static var collection: FSCollection {
+        FirestoreManager.db.collection(name)
+    }
     static var group: FSQuery {
         FirestoreManager.db.collectionGroup(Self.name)
     }
@@ -29,6 +32,7 @@ public extension FS.Collection {
         }
 
         public static var name: String { "rocks" }
+        public static var isRoot: Bool { true }
     }
 
     struct Courses: CollectionProtocol {
@@ -37,6 +41,7 @@ public extension FS.Collection {
         }
 
         public static var name: String { "courses" }
+        public static var isRoot: Bool { true }
     }
 
     struct ClimbRecord: CollectionProtocol {
@@ -45,6 +50,7 @@ public extension FS.Collection {
         }
 
         public static var name: String { "climbRecord" }
+        public static var isRoot: Bool { true }
     }
 
     struct TotalClimbedNumber: CollectionProtocol {

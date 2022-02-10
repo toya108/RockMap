@@ -18,8 +18,8 @@ public extension FS.Request.ClimbRecord {
         public var parameters: Parameters
         public var testDataPath: URL?
         public var entry: Entry {
-            Collection.group
-                .whereField("parentCourseId", in: [self.parameters.courseId])
+            Collection.collection
+                .whereField("parentCourseId", isEqualTo: self.parameters.courseId)
                 .order(by: "climbedDate")
         }
 

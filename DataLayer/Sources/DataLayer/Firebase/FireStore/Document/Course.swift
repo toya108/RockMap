@@ -20,6 +20,7 @@ public extension FS.Document {
         @ExplicitNull
         public var headerUrl: URL?
         public var imageUrls: [URL]
+        public var tokenMap: [String: Bool]?
 
         public init(
             id: String,
@@ -34,7 +35,8 @@ public extension FS.Document {
             parentRockId: String,
             registeredUserId: String,
             headerUrl: URL?,
-            imageUrls: [URL]
+            imageUrls: [URL],
+            tokenMap: [String: Bool]?
         ) {
             self.id = id
             self.parentPath = parentPath
@@ -49,6 +51,7 @@ public extension FS.Document {
             self.registeredUserId = registeredUserId
             self.headerUrl = headerUrl
             self.imageUrls = imageUrls
+            self.tokenMap = tokenMap
         }
     }
 }

@@ -16,7 +16,7 @@ class StorageUploader {
     }
 
     enum UploadState {
-        case stanby
+        case standby
         case progress(UnitCount)
         case complete([StorageMetadata])
         case failure(Error)
@@ -27,7 +27,7 @@ class StorageUploader {
     private var totalUnitCount: Int64 = 1
     private var completedUnitCount: Int64 = 0
 
-    @Published var uploadState: UploadState = .stanby
+    @Published var uploadState: UploadState = .standby
 
     //    func addData(image: CrudableImage, id: String, documentType: FINameSpaceProtocol.Type) {
     //

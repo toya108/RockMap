@@ -139,7 +139,7 @@ extension CourseConfirmViewModel {
     }
 
     final class Output {
-        @Published var imageUploadState: LoadingState<Void> = .stanby
-        @Published var courseUploadState: LoadingState<Void> = .stanby
+        @Published var imageUploadState: LoadingState<Void> = .standby
+        @Published var courseUploadState: LoadingState<Void> = .standby
     }
 }

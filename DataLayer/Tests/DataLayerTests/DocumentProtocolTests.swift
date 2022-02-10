@@ -24,7 +24,8 @@ final class DocumentProtocolTests: XCTestCase {
         socialLinks: [],
         introduction: nil,
         headerUrl: nil,
-        deleted: false
+        deleted: false,
+        tokenMap: [:]
     )
 
     func testUserReference() throws {
@@ -46,16 +47,15 @@ final class DocumentProtocolTests: XCTestCase {
             location: .init(latitude: 0.0, longitude: 0.0),
             seasons: [],
             lithology: "chert",
-            erea: "御岳",
+            area: "御岳",
             desc: "aaa",
             registeredUserId: self.userDocument.id,
             headerUrl: nil,
-            imageUrls: []
+            imageUrls: [],
+            tokenMap: ["aa": true]
         )
 
         let expectPath = [
-            FS.Collection.Users.name,
-            self.userDocument.id,
             FS.Collection.Rocks.name,
             rockDocument.id
         ].joined(separator: "/")
@@ -80,11 +80,10 @@ final class DocumentProtocolTests: XCTestCase {
             parentRockId: UUID().uuidString,
             registeredUserId: self.userDocument.id,
             headerUrl: nil,
-            imageUrls: []
+            imageUrls: [],
+            tokenMap: ["aa": true]
         )
         let expectPath = [
-            FS.Collection.Users.name,
-            self.userDocument.id,
             FS.Collection.Courses.name,
             courseDocument.id
         ].joined(separator: "/")
@@ -111,8 +110,6 @@ final class DocumentProtocolTests: XCTestCase {
             type: "flash"
         )
         let expectPath = [
-            FS.Collection.Users.name,
-            self.userDocument.id,
             FS.Collection.ClimbRecord.name,
             climbRecordDocument.id
         ].joined(separator: "/")

@@ -120,10 +120,7 @@ class ClimbedUserListViewModel: ClimbedUserListViewModelProtocol {
     }}
 
     func deleteClimbRecord(climbRecord: Entity.ClimbRecord) async throws {
-        try await self.deleteClimbRecordUsecase.delete(
-            parentPath: climbRecord.parentPath,
-            id: climbRecord.id
-        )
+        try await self.deleteClimbRecordUsecase.delete(id: climbRecord.id)
     }
 
     func updateClimbedData(

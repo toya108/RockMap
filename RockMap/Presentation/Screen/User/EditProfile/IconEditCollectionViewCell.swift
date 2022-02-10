@@ -50,7 +50,7 @@ class IconEditCollectionViewCell: UICollectionViewCell {
 
         self.editButton.translatesAutoresizingMaskIntoConstraints = false
         self.editButton.backgroundColor = UIColor.Pallete.primaryGreen
-        self.editButton.setImage(UIImage.SystemImages.cameraFill, for: .normal)
+        self.editButton.setImage(Resources.Images.System.cameraFill.uiImage, for: .normal)
         self.editButton.setTitle(" アイコン編集 ", for: .normal)
         self.editButton.layer.cornerRadius = 8
         self.editButton.tintColor = .white

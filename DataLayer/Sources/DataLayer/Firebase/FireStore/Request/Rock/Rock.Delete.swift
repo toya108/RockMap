@@ -10,23 +10,17 @@ public extension FS.Request.Rock {
         public typealias Response = EmptyResponse
         public struct Parameters: Codable {
             let id: String
-            let parentPath: String
 
-            public init(id: String, parentPath: String) {
+            public init(id: String) {
                 self.id = id
-                self.parentPath = parentPath
             }
         }
 
         public var parameters: Parameters
         public var testDataPath: URL?
-        public var path: String {
-            self.parameters.parentPath
-            Collection.name
-            self.parameters.id
-        }
 
-        public var entry: Entry { FirestoreManager.db.document(self.path) }
+        public var entry: Entry { Collection.collection.document(parameters.id) }
+        public var path: String { "" }
 
         public init(parameters: Parameters) {
             self.parameters = parameters

@@ -14,7 +14,7 @@ class RegisterClimbRecordViewModel {
 
     @Published var climbedDate: Date?
     @Published var climbRecordType: Entity.ClimbRecord.ClimbedRecordType = .flash
-    @Published private(set) var loadingState: LoadingState<Void> = .stanby
+    @Published private(set) var loadingState: LoadingState<Void> = .standby
 
     private var bindings = Set<AnyCancellable>()
 
@@ -56,7 +56,6 @@ class RegisterClimbRecordViewModel {
         Task {
             do {
                 try await self.updateClimbRecordUsecase.update(
-                    parentPath: climbed.parentPath,
                     id: climbed.id,
                     climbedDate: targetClimbedDate,
                     type: targetClimbedRecordType
@@ -83,7 +82,7 @@ class RegisterClimbRecordViewModel {
             id: UUID().uuidString,
             registeredUserId: AuthManager.shared.uid,
             parentCourseId: course.id,
-            parentCourseReference: [course.parentPath, "courses", course.id].joined(separator: "/"),
+            parentCourseReference: ["courses", course.id].joined(separator: "/"),
             createdAt: Date(),
             updatedAt: nil,
             parentPath: AuthManager.shared.userPath,
