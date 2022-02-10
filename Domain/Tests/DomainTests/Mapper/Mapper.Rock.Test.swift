@@ -18,7 +18,6 @@ final class RockMapperTests: XCTestCase {
             id: rockId,
             createdAt: createdAt,
             updatedAt: updatedAt,
-            parentPath: "users/" + userId,
             name: "日陰岩",
             address: "東京都千代田区",
             prefecture: "東京都",
@@ -41,7 +40,6 @@ final class RockMapperTests: XCTestCase {
         XCTAssertEqual(entity.id, rockId)
         XCTAssertEqual(entity.createdAt, createdAt)
         XCTAssertEqual(entity.updatedAt, updatedAt)
-        XCTAssertEqual(entity.parentPath, "users/" + userId)
         XCTAssertEqual(entity.name, "日陰岩")
         XCTAssertEqual(entity.address, "東京都千代田区")
         XCTAssertEqual(entity.prefecture, "東京都")
@@ -60,7 +58,6 @@ final class RockMapperTests: XCTestCase {
             id: rockId,
             createdAt: createdAt,
             updatedAt: updatedAt,
-            parentPath: "users/" + userId,
             name: "日陰岩",
             area: "御岳",
             address: "東京都千代田区",
@@ -79,7 +76,7 @@ final class RockMapperTests: XCTestCase {
         XCTAssertEqual(document.id, rockId)
         XCTAssertEqual(document.createdAt, createdAt)
         XCTAssertEqual(document.updatedAt, updatedAt)
-        XCTAssertEqual(document.parentPath, "users/" + userId)
+        XCTAssertEqual(document.parentPath, "")
         XCTAssertEqual(document.name, "日陰岩")
         XCTAssertEqual(document.address, "東京都千代田区")
         XCTAssertEqual(document.prefecture, "東京都")

@@ -40,7 +40,6 @@ final class DocumentProtocolTests: XCTestCase {
             id: UUID().uuidString,
             createdAt: Date(),
             updatedAt: nil,
-            parentPath: self.userDocument.reference.path,
             name: "aaa",
             address: "北海道",
             prefecture: "北海道",
@@ -69,7 +68,6 @@ final class DocumentProtocolTests: XCTestCase {
     func testCourseReference() throws {
         let courseDocument = FS.Document.Course(
             id: UUID().uuidString,
-            parentPath: self.userDocument.reference.path,
             createdAt: Date(),
             updatedAt: nil,
             name: "aaa",
@@ -105,7 +103,6 @@ final class DocumentProtocolTests: XCTestCase {
             totalNumberReference: dummyDocumentReference,
             createdAt: Date(),
             updatedAt: nil,
-            parentPath: self.userDocument.reference.path,
             climbedDate: Date(),
             type: "flash"
         )

@@ -33,7 +33,6 @@ final class ClimbRecordMapperTests: XCTestCase {
             ),
             createdAt: createdAt,
             updatedAt: updatedAt,
-            parentPath: "users/userID",
             climbedDate: climbedDate,
             type: "flash"
         )
@@ -46,7 +45,6 @@ final class ClimbRecordMapperTests: XCTestCase {
         XCTAssertEqual(entity.parentCourseReference, "users/userID/courses/courseID")
         XCTAssertEqual(entity.createdAt, createdAt)
         XCTAssertEqual(entity.updatedAt, updatedAt)
-        XCTAssertEqual(entity.parentPath, "users/userID")
         XCTAssertEqual(entity.climbedDate, climbedDate)
         XCTAssertEqual(entity.type, .flash)
     }
@@ -63,7 +61,6 @@ final class ClimbRecordMapperTests: XCTestCase {
             ),
             createdAt: createdAt,
             updatedAt: updatedAt,
-            parentPath: "users/userID",
             climbedDate: climbedDate,
             type: "flash"
         )
