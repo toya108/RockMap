@@ -12,7 +12,7 @@ name: firebase-ios-sdk, nameSpecified: Firebase, owner: firebase, version: 8.8.1
 
 name: FirebaseUI-iOS, nameSpecified: FirebaseUI, owner: firebase, version: 12.1.0
 
-name: FloatingPanel, nameSpecified: FloatingPanel, owner: scenee, version: 2.5.1
+name: FloatingPanel, nameSpecified: FloatingPanel, owner: scenee, version: 2.5.2
 
 name: GoogleAppMeasurement, nameSpecified: GoogleAppMeasurement, owner: google, version: 8.8.0
 

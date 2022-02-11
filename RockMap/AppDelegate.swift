@@ -34,21 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func setupFirebase() {
-        let configFileName: String
-        #if DEBUG
-        configFileName = "GoogleService-Info-dev"
-        #else
-        configFileName = "GoogleService-Info-release"
-        #endif
-
-        guard
-            let filePath = Bundle.main.path(forResource: configFileName, ofType: "plist"),
-            let options = FirebaseOptions(contentsOfFile: filePath)
-        else {
-            fatalError("Firebase plist file is not found.")
-        }
-
-        FirebaseApp.configure(options: options)
+        FirebaseApp.configure()
     }
 
     private func setupRemoteConfig() {
