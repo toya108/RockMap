@@ -48,7 +48,9 @@ struct MyPageRouter: RouterProtocol {
     private func pushClimbedCourseList(
         _ from: UIViewController
     ) {
-        let vc = UIHostingController(rootView: ClimbedCourseListView(viewModel: .init()))
+        let vc = UIHostingController(
+            rootView: ClimbedCourseListView(viewModel: .init(userId: viewModel.userKind.userId))
+        )
         from.navigationController?.pushViewController(vc, animated: true)
     }
 
