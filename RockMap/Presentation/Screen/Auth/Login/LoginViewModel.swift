@@ -1,6 +1,7 @@
 import Auth
 import Combine
 import Resolver
+import Foundation
 
 final class LoginViewModel: ObservableObject {
 
@@ -53,6 +54,7 @@ final class LoginViewModel: ObservableObject {
 
     private func setupBindings() {
         self.loginFinishedCancellable = authCoordinator.loginFinishedPublisher
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] result in
 
                 guard let self = self else { return }
