@@ -25,13 +25,15 @@ struct RegisteredRockListView: View {
                             ListRowView(rock: rock)
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button("delete", role: .destructive) {
-                                viewModel.editingRock = rock
-                                viewModel.isPresentedDeleteRockAlert = true
-                            }
-                            Button("edit") {
-                                viewModel.editingRock = rock
-                                viewModel.isPresentedRockRegister = true
+                            if viewModel.isEditable {
+                                Button("delete", role: .destructive) {
+                                    viewModel.editingRock = rock
+                                    viewModel.isPresentedDeleteRockAlert = true
+                                }
+                                Button("edit") {
+                                    viewModel.editingRock = rock
+                                    viewModel.isPresentedRockRegister = true
+                                }
                             }
                         }
                     }
