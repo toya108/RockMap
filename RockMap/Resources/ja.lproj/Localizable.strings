@@ -68,6 +68,19 @@
 "text_no_user" = "ユーザーが見つかりませんでした。";
 "text_fetch_user_failed" = "ユーザーの取得に失敗しました。";
 
+// MARK: - Edit Profile
+"name" = "名前";
+"introduction" = "自己紹介";
+"text_empty_name_annotation" = "※名前の入力は必須です。";
+"sns_links" = "SNSリンク";
+"web_textfield_placeholder" = "Webサイトを追加";
+"edit_profile" = "プロフィール編集";
+"save" = "保存";
+"discard_change_alert_title" = "編集内容を破棄しますか？";
+"discard" = "破棄";
+"text_failed_fetch_image_alert_title" = "画像の取得に失敗しました。";
+"text_failed_update_user_alert_title" = "編集に失敗しました。";
+
 // MARK: - Settings
 "account" = "アカウント";
 "about_this_app" = "このアプリについて";
