@@ -1,19 +1,19 @@
 import UIKit
 
 extension Entity.User.SocialLinkType {
-    var icon: UIImage {
+    var icon: Resources.Images.Assets {
         switch self {
             case .facebook:
-                return Resources.Images.Assets.facebook.uiImage
+                return Resources.Images.Assets.facebook
 
             case .twitter:
-                return Resources.Images.Assets.twitter.uiImage
+                return Resources.Images.Assets.twitter
 
             case .instagram:
-                return Resources.Images.Assets.instagram.uiImage
+                return Resources.Images.Assets.instagram
 
             case .other:
-                return Resources.Images.Assets.link.uiImage
+                return Resources.Images.Assets.link
         }
     }
 
