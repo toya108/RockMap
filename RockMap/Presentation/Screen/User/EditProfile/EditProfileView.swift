@@ -3,7 +3,7 @@ import PhotosUI
 
 struct EditProfileView: View {
 
-    @ObservedObject var viewModel: EditProfileViewModelV2
+    @ObservedObject var viewModel: EditProfileViewModel
 
     private var configuration: PHPickerConfiguration {
         var configration = PHPickerConfiguration()

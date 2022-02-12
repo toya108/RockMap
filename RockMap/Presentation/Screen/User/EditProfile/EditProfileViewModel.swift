@@ -1,7 +1,7 @@
 import Foundation
 import Combine
 
-class EditProfileViewModelV2: ObservableObject {
+class EditProfileViewModel: ObservableObject {
 
     @Published var iconURL: URL?
     @Published var iconData: Data?
