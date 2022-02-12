@@ -216,7 +216,7 @@ extension EditProfileViewController {
             cell.textField.delegate = self
             cell.textField.text = sociallink.link
             cell.configurePlaceholder(
-                iconImage: socialLinkType.icon,
+                iconImage: socialLinkType.icon.uiImage,
                 placeholder: socialLinkType.placeHolder
             )
 

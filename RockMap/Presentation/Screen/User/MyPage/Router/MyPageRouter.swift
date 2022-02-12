@@ -81,8 +81,7 @@ struct MyPageRouter: RouterProtocol {
         _ from: UIViewController,
         user: Entity.User
     ) {
-        let viewModel = EditProfileViewModel(user: user)
-        let vc = EditProfileViewController.createInstance(viewModel: viewModel)
+        let vc = UIHostingController(rootView: EditProfileView(viewModel: .init(user: user)))
         let nc = UINavigationController(rootViewController: vc)
         nc.isModalInPresentation = true
         from.present(nc, animated: true)

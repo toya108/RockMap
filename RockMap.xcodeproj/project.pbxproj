@@ -228,6 +228,8 @@
 		9EEAEDF52603876A00F5FE19 /* ValueCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EEAEDF42603876A00F5FE19 /* ValueCollectionViewCell.xib */; };
 		9EED75E22669269F00E46676 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED75E12669269F00E46676 /* URL.swift */; };
 		9EEFC71827B5758100D5363B /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9E9162EF26BF7DF10012D2B0 /* Utilities */; };
+		9EEFC71A27B694C400D5363B /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEFC71927B694C400D5363B /* EditProfileView.swift */; };
+		9EEFC71C27B6959600D5363B /* EditProfileViewModelV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEFC71B27B6959600D5363B /* EditProfileViewModelV2.swift */; };
 		9EEFC72027B7461D00D5363B /* DefaultAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEFC71F27B7461D00D5363B /* DefaultAsyncImage.swift */; };
 		9EEFC72227B77C7800D5363B /* PHPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEFC72127B77C7800D5363B /* PHPickerView.swift */; };
 		9EEFC72427B7A88E00D5363B /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEFC72327B7A88E00D5363B /* ActivityIndicatorView.swift */; };
@@ -489,6 +491,8 @@
 		9EEAEDEF260385BA00F5FE19 /* ValueCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueCollectionViewCell.swift; sourceTree = "<group>"; };
 		9EEAEDF42603876A00F5FE19 /* ValueCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValueCollectionViewCell.xib; sourceTree = "<group>"; };
 		9EED75E12669269F00E46676 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
+		9EEFC71927B694C400D5363B /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		9EEFC71B27B6959600D5363B /* EditProfileViewModelV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModelV2.swift; sourceTree = "<group>"; };
 		9EEFC71F27B7461D00D5363B /* DefaultAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAsyncImage.swift; sourceTree = "<group>"; };
 		9EEFC72127B77C7800D5363B /* PHPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPickerView.swift; sourceTree = "<group>"; };
 		9EEFC72327B7A88E00D5363B /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
@@ -638,6 +642,8 @@
 				9E06F95B2649762F00731352 /* View */,
 				9E21C388264D5F4C003B02E7 /* IconTextFieldCollectionViewCell.swift */,
 				9EB7059426515855001FD2F6 /* IconEditCollectionViewCell.swift */,
+				9EEFC71927B694C400D5363B /* EditProfileView.swift */,
+				9EEFC71B27B6959600D5363B /* EditProfileViewModelV2.swift */,
 			);
 			path = EditProfile;
 			sourceTree = "<group>";
@@ -2008,6 +2014,7 @@
 				9EFE2B2C2694AF4B002F4923 /* CrudableImage.swift in Sources */,
 				9EA88DB82691D5900036D6C1 /* ForceUpdateAlertManager.swift in Sources */,
 				9EC8AC8A25D8C863006A0AEE /* GradeSelectingCollectionViewCell.swift in Sources */,
+				9EEFC71A27B694C400D5363B /* EditProfileView.swift in Sources */,
 				9E5C5E372555144000D00087 /* Images.swift in Sources */,
 				9E94191027B507D80061EA39 /* ClimbedCourseListViewModel.swift in Sources */,
 				9E7812FD261A069700CAC539 /* ClimbRecordTableViewCell.swift in Sources */,
@@ -2118,6 +2125,7 @@
 				9E8D629F2781169B007DE389 /* RegisteredRockListView.swift in Sources */,
 				9E06F963264976A100731352 /* EditProfileDatasource.swift in Sources */,
 				9EC99FD7261B4869000A1DB3 /* ZoomImagePresentableImageView.swift in Sources */,
+				9EEFC71C27B6959600D5363B /* EditProfileViewModelV2.swift in Sources */,
 				9E04B1AD254BA99C0097DA8E /* TextFieldValidator.swift in Sources */,
 				9EA32A4925FA77EE00FB0C75 /* RockConfirmLayout.swift in Sources */,
 				9E768FF327A05ACF00E66739 /* RockListViewModel.swift in Sources */,

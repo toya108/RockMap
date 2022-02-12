@@ -1,12 +1,6 @@
 enum LoadingState<T>: Equatable {
     static func == (lhs: LoadingState, rhs: LoadingState) -> Bool {
-        switch (lhs, rhs) {
-        case (.standby, .standby), (.loading, .loading), (.finish, .finish), (.failure, failure):
-            return true
-
-        default:
-            return false
-        }
+        return false
     }
 
     case standby
@@ -36,6 +30,14 @@ enum LoadingState<T>: Equatable {
             return true
         } else {
             return false
+        }
+    }
+
+    var error: Error? {
+        if case let .failure(error) = self {
+            return error
+        } else {
+            return nil
         }
     }
 }
