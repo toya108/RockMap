@@ -2,6 +2,7 @@ import UIKit
 
 class SocialLinkCollectionViewCell: UICollectionViewCell {
     let socialLinkButton = UIButton()
+    var socialLink: Entity.User.SocialLink?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,9 +32,8 @@ class SocialLinkCollectionViewCell: UICollectionViewCell {
         ])
     }
 
-    func configure(
-        for socialLink: Entity.User.SocialLink
-    ) {
+    func configure(socialLink: Entity.User.SocialLink) {
+        self.socialLink = socialLink
         self.socialLinkButton.setImage(socialLink.linkType.icon.uiImage, for: .normal)
         self.socialLinkButton.isEnabled = !socialLink.link.isEmpty
         self.socialLinkButton.tintColor = socialLink.linkType.color
@@ -42,13 +42,18 @@ class SocialLinkCollectionViewCell: UICollectionViewCell {
 
                 guard let self = self else { return }
 
-                self.openLink(from: socialLink)
+                self.openLink()
             },
             for: .touchUpInside
         )
     }
 
-    private func openLink(from socialLink: Entity.User.SocialLink) {
+    private func openLink() {
+
+        guard let socialLink = socialLink else {
+            return
+        }
+
         if case .other = socialLink.linkType {
             guard
                 let url = URL(string: socialLink.link)
