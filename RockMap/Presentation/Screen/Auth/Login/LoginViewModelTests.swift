@@ -87,32 +87,4 @@ class LoginViewModelTests: XCTestCase {
 
     }
 
-    func testLoginFinishedObservation() {
-
-        XCTContext.runActivity(named: "succeded") { _ in
-            Resolver.mock.register { MockAuthCoordinatorSucceded() as AuthCoordinatorProtocol }
-
-            let viewModel = LoginViewModel()
-
-            viewModel.authCoordinator.loginFinishedPublisher.sink { result in
-                if case .success = result {
-                    XCTAssertTrue(viewModel.shouldChangeRootView)
-                }
-            }.store(in: &cancellables)
-        }
-
-        XCTContext.runActivity(named: "failure") { _ in
-            Resolver.mock.register { MockAuthCoordinatorFailed() as AuthCoordinatorProtocol }
-
-            let viewModel = LoginViewModel()
-
-            viewModel.authCoordinator.loginFinishedPublisher.sink { result in
-                if case .failure = result {
-                    XCTAssertTrue(viewModel.isPresentedAuthFailureAlert)
-                    XCTAssertNotNil(viewModel.authError)
-                }
-            }.store(in: &cancellables)
-        }
-    }
-
 }
