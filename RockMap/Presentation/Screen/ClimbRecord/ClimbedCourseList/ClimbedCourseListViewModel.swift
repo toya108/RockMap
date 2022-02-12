@@ -1,4 +1,3 @@
-import Auth
 import Combine
 import Foundation
 import Utilities
@@ -16,7 +15,11 @@ class ClimbedCourseListViewModel: ObservableObject {
 
     private let fetchClimbRecordUsecase = Usecase.ClimbRecord.FetchByUserId()
     private let fetchCourseUsecase = Usecase.Course.FetchById()
-    private let authAccessor: AuthAccessorProtocol = AuthAccessor()
+    private let userId: String
+
+    init(userId: String) {
+        self.userId = userId
+    }
 
     @MainActor func load() {
         Task {
@@ -34,7 +37,7 @@ class ClimbedCourseListViewModel: ObservableObject {
     }
 
     private func fetchClimbRecords() async throws -> [Entity.ClimbRecord] {
-        let records = try await self.fetchClimbRecordUsecase.fetch(by: authAccessor.uid)
+        let records = try await self.fetchClimbRecordUsecase.fetch(by: userId)
         return records.sorted { $0.createdAt > $1.createdAt }
     }
 

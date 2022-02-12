@@ -40,13 +40,15 @@ struct RegisteredCourseListView: View {
                             ListRowView(course: course)
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                            Button("delete", role: .destructive) {
-                                viewModel.editingCourse = course
-                                viewModel.isPresentedDeleteCourseAlert = true
-                            }
-                            Button("edit") {
-                                viewModel.editingCourse = course
-                                viewModel.isPresentedCourseRegister = true
+                            if viewModel.isEditable {
+                                Button("delete", role: .destructive) {
+                                    viewModel.editingCourse = course
+                                    viewModel.isPresentedDeleteCourseAlert = true
+                                }
+                                Button("edit") {
+                                    viewModel.editingCourse = course
+                                    viewModel.isPresentedCourseRegister = true
+                                }
                             }
                         }
                     }

@@ -43,6 +43,6 @@ struct ClimbedCourseListView: View {
 
 struct ClimbedCourseListView_Previews: PreviewProvider {
     static var previews: some View {
-        ClimbedCourseListView(viewModel: .init())
+        ClimbedCourseListView(viewModel: .init(userId: ""))
     }
 }

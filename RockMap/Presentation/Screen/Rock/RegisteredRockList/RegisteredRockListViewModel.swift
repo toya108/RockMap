@@ -16,11 +16,16 @@ class RegisteredRockListViewModel: ObservableObject {
 
     @Injected private var fetchRocksUsecase: FetchRockUsecaseProtocol
     @Injected private var deleteRockUsecase: DeleteRockUsecaseProtocol
+    @Injected private var authAccessor: AuthAccessorProtocol
 
     private let userId: String
 
     init(userId: String) {
         self.userId = userId
+    }
+
+    var isEditable: Bool {
+        userId == authAccessor.uid
     }
 
     @MainActor func delete() {

@@ -183,7 +183,7 @@ extension MyPageViewController {
                 return socialLink
             }
 
-            cell.configure(for: socialLink)
+            cell.configure(socialLink: socialLink)
         }
     }
 

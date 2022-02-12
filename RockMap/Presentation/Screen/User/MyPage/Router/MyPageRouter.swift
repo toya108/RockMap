@@ -48,7 +48,9 @@ struct MyPageRouter: RouterProtocol {
     private func pushClimbedCourseList(
         _ from: UIViewController
     ) {
-        let vc = UIHostingController(rootView: ClimbedCourseListView(viewModel: .init()))
+        let vc = UIHostingController(
+            rootView: ClimbedCourseListView(viewModel: .init(userId: viewModel.userKind.userId))
+        )
         from.navigationController?.pushViewController(vc, animated: true)
     }
 
@@ -79,8 +81,7 @@ struct MyPageRouter: RouterProtocol {
         _ from: UIViewController,
         user: Entity.User
     ) {
-        let viewModel = EditProfileViewModel(user: user)
-        let vc = EditProfileViewController.createInstance(viewModel: viewModel)
+        let vc = UIHostingController(rootView: EditProfileView(viewModel: .init(user: user)))
         let nc = UINavigationController(rootViewController: vc)
         nc.isModalInPresentation = true
         from.present(nc, animated: true)

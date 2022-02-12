@@ -44,11 +44,15 @@ public extension Domain.Entity {
             }
         }
 
-        public enum SocialLinkType: String, CaseIterable {
+        public enum SocialLinkType: String, CaseIterable, Identifiable {
             case facebook
             case twitter
             case instagram
             case other
+
+            public var id: String {
+                self.rawValue
+            }
 
             public var placeHolder: String {
                 switch self {
