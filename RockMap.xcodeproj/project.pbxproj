@@ -229,6 +229,7 @@
 		9EED75E22669269F00E46676 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EED75E12669269F00E46676 /* URL.swift */; };
 		9EEFC71827B5758100D5363B /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 9E9162EF26BF7DF10012D2B0 /* Utilities */; };
 		9EEFC72027B7461D00D5363B /* DefaultAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEFC71F27B7461D00D5363B /* DefaultAsyncImage.swift */; };
+		9EEFC72227B77C7800D5363B /* PHPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEFC72127B77C7800D5363B /* PHPickerView.swift */; };
 		9EEFC72427B7A88E00D5363B /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEFC72327B7A88E00D5363B /* ActivityIndicatorView.swift */; };
 		9EF16EC427048948003620E4 /* UIApplication+KeyWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF16EC327048948003620E4 /* UIApplication+KeyWindow.swift */; };
 		9EF71FD62611ADC700D5B375 /* PHPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF71FD52611ADC700D5B375 /* PHPickerManager.swift */; };
@@ -489,6 +490,7 @@
 		9EEAEDF42603876A00F5FE19 /* ValueCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ValueCollectionViewCell.xib; sourceTree = "<group>"; };
 		9EED75E12669269F00E46676 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		9EEFC71F27B7461D00D5363B /* DefaultAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAsyncImage.swift; sourceTree = "<group>"; };
+		9EEFC72127B77C7800D5363B /* PHPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPickerView.swift; sourceTree = "<group>"; };
 		9EEFC72327B7A88E00D5363B /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		9EF16EC327048948003620E4 /* UIApplication+KeyWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+KeyWindow.swift"; sourceTree = "<group>"; };
 		9EF71FD52611ADC700D5B375 /* PHPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPickerManager.swift; sourceTree = "<group>"; };
@@ -1572,6 +1574,7 @@
 				9E9AD29727A2983C005614D7 /* WrapInNavigationView.swift */,
 				9E160FAE27AA26F5004EB899 /* UserRowView.swift */,
 				9EEFC71F27B7461D00D5363B /* DefaultAsyncImage.swift */,
+				9EEFC72127B77C7800D5363B /* PHPickerView.swift */,
 				9EEFC72327B7A88E00D5363B /* ActivityIndicatorView.swift */,
 			);
 			path = SwiftUI;
@@ -2029,6 +2032,7 @@
 				9EA88DB6269189110036D6C1 /* RemoteConfigListener.swift in Sources */,
 				9E9675B02792F1EF00997584 /* SearchRootView.swift in Sources */,
 				9EA9451F2618AFA60050ACE2 /* CourseDetailRouter.swift in Sources */,
+				9EEFC72227B77C7800D5363B /* PHPickerView.swift in Sources */,
 				9E04B1D0254BE7B30097DA8E /* LocationManager.swift in Sources */,
 				9E8A145C2707509F00903D38 /* SafariView.swift in Sources */,
 				9E5CEFD025277B25001C95AA /* MapViewController.swift in Sources */,
