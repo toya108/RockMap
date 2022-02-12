@@ -72,17 +72,9 @@ struct ListRowView: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            AsyncImage(
-                url: imageURL,
-                content: { image in
-                    image.resizable().scaledToFill()
-                },
-                placeholder: {
-                    ProgressView()
-                }
-            )
-            .frame(width: 80, height: 80, alignment: .center)
-            .cornerRadius(8)
+            DefaultAsyncImage(url: imageURL)
+                .frame(width: 80, height: 80, alignment: .center)
+                .cornerRadius(8)
 
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
