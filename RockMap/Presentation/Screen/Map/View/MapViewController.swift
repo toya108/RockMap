@@ -460,6 +460,10 @@ extension MapViewController: UISearchBarDelegate {
             }
             .store(in: &self.bindings)
     }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
 }
 
 extension MapViewController: FloatingPanelControllerDelegate {
