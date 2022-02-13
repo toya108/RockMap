@@ -1,22 +1,19 @@
 ![swift 5](https://img.shields.io/badge/Swift-5-blue) 
-![iOS14.5](https://img.shields.io/badge/iOS-14.5-blue)
+![iOS15](https://img.shields.io/badge/iOS-15.0-blue)
 
 # What is RockMap?
 RockMap is a map app that allows you to share Boulder and its courses.
 
-<img src="https://user-images.githubusercontent.com/44093643/125480570-590c49fc-9643-42d2-b894-4035c4b742a8.PNG" width="250">　
-<img src="https://user-images.githubusercontent.com/44093643/125480595-806e3866-2a0d-47cb-b133-bd870f0d94ac.PNG" width="250">　
-<img src="https://user-images.githubusercontent.com/44093643/125480630-23bf1373-ddd8-44ee-abce-769234198d5d.PNG" width="250">
-<img src="https://user-images.githubusercontent.com/44093643/125480678-a3cc1762-1beb-4e9f-b98e-a603a3aabc39.PNG" width="250">
-<img src="https://user-images.githubusercontent.com/44093643/125480918-ae6ce164-6b50-4fa8-baa3-0464440d63fd.PNG" width="250">
+<img src="https://user-images.githubusercontent.com/44093643/153755303-a09f7b6b-f18a-4860-98e4-c0e09d123bb1.png" width="250">　<img src="https://user-images.githubusercontent.com/44093643/153755307-1faaab5f-64c2-4a29-a5aa-307ee16732dc.png" width="250">　<img src="https://user-images.githubusercontent.com/44093643/153755309-a320548a-cbb4-4822-a35a-48f7d45600db.png" width="250">　<img src="https://user-images.githubusercontent.com/44093643/153755310-ea1b219e-643e-4351-a569-97bbde817c16.png" width="250"> <img src="https://user-images.githubusercontent.com/44093643/153755374-6155b4ab-7911-4b2e-a28b-dcedb8b4e4aa.png" width="250">
 
 ## App Store link
 https://apps.apple.com/jp/app/rockmap/id1576276950
 
 ## Feature
 * Login(using FirebaseUI)
-* Search Location of Rocks(MapKit)
-* Register rocks, courses, climbing(FireStore)
+* Search rocks, courses and users.
+* Search rocks on the map.(MapKit)
+* Register rocks, courses, records.(FireStore)
 
 ## Architecture
 * Presentation(View + ViewModel + Router)
@@ -46,7 +43,12 @@ Note: Currently I'm replacing UI from UIKit to SwiftUI.
 
 ## Data Model
 
-<img src="https://user-images.githubusercontent.com/44093643/119843554-a0b69880-bf42-11eb-970d-dfba516a2e0a.png" width="300">
+Using the following collections
+- users
+- rocks 
+- courses
+ - totalClimbedNumber 
+- climbRecords
 
 ## Comunication
 * If you found a bug, open an issue.
@@ -54,4 +56,3 @@ Note: Currently I'm replacing UI from UIKit to SwiftUI.
 
 ## Licence
 MIT license.
-
