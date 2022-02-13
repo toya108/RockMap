@@ -42,20 +42,6 @@ extension CompositionalColectionViewControllerProtocol {
 
         collectionView.layoutMargins = .init(top: 8, left: 16, bottom: 8, right: 16)
     }
-
-    func cell<T: UICollectionViewCell>(
-        for type: T.Type,
-        item: ItemKind
-    ) -> T? {
-        guard
-            let indexPath = datasource.indexPath(for: item),
-            case let cell as T = collectionView.cellForItem(at: indexPath)
-        else {
-            return nil
-        }
-
-        return cell
-    }
 }
 
 extension UICollectionViewCompositionalLayout {

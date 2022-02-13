@@ -22,31 +22,39 @@ class RockDetailViewController: UIViewController, CompositionalColectionViewCont
         super.viewDidLoad()
 
         configureDefaultConfiguration()
-        self.setupNavigationBar()
+        self.setupCreateCourseButton()
         self.bindViewToViewModel()
         self.configureSections()
         self.setupNotification()
     }
 
-    private func setupNavigationBar() {
-        let courseCreationButton = UIButton(
-            type: .system,
-            primaryAction: .init { [weak self] _ in
+    private func setupCreateCourseButton() {
 
-                guard let self = self else { return }
+        let createCourseButton = UIButton(primaryAction: .init { [weak self] _ in
 
-                self.router.route(
-                    to: .courseRegister,
-                    from: self
-                )
-            }
-        )
-        courseCreationButton.setImage(Resources.Images.System.plusCircleFill.uiImage, for: .normal)
-        courseCreationButton.tintColor = UIColor.Pallete.primaryGreen
-        navigationItem.setRightBarButton(
-            .init(customView: courseCreationButton),
-            animated: false
-        )
+            guard let self = self else { return }
+
+            self.router.route(
+                to: .courseRegister,
+                from: self
+            )
+        })
+        createCourseButton.setImage(Resources.Images.System.plusCircleFill.uiImage, for: .normal)
+        createCourseButton.imageView?.contentMode = .scaleAspectFit
+        createCourseButton.contentHorizontalAlignment = .fill
+        createCourseButton.contentVerticalAlignment = .fill
+        createCourseButton.tintColor = UIColor.Pallete.primaryGreen
+
+        self.view.addSubview(createCourseButton)
+        self.view.bringSubviewToFront(createCourseButton)
+
+        createCourseButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            createCourseButton.heightAnchor.constraint(equalToConstant: 44),
+            createCourseButton.widthAnchor.constraint(equalToConstant: 44),
+            createCourseButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            createCourseButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+        ])
     }
 
     private func configureSections() {

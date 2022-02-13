@@ -68,6 +68,19 @@
 "text_no_user" = "No Users";
 "text_fetch_user_failed" = "Failed to retrieve users";
 
+// MARK: - Edit Profile
+"name" = "Name";
+"introduction" = "Introduction";
+"text_empty_name_annotation" = "Name is required.";
+"sns_links" = "SNS Links";
+"web_textfield_placeholder" = "Please add your web site.";
+"edit_profile" = "Edit Profile";
+"save" = "Save";
+"discard_change_alert_title" = "Would you like to discard the edited content?";
+"discard" = "Discard";
+"text_failed_fetch_image_alert_title" = "Failed to retrieve images";
+"text_failed_update_user_alert_title" = "Failed to update";
+
 // MARK: - Settings
 "account" = "Account";
 "about_this_app" = "About this app";

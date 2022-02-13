@@ -42,6 +42,7 @@ struct SearchTextField: View {
             )
             TextField("text_search_placeholder", text: $searchText)
                 .focused($isFocusedSearchField)
+                .submitLabel(.done)
             Button(
                 action: {
                     searchText = ""

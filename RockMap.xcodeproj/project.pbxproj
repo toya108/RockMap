@@ -2302,6 +2302,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "tk108gabalian-gmail.com.RockMap";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2326,6 +2327,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "tk108gabalian-gmail.com.RockMap";
 				PRODUCT_NAME = "$(TARGET_NAME)";

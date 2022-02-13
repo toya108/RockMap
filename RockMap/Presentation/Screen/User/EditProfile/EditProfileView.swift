@@ -49,11 +49,11 @@ struct EditProfileView: View {
                     .overlay(Circle().stroke(Color.white, lineWidth: 4))
                     .padding(EdgeInsets(top: -24, leading: 8, bottom: 0, trailing: 0))
 
-                    Section("名前") {
-                        TextField("名前", text: $viewModel.name)
+                    Section(LocalizedStringKey("name")) {
+                        TextField("name", text: $viewModel.name)
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         if !viewModel.isValidName {
-                            Text("※名前は必須です")
+                            Text("text_empty_name_annotation")
                                 .foregroundColor(Color(uiColor: UIColor.Pallete.primaryPink))
                                 .font(.caption)
                                 .padding(.bottom, 4)
@@ -61,7 +61,7 @@ struct EditProfileView: View {
                     }
                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
 
-                    Section("自己紹介") {
+                    Section(LocalizedStringKey("introduction")) {
                         TextEditor(text: $viewModel.introduction)
                             .overlay(RoundedRectangle(cornerRadius: 8).stroke(
                                 Color(uiColor: .systemGray5),
@@ -71,7 +71,7 @@ struct EditProfileView: View {
                     }
                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
 
-                    Section("SNSリンク") {
+                    Section(LocalizedStringKey("sns_links")) {
                         HStack {
                             Entity.User.SocialLinkType.facebook.icon.image
                                 .resizable()
@@ -101,7 +101,7 @@ struct EditProfileView: View {
                                 .resizable()
                                 .frame(maxWidth: 24, maxHeight: 24)
                                 .foregroundColor(.gray)
-                            TextField("Webサイトを追加", text: $viewModel.other)
+                            TextField("web_textfield_placeholder", text: $viewModel.other)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                         }
                     }
@@ -109,7 +109,7 @@ struct EditProfileView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("プロフィール編集")
+            .navigationTitle("edit_profile")
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(
@@ -122,7 +122,7 @@ struct EditProfileView: View {
                     ).foregroundColor(.primary)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("保存") {
+                    Button("save") {
                         viewModel.startUpdateSequences()
                     }
                     .foregroundColor(Color(uiColor: UIColor.Pallete.primaryGreen))
@@ -142,32 +142,32 @@ struct EditProfileView: View {
                 }
             }
             .confirmationDialog(
-                "編集内容を破棄しますか？",
+                "discard_change_alert_title",
                 isPresented: $viewModel.isPresentedDismissConfirmation,
                 titleVisibility: .visible
             ) {
-                Button("破棄", role: .destructive) {
+                Button("discard", role: .destructive) {
                     self.dismiss()
                 }
-                Button("キャンセル", role: .cancel) {
+                Button("cancel", role: .cancel) {
                     viewModel.isPresentedDismissConfirmation = false
                 }
             }
             .alert(
-                "画像の取得に失敗しました。",
+                "text_failed_fetch_image_alert_title",
                 isPresented: $viewModel.isPresentedPickerFailureAlert,
                 actions: {
-                    Button("OK") { viewModel.isPresentedPickerFailureAlert = false }
+                    Button("ok") { viewModel.isPresentedPickerFailureAlert = false }
                 },
                 message: {
                     Text("reason: \(viewModel.pickerState.error?.localizedDescription ?? "")")
                 }
             )
             .alert(
-                "編集に失敗しました。",
+                "text_failed_update_user_alert_title",
                 isPresented: $viewModel.isPresentedUserUpdateAlert,
                 actions: {
-                    Button("OK") { viewModel.isPresentedUserUpdateAlert = false }
+                    Button("ok") { viewModel.isPresentedUserUpdateAlert = false }
                 },
                 message: {
                     Text("reason: \(viewModel.userUpdateState.error?.localizedDescription ?? "")")
