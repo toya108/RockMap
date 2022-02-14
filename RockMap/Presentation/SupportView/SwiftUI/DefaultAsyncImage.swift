@@ -1,4 +1,5 @@
 import SwiftUI
+import SkeletonUI
 
 struct DefaultAsyncImage: View {
 
@@ -9,15 +10,15 @@ struct DefaultAsyncImage: View {
     }
 
     var body: some View {
-        AsyncImage(
-            url: url,
-            content: { image in
+        AsyncImage(url: url) { phase in
+            if let image = phase.image {
                 image.resizable().scaledToFill()
-            },
-            placeholder: {
-                ProgressView()
+            } else if phase.error != nil {
+                Resources.Images.Assets.noimage.image
+            } else {
+                Color.clear.skeleton(with: true)
             }
-        )
+        }
     }
 }
 
