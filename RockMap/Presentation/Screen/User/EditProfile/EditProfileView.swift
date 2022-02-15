@@ -50,8 +50,7 @@ struct EditProfileView: View {
                     .padding(EdgeInsets(top: -24, leading: 8, bottom: 0, trailing: 0))
 
                     Section(LocalizedStringKey("name")) {
-                        TextField("name", text: $viewModel.name)
-                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        UnderBarTextField("name", text: $viewModel.name)
                         if !viewModel.isValidName {
                             Text("text_empty_name_annotation")
                                 .foregroundColor(Color(uiColor: UIColor.Pallete.primaryPink))
@@ -72,37 +71,33 @@ struct EditProfileView: View {
                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
 
                     Section(LocalizedStringKey("sns_links")) {
-                        HStack {
+                        HStack(alignment: .top) {
                             Entity.User.SocialLinkType.facebook.icon.image
                                 .resizable()
                                 .frame(maxWidth: 24, maxHeight: 24)
                                 .foregroundColor(.gray)
-                            TextField("@", text: $viewModel.facebook)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            UnderBarTextField("@", text: $viewModel.facebook)
                         }
-                        HStack {
+                        HStack(alignment: .top) {
                             Entity.User.SocialLinkType.twitter.icon.image
                                 .resizable()
                                 .frame(maxWidth: 24, maxHeight: 24)
                                 .foregroundColor(.gray)
-                            TextField("@", text: $viewModel.twitter)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            UnderBarTextField("@", text: $viewModel.twitter)
                         }
-                        HStack {
+                        HStack(alignment: .top) {
                             Entity.User.SocialLinkType.instagram.icon.image
                                 .resizable()
                                 .frame(maxWidth: 24, maxHeight: 24)
                                 .foregroundColor(.gray)
-                            TextField("@", text: $viewModel.instagram)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            UnderBarTextField("@", text: $viewModel.instagram)
                         }
-                        HStack {
+                        HStack(alignment: .top) {
                             Entity.User.SocialLinkType.other.icon.image
                                 .resizable()
                                 .frame(maxWidth: 24, maxHeight: 24)
                                 .foregroundColor(.gray)
-                            TextField("web_textfield_placeholder", text: $viewModel.other)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            UnderBarTextField("web_textfield_placeholder", text: $viewModel.other)
                         }
                     }
                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
