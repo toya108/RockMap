@@ -46,7 +46,7 @@ struct EditProfileView: View {
                     .background(Color.gray)
                     .foregroundColor(.white)
                     .clipShape(Circle())
-                    .overlay(Circle().stroke(Color.white, lineWidth: 4))
+                    .overlay(Circle().stroke(Color(uiColor: .systemBackground), lineWidth: 4))
                     .padding(EdgeInsets(top: -24, leading: 8, bottom: 0, trailing: 0))
 
                     Section(LocalizedStringKey("name")) {
