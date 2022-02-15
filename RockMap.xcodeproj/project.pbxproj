@@ -132,6 +132,7 @@
 		9E82FAF32704ACFA002972BD /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E82FAF22704ACFA002972BD /* MainTabView.swift */; };
 		9E82FB2B2704AE37002972BD /* RockMapApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E82FB2A2704AE37002972BD /* RockMapApp.swift */; };
 		9E82FB2F27052571002972BD /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E82FB2E27052571002972BD /* MyPageView.swift */; };
+		9E8363C327BB525D00DC7B02 /* UnderBarTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8363C227BB525D00DC7B02 /* UnderBarTextField.swift */; };
 		9E83EEBB25FB4D00002392AA /* IconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E83EEBA25FB4D00002392AA /* IconCollectionViewCell.swift */; };
 		9E83EEC625FCA856002392AA /* SegmentedControllCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E83EEC525FCA856002392AA /* SegmentedControllCollectionViewCell.swift */; };
 		9E845ADA25ADEA6A00EC3BE6 /* Resouces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E845AD925ADEA6A00EC3BE6 /* Resouces.swift */; };
@@ -383,6 +384,7 @@
 		9E82FAF22704ACFA002972BD /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		9E82FB2A2704AE37002972BD /* RockMapApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockMapApp.swift; sourceTree = "<group>"; };
 		9E82FB2E27052571002972BD /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		9E8363C227BB525D00DC7B02 /* UnderBarTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderBarTextField.swift; sourceTree = "<group>"; };
 		9E83EEBA25FB4D00002392AA /* IconCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E83EEC525FCA856002392AA /* SegmentedControllCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControllCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E845AD925ADEA6A00EC3BE6 /* Resouces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resouces.swift; sourceTree = "<group>"; };
@@ -1545,6 +1547,7 @@
 				9EEFC71F27B7461D00D5363B /* DefaultAsyncImage.swift */,
 				9EEFC72127B77C7800D5363B /* PHPickerView.swift */,
 				9EEFC72327B7A88E00D5363B /* ActivityIndicatorView.swift */,
+				9E8363C227BB525D00DC7B02 /* UnderBarTextField.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -1952,6 +1955,7 @@
 				9E21D726278DA55B008D8AF2 /* CourseRegisterView.swift in Sources */,
 				9E863704271B17E50095BE63 /* Notifications.swift in Sources */,
 				9E21D728278DA683008D8AF2 /* CourseDetailView.swift in Sources */,
+				9E8363C327BB525D00DC7B02 /* UnderBarTextField.swift in Sources */,
 				9E52F001279F064500CDFDBC /* CouseListViewModel.swift in Sources */,
 				9E7812E52619FB1600CAC539 /* ClimbedUserListViewModel.swift in Sources */,
 				9E2A29D7278EDCDB0044E6CC /* RockAnnotationListView.swift in Sources */,
