@@ -14,7 +14,7 @@ struct DefaultAsyncImage: View {
             if let image = phase.image {
                 image.resizable().scaledToFill()
             } else if phase.error != nil {
-                Resources.Images.Assets.noimage.image
+                Resources.Images.Assets.noimage.image.resizable().scaledToFill()
             } else {
                 Color.clear.skeleton(with: true)
             }
