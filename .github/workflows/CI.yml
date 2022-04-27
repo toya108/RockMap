@@ -38,6 +38,8 @@ jobs:
     runs-on: macos-11
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.0.0.app/Contents/Developer
+      FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 180
+      FASTLANE_XCODEBUILD_SETTINGS_RETRIES: 10
 
     steps:
       - uses: actions/checkout@v2
