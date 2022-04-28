@@ -11,11 +11,11 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/mono0926/LicensePlist",
-            from: .init("3.0.7")
+            from: .init("3.0.7")!
         ),
         .package(
             url: "https://github.com/realm/SwiftLint",
-            from: .init("0.45.1")
+            from: .init("0.45.1")!
         )
     ],
     targets: [
