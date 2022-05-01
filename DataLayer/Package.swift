@@ -19,9 +19,9 @@ let package = Package(
         .package(
             name: "Firebase",
             url: "https://github.com/firebase/firebase-ios-sdk.git",
-            from: .init("8.6.0")
+            from: .init("8.6.0")!
         ),
-        .package(url: "https://github.com/hmlongco/Resolver", from: .init("1.0.0")),
+        .package(url: "https://github.com/hmlongco/Resolver", from: .init("1.0.0")!),
         .package(url: "../Utilities", from: "1.0.0"),
         .package(url: "../FirebaseTestHelper", from: "1.0.0")
     ],
