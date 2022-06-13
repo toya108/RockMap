@@ -10,7 +10,7 @@ name: facebook-ios-sdk, nameSpecified: Facebook, owner: facebook, version: 11.2.
 
 name: firebase-ios-sdk, nameSpecified: Firebase, owner: firebase, version: 8.8.1
 
-name: FirebaseUI-iOS, nameSpecified: FirebaseUI, owner: firebase, version: 12.1.0
+name: FirebaseUI-iOS, nameSpecified: FirebaseUI, owner: firebase, version: 12.2.0
 
 name: FloatingPanel, nameSpecified: FloatingPanel, owner: scenee, version: 2.5.2
 
