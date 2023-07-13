@@ -21,8 +21,8 @@ let package = Package(
             from: .init("12.2.0")!
         ),
         .package(url: "https://github.com/hmlongco/Resolver", from: .init("1.0.0")!),
-        .package(url: "../Domain", from: "1.0.0"),
-        .package(url: "../Utilities", from: "1.0.0")
+        .package(path: "../Domain"),
+        .package(path: "../Utilities")
     ],
     targets: [
         .target(
