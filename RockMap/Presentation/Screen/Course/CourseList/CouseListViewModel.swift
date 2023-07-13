@@ -4,14 +4,14 @@ import Resolver
 import Domain
 import Collections
 
-actor CourseListViewModel: ObservableObject {
+class CourseListViewModel: ObservableObject {
 
-    @Published nonisolated var courses: OrderedSet<Entity.Course> = []
-    @Published nonisolated var viewState: LoadableViewState = .standby
+    @Published var courses: OrderedSet<Entity.Course> = []
+    @Published var viewState: LoadableViewState = .standby
 
     @Injected private var fetchCourseListUsecase: FetchCourseListUsecaseProtocol
 
-    @MainActor func load(
+    func load(
         condition: SearchCondition,
         isAdditional: Bool = false
     ) async {

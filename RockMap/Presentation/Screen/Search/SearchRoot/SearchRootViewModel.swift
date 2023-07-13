@@ -3,11 +3,11 @@ import Domain
 import Foundation
 import Resolver
 
-actor SearchRootViewModel: ObservableObject {
-    @Published nonisolated var searchCondition: SearchCondition = .init()
-    @Published nonisolated var selectedCategory: CategoryKind = .rock
-    @Published nonisolated var disabledFilterButton = false
-    @Published nonisolated var isPresentedSearchFilter = false
+class SearchRootViewModel: ObservableObject {
+    @Published var searchCondition: SearchCondition = .init()
+    @Published var selectedCategory: CategoryKind = .rock
+    @Published var disabledFilterButton = false
+    @Published var isPresentedSearchFilter = false
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -18,7 +18,7 @@ actor SearchRootViewModel: ObservableObject {
             .assign(to: &$disabledFilterButton)
     }
 
-    @MainActor func resetSearchText() {
+    func resetSearchText() {
         searchCondition.searchText = ""
     }
 }

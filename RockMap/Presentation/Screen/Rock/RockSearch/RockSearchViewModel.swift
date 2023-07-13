@@ -4,14 +4,14 @@ import Resolver
 import Domain
 import Collections
 
-actor RockSearchViewModel: ObservableObject {
+class RockSearchViewModel: ObservableObject {
 
-    @Published nonisolated var rocks: OrderedSet<Entity.Rock> = []
-    @Published nonisolated var viewState: LoadableViewState = .standby
+    @Published var rocks: OrderedSet<Entity.Rock> = []
+    @Published var viewState: LoadableViewState = .standby
 
     @Injected private var searchRockListUsecase: SearchRockUsecaseProtocol
 
-    @MainActor func search(condition: SearchCondition) async {
+    func search(condition: SearchCondition) async {
         self.viewState = .loading
 
         do {
