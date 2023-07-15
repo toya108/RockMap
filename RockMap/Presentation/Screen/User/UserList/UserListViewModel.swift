@@ -4,6 +4,7 @@ import Resolver
 import Domain
 import Collections
 
+@MainActor
 class UserListViewModel: ObservableObject {
 
     @Published var users: OrderedSet<Entity.User> = []

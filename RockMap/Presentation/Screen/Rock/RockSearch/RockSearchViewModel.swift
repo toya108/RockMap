@@ -4,6 +4,7 @@ import Resolver
 import Domain
 import Collections
 
+@MainActor
 class RockSearchViewModel: ObservableObject {
 
     @Published var rocks: OrderedSet<Entity.Rock> = []

@@ -4,6 +4,7 @@ import Resolver
 import Domain
 import Collections
 
+@MainActor
 class CourseListViewModel: ObservableObject {
 
     @Published var courses: OrderedSet<Entity.Course> = []

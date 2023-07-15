@@ -4,6 +4,7 @@ import Resolver
 import Domain
 import Collections
 
+@MainActor
 class RockListViewModel: ObservableObject {
 
     @Published var rocks: OrderedSet<Entity.Rock> = []
