@@ -69,9 +69,9 @@ class RockLocationSelectViewController: UIViewController {
             .removeDuplicates()
             .flatMap {
                 LocationManager.shared.reverseGeocoding(location: $0)
-            }
-            .catch { _ -> Just<CLPlacemark> in
-                .init(.init())
+                    .catch { _ in
+                        Empty()
+                    }
             }
             .sink { [weak self] placemark in
 

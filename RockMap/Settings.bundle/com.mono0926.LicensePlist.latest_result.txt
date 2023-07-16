@@ -1,74 +1,80 @@
-name: abseil-cpp-SwiftPM, nameSpecified: abseil, owner: firebase, version: 0.20200225.4
+name: abseil-cpp-SwiftPM, nameSpecified: abseil, owner: firebase, version: 0.20220203.2
 
-name: APIKit, nameSpecified: APIKit, owner: ishkawa, version: 5.2.0
+name: APIKit, nameSpecified: APIKit, owner: ishkawa, version: 5.4.0
 
-name: AppAuth-iOS, nameSpecified: AppAuth, owner: openid, version: 1.4.0
+name: AppAuth-iOS, nameSpecified: AppAuth, owner: openid, version: 1.6.2
 
-name: boringssl-SwiftPM, nameSpecified: BoringSSL-GRPC, owner: firebase, version: 0.7.2
+name: boringssl-SwiftPM, nameSpecified: BoringSSL-GRPC, owner: firebase, version: 0.9.1
 
-name: facebook-ios-sdk, nameSpecified: Facebook, owner: facebook, version: 11.2.1
+name: CollectionConcurrencyKit, nameSpecified: CollectionConcurrencyKit, owner: JohnSundell, version: 0.2.0
 
-name: firebase-ios-sdk, nameSpecified: Firebase, owner: firebase, version: 8.8.1
+name: CryptoSwift, nameSpecified: CryptoSwift, owner: krzyzanowskim, version: 1.7.2
 
-name: FirebaseUI-iOS, nameSpecified: FirebaseUI, owner: firebase, version: 12.1.0
+name: facebook-ios-sdk, nameSpecified: Facebook, owner: facebook, version: 14.1.0
 
-name: FloatingPanel, nameSpecified: FloatingPanel, owner: scenee, version: 2.5.2
+name: firebase-ios-sdk, nameSpecified: Firebase, owner: firebase, version: 8.15.0
 
-name: GoogleAppMeasurement, nameSpecified: GoogleAppMeasurement, owner: google, version: 8.8.0
+name: FirebaseUI-iOS, nameSpecified: FirebaseUI, owner: firebase, version: 12.3.1
 
-name: GoogleDataTransport, nameSpecified: GoogleDataTransport, owner: google, version: 9.1.2
+name: FloatingPanel, nameSpecified: FloatingPanel, owner: scenee, version: 2.6.3
 
-name: GoogleSignIn-iOS, nameSpecified: GoogleSignIn, owner: google, version: 6.0.2
+name: GoogleAppMeasurement, nameSpecified: GoogleAppMeasurement, owner: google, version: 8.15.0
 
-name: GoogleUtilities, nameSpecified: GoogleUtilities, owner: google, version: 7.6.0
+name: GoogleDataTransport, nameSpecified: GoogleDataTransport, owner: google, version: 9.2.4
 
-name: grpc-SwiftPM, nameSpecified: gRPC, owner: firebase, version: 1.28.4
+name: GoogleSignIn-iOS, nameSpecified: GoogleSignIn, owner: google, version: 6.2.4
 
-name: gtm-session-fetcher, nameSpecified: GTMSessionFetcher, owner: google, version: 1.7.0
+name: GoogleUtilities, nameSpecified: GoogleUtilities, owner: google, version: 7.11.3
 
-name: GTMAppAuth, nameSpecified: GTMAppAuth, owner: google, version: 1.2.2
+name: grpc-ios, nameSpecified: gRPC, owner: grpc, version: 1.44.3-grpc
 
-name: HeliumLogger, nameSpecified: HeliumLogger, owner: Kitura, version: 1.9.200
+name: gtm-session-fetcher, nameSpecified: GTMSessionFetcher, owner: google, version: 1.7.2
+
+name: GTMAppAuth, nameSpecified: GTMAppAuth, owner: google, version: 1.3.1
+
+name: HeliumLogger, nameSpecified: HeliumLogger, owner: Kitura, version: 2.0.0
 
 name: leveldb, nameSpecified: leveldb, owner: firebase, version: 1.22.2
 
-name: LicensePlist, nameSpecified: LicensePlist, owner: mono0926, version: 3.14.4
+name: LicensePlist, nameSpecified: LicensePlist, owner: mono0926, version: 3.24.10
 
-name: LoggerAPI, nameSpecified: LoggerAPI, owner: Kitura, version: 1.9.200
+name: LoggerAPI, nameSpecified: LoggerAPI, owner: Kitura, version: 2.0.0
 
 name: nanopb, nameSpecified: nanopb, owner: firebase, version: 2.30908.0
 
-name: promises, nameSpecified: Promises, owner: google, version: 2.0.0
+name: promises, nameSpecified: Promises, owner: google, version: 2.2.0
 
 name: Resolver, nameSpecified: Resolver, owner: hmlongco, version: 1.5.0
 
-name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.12.3
+name: SDWebImage, nameSpecified: SDWebImage, owner: SDWebImage, version: 5.16.0
 
-name: SkeletonUI, nameSpecified: SkeletonUI, owner: CSolanaM, version: 1.0.7
+name: SkeletonUI, nameSpecified: SkeletonUI, owner: CSolanaM, version: 1.0.11
 
-name: SourceKitten, nameSpecified: SourceKitten, owner: jpsim, version: 0.31.1
+name: SourceKitten, nameSpecified: SourceKitten, owner: jpsim, version: 0.34.1
 
-name: swift-argument-parser, nameSpecified: swift-argument-parser, owner: apple, version: 1.0.1
+name: swift-argument-parser, nameSpecified: swift-argument-parser, owner: apple, version: 1.2.2
 
 name: swift-collections, nameSpecified: swift-collections, owner: apple, version: 0.0.7
 
-name: swift-html-entities, nameSpecified: HTMLEntities, owner: Kitura, version: 3.0.200
+name: swift-html-entities, nameSpecified: HTMLEntities, owner: Kitura, version: 4.0.1
 
-name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.4.2
+name: swift-log, nameSpecified: swift-log, owner: apple, version: 1.5.2
 
-name: swift-protobuf, nameSpecified: SwiftProtobuf, owner: apple, version: 1.18.0
+name: swift-protobuf, nameSpecified: SwiftProtobuf, owner: apple, version: 1.22.0
 
-name: swift-snapshot-testing, nameSpecified: SnapshotTesting, owner: pointfreeco, version: 1.9.0
+name: swift-snapshot-testing, nameSpecified: swift-snapshot-testing, owner: pointfreeco, version: 1.11.1
 
-name: SwiftLint, nameSpecified: SwiftLint, owner: realm, version: 0.45.1
+name: swift-syntax, nameSpecified: swift-syntax, owner: apple, version: 509.0.0-swift-DEVELOPMENT-SNAPSHOT-2023-07-04-a
+
+name: SwiftLint, nameSpecified: SwiftLint, owner: realm, version: 0.52.4
 
 name: SwiftyTextTable, nameSpecified: SwiftyTextTable, owner: scottrhoyt, version: 0.9.0
 
-name: SWXMLHash, nameSpecified: SWXMLHash, owner: drmohundro, version: 5.0.2
+name: SWXMLHash, nameSpecified: SWXMLHash, owner: drmohundro, version: 7.0.2
 
-name: YamlSwift, nameSpecified: Yaml, owner: behrang, version: 3.4.4
+name: XcodeEdit, nameSpecified: XcodeEdit, owner: tomlokhorst, version: 2.9.0
 
-name: Yams, nameSpecified: Yams, owner: jpsim, version: 4.0.6
+name: Yams, nameSpecified: Yams, owner: jpsim, version: 5.0.6
 
 add-version-numbers: false
 

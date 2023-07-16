@@ -4,14 +4,15 @@ import Resolver
 import Domain
 import Collections
 
-actor CourseSearchViewModel: ObservableObject {
+@MainActor
+class CourseSearchViewModel: ObservableObject {
 
-    @Published nonisolated var courses: OrderedSet<Entity.Course> = []
-    @Published nonisolated var viewState: LoadableViewState = .standby
+    @Published var courses: OrderedSet<Entity.Course> = []
+    @Published var viewState: LoadableViewState = .standby
 
     @Injected private var searchCourseListUsecase: SearchCourseUsecaseProtocol
 
-    @MainActor func search(condition: SearchCondition) async {
+    func search(condition: SearchCondition) async {
         self.viewState = .loading
 
         do {

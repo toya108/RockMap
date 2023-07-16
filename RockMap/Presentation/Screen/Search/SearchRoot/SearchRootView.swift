@@ -27,9 +27,7 @@ struct SearchRootView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
-            Task {
-                await viewModel.setupBindings()
-            }
+            viewModel.setupBindings()
         }
         .sheet(isPresented: $viewModel.isPresentedSearchFilter) {
             SearchFilterView(

@@ -4,14 +4,15 @@ import Resolver
 import Domain
 import Collections
 
-actor UserListViewModel: ObservableObject {
+@MainActor
+class UserListViewModel: ObservableObject {
 
-    @Published nonisolated var users: OrderedSet<Entity.User> = []
-    @Published nonisolated var viewState: LoadableViewState = .standby
+    @Published var users: OrderedSet<Entity.User> = []
+    @Published var viewState: LoadableViewState = .standby
 
     @Injected private var fetchUserListUsecase: FetchUserListUsecaseProtocol
 
-    @MainActor func load(isAdditional: Bool = false) async {
+    func load(isAdditional: Bool = false) async {
         self.viewState = .loading
 
         do {

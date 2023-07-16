@@ -4,14 +4,15 @@ import Resolver
 import Domain
 import Collections
 
-actor RockListViewModel: ObservableObject {
+@MainActor
+class RockListViewModel: ObservableObject {
 
-    @Published nonisolated var rocks: OrderedSet<Entity.Rock> = []
-    @Published nonisolated var viewState: LoadableViewState = .standby
+    @Published var rocks: OrderedSet<Entity.Rock> = []
+    @Published var viewState: LoadableViewState = .standby
 
     @Injected private var fetchRockListUsecase: FetchRockListUsecaseProtocol
 
-    @MainActor func load(
+    func load(
         condition: SearchCondition,
         isAdditional: Bool = false
     ) async {
