@@ -1,5 +1,5 @@
 import SwiftUI
-import Auth
+
 
 struct MyPageView: UIViewControllerRepresentable {
 

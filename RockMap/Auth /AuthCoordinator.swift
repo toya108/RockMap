@@ -1,7 +1,6 @@
 import Combine
 import FirebaseAuthUI
 import Resolver
-import Domain
 
 public protocol AuthCoordinatorProtocol where Self: NSObject & FUIAuthDelegate {
     var loginFinishedPublisher: AnyPublisher<Result<Void, Error>, Never> { get }
