@@ -5,7 +5,6 @@ import FirebaseGoogleAuthUI
 import FirebaseOAuthUI
 import Utilities
 import Resolver
-import Domain
 
 public class AuthManager: NSObject {
     public static let shared = AuthManager()

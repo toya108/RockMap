@@ -1,7 +1,5 @@
 import Combine
 import Resolver
-import Auth
-import Domain
 import Foundation
 
 class RegisteredRockListViewModel: ObservableObject {

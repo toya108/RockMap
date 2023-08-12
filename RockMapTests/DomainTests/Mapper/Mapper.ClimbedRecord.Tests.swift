@@ -1,6 +1,6 @@
-@testable import Domain
+@testable import RockMap
 import DataLayer
-import FirebaseTestHelper
+import FirebaseFirestore
 import XCTest
 
 final class ClimbRecordMapperTests: XCTestCase {
@@ -11,24 +11,14 @@ final class ClimbRecordMapperTests: XCTestCase {
     private let updatedAt = Date(timeIntervalSinceNow: 1.0)
     private let climbedDate = Date(timeIntervalSinceNow: 3.0)
 
-    override func setUp() {
-        super.setUp()
-        FirebaseTestHelper.setupFirebaseApp()
-    }
-
-    override func tearDown() {
-        super.tearDown()
-        FirebaseTestHelper.deleteFirebaseApp()
-    }
-
     func testClimbRecordMapper() {
 
         let document = FS.Document.ClimbRecord(
             id: "123456789",
             registeredUserId: "userID",
             parentCourseId: "parentCourseId",
-            parentCourseReference: FirestoreAssets.db.document("users/userID/courses/courseID"),
-            totalNumberReference: FirestoreAssets.db.document(
+            parentCourseReference: Firestore.firestore().document("users/userID/courses/courseID"),
+            totalNumberReference: Firestore.firestore().document(
                 "users/userID/courses/courseID/totalNumbers/totalNumbersID"
             ),
             createdAt: createdAt,
@@ -55,8 +45,8 @@ final class ClimbRecordMapperTests: XCTestCase {
             id: "123456789",
             registeredUserId: "userID",
             parentCourseId: "parentCourseId",
-            parentCourseReference: FirestoreAssets.db.document("users/userID/courses/courseID"),
-            totalNumberReference: FirestoreAssets.db.document(
+            parentCourseReference: Firestore.firestore().document("users/userID/courses/courseID"),
+            totalNumberReference: Firestore.firestore().document(
                 "users/userID/courses/courseID/totalNumbers/totalNumbersID"
             ),
             createdAt: createdAt,

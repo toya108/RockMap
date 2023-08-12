@@ -2,7 +2,6 @@ import Combine
 import XCTest
 import Resolver
 @testable import RockMap
-@testable import Auth
 
 class LoginViewModelTests: XCTestCase {
 

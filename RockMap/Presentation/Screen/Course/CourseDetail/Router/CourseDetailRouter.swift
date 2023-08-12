@@ -1,4 +1,3 @@
-import Auth
 import UIKit
 
 struct CourseDetailRouter: RouterProtocol {

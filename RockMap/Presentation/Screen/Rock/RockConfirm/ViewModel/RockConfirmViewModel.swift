@@ -1,4 +1,3 @@
-import Auth
 import Combine
 import CoreLocation
 import FirebaseFirestore

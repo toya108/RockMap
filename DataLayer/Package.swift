@@ -22,8 +22,7 @@ let package = Package(
             from: .init("8.6.0")!
         ),
         .package(url: "https://github.com/hmlongco/Resolver", from: .init("1.0.0")!),
-        .package(path: "../Utilities"),
-        .package(path: "../FirebaseTestHelper")
+        .package(path: "../Utilities")
     ],
     targets: [
         .target(
@@ -33,8 +32,7 @@ let package = Package(
                 .product(name: "FirebaseFirestoreSwift-Beta", package: "Firebase"),
                 .product(name: "FirebaseStorage", package: "Firebase"),
                 .product(name: "Resolver", package: "Resolver"),
-                "Utilities",
-                "FirebaseTestHelper"
+                "Utilities"
             ]
         ),
         .testTarget(

@@ -1,4 +1,4 @@
-@testable import Domain
+@testable import RockMap
 import DataLayer
 import XCTest
 

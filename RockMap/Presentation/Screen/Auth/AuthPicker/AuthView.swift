@@ -1,4 +1,3 @@
-import Auth
 import SwiftUI
 
 struct AuthView: UIViewControllerRepresentable {
