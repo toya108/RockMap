@@ -1,6 +1,12 @@
 ![swift 5](https://img.shields.io/badge/Swift-5-blue) 
 ![iOS15](https://img.shields.io/badge/iOS-15.0-blue)
 
+# RockMap (Inactive)
+
+**NOTICE:** This repository is no longer maintained.
+
+This project was initially developed for personal learning and to make climbing more enjoyable. However, due to a lack of development motivation and time, it's no longer being updated.
+
 # What is RockMap?
 RockMap is a map app that allows you to share Boulder and its courses.
 
